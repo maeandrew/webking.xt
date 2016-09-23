@@ -15,61 +15,13 @@
 	<!-- <div class="mdl-cell mdl-cell--12-col product_name">
 		<a href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
 	</div> -->
-	<div class="mdl-cell mdl-cell--9-col mdl-cell--4-col-tablet">
-		<!-- <p class="product_article">Арт: <?=$product['art']?></p> -->
-		<!-- <div id="owl-product_slide_js">
-			<?if(!empty($product['images'])){
-				foreach($product['images'] as $i => $image){?>
-					<img src="<?=G::GetImageUrl($image['src'], 'medium')?>" alt="<?=$product['name']?>"/>
-				<?}
-			}else{
-				for($i=1; $i < 4; $i++){
-					if(!empty($product['img_'.$i])){?>
-						<img src="<?=G::GetImageUrl($product['img_'.$i], 'medium')?>"/>
-					<?}
-				}
-			}?>
-		</div> -->
-		<div class="product_main_img mdl-cell--hide-tablet mdl-cell--hide-phone">
-			<!-- <?if(!empty($product['images'])){?>
-				<img class="main_img main_img_js" itemprop="image" alt="<?=G::CropString($product['id_product'])?>" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
-			<?}else if(!empty($product['img_1'])){?>
-				<img class="main_img main_img_js" itemprop="image" alt="<?=G::CropString($product['id_product'])?>" src="<?=G::GetImageUrl($product['img_1'])?>"/>
-			<?}else{?>
-				<img class="main_img main_img_js" itemprop="image" alt="<?=G::CropString($product['id_product'])?>" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
-			<?}?>
-			<div id="mainVideoBlock" class="hidden">
-				<iframe width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
-			</div>
-			<?if(isset($product_mark) && $product_mark !== '' && $product['active'] != 0){?>
-				<div class="market_action">
-					<img src="<?=G::GetImageUrl('/images/'.$product_mark.'.png')?>" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
-				</div>
-			<?}?> -->
-			<!-- <div id="owl-product_mini_img_js">
-				<?if(!empty($product['images'])){
-					foreach($product['images'] as $i => $image){?>
-						<img src="<?=G::GetImageUrl($image['src'], 'thumb')?>" alt="<?=htmlspecialchars($product['name'])?>"<?=$i==0?'class="act_img"':'class=""';?>>
-					<?}
-				}else{
-					for($i=1; $i < 4; $i++){
-						if(!empty($product['img_'.$i])){?>
-							<img src="<?=G::GetImageUrl($product['img_'.$i], 'thumb')?>" alt="<?=htmlspecialchars($product['name'])?>"<?=$i==1?' class="act_img"':'class=""';?>>
-						<?}
-					}
-				}?>
-				<?if(!empty($product['videos'])){
-					foreach($product['videos'] as $i => $video){?>
-						<div class="videoBlock">
-							<div class="videoBlockShield"></div>
-							<iframe width="120" height="90" src="<?=str_replace('watch?v=', 'embed/', $video)?>" frameborder="0" allowfullscreen alt="<?=htmlspecialchars($product['name'])?>">
-							</iframe>
-						</div>
-					<?}
-				}?>
-			</div> -->
-
-
+	<div>
+		<input type="hidden" class="path_root_js" value="<?=$GLOBALS['PATH_root']?>">
+		<input type="hidden" class="path_product_img_js" value="<?=$GLOBALS['PATH_product_img']?>">
+	</div>
+	<!-- <div class="mdl-cell mdl-cell--9-col mdl-cell--4-col-tablet"> -->
+	<div class="images_carousel_block">
+		<div class="product_main_img">
 			<div id="big_photos_carousel_js" class="carousel big_photos_carousel">
 				<?if(!empty($product['images'])){
 					foreach($product['images'] as $i => $image){?>
@@ -90,11 +42,8 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<input type="hidden" class="path_root_js" value="<?=$GLOBALS['PATH_root']?>">
-		<input type="hidden" class="path_product_img_js" value="<?=$GLOBALS['PATH_product_img']?>">
-	</div>
-	<div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
+	<!-- <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet"> -->
+	<div class="prod_info_block">
 		<div class="pb_wrapper">
 			<?$in_cart = false;
 			if(!empty($_SESSION['cart']['products'][$product['id_product']])){
@@ -105,6 +54,7 @@
 				<div class="notAval">Нет в наличии</div>
 			<?}else{?>
 				<a class="product_name" href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
+				<p class="product_article">Арт: <?=$product['art']?></p>
 				<div class="product_buy" data-idproduct="<?=$product['id_product']?>">
 					<div class="buy_block">
 						<div class="product_price">
@@ -161,7 +111,8 @@
 				</div>
 			<?}?>
 		</div>
-		<div class="add_to_fav_trend_block mdl-cell--hide-phone">
+		<!-- <div class="add_to_fav_trend_block mdl-cell--hide-phone"> -->
+		<div class="add_to_fav_trend_block">
 			<div class="favorite <?=isset($_SESSION['member']['favorites']) && in_array($product['id_product'], $_SESSION['member']['favorites'])?' added':null;?><?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?' hidden':null?>" data-id-product="<?=$product['id_product'];?>">
 				<?if(isset($_SESSION['member']['favorites']) && in_array($product['id_product'], $_SESSION['member']['favorites'])) {?>
 					<i id="preview_forfavorite_<?=$product['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
@@ -179,35 +130,35 @@
 				<i id="shareButton" class="material-icons share_button" title="Поделиться">share</i>
 				<span class="mdl-tooltip" for="shareButton">Поделиться</span>
 			</div>
-		<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">
-			<ul class="social">
-				<li>
-					<a href="http://vk.com/share.php?url=<?=Link::Product($product['translit']);?>&title=<?=htmlspecialchars($product['name'])?>&description=<?=strip_tags($product['descr'])?>&image=<?=G::GetImageUrl($product['img_1'])?>&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-						<img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте">
-					</a>
-				</li>
-				<li>
-					<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($product['translit']);?>&st.comments=<?=htmlspecialchars($product['name'])?>" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-						<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Одноклаcсники">
-					</a>
-				</li>
-				<li>
-					<a href="https://plus.google.com/share?url=<?=Link::Product($product['translit']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-						<img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+">
-					</a>
-				</li>
-				<li>
-					<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($product['translit']);?>&title='<?=htmlspecialchars($product['name'])?>'&description=<?=strip_tags($product['descr'])?>&picture=<?=G::GetImageUrl($product['img_1'])?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-						<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
-					</a>
-				</li>
-				<li>
-					<a href="https://twitter.com/share?url=<?=Link::Product($product['translit']);?>&text=<?=htmlspecialchars($product['name'])?>" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
-						<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
-					</a>
-				</li>
-			</ul>
-		</div>
+			<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">
+				<ul class="social">
+					<li>
+						<a href="http://vk.com/share.php?url=<?=Link::Product($product['translit']);?>&title=<?=htmlspecialchars($product['name'])?>&description=<?=strip_tags($product['descr'])?>&image=<?=G::GetImageUrl($product['img_1'])?>&noparse=true" target="_blank" class="vk" title="Вконтакте" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<img src="<?=$GLOBALS['URL_img_theme']?>vk.svg" alt="Вконтакте">
+						</a>
+					</li>
+					<li>
+						<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=Link::Product($product['translit']);?>&st.comments=<?=htmlspecialchars($product['name'])?>" target="_blank" class="ok" title="Однокласники" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<img src="<?=$GLOBALS['URL_img_theme']?>odnoklassniki.svg" alt="Одноклаcсники">
+						</a>
+					</li>
+					<li>
+						<a href="https://plus.google.com/share?url=<?=Link::Product($product['translit']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+">
+						</a>
+					</li>
+					<li>
+						<a href="http://www.facebook.com/sharer.php?u=<?=Link::Product($product['translit']);?>&title='<?=htmlspecialchars($product['name'])?>'&description=<?=strip_tags($product['descr'])?>&picture=<?=G::GetImageUrl($product['img_1'])?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook">
+						</a>
+					</li>
+					<li>
+						<a href="https://twitter.com/share?url=<?=Link::Product($product['translit']);?>&text=<?=htmlspecialchars($product['name'])?>" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false">
+							<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<!-- <div class="rating_block">
 			<?if($product['c_rating'] > 0){?>
@@ -235,11 +186,6 @@
 			<div class="tab-content">
 				<div id="specifications" class="mdl-tabs__panel is-active">
 					<?if(isset($product['specifications']) && !empty($product['specifications'])){?>
-						<!-- <ul>
-							<?foreach($product['specifications'] as $s){?>
-								<li><span class="caption fleft"><?=$s['caption']?></span><span class="value fright"><?=$s['value'].' '.$s['units']?></span></li>
-							<?}?>
-						</ul> -->
 						<?foreach($product['specifications'] as $s){?>
 							<div class="mdl-grid">
 								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['caption']?>:</div>
@@ -249,7 +195,6 @@
 					<?}else{?>
 						<p>К сожалению характеристики товара временно отсутствует.</p>
 					<?}?>
-
 					<!-- <button id="btn1" class="mdl-button hidden" type="button">Подробнее</button> -->
 				</div>
 				<div id="description" class="mdl-tabs__panel">
@@ -262,8 +207,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
 </div>
-
 <script>
 	//Инициализация owl carousel
 	/*$('#owl-product_mobile_img_js').owlCarousel({
