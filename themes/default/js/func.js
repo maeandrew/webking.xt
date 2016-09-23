@@ -1225,7 +1225,7 @@ function AddNoteArea(element){
 // 		string str - значение атрибута "value" el;
 // 		string type - значение атрибута "data-input-validate" el;
 // 		object parent - контейнер, который содержит в себе input
-		// mdl-textfield, is-dirty, is-invalid - классы mdl-библиотеки
+//		mdl-textfield, is-dirty, is-invalid - классы mdl-библиотеки
 function userInfoValidator(el){
 	var str = el.val(),
 		type = el.data('input-validate'),
@@ -1253,6 +1253,9 @@ function userInfoValidator(el){
 		break;
 		case 'year':
 			temp = year_reg.test(str);
+		break;
+		case 'file':
+			temp = str != '' ? true : false;
 		break;
 	}
 

@@ -227,18 +227,24 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					list($err, $errm) = Change_Info_validate();
 					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
 					if($unique_phone === true){
+						$string_phone = preg_replace('~[^0-9]+~','', $_POST['phone']);
+						if( strlen($string_phone) == 10){
+							$phone_num = 38 + $string_phone;
+						}elseif(strlen($string_phone) == 12) {
+							$phone_num = $string_phone;
+						}
 						$data = array(
 							'name' => $_POST['name'],
 							'passwd' => $pass = G::GenerateVerificationCode(6),
 							'descr' => 'Пользователь создан автоматически при загрузке сметы',
-							'phone' => $_POST['phone']
+							'phone' => $phone_num
 						);
 						// регистрируем нового пользователя
 						if($Customers->RegisterCustomer($data)){
 							$Users->SendPassword($data['passwd'], $data['phone']);
 						}
 						$data = array(
-							'email' => $_POST['phone'],
+							'email' => $phone_num,
 							'passwd' => $pass
 						);
 						// авторизуем клиента в его новый аккаунт
@@ -249,7 +255,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['status'] = 1;
 						}
 					} else {
-						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
+						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! <a href="#" class="btn_js" data-name="auth">Авторизуйтесь!</a>';
 						$res['status'] = 2;
 					}
 				}
@@ -271,14 +277,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									// Если все загружено на сервер, выполнить запись в БД
 									$file = '/'.$folder_name.$_FILES['file']['name'];
 									$Product->UploadEstimate($file, $_POST['comment']);
-									$res['message'] = 'Загрузка прошла успешно';
+									$res['message'] = '<h4>Загрузка прошла успешно!</h4><p>Загрузка сметы доступна только зарегестрированным пользователям.</p><br><p>Поэтому для Вас был создан аккаунт на сайте <span class="bold_text">xt.ua</span>.</p><br><p>На указанный при загрузке сметы номер телефона <span class="bold_text">'.$_POST['phone'].'</span> отправлено <span class="bold_text">смс-сообщение</span> с временным паролем для входа в личный кабинет.</p><br><p>Перейдите в свой <a href="'.Link::Custom('cabinet', 'settings', array('clear' => true)).'?t=password"><span class="bold_text">личный кабинет</span></a> для смены временного пароля на постоянный.</p>';
 									$res['status'] = 1;
 								} else{
-									$res['message'] = 'Произошла ошибка. Повторите попытку позже!';
+									$res['message'] = '<h4>Произошла ошибка.</h4><p>Повторите попытку позже!</p>';
 									$res['status'] = 4;
 								}
 							}
-						} else{
+						}else{
 							$res['message'] = 'Файл не был загружен!';
 							$res['status'] = 5;
 						}
