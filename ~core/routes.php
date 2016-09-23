@@ -73,6 +73,17 @@ if(preg_match('/^.*\.html$/', $request)){
 	}
 }
 
+if(isset($_REQUEST['paginator_specific_page'])){
+	$rewrite_arr['page'] = $_REQUEST['paginator_specific_page'];
+	header("HTTP/1.1 301 Moved Permanently");
+	if($GLOBALS['CurrentController'] == 'products'){
+		header("Location: ".Link::Category($GLOBALS['Rewrite'], $rewrite_arr));
+	}else{
+		header("Location: ".Link::Custom($GLOBALS['CurrentController'],$GLOBALS['Rewrite'], $rewrite_arr));
+	}
+	exit();
+}
+
 if(isset($rewrite_arr) && count($rewrite_arr) > 0){
 	switch($GLOBALS['CurrentController']){
 		case 'product':

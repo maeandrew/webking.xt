@@ -29,12 +29,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<a href="<?=Link::Product($item['translit']);?>">
 							<div class="<?=$st['class']?>"></div>
 							<?if(!empty($item['images'])){?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 								<noscript>
 									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 								</noscript>
 							<?}else{?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 								<noscript>
 									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 								</noscript>
@@ -234,12 +234,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<div class="product_photo card_item">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							<noscript>
 								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							</noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							<noscript>
 								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							</noscript>
@@ -324,17 +324,17 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					$product_mark = 'new';
 				}?>
 				<?if(isset($product_mark) && $product_mark !== '' && $item['active'] != 0){?>
-					<div class="market_action">
+					<div class="market_action show_preview_js btn_js" data-name="preview">
 						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 					</div>
 				<?}?>
 				<div class="product_photo">
 					<a href="<?=Link::Product($item['translit']);?>">
 						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
 							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/></noscript>
 						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
 							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
 						<?}?>
 					</a>
@@ -353,7 +353,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<i id="fortrending_<?=$item['id_product']?>" class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'arrow':null;?>">trending_down</i>
 							<span class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Товар уже <br> в списке ожидания':'Следить за ценой';?></span>
 						</div>
-						<div class="preview_icon_block"><i class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</i></div>
+						<!-- <div class="preview_icon_block"><i class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</i></div> -->
+						<!-- <div class="preview_icon_block"><i class="material-icons preview_icon">zoom_in</i></div> -->
 					</div>
 				</div>
 				<div class="product_name">
@@ -420,6 +421,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							</div>
 							<div class="product_price">
 								<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+								<!-- <i class="info_key btn_js" data-name="price_details">?</i> -->
+								<i class="material-icons price_help price_help_js btn_js" data-name="price_details">&#xE8FD;</i>
 							</div>
 							<div class="prodBasePrices hidden">
 								<?for($i = 0; $i < 4; $i++){?>

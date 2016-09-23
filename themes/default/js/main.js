@@ -2234,7 +2234,7 @@ $(function(){
 
 	// Инициализация добавления товара в список ожидания
 	$('body').on('click', '.waiting_list', function(e){
-		e.preventDefault();
+		e.preventDefault(e);
 		var parent = $(this).closest('.fortrending');
 		if($(this).hasClass('arrow')){
 			$(this).removeClass('arrow');
@@ -2244,13 +2244,21 @@ $(function(){
 			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		}
 	});
+	$('.price_help_js').on('click', function(){
+		var id_product = $(this).closest('.card').data('idproduct');
+		console.log(id_product);
+		ajax('product', 'priceHelp', {id_product:id_product}, 'html').done(function(){
+			console.log('получили');
+		});
+	});
 
 	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
 	$('.product_main_img').on('click', function(event){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	});
 	// ------------
-	$('.show_preview_js').on('click', function(){
+	$('.show_preview_js').on('click', function(e){
+		e.preventDefault();
 		var preview = $('#preview'),
 			id_product = $(this).closest('.card').data('idproduct');
 		Position(preview);
@@ -2258,7 +2266,6 @@ $(function(){
 		addLoadAnimation(preview);
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.modal_container').html(data);
-			// Position(preview);
 			componentHandler.upgradeDom();
 			removeLoadAnimation(preview);
 		});
