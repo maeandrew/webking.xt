@@ -125,8 +125,8 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #access_recovery,#verification{padding:50px}
 #access_recovery h4,#verification h4{text-align:center;margin-bottom:1em;font-size:1.2em;font-weight:500;min-width:300px;max-width:300px}
 #verification h4{margin-top:0}
-#access_recovery p.info_text,#verification p.info_text{width:300px;font-weight:100;line-height:1.2em;text-align:justify}
-#verification p.info_text{margin:10px 0 10px 0;text-align:center;font-size:1em;font-weight:400}
+#access_recovery p.info_text,#registerComplete p.info_text,#verification p.info_text{width:300px;font-weight:100;line-height:1.2em;text-align:justify}
+#registerComplete p.info_text,#verification p.info_text{margin:10px 0 10px 0;text-align:center;font-size:1em;font-weight:400}
 #verification .mdl-textfield.is-disabled .mdl-textfield__input{color:#343030}
 #access_recovery p.info_text.tac{text-align:center}
 #access_recovery p.info_text .bold_text,#verification .bold_text{font-weight:500}
@@ -136,6 +136,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #access_recovery .auth_ok i.material-icons,#registerComplete .auth_ok i.material-icons,#verification .auth_ok i.material-icons{color:#018b06;font-size:5em;margin-bottom:.3em}
 #registerComplete .auth_ok i.material-icons{margin:0}
 #registerComplete a{margin-top:10px}
+#registerComplete .modal_container a{display:block;width:142px;margin-top:10px;margin:10px auto}
 .ps_title{color:#757575;font-size:.8em!important}
 .ps{height:5px;width:100%;border-radius:5px;background:linear-gradient(to right,#b50000 0,#f7da00 50%,#399e00 100%);border:1px solid #cdcdcd;margin:5px 0 5px 0}
 .ps_lvl{background:#DDD;float:right;width:100%;height:100%;transition:width .4s ease}
@@ -184,7 +185,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .err_msg{margin-bottom:10px;color:red}
 #cart .this_my_number{display:block;margin-bottom:15px;font-weight:700}
 #cart .cart_login_btn{margin-bottom:10px}
-#cart .action_block .mdl-textfield{width:100%;padding-top:0;text-align:left}
+#cart .action_block .mdl-textfield{width:100%}
 #cart .action_block .wrapp .cart_continue{float:right;margin:0;margin-right:10px;width:160px}
 #cart .for_err_promo .tooltip_wrapp{padding-top:55px}
 #cart .action_block form .mdl-checkbox{float:left;clear:both;text-align:left}
