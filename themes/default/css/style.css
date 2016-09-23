@@ -1038,8 +1038,6 @@ section.center {
 	}
 	#cart .action_block .mdl-textfield {
 		width: 100%;
-		padding-top: 0;
-		text-align: left;
 	}
 	#cart .action_block .wrapp .cart_continue {
 		float: right;

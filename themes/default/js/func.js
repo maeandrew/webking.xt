@@ -1214,7 +1214,7 @@ function AddNoteArea(element){
 	}
 }
 
-// Проверка вводимых данных о пользователе
+// функция для валидации mdl-input'ов с информацией о пользователе
 // 
 // Для использования данной функции, input'у, который требует валидации надо дать:
 // 		класс "input_validator_js";
@@ -1224,10 +1224,11 @@ function AddNoteArea(element){
 // Переменные:
 // 		string str - значение атрибута "value" el;
 // 		string type - значение атрибута "data-input-validate" el;
+// 		object parent - контейнер, который содержит в себе input
+		// mdl-textfield, is-dirty, is-invalid - классы mdl-библиотеки
 function userInfoValidator(el){
 	var str = el.val(),
 		type = el.data('input-validate'),
-		// mdl-textfield и is-dirty классы mdl-библиотеки 
 		parent = el.closest('div.mdl-textfield'),
 		temp;
 	var name_reg = /^[\'А-Яа-я-ЇїІіЁё ]+$|^[\'A-Za-z- ]+$/gi,
@@ -1255,5 +1256,5 @@ function userInfoValidator(el){
 		break;
 	}
 
-	return temp ? true : false;
+	return temp ? parent.removeClass('is-invalid') : parent.addClass('is-invalid');
 }

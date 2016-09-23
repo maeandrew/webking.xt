@@ -2286,7 +2286,6 @@ $(function(){
 
 	// Обработчик для валидации input'ов с информацией о пользователе
 	$('body').on('focusout', '.input_validator_js', function(event){
-		var parent = $(this).closest('.mdl-textfield');
-		userInfoValidator($(this)) ? parent.removeClass('is-invalid') : parent.addClass('is-invalid');
+		userInfoValidator($(this));
 	});
 });

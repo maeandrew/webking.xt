@@ -185,7 +185,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .err_msg{margin-bottom:10px;color:red}
 #cart .this_my_number{display:block;margin-bottom:15px;font-weight:700}
 #cart .cart_login_btn{margin-bottom:10px}
-#cart .action_block .mdl-textfield{width:100%;padding-top:0;text-align:left}
+#cart .action_block .mdl-textfield{width:100%}
 #cart .action_block .wrapp .cart_continue{float:right;margin:0;margin-right:10px;width:160px}
 #cart .for_err_promo .tooltip_wrapp{padding-top:55px}
 #cart .action_block form .mdl-checkbox{float:left;clear:both;text-align:left}
