@@ -1227,6 +1227,8 @@ function AddNoteArea(element){
 function userInfoValidator(el){
 	var str = el.val(),
 		type = el.data('input-validate'),
+		// mdl-textfield и is-dirty классы mdl-библиотеки 
+		parent = el.closest('div.mdl-textfield'),
 		temp;
 	var name_reg = /^[\'А-Яа-я-ЇїІіЁё ]+$|^[\'A-Za-z- ]+$/gi,
 		email_reg = /(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)/gi,
@@ -1242,6 +1244,7 @@ function userInfoValidator(el){
 			temp = email_reg.test(str);
 		break;
 		case 'phone':
+			str.replace(/\D/g, "").length > 3 ? parent.addClass('is-dirty') : parent.removeClass('is-dirty');
 			temp = phone_reg.test(str);
 		break;
 		case 'day':
