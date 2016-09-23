@@ -99,26 +99,26 @@
 			<div id="flm_name" class="flm_name">
 				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="first_name" id="title" value="<?=$Customer['first_name']?>" required>
+						<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="first_name" id="title" value="<?=$Customer['first_name']?>" required>
 						<label class="mdl-textfield__label" for="first_name">Фамилия</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="middle_name" id="title" value="<?=$Customer['middle_name']?>" required>
+						<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="middle_name" id="title" value="<?=$Customer['middle_name']?>" required>
 						<label class="mdl-textfield__label" for="middle_name">Имя</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" name="last_name" id="title" value="<?=$Customer['last_name']?>" required>
+						<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="last_name" id="title" value="<?=$Customer['last_name']?>" required>
 						<label class="mdl-textfield__label" for="last_name">Отчество</label>
 					</div>
 				</div>
 				<div class="mdl-cell mdl-cell--12-col addres_field">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-						<input class="mdl-textfield__input phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}"/>
+						<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" type="tel" required name="phone" id="phone" value="<?=$User['phone']?>" />
 						<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 					</div>
 				</div>

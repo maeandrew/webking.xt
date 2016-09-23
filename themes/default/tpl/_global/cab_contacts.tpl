@@ -27,34 +27,34 @@
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label class="mdl-textfield__label" for="email">E-mail:</label>
-			<input class="mdl-textfield__input" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" type="text" name="email" id="email" value="<?=$User['email']?>"/>
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="email" type="text" name="email" id="email" value="<?=$User['email']?>" />
 			<span class="mdl-textfield__error">Введите корректный Email</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="phone" class="mdl-textfield__label">Контактный телефон:</label>
-			<input class="mdl-textfield__input phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}"/>
+			<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" type="tel" required name="phones" id="phones" value="<?=$User['phone']?>" />
 			<span class="mdl-textfield__error">Введите все цифры Вашего номера телефона</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
-			<input class="mdl-textfield__input checkname_js" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>"/>
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>" />
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="first_name" class="mdl-textfield__label">Имя:</label>
-			<input class="mdl-textfield__input checkname_js" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>"/>
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>" />
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
-			<input class="mdl-textfield__input checkname_js" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>"/>
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>" />
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<label class="label_for_input_blocks" for="date_container">День рождения:</label>
 		<div id="date_container" class="date_container">
 			<div class="mdl-textfield mdl-js-textfield bdate_select_block">
 				<label for="day" class="mdl-textfield__label">день</label>
-				<input id="day" name="day" pattern="^(0?[1-9])$|^([1-2]\d)$|^(3[0-1])$" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input day_js day" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
+				<input id="day" name="day" type="text" placeholder="день" maxlength="2" size="4" class="mdl-textfield__input day_js day input_validator_js" data-input-validate="day" value="<?=isset($Customer['b_day'])?$Customer['b_day']:null;?>">
 				<span class="mdl-textfield__error">Укажите день</span>
 			</div>
 			<input id="customer_month" type="hidden" value="<?=isset($Customer['b_month'])?$Customer['b_month']:null;?>">
@@ -79,7 +79,7 @@
 			</div>
 			<div class="mdl-textfield mdl-js-textfield bdate_select_block">
 				<label for="year" class="mdl-textfield__label">год</label>
-				<input id="year" name="year" pattern="^(19|20)\d{2}$" type="text" placeholder="год" maxlength="4" size="8" class="mdl-textfield__input year_js year" value="<?=isset($Customer['b_year'])?$Customer['b_year']:null;?>">
+				<input id="year" name="year" type="text" placeholder="год" maxlength="4" size="8" class="mdl-textfield__input year_js year input_validator_js" data-input-validate="year" value="<?=isset($Customer['b_year'])?$Customer['b_year']:null;?>">
 				<span class="mdl-textfield__error"></span>
 			</div>
 		</div>
@@ -94,7 +94,6 @@
 				</label>
 			</div>
 		</div>
-
 		<div class="errMsg_js"></div>
 		<input type="button" value="Сохранить" name="save_contacts" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 	</form>
