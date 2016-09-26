@@ -2132,6 +2132,7 @@ section .stat_year {
 .product_buy .buy_block .product_price {
 	flex-basis: 18%;
 	white-space: nowrap;
+	position: relative;
 }
 .product_buy .buy_block .price {
 	text-align: center;

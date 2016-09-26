@@ -1403,8 +1403,11 @@ label.info_key {
 	cursor: help;
 	color: #FF5722;
 }
-
-
+.list_view .product_price .price_help {
+    position: absolute;
+    right: -20px;
+    top: 0;
+}
 
 
 /*.preview .supplier_block .product_check label {

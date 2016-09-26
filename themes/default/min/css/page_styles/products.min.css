@@ -204,6 +204,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .preview .supplier_block .price{margin-right:10px}
 .product_price .price_help{font-size:16px}
 .product_price .price_help:hover{cursor:help;color:#FF5722}
+.list_view .product_price .price_help{position:absolute;right:-20px;top:0}
 .available_today{padding:5px}
 .service_block{text-align:right;display:flex;float:none;margin-top:5px;margin-bottom:5px}
 #comment_question{width:400px}
