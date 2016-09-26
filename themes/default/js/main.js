@@ -2247,12 +2247,12 @@ $(function(){
 	$('.price_help_js').on('click', function(){
 		var id_product = $(this).closest('.card').data('idproduct');
 		var price_details = $('#price_details');
-		Position(price_details);
 		price_details.find('.modal_container').html('');
 		addLoadAnimation(price_details);
 		ajax('product', 'priceHelp', {id_product:id_product}, 'html').done(function(data){
 			removeLoadAnimation(price_details);
 			$('#price_details .modal_container').html(data);
+			Position(price_details);
 		});
 	});
 
