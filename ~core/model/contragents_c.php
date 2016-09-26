@@ -16,8 +16,8 @@ class Contragents extends Users{
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
-		global $Users;
-		if(!$Users->SetFieldsById($id, $all)){
+		// global $Users;
+		if(!parent::SetFieldsById($id, $all)){
 			return false;
 		}
 		$active = "AND active = 1";
@@ -32,8 +32,7 @@ class Contragents extends Users{
 		if(!$arr){
 			return false;
 		}else{
-			$this->fields = $arr[0];
-			$this->fields = array_merge($this->fields,$Users->GetFields());
+			$this->fields = array_merge($arr[0], parent::GetFields());
 			return true;
 		}
 	}

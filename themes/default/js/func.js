@@ -279,13 +279,13 @@ function ChangePriceRange(column, manual){
 					text = 'Без скидки!';
 					break;
 				case 2:
-					text = 'При заказе от 500 грн.';
+					text = 'При заказе от '+ columnLimits['2'] +' грн.';
 					break;
 				case 1:
-					text = 'При заказе от 3000 грн.';
+					text = 'При заказе от '+ columnLimits['1'] +' грн.';
 					break;
 				case 0:
-					text = 'При заказе от 10 000 грн.';
+					text = 'При заказе от '+ columnLimits['0'] +' грн.';
 					break;
 			}
 			$('.order_balance').text(text);
@@ -314,13 +314,13 @@ function ChangePriceRange(column, manual){
 					text = 'Без скидки!';
 					break;
 				case 2:
-					text = 'При заказе от 500 грн.';
+					text = 'При заказе от '+ columnLimits['2'] +' грн.';
 					break;
 				case 1:
-					text = 'При заказе от 3000 грн.';
+					text = 'При заказе от '+ columnLimits['1'] +' грн.';
 					break;
 				case 0:
-					text = 'При заказе от 10 000 грн.';
+					text = 'При заказе от '+ columnLimits['0'] +' грн.';
 					break;
 			}
 			$('.order_balance').text(text);
@@ -1215,11 +1215,11 @@ function AddNoteArea(element){
 }
 
 // функция для валидации mdl-input'ов с информацией о пользователе
-// 
+//
 // Для использования данной функции, input'у, который требует валидации надо дать:
 // 		класс "input_validator_js";
 // 		атрибут "data-input-validate" со строковым значением, которым может быть один из ключей ниже представленного switch-case.
-// 
+//
 // В качестве аргумента параметра el метод ожидает объект (input), который потерял фокус.
 // Переменные:
 // 		string str - значение атрибута "value" el;

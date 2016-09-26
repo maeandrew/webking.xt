@@ -53,7 +53,7 @@
 		var URL_base = "'._base_url.'/",
 			current_controller = "'.$GLOBALS['CurrentController'].'",
 			ajax_proceed = false,
-			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},
+			columnLimits = {0: '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].', 1: '.$GLOBALS['CONFIG']['wholesale_order_margin'].', 2: '.$GLOBALS['CONFIG']['retail_order_margin'].', 3: 0},
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
 			IsLogged = '.(G::IsLogged()?'true':'false').',
 			IsMobile = '.(G::isMobile()?'true':'false').';

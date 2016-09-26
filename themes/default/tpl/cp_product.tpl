@@ -447,9 +447,9 @@
 								<?}?>
 								<span><?=$p['name']?></span>
 								<?if($p['price_mopt'] > 100){?>
-									<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+									<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
 								<?}else{?>
-									<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+									<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 								<?}?>
 							</a>
 						</div>
@@ -651,9 +651,9 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
 							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
 								<?if(isset($p['active']) && $p['active'] == 0){?>
@@ -691,9 +691,9 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
 							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
 								<?if(isset($p['active']) && $p['active'] == 0){?>
@@ -731,9 +731,9 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
 							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
 								<?if(isset($p['active']) && $p['active'] == 0){?>
@@ -771,9 +771,9 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
 							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
 								<?if(isset($p['active']) && $p['active'] == 0){?>
@@ -811,9 +811,9 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more"><?=ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'])?> грн.</div>
+								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
 							<?}else{?>
-								<div class="ca-more"><?=number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', '')?> грн.</div>
+								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
 							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
 								<?if(isset($p['active']) && $p['active'] == 0){?>
