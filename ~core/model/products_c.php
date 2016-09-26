@@ -3048,7 +3048,7 @@ class Products {
 	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
 		$limit = $limit?' LIMIT '.$limit:null;
 		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt, a.active,
-			p.min_mopt_qty, p.descr, p.img_1
+			p.min_mopt_qty, p.descr, p.img_1, p.opt_correction_set, p.mopt_correction_set
 			".(!$rand?', COUNT(*) AS count':null)."
 			FROM "._DB_PREFIX_."product p
 			LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
@@ -3062,6 +3062,12 @@ class Products {
 		}
 		foreach($arr as &$p){
 			$p['images'] = $this->GetPhotoById($p['id_product']);
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$p['prices_opt'][$i] = round($p['price_opt']* $coef_price_opt[$i], 2);
+				$p['prices_mopt'][$i] = round($p['price_mopt']* $coef_price_mopt[$i], 2);
+			}
 		}
 		return $arr;
 	}
@@ -4667,9 +4673,15 @@ class Products {
 		if(!$arr){
 			return false;
 		}
-		foreach ($arr as &$v){
+		foreach($arr as &$v){
 			$v['images'] = $this->GetPhotoById($v['id_product']);
 			$v['videos'] = $this->GetVideoById($v['id_product']);
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$v['prices_opt'][$i] = round($v['price_opt']* $coef_price_opt[$i], 2);
+				$v['prices_mopt'][$i] = round($v['price_mopt']* $coef_price_mopt[$i], 2);
+			}
 		}
 		return $arr;
 	}
