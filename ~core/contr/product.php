@@ -82,11 +82,8 @@ if(isset($cat)){
 	$id_category = $cat['id_category'];
 	$limit = 15;
 	//$similar_products = $Products->GetRelatedProducts($id_product, $id_category);
-	$popular_products = $Products->GetPopularsOfCategory($id_category, $id_product, false, $limit);
-	$random_products = $Products->GetPopularsOfCategory($id_category, $id_product, true, $limit);
-	$tpl->Assign('title', 'Популярные товары');
-	$tpl->Assign('popular_products', $popular_products);
-	$tpl->Assign('random_products', $random_products);
+	$tpl->Assign('popular_products', $Products->GetPopularsOfCategory($id_category, $id_product, false, $limit));
+	$tpl->Assign('random_products', $Products->GetPopularsOfCategory($id_category, $id_product, true, $limit));
 	// Вывод новинок категории
 	$tpl->Assign('new_prods', $Products->getNewProducts($cat['id_category'], $id_product));
 }
