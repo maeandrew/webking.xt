@@ -286,9 +286,9 @@
 							Добавьте:
 						</div>
 						<div class="neededSum discountTableElem">
-							<span id="sumPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round(500-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round(3000-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round(10000-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['retail_order_margin'] - $cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['wholesale_order_margin'] - $cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['full_wholesale_order_margin']-$cart_sum,2), 2, ",", "")?> грн</span>
 						</div>
 					</div>
 					<div class="mediaDiscountBlocks">
