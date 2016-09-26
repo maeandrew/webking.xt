@@ -296,9 +296,12 @@
 							Получите скидку:
 						</div>
 						<div class="nextDiscount discountTableElem">
-							<span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['retail_order_margin'] / 100 * 10), 2, ",", "")?> грн. (10%)</span>
+							<!-- <span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['retail_order_margin'] / 100 * 10), 2, ",", "")?> грн. (10%)</span>
 							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['wholesale_order_margin'] / 100 * 16), 2, ",", "")?> грн. (16%)</span>
-							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['full_wholesale_order_margin'] / 100 * 21), 2, ",", "")?> грн. (21%)</span>
+							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['full_wholesale_order_margin'] / 100 * 21), 2, ",", "")?> грн. (21%)</span> -->
+							<span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>>Опт</span>
+							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>>Дилер</span>
+							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>>Партнер</span>
 						</div>
 					</div>
 				</div>
