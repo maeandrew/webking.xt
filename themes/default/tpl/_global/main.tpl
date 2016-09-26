@@ -85,6 +85,9 @@
 
 	<!-- Google Material Icon -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	
+	<!-- Include google fonts - Oswald-->
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>

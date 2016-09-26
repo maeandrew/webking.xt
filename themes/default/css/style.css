@@ -1632,7 +1632,7 @@ section .stat_year {
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	padding: 0 10px;
 	overflow: visible;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-between;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -1640,6 +1640,9 @@ section .stat_year {
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	z-index: 40;
 	border-bottom: 2px solid #ff5722;
+}
+.product .content_header{
+	display: block;
 }
 
 .content_header.fixed {
@@ -2213,7 +2216,7 @@ section .stat_year {
 	border: 1px solid transparent;
 	cursor: pointer;
 	opacity: 0;
-	left: 0;
+	left: 53px;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -2228,7 +2231,7 @@ section .stat_year {
 	box-sizing: border-box;
 	z-index: 0;
 	opacity: 1;
-	left: 0;
+	left: 53px;
 }
 .product_buy .buy_block .quantity button.btn_add {
 	bottom: 95%;
