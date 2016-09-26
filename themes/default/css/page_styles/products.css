@@ -1210,7 +1210,7 @@ label.info_key {
 	}
 }
 @media (max-width: 480px) {
-	#preview {
+	#preview, #price_details {
 		z-index: 1000;
 	}
 	#preview .tab-content .mdl-tabs__panel {

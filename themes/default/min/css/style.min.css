@@ -211,7 +211,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #discountTable{display:flex;justify-content:flex-start;width:250px;font-size:12px}
 #discountTable .discountTableElem{display:flex;flex-direction:column;text-align:left;margin-left:20px}
 #discountTable .addMoreProducts,#discountTable .getNewDiscount{color:#9E9E9E}
-.currentDiscountBlock{background:#ff5722;color:#fff;text-align:center;border-radius:5px;margin-right:10px;height:60px;width:120px}
+.currentDiscountBlock{background:#ff5722;color:#fff;text-align:center;border-radius:5px;margin-right:10px;padding-left:10px;padding-right:10px}
 .currentDiscountBlock span{text-align:center}
 #currentDiscount{font-size:35px;line-height:35px;display:block}
 @media (min-width:728px) and (max-width:979px){#cart #total{width:auto}
@@ -298,7 +298,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 .content_header .productsListView .activeView{color:#444}
 .content_header .cart_info{padding:10px 0;position:relative;display:flex;flex-wrap:nowrap;justify-content:space-between}
 .content_header .cart_info .order_balance,.content_header .cart_info .your_discount{line-height:25px}
-.content_header .cart_info .tabs_container{width:170px;padding:0 10px;display:flex;justify-content:center}
+.content_header .cart_info .tabs_container{padding:0 10px;display:flex;justify-content:center;height:25px}
 .content_header .cart_info .tabs_container li{display:inline-block;font-size:14px;border:1px solid #e5e5e5;border-right-width:0;padding:0 5px;box-sizing:border-box;line-height:20px;color:#c1c1c1;font-weight:600;cursor:pointer;text-align:center;-webkit-transition:all .3s cubic-bezier(.4,0,.2,1);-o-transition:all .3s cubic-bezier(.4,0,.2,1);transition:all .3s cubic-bezier(.4,0,.2,1)}
 .content_header .cart_info .tabs_container li:first-of-type{border-radius:3px 0 0 3px}
 .content_header .cart_info .tabs_container li:last-of-type{border-radius:0 3px 3px 0;border-right-width:1px}
