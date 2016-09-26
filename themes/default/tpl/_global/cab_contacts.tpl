@@ -37,17 +37,17 @@
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="last_name" class="mdl-textfield__label">Фамилия:</label>
-			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="last_name" id="last_name" value="<?=$Customer['last_name']?>" />
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="last_name" id="last_name" value="<?=!empty($Customer['last_name'])?$Customer['last_name']:null;?>" />
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="first_name" class="mdl-textfield__label">Имя:</label>
-			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="first_name" id="first_name" value="<?=$Customer['first_name']?>" />
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" name="first_name" id="first_name" value="<?=!empty($Customer['first_name'])?$Customer['first_name']:(!empty($_SESSION['member']['name'])?$_SESSION['member']['name']:null)?>" />
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 			<label for="middle_name" class="mdl-textfield__label">Отчество:</label>
-			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" type="text" name="middle_name" id="middle_name" value="<?=$Customer['middle_name']?>" />
+			<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" type="text" name="middle_name" id="middle_name" value="<?=!empty($Customer['middle_name'])?$Customer['middle_name']:null;?>" />
 			<span class="mdl-textfield__error">Использованы недопустимые символы</span>
 		</div>
 		<label class="label_for_input_blocks" for="date_container">День рождения:</label>
