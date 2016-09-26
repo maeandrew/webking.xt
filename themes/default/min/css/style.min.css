@@ -208,7 +208,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #discountTable{display:flex;justify-content:flex-start;width:250px;font-size:12px}
 #discountTable .discountTableElem{display:flex;flex-direction:column;text-align:left;margin-left:20px}
 #discountTable .addMoreProducts,#discountTable .getNewDiscount{color:#9E9E9E}
-.currentDiscountBlock{background:#ff5722;color:#fff;text-align:center;border-radius:5px;margin-right:10px;padding-left:10px;padding-right:10px}
+.currentDiscountBlock{background:#ff5722;color:#fff;text-align:center;border-radius:5px;margin-right:10px;padding:10px}
 .currentDiscountBlock span{text-align:center}
 #currentDiscount{font-size:35px;line-height:35px;display:block}
 @media (min-width:728px) and (max-width:979px){#cart #total{width:auto}
