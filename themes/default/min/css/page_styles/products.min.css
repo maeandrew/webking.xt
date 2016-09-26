@@ -55,7 +55,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .products .card .product_name{width:100%;position:static}
 .block_view .products .card .product_name a{display:block;height:40px;overflow:hidden}
 .block_view .products .card .ordered{right:5px;top:5px}
-.block_view .card .product_buy,.block_view .card .suplierPriceBlock{width:100%;height:auto;max-width:none;min-width:100%;padding:0;position:relative;margin-top:10px}
+.block_view .card .product_buy,.block_view .card .suplierPriceBlock{width:100%;height:auto;max-width:none;min-width:100%;padding:0;position:relative;margin-top:15px}
 .block_view .buy_block{flex-wrap:wrap;justify-content:center!important}
 .block_view .buy_block .product_price{white-space:nowrap;text-align:center;display:flex;min-width:100%;justify-content:center}
 .block_view .buy_block .price{display:inline-block;margin:0}
@@ -99,7 +99,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .market_action img{width:100px;height:100px}
 .base_price{text-decoration:line-through;color:#9e9e9e;position:absolute}
 .list_view .base_price{top:20px}
-.block_view .base_price{top:-20px}
+.block_view .base_price{top:-20px;width:100%;text-align:center}
 @media (max-width:1440px){.block_view .products .card{width:calc(25% - 20px)}
 }
 @media (max-width:1280px){.block_view .products .card{width:calc(100%/3 - 20px)}
@@ -184,7 +184,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 .block_view .add_to_fav_trend_block .favorite i,.block_view .add_to_fav_trend_block .fortrending i{-webkit-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}
 #preview .prod_info_block{margin-left:10px}
 }
-@media (max-width:480px){#preview{z-index:1000}
+@media (max-width:480px){#preview,#price_details{z-index:1000}
 #preview .tab-content .mdl-tabs__panel{height:100%}
 #preview .images_block_title_mobile{display:block;width:100%;text-align:center;font-weight:700;font-size:16px;padding-bottom:10px}
 }

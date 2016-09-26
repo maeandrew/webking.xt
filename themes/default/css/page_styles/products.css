@@ -450,7 +450,7 @@ label.info_key {
 	min-width: 100%;
 	padding: 0;
 	position: relative;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 .block_view .buy_block {
 	flex-wrap: wrap;
@@ -693,6 +693,8 @@ label.info_key {
 }
 .block_view .base_price {
 	top: -20px;
+	width: 100%;
+	text-align: center;
 }
 @media (max-width: 1440px) {
 	.block_view .products .card {
@@ -1214,7 +1216,7 @@ label.info_key {
 	}
 }
 @media (max-width: 480px) {
-	#preview {
+	#preview, #price_details {
 		z-index: 1000;
 	}
 	#preview .tab-content .mdl-tabs__panel {
