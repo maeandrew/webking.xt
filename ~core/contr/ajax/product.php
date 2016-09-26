@@ -310,23 +310,23 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								</tr>
 								<tr>
 									<td class="title_row">до 500 грн.</td>
-									<td>'.$product['prices_mopt'][3].' грн.</td>
-									<td>'.$product['prices_opt'][3].' грн.</td>
+									<td>'.number_format($product['prices_mopt'][3], 2, ",", "").' грн.</td>
+									<td>'.number_format($product['prices_opt'][3], 2, ",", "").' грн.</td>
 								</tr>
 								<tr>
 									<td class="title_row">от 500 до 3000 грн.</td>
-									<td>'.$product['prices_opt'][2].' грн.</td>
-									<td>'.$product['prices_opt'][2].' грн.</td>
+									<td>'.number_format($product['prices_mopt'][2], 2, ",", "").' грн.</td>
+									<td>'.number_format($product['prices_opt'][2], 2, ",", "").' грн.</td>
 								</tr>
 								<tr>
 									<td class="title_row">от 3000 до 10 000 грн.</td>
-									<td>'.$product['prices_opt'][1].' грн.</td>
-									<td>'.$product['prices_opt'][1].' грн.</td>
+									<td>'.number_format($product['prices_mopt'][1], 2, ",", "").' грн.</td>
+									<td>'.number_format($product['prices_opt'][1], 2, ",", "").' грн.</td>
 								</tr>
 								<tr>
 									<td class="title_row">более 10 000 грн.</td>
-									<td>'.$product['prices_opt'][0].' грн.</td>
-									<td>'.$product['prices_opt'][0].' грн.</td>
+									<td>'.number_format($product['prices_mopt'][0], 2, ",", "").' грн.</td>
+									<td>'.number_format($product['prices_opt'][0], 2, ",", "").' грн.</td>
 								</tr>
 							</table>
 							<div class="msg-info bonus_info">
