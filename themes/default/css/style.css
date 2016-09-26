@@ -2132,6 +2132,7 @@ section .stat_year {
 .product_buy .buy_block .product_price {
 	flex-basis: 18%;
 	white-space: nowrap;
+	position: relative;
 }
 .product_buy .buy_block .price {
 	text-align: center;
@@ -4183,7 +4184,7 @@ iframe[name="google_conversion_frame"] {
 	background-color: #b2ddff;
 }
 .msg-info .msg_title::before {
-	content: 'Внимание';
+	content: 'Полезная информация';
 }
 .msg-info .msg_icon::before {
 	content: 'info';
