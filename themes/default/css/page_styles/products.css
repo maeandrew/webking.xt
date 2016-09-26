@@ -1119,28 +1119,32 @@ label.info_key {
     min-height: 40vh;
 }
 
-#price_details .prices_table {
-	margin-bottom: 15px;
+#price_details table {
+	margin-bottom: 1em;
 	width: 100%;
 }
-#price_details .prices_table td {
+#price_details th {
+	font-weight: bold;
+	padding: .5em;
+    border: 1px solid #eeeeee;
+}
+#price_details td {
 	border: 1px solid #eee;
 	padding: 5px;
+}
+#price_details .prices_table td {
 	text-align: center;
 }
-#price_details  .summ_title_cell {
-	width: 170px;
-	vertical-align: middle;
-}
-#price_details .prices_table_title {
-	width: 100%;
-	padding-bottom: 5px;
+#price_details .prices_table tr:nth-of-type(odd) {
+	background-color: #fafafa;
 }
 #price_details .prices_table_title p {
 	text-align: center;
 	font-weight: bold;
 }
-#price_details td.title_row {
+#price_details .prices_table .title_column {
+	width: 50%;
+	vertical-align: middle;
 	text-align: left;
 }
 /*#price_details .column_row,
