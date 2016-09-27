@@ -334,7 +334,7 @@
 								Следить за ценой
 								<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li>
 							<!-- <div class="mdl-tooltip fortrending_info_tooltip" for="fortrending"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div> -->
-							<li>Поделиться <i id="shareButton" class="material-icons">share</i>
+							<li id="shareButton">Поделиться <i class="material-icons">share</i>
 							<!-- <span class="mdl-tooltip" for="shareButton">Поделиться</span></li> -->
 						</ul>
 						<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">

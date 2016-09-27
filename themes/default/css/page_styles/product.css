@@ -363,6 +363,10 @@
 }
 .apps_panel{
 	clear: both;
+	position: relative;
+}
+.apps_panel .mdl-menu{
+	padding: 10px;
 }
 .apps_panel ul{
 	display: flex;
@@ -379,12 +383,14 @@
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
-.apps_panel ul li:hover{
+.apps_panel > ul > li:hover{
 	background: #018b06;
 	color: #fff;
 }
-.apps_panel .isfavorite,
-.apps_panel .isfavorite:hover {
+.apps_panel .social ul li{
+	padding: 0;
+}
+.apps_panel .isfavorite{
 	color: red;
 }
 .apps_panel ul li i,
@@ -402,6 +408,10 @@
 .apps_panel ul li .arrow,
 .sold_produxt_info ul li .arrow {
 	color: #fff;
+}
+
+.apps_panel ul li .arrow{
+	color: #ff5722;
 }
 .rating_block {
 	/*float: right;*/
