@@ -103,9 +103,10 @@ class Products {
 	/**
 	 * Установить данные о товаре по его id
 	 * @param integer $id_product	id товара
-	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
+	 * @param integer $visible	учитывать видимость товара 1 - нет, 0 - да
+	 * @param integer $active	учитывать активность товара 1 - да, 0 - нет
 	 */
-	public function SetFieldsById($id_product, $visibility = 0){
+	public function SetFieldsById($id_product, $visible = 0, $active = 0){
 		$sql = 'SELECT p.*,
 				un.unit_xt AS units,
 				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
@@ -117,7 +118,9 @@ class Products {
 			FROM '._DB_PREFIX_.'product AS p
 				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
-			WHERE p.id_product = '.$id_product.'
+			WHERE p.id_product = '.$id_product.
+			($visible == 0?' AND p.visible = 1 ':null).
+			($active == 1?' HAVING active = 1 AND p.visible = 1 ':null).'
 			LIMIT 1';
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
@@ -181,10 +184,10 @@ class Products {
 		$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 		$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
 		for($i=0; $i<=3; $i++){
-			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
-			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
-			$arr['base_prices_opt'][$i] = round($arr['price_opt']* $base_coef_price_opt[$i], 2);
-			$arr['base_prices_mopt'][$i] = round($arr['price_mopt']* $base_coef_price_mopt[$i], 2);
+			$arr['prices_opt'][$i] = round($arr['price_opt']*$coef_price_opt[$i], 2);
+			$arr['prices_mopt'][$i] = round($arr['price_mopt']*$coef_price_mopt[$i], 2);
+			$arr['base_prices_opt'][$i] = round($arr['price_opt']*$base_coef_price_opt[$i], 2);
+			$arr['base_prices_mopt'][$i] = round($arr['price_mopt']*$base_coef_price_mopt[$i], 2);
 		}
 		$arr['categories_ids'] = $this->GetCatsOfProduct($arr['id_product']);
 		$this->fields = $arr;
@@ -3046,17 +3049,19 @@ class Products {
 	 * @return mixed
 	 */
 	public function GetPopularsOfCategory($id_category, $id_product, $rand = false, $limit = false){
-		$limit = $limit?' LIMIT '.$limit:null;
-		$sql = "SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt, a.active,
+		$sql = 'SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
 			p.min_mopt_qty, p.descr, p.img_1, p.opt_correction_set, p.mopt_correction_set, p.units
-			".(!$rand?', COUNT(*) AS count':null)."
-			FROM "._DB_PREFIX_."product p
-			LEFT JOIN "._DB_PREFIX_."assortiment a ON a.id_product = p.id_product
-			".(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null)."
-			LEFT JOIN "._DB_PREFIX_."cat_prod cp ON p.id_product = cp.id_product
-			WHERE p.visible = 1 AND (SELECT COUNT(*) FROM xt_assortiment AS a WHERE p.id_product = a.id_product AND a.product_limit > 0) > 0
-			AND (p.price_opt>0 OR p.price_mopt>0) AND p.id_product <> ".$id_product." AND cp.id_category = ".$id_category.
-			(!$rand?' GROUP BY o.id_product':null)."	ORDER BY ".($rand?'RAND()':'count DESC').$limit;
+			'.(!$rand?', COUNT(*) AS count':null).'
+			FROM '._DB_PREFIX_.'product p
+			'.(!$rand?' LEFT JOIN '._DB_PREFIX_.'osp o ON o.id_product = p.id_product':null).'
+			LEFT JOIN '._DB_PREFIX_.'cat_prod cp ON p.id_product = cp.id_product
+			WHERE p.visible = 1
+			AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1
+			AND p.id_product <> '.$id_product.'
+			AND cp.id_category = '.$id_category.
+			(!$rand?' GROUP BY o.id_product':null).'
+			ORDER BY '.($rand?'RAND()':'count DESC').
+			($limit?' LIMIT '.$limit:null);
 		if(!$arr = $this->db->GetArray($sql,"id_product")){
 			return false;
 		}
@@ -4303,7 +4308,7 @@ class Products {
 		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
 			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp">
-			<a '.(($no_rel || (!isset($GLOBALS['current_categories'])&& $GLOBALS['CurrentController'] !='product') )?'':'rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
+			<a '.($no_rel || (!isset($GLOBALS['current_categories'])&& $GLOBALS['CurrentController'] != 'product')?'':'rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
 
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
 				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
@@ -4689,15 +4694,17 @@ class Products {
 	// Вывод 50 товаров для ссылок
 	public function getLinkProducts($id_product){
 		$count = 0;
-		$step = $id_product-5;
+		$step = $id_product;
 		$l_prods = '';
 		while($count < 150){
-			$count++;
 			$step = $id_product<5000?$step+5:$step-5;
-			$l_prods .= $step.', ';
+			$l_prods .= $step.($count!=149?', ':null);
+			$count++;
 		}
-		$sql = "SELECT name, translit FROM "._DB_PREFIX_."product
-				WHERE visible = 1 AND id_product IN(".substr($l_prods, 0,-2).") LIMIT 50";
+		$sql = 'SELECT p.name, p.translit FROM '._DB_PREFIX_.'product AS p
+			WHERE p.visible = 1
+			AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1
+			AND p.id_product IN('.$l_prods.') LIMIT 50';
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
