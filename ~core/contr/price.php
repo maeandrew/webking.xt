@@ -22,7 +22,7 @@ $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 unset($parsed_res);
 if(isset($_GET['savedprices']) == false){
 	$categories = $Products->PriceListProductCount();
-	foreach($categories as $k=>$l){
+	foreach($categories as $k=>&$l){
 		if($l['category_level'] == 1 && $l['visible'] == 1){
 			$list[$l['id_category']] = $l;
 		}elseif($l['category_level'] == 2 && $l['visible'] == 1){
@@ -39,10 +39,10 @@ if(isset($_GET['savedprices']) == false){
 	}
 	ksort($level3);
 	ksort($level2);
-	foreach($level3 as $l3){
+	foreach($level3 as &$l3){
 		$level2[$l3['pid']]['subcats'][$l3['id_category']] = $l3;
 	}
-	foreach($level2 as $l2){
+	foreach($level2 as &$l2){
 		$list[$l2['pid']]['subcats'][$l2['id_category']] = $l2;
 	}
 	ksort($list);
@@ -51,11 +51,4 @@ if(isset($_GET['savedprices']) == false){
 	$prices = $Products->GetPricelistFullList();
 	$tpl->Assign('prices', $prices);
 }
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_price.tpl')
-);
-if(TRUE == $parsed_res['issuccess']) {
-	$tpl_center .= $parsed_res['html'];
-}
-?>
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_price.tpl');
