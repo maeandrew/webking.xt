@@ -54,7 +54,7 @@
 .product .product_buy .buy_block .price_wrap{font-family:Oswald,sans-serif;font-size:1.8em!important}
 .product .product_buy .buy_block .price_wrap span{font-size:.6em}
 .product .product_buy .buy_block .price_wrap span.bold_text{font-weight:600}
-.product .product_buy .buy_block .price_wrap .price_cont{color:#018b06}
+.product .product_buy .buy_block .price_wrap .price_cont{color:#018b06;font-size:1.45em}
 .product .product_buy .buy_block .price_wrap .price_flex{display:flex;align-items:baseline}
 .product .product_buy .buy_block .price_wrap .price_flex>div{margin-right:5px}
 .product .product_buy .buy_block .price_wrap .base_price_cont{width:auto;margin-left:20px;text-decoration:none;font-size:.86em!important;position:relative}
@@ -65,7 +65,7 @@
 .product .similar_products_mini .item .item_info .price_num{font-size:1.4em}
 .product .similar_products_mini .product_buy .buy_block .btn_buy button{background:0 0;border:1px solid #ff5722;color:#ff5722;position:relative;left:0}
 .product .similar_products_mini .item:hover .product_buy .buy_block .btn_buy button{background:#ff5722;color:#fff;position:relative}
-.product .similar_products_mini .more_items_link{position:absolute;bottom:0;left:0;text-align:right;padding:10px;width:100%}
+.product .similar_products_mini .more_items_link{position:absolute;bottom:0;left:0;text-align:right;background:#fff;padding:10px;width:100%}
 .product .similar_products_mini .more_items_link a{border-bottom:1px solid #444}
 .product .similar_products_mini .more_items_link a:hover{border-bottom:1px solid #ff5722}
 .product .similar_products_mini .product_buy .out_of_stock{font-size:1em}
@@ -237,6 +237,7 @@ div[for=rating_block]{font-size:12px}
 #price_details th{font-weight:700;padding:.5em;border:1px solid #eee}
 #price_details td{border:1px solid #eee;padding:5px}
 #price_details .prices_table td{text-align:center}
+#price_details .prices_table td span{font-size:.9em;color:#9e9e9e;display:block;font-style:italic}
 #price_details .prices_table tr:nth-of-type(odd){background-color:#fafafa}
 #price_details .prices_table_title p{text-align:center;font-weight:700}
 #price_details .prices_table .title_column{width:50%;vertical-align:middle;text-align:left}
