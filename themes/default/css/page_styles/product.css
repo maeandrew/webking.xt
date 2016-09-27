@@ -241,7 +241,7 @@
 }
 .product .product_buy .buy_block .price_wrap .price{
 	width: 100px;
-	text-align: right;
+    text-align: right;
 }
 .product .product_buy .buy_block .qty_buy{
 	display: flex;
@@ -433,9 +433,8 @@ div[for="rating_block"] {
 	clear: both;
 	overflow: hidden;
 	padding: 10px;
-	width: calc(100vw - 470px);
+	width: 50vw;
 	margin: 0;
-	margin-top: 30px;
 }
 .product .fortabs{
 	width: 100%;
