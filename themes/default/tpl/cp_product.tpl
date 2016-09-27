@@ -218,18 +218,20 @@
 											<meta itemprop="priceCurrency" content="UAH">
 											<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
 											<div class="price_wrap">
-												
-												<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
-													<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
+												<div class="price_cont price_flex">
+													<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+														<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
+													</div>
 													<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 												</div>
-
-												<div class="base_price <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-													<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
-														<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
-													<?}else{?>
-														<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
-													<?}?>
+												<div class="base_price_cont price_flex <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?>">
+													<div class="base_price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+														<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
+															<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+														<?}else{?>
+															<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+														<?}?>
+													</div>
 													<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 												</div>
 
@@ -376,7 +378,7 @@
 				</div>
 				<div class="mdl-cell mdl-cell--5-col">
 					<div class="similar_products_mini">
-						<?if(isset($item['active']) && $item['active'] == 0){
+						<?if(isset($item['active']) && $item['active'] != 0){
 							if(isset($random_products) && !empty($random_products)){?>
 								<h4>Похожие товары</h4>
 								<?$iter = 0?>
@@ -397,7 +399,7 @@
 													<span class="item_name"><?=$p['name']?></span>
 													<span class="ca-more price_num">
 														<?if($p['price_mopt'] > 100){
-															print_r(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']));
+															print_r(number_format(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']), 2, ',', ''));
 														}else{
 															print_r(number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', ''));
 														}?>
@@ -451,7 +453,7 @@
 									<?}?>
 									<span><?=$p['name']?></span>
 									<?if($p['price_mopt'] > 100){?>
-										<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+										<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 									<?}else{?>
 										<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 									<?}?>
@@ -656,7 +658,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -696,7 +698,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -736,7 +738,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -776,7 +778,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -816,7 +818,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>

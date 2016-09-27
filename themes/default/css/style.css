@@ -2216,7 +2216,7 @@ section .stat_year {
 	border: 1px solid transparent;
 	cursor: pointer;
 	opacity: 0;
-	left: 53px;
+	left: 0;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -2231,7 +2231,7 @@ section .stat_year {
 	box-sizing: border-box;
 	z-index: 0;
 	opacity: 1;
-	left: 53px;
+	left: 0;
 }
 .product_buy .buy_block .quantity button.btn_add {
 	bottom: 95%;
