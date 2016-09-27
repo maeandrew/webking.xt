@@ -103,9 +103,10 @@ class Products {
 	/**
 	 * Установить данные о товаре по его id
 	 * @param integer $id_product	id товара
-	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
+	 * @param integer $visible	учитывать видимость товара 1 - нет, 0 - да
+	 * @param integer $active	учитывать активность товара 1 - да, 0 - нет
 	 */
-	public function SetFieldsById($id_product, $visibility = 0){
+	public function SetFieldsById($id_product, $visible = 0, $active = 0){
 		$sql = 'SELECT p.*,
 				un.unit_xt AS units,
 				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
@@ -117,7 +118,9 @@ class Products {
 			FROM '._DB_PREFIX_.'product AS p
 				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
-			WHERE p.id_product = '.$id_product.'
+			WHERE p.id_product = '.$id_product.
+			($visible == 0?' AND p.visible = 1 ':null).
+			($active == 1?' HAVING active = 1 AND p.visible = 1 ':null).'
 			LIMIT 1';
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
