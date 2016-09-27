@@ -381,7 +381,71 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									<td>3% от суммы заказа доступна при третьем и более заказах в течении 30 дней от последней покупки</td>
 								</tr>
 							</table>';
-				echo $helper;
+				$producthelper = '	<div class="prices_table_title">
+								<h4>Система скидок</h4>
+							</div>
+							<table class="prices_table">
+								<tr>
+									<th colspan="3">Покупка от '.$product['inbox_qty'].' '.$product['units'].'</th>
+								</tr>
+								<tr>
+									<th class="title_column">Сумма заказа</th>
+									<th>Цена, грн</th>
+									<th>Скидка, %</th>
+								</tr>
+								<tr>
+									<td class="title_column">Партнерская <span>(более '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_opt'][0], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[0]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Диллерская <span>(от '.$GLOBALS['CONFIG']['wholesale_order_margin'].' до '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_opt'][1], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[1]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Оптовая <span>(от '.$GLOBALS['CONFIG']['retail_order_margin'].' до '.$GLOBALS['CONFIG']['wholesale_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_opt'][2], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[2]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Розничная <span>(до '.$GLOBALS['CONFIG']['retail_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_opt'][3], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[3]*100).'</td>
+								</tr>
+							</table>
+							<table class="prices_table">
+								<tr>
+									<th colspan="3">Покупка от '.$product['min_mopt_qty'].' '.$product['units'].'</th>
+								</tr>
+								<tr>
+									<th class="title_column">Сумма заказа</th>
+									<th>Цена, грн</th>
+									<th>Скидка, %</th>
+								</tr>
+								<tr>
+									<td class="title_column">Партнерская <span>(более '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_mopt'][0], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[0]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Диллерская <span>(от '.$GLOBALS['CONFIG']['wholesale_order_margin'].' до '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_mopt'][1], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[1]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Оптовая <span>(от '.$GLOBALS['CONFIG']['retail_order_margin'].' до '.$GLOBALS['CONFIG']['wholesale_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_mopt'][2], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[2]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Розничная <span>(до '.$GLOBALS['CONFIG']['retail_order_margin'].' грн.)</span></td>
+									<td>'.number_format($product['prices_mopt'][3], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[3]*100).'</td>
+								</tr>
+							</table>';
+				echo isset($_POST['mark']) && $_POST['mark'] == 1 ? $producthelper : $helper ;
+				
 				break;
 			default:
 				break;
