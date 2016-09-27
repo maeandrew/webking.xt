@@ -192,11 +192,8 @@
 }
 .slider_products .owl-item .ca-more {
 	opacity: .9;
-	/*position: absolute;*/
-	/*bottom: 30%;*/
-	/*right: 25px;*/
 	margin: 0 auto;
-	width: 70%;
+	width: 90%;
 	border-radius: .2em;
 	padding: 5px 10px;
 	z-index: 99;
@@ -205,7 +202,6 @@
 	text-align: center;
 }
 .product .products_details{
-	/*height: 400px;*/
 	border-bottom: 1px solid #dcdcdc;
 	margin-bottom: 20px;
 }
@@ -1002,6 +998,8 @@ div[for="rating_block"] {
 	border: 1px solid #e0e0e0;
 	color: #FF5722;
 	border-radius: 3px;
+	left: 0;
+	width: 100%;
 }
 .slider_products .item:hover .product_buy .buy_block .btn_buy button{
 	border: 1px solid #FF5722;

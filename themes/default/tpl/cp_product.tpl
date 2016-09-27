@@ -378,7 +378,7 @@
 				</div>
 				<div class="mdl-cell mdl-cell--5-col">
 					<div class="similar_products_mini">
-						<?if(isset($item['active']) && $item['active'] == 0){
+						<?if(isset($item['active']) && $item['active'] != 0){
 							if(isset($random_products) && !empty($random_products)){?>
 								<h4>Похожие товары</h4>
 								<?$iter = 0?>
@@ -399,7 +399,7 @@
 													<span class="item_name"><?=$p['name']?></span>
 													<span class="ca-more price_num">
 														<?if($p['price_mopt'] > 100){
-															print_r(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']));
+															print_r(number_format(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']), 2, ',', ''));
 														}else{
 															print_r(number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', ''));
 														}?>
@@ -453,7 +453,7 @@
 									<?}?>
 									<span><?=$p['name']?></span>
 									<?if($p['price_mopt'] > 100){?>
-										<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+										<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 									<?}else{?>
 										<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 									<?}?>
@@ -658,7 +658,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -698,7 +698,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -738,7 +738,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -778,7 +778,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
@@ -818,7 +818,7 @@
 							<?}?>
 							<span><?=$p['name']?></span>
 							<?if($p['price_mopt'] > 100){?>
-								<div class="ca-more">от <?=ceil($p['prices_opt'][0])?> грн.</div>
+								<div class="ca-more">от <?=number_format(ceil($p['prices_opt'][0]), 2, ',', '')?> грн.</div>
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
