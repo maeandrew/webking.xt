@@ -170,7 +170,15 @@ div[for=rating_block]{font-size:12px}
 .base_price_cont{text-decoration:line-through;color:#9e9e9e;width:100%;text-align:left!important;font-size:1.6em!important}
 .market_action{width:100px;position:absolute;top:-10px;left:-10px;z-index:1}
 .product .product_main_img .market_action img{width:100px;height:100px;-webkit-transform:none;-ms-transform:none;transform:none}
+.product .content_header .cart_info{justify-content:space-between}
 @media (max-width:1600px){.products_links_block,.slider_products{background:#f3f3f3;border-top:1px solid #e0e0e0}
+}
+@media (max-width:1535px){.product .content_header .cart_info .order_balance,.product .content_header .cart_info .tabs_container li,.product .content_header .cart_info .your_discount{font-size:.9em}
+.product .content_header .cart_info .tabs_container li{width:65px}
+}
+@media screen and (max-width:1345px){.product .content_header .cart_info .your_discount{width:60px}
+.product .content_header .cart_info .order_balance{width:100px}
+.product .content_header .cart_info .order_balance,.product .content_header .cart_info .your_discount{line-height:1.2em;vertical-align:middle}
 }
 @media screen and (max-width:1380px){.apps_panel ul li{font-size:.9em}
 .apps_panel ul li .waiting_list,.apps_panel ul li i{font-size:1.6em}
@@ -183,7 +191,7 @@ div[for=rating_block]{font-size:12px}
 }
 @media (min-width:728px) and (max-width:1169px){.product .content_header .cart_info{width:100%}
 }
-@media (min-width:840px) and (max-width:1169px){.product .content_header .cart_info>span{display:none}
+@media (min-width:840px) and (max-width:1169px){.product .content_header .cart_info .order_balance{width:180px}
 .product .content_header .cart_info .tabs_container{width:100%}
 }
 @media (max-width:727px){.product .mdl-cell{padding-right:0}
@@ -222,7 +230,7 @@ div[for=rating_block]{font-size:12px}
 .slider_products .item:hover .product_buy .buy_block .btn_buy button{border:1px solid #FF5722;background-color:#FF5722;color:#fff}
 .slider_products .product_buy .out_of_stock{margin-top:0}
 @media (max-width:800px),(max-width:1100px) and (orientation:landscape){.product .similar_products_mini .product_buy .buy_block .btn_buy button,.slider_products .item .product_buy .buy_block .btn_buy button{border:1px solid #FF5722;background-color:#FF5722;color:#fff}
-.apps_panel ul li{background-color:#018b06;color:#fff}
+.apps_panel ul li{background-color:#018b06;color:#fff;padding:0 10px}
 .apps_panel ul li .icon,.apps_panel ul li i{color:#fff}
 }
 #price_details table{margin-bottom:1em;width:100%}
