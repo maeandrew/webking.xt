@@ -930,9 +930,9 @@ $(function(){
 
 	// Обработка примечания
 	$('.note textarea').on('blur', function(){
-		$(this).css({
-			height: '30px'
-		});
+		// $(this).css({
+		// 	height: '30px'
+		// });
 		// var id = $(this).closest('form.note').attr('data-note'),
 		// 	note = $(this).val();
 		// ajax('cart', "update_note",{"id_product": id, "note": note});
