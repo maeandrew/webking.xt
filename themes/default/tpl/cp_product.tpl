@@ -378,7 +378,7 @@
 				</div>
 				<div class="mdl-cell mdl-cell--5-col">
 					<div class="similar_products_mini">
-						<?if(isset($item['active']) && $item['active'] != 0){
+						<?if(isset($item['active']) && $item['active'] == 0){
 							if(isset($random_products) && !empty($random_products)){?>
 								<h4>Похожие товары</h4>
 								<?$iter = 0?>
