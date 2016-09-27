@@ -212,26 +212,26 @@ function completeCartProductAdd(data){
 
 
 	// ОБНОВЛЕНИЕ СКИДОК. НОВЫЙ БЛОК
-	if(data.products_sum[3] < 500){
+	if(data.products_sum[3] < columnLimits['2']){
 		$('.discountTableElem, #sumPer0, #sumPer10, #sumPer16, #dicsPer0, #dicsPer10, #dicsPer16').removeClass('hidden');
-		$('#sumPer0').text((500-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
-		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
-		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
-		$('#currentDiscount').text('0%');
-	}else if(data.products_sum[3] < 3000){
+		$('#sumPer0').text((columnLimits['2'] - data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#sumPer10').text((columnLimits['1'] - data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#sumPer16').text((columnLimits['0'] - data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#currentDiscount').text('Розница');
+	}else if(data.products_sum[3] < columnLimits['1']){
 		$('.discountTableElem, #sumPer10, #sumPer16, #dicsPer10, #dicsPer16').removeClass('hidden');
 		$('#sumPer0, #dicsPer0').addClass('hidden');
-		$('#sumPer10').text((3000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
-		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
-		$('#currentDiscount').text('10%');
-	}else if(data.products_sum[3] < 10000){
+		$('#sumPer10').text((columnLimits['1'] - data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#sumPer16').text((columnLimits['0'] - data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#currentDiscount').text('Опт');
+	}else if(data.products_sum[3] < columnLimits['0'] ) {
 		$('.discountTableElem, #sumPer16, #dicsPer16').removeClass('hidden');
 		$('#sumPer0, #sumPer10, #dicsPer0, #dicsPer10').addClass('hidden');
-		$('#sumPer16').text((10000-data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
-		$('#currentDiscount').text('16%');
-	}else if(data.products_sum[3] >= 10000){
+		$('#sumPer16').text((columnLimits['0'] - data.products_sum[3]).toFixed(2).toString().replace('.',',')+' грн');
+		$('#currentDiscount').text('Дилер');
+	}else if(data.products_sum[3] >= columnLimits['0'] ) {
 		$('.discountTableElem, #sumPer0, #sumPer10, #sumPer16, #dicsPer0, #dicsPer10, #dicsPer16').addClass('hidden');
-		$('#currentDiscount').text('21%');
+		$('#currentDiscount').text('Партнер');
 	}
 }
 

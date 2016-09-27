@@ -53,7 +53,7 @@
 		var URL_base = "'._base_url.'/",
 			current_controller = "'.$GLOBALS['CurrentController'].'",
 			ajax_proceed = false,
-			columnLimits = {0: 10000, 1: 3000, 2: 500, 3: 0},
+			columnLimits = {0: '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].', 1: '.$GLOBALS['CONFIG']['wholesale_order_margin'].', 2: '.$GLOBALS['CONFIG']['retail_order_margin'].', 3: 0},
 			current_id_category = '.(isset($GLOBALS['CURRENT_ID_CATEGORY'])?$GLOBALS['CURRENT_ID_CATEGORY']:'null').',
 			IsLogged = '.(G::IsLogged()?'true':'false').',
 			IsMobile = '.(G::isMobile()?'true':'false').';
@@ -85,6 +85,9 @@
 
 	<!-- Google Material Icon -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	
+	<!-- Include google fonts - Oswald-->
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
 	<!-- END include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
@@ -443,6 +446,9 @@
 		<div id="preview" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
+		<div id="price_details" data-type="modal">
+			<div class="modal_container"></div>
+		</div>
 		<div id="quiz" data-type="modal"></div>
 		<!-- Загрузка сметы -->
 		<div id="estimateLoad" class="estimate_modal" data-type="modal">
@@ -453,12 +459,12 @@
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input input_validator_js" data-input-validate="name" name ="name" type="text" id="estimate_name" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
+								<input class="mdl-textfield__input input_validator_js" data-input-validate="name" name="name" type="text" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
 								<span class="mdl-textfield__error">Ошибка ввода Имени!</span>
 							</div>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" name ="phone" type="text" id="estimate_phone" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
+								<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" name="phone" type="text" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
 								<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 							</div>
@@ -466,10 +472,12 @@
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<textarea class="mdl-textfield__input" name="comment" rows= "3" id="estimate_comment" ></textarea>
 							<label class="mdl-textfield__label" for="estimate_comment">Комментарий</label>
+							<span class="mdl-textfield__error"></span>
 						</div>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-							<input class="mdl-textfield__input" name="file" type="file" id="estimate_file">
+							<input class="mdl-textfield__input input_validator_js" data-input-validate="file" name="file" type="file" id="estimate_file">
 							<label class="mdl-textfield__label" for="estimate_file"></label>
+							<span class="mdl-textfield__error">Выберите файл!</span>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
 							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored estimate_js">Загрузить смету</button>
@@ -822,6 +830,19 @@
 		</div>
 		<div id="issue_result" class="issue_result_js issue_result" data-type="modal">
 			<div class="modal_container"></div>
+		</div>
+
+		<div id="issue_result_ok" class="issue_result_js issue_result" data-type="modal">
+			<div class="modal_container">
+				<div class="issue_ok"><i class="material-icons">check_circle</i></div>
+				<p class="info_text">Ваше сообщение было отправлено</p>
+			</div>
+		</div>
+		<div id="issue_result_err" class="issue_result_js issue_result" data-type="modal">
+			<div class="modal_container">
+				<div class="issue_err"><i class="material-icons">error</i></div>
+				<p class="info_text">Что-то пошло не так. Повторите попытку.</p>
+			</div>
 		</div>
 	</div>
 

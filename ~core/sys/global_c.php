@@ -67,9 +67,9 @@ class G {
 	 * Defining _base_url global
 	 */
 	public static function DefineBaseURL(){
-		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+		$GLOBALS['protocol'] = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 		$domainName = $_SERVER['HTTP_HOST'];
-		define('_base_url', $protocol.$domainName);
+		define('_base_url', $GLOBALS['protocol'].$domainName);
 	}
 
 	/**

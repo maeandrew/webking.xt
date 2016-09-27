@@ -286,9 +286,9 @@
 							Добавьте:
 						</div>
 						<div class="neededSum discountTableElem">
-							<span id="sumPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round(500-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round(3000-$cart_sum,2), 2, ",", "")?> грн</span>
-							<span id="sumPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round(10000-$cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['retail_order_margin'] - $cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['wholesale_order_margin'] - $cart_sum,2), 2, ",", "")?> грн</span>
+							<span id="sumPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['full_wholesale_order_margin']-$cart_sum,2), 2, ",", "")?> грн</span>
 						</div>
 					</div>
 					<div class="mediaDiscountBlocks">
@@ -296,19 +296,22 @@
 							Получите скидку:
 						</div>
 						<div class="nextDiscount discountTableElem">
-							<span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>>50 грн (10%)</span>
-							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>>480грн (16%)</span>
-							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>>2100грн (21%)</span>
+							<!-- <span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['retail_order_margin'] / 100 * 10), 2, ",", "")?> грн. (10%)</span>
+							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['wholesale_order_margin'] / 100 * 16), 2, ",", "")?> грн. (16%)</span>
+							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>><?=number_format(round($GLOBALS['CONFIG']['full_wholesale_order_margin'] / 100 * 21), 2, ",", "")?> грн. (21%)</span> -->
+							<span id="dicsPer0" <?=$manual_column == 3 ? '': "class='hidden'"?>>Опт</span>
+							<span id="dicsPer10" <?=($manual_column == 3 || $manual_column == 2) ? '': "class='hidden'"?>>Дилер</span>
+							<span id="dicsPer16" <?=($manual_column == 3 || $manual_column == 2 || $manual_column == 1) ? '': "class='hidden'"?>>Партнер</span>
 						</div>
 					</div>
 				</div>
 				<div class="currentDiscountBlock">
 					<span>Ваша скидка:</span>
 					<span id="currentDiscount">
-						<?=$manual_column == 3 ? '0%': ""?>
-						<?=$manual_column == 2 ? '10%': ""?>
-						<?=$manual_column == 1 ? '16%': ""?>
-						<?=$manual_column == 0 ? '21%': ""?>
+						<?=$manual_column == 3 ? 'Розница': ""?>
+						<?=$manual_column == 2 ? 'Опт': ""?>
+						<?=$manual_column == 1 ? 'Дилер': ""?>
+						<?=$manual_column == 0 ? 'Партнер': ""?>
 					</span>
 				</div>
 			</div>
@@ -342,19 +345,19 @@
 				<div class="column_switcher_block column_switcher_block_js">
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_3">
 						<input type="radio" id="col_3" class="mdl-radio__button" name="options" value="3" <?=$manual_column == 3?'checked':null?>>
-						<span class="mdl-radio__label">0%</span>
+						<span class="mdl-radio__label">Розница</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_2">
 						<input type="radio" id="col_2" class="mdl-radio__button" name="options" value="2" <?=$manual_column == 2?'checked':null?>>
-						<span class="mdl-radio__label">10%</span>
+						<span class="mdl-radio__label">Опт</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_1">
 						<input type="radio" id="col_1" class="mdl-radio__button" name="options" value="1" <?=$manual_column == 1?'checked':null?>>
-						<span class="mdl-radio__label">16%</span>
+						<span class="mdl-radio__label">Дилер</span>
 					</label>
 					<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="col_0">
 						<input type="radio" id="col_0" class="mdl-radio__button" name="options" value="0" <?=$manual_column == 0?'checked':null?>>
-						<span class="mdl-radio__label">21%</span>
+						<span class="mdl-radio__label">Партнер</span>
 					</label>
 				</div>
 				<div class="switch_comment">

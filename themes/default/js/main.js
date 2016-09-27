@@ -1622,63 +1622,58 @@ $(function(){
 		ajax('errors', 'error', fields);
 	});
 
-	//Отправка данных (смета клиента)
-	$('#estimate_form').on('click', function(){
-		$('.estimate_info_js').html(''); // удаление предыдущего оповещения аякса
-		$('#estimate_form div').each(function() { // удаление класса is-invalid со всех полей
-			$('#estimate_form div').removeClass('is-invalid');
-		});
-	});
-
 	$('.estimate_js').on('click', function(e){
 		e.preventDefault();
-		var check = true;
-		if ($('#estimate_phone').val() !== undefined) {
-			// Проверка введенного телефона и имени
-			var phone = $('#estimate_phone').val();
-			var name = $('#estimate_name').val();
-			var str = phone.replace(/\D/g, "");
-			var check_num = /^(38)?(\d{10})$/;
-			if (check_num.test(str)) {
-				if (str.length === 10){
-					phone = 38 + str;
-				}else{
-					phone = str;
-				}
-			}
-			if (name === '') {
-				$('#estimate_name').closest('div').addClass('is-invalid');
-				check = false;
-			}else{
-				if (phone.length !== 12 ) {
-					$('#estimate_phone').closest('div').addClass('is-invalid');
-					check = false;
-				}else{
-					$('#estimate_phone').val(phone);
-					check = true;
-				}
-			}
-		}
-		if (check === true) {
+		var parent = $(this).closest('.modal_container'),
+			phone = parent.find('input[name="phone"]').val(),
+			phone_str,
+			check = parent.find('.mdl-textfield').hasClass('is-invalid') ? false : true;
+		if(check === true){
 			addLoadAnimation('#estimateLoad');
 			ajax('product', 'AddEstimate', new FormData($(this).closest('form')[0]), 'json', true).done(function(data){
-				$('.estimate_info_js').html(data.message);
-				if (data.status === 1){
-					$('.estimate_info_js').css('color', 'green');
-					if ($('#estimate_phone').val() !== undefined) {
-						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-							$('#user_profile').append('<img src="/images/noavatar.png"/>');
-							$('.user_profile_js').html(data);
-							$('.cabinet_btn').removeClass('hidden');
-							$('.login_btn').addClass('hidden');
-							$('#estimate_name, #estimate_phone').closest('div').remove();
-							$('.estimate_info_js').append('<br>Пользователь создан автоматически при загрузке сметы');
-						});
-					}
-				}else{
-					$('.estimate_info_js').css('color', 'red');
-				}
+				data.status === 1 ? parent.find('.estimate_info_js').css('color', 'green') : parent.find('.estimate_info_js').css('color', 'red');
 				removeLoadAnimation('#estimateLoad');
+				switch(data.status){
+					case 1:
+						if(phone !== undefined) {
+							$('#issue_result_ok').find('.info_text').html(data.message);
+							ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+								$('#user_profile').append('<img src="/images/noavatar.png"/>');
+								$('.user_profile_js').html(data);
+								$('.cabinet_btn').removeClass('hidden');
+								$('.login_btn').addClass('hidden');
+								parent.find('input[name="name"], input[name="phone"]').closest('div').remove();
+							});
+						}else{
+							$('#issue_result_ok').find('.info_text').text('Загрузка прошла успешно!');
+						}
+						closeObject('estimateLoad');
+						parent.find('[name="comment"], [type="file"]').val('');
+						parent.find('.estimate_info_js').html('');
+						parent.find('.mdl-textfield').removeClass('is-invalid');
+						openObject('issue_result_ok');
+						break;
+					case 2:
+						parent.find('input[name="phone"]').closest('.mdl-textfield').addClass('is-invalid');
+						parent.find('.estimate_info_js').html(data.message);
+						break;
+					case 3:
+						parent.find('.estimate_info_js').text(data.message);
+						break;
+					case 4:
+						closeObject('estimateLoad');
+						parent.find('.estimate_info_js').html('');
+						$('#issue_result_err').find('.info_text').html(data.message);
+						openObject('issue_result_err');
+						break;
+					case 5:
+						parent.find('input[type="file"]').closest('.mdl-textfield').addClass('is-invalid');
+						parent.find('.estimate_info_js').text(data.message);
+						break;
+					default:
+						console.log(data);
+					break;
+				}
 			});
 		}
 	});
@@ -1853,10 +1848,10 @@ $(function(){
 				var prevPrice = $(this).closest('.buy_block').find('.priceMopt' + currentDiscount).val();
 				$('.tooltipForBtnRemove_js').removeClass('hidden').html("до " + currentQty + " шт. цена " + prevPrice + " грн.");
 			}else{
-				if ((currentDiscount === 0) && (currentCartSum - constantPriceOpt <= 10000)){
+				if ((currentDiscount === 0) && (currentCartSum - constantPriceOpt <= columnLimits['0'])){
 					$('.tooltipForBtnRemove_js').removeClass('hidden').html("до " + currentQty + " шт. изменит % скидки");
 				}
-				if ((currentDiscount === 1) && (currentCartSum - constantPriceOpt <= 3000)){
+				if ((currentDiscount === 1) && (currentCartSum - constantPriceOpt <= columnLimits['1'])){
 					$('.tooltipForBtnRemove_js').removeClass('hidden').html("до " + currentQty + " шт. изменит % скидки");
 				}
 			}
@@ -1865,13 +1860,13 @@ $(function(){
 				var nextPrice = $(this).closest('.buy_block').find('.priceOpt' + currentDiscount).val();
 				$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + minQty + " шт. цена " + nextPrice + " грн.");
 			}else{
-				if ((currentDiscount === 1) && (currentCartSum + constantPriceOpt >= 10000)){
+				if ((currentDiscount === 1) && (currentCartSum + constantPriceOpt >= columnLimits['0'])){
 					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
 				}
-				if ((currentDiscount === 2) && (currentCartSum + constantPriceOpt >= 3000)){
+				if ((currentDiscount === 2) && (currentCartSum + constantPriceOpt >= columnLimits['1'])){
 					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
 				}
-				if ((currentDiscount === 3) && (currentCartSum + constantPriceOpt >= 500)){
+				if ((currentDiscount === 3) && (currentCartSum + constantPriceOpt >= columnLimits['2'])){
 					$('.tooltipForBtnAdd_js').removeClass('hidden').html("больше " + currentQty + " шт. изменит % скидки");
 				}
 			}
@@ -2239,7 +2234,7 @@ $(function(){
 
 	// Инициализация добавления товара в список ожидания
 	$('body').on('click', '.waiting_list', function(e){
-		e.preventDefault();
+		e.preventDefault(e);
 		var parent = $(this).closest('.fortrending');
 		if($(this).hasClass('arrow')){
 			$(this).removeClass('arrow');
@@ -2249,13 +2244,25 @@ $(function(){
 			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		}
 	});
+	$('.price_help_js').on('click', function(){
+		var id_product = $(this).closest('.card').data('idproduct');
+		var price_details = $('#price_details');
+		price_details.find('.modal_container').html('');
+		addLoadAnimation(price_details);
+		ajax('product', 'priceHelp', {id_product:id_product}, 'html').done(function(data){
+			removeLoadAnimation(price_details);
+			$('#price_details .modal_container').html(data);
+			Position(price_details);
+		});
+	});
 
 	// Страница продукта - клик по большой фотографии для увеличения и открытия в модалке
 	$('.product_main_img').on('click', function(event){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	});
 	// ------------
-	$('.show_preview_js').on('click', function(){
+	$('.show_preview_js').on('click', function(e){
+		e.preventDefault();
 		var preview = $('#preview'),
 			id_product = $(this).closest('.card').data('idproduct');
 		Position(preview);
@@ -2263,7 +2270,6 @@ $(function(){
 		addLoadAnimation(preview);
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.modal_container').html(data);
-			// Position(preview);
 			componentHandler.upgradeDom();
 			removeLoadAnimation(preview);
 		});
@@ -2287,5 +2293,13 @@ $(function(){
 	// Обработчик для валидации input'ов с информацией о пользователе
 	$('body').on('focusout', '.input_validator_js', function(event){
 		userInfoValidator($(this));
+	});
+
+	// Страница товара - Плавный переход к карусели "похожие товары"
+	$('body').on('click', '.anchor_link_js', function (event){
+		event.preventDefault();
+		var id = $(this).attr('href'),
+			top = $(id).offset().top - 40;
+		$('body,html').animate({scrollTop: top}, 1000);
 	});
 });

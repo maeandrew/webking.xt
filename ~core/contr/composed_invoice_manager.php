@@ -25,13 +25,13 @@ foreach($orders as $order_id){
 	$User = new Users();
 	//Получаем клиента
 	$id_customer = $orders_data[$order_id]['id_customer'];
+	//Получаем поля о пользователе и контрагенте
 	$Customer = new Customers();
 	$Customer->SetFieldsById($id_customer);
+	$customer_data = $Customer->fields;
 	//Получаем контрагента
 	$Contragent = new Contragents();
 	$Contragent->SetFieldsById(isset($id_contragent)?$id_contragent:null);
-	//Получаем поля о пользователе и контрагенте
-	$customer_data = $Customer->fields;
 	$contragent_data = $Contragent->fields;
 	//и ривязываем их к данным о заказе
 	$orders_data[$order_id]['customer_data'] = $customer_data;

@@ -227,18 +227,24 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					list($err, $errm) = Change_Info_validate();
 					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
 					if($unique_phone === true){
+						$string_phone = preg_replace('~[^0-9]+~','', $_POST['phone']);
+						if( strlen($string_phone) == 10){
+							$phone_num = 38 + $string_phone;
+						}elseif(strlen($string_phone) == 12) {
+							$phone_num = $string_phone;
+						}
 						$data = array(
 							'name' => $_POST['name'],
 							'passwd' => $pass = G::GenerateVerificationCode(6),
 							'descr' => 'Пользователь создан автоматически при загрузке сметы',
-							'phone' => $_POST['phone']
+							'phone' => $phone_num
 						);
 						// регистрируем нового пользователя
 						if($Customers->RegisterCustomer($data)){
 							$Users->SendPassword($data['passwd'], $data['phone']);
 						}
 						$data = array(
-							'email' => $_POST['phone'],
+							'email' => $phone_num,
 							'passwd' => $pass
 						);
 						// авторизуем клиента в его новый аккаунт
@@ -249,7 +255,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['status'] = 1;
 						}
 					} else {
-						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! Авторизуйтесь!';
+						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! <a href="#" class="btn_js" data-name="auth">Авторизуйтесь!</a>';
 						$res['status'] = 2;
 					}
 				}
@@ -271,20 +277,108 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 									// Если все загружено на сервер, выполнить запись в БД
 									$file = '/'.$folder_name.$_FILES['file']['name'];
 									$Product->UploadEstimate($file, $_POST['comment']);
-									$res['message'] = 'Загрузка прошла успешно';
+									$res['message'] = '<h4>Загрузка прошла успешно!</h4><p>Загрузка сметы доступна только зарегестрированным пользователям.</p><br><p>Поэтому для Вас был создан аккаунт на сайте <span class="bold_text">xt.ua</span>.</p><br><p>На указанный при загрузке сметы номер телефона <span class="bold_text">'.$_POST['phone'].'</span> отправлено <span class="bold_text">смс-сообщение</span> с временным паролем для входа в личный кабинет.</p><br><p>Перейдите в свой <a href="'.Link::Custom('cabinet', 'settings', array('clear' => true)).'?t=password"><span class="bold_text">личный кабинет</span></a> для смены временного пароля на постоянный.</p>';
 									$res['status'] = 1;
 								} else{
-									$res['message'] = 'Произошла ошибка. Повторите попытку позже!';
+									$res['message'] = '<h4>Произошла ошибка.</h4><p>Повторите попытку позже!</p>';
 									$res['status'] = 4;
 								}
 							}
-						} else{
+						}else{
 							$res['message'] = 'Файл не был загружен!';
 							$res['status'] = 5;
 						}
 					}
 				}
 				echo json_encode($res);
+				break;
+			case 'priceHelp':
+				$Products = new Products();
+				$Products->SetFieldsById($_POST['id_product']);
+				$product = $Products->fields;
+				$opt_corrections = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
+				$mopt_corrections = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['mopt_correction_set']]);
+				$helper = '	<div class="prices_table_title">
+								<h4>Система скидок</h4>
+							</div>
+							<table class="prices_table">
+								<tr>
+									<th colspan="3">Покупка от '.$product['inbox_qty'].' '.$product['units'].'</th>
+								</tr>
+								<tr>
+									<th class="title_column">Сумма заказа</th>
+									<th>Цена, грн</th>
+									<th>Скидка, %</th>
+								</tr>
+								<tr>
+									<td class="title_column">Партнерская (более '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_opt'][0], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[0]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Диллерская (от '.$GLOBALS['CONFIG']['wholesale_order_margin'].' до '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_opt'][1], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[1]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Оптовая (от '.$GLOBALS['CONFIG']['retail_order_margin'].' до '.$GLOBALS['CONFIG']['wholesale_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_opt'][2], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[2]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Розничная (до '.$GLOBALS['CONFIG']['retail_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_opt'][3], 2, ",", "").'</td>
+									<td>'.(100-$opt_corrections[3]*100).'</td>
+								</tr>
+							</table>
+							<table class="prices_table">
+								<tr>
+									<th colspan="3">Покупка от '.$product['min_mopt_qty'].' '.$product['units'].'</th>
+								</tr>
+								<tr>
+									<th class="title_column">Сумма заказа</th>
+									<th>Цена, грн</th>
+									<th>Скидка, %</th>
+								</tr>
+								<tr>
+									<td class="title_column">Партнерская (более '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_mopt'][0], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[0]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Диллерская (от '.$GLOBALS['CONFIG']['wholesale_order_margin'].' до '.$GLOBALS['CONFIG']['full_wholesale_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_mopt'][1], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[1]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Оптовая (от '.$GLOBALS['CONFIG']['retail_order_margin'].' до '.$GLOBALS['CONFIG']['wholesale_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_mopt'][2], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[2]*100).'</td>
+								</tr>
+								<tr>
+									<td class="title_column">Розничная (до '.$GLOBALS['CONFIG']['retail_order_margin'].' грн.)</td>
+									<td>'.number_format($product['prices_mopt'][3], 2, ",", "").'</td>
+									<td>'.(100-$mopt_corrections[3]*100).'</td>
+								</tr>
+							</table>
+							<table class="bonus_table">
+								<tr>
+									<th colspan="3">Бонусная программа</th>
+								</tr>
+								<tr>
+									<td>акривируй бонусную програму получи 20 грн</td>
+								</tr>
+								<tr>
+									<td>1% от суммы заказа - постояно</td>
+								</tr>
+								<tr>
+									<td>2% от суммы заказа - на второй заказ в течении 30 дней</td>
+								</tr>
+								<tr>
+									<td>3% от суммы заказа - на третий и более заказ в течении 30 дней</td>
+								</tr>
+							</table>';
+				echo $helper;
 				break;
 			default:
 				break;
