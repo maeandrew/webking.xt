@@ -2296,10 +2296,10 @@ $(function(){
 	});
 
 	// Страница товара - Плавный переход к карусели "похожие товары"
-	$('body').on('click', '.anchor_link_js', function (event){
-		event.preventDefault();
-		var id = $(this).attr('href'),
-			top = $(id).offset().top - 40;
-		$('body,html').animate({scrollTop: top}, 1000);
-	});
+	// $('body').on('click', '.anchor_link_js', function (event){
+	// 	event.preventDefault();
+	// 	var id = $(this).attr('href'),
+	// 		top = $(id).offset().top - 40;
+	// 	$('body,html').animate({scrollTop: top}, 1000);
+	// });
 });

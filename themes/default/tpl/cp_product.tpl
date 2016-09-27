@@ -177,7 +177,7 @@
 										<!-- Ссылка на редактирование товара для администратором -->
 										<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 									<?}?>
-									<div><?=isset($item['active']) && $item['active'] == 1?'В наличии':'Нет в наличии';?></div>
+									<div><?=isset($item['active']) && $item['active'] == 1?'Есть в наличии':'Нет в наличии';?></div>
 									<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 										<?if($item['c_mark'] > 0){?>
 											<meta itemprop="worstRating" content="1">
@@ -232,6 +232,7 @@
 															<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 														<?}?>
 													</div>
+													
 													<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 												</div>
 
@@ -245,7 +246,6 @@
 												</div>
 												<!-- <span> грн.</span> -->
 											</div>
-
 											<div class="prodBasePrices hidden">
 												<?for($i = 0; $i < 4; $i++){?>
 													<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
@@ -320,7 +320,7 @@
 										</div>
 									</div>
 								<?}?>
-								<div class="notificationProdNote <?=isset($item['note_control']) && $item['note_control'] == 0 ? 'hidden' : ''?>">
+								<div class="notificationProdNote <?=isset($item['note_control']) && $item['note_control'] == 0 ? 'hidden' : ''?> hidden">
 									<span>Данный товар имеет дополнительные конфигурации (цвет, материал и тд.). Укажите свои пожелания к товару в поле "Примечание" при оформлении заказа в корзине.</span>
 								</div>
 							</div>
@@ -378,12 +378,12 @@
 				</div>
 				<div class="mdl-cell mdl-cell--5-col">
 					<div class="similar_products_mini">
-						<?if(isset($item['active']) && $item['active'] == 0){
+						<?if(isset($item['active']) && $item['active'] != 0){
 							if(isset($random_products) && !empty($random_products)){?>
 								<h4>Похожие товары</h4>
 								<?$iter = 0?>
 								<?foreach($random_products as $p){?>
-									<?if($iter != 2){?>
+									<?if($iter != 5){?>
 										<div class="item">
 											<a href="<?=Link::Product($p['translit']);?>">
 												<div class="img_cont">
@@ -426,7 +426,7 @@
 									}?>
 								<?}?>
 								<div class="more_items_link">
-									<a class="anchor_link_js" href="#similar_products">Посмотреть все похожие предложения</a>
+									<a class="anchor_link_js" href="<?=$GLOBALS['IERA_LINKS'][count($GLOBALS['IERA_LINKS']) - 1]['url']?>">Посмотреть все похожие предложения</a>
 								</div>
 							<?}
 						}else{?>
@@ -464,167 +464,167 @@
 				</div>
 			<?}?>
 		</div>
-	</div>
-	<div class="mdl-tabs mdl-js-tabs product_tabs">
-		<div class="fortabs">
-			<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
-				<a href="#description" class="mdl-tabs__tab fortabs_tab is-active">Описание</a>
-				<a href="#specifications" class="mdl-tabs__tab fortabs_tab">Характеристики</a>
-				<a href="#comments" class="mdl-tabs__tab fortabs_tab">Отзывы и вопросы</a>
-				<a href="#seasonality" class="mdl-tabs__tab fortabs_tab seasonality_js">График спроса</a>
-			</div>
-		</div>
-		<div class="tab-content">
-			<div id="description" class="mdl-tabs__panel is-active">
-				<?if(!empty($item['descr_xt_full'])){?>
-					<p itemprop="description"><?=$item['descr_xt_full']?></p>
-				<?}else if(!empty($item['descr'])){?>
-					<p itemprop="description"><?=$item['descr']?></p>
-				<?}else{?>
-					<p>К сожалению описание товара временно отсутствует.</p>
-				<?}?>
-			</div>
-			<div id="specifications" class="mdl-tabs__panel">
-				<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
-					<?foreach($item['specifications'] as $s){?>
-						<div class="mdl-grid">
-							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['caption']?>:</div>
-							<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
-						</div>
-					<?}?>
-				<?}else{?>
-					<p>К сожалению характеристики товара временно отсутствует.</p>
-				<?}?>
-			</div>
-			<div id="comments" class="mdl-tabs__panel">
-				<?if(!G::isLogged()){?>
-					<div class="for_anonim">Хотите оставить отзыв о товаре? <a href="#" class="btn_js" data-name="auth">Ввойдите в свой аккаунт</a>.</div>
-				<?}else{?>
-					<div class="feedback_form">
-						<h4>Оставить отзыв о товаре</h4>
-						<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
-							<div class="feedback_stars">
-								<label class="label_for_stars">Оценка:</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="1">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="2">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="3">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="4">
-									<i class="star material-icons">star_border</i>
-								</label>
-								<label>
-									<input type="radio" name="rating" class="set_rating hidden" value="5">
-									<i class="star material-icons">star_border</i>
-								</label>
-							</div>
-							<label for="feedback_text">Отзыв:</label>
-							<textarea name="feedback_text" id="feedback_text" cols="30" required></textarea>
-							<div class="user_data <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'hidden';?>">
-								<div class="fild_wrapp">
-									<label for="feedback_author">Ваше имя:</label>
-									<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
-								</div>
-								<div class="fild_wrapp">
-									<label for="feedback_authors_email">Эл.почта:</label>
-									<input type="email" name="feedback_authors_email" id="feedback_authors_email" value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
-								</div>
-							</div>
-							<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Отправить отзыв</button>
-						</form>
-					</div>
-				<?}?>
-				<div class="feedback_container">
-					<?if(empty($comment)){?>
-						<p class="feedback_comment">Ваш отзыв может быть первым!</p>
-					<?}else{?>
-						<h4>Отзывы клиентов</h4>
-						<?foreach($comment as $i){
-							if(_acl::isAdmin() || $i['visible'] == 1 || ($i['visible'] == 0 && isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $i['id_author'])){?>
-								<div class="feedback_item feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
-									<?=$i['visible'] == 0?'<span class="feedback_hidden">'.(_acl::isAdmin()?'Скрытый':'На модерации').'</span>':null;?>
-									<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
-									<span id="isBought_<?=$i['Id_coment']?>" class="isBought <?=$i['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
-									<div class="mdl-tooltip" for="isBought_<?=$i['Id_coment']?>">Клиент купил<br>данный товар</div>
-								<!-- 	<span class="isAdmin <?=$i['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$i['Id_coment']?>" class="material-icons">vpn_key</i></span>
-									<div class="mdl-tooltip" for="is_admin_<?=$i['Id_coment']?>">Администратор</div> -->
-
-									<span class="feedback_date"><i class="material-icons">query_builder</i>
-										<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($i['date_comment']))?>">
-										<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
-											Сегодня
-										<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
-											Вчера
-										<?}else{
-											echo date("d.m.Y", strtotime($i['date_comment']));
-										}?>
-									</span>
-									<?if($i['rating'] > 0){?>
-										<div class="feedback_rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-											<meta itemprop="worstRating" content="1">
-											<meta itemprop="bestRating" content="5">
-											<span class="hidden" itemprop="ratingValue"><?=$i['rating']?></span>
-											Оценка товара:
-											<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
-												<?for($j = 1; $j <= 5; $j++){
-													$star = 'star';
-													if($j > floor($i['rating'])){
-														if($j == ceil($i['rating'])){
-															$star .= '_half';
-														}else{
-															$star .= '_border';
-														}
-													}?>
-													<li><i class="material-icons"><?=$star?></i></li>
-												<?}?>
-											</ul>
-										</div>
-									<?}?>
-									<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
-									<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-isauthorized="<?=G::isLogged()?'true':'false';?>" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
-									<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
-
-									<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
-										<?foreach($i['answer'] as $a){?>
-											<div class="feedback_item feedback_reply feedback_item_js<?=(_acl::isAdmin() || $a['visible'] == 1 || ($a['visible'] == 0 && isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $a['id_author']))?null:' hidden';?>" itemprop="review" itemscope itemtype="http://schema.org/Review">
-												<?=$a['visible'] == 0?'<span class="feedback_hidden">'.(_acl::isAdmin()?'Скрытый':'На модерации').'</span>':null;?>
-												<span class="feedback_author" itemprop="author"><?=isset($a['name'])?$a['name']:'Аноним'?></span>
-												<span id="isBought_<?=$a['Id_coment']?>" class="isBought <?=$a['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
-												<div class="mdl-tooltip" for="isBought_<?=$a['Id_coment']?>">Клиент купил<br>данный товар</div>
-												<!-- 	<span class="isAdmin <?=$a['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$a['Id_coment']?>" class="material-icons">vpn_key</i></span>
-												<div class="mdl-tooltip" for="is_admin_<?=$a['Id_coment']?>">Администратор</div> -->
-												<span class="feedback_date"><i class="material-icons">query_builder</i>
-													<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($a['date_comment']))?>">
-													<?if(date("d") == date("d", strtotime($a['date_comment']))){?>
-														Сегодня
-													<?}elseif(date("d")-1 == date("d", strtotime($a['date_comment']))){?>
-														Вчера
-													<?}else{
-														echo date("d.m.Y", strtotime($a['date_comment']));
-													}?>
-												</span>
-												<p class="feedback_comment" itemprop="description"><?=$a['text_coment'];?></p>
-											</div>
-										<?}?>
-									<?}?>
-								</div>
-							<?}
-						}
-					}?>
+		<div class="mdl-tabs mdl-js-tabs product_tabs mdl-grid">
+			<div class="fortabs">
+				<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
+					<a href="#description" class="mdl-tabs__tab fortabs_tab is-active">Описание</a>
+					<a href="#specifications" class="mdl-tabs__tab fortabs_tab">Характеристики</a>
+					<a href="#comments" class="mdl-tabs__tab fortabs_tab">Отзывы / вопросы</a>
+					<a href="#seasonality" class="mdl-tabs__tab fortabs_tab seasonality_js">График спроса</a>
 				</div>
 			</div>
-			<div id="seasonality" class="mdl-tabs__panel seasonality">
-				<!-- <a href="<?=_base_url.$_SERVER['REQUEST_URI']?>" target="demand_graph">Обновить</a> -->
-				<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
-				<input type="hidden" name="par_lvl" value="<?=end($GLOBALS['IERA_LINKS'])['title']?>">
+			<div class="tab-content">
+				<div id="description" class="mdl-tabs__panel is-active">
+					<?if(!empty($item['descr_xt_full'])){?>
+						<p itemprop="description"><?=$item['descr_xt_full']?></p>
+					<?}else if(!empty($item['descr'])){?>
+						<p itemprop="description"><?=$item['descr']?></p>
+					<?}else{?>
+						<p>К сожалению описание товара временно отсутствует.</p>
+					<?}?>
+				</div>
+				<div id="specifications" class="mdl-tabs__panel">
+					<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
+						<?foreach($item['specifications'] as $s){?>
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['caption']?>:</div>
+								<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone"><?=$s['value'].(isset($s['units'])?' '.$s['units']:null)?></div>
+							</div>
+						<?}?>
+					<?}else{?>
+						<p>К сожалению характеристики товара временно отсутствует.</p>
+					<?}?>
+				</div>
+				<div id="comments" class="mdl-tabs__panel">
+					<?if(!G::isLogged()){?>
+						<div class="for_anonim">Хотите оставить отзыв о товаре? <a href="#" class="btn_js" data-name="auth">Ввойдите в свой аккаунт</a>.</div>
+					<?}else{?>
+						<div class="feedback_form">
+							<h4>Оставить отзыв о товаре</h4>
+							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" onsubmit="onCommentSubmit()">
+								<div class="feedback_stars">
+									<label class="label_for_stars">Оценка:</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="1">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="2">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="3">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="4">
+										<i class="star material-icons">star_border</i>
+									</label>
+									<label>
+										<input type="radio" name="rating" class="set_rating hidden" value="5">
+										<i class="star material-icons">star_border</i>
+									</label>
+								</div>
+								<label for="feedback_text">Отзыв:</label>
+								<textarea name="feedback_text" id="feedback_text" cols="30" required></textarea>
+								<div class="user_data <?=(!isset($_SESSION['member']['id_user']) || $_SESSION['member']['id_user'] == 4028)?null:'hidden';?>">
+									<div class="fild_wrapp">
+										<label for="feedback_author">Ваше имя:</label>
+										<input type="text" name="feedback_author" id="feedback_author" required value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['name']:null;?>">
+									</div>
+									<div class="fild_wrapp">
+										<label for="feedback_authors_email">Эл.почта:</label>
+										<input type="email" name="feedback_authors_email" id="feedback_authors_email" value="<?=isset($_SESSION['member']) && $_SESSION['member']['id_user'] != 4028?$_SESSION['member']['email']:null;?>">
+									</div>
+								</div>
+								<button type="submit" name="sub_com" class="mdl-button mdl-js-button">Отправить отзыв</button>
+							</form>
+						</div>
+					<?}?>
+					<div class="feedback_container">
+						<?if(empty($comment)){?>
+							<p class="feedback_comment">Ваш отзыв может быть первым!</p>
+						<?}else{?>
+							<h4>Отзывы клиентов</h4>
+							<?foreach($comment as $i){
+								if(_acl::isAdmin() || $i['visible'] == 1 || ($i['visible'] == 0 && isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $i['id_author'])){?>
+									<div class="feedback_item feedback_item_js" itemprop="review" itemscope itemtype="http://schema.org/Review">
+										<?=$i['visible'] == 0?'<span class="feedback_hidden">'.(_acl::isAdmin()?'Скрытый':'На модерации').'</span>':null;?>
+										<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
+										<span id="isBought_<?=$i['Id_coment']?>" class="isBought <?=$i['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
+										<div class="mdl-tooltip" for="isBought_<?=$i['Id_coment']?>">Клиент купил<br>данный товар</div>
+									<!-- 	<span class="isAdmin <?=$i['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$i['Id_coment']?>" class="material-icons">vpn_key</i></span>
+										<div class="mdl-tooltip" for="is_admin_<?=$i['Id_coment']?>">Администратор</div> -->
+
+										<span class="feedback_date"><i class="material-icons">query_builder</i>
+											<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($i['date_comment']))?>">
+											<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
+												Сегодня
+											<?}elseif(date("d")-1 == date("d", strtotime($i['date_comment']))){?>
+												Вчера
+											<?}else{
+												echo date("d.m.Y", strtotime($i['date_comment']));
+											}?>
+										</span>
+										<?if($i['rating'] > 0){?>
+											<div class="feedback_rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+												<meta itemprop="worstRating" content="1">
+												<meta itemprop="bestRating" content="5">
+												<span class="hidden" itemprop="ratingValue"><?=$i['rating']?></span>
+												Оценка товара:
+												<ul class="rating_stars" title="<?=$item['c_rating'] != ''?'Оценок: '.$item['c_mark']:'Нет оценок'?>">
+													<?for($j = 1; $j <= 5; $j++){
+														$star = 'star';
+														if($j > floor($i['rating'])){
+															if($j == ceil($i['rating'])){
+																$star .= '_half';
+															}else{
+																$star .= '_border';
+															}
+														}?>
+														<li><i class="material-icons"><?=$star?></i></li>
+													<?}?>
+												</ul>
+											</div>
+										<?}?>
+										<p class="feedback_comment" itemprop="description"><?=$i['text_coment'];?></p>
+										<a href="#" class="feedback_comment_reply feedback_comment_reply_js" data-lvl-reply="1" data-isauthorized="<?=G::isLogged()?'true':'false';?>" data-action="<?=$_SERVER['REQUEST_URI']?>" data-idComment="<?=$i['Id_coment']?>"><i class="material-icons">reply</i><span>Ответить</span></a>
+										<a href="#" class="comment_reply_cancel_js hidden"><span>Отмена</span></a>
+
+										<?if(isset($i['answer']) && is_array($i['answer']) && !empty($i['answer'])){?>
+											<?foreach($i['answer'] as $a){?>
+												<div class="feedback_item feedback_reply feedback_item_js<?=(_acl::isAdmin() || $a['visible'] == 1 || ($a['visible'] == 0 && isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $a['id_author']))?null:' hidden';?>" itemprop="review" itemscope itemtype="http://schema.org/Review">
+													<?=$a['visible'] == 0?'<span class="feedback_hidden">'.(_acl::isAdmin()?'Скрытый':'На модерации').'</span>':null;?>
+													<span class="feedback_author" itemprop="author"><?=isset($a['name'])?$a['name']:'Аноним'?></span>
+													<span id="isBought_<?=$a['Id_coment']?>" class="isBought <?=$a['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
+													<div class="mdl-tooltip" for="isBought_<?=$a['Id_coment']?>">Клиент купил<br>данный товар</div>
+													<!-- 	<span class="isAdmin <?=$a['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$a['Id_coment']?>" class="material-icons">vpn_key</i></span>
+													<div class="mdl-tooltip" for="is_admin_<?=$a['Id_coment']?>">Администратор</div> -->
+													<span class="feedback_date"><i class="material-icons">query_builder</i>
+														<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($a['date_comment']))?>">
+														<?if(date("d") == date("d", strtotime($a['date_comment']))){?>
+															Сегодня
+														<?}elseif(date("d")-1 == date("d", strtotime($a['date_comment']))){?>
+															Вчера
+														<?}else{
+															echo date("d.m.Y", strtotime($a['date_comment']));
+														}?>
+													</span>
+													<p class="feedback_comment" itemprop="description"><?=$a['text_coment'];?></p>
+												</div>
+											<?}?>
+										<?}?>
+									</div>
+								<?}
+							}
+						}?>
+					</div>
+				</div>
+				<div id="seasonality" class="mdl-tabs__panel seasonality">
+					<!-- <a href="<?=_base_url.$_SERVER['REQUEST_URI']?>" target="demand_graph">Обновить</a> -->
+					<!-- <script type="text/javascript" src="//www.google.com.ua/trends/embed.js?hl=ru&q=[intertool,intex]&geo=UA&date=today+30-d&cmpt=q&tz=Etc/GMT-2&tz=Etc/GMT-2&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=653&h=600"></script> -->
+					<input type="hidden" name="par_lvl" value="<?=end($GLOBALS['IERA_LINKS'])['title']?>">
+				</div>
 			</div>
 		</div>
 	</div>
