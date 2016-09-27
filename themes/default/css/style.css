@@ -1700,6 +1700,7 @@ section .stat_year {
 }
 .content_header .cart_info .tabs_container li {
 	display: inline-block;
+	width: 80px;
 	font-size: 14px;
 	border: 1px solid #e5e5e5;
 	border-right-width: 0;
