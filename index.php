@@ -86,7 +86,7 @@ if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'
 // Выборка просмотренных товаров
 if(isset($_COOKIE['view_products'])){
 	foreach(json_decode($_COOKIE['view_products']) as $value){
-		$Products->SetFieldsById($value);
+		$Products->SetFieldsById($value, 1, 1);
 		$product = $Products->fields;
 		if(isset($product['id_product']) && $product['id_product'] != ''){
 			$product['images'] = $Products->GetPhotoById($product['id_product']);

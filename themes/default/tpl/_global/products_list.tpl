@@ -99,6 +99,8 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								</div>
 								<div class="product_price">
 									<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+									<i id="price_help_<?=$item['id_product'];?>" class="material-icons price_help price_help_js btn_js" data-name="price_details">&#xE8FD;</i>
+								<div class="mdl-tooltip" for="price_help_<?=$item['id_product'];?>">Подробнее о цене</div>
 								</div>
 								<div class="prodBasePrices hidden">
 									<?for($i = 0; $i < 4; $i++){?>

@@ -930,9 +930,9 @@ $(function(){
 
 	// Обработка примечания
 	$('.note textarea').on('blur', function(){
-		$(this).css({
-			height: '30px'
-		});
+		// $(this).css({
+		// 	height: '30px'
+		// });
 		// var id = $(this).closest('form.note').attr('data-note'),
 		// 	note = $(this).val();
 		// ajax('cart', "update_note",{"id_product": id, "note": note});
@@ -2296,10 +2296,10 @@ $(function(){
 	});
 
 	// Страница товара - Плавный переход к карусели "похожие товары"
-	$('body').on('click', '.anchor_link_js', function (event){
-		event.preventDefault();
-		var id = $(this).attr('href'),
-			top = $(id).offset().top - 40;
-		$('body,html').animate({scrollTop: top}, 1000);
-	});
+	// $('body').on('click', '.anchor_link_js', function (event){
+	// 	event.preventDefault();
+	// 	var id = $(this).attr('href'),
+	// 		top = $(id).offset().top - 40;
+	// 	$('body,html').animate({scrollTop: top}, 1000);
+	// });
 });
