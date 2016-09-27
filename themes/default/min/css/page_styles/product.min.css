@@ -70,6 +70,7 @@
 .product .product_content_wrap .products_details .note textarea{width:100%;height:70px;max-height:90px;margin:0;margin-bottom:10px}
 .product .no_active_product_block .product_content_wrap .product_buy .buy_block .btn_buy button{background:#858585}
 .product .no_active_product_block .product_content_wrap .qty_buy::after{content:'';display:block;width:100%;height:80px;position:absolute;background:0 0;z-index:10000}
+.apps_panel{clear:both}
 .apps_panel ul{display:flex;justify-content:space-between}
 .apps_panel ul li{cursor:pointer;outline:0;padding:0 20px;background:#fff;color:#9e9e9e;border-radius:3px;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .apps_panel ul li:hover{background:#018b06;color:#fff}

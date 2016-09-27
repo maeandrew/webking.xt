@@ -347,6 +347,9 @@
 	background: transparent;
 	z-index: 10000;
 }
+.apps_panel{
+	clear: both;
+}
 .apps_panel ul{
 	display: flex;
 	justify-content: space-between;
