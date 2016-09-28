@@ -566,7 +566,7 @@
 						<h4>Похожие товары</h4>
 						<?$iter = 0?>
 						<?foreach($random_products as $p){?>
-							<?if($iter != 4){?>
+							<?if($iter != 8){?>
 								<div class="item">
 									<a href="<?=Link::Product($p['translit']);?>">
 										<div class="img_cont">
@@ -622,7 +622,6 @@
 					</div>
 				<?}?>
 			</div>
-
 			<div class="advantage_block">
 				<h4>Конкурентные преимущества</h4>
 				<ol>
