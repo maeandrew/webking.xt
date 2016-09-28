@@ -6,9 +6,9 @@
 	$Page->PagesList();
 	$tpl->Assign('list_menu', $Page->list);
 
-	$products = new Products();
+	$Products = new Products();
 
-	$plist = $products->SetProductsList4csv();
+	$plist = $Products->SetProductsList4csv();
 
 header("Content-type: application/csv; charset=Windows-1251");
 header("Content-Disposition: attachment; filename=fishing.csv");

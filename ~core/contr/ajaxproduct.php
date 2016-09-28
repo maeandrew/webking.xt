@@ -1,15 +1,15 @@
 <?if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	header('Content-Type: text/javascript; charset=utf-8');
-	$products = new Products();
+	$Products = new Products();
 	$Customer = new Customers();
 	$User = new Users();
 	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
 	if(isset($_POST['action']))
 		switch($_POST['action']){
 			case "get_array_product":
-				$products->SetFieldsById($_POST['id_product']);
-				$prod = $products->fields;
-				$prod['images'] = $products->GetPhotoById($prod['id_product']);
+				$Products->SetFieldsById($_POST['id_product']);
+				$prod = $Products->fields;
+				$prod['images'] = $Products->GetPhotoById($prod['id_product']);
 				$rating_stars = '';
 				for($i = 1; $i <= 5; $i++){
 					$star = 'star';

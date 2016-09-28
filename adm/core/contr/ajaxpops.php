@@ -4,8 +4,8 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 {
 
 	header('Content-Type: text/javascript; charset=utf-8');
-	
-	$Product = new Products();
+
+	$Products = new Products();
 	if (isset($_POST['action'])){
 
 		if($_POST['action']=="clear"){
@@ -22,14 +22,14 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH']
 			}
 			$t = ob_get_clean();
 			G::LogerE($t, "ajax.html", "w");
-			/*				
+			/*
 			ob_start();
 			$t = ob_get_clean();
 			G::LogerE($t, "ajax.html", "w");
 			*/
 			$arr['id_product'] = $_POST["id_product"];
 			$arr['id_category'] = $_POST["id_category"];
-			
+
 			$txt = json_encode($arr);
 			echo $txt;
 			exit();

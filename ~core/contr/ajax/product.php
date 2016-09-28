@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	header('Content-Type: text/javascript; charset=utf-8');
-	$products = new Products();
+	$Products = new Products();
 	$Customer = new Customers();
 	$User = new Users();
 	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
@@ -9,36 +9,36 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'AddToAssort':
 				if(isset($_POST['id_product'])){
-					$res = $products->AddToAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
+					$res = $Products->AddToAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
 					echo json_encode($res);
 				}
 				break;
 			case 'UpdateAssort':
 				if(isset($_POST['id_product'])){
-					$res = $products->UpdateAssort($_POST);
+					$res = $Products->UpdateAssort($_POST);
 					echo json_encode($res);
 				}
 				break;
 			case 'DelFromAssort':
 				if(isset($_POST['id_product'])){
-					$products->DelFromAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
+					$Products->DelFromAssort($_POST['id_product'], isset($_POST['id_supplier'])?$_POST['id_supplier']:$_SESSION['member']['id_user']);
 					$arr['id_product'] = $_POST['id_product'];
 					echo json_encode($arr);
 				}
 				break;
 			case 'GetPreview':
 				$id_product = $_POST['id_product'];
-				$products->SetFieldsById($id_product);
+				$Products->SetFieldsById($id_product);
 				unset($parsed_res);
 				if(isset($_SESSION['member'])){
 					$User->SetUser($_SESSION['member']);
 				}
 				$tpl->Assign('User', $User->fields['name']);
 
-				$product = $products->fields;
-				$product['specifications'] = $products->GetSpecificationList($id_product);
-				$product['images'] = $products->GetPhotoById($id_product);
-				$product['videos'] = $products->GetVideoById($id_product);
+				$product = $Products->fields;
+				$product['specifications'] = $Products->GetSpecificationList($id_product);
+				$product['images'] = $Products->GetPhotoById($id_product);
+				$product['videos'] = $Products->GetVideoById($id_product);
 				$tpl->Assign('product', $product);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'preview.tpl');
 				break;
@@ -169,32 +169,32 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($data);
 				break;
 			case 'SaveDemandChart':
-				echo json_encode($products->AddDemandCharts($_POST));
+				echo json_encode($Products->AddDemandCharts($_POST));
 				break;
 			case 'SearchDemandChart':
-				$values = $products->SearchDemandChart($_POST['id_chart']);
+				$values = $Products->SearchDemandChart($_POST['id_chart']);
 				$tpl->Assign('values', $values);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl');
-				//echo json_encode($products->SearchDemandChart($_POST['id_chart']));
+				//echo json_encode($Products->SearchDemandChart($_POST['id_chart']));
 				break;
 			case 'OpenModalDemandChart':
 				if(isset($_POST['id_category'])){
-					if($values = $products->GetGraphList($_POST['id_category'], $_SESSION['member']['id_user'])) $tpl->Assign('values', $values);
+					if($values = $Products->GetGraphList($_POST['id_category'], $_SESSION['member']['id_user'])) $tpl->Assign('values', $values);
 				}
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'chart.tpl');
 				break;
 			case 'UpdateDemandChart':
 				if(isset($_POST['moderation'])){
 					$mode = true;
-					echo json_encode($products->UpdateDemandChart($_POST, $mode));
+					echo json_encode($Products->UpdateDemandChart($_POST, $mode));
 				}else{
-					echo json_encode($products->UpdateDemandChartNoModeration($_POST));
+					echo json_encode($Products->UpdateDemandChartNoModeration($_POST));
 				}
 				break;
 			case 'ChartsByCategory':
 				if(isset($_POST['id_category'])){
 					$html = '';
-					$charts = $products->GetAllChartsByCategory($_POST['id_category']);
+					$charts = $Products->GetAllChartsByCategory($_POST['id_category']);
 					foreach($charts as $key => $chart){
 						$isActive = isset($_SESSION['member']) && $_SESSION['member']['id_user'] == $chart[0]['id_author']?'active':null;
 						$html .= '<div class="chart_item mdl-cell mdl-cell--6-col '.$isActive.'">';
@@ -218,7 +218,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				break;
 			case 'AddEstimate':
-				$Product = new Products();
 				//Проверка данных пользователя
 				if(!G::IsLogged()){
 					$Users = new Users();
@@ -293,7 +292,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'priceHelp':
-				$Products = new Products();
 				$Products->SetFieldsById($_POST['id_product']);
 				$product = $Products->fields;
 				$opt_corrections = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
@@ -445,7 +443,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								</tr>
 							</table>';
 				echo isset($_POST['mark']) && $_POST['mark'] == 1 ? $producthelper : $helper ;
-				
+
 				break;
 			default:
 				break;

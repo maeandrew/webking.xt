@@ -1,8 +1,8 @@
 <?php
 unset($parsed_res);
-$products = new Products();
+$Products = new Products();
 ini_set('memory_limit', '400M');
-$plist = $products->SetProductsList4csvProm();
+$plist = $Products->SetProductsList4csvProm();
 header("Content-type: application/csv; charset=utf-8");
 header("Content-Disposition: attachment; filename=prom_ua.csv");
 header("Pragma: no-cache");

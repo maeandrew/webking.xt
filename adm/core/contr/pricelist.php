@@ -2,14 +2,14 @@
 if(!_acl::isAllow('pricelist')){
 	die("Access denied");
 }
-$products = new Products();
+$Products = new Products();
 unset($parsed_res);
 $tpl->Assign('h1', 'Прайс-листы');
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Прайс-листы";
 if(isset($_POST['smb']) === true){
 }
-$tpl->Assign('list', $products->GetPricelistFullList());
+$tpl->Assign('list', $Products->GetPricelistFullList());
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_pricelist.tpl'));

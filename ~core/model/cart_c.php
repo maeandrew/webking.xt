@@ -13,9 +13,9 @@ class Cart {
 
 	// добавление товара в корзину или изменение его количества
 	public function UpdateCartQty($data){
-		$products = new Products();
-		$products->SetFieldsById($data['id_product'], 1);
-		$product = $products->fields;
+		$Products = new Products();
+		$Products->SetFieldsById($data['id_product'], 0);
+		$product = $Products->fields;
 		if($product['price_mopt'] == 0){
 			$product['min_mopt_qty'] = $product['inbox_qty'];
 		}

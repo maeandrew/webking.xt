@@ -25,12 +25,12 @@ if(!count($Supplier->fields)){
 	header('Location: /404/');
 	exit(0);
 }
-$products = new Products();
-$products->SetProductsList(array('a.id_supplier' => $Supplier->fields['id_user'], 'p.visible' => 1), '', array('GROUP_BY' => 'p.id_product'));
-$products->FillAssort($id_supplier);
-$tpl->Assign('list', $products->list);
-$products->SetExclusivList($id_supplier);
-$tpl->Assign('exclusiv_list', $products->list);
+$Products = new Products();
+$Products->SetProductsList(array('a.id_supplier' => $Supplier->fields['id_user'], 'p.visible' => 1), '', array('GROUP_BY' => 'p.id_product'));
+$Products->FillAssort($id_supplier);
+$tpl->Assign('list', $Products->list);
+$Products->SetExclusivList($id_supplier);
+$tpl->Assign('exclusiv_list', $Products->list);
 $tpl->Assign('id_supplier', $id_supplier);
 if(!isset($_POST['smb'])){
 	foreach($Supplier->fields as $k=>$v){

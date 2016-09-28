@@ -5,8 +5,8 @@ unset($parsed_res);
 //$Page = new Page();
 //$Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
-$products = new Products();
-$plist = $products->SetProductsList4SuppliersCSV($_GET['orders'], $_GET['supplier']);
+$Products = new Products();
+$plist = $Products->SetProductsList4SuppliersCSV($_GET['orders'], $_GET['supplier']);
 foreach ($plist as $key => $row) {
 	$id_order[$key]  = $row['id_order'];
 	$art[$key] = $row['art'];

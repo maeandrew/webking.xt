@@ -6,13 +6,12 @@ unset($parsed_res);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Мониторинг";
 $tpl->Assign('h1', $GLOBALS['IERA_LINKS'][$ii]['title']);
-
+$Products = new Products();
 if(isset($GLOBALS['REQAR'][1])){
 	switch ($GLOBALS['REQAR'][1]){
 		case 'specifications':
 			$ii = count($GLOBALS['IERA_LINKS']);
 			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Характеристики";
-			$product = new Products();
 			$specification = new Specification();
 			// получить список категорий
 			$res = $specification->GetSpecsForCats();
@@ -56,12 +55,10 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $specification->list);
 			break;
 		case 'products':
-			$product = new Products();
-			// $product->
+			// $Products->
 			break;
 		case 'characteristics':
-			$product = new Products();
-			// $product->
+			// $Products->
 			break;
 		case 'ip_connections':
 			$where = '';
@@ -110,7 +107,6 @@ if(isset($GLOBALS['REQAR'][1])){
 					$where_art = ' AND art LIKE \''.trim($_POST['filter_art']).'\'';
 				}
 			}
-			$Products = new Products();
 			/*Pagination*/
 			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 				$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -133,7 +129,6 @@ if(isset($GLOBALS['REQAR'][1])){
 		case 'doubles_translit_products':
 			$ii = count($GLOBALS['IERA_LINKS']);
 			$GLOBALS['IERA_LINKS'][$ii]['title'] = "Дубли товаров";
-			$product = new Products();
 			/*Pagination*/
 			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 				$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -142,7 +137,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 					$_GET['page_id'] = $_POST['page_nbr'];
 				}
-				$cnt = count($product->GetDoublesProducts());
+				$cnt = count($Products->GetDoublesProducts());
 				$tpl->Assign('cnt', $cnt);
 				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -150,7 +145,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				$GLOBALS['Limit_db'] = 0;
 				$limit = '';
 			}
-			$double_prod = $product->GetDoublesProducts($limit, 'group by translit');
+			$double_prod = $Products->GetDoublesProducts($limit, 'group by translit');
 			$tpl->Assign('list', $double_prod);
 			break;
 		case 'err_feedback':
@@ -189,7 +184,6 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('list', $errors);
 			break;
 		case 'noprice_products':
-			$product = new Products();
 			/*Pagination*/
 			if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 				$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -198,7 +192,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 					$_GET['page_id'] = $_POST['page_nbr'];
 				}
-				$cnt = count($product->GetNopriceProducts());
+				$cnt = count($Products->GetNopriceProducts());
 				$tpl->Assign('cnt', $cnt);
 				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 				$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -206,7 +200,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				$GLOBALS['Limit_db'] = 0;
 				$limit = '';
 			}
-			$list = $product->GetNopriceProducts($limit);
+			$list = $Products->GetNopriceProducts($limit);
 			$tpl->Assign('list', $list);
 			break;
 		default:

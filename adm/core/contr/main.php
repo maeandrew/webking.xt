@@ -7,23 +7,23 @@ if($_SESSION['member']['gid'] == _ACL_REMOTE_CONTENT_){
 	exit;
 }
 $Page = new Page();
-$products = new Products();
+$Products = new Products();
 if(isset($_POST['name_index_status'])){
 	require_once($GLOBALS['PATH_model'].'morphy.functions.php');
-	$count = $products->GetCountNameIndex();
+	$count = $Products->GetCountNameIndex();
 	$total = 0;
 	foreach($count as $value){
 		$i = $value['id_product'];
-		$name = $products->GetName($i);
+		$name = $Products->GetName($i);
 		$name_index = Words2BaseForm($name);
-		$products->Morphy($i, $name_index);
+		$Products->Morphy($i, $name_index);
 		$total++;
 	}
 	echo "<script>alert('Обработано записей: ".$total.".');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 }
 // Пересчитать цены поставщиков по новому курсу
 if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
-	if($products->UpdatePriceSupplierAssortiment($_POST['kurs_griwni'])){
+	if($Products->UpdatePriceSupplierAssortiment($_POST['kurs_griwni'])){
 		echo "<script>alert('Цены пересчитаны');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Что-то пошло не так');</script>";
@@ -31,7 +31,7 @@ if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
 }
 // пересчитать все цены поставщиков
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'recalc_product_prices'){
-	if($products->UpdatePriceRecommendAssortment()){
+	if($Products->UpdatePriceRecommendAssortment()){
 		echo "<script>alert('Цены пересчитаны');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Что-то пошло не так');</script>";
@@ -39,7 +39,7 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'recalc_product_prices
 }
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'recalc_null'){
 	$db->StartTrans();
-	$products->Re_null();
+	$Products->Re_null();
 	$db->CompleteTrans();
 	echo "<script>alert('Нули удалены');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 }
@@ -235,7 +235,7 @@ $res = $db->GetOneRowArray($sql);
 $tpl->Assign("items_cnt", $res['cnt']);
 
 // get last article
-$tpl->Assign('last_article', $products->GetLastArticle());
+$tpl->Assign('last_article', $Products->GetLastArticle());
 
 // active products count
 $sql = "SELECT COUNT(DISTINCT a.id_product) AS cnt
