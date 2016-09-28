@@ -29,7 +29,7 @@
 	margin: 0;
 	color: #444;
 }
-.product_page .product.notactive .product_aside .advantage_block ol{
+.product_page .product .product_aside .advantage_block ol{
 	text-align: justify;
 }
 .product_page .product.notactive .product_aside .advantage_block,
@@ -91,6 +91,40 @@
 }
 .product_page .product.notactive .product_aside .similar_products_mini .extra_info_block{
 	min-height: 350px;
+}
+.product_page #price_details table {
+	margin-bottom: 1em;
+	width: 100%;
+}
+.product_page #price_details th {
+	font-weight: bold;
+	padding: .5em;
+	border: 1px solid #eeeeee;
+}
+.product_page #price_details td {
+	border: 1px solid #eee;
+	padding: 5px;
+}
+.product_page #price_details .prices_table td {
+	text-align: center;
+}
+.product_page #price_details .prices_table td span{
+	font-size: .9em;
+	color: #9e9e9e;
+	display: block;
+	font-style: italic;
+}
+.product_page #price_details .prices_table tr:nth-of-type(odd) {
+	background-color: #fafafa;
+}
+.product_page #price_details .prices_table_title p {
+	text-align: center;
+	font-weight: bold;
+}
+.product_page #price_details .prices_table .title_column {
+	width: 50%;
+	vertical-align: middle;
+	text-align: left;
 }
 .product_page .product .product_article {
 	color: #818181;
@@ -170,6 +204,25 @@
 .product_page .product .owl-carousel .owl-controls .owl-nav div svg {
 	height: 50px;
 	top: 85%;
+}
+/* Стили для слайдера миниатюр. ВИДЕО */
+.product_page .product .product_main_img #mainVideoBlock {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+}
+.product_page .product #owl-product_mini_img_js .videoBlock {
+	width: 120px;
+	height: 120px;
+}
+.product_page .product #owl-product_mini_img_js .videoBlock .videoBlockShield {
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	z-index: 100;
+	left: 0px;
+	top: 0px;
 }
 .product_page .slider_products {
 	padding: 10px;
@@ -706,32 +759,11 @@
 	margin-left: 5em;
 }
 
-
 /*Сезонность*/
 .product_page .product .seasonality{
 	position: relative;
 }
 
-
-/* Стили для слайдера миниатюр. ВИДЕО */
-.product_page .product .product_main_img #mainVideoBlock {
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-}
-.product_page .product #owl-product_mini_img_js .videoBlock {
-	width: 120px;
-	height: 120px;
-}
-.product_page .product #owl-product_mini_img_js .videoBlock .videoBlockShield {
-	width: 120px;
-	height: 120px;
-	position: absolute;
-	z-index: 100;
-	left: 0px;
-	top: 0px;
-}
 /* Стили для иконок "ПОДЕЛИТЬСЯ" */
 .product_page .product #socialShare {
 	width: 210px;
@@ -1028,9 +1060,6 @@
 	.product_page .product .big_photos_carousel .owl-item img {
 		max-height: 63vh;
 	}
-	/*.product_page .product .big_photos_carousel .mobile_carousel {
-		height: 67vh;
-	}*/
 }
 .product_page .product .demand_graph{
 	height: 350px;
@@ -1114,7 +1143,6 @@
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
-
 .product_page .slider_products .product_buy,
 .product_page .slider_products .notAval{
 	width: auto;
@@ -1124,7 +1152,6 @@
 	line-height: 36px;
 	position: relative;
 }
-
 .product_page .slider_products .product_buy .buy_block .btn_buy{
 	position: relative;
 	margin: 0 auto;
@@ -1186,38 +1213,4 @@
 	.product_page .product .art_avail_stars .hidden_br{
 		display: none;
 	}
-}
-.product_page #price_details table {
-	margin-bottom: 1em;
-	width: 100%;
-}
-.product_page #price_details th {
-	font-weight: bold;
-	padding: .5em;
-	border: 1px solid #eeeeee;
-}
-.product_page #price_details td {
-	border: 1px solid #eee;
-	padding: 5px;
-}
-.product_page #price_details .prices_table td {
-	text-align: center;
-}
-.product_page #price_details .prices_table td span{
-	font-size: .9em;
-	color: #9e9e9e;
-	display: block;
-	font-style: italic;
-}
-.product_page #price_details .prices_table tr:nth-of-type(odd) {
-	background-color: #fafafa;
-}
-.product_page #price_details .prices_table_title p {
-	text-align: center;
-	font-weight: bold;
-}
-.product_page #price_details .prices_table .title_column {
-	width: 50%;
-	vertical-align: middle;
-	text-align: left;
 }

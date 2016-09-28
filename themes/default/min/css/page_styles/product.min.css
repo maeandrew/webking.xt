@@ -6,7 +6,7 @@
 .product_page .product .art_avail_stars{display:flex;justify-content:space-between}
 .product_page .product .art_avail_stars .rating_block{margin:0}
 .product_page .product .art_avail_stars .product_article{margin:0;color:#444}
-.product_page .product.notactive .product_aside .advantage_block ol{text-align:justify}
+.product_page .product .product_aside .advantage_block ol{text-align:justify}
 .product_page .product.notactive .product_aside .advantage_block,.product_page .product.notactive .product_aside .similar_products_mini{padding:10px;position:relative}
 .product_page .product.active .product_aside .advantage_block,.product_page .product.active .product_aside .similar_products_mini{background-color:#f4f6f5}
 .product_page .product.notactive .product_aside .advantage_block,.product_page .product.notactive .product_aside .similar_products_mini{background-color:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
@@ -21,6 +21,14 @@
 .product_page .product.notactive .product_aside .similar_products_mini .item a:hover,.product_page .product.notactive .product_aside .similar_products_mini .item a:hover *,.product_page .product.notactive .product_aside .similar_products_mini .item a:hover span{color:#444}
 .product_page .product.notactive .product_aside .similar_products_mini .item a:hover .item_info .item_name{color:#ff5722}
 .product_page .product.notactive .product_aside .similar_products_mini .extra_info_block{min-height:350px}
+.product_page #price_details table{margin-bottom:1em;width:100%}
+.product_page #price_details th{font-weight:700;padding:.5em;border:1px solid #eee}
+.product_page #price_details td{border:1px solid #eee;padding:5px}
+.product_page #price_details .prices_table td{text-align:center}
+.product_page #price_details .prices_table td span{font-size:.9em;color:#9e9e9e;display:block;font-style:italic}
+.product_page #price_details .prices_table tr:nth-of-type(odd){background-color:#fafafa}
+.product_page #price_details .prices_table_title p{text-align:center;font-weight:700}
+.product_page #price_details .prices_table .title_column{width:50%;vertical-align:middle;text-align:left}
 .product_page .product .product_article{color:#818181;line-height:20px;margin-right:1em}
 .product_page .product .product_main_img{background:#fff;width:100%;box-sizing:border-box;position:relative;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 .product_page .product .product_main_img:hover{cursor:-moz-zoom-in;cursor:-webkit-zoom-in}
@@ -35,6 +43,9 @@
 .product_page .product #owl-product_mini_img_js .arrow_left{right:0}
 .product_page .product #owl-product_mini_img_js .arrow_left,.product_page .product #owl-product_mini_img_js .arrow_right{width:50px}
 .product_page .product .owl-carousel .owl-controls .owl-nav div svg{height:50px;top:85%}
+.product_page .product .product_main_img #mainVideoBlock{height:100%;width:100%;position:absolute;top:0}
+.product_page .product #owl-product_mini_img_js .videoBlock{width:120px;height:120px}
+.product_page .product #owl-product_mini_img_js .videoBlock .videoBlockShield{width:120px;height:120px;position:absolute;z-index:100;left:0;top:0}
 .product_page .slider_products{padding:10px}
 .product_page .slider_products h4{font-size:1.429em;margin:.5em 0}
 .product_page .slider_products .owl-carousel{width:100%;padding:0 50px}
@@ -147,9 +158,6 @@
 #comments .feedback_container p.feedback_comment{padding-top:5px;clear:both;text-align:justify;line-height:1.4em}
 #comments .feedback_container .reply_wrap{margin-left:5em}
 .product_page .product .seasonality{position:relative}
-.product_page .product .product_main_img #mainVideoBlock{height:100%;width:100%;position:absolute;top:0}
-.product_page .product #owl-product_mini_img_js .videoBlock{width:120px;height:120px}
-.product_page .product #owl-product_mini_img_js .videoBlock .videoBlockShield{width:120px;height:120px;position:absolute;z-index:100;left:0;top:0}
 .product_page .product #socialShare{width:210px}
 .product_page .product #socialShare .social{text-align:center}
 .product_page .product #socialShare .social{padding:5px 0;cursor:default}
@@ -272,11 +280,3 @@
 }
 @media (max-width:1020px){.product_page .product .art_avail_stars .hidden_br{display:none}
 }
-.product_page #price_details table{margin-bottom:1em;width:100%}
-.product_page #price_details th{font-weight:700;padding:.5em;border:1px solid #eee}
-.product_page #price_details td{border:1px solid #eee;padding:5px}
-.product_page #price_details .prices_table td{text-align:center}
-.product_page #price_details .prices_table td span{font-size:.9em;color:#9e9e9e;display:block;font-style:italic}
-.product_page #price_details .prices_table tr:nth-of-type(odd){background-color:#fafafa}
-.product_page #price_details .prices_table_title p{text-align:center;font-weight:700}
-.product_page #price_details .prices_table .title_column{width:50%;vertical-align:middle;text-align:left}
