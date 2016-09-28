@@ -203,7 +203,7 @@
 						<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
 					</div>
 					<div class="products_details">
-						
+
 						<div class="pb_wrapper">
 							<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 							$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
@@ -214,7 +214,7 @@
 									<div class="price_wrap">
 										<div class="price_cont price_flex">
 											<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
-												<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?>
+												<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
 											</div>
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
@@ -226,7 +226,7 @@
 													<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 												<?}?>
 											</div>
-											
+
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
 
@@ -301,7 +301,7 @@
 							</div>
 						</div>
 						<?if($item['active'] == 0 || $item['visible'] == 0){?>
-							<div class="sold_produxt_info">
+							<div class="sold_produxt_info hidden">
 								<p>На данный момент текущий товар не доступен для приобретения. Вы можете добавить его в "Лист ожидания" и будете проинформированы когда товар вновь появится в продаже. Чтобы добавить товар в список, нажмите кнопку ниже <strong>"Следить за ценой"</strong>.</p>
 								<!-- <div class="icon"><div class="material-icons">trending_down</div></div> -->
 								<ul>
