@@ -321,20 +321,19 @@
 						<ul>
 							<li class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 								<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])){?>
-									В избранных
-									<i id="forfavorite" class="isfavorite material-icons">favorite</i>
-									<span class="mdl-tooltip" for="forfavorite">Товар уже в избранном</span></li>
+									<span>В избранных</span>
+									<i id="forfavorite" class="favorite_js isfavorite material-icons">favorite</i>
 								<?}else{?>
-									В избранное
-									<i id="forfavorite" class="notfavorite material-icons">favorite_border</i>
-									<!-- <span class="mdl-tooltip" for="forfavorite">Добавить товар в избранное</span> --></li>
+									<span>В избранное</span>
+									<i id="forfavorite" class="favorite_js notfavorite material-icons">favorite_border</i>
 								<?}?>
+							</li>
 							<li id="fortrending" class="fortrending <?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
 								Следить за ценой
-								<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div></li>
-							<!-- <div class="mdl-tooltip fortrending_info_tooltip" for="fortrending"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'Товар уже <br> в списке ожидания' : 'Следить за ценой';?></div> -->
+								<div class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])? 'arrow' : null;?>">trending_down</div>
+							</li>
 							<li id="shareButton">Поделиться <i class="material-icons">share</i>
-							<!-- <span class="mdl-tooltip" for="shareButton">Поделиться</span></li> -->
+							</li>
 						</ul>
 						<div id="socialShare" class="mdl-menu mdl-menu--bottom-right mdl-js-menu social" for="shareButton">
 							<ul class="social">

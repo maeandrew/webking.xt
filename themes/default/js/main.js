@@ -2194,33 +2194,8 @@ $(function(){
 		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
 	});
 
-	// Инициализация добавления товара в избранное
-	// $('.favorite i').click(function(e){
-	// 	e.preventDefault();
-	// 	var parent = $(this).closest('.favorite');
-	// 	if(parent.hasClass('added')){
-	// 		parent.removeClass('added');
-	// 		RemoveFavorite(parent.data('id-product'), $(this));
-	// 	}else{
-	// 		parent.addClass('added');
-	// 		AddFavorite(parent.data('id-product'), $(this));
-	// 	}
-	// });
-	// Инициализация добавления товара в список ожидания
-	// $('.waiting_list').click(function(e){
-	// 	e.preventDefault();
-	// 	var parent = $(this).closest('.fortrending');
-	// 	if($(this).hasClass('arrow')){
-	// 		$(this).removeClass('arrow');
-	// 		RemoveFromWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
-	// 	}else{
-	// 		$(this).addClass('arrow');
-	// 		AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
-	// 	}
-	// });
-
-	// Инициализация добавления товара в избранное
-	$('body').on('click', '.favorite i', function(e){
+	// Инициализация добавления товара в избранное в списке товаров
+	$('body').on('click', '.card .favorite i', function(e){
 		e.preventDefault();
 		var parent = $(this).closest('.favorite');
 		if(parent.hasClass('added')){
@@ -2232,8 +2207,8 @@ $(function(){
 		}
 	});
 
-	// Инициализация добавления товара в список ожидания
-	$('body').on('click', '.waiting_list', function(e){
+	// Инициализация добавления товара в список ожидания в списке товаров
+	$('body').on('click', '.card .waiting_list', function(e){
 		e.preventDefault(e);
 		var parent = $(this).closest('.fortrending');
 		if($(this).hasClass('arrow')){
@@ -2244,6 +2219,31 @@ $(function(){
 			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
 		}
 	});
+	// Страница товара - Инициализация добавления товара в избранное
+	$('body').on('click', '.apps_panel .favorite', function(e){
+		e.preventDefault();
+		var parent = $(this);
+		if(parent.hasClass('added')){
+			parent.removeClass('added');
+			RemoveFavorite(parent.data('id-product'), $(this), true);
+		}else{
+			parent.addClass('added');
+			AddFavorite(parent.data('id-product'), $(this), true);
+		}
+	});
+
+	// Страница товара - Инициализация добавления товара в список ожидания
+	$('body').on('click', '.apps_panel .fortrending', function(e){
+		e.preventDefault(e);
+		if($(this).find('.waiting_list').hasClass('arrow')){
+			$(this).find('.waiting_list').removeClass('arrow');
+			RemoveFromWaitingList($(this).data('id-product'), $(this).data('id-user'), $(this).data('email'), $(this));
+		}else{
+			$(this).find('.waiting_list').addClass('arrow');
+			AddInWaitingList($(this).data('id-product'), $(this).data('id-user'), $(this).data('email'), $(this));
+		}
+	});
+
 	$('.price_help_js').on('click', function(){
 		var id_product = $(this).closest('.card').data('idproduct');
 		var price_details = $('#price_details');
