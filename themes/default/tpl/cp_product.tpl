@@ -1,4 +1,4 @@
-<div class="product" itemscope itemtype="http://schema.org/Product">
+<div class="product <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>" itemscope itemtype="http://schema.org/Product">
 	<?// Проверяем доступнось розницы
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
@@ -203,7 +203,6 @@
 						<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
 					</div>
 					<div class="products_details">
-						
 						<div class="pb_wrapper">
 							<?$in_cart = !empty($_SESSION['cart']['products'][$item['id_product']])?true:false;
 							$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$item['opt_correction_set']]);?>
@@ -406,7 +405,7 @@
 						</div>
 					</div>
 					<div class="tab-content">
-						<div id="description" class="mdl-tabs__panel is-active">
+						<div id="description" class="mdl-tabs__panel">
 							<?if(!empty($item['descr_xt_full'])){?>
 								<p itemprop="description"><?=$item['descr_xt_full']?></p>
 							<?}else if(!empty($item['descr'])){?>
@@ -415,7 +414,7 @@
 								<p>К сожалению описание товара временно отсутствует.</p>
 							<?}?>
 						</div>
-						<div id="specifications" class="mdl-tabs__panel">
+						<div id="specifications" class="mdl-tabs__panel is-active">
 							<?if(isset($item['specifications']) && !empty($item['specifications'])){?>
 								<?foreach($item['specifications'] as $s){?>
 									<div class="mdl-grid">
@@ -561,14 +560,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="mdl-cell mdl-cell--3-col">
-			<div class="similar_products_mini <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>">
+		<div class="mdl-cell mdl-cell--3-col product_aside">
+			
+			<div class="similar_products_mini">
 				<?if(isset($item['active']) && $item['active'] == 0){
 					if(isset($random_products) && !empty($random_products)){?>
 						<h4>Похожие товары</h4>
 						<?$iter = 0?>
 						<?foreach($random_products as $p){?>
-							<?if($iter != 7){?>
+							<?if($iter != 4){?>
 								<div class="item">
 									<a href="<?=Link::Product($p['translit']);?>">
 										<div class="img_cont">
@@ -623,6 +623,19 @@
 						</script>
 					</div>
 				<?}?>
+			</div>
+
+			<div class="advantage_block">
+				<h4>Конкурентные преимущества</h4>
+				<ol>
+					<li>Успешный опыт работы (более 5 лет) нашей Компании на рынке оптовой продажи.</li>
+					<li>Оптовые скидки от&nbsp;10&nbsp;до&nbsp;21% от XT. Вы сами выбираете свою оптовую цену!</li>
+					<li>Накопительная бонусная программа, для каждого клиента. Возможность оплаты заказа не&nbsp;более&nbsp;50% от суммы заказа.</li>
+					<li>Собственная логистика. Адресная Доставка по Украине</li>
+					<li>При выявлении изъяна в товаре покупатель может, вернуть деньги на счет, или обменять на другой товар.</li>
+					<li>Вместе дешевле! Совместные покупки (СП). Покупка товаров для всей семьи по оптовым ценам.</li>
+					<li>Более 200&nbsp;000 товара. Ассортимент обновляется каждый день!</li>
+				</ol>
 			</div>
 		</div>
 	</div>
