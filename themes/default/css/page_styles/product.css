@@ -59,6 +59,7 @@
 	display: block;
 	max-width: 120px;
 	margin: 0 auto;
+	margin-right: 1em;
 }
 .similar_products_mini .item a .item_info .item_name{
 	display: block;
@@ -322,12 +323,11 @@
 	position: relative;
 }
 .product .similar_products_mini .more_items_link{
-	position: absolute;
 	bottom: 0;
 	left: 0;
 	text-align: right;
 	background: #fff;
-	padding: 10px;
+	padding: 0 10px;
 	width: 100%;
 }
 .product .similar_products_mini .more_items_link a{
@@ -858,7 +858,7 @@ div[for="rating_block"]{
 	}
 	.product .content_header .cart_info .order_balance{
 		width: 100px;
-		
+
 	}
 	.product .content_header .cart_info .your_discount,
 	.product .content_header .cart_info .order_balance{
@@ -1030,11 +1030,11 @@ div[for="rating_block"]{
 .slider_products .product_buy,
 .slider_products .notAval{
 	width: auto;
-	float: none; 
+	float: none;
 	height: 50px;
-	padding: 10px 0; 
-	line-height: 36px; 
-	position: relative; 
+	padding: 10px 0;
+	line-height: 36px;
+	position: relative;
 }
 
 .slider_products .product_buy .buy_block .btn_buy{
