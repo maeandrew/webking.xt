@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 // 	die("Access denied");
 // }
 $users = new Users();
-$products = new Products();
+$Products = new Products();
 $suppliers = new Suppliers();
 $header = 'Товары фотографа';
 $ii = count($GLOBALS['IERA_LINKS']);
@@ -25,7 +25,7 @@ $tpl->Assign('users_list', $users->list);
 $suppliers->SuppliersList();
 $tpl->Assign('suppliers_list', $suppliers->list);
 if(isset($id_photographer)){
-	$categories = $products->generateCategory();
+	$categories = $Products->generateCategory();
 	$tpl->Assign('categories', $categories);
 	$tpl->Assign('id_photographer', $id_photographer);
 	// pagination
@@ -37,7 +37,7 @@ if(isset($id_photographer)){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		$GLOBALS['Limit_db'] = 30;
-		$cnt = count($products->GetBatchesFhoto($id_photographer));
+		$cnt = count($Products->GetBatchesFhoto($id_photographer));
 		$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 		$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
 	}else{
@@ -45,7 +45,7 @@ if(isset($id_photographer)){
 		$limit = '';
 	}
 	// --
-	$batch = $products->GetBatchesFhoto($id_photographer, $limit);
+	$batch = $Products->GetBatchesFhoto($id_photographer, $limit);
 	$tpl->Assign('batch', $batch);
 }
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_photo_products.tpl');

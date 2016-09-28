@@ -12,7 +12,7 @@ if (!_acl::isAllow('product'))
 		exit();
 	}
 
-	$products = new Products();
+	$Products = new Products();
 
 	$tpl->Assign('h1', 'Удаление товара');
 
@@ -21,7 +21,7 @@ if (!_acl::isAllow('product'))
 	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Удаление товара";
 
-	if(!$res = $products->DelProduct($id_product)){
+	if(!$res = $Products->DelProduct($id_product)){
 		die('Ошибка при удалении товара.');
 	}
 

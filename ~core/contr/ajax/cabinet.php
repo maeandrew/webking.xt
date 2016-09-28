@@ -7,10 +7,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		switch($_POST['action']){
 			case 'GetProdList':
 				$Order = new Orders();
-				$products = new Products();
+				$Products = new Products();
 				$list = $Order->GetOrderForCustomer(array("o.id_order" => $_POST['id_order']));
 				foreach($list as &$p){
-					$p['images'] = $products->GetPhotoById($p['id_product']);
+					$p['images'] = $Products->GetPhotoById($p['id_product']);
 				}
 				$tpl->Assign('list', $list);
 				$tpl->Assign('rewrite', $_POST['rewrite']);
@@ -167,8 +167,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'deleteFromModeration':
-				$products = new Products();
-				$products->DeleteProductFromModeration($_POST['id']);
+				$Products = new Products();
+				$Products->DeleteProductFromModeration($_POST['id']);
 				echo json_encode(true);
 				break;
 			case 'updateUserNewsletter':

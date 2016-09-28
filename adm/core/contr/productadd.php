@@ -6,7 +6,7 @@ if(!_acl::isAllow('product')){
 unset($parsed_res);
 // --------------------------------------------------------------------------------------
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$products = new Products();
+$Products = new Products();
 $Unit = new Unit();
 $Images = new Images();
 $segmentation = new Segmentation();
@@ -20,22 +20,22 @@ if(isset($_POST['smb'])) {
 	if(isset($_POST['images_visible'])){
 		$_POST['images_visible'][0] = 1;
 	}
-	$_POST['art'] = $products->CheckArticle((int)$_POST['art']);
+	$_POST['art'] = $Products->CheckArticle((int)$_POST['art']);
 	require_once($GLOBALS['PATH_block'] . 't_fnc.php'); // для ф-ции проверки формы
 	if (isset($_POST['price']) && $_POST['price'] == "") {
 		$_POST['price'] = 0;
 	}
 	list($err, $errm) = Product_form_validate();
 	if (!$err) {
-		if ($id = $products->AddProduct($_POST)) {
+		if ($id = $Products->AddProduct($_POST)) {
 			//Добавление видео
 			if (!empty($_POST['video'])) {
-				$products->UpdateVideo($id, $_POST['video']);
+				$Products->UpdateVideo($id, $_POST['video']);
 			}
 			$to_resize = array();
 
 			//Добавление фото
-			$article = $products->GetArtByID($id);
+			$article = $Products->GetArtByID($id);
 			if (isset($_POST['images'])) {
 				foreach ($_POST['images'] as $k => $image) {
 					$to_resize[] = $newname = $article['art'] . ($k == 0 ? '' : '-' . $k) . '.jpg';
@@ -73,7 +73,7 @@ if(isset($_POST['smb'])) {
 			}
 
 			$Images->resize(false, $to_resize);
-			$products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
+			$Products->UpdatePhoto($id, $images_arr, $_POST['images_visible']);
 
 			if (isset($_POST['id_supplier'])) {
 				//Формирем массив поставщиков товара
@@ -92,12 +92,12 @@ if(isset($_POST['smb'])) {
 					if ($value['id_assortiment'] == false) {
 						$value['id_product'] = $id;
 						//Добавляем поставщика в ассортимент
-						if (!$products->AddToAssortWithAdm($value)) {
+						if (!$Products->AddToAssortWithAdm($value)) {
 							echo '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
 						}
 					} else {
 						//Обновляем данные в ассортименте
-						$products->UpdateAssortWithAdm($value);
+						$Products->UpdateAssortWithAdm($value);
 					}
 				}
 			}
@@ -125,13 +125,13 @@ if(isset($_POST['smb'])) {
 }
 if(!isset($_POST['art'])){
 	// get last article
-	$tpl->Assign('last_article', $products->GetLastArticle()+1);
+	$tpl->Assign('last_article', $Products->GetLastArticle()+1);
 }
 // Формирование списка категорий для выпадающего списка
-$list = $products->generateCategory();
+$list = $Products->generateCategory();
 $tpl->Assign('list', $list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
-$tpl->Assign('mlist', $products->GetManufacturers());
+$tpl->Assign('mlist', $Products->GetManufacturers());
 $tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());
 if(!isset($_POST['smb'])){
 	$_POST['id_product'] = 0;

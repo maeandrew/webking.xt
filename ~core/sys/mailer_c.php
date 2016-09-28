@@ -918,8 +918,8 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 	}
 
 	public function GenerateCSVForSupplier($orders, $supplier, $real_phone){
-		$products = new Products();
-		$plist = $products->SetProductsList4SuppliersCSV($orders, $supplier);
+		$Products = new Products();
+		$plist = $Products->SetProductsList4SuppliersCSV($orders, $supplier);
 		if(!empty($plist)){
 			foreach($plist as $key => $row) {
 				$id_order[$key]  = $row['id_order'];

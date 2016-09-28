@@ -8,8 +8,8 @@ unset($parsed_res);
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Дубли товаров";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = '/adm/duplicates/';
-$products = new Products();
-$list = $products->GetDuplicateProducts();
+$Products = new Products();
+$list = $Products->GetDuplicateProducts();
 
 // === === === subcats
 $tpl->Assign('list', $list);

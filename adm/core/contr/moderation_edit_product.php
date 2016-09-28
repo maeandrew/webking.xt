@@ -10,7 +10,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	exit();
 }
 $Unit = new Unit();
-$products = new Products();
+$Products = new Products();
 $Images = new Images();
 $Users = new Users();
 $header = "Редактирование товара на модерации";
@@ -21,15 +21,15 @@ if(isset($_POST['smb'])){
 	//Физическое удаление файлов
 	if(isset($_POST['removed_images']) ){
 		foreach($_POST['removed_images'] as $k=>$path){
-			if($products->CheckPhotosOnModeration($path)){
+			if($Products->CheckPhotosOnModeration($path)){
 				$Images->remove($GLOBALS['PATH_root'].'..'.$path);
 			}
 		}
 	}
-	$products->AddSupplierProduct($_POST);
+	$Products->AddSupplierProduct($_POST);
 }
 $tpl->Assign('header', $header);
-$list = $products->GetProductOnModeration($id);
+$list = $Products->GetProductOnModeration($id);
 $Users->SetFieldsById($list['id_supplier']);
 $supplier_email = $Users->fields['email'];
 //Загрузка фото на сервер
@@ -67,17 +67,17 @@ if(true == $parsed_res['issuccess']){
 // 		));
 // 		exit(0);
 // 	}elseif(isset($_GET['delete']) == true){
-// 		if($products->CheckPhotosOnModeration($_POST['image'])){
+// 		if($Products->CheckPhotosOnModeration($_POST['image'])){
 // 			unlink($_SERVER['DOCUMENT_ROOT'].str_replace($GLOBALS['URL_base'], '/', $_POST['image']));
 // 		}
 // 		exit(0);
 // 	}elseif(isset($_POST['editionsubmit']) == true){
-// 		if($products->AddSupplierProduct($_POST)){
+// 		if($Products->AddSupplierProduct($_POST)){
 // 			header('Location: /cabinet/productsonmoderation/');
 // 		}
 // 	}
 // 	if(isset($_GET['id']) == true && is_numeric($_GET['id']) && $_GET['type'] == 'moderation'){
-// 		$list = $products->GetProductOnModeration($_GET['id']);
+// 		$list = $Products->GetProductOnModeration($_GET['id']);
 // 		foreach($list as $k=>$l){
 // 			$_POST[$k] = $l;
 // 		}

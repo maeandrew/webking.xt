@@ -11,7 +11,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $Unit = new Unit();
-$products = new Products();
+$Products = new Products();
 $News = new News();
 $Images = new Images();
 $specification = new Specification();
@@ -21,7 +21,7 @@ if($News->GetCommentListById($id_product)){
 }
 $pops1 = $News->GetComent();
 $tpl->Assign('pops1', $pops1);
-$tpl->Assign('related_prods_list', $products->GetArrayRelatedProducts($id_product));
+$tpl->Assign('related_prods_list', $Products->GetArrayRelatedProducts($id_product));
 $specification->SetListByProdId($id_product);
 $tpl->Assign('product_specs', $specification->list);
 $specification->SetList();
@@ -43,7 +43,7 @@ if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }elseif(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
 	$specification->DelSpecFromProd($_GET['id_spec_prod']);
-	$products->UpdateProduct(array('id_product'=>$id_product));
+	$Products->UpdateProduct(array('id_product'=>$id_product));
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
 if(isset($_POST['smb']) || isset($_POST['smb_new'])){
@@ -58,7 +58,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			//Физическое удалание файлов
 			if(isset($_POST['removed_images']) && !empty($_POST['removed_images'])){
 				foreach($_POST['removed_images'] as $k=>$path){
-					if(file_exists($path) && $products->CheckImages($path)){
+					if(file_exists($path) && $Products->CheckImages($path)){
 						$Images->remove($GLOBALS['PATH_root'].'..'.$path);
 					}
 				}
@@ -125,14 +125,14 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 				imagejpeg($res, $path.$filename);
 			}
 		}
-		if($products->UpdateProduct($_POST)){
+		if($Products->UpdateProduct($_POST)){
 			$err_mes = '';
 			//обновление видео товара
 			if(!empty($_POST['video'])){
-				$products->UpdateVideo($id_product, $_POST['video']);
+				$Products->UpdateVideo($id_product, $_POST['video']);
 			}
 			//обновление Фото товара
-			$products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
+			$Products->UpdatePhoto($id_product, isset($_POST['images'])?$_POST['images']:null);
 
 			if(isset($_POST['id_supplier'])){
 				//Формирем массив поставщиков товара
@@ -150,19 +150,19 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$value['id_product'] = $id_product;
 					if($value['id_assortiment'] == false){
 						//Добавляем поставщика в ассортимент
-						if(!$products->AddToAssortWithAdm($value)){
+						if(!$Products->AddToAssortWithAdm($value)){
 							$err_mes = '<script>alert("Ошибка при добавлении поставщика!\nДанный товар уже имеется в ассортименте поставщика!");</script>';
 						}
 					}else{
 						//Обновляем данные в ассортименте
-						$products->UpdateAssortWithAdm($value);
+						$Products->UpdateAssortWithAdm($value);
 					}
 				}
 			}
 			//Отвязываем постащика от товара
 			if(isset($_POST['del_from_assort']) && !empty($_POST['del_from_assort'])){
 				foreach($_POST['del_from_assort'] as &$id_assort){
-					$products->DelFromAssortWithAdm($id_assort, $id_product);
+					$Products->DelFromAssortWithAdm($id_assort, $id_product);
 				}
 			}
 			//Привязываем сегментяцию к продукту
@@ -196,20 +196,20 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
-if(!$products->SetFieldsById($id_product, 1)) die('Ошибка при выборе товара.');
+if(!$Products->SetFieldsById($id_product, 0)) die('Ошибка при выборе товара.');
 // Формирование списка категорий для выпадающего списка
-$list = $products->generateCategory();
+$list = $Products->generateCategory();
 // Определение категории к которой принадлежит товар
-if(isset($item['id_category']) && $item['id_category'] == $products->fields['id_category']){
+if(isset($item['id_category']) && $item['id_category'] == $Products->fields['id_category']){
 	$category['name'] = $item['name'];
 	$category['id_category'] = $item['id_category'];
 }
 $tpl->Assign('list', $list);
 // get last article
-$tpl->Assign('last_article', $products->GetLastArticle());
+$tpl->Assign('last_article', $Products->GetLastArticle());
 //Дубликат товара
 if(isset($_POST['smb_duplicate'])){
-	if($id = $products->DuplicateProduct($_POST)){
+	if($id = $Products->DuplicateProduct($_POST)){
 		header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
 	}else{
 		$tpl->Assign('msg', 'Товар не добавлен.');

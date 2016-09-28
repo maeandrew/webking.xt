@@ -32,8 +32,8 @@ if($GLOBALS['CurrentController'] != 'productedit'){
 	// G::AddCSS('adm.css');
 }
 if(isset($_GET['check_art'])){
-	$products = new Products();
-	echo "<!-- ".$products->CheckArticle($_GET['check_art'])."-->";
+	$Products = new Products();
+	echo "<!-- ".$Products->CheckArticle($_GET['check_art'])."-->";
 }
 if(isset($_GET['img'])){
 	$img = new Images();

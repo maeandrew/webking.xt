@@ -15,7 +15,7 @@
 .similar_products_mini .item a:hover *{color:#444}
 .similar_products_mini .item a .item_info{width:65%}
 .similar_products_mini .item a .img_cont{margin-right:10px}
-.similar_products_mini .item a .img_cont img{display:block;max-width:120px;margin:0 auto}
+.similar_products_mini .item a .img_cont img{display:block;max-width:120px;margin:0 auto;margin-right:1em}
 .similar_products_mini .item a .item_info .item_name{display:block;text-align:justify;width:100%;line-height:1.2em;margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .similar_products_mini .item a:hover,.similar_products_mini .item a:hover *,.similar_products_mini .item a:hover span{color:#444}
 .similar_products_mini .item a:hover .item_info .item_name{color:#ff5722}
@@ -67,7 +67,7 @@
 .product .similar_products_mini .item .item_info .price_num{font-size:1.4em}
 .product .similar_products_mini .product_buy .buy_block .btn_buy button{background:0 0;border:1px solid #ff5722;color:#ff5722;position:relative;left:0}
 .product .similar_products_mini .item:hover .product_buy .buy_block .btn_buy button{background:#ff5722;color:#fff;position:relative}
-.product .similar_products_mini .more_items_link{bottom:0;left:0;text-align:right;background:#fff;padding:10px;width:100%}
+.product .similar_products_mini .more_items_link{bottom:0;left:0;text-align:right;background:#fff;padding:0 10px;width:100%}
 .product .similar_products_mini .more_items_link a{border-bottom:1px solid #444}
 .product .similar_products_mini .more_items_link a:hover{border-bottom:1px solid #ff5722}
 .product .similar_products_mini .product_buy .out_of_stock{font-size:1em}

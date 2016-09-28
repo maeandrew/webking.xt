@@ -1,7 +1,7 @@
 <?php
-$products = new Products();
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	header('Content-Type: text/javascript; charset=utf-8');
+	$Products = new Products();
 	if(isset($_POST['action'])){
 		switch ($_POST['action']){
 			case "switchtab":
@@ -31,7 +31,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				exit();
 			break;
 			case "count_views_products":
-				$products->UpdateViewsProducts($_POST['count_views'], $_POST['id_product']);
+				$Products->UpdateViewsProducts($_POST['count_views'], $_POST['id_product']);
 			;
 			break;
 			default:

@@ -90,14 +90,14 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 	}
 	/* Сортировки */
 	if(isset($_SESSION['Cart']['products']) && count($_SESSION['Cart']['products'])){
-		$products = new Products();
+		$Products = new Products();
 		$arr = array();
 		foreach($_SESSION['Cart']['products'] as $id=>$p){
 			$arr[] = $id;
 		}
-		$products->SetPromoProductsListFromArr($arr, $_SESSION['member']['promo_code']);
+		$Products->SetPromoProductsListFromArr($arr, $_SESSION['member']['promo_code']);
 		if(isset($sum_sort)){
-			$arr = $products->list;
+			$arr = $Products->list;
 			$tmp = array();
 			foreach($arr as $k=>$i){
 				if($orderbysum == 'summopt'){
@@ -119,9 +119,9 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 					}
 				}
 			}
-			$products->list = $tmp2;
+			$Products->list = $tmp2;
 		}
-		$tpl->Assign('list', $products->list);
+		$tpl->Assign('list', $Products->list);
 	}else{
 		$tpl->Assign('list', array());
 	}
