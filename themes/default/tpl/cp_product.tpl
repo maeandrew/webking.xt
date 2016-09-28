@@ -1,3 +1,4 @@
+<!-- Классы-метки notactive и active ставятся в зависимости от того, активен товар или нет и задают соответствующие стили -->
 <div class="product <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>" itemscope itemtype="http://schema.org/Product">
 	<?// Проверяем доступнось розницы
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
@@ -14,7 +15,7 @@
 		<div class="mdl-cell mdl-cell--9-col">
 			<h1 itemprop="name"><?=$item['name']?></h1>
 			<div class="mdl-grid">
-				<div id="caruselCont" class="mdl-cell mdl-cell--5-col">
+				<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
 					<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
 						<?if(!empty($item['images'])){?>
 							<img class="main_img_js" itemprop="image" alt="<?=G::CropString($item['id_product'])?>" src="<?=G::GetImageUrl($item['images'][0]['src'])?>"/>
@@ -156,20 +157,19 @@
 						</script>
 					<?}?>
 				</div>
-				<!-- Класс-метка no_active_product_block ставится в зависимости от того, активен товар или нет и задает соответствующие стили -->
-				<div id="specCont" class="specCont_js mdl-cell mdl-cell--7-col <?= $item['active'] != 1?'no_active_product_block':null;?>">
+				<div id="specCont" class="specCont_js mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
 					<input type="hidden" class="path_root_js" value="<?=$GLOBALS['PATH_root']?>">
 					<input type="hidden" class="path_product_img_js" value="<?=$GLOBALS['PATH_product_img']?>">
 					<div class="content_header">
 						<?=$cart_info;?>
 					</div>
 					<div class="art_avail_stars">
-						<p class="product_article">Артикул: <?=$item['art']?></p>
+						<p class="product_article">Артикул: <br class="hidden_br"><?=$item['art']?></p>
 						<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 							<!-- Ссылка на редактирование товара для администратором -->
 							<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
 						<?}?>
-						<div><?=isset($item['active']) && $item['active'] == 1?'Есть в наличии':'Нет в наличии';?></div>
+						<div class="product_availability"><?=isset($item['active']) && $item['active'] == 1?'Есть в наличии':'Нет в наличии';?></div>
 						<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 							<?if($item['c_mark'] > 0){?>
 								<meta itemprop="worstRating" content="1">
@@ -178,7 +178,7 @@
 								<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
 							<?}?>
 							<?if($item['c_rating'] > 0){?>
-								<span>Оценок товара: </span>
+								<span>Оценок товара: </span><br class="hidden_br">
 								<ul class="rating_stars">
 									<?for($i = 1; $i <= 5; $i++){
 										$star = 'star';
@@ -560,8 +560,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mdl-cell mdl-cell--3-col product_aside">
-			
+		<div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone product_aside">
 			<div class="similar_products_mini">
 				<?if(isset($item['active']) && $item['active'] == 0){
 					if(isset($random_products) && !empty($random_products)){?>

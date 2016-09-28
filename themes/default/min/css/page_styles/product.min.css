@@ -1,7 +1,7 @@
 .breadcrumbs_wrap{padding:0 10px}
 .product_page .center{width:100%}
 .product_page .mdl-grid{padding:0}
-.product_page h1{font-size:2em;margin:10px;clear:both;line-height:1em}
+.product_page h1{font-size:2em;margin:0;padding:10px;clear:both;line-height:1em}
 .product .mdl-cell{margin:10px}
 .product .art_avail_stars{display:flex;justify-content:space-between}
 .product .art_avail_stars .rating_block{margin:0}
@@ -43,7 +43,7 @@
 .slider_products .owl-item a{display:block;padding:10px}
 .slider_products .owl-item span{color:#444;display:block;margin:10px 0;height:3em;overflow:hidden}
 .slider_products .owl-item .ca-more{opacity:.9;margin:0 auto;width:90%;border-radius:.2em;padding:5px 10px;z-index:99;background:#fff;border:1px solid #e0e0e0;text-align:center}
-.product .products_details{border-bottom:1px solid #dcdcdc;margin-bottom:20px;height:355px}
+.product .products_details{border-bottom:1px solid #dcdcdc;margin-bottom:20px;min-height:355px}
 .product .pb_wrapper{position:relative}
 .product .product_buy{float:none;width:auto;max-width:none;width:100%;padding:0;height:auto}
 .product .product_buy .out_of_stock{font-size:2em}
@@ -86,6 +86,7 @@
 .product .apps_panel ul li .arrow,.product .apps_panel ul li:hover .icon,.product .apps_panel ul li:hover i,.product .sold_produxt_info ul li .arrow{color:#fff}
 .product .apps_panel ul li .arrow{color:#ff5722}
 .product .rating_block{text-align:right}
+.product .art_avail_stars .hidden_br{display:none}
 .product .rating_block>*{display:inline-block;vertical-align:middle}
 .product .rating_block ul{overflow:hidden}
 .product .rating_block ul li{float:left}
@@ -102,7 +103,7 @@
 #specifications .mdl-grid{line-height:2.5em;border-bottom:1px solid #e0e0e0;padding:0}
 #specifications .mdl-grid:last-of-type{border-bottom:0}
 #specifications .mdl-grid:nth-of-type(odd){background:#f7f7f7}
-#specifications .mdl-grid .mdl-cell{padding:0 10px;margin:0}
+#specifications .mdl-grid .mdl-cell{padding:5px 10px;margin:0;line-height:1.4em}
 #specifications .mdl-grid .mdl-cell:last-of-type{border-left:1px solid #e0e0e0}
 #comments .for_anonim{font-size:1.2em;color:#9e9e9e;padding:1em}
 #comments .feedback_container h4,#comments .feedback_form h4{text-align:center;margin:0;font-size:1.429em}
@@ -175,7 +176,7 @@
 .product .base_price_cont{text-decoration:line-through;color:#9e9e9e;width:100%;text-align:left!important;font-size:1.6em!important}
 .product .market_action{width:100px;position:absolute;top:-10px;left:-10px;z-index:1}
 .product .product_main_img .market_action img{width:100px;height:100px;-webkit-transform:none;-ms-transform:none;transform:none}
-.product .content_header .cart_info{justify-content:space-between}
+.product .content_header .cart_info{justify-content:space-between;align-items:center}
 @media (max-width:1600px){.product .products_links_block,.product .slider_products{background:#f3f3f3;border-top:1px solid #e0e0e0}
 }
 @media (max-width:1535px){.product .content_header .cart_info .order_balance,.product .content_header .cart_info .tabs_container li,.product .content_header .cart_info .your_discount{font-size:.9em}
@@ -191,6 +192,10 @@
 @media screen and (max-width:1366px){.product .apps_panel ul{justify-content:space-around}
 .product .similar_products_mini .item a .item_info .item_name{width:100%;overflow:visible;white-space:inherit}
 .product .product_buy .buy_block .price_wrap{height:60px}
+}
+@media (max-width:1150px){.product .content_header .cart_info .tabs_container li{width:60px}
+.product .content_header .cart_info .order_balance,.product .content_header .cart_info .tabs_container li,.product .content_header .cart_info .your_discount{font-size:.8em}
+.product .art_avail_stars .hidden_br{display:block}
 }
 @media (max-width:1024px){.product .tabs{width:auto}
 }
@@ -223,6 +228,19 @@
 .product .demand_graph{height:350px}
 .product .demand_graph .embed-footer .embed-footer-link{display:none}
 @media (max-width:500px){.product .demand_graph{height:400px}
+.product .apps_panel ul li{font-size:.8em}
+.product #specifications .mdl-grid{align-items:center}
+.product #specifications .mdl-grid .mdl-cell{font-size:.9em}
+.product .products_details{min-height:240px}
+}
+@media (max-width:400px){.product .art_avail_stars .product_article{width:70px}
+.product .product_buy .buy_block .price_wrap{flex-direction:column;height:auto}
+.product .product_buy .buy_block .price_wrap>div{margin-bottom:10px}
+.product .product_availability{width:65px}
+.product .apps_panel ul{flex-direction:column}
+.product .apps_panel ul li{font-size:1em;margin-bottom:5px;text-align:center}
+.product #specifications .mdl-grid .mdl-cell{padding:5px}
+.product .tab-content{padding:2px}
 }
 .product .product_buy .buy_block,.product .product_buy .buy_block .quantity .units{font-size:1em}
 .product .fortabs .fortabs_tab{width:auto;padding:0 20px}
@@ -236,9 +254,14 @@
 .slider_products .item .product_buy .buy_block .btn_buy button{border:1px solid #e0e0e0;color:#FF5722;border-radius:3px;left:0;width:100%}
 .slider_products .item:hover .product_buy .buy_block .btn_buy button{border:1px solid #FF5722;background-color:#FF5722;color:#fff}
 .slider_products .product_buy .out_of_stock{margin-top:0}
-@media (max-width:800px),(max-width:1100px) and (orientation:landscape){.product .similar_products_mini .product_buy .buy_block .btn_buy button,.slider_products .item .product_buy .buy_block .btn_buy button{border:1px solid #FF5722;background-color:#FF5722;color:#fff}
+@media screen and (max-width:1000px) and (orientation:portrait){.product .content_header .cart_info .order_balance,.product .content_header .cart_info .tabs_container li,.product .content_header .cart_info .your_discount{font-size:1em}
+.product .content_header .cart_info .tabs_container li{width:80px}
+.product .content_header .cart_info .your_discount{width:120px}
+.product .content_header .cart_info .order_balance{width:170px}
+}
+@media (max-width:800px),(max-width:1150px) and (orientation:landscape){.product .similar_products_mini .product_buy .buy_block .btn_buy button,.slider_products .item .product_buy .buy_block .btn_buy button{border:1px solid #FF5722;background-color:#FF5722;color:#fff}
 .product .apps_panel ul li{background-color:#018b06;color:#fff;padding:0 10px}
-.product .apps_panel ul li .icon,.product .apps_panel ul li i{color:#fff}
+.product .apps_panel .isfavorite,.product .apps_panel ul li .icon,.product .apps_panel ul li i{color:#fff}
 }
 #price_details table{margin-bottom:1em;width:100%}
 #price_details th{font-weight:700;padding:.5em;border:1px solid #eee}

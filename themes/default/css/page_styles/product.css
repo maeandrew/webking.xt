@@ -10,16 +10,14 @@
 }
 .product_page h1{
 	font-size: 2em;
-	margin: 10px;
+	margin: 0;
+	padding: 10px;
 	clear: both;
 	line-height: 1em;
 }
 .product .mdl-cell {
 	margin: 10px;
 }
-/*.product .mdl-cell:last-of-type {
-	padding-right: 0;
-}*/
 .product .art_avail_stars{
 	display: flex;
 	justify-content: space-between;
@@ -224,7 +222,7 @@
 .product .products_details{
 	border-bottom: 1px solid #dcdcdc;
 	margin-bottom: 20px;
-	height: 355px;
+	min-height: 355px;
 }
 .product .pb_wrapper {
 	position: relative;
@@ -428,9 +426,11 @@
 .product .apps_panel ul li .arrow{
 	color: #ff5722;
 }
-.product .rating_block {
-	/*float: right;*/
+.product .rating_block{
 	text-align: right;
+}
+.product .art_avail_stars .hidden_br{
+	display: none;
 }
 .product .rating_block > * {
 	display: inline-block;
@@ -497,8 +497,9 @@
 	background: #f7f7f7;
 }
 #specifications .mdl-grid .mdl-cell {
-	padding: 0 10px;
+	padding: 5px 10px;
 	margin: 0;
+	line-height: 1.4em;
 }
 #specifications .mdl-grid .mdl-cell:last-of-type {
 	border-left: 1px solid #e0e0e0;
@@ -847,6 +848,7 @@
 }
 .product .content_header .cart_info{
 	justify-content: space-between;
+	align-items: center;
 }
 @media (max-width: 1600px) {
 	.product .slider_products,
@@ -900,8 +902,18 @@
 		height: 60px;
 	}
 }
-@media (max-width: 1100px) {
-
+@media (max-width: 1150px) {
+	.product .content_header .cart_info .tabs_container li{
+		width: 60px;
+	}
+	.product .content_header .cart_info .your_discount,
+	.product .content_header .cart_info .order_balance,
+	.product .content_header .cart_info .tabs_container li{
+		font-size: .8em;
+	}
+	.product .art_avail_stars .hidden_br{
+		display: block;
+	}
 }
 @media (max-width: 1024px) {
 	.product .tabs {
@@ -919,7 +931,7 @@
 		/*display: none;*/
 	}
 	.product .content_header .cart_info .order_balance {
-	    width: 180px;
+		width: 180px;
 	}
 	.product .content_header .cart_info .tabs_container{
 		width: 100%;
@@ -1010,9 +1022,50 @@
 .product .demand_graph .embed-footer .embed-footer-link{
 	display: none;
 }
-@media (max-width: 500px) {
+@media (max-width: 500px){
 	.product .demand_graph{
 		height: 400px;
+	}
+	.product .apps_panel ul li{
+		font-size: .8em;
+	}
+	.product #specifications .mdl-grid{
+		align-items: center;
+	}
+	.product #specifications .mdl-grid .mdl-cell{
+		font-size: .9em;
+	}
+	.product .products_details{
+		min-height: 240px;
+	}
+}
+@media (max-width: 400px){
+	.product .art_avail_stars .product_article{
+		width: 70px;
+	}
+	.product .product_buy .buy_block .price_wrap{
+		flex-direction: column;
+		height: auto;
+	}
+	.product .product_buy .buy_block .price_wrap > div{
+		margin-bottom: 10px;
+	}
+	.product .product_availability{
+		width: 65px;
+	}
+	.product .apps_panel ul {
+		flex-direction: column;
+	}
+	.product .apps_panel ul li{
+		font-size: 1em;
+		margin-bottom: 5px;
+		text-align: center;
+	}
+	.product #specifications .mdl-grid .mdl-cell{
+		padding: 5px;
+	}
+	.product .tab-content {
+		padding: 2px;
 	}
 }
 .product .product_buy .buy_block,
@@ -1076,8 +1129,24 @@
 .slider_products .product_buy .out_of_stock{
 	margin-top: 0;
 }
+@media screen and (max-width: 1000px) and (orientation: portrait){
+	.product .content_header .cart_info .your_discount,
+	.product .content_header .cart_info .order_balance,
+	.product .content_header .cart_info .tabs_container li{
+		font-size: 1em;
+	}
+	.product .content_header .cart_info .tabs_container li{
+		width: 80px;
+	}
+	.product .content_header .cart_info .your_discount{
+		width: 120px;
+	}
+	.product .content_header .cart_info .order_balance{
+		width: 170px;
+	}
 
-@media (max-width: 800px), (max-width: 1100px) and (orientation: landscape){
+}
+@media (max-width: 800px), (max-width: 1150px) and (orientation: landscape){
 	.slider_products .item .product_buy .buy_block .btn_buy button,
 	.product .similar_products_mini .product_buy .buy_block .btn_buy button{
 		border: 1px solid #FF5722;
@@ -1090,9 +1159,13 @@
 		padding: 0 10px;
 	}
 	.product .apps_panel ul li i,
-	.product .apps_panel ul li .icon {
+	.product .apps_panel ul li .icon,
+	.product .apps_panel .isfavorite {
 		color: #fff;
 	}
+}
+@media handheld{
+
 }
 
 #price_details table {
@@ -1102,7 +1175,7 @@
 #price_details th {
 	font-weight: bold;
 	padding: .5em;
-    border: 1px solid #eeeeee;
+	border: 1px solid #eeeeee;
 }
 #price_details td {
 	border: 1px solid #eee;
