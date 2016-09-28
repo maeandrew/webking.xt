@@ -1144,7 +1144,6 @@
 	.product .content_header .cart_info .order_balance{
 		width: 170px;
 	}
-
 }
 @media (max-width: 800px), (max-width: 1150px) and (orientation: landscape){
 	.slider_products .item .product_buy .buy_block .btn_buy button,
@@ -1163,11 +1162,10 @@
 	.product .apps_panel .isfavorite {
 		color: #fff;
 	}
+	.product .art_avail_stars .hidden_br{
+		display: none;
+	}
 }
-@media handheld{
-
-}
-
 #price_details table {
 	margin-bottom: 1em;
 	width: 100%;
