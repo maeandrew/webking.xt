@@ -436,8 +436,8 @@
 	display: inline-block;
 	vertical-align: middle;
 }
-.product .rating_block ul {
-	overflow: hidden;
+.product .rating_block ul{
+	line-height: 1;
 }
 .product .rating_block ul li {
 	float: left;
@@ -1162,6 +1162,8 @@
 	.product .apps_panel .isfavorite {
 		color: #fff;
 	}
+}
+@media (max-width: 1020px){
 	.product .art_avail_stars .hidden_br{
 		display: none;
 	}
