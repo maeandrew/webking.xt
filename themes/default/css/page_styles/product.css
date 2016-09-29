@@ -1157,7 +1157,7 @@
 	width: auto;
 	float: none;
 	height: 50px;
-	padding: 10px 0;
+	padding: 0;
 	line-height: 36px;
 	position: relative;
 }
@@ -1170,8 +1170,8 @@
 	border: 1px solid #e0e0e0;
 	color: #FF5722;
 	border-radius: 3px;
-	left: 0;
-	width: 100%;
+	position: static;
+	width: 90%;
 }
 .product_page .slider_products .item:hover .product_buy .buy_block .btn_buy button{
 	border: 1px solid #FF5722;

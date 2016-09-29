@@ -265,9 +265,9 @@
 .product_page .products_links_block{padding:10px;display:flex;flex-wrap:wrap}
 .product_page .products_links_block_title{font-size:1.429em;margin:.5em 0;width:100%}
 .product_page .product_link{display:block;margin-right:10px;margin-bottom:10px}
-.product_page .slider_products .notAval,.product_page .slider_products .product_buy{width:auto;float:none;height:50px;padding:10px 0;line-height:36px;position:relative}
+.product_page .slider_products .notAval,.product_page .slider_products .product_buy{width:auto;float:none;height:50px;padding:0;line-height:36px;position:relative}
 .product_page .slider_products .product_buy .buy_block .btn_buy{position:relative;margin:0 auto;width:89%}
-.product_page .slider_products .item .product_buy .buy_block .btn_buy button{border:1px solid #e0e0e0;color:#FF5722;border-radius:3px;left:0;width:100%}
+.product_page .slider_products .item .product_buy .buy_block .btn_buy button{border:1px solid #e0e0e0;color:#FF5722;border-radius:3px;position:static;width:90%}
 .product_page .slider_products .item:hover .product_buy .buy_block .btn_buy button{border:1px solid #FF5722;background-color:#FF5722;color:#fff}
 .product_page .slider_products .product_buy .out_of_stock{margin-top:0}
 @media screen and (max-width:1000px) and (orientation:portrait){.product_page .product .content_header .cart_info .order_balance,.product_page .product .content_header .cart_info .tabs_container li,.product_page .product .content_header .cart_info .your_discount{font-size:1em}
