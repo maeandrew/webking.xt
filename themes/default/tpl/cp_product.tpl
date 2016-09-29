@@ -16,7 +16,8 @@
 			<h1 itemprop="name">
 				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 					<!-- Ссылка на редактирование товара для администратором -->
-					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар <i class="material-icons">mode_edit</i></a>
+					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank"><i class="material-icons">mode_edit</i></a>
+					<div class="mdl-tooltip" for="prod_editing">Редактировать товар</div>
 				<?}?>
 				<?=$item['name']?>
 			</h1>
@@ -218,16 +219,18 @@
 											</div>
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
-										<div class="base_price_cont price_flex <?=(!isset($product_mark) && $product_mark !== 'action') || (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_)?'hidden':null;?>">
-											<div class="base_price">
-												<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
-													<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
-												<?}else{?>
-													<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
-												<?}?>
-											</div>
-											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
-										</div>
+										<?if (isset($product_mark) && $product_mark === 'action') {?>
+											<div class="base_price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null;?>">
+												<div class="base_price">
+													<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
+														<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+													<?}else{?>
+														<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+													<?}?>
+												</div>
+												<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
+											</div>											
+										<?}?>
 
 										<!-- Цена поставщика -->
 										<div class="price card_item <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?null:'hidden'?>">
@@ -592,7 +595,7 @@
 											}?>
 										</span>
 										<span>грн.</span><span><?=isset($p['units'])?'/'.$p['units']:null;?></span>
-										<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+										<div class="product_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" data-idproduct="<?=$p['id_product']?>">
 											<?if(isset($p['active']) && $p['active'] == 0){?>
 												<p class="out_of_stock">Нет в наличии</p>
 											<?}else{?>

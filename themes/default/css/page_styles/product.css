@@ -20,6 +20,10 @@
 }
 .product_page h1 a i{
 	vertical-align: text-bottom;
+	background: #fff;
+	border-radius: 50%;
+	padding: .3em;
+	font-size: .9em;
 }
 .product_page .product .mdl-cell {
 	margin: 10px;

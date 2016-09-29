@@ -3,7 +3,7 @@
 .product_page .mdl-grid{padding:0}
 .product_page h1{font-size:2em;margin:0;padding:10px;clear:both;line-height:1em}
 .product_page h1 a{font-size:.7em}
-.product_page h1 a i{vertical-align:text-bottom}
+.product_page h1 a i{vertical-align:text-bottom;background:#fff;border-radius:50%;padding:.3em;font-size:.9em}
 .product_page .product .mdl-cell{margin:10px}
 .product_page .product .art_avail_stars{display:flex;justify-content:space-between}
 .product_page .product .art_avail_stars .rating_block{margin:0}
