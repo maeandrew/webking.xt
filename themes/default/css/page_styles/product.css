@@ -1235,3 +1235,12 @@
 		display: none;
 	}
 }
+
+.modals #big_photos_carousel .owl-carousel .owl-stage-outer {
+    position: relative;
+    width: 56vw;
+}
+.modals #big_photos_carousel .owl-carousel .owl-item img{
+	width: 80%;
+	margin: 0 auto;
+}
