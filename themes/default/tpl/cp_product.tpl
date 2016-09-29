@@ -13,7 +13,14 @@
 	}?>
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--9-col">
-			<h1 itemprop="name"><?=$item['name']?></h1>
+			<h1 itemprop="name">
+				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
+					<!-- Ссылка на редактирование товара для администратором -->
+					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар <i class="material-icons">mode_edit</i></a>
+					<div class="mdl-tooltip" for="prod_editing">Редактировать товар</div>
+				<?}?>
+				<?=$item['name']?>
+			</h1>
 			<div class="mdl-grid">
 				<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
 					<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
@@ -165,10 +172,6 @@
 					</div>
 					<div class="art_avail_stars">
 						<p class="product_article">Артикул: <br class="hidden_br"><?=$item['art']?></p>
-						<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
-							<!-- Ссылка на редактирование товара для администратором -->
-							<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
-						<?}?>
 						<div class="product_availability"><?=isset($item['active']) && $item['active'] == 1?'Есть в наличии':'Нет в наличии';?></div>
 						<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 							<?if($item['c_mark'] > 0){?>
