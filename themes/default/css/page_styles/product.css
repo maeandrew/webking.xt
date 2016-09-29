@@ -1236,11 +1236,11 @@
 	}
 }
 
-.modals #big_photos_carousel .owl-carousel .owl-stage-outer {
+.for_product_page .modals #big_photos_carousel .owl-carousel .owl-stage-outer {
     position: relative;
     width: 56vw;
 }
-.modals #big_photos_carousel .owl-carousel .owl-item img{
+.for_product_page .modals #big_photos_carousel .owl-carousel .owl-item img{
 	width: 80%;
 	margin: 0 auto;
 }
