@@ -1,5 +1,5 @@
 <!-- Классы-метки notactive и active ставятся в зависимости от того, активен товар или нет и задают соответствующие стили -->
-<div class="product <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>" itemscope itemtype="http://schema.org/Product">
+<div class="product <?=isset($item['active']) && $item['active'] == 1?'':'notactive';?>notactive" itemscope itemtype="http://schema.org/Product">
 	<?// Проверяем доступнось розницы
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
@@ -564,15 +564,15 @@
 		</div>
 		<div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone product_aside">
 			<div class="similar_products_mini">
-				<?if(isset($item['active']) && $item['active'] == 0){
+				<?if(isset($item['active']) && $item['active'] != 0){
 					if(isset($random_products) && !empty($random_products)){?>
 						<h4>Похожие товары</h4>
 						<?$iter = 0?>
 						<?foreach($random_products as $p){?>
 							<?if($iter != 8){?>
 								<div class="item">
-									<a href="<?=Link::Product($p['translit']);?>">
-										<div class="img_cont">
+									<div class="img_cont">
+										<a href="<?=Link::Product($p['translit']);?>">
 											<?if(!empty($p['images'][0])){?>
 												<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 											<?}else	if(!empty($p['img_1'])){?>
@@ -580,33 +580,35 @@
 											<?}else{?>
 												<img alt="" src="<?=G::GetImageUrl('/images/nofoto.png')?>">
 											<?}?>
-										</div>
-										<div class="item_info">
+										</a>
+									</div>
+									<div class="item_info">
+										<a href="<?=Link::Product($p['translit']);?>">
 											<span class="item_name"><?=$p['name']?></span>
-											<span class="ca-more price_num">
-												<?if($p['price_mopt'] > 100){
-													print_r(number_format(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']), 2, ',', ''));
-												}else{
-													print_r(number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', ''));
-												}?>
-											</span>
-											<span>грн.</span><span><?=isset($p['units'])?'/'.$p['units']:null;?></span>
-											<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-												<?if(isset($p['active']) && $p['active'] == 0){?>
-													<p class="out_of_stock">Нет в наличии</p>
-												<?}else{?>
-													<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-														<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-															<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-															<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-															<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-														</div>
-														<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+										</a>
+										<span class="ca-more price_num">
+											<?if($p['price_mopt'] > 100){
+												print_r(number_format(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']), 2, ',', ''));
+											}else{
+												print_r(number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', ''));
+											}?>
+										</span>
+										<span>грн.</span><span><?=isset($p['units'])?'/'.$p['units']:null;?></span>
+										<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+											<?if(isset($p['active']) && $p['active'] == 0){?>
+												<p class="out_of_stock">Нет в наличии</p>
+											<?}else{?>
+												<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+													<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+														<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+														<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+														<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 													</div>
-												<?}?>
-											</div>
+													<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+												</div>
+											<?}?>
 										</div>
-									</a>
+									</div>
 								</div>
 							<? $iter++;
 							}?>

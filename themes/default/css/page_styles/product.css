@@ -59,25 +59,25 @@
 .product_page .product.notactive .product_aside .similar_products_mini h4{
 	margin: 10px 10px 20px;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a{
+.product_page .product.notactive .product_aside .similar_products_mini .item{
 	display: flex;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a:hover *{
-	color: #444;
+.product_page .product.notactive .product_aside .similar_products_mini .item {
+	/*display: flex;*/
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a .item_info{
+.product_page .product.notactive .product_aside .similar_products_mini .item .item_info{
 	width: 60%;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a .img_cont{
+.product_page .product.notactive .product_aside .similar_products_mini .item .img_cont{
 	margin-right: 10px;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a .img_cont img{
+.product_page .product.notactive .product_aside .similar_products_mini .item .img_cont img{
 	display: block;
 	max-width: 120px;
 	margin: 0 auto;
 	margin-right: 1em;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a .item_info .item_name{
+.product_page .product.notactive .product_aside .similar_products_mini .item .item_info .item_name{
 	display: block;
 	text-align: justify;
 	width: 100%;
@@ -87,12 +87,12 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a:hover,
-.product_page .product.notactive .product_aside .similar_products_mini .item a:hover span,
-.product_page .product.notactive .product_aside .similar_products_mini .item a:hover *{
+.product_page .product.notactive .product_aside .similar_products_mini .item:hover,
+.product_page .product.notactive .product_aside .similar_products_mini .item:hover span,
+.product_page .product.notactive .product_aside .similar_products_mini .item:hover *{
 	color: #444;
 }
-.product_page .product.notactive .product_aside .similar_products_mini .item a:hover .item_info .item_name{
+.product_page .product.notactive .product_aside .similar_products_mini .item:hover .item_info .item_name{
 	color: #ff5722;
 }
 .product_page .product.notactive .product_aside .similar_products_mini .extra_info_block{
@@ -894,7 +894,7 @@
 		background: #f3f3f3;
 		border-top: 1px solid #e0e0e0;
 	}
-	.product_page .product.notactive .product_aside .similar_products_mini .item a .img_cont img{
+	.product_page .product.notactive .product_aside .similar_products_mini .item .img_cont img{
 		max-width: 110px;
 	}
 }
@@ -907,10 +907,10 @@
 	.product_page .product .content_header .cart_info .tabs_container li{
 		width: 65px;
 	}
-	.product_page .product.notactive .product_aside .similar_products_mini .item a .img_cont{
+	.product_page .product.notactive .product_aside .similar_products_mini .item .img_cont{
 		margin-right: 5px;
 	}
-	.product_page .product.notactive .product_aside .similar_products_mini .item a .img_cont img{
+	.product_page .product.notactive .product_aside .similar_products_mini .item .img_cont img{
 		max-width: 100px;
 	}
 }
@@ -926,7 +926,7 @@
 	.product_page .product .apps_panel ul{
 		justify-content: space-around;
 	}
-	.product_page .product .similar_products_mini .item a .item_info .item_name{
+	.product_page .product .similar_products_mini .item .item_info .item_name{
 		width: 100%;
 		overflow: visible;
 		white-space: inherit;
@@ -950,7 +950,7 @@
 	}
 }
 @media (max-width: 1280px) {
-	.product_page .product.notactive .product_aside .similar_products_mini .item a .item_info .item_name{
+	.product_page .product.notactive .product_aside .similar_products_mini .item .item_info .item_name{
 		white-space: inherit;
 		height: 2.4em;
 		text-align: left;
@@ -1214,8 +1214,14 @@
 	.product_page .product .apps_panel .isfavorite {
 		color: #fff;
 	}
-	.product_page .product.notactive .product_aside .similar_products_mini .item a .img_cont img {
+	.product_page .product.notactive .product_aside .similar_products_mini .item .img_cont img {
 		max-width: 80px;
+	}
+	.product_page .product .product_main_img{
+		display: none;
+	}
+	.product_page .product .products_details {
+		min-height: 230px;
 	}
 }
 @media (max-width: 1020px){
