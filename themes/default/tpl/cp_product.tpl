@@ -13,7 +13,13 @@
 	}?>
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--9-col">
-			<h1 itemprop="name"><?=$item['name']?></h1>
+			<h1 itemprop="name">
+				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
+					<!-- Ссылка на редактирование товара для администратором -->
+					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар <i class="material-icons">mode_edit</i></a>
+				<?}?>
+				<?=$item['name']?>
+			</h1>
 			<div class="mdl-grid">
 				<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
 					<div class="product_main_img btn_js mdl-cell--hide-tablet mdl-cell--hide-phone" data-name="big_photos_carousel">
@@ -165,10 +171,6 @@
 					</div>
 					<div class="art_avail_stars">
 						<p class="product_article">Артикул: <br class="hidden_br"><?=$item['art']?></p>
-						<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
-							<!-- Ссылка на редактирование товара для администратором -->
-							<a href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар</a>
-						<?}?>
 						<div class="product_availability"><?=isset($item['active']) && $item['active'] == 1?'Есть в наличии':'Нет в наличии';?></div>
 						<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 							<?if($item['c_mark'] > 0){?>
@@ -178,7 +180,7 @@
 								<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
 							<?}?>
 							<?if($item['c_rating'] > 0){?>
-								<span>Оценок товара: </span><br class="hidden_br">
+								<span>Рейтинг: </span><br class="hidden_br">
 								<ul class="rating_stars">
 									<?for($i = 1; $i <= 5; $i++){
 										$star = 'star';
@@ -197,10 +199,9 @@
 									<?}?>
 								</ul>
 								<!-- <span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span> -->
-								<span class="qty_ratings">(<?=$item['c_mark']?>)</span>
 							<?}?>
 						</div>
-						<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
+						<div class="mdl-tooltip" for="rating_block">Количество голосов: <?=$item['c_mark']?></div>
 					</div>
 					<div class="products_details">
 						<div class="pb_wrapper">
@@ -211,21 +212,20 @@
 									<meta itemprop="priceCurrency" content="UAH">
 									<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
 									<div class="price_wrap">
-										<div class="price_cont price_flex">
-											<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+										<div class="price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+											<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
 												<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
 											</div>
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
-										<div class="base_price_cont price_flex <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?>">
-											<div class="base_price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div class="base_price_cont price_flex <?=(!isset($product_mark) && $product_mark !== 'action') || (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_)?'hidden':null;?>">
+											<div class="base_price">
 												<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
 													<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 												<?}else{?>
 													<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 												<?}?>
 											</div>
-
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
 
@@ -236,6 +236,7 @@
 											}else{
 												echo number_format($item['price_mopt_otpusk'], 2, ",", "");
 											}?>
+											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
 										<!-- <span> грн.</span> -->
 									</div>
@@ -568,8 +569,8 @@
 						<?foreach($random_products as $p){?>
 							<?if($iter != 8){?>
 								<div class="item">
-									<a href="<?=Link::Product($p['translit']);?>">
-										<div class="img_cont">
+									<div class="img_cont">
+										<a href="<?=Link::Product($p['translit']);?>">
 											<?if(!empty($p['images'][0])){?>
 												<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 											<?}else	if(!empty($p['img_1'])){?>
@@ -577,33 +578,35 @@
 											<?}else{?>
 												<img alt="" src="<?=G::GetImageUrl('/images/nofoto.png')?>">
 											<?}?>
-										</div>
-										<div class="item_info">
+										</a>
+									</div>
+									<div class="item_info">
+										<a href="<?=Link::Product($p['translit']);?>">
 											<span class="item_name"><?=$p['name']?></span>
-											<span class="ca-more price_num">
-												<?if($p['price_mopt'] > 100){
-													print_r(number_format(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']), 2, ',', ''));
-												}else{
-													print_r(number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', ''));
-												}?>
-											</span>
-											<span>грн.</span><span><?=isset($p['units'])?'/'.$p['units']:null;?></span>
-											<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-												<?if(isset($p['active']) && $p['active'] == 0){?>
-													<p class="out_of_stock">Нет в наличии</p>
-												<?}else{?>
-													<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-														<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-															<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-															<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-															<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-														</div>
-														<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+										</a>
+										<span class="ca-more price_num">
+											<?if($p['price_mopt'] > 100){
+												print_r(number_format(ceil($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount']), 2, ',', ''));
+											}else{
+												print_r(number_format($p['price_mopt']*$GLOBALS['CONFIG']['full_wholesale_discount'], 2, ',', ''));
+											}?>
+										</span>
+										<span>грн.</span><span><?=isset($p['units'])?'/'.$p['units']:null;?></span>
+										<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+											<?if(isset($p['active']) && $p['active'] == 0){?>
+												<p class="out_of_stock">Нет в наличии</p>
+											<?}else{?>
+												<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+													<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+														<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+														<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+														<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
 													</div>
-												<?}?>
-											</div>
+													<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+												</div>
+											<?}?>
 										</div>
-									</a>
+									</div>
 								</div>
 							<? $iter++;
 							}?>
@@ -625,31 +628,19 @@
 			<div class="advantage_block">
 				<h4>Конкурентные преимущества</h4>
 				<ol>
-					<li>Успешный опыт работы (более 5 лет) нашей Компании на рынке оптовой продажи.</li>
-					<li>Оптовые скидки от&nbsp;10&nbsp;до&nbsp;21% от XT. Вы сами выбираете свою оптовую цену!</li>
-					<li>Накопительная бонусная программа, для каждого клиента. Возможность оплаты заказа не&nbsp;более&nbsp;50% от суммы заказа.</li>
-					<li>Собственная логистика. Адресная Доставка по Украине</li>
-					<li>При выявлении изъяна в товаре покупатель может, вернуть деньги на счет, или обменять на другой товар.</li>
-					<li>Вместе дешевле! Совместные покупки (СП). Покупка товаров для всей семьи по оптовым ценам.</li>
-					<li>Более 200&nbsp;000 товара. Ассортимент обновляется каждый день!</li>
+					<li>Успешный опыт работы нашей компании на рынке оптовой продажи более 5 лет.</li>
+					<li>Оптовые скидки от&nbsp;10&nbsp;до&nbsp;35% от XT.ua. Вы сами выбираете свою оптовую цену!</li>
+					<li>Накопительная бонусная программа для каждого клиента. Возможность оплачивать до&nbsp;50% от суммы заказа.</li>
+					<li>Собственная логистика. Адресная доставка по всей Украине.</li>
+					<li>При выявлении изъяна в товаре покупатель может вернуть деньги на счет или обменять на другой товар.</li>
+					<li>Вместе дешевле! Совместные покупки&nbsp;(СП). Покупка товаров для всей семьи по оптовым ценам.</li>
+					<li>Более 200&nbsp;000 товаров. Ассортимент обновляется каждый день!</li>
 				</ol>
 			</div>
 		</div>
 	</div>
 </div>
 <section class="sliders">
-	<!-- <div class="slider_products hidden">
-		<h4>Сопутствующие товары</h4>
-		<div id="owl-accompanying" class="owl-carousel">
-			<div class="item">
-				<a href="#">
-					<img src="<?=$GLOBALS['URL_img_theme']?>46842.jpg">
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
-					<div class="ca-more">65 грн.</div>
-				</a>
-			</div>
-		</div>
-	</div> -->
 	<?if(isset($related_prods) && !empty($related_prods)){?>
 		<div class="slider_products">
 			<h4>Сопутствующие товары</h4>
@@ -670,21 +661,21 @@
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
-							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-								<?if(isset($p['active']) && $p['active'] == 0){?>
-									<span class="out_of_stock">Нет в наличии</span>
-								<?}else{?>
-									<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-										<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-											<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-										</div>
-										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
-									</div>
-								<?}?>
-							</div>
 						</a>
+						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+							<?if(isset($p['active']) && $p['active'] == 0){?>
+								<span class="out_of_stock">Нет в наличии</span>
+							<?}else{?>
+								<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+										<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+										<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+									</div>
+									<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+								</div>
+							<?}?>
+						</div>
 					</div>
 				<?}?>
 			</div>
@@ -710,21 +701,21 @@
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
-							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-								<?if(isset($p['active']) && $p['active'] == 0){?>
-									<span class="out_of_stock">Нет в наличии</span>
-								<?}else{?>
-									<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-										<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-											<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-										</div>
-										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
-									</div>
-								<?}?>
-							</div>
 						</a>
+						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+							<?if(isset($p['active']) && $p['active'] == 0){?>
+								<span class="out_of_stock">Нет в наличии</span>
+							<?}else{?>
+								<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+										<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+										<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+									</div>
+									<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+								</div>
+							<?}?>
+						</div>
 					</div>
 				<?}?>
 			</div>
@@ -750,21 +741,21 @@
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
-							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-								<?if(isset($p['active']) && $p['active'] == 0){?>
-									<span class="out_of_stock">Нет в наличии</span>
-								<?}else{?>
-									<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-										<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-											<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-										</div>
-										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
-									</div>
-								<?}?>
-							</div>
 						</a>
+						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+							<?if(isset($p['active']) && $p['active'] == 0){?>
+								<span class="out_of_stock">Нет в наличии</span>
+							<?}else{?>
+								<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+										<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+										<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+									</div>
+									<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+								</div>
+							<?}?>
+						</div>
 					</div>
 				<?}?>
 			</div>
@@ -790,21 +781,21 @@
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
-							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-								<?if(isset($p['active']) && $p['active'] == 0){?>
-									<span class="out_of_stock">Нет в наличии</span>
-								<?}else{?>
-									<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-										<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-											<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-										</div>
-										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
-									</div>
-								<?}?>
-							</div>
 						</a>
+						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+							<?if(isset($p['active']) && $p['active'] == 0){?>
+								<span class="out_of_stock">Нет в наличии</span>
+							<?}else{?>
+								<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+										<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+										<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+									</div>
+									<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+								</div>
+							<?}?>
+						</div>
 					</div>
 				<?}?>
 			</div>
@@ -830,21 +821,21 @@
 							<?}else{?>
 								<div class="ca-more">от <?=number_format($p['prices_opt'][0], 2, ',', '')?> грн.</div>
 							<?}?>
-							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
-								<?if(isset($p['active']) && $p['active'] == 0){?>
-									<span class="out_of_stock">Нет в наличии</span>
-								<?}else{?>
-									<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-										<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-											<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
-											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
-											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
-										</div>
-										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
-									</div>
-								<?}?>
-							</div>
 						</a>
+						<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+							<?if(isset($p['active']) && $p['active'] == 0){?>
+								<span class="out_of_stock">Нет в наличии</span>
+							<?}else{?>
+								<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+										<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+										<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Купить</button>
+									</div>
+									<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+								</div>
+							<?}?>
+						</div>
 					</div>
 				<?}?>
 			</div>
