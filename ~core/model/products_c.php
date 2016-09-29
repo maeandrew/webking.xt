@@ -4760,7 +4760,7 @@ class Products {
 	}
 
 	// Рандомное добавление сеотекста товарам
-	public function productSeotext($cnt_prod){
+	public function productSeotext($cnt_prod = 300){
 		$sql = 'SELECT * FROM '._DB_PREFIX_.'seotext_formats';
 		$seotext = $this->db->GetArray($sql);
 		if(!$seotext){
