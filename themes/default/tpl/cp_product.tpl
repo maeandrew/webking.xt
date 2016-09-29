@@ -618,15 +618,17 @@
 							<a class="anchor_link_js" href="<?=$GLOBALS['IERA_LINKS'][count($GLOBALS['IERA_LINKS']) - 1]['url']?>">Посмотреть все похожие предложения</a>
 						</div>
 					<?}
-				}else{?>
-					<div id="price_details" class="extra_info_block">
-						<script>
-							ajax('product', 'priceHelp', {id_product: $('.product_buy').data('idproduct'), mark: 1}, 'html').done(function(data){
-								$('.extra_info_block').html(data);
-							});
-						</script>
-					</div>
-				<?}?>
+				}else{
+					if(G::IsLogged() && $_SESSION['member']['gid'] !== _ACL_SUPPLIER_){?>
+						<div id="price_details" class="extra_info_block">
+							<script>
+								ajax('product', 'priceHelp', {id_product: $('.product_buy').data('idproduct'), mark: 1}, 'html').done(function(data){
+									$('.extra_info_block').html(data);
+								});
+							</script>
+						</div>
+					<?}
+				}?>
 			</div>
 			<div class="advantage_block">
 				<h4>Конкурентные преимущества</h4>
