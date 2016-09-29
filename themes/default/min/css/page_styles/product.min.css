@@ -68,7 +68,7 @@
 .product_page .product .product_buy .buy_block .price_wrap{font-family:Oswald,sans-serif;font-size:1.8em!important}
 .product_page .product .product_buy .buy_block .price_wrap span{font-size:.6em}
 .product_page .product .product_buy .buy_block .price_wrap span.bold_text{font-weight:600}
-.product_page .product .product_buy .buy_block .price_wrap .price_cont{color:#018b06;font-size:1.45em}
+.product_page .product .product_buy .buy_block .price_wrap .price_cont,.product_page .product .product_buy .buy_block .price_wrap>.price{color:#018b06;font-size:1.45em}
 .product_page .product .product_buy .buy_block .price_wrap .price_flex{display:flex;align-items:baseline}
 .product_page .product .product_buy .buy_block .price_wrap .price_flex>div{margin-right:5px}
 .product_page .product .product_buy .buy_block .price_wrap .base_price_cont{width:auto;margin-left:20px;text-decoration:none;font-size:.86em!important;position:relative}

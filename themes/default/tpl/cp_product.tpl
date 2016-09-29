@@ -1,5 +1,5 @@
 <!-- Классы-метки notactive и active ставятся в зависимости от того, активен товар или нет и задают соответствующие стили -->
-<div class="product <?=isset($item['active']) && $item['active'] == 1?'':'notactive';?>notactive" itemscope itemtype="http://schema.org/Product">
+<div class="product <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>" itemscope itemtype="http://schema.org/Product">
 	<?// Проверяем доступнось розницы
 	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
 	// Проверяем доступнось опта
@@ -17,7 +17,6 @@
 				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 					<!-- Ссылка на редактирование товара для администратором -->
 					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank">Редактировать товар <i class="material-icons">mode_edit</i></a>
-					<div class="mdl-tooltip" for="prod_editing">Редактировать товар</div>
 				<?}?>
 				<?=$item['name']?>
 			</h1>
@@ -181,7 +180,7 @@
 								<span class="hidden" itemprop="reviewCount"><?=$item['c_mark']?></span>
 							<?}?>
 							<?if($item['c_rating'] > 0){?>
-								<span>Оценок товара: </span><br class="hidden_br">
+								<span>Рейтинг: </span><br class="hidden_br">
 								<ul class="rating_stars">
 									<?for($i = 1; $i <= 5; $i++){
 										$star = 'star';
@@ -200,10 +199,9 @@
 									<?}?>
 								</ul>
 								<!-- <span class="stars_qty"><?=number_format($item['c_rating'], 1)[2] >= 5? number_format($item['c_rating'], 1):number_format($item['c_rating'], 1)[0]?> / 5</span> -->
-								<span class="qty_ratings">(<?=$item['c_mark']?>)</span>
 							<?}?>
 						</div>
-						<div class="mdl-tooltip" for="rating_block">Рейтинг товара</div>
+						<div class="mdl-tooltip" for="rating_block">Количество голосов: <?=$item['c_mark']?></div>
 					</div>
 					<div class="products_details">
 						<div class="pb_wrapper">
@@ -214,21 +212,20 @@
 									<meta itemprop="priceCurrency" content="UAH">
 									<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
 									<div class="price_wrap">
-										<div class="price_cont price_flex">
-											<div class="price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+										<div class="price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+											<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
 												<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
 											</div>
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
-										<div class="base_price_cont price_flex <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?>">
-											<div class="base_price <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+										<div class="base_price_cont price_flex <?=(!isset($product_mark) && $product_mark !== 'action') || (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_)?'hidden':null;?>">
+											<div class="base_price">
 												<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
 													<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
 												<?}else{?>
 													<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 												<?}?>
 											</div>
-
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
 
@@ -239,6 +236,7 @@
 											}else{
 												echo number_format($item['price_mopt_otpusk'], 2, ",", "");
 											}?>
+											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
 										</div>
 										<!-- <span> грн.</span> -->
 									</div>
@@ -564,7 +562,7 @@
 		</div>
 		<div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone product_aside">
 			<div class="similar_products_mini">
-				<?if(isset($item['active']) && $item['active'] != 0){
+				<?if(isset($item['active']) && $item['active'] == 0){
 					if(isset($random_products) && !empty($random_products)){?>
 						<h4>Похожие товары</h4>
 						<?$iter = 0?>

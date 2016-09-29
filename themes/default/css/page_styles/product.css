@@ -333,7 +333,8 @@
 .product_page .product .product_buy .buy_block .price_wrap span.bold_text{
 	font-weight: 600;
 }
-.product_page .product .product_buy .buy_block .price_wrap .price_cont{
+.product_page .product .product_buy .buy_block .price_wrap .price_cont,
+.product_page .product .product_buy .buy_block .price_wrap > .price{
 	color: #018b06;
 	font-size: 1.45em;
 }
