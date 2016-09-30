@@ -229,7 +229,7 @@
 													<?}?>
 												</div>
 												<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
-											</div>											
+											</div>
 										<?}?>
 
 										<!-- Цена поставщика -->
