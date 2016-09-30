@@ -14,10 +14,4 @@ if(isset($_POST['smb']) && isset($_POST['ord'])){
 if($News->NewsList(1)){// die('Ошибка при формировании списка новостей.');
 	$tpl->Assign('list', $News->list);
 }
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_news.tpl')
-);
-if($parsed_res['issuccess'] == true){
-	$tpl_center .= $parsed_res['html'];
-}
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_news.tpl');

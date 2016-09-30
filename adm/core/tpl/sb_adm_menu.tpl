@@ -313,6 +313,19 @@
 				</li>
 			<?}?>
 
+			<?if(_acl::isAllow('seotextformats')){?>
+				<li <?=$GLOBALS['CurrentController'] == 'seotextformats'?'class="sel"':null;?>>
+					<a href="/adm/seotextformats/">Формат сеотекста</a>
+				</li>
+				<li>
+					<ul class="sb_menusub">
+						<li <?=$GLOBALS['CurrentController'] == 'seotextformatsadd'?'class="sel"':null;?>>
+							<a href="/adm/seotextformatsadd/">Добавить формат сеотекста</a>
+						</li>
+					</ul>
+				</li>
+			<?}?>
+
 			<?if(_acl::isAllow('posts')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'posts'?'class="sel"':null;?>>
 					<a href="/adm/posts/">Статьи</a>
