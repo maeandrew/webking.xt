@@ -47,22 +47,25 @@
 	<tr>
 		<td class="title_column">Партнер <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][0], 2, ",", "")?></td>
-		<td><?=(100-$corrections['mopt'][0]*100)?></td>
+		<td><?=(100-round($product['prices_mopt'][0]/$product['prices_mopt'][3], 2)*100)?></td>
+		<!-- <td><?=(100-$corrections['mopt'][0]*100)?></td> -->
 	</tr>
 	<tr>
 		<td class="title_column">Диллер <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][1], 2, ",", "")?></td>
-		<td><?=(100-$corrections['mopt'][1]*100)?></td>
+		<td><?=(100-round($product['prices_mopt'][1]/$product['prices_mopt'][3], 2)*100)?></td>
+		<!-- <td><?=(100-$corrections['mopt'][1]*100)?></td> -->
 	</tr>
 	<tr>
 		<td class="title_column">Опт <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][2], 2, ",", "")?></td>
-		<td><?=(100-$corrections['mopt'][2]*100)?></td>
+		<td><?=(100-round($product['prices_mopt'][2]/$product['prices_mopt'][3], 2)*100)?></td>
+		<!-- <td><?=(100-$corrections['mopt'][2]*100)?></td> -->
 	</tr>
 	<tr>
 		<td class="title_column">Розница (базовая) <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][3], 2, ",", "")?></td>
-		<td><?=(100-$corrections['mopt'][3]*100)?></td>
+		<td>0</td>
 	</tr>
 </table>
 <table class="bonus_table hidden">

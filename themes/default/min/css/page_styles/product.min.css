@@ -8,12 +8,12 @@
 .product_page .product .art_avail_stars{display:flex;justify-content:space-between}
 .product_page .product .art_avail_stars .rating_block{margin:0}
 .product_page .product .art_avail_stars .product_article{margin:0;color:#444}
-.product_page .product .product_aside .advantage_block ol{text-align:justify}
+.product_page .product .product_aside h4{margin:10px;text-align:center}
+.product_page .product .product_aside .advantage_block ul{text-align:justify;list-style-type:disc;padding-left:1.4em}
 .product_page .product.notactive .product_aside .advantage_block,.product_page .product.notactive .product_aside .similar_products_mini{padding:10px;position:relative}
 .product_page .product.active .product_aside .advantage_block,.product_page .product.active .product_aside .similar_products_mini{background-color:#f4f6f5}
 .product_page .product.notactive .product_aside .advantage_block,.product_page .product.notactive .product_aside .similar_products_mini{background-color:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 .product_page .product.notactive .product_aside .advantage_block{display:none}
-.product_page .product.notactive .product_aside .advantage_block h4,.product_page .product.notactive .product_aside .similar_products_mini h4{margin:10px 10px 20px}
 .product_page .product.notactive .product_aside .similar_products_mini .item{display:flex}
 .product_page .product.notactive .product_aside .similar_products_mini .item .item_info{width:60%}
 .product_page .product.notactive .product_aside .similar_products_mini .item .img_cont{margin-right:10px}

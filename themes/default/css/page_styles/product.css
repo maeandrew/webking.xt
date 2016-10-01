@@ -40,8 +40,14 @@
 	margin: 0;
 	color: #444;
 }
-.product_page .product .product_aside .advantage_block ol{
+.product_page .product .product_aside h4 {
+	margin: 10px;
+	text-align: center;
+}
+.product_page .product .product_aside .advantage_block ul {
 	text-align: justify;
+	list-style-type: disc;
+	padding-left: 1.4em;
 }
 .product_page .product.notactive .product_aside .advantage_block,
 .product_page .product.notactive .product_aside .similar_products_mini{
@@ -59,10 +65,6 @@
 }
 .product_page .product.notactive .product_aside .advantage_block{
 	display: none;
-}
-.product_page .product.notactive .product_aside .advantage_block h4,
-.product_page .product.notactive .product_aside .similar_products_mini h4{
-	margin: 10px 10px 20px;
 }
 .product_page .product.notactive .product_aside .similar_products_mini .item{
 	display: flex;

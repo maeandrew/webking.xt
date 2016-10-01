@@ -29,6 +29,15 @@ if(isset($_POST['kurs']) && isset($_POST['kurs_griwni'])){
 		echo "<script>alert('Что-то пошло не так');</script>";
 	}
 }
+
+if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'random_seo_text'){
+	$Seo = new Seo();
+	if($Seo->productSeotext((int) $_POST['quantity'])){
+		echo "<script>alert('Тексты установлены');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
+	}else{
+		echo "<script>alert('Что-то пошло не так');</script>";
+	}
+}
 // пересчитать все цены поставщиков
 if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'recalc_product_prices'){
 	if($Products->UpdatePriceRecommendAssortment()){

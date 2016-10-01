@@ -80,78 +80,78 @@
 		</ul>
 
 	</div>
-	<!-- Функции ручного запуска -->
-	<div class="control_functions_wrapp">
-		<div class="row">
-			<div class="col-md-9 col-sm-12">
-				<div class="block">
-					<h2>Последние отзывы</h2>
-					<?if(isset($comments) && !empty($comments)){?>
-						<a href="/adm/coment/" class="title">Посмотреть все</a>
-						<table class="list" width="100%" border="0" cellspacing="0" cellpadding="0">
-							<thead>
-								<tr>
-									<th colspan="1">Автор</th>
-									<th colspan="1">Комментарий</th>
-									<th colspan="1">Дата</th>
-								</tr>
-							</thead>
-							<colgroup>
-								<col width="20%">
-								<col width="60%">
-								<col width="20%">
-							</colgroup>
-							<tbody>
-								<?$i = 0;
-								while($i < 4){?>
-									<tr>
-										<td><?=($comments[$i]['username']);?></td>
-										<td><?=($comments[$i]['text_coment']);?></td>
-										<td><?=date("d-m-Y в H:i", strtotime($comments[$i]['date_comment']));?></td>
-									</tr>
-									<?$i++;
-								}?>
-							</tbody>
-						</table>
-					<?}else{?>
-						В данный момент нет ни одного отзыва
-					<?}?>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-12 col-xs-12">
-				<div class="block drystats">
-					<h2>Сухие цифры</h2>
-					<table class="list">
+	<div class="row">
+		<div class="col-md-9 col-sm-12">
+			<div class="block">
+				<h2>Последние отзывы</h2>
+				<?if(isset($comments) && !empty($comments)){?>
+					<a href="/adm/coment/" class="title">Посмотреть все</a>
+					<table class="list" width="100%" border="0" cellspacing="0" cellpadding="0">
+						<thead>
+							<tr>
+								<th colspan="1">Автор</th>
+								<th colspan="1">Комментарий</th>
+								<th colspan="1">Дата</th>
+							</tr>
+						</thead>
 						<colgroup>
-							<col width="80%">
+							<col width="20%">
+							<col width="60%">
 							<col width="20%">
 						</colgroup>
 						<tbody>
-							<tr>
-								<td>Категорий:</td>
-								<td><b><?=$cat_cnt?></b></td>
-							</tr>
-							<tr>
-								<td>Товаров:</td>
-								<td><b><?=$items_cnt?></b></td>
-							</tr>
-							<tr>
-								<td>Товаров в продаже:</td>
-								<td><b><?=$active_tov?></b></td>
-							</tr>
-							<tr>
-								<td>Подписаных клиентов:</td>
-								<td><b><?=$subscribed_cnt?></b></td>
-							</tr>
-							<tr>
-								<td>Последний артикул:</td>
-								<td><b><?=$last_article?></b></td>
-							</tr>
+							<?$i = 0;
+							while($i < 4){?>
+								<tr>
+									<td><?=($comments[$i]['username']);?></td>
+									<td><?=($comments[$i]['text_coment']);?></td>
+									<td><?=date("d-m-Y в H:i", strtotime($comments[$i]['date_comment']));?></td>
+								</tr>
+								<?$i++;
+							}?>
 						</tbody>
 					</table>
-				</div>
+				<?}else{?>
+					В данный момент нет ни одного отзыва
+				<?}?>
 			</div>
 		</div>
+		<div class="col-md-3 col-sm-12 col-xs-12">
+			<div class="block drystats">
+				<h2>Сухие цифры</h2>
+				<table class="list">
+					<colgroup>
+						<col width="80%">
+						<col width="20%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td>Категорий:</td>
+							<td><b><?=$cat_cnt?></b></td>
+						</tr>
+						<tr>
+							<td>Товаров:</td>
+							<td><b><?=$items_cnt?></b></td>
+						</tr>
+						<tr>
+							<td>Товаров в продаже:</td>
+							<td><b><?=$active_tov?></b></td>
+						</tr>
+						<tr>
+							<td>Подписаных клиентов:</td>
+							<td><b><?=$subscribed_cnt?></b></td>
+						</tr>
+						<tr>
+							<td>Последний артикул:</td>
+							<td><b><?=$last_article?></b></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- Функции ручного запуска -->
+	<div class="control_functions_wrapp">
 		<div class="block">
 			<h2>Функции ручного управления</h2>
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
@@ -285,6 +285,17 @@
 							<td>
 								<!-- <button type="submit" class="size_s fr btn-m-red" name="smb" onclick="return confirm('Вы точно хотите очистить базу!?');">Очистить</button> -->
 							</td>
+						</tr>
+						<tr>
+							<form action="<?=$GLOBALS['URL_base'];?>adm/main/random_seo_text" method="POST">
+								<td>
+									<label for="products_quantity">Автоматически наполнить seo-тексты товаров</label>
+									<input type="number" id="products_quantity" class="size_s input-m fr" min="1" required name="quantity">
+								</td>
+								<td>
+									<button class="size_s fr btn-m-red" name="smb">Наполнить</button>
+								</td>
+							</form>
 						</tr>
 						<tr>
 							<form action="<?=$GLOBALS['URL_base'];?>adm/" method="POST">

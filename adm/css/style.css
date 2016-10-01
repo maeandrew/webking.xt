@@ -568,6 +568,7 @@ body {
 .content div[id$="ae"] textarea,
 .content div[id$="ae"] input[type="text"],
 .content div[id$="ae"] input[type="password"],
+.content div[id$="ae"] input[type="number"],
 .content div[id$="ae"] label {
 	width: 100%;
 }

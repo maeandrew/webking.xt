@@ -41,7 +41,7 @@
 						<a class="icon-font btn-m-orange-inv watchSeoText" title="Посмотреть текст на странице" href="<?=$i['url']?>">v</a>
 					</td>
 					<td>
-						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['text']?></a>
+						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=htmlspecialchars($i['text'])?></a>
 					</td>
 					<td>
 						<?=$i['username']?>
