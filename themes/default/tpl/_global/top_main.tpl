@@ -60,6 +60,7 @@
 				<?foreach($list_menu as $key => &$menu){?>
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$menu['title']?></a>
 				<?}?>
+				<a class="mdl-menu__item" href="<?=Link::Custom('price');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Прайс-листы</a>
 			</nav>
 		</div>
 		<div class="profile mdl-cell--hide-phone">

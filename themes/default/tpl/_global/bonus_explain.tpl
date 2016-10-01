@@ -11,25 +11,25 @@
 		<th>Скидка, %</th>
 	</tr>
 	<tr>
-		<td class="title_column">Партнерская <span>(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+		<td class="title_column">Партнер <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_opt'][0], 2, ",", "")?></td>
 		<td><?=(100-round($product['prices_opt'][0]/$product['prices_mopt'][3], 2)*100)?></td>
 		<!-- <td><?=(100-$corrections['opt'][0]*100)?></td> -->
 	</tr>
 	<tr>
-		<td class="title_column">Диллерская <span>(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+		<td class="title_column">Диллер <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_opt'][1], 2, ",", "")?></td>
 		<td><?=(100-round($product['prices_opt'][1]/$product['prices_mopt'][3], 2)*100)?></td>
 		<!-- <td><?=(100-$corrections['opt'][1]*100)?></td> -->
 	</tr>
 	<tr>
-		<td class="title_column">Оптовая <span>(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
+		<td class="title_column">Опт <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_opt'][2], 2, ",", "")?></td>
 		<td><?=(100-round($product['prices_opt'][2]/$product['prices_mopt'][3], 2)*100)?></td>
 		<!-- <td><?=(100-$corrections['opt'][2]*100)?></td> -->
 	</tr>
 	<tr>
-		<td class="title_column">Розничная <span>(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
+		<td class="title_column">Розница <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_opt'][3], 2, ",", "")?></td>
 		<td><?=(100-round($product['prices_opt'][3]/$product['prices_mopt'][3], 2)*100)?></td>
 		<!-- <td><?=(100-$corrections['opt'][3]*100)?></td> -->
@@ -45,27 +45,26 @@
 		<th>Скидка, %</th>
 	</tr>
 	<tr>
-		<td class="title_column">Партнерская <span>(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+		<td class="title_column">Партнер <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][0], 2, ",", "")?></td>
 		<td><?=(100-$corrections['mopt'][0]*100)?></td>
 	</tr>
 	<tr>
-		<td class="title_column">Диллерская <span>(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+		<td class="title_column">Диллер <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][1], 2, ",", "")?></td>
 		<td><?=(100-$corrections['mopt'][1]*100)?></td>
 	</tr>
 	<tr>
-		<td class="title_column">Оптовая <span>(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
+		<td class="title_column">Опт <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
 		<td><?=number_format($product['prices_mopt'][2], 2, ",", "")?></td>
 		<td><?=(100-$corrections['mopt'][2]*100)?></td>
 	</tr>
 	<tr>
-		<td class="title_column">Розничная <span>(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
-		<td><?=number_format($product['prices_mopt'][3], 2, ",", "")?>*</td>
+		<td class="title_column">Розница (базовая) <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
+		<td><?=number_format($product['prices_mopt'][3], 2, ",", "")?></td>
 		<td><?=(100-$corrections['mopt'][3]*100)?></td>
 	</tr>
 </table>
-<p>* - Базовая цена</p>
 <table class="bonus_table hidden">
 	<tr>
 		<th colspan="3">Бонусная программа</th>
