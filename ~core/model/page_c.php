@@ -92,32 +92,17 @@ class Page {
 			$f['title'] = trim($arr['title']);
 			$f['translit'] = G::StrToTrans($arr['title']);
 		}
-		if(isset($arr['title_ua'])){
-			$f['title_ua'] = trim($arr['title_ua']);
-		}
 		if(isset($arr['editor'])){
-			$f['content'] = trim($arr['editor']);
-		}
-		if(isset($arr['editor_ua'])){
-			$f['content_ua'] = trim($arr['editor_ua']);
+			$f['new_content'] = trim($arr['editor']);
 		}
 		if(isset($arr['page_description'])){
 			$f['page_description'] = trim($arr['page_description']);
 		}
-		if(isset($arr['page_description_ua'])){
-			$f['page_description_ua'] = trim($arr['page_description_ua']);
-		}
 		if(isset($arr['page_title'])){
 			$f['page_title'] = trim($arr['page_title']);
 		}
-		if(isset($arr['page_title_ua'])){
-			$f['page_title_ua'] = trim($arr['page_title_ua']);
-		}
 		if(isset($arr['page_keywords'])){
 			$f['page_keywords'] = trim($arr['page_keywords']);
-		}
-		if(isset($arr['page_keywords_ua'])){
-			$f['page_keywords_ua'] = trim($arr['page_keywords_ua']);
 		}
 		if(isset($arr['ptype'])){
 			$f['ptype'] = trim($arr['ptype']);
@@ -143,32 +128,17 @@ class Page {
 			$f['title'] = trim($arr['title']);
 			$f['translit'] = G::StrToTrans($arr['title']);
 		}
-		if(isset($arr['title_ua'])){
-			$f['title_ua'] = trim($arr['title_ua']);
-		}
 		if(isset($arr['editor'])){
-			$f['content'] = trim($arr['editor']);
-		}
-		if(isset($arr['editor_ua'])){
-			$f['content_ua'] = trim($arr['editor_ua']);
+			$f['new_content'] = trim($arr['editor']);
 		}
 		if(isset($arr['page_description'])){
 			$f['page_description'] = trim($arr['page_description']);
 		}
-		if(isset($arr['page_description_ua'])){
-			$f['page_description_ua'] = trim($arr['page_description_ua']);
-		}
 		if(isset($arr['page_title'])){
 			$f['page_title'] = trim($arr['page_title']);
 		}
-		if(isset($arr['page_title_ua'])){
-			$f['page_title_ua'] = trim($arr['page_title_ua']);
-		}
 		if(isset($arr['page_keywords'])){
 			$f['page_keywords'] = trim($arr['page_keywords']);
-		}
-		if(isset($arr['page_keywords_ua'])){
-			$f['page_keywords_ua'] = trim($arr['page_keywords_ua']);
 		}
 		if(isset($arr['ptype'])){
 			$f['ptype'] = trim($arr['ptype']);
@@ -179,7 +149,7 @@ class Page {
 			$f['visible'] = 0;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."page", $f, "id_page = {$arr['id_page']}")){
+		if(!$this->db->Update(_DB_PREFIX_.'page', $f, 'id_page = '.$arr['id_page'])){
 			$this->db->FailTrans();
 			return false;
 		}

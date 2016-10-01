@@ -12,10 +12,10 @@ if(!$Page->SetFieldsById($id_page, 1)){
 }
 $tpl->Assign('h1', 'Редактирование страницы');
 if(isset($_POST['smb'])){
-	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
+	require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Page_form_validate();
 	if(!$err){
-		if($id = $Page->UpdatePage($_POST)){
+		if($Page->UpdatePage($_POST)){
 			$tpl->Assign('msg', 'Страница обновлена.');
 			unset($_POST);
 			if(!$Page->SetFieldsById($id_page, 1)){

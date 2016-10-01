@@ -7,15 +7,9 @@
 			<p class="look_page"><a href="/page/<?=isset($_POST['translit'])?$_POST['translit']:null?>">Посмотреть страницу</a></p>
 		<?}?>
 		<div class="row">
-			<div class="col-md-6">
-				<div class="ru_loc"><span></span> RU</div>
+			<div class="col-md-12">
 				<label for="title">Заголовок:</label><?=isset($errm['title'])?'<span class="errmsg">'.$errm['title']."</span><br>":null?>
 				<input type="text" name="title" id="title" class="input-l" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>">
-			</div>
-			<div class="col-md-6">
-				<div class="ua_loc"><span></span> UA</div>
-				<label for="title_ua">Заголовок:</label><?=isset($errm['title_ua'])?'<span class="errmsg">'.$errm['title_ua']."</span><br>":null?>
-				<input type="text" name="title_ua" id="title_ua" class="input-l" value="<?=isset($_POST['title_ua'])?htmlspecialchars($_POST['title_ua']):null?>">
 			</div>
 		</div>
         <div id="translit"><?=isset($_POST['translit'])?$_POST['translit']:null?></div>
@@ -36,18 +30,11 @@
 			 <?}?>
 		</select>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<label for="edit-container">Текст:</label><?=isset($errm['pcontent'])?"<span class=\"errmsg\">".$errm['pcontent']."</span><br>":null?>
 				<!--<textarea name="pcontent" id="pcontent" rows="38" cols="200"><?=isset($_POST['new_content'])?htmlspecialchars($_POST['new_content']):null?></textarea>-->
 				<div id="edit-container">
 					<div id="editor" onkeyup="moreStuff();"><?=isset($_POST['new_content'])?htmlspecialchars($_POST['new_content']):null?></div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<label for="edit-container_ua">Текст:</label><?=isset($errm['pcontent_ua'])?"<span class=\"errmsg\">".$errm['pcontent_ua']."</span><br>":null?>
-				<!--<textarea name="pcontent_ua" id="pcontent_ua" rows="38" cols="200">cvbhhrt<?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></textarea>-->
-				<div id="edit-container_ua">
-					<div id="editor_ua" onkeyup="moreStuff2();"><?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?></div>
 				</div>
 			</div>
 		</div>
@@ -60,7 +47,6 @@
 		</div>
 		<input type="hidden" name="id_page" id="id_page" value="<?=isset($_POST['id_page'])?$_POST['id_page']:0?>">
 		<input type="hidden" name="editor" id="post_editor" value="<?=isset($_POST['new_content'])?htmlspecialchars($_POST['new_content']):null?>">
-		<input type="hidden" name="editor_ua" id="post_editor_ua" value="<?=isset($_POST['content_ua'])?htmlspecialchars($_POST['content_ua']):null?>">
 		<button name="smb" type="submit" class="save-btn btn-l-default">Сохранить</button>
     </form>
 </div>
@@ -74,20 +60,8 @@
 	 function moreStuff(){
 		 document.getElementById('post_editor').value = editor.getValue();
 	 }
-	 var editor_ua = ace.edit("editor_ua");
-	 editor_ua.setTheme("ace/theme/dreamweaver");
-	 //editor.setTheme("ace/theme/clouds_midnight");
-	 editor_ua.setFontSize(15);
-	 editor_ua.getSession().setUseWrapMode(true);
-	 editor_ua.getSession().setMode("ace/mode/html");
-	 function moreStuff2(){
-	 	document.getElementById('post_editor_ua').value = editor_ua.getValue();
-	 }
 	//Текстовый редактор
 //	CKEDITOR.replace( 'pcontent', {
-//		customConfig: 'custom/ckeditor_config_img.js'
-//	});
-//	CKEDITOR.replace( 'pcontent_ua', {
 //		customConfig: 'custom/ckeditor_config_img.js'
 //	});
 </script>
