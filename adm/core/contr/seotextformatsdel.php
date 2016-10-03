@@ -1,5 +1,5 @@
 <?php
-$SEO = new SEO();
+$Seo = new Seo();
 unset($parsed_res);
 
 if (isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
@@ -17,7 +17,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/seotextformats/
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Удаление формата сеотекста";
 
 
-if (!$SEO->de1SeotextFormats($id)) die('Ошибка при удалении формата сеотекста.');
+if (!$Seo->de1SeotextFormats($id)) die('Ошибка при удалении формата сеотекста.');
 
 $tpl->Assign('msg', 'Формат удален.');
 

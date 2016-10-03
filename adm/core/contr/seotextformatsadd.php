@@ -1,12 +1,12 @@
 <?php
 if (!_acl::isAllow('seotextformats'))
     die("Access denied");
-$SEO = new SEO();
+$Seo = new Seo();
 unset($parsed_res);
 
 $tpl->Assign('h1', 'Добавление формата сеотекста');
 if(isset($_POST['smb'])){
-    if($SEO->addSeotextFormats($_POST)){
+    if($Seo->addSeotextFormats($_POST)){
         $tpl->Assign('msg', 'Новый формат добавлен.');
         unset($_POST);
     }else{

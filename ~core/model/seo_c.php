@@ -1,5 +1,5 @@
 <?php
-class SEO{
+class Seo {
 	public $db;
 	public $fields;
 	private $usual_fields;
@@ -34,10 +34,7 @@ class SEO{
 		return true;
 	}
 	// Список SeoText
-	public function SeoTextList($limit = ""){
-		if($limit != ''){
-			$limit = ' limit $limit';
-		}
+	public function SeoTextList($limit = ''){
 		$sql = 'SELECT '.implode(', ',$this->usual_fields).',
 			name AS username
 			FROM '._DB_PREFIX_.'seo_text

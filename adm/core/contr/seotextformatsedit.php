@@ -1,7 +1,7 @@
 <?php
 if (!_acl::isAllow('seotextformatsedit'))
     die("Access denied");
-$SEO = new SEO();
+$Seo = new Seo();
 unset($parsed_res);
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
     $id = $GLOBALS['REQAR'][1];
@@ -9,16 +9,16 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
     header('Location: '.$GLOBALS['URL_base'].'404/');
     exit();
 }
-if(!$format_seo = $SEO->getFieldsFormatById($id)){
+if(!$format_seo = $Seo->getFieldsFormatById($id)){
     die('Ошибка при выборе формата сеотекста.');
 }
 $tpl->Assign('h1', 'Редактирование формата сеотекста');
 if (isset($_POST['smb'])) {
-    if ($SEO->updateSeotextFormats($_POST)) {
+    if ($Seo->updateSeotextFormats($_POST)) {
         $tpl->Assign('msg', 'Редактирование прошло успешно.');
         $success = true;
         $tpl->Assign('success', $success);
-        $format_seo = $SEO->getFieldsFormatById($id);
+        $format_seo = $Seo->getFieldsFormatById($id);
         unset($_POST);
     } else {
         unset($format_seo);

@@ -4,6 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><br><?}?>
 
 <?if(isset($list) && count($list)){?>
+	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 		    <!--col width="80%"><col width=1%><col width="270px"-->
@@ -62,6 +63,7 @@
 			</tbody>
 		</table>
 	</form>
+	<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 <?}else{?>
 	<div class="notification warning"> <span class="strong">SEO-текста нет</span></div>
 <?}?>

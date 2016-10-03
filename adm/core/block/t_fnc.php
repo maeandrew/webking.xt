@@ -962,7 +962,7 @@ function Seotext_form_validate(){
 	$varname = 'url';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
-		$Seo = new SEO();
+		$Seo = new Seo();
 		if(!$GLOBALS['CurrentController'] == 'seotextedit' && $Seo->SetFieldsByUrl($_POST[$varname] === false)){
 			$errm[$varname] = "Такой URL уже есть в базе.";
 			$err = 1;

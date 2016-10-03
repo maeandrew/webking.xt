@@ -1,5 +1,5 @@
 <?php
-$Seo = new SEO();
+$Seo = new Seo();
 unset($parsed_res);
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$id = $GLOBALS['REQAR'][1];
