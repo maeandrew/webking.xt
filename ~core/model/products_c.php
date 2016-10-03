@@ -1930,6 +1930,7 @@ class Products {
 				a.price_mopt_recommend
 			FROM '._DB_PREFIX_.'assortiment AS a
 			WHERE a.active = 1'
+			// .' AND a.id_product = 26802';
 			.(!empty($ids_products)?' HAVING a.id_product IN ('.implode(', ', $ids_products).')':null);
 		unset($ids_products);
 		$arr = $this->db->GetArray($sql);
@@ -1939,10 +1940,10 @@ class Products {
 			}
 			foreach($products_array as $k=>&$product){
 				foreach($product as &$p){
-					if(!isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt'])){
+					if($p['price_mopt_recommend'] > 0 && (!isset($result_prices[$k]['mopt']) || $p['price_mopt_recommend'] < $result_prices[$k]['mopt'])){
 						$result_prices[$k]['mopt'] = $p['price_mopt_recommend'];
 					}
-					if(!isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt'])){
+					if($p['price_opt_recommend'] > 0 && (!isset($result_prices[$k]['opt']) || $p['price_opt_recommend'] < $result_prices[$k]['opt'])){
 						$result_prices[$k]['opt'] = $p['price_opt_recommend'];
 					}
 				}
@@ -1966,12 +1967,12 @@ class Products {
 				// 	$f['price_opt'] = "CEILING(".$a['opt']."*price_coefficient_opt)";
 				// }else{
 				// }
-				$f['price_opt'] = 'ROUND('.$a['opt'].'*price_coefficient_opt, 2)';
+				$f['price_opt'] = 'ROUND('.(isset($a['opt'])?$a['opt']:0).'*price_coefficient_opt, 2)';
 				// if ($a['mopt'] > 100) {
 				// 	$f['price_mopt'] = "CEILING(".$a['mopt']."*price_coefficient_mopt)";
 				// }else{
 				// }
-				$f['price_mopt'] = 'ROUND('.$a['mopt'].'*price_coefficient_mopt, 2)';
+				$f['price_mopt'] = 'ROUND('.(isset($a['mopt'])?$a['mopt']:0).'*price_coefficient_mopt, 2)';
 				$this->db->StartTrans();
 				if(!$this->db->UpdatePro(_DB_PREFIX_.'product', $f, 'id_product = '.$k)){
 					$this->db->FailTrans();
