@@ -62,21 +62,21 @@ if(isset($GLOBALS['REQAR'][1])){
 			break;
 		case 'ip_connections':
 			$where = '';
-			if(isset($_GET['smb'])){
-				if(isset($_GET['sid'])){
-					$where .= 'WHERE sid = '.$_GET['sid'];
+			if(isset($_REQUEST['smb'])){
+				if(isset($_REQUEST['sid'])){
+					$where .= 'WHERE sid = '.$_REQUEST['sid'];
 				}
-			}elseif(isset($_GET['clear_filters'])){
-				unset($_GET);
+			}elseif(isset($_REQUEST['clear_filters'])){
+				unset($_REQUEST);
 				$url = explode('?',$_SERVER['REQUEST_URI']);
 				header('Location: '.$url[0]);
 				exit();
 			}
 			$sql = 'SELECT COUNT(*) AS cnt FROM '._DB_PREFIX_.'ip_connections '.$where.' ORDER BY connections DESC';
 			$res = $GLOBALS['db']->GetOneRowArray($sql);
-			if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit'])){
+			if((isset($_REQUEST['limit']) && $_REQUEST['limit'] != 'all') || !isset($_REQUEST['limit'])){
 				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
-					$_GET['page_id'] = $_POST['page_nbr'];
+					$_REQUEST['page_id'] = $_POST['page_nbr'];
 				}
 				$cnt = $res['cnt'];
 				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);

@@ -1,5 +1,5 @@
 <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
-<form action="<?=$_SERVER['REQUEST_URI']?>" method="get">
+<form action="<?=$_SERVER['REQUEST_URI']?>/" method="get">
 	<table class="list">
 		<colgroup>
 			<col width="10%">
@@ -15,8 +15,8 @@
 				<td>Фильтры:</td>
 				<td>
 					<select name="sid" class="input-m">
-						<option value="0" <?=isset($_GET['sid']) && $_GET['sid'] == 0?'selected':null;?>>x-torg.com</option>
-						<option value="1" <?=isset($_GET['sid']) && $_GET['sid'] == 1?'selected':null;?>>xt.ua</option>
+						<option value="0" <?=isset($_REQUEST['sid']) && $_REQUEST['sid'] == 0?'selected':null;?>>x-torg.com</option>
+						<option value="1" <?=isset($_REQUEST['sid']) && $_REQUEST['sid'] == 1?'selected':null;?>>xt.ua</option>
 					</select>
 				</td>
 				<td></td>
