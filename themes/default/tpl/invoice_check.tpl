@@ -27,6 +27,7 @@ h1 { font-size: 19px; }
 .blf { border-left: 1px solid #FFF; }
 .brf { border-right: 1px solid #FFF; }
 .nb { border: 0 !important; }
+.tal { text-align: left !important; }
 .table_main { margin: 10px 0 0 1px; }
 .table_main tr { page-break-inside: avoid; font-size: 17px;}
 .table_main td { position: relative; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
@@ -42,6 +43,8 @@ tr.min td { height: 1px; font-size: 1px; line-height: 1px; margin: 0px; padding:
 .adate { font-size: 11px; margin-left: 177px; }
 .note_red { width: 100%; display: block; clear: left; color: red; font-weight: bold; }
 h1.filial { text-align: center; font-size: 27px; }
+.abbrs { font-size: 17px !important; line-height: 19px !important; padding: 0 .5% !important; }
+thead>tr>th:first-of-type { padding: 0 .5% !important; }
 @media print {
 	h1.filial { display: none; }
 }
@@ -98,17 +101,14 @@ h1.filial { text-align: center; font-size: 27px; }
 			</tr>
 		</tbody>
 	</table>
-	<?
-	$c1 = 25;
-	$c2 = 45;
-	$c3 = 65;
-	$c4 = 100;
-	$c5 = 360;
-	$c6 = 75;
+	<?	
+	$c1 = 65;
+	$c2 = 100;
+	$c3 = 280;
+	$c4 = 280;
+	$c5 = 75;
+	$c6 = 65;
 	$c7 = 65;
-	$c8 = 65;
-	$c9 = 60;
-	$c10 = 70;
 	if(!empty($arr['opened'])){
 		foreach($arr as $key=>&$array){
 			if(count($array) > 0){?>
@@ -121,22 +121,20 @@ h1.filial { text-align: center; font-size: 27px; }
 						<col width="<?=$c5?>">
 						<col width="<?=$c6?>">
 						<col width="<?=$c7?>">
-						<col width="<?=$c8?>">
-						<col width="<?=$c9?>">
-						<col width="<?=$c10?>">
 					</colgroup>
 					<thead>
-						<tr class="hdr" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?>">
-							<th class="bl bt">№</th>
-							<th class="bt">Скл.</th>
-							<th class="bt">Артикул</th>
-							<th class="bt">Фото</th>
-							<th class="bt">Название</th>
-							<th class="bt">Цена за шт.</th>
-							<th class="bt">Заказано, шт</th>
+						<tr class="hdr" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 30px;">
+							<th class="bt bl tal" rowspan="2">№,<br>Скл.,<br>Артикул</th>
+							<th class="bt" rowspan="2">Фото</th>
+							<th class="bt" rowspan="2">Название</th>
+							<th class="bt" rowspan="2">Характеристики</th>
+							<th class="bt" rowspan="2">Цена за<br>шт.</th>
+							<th class="bt">Заказано</th>
 							<th class="bt">Факт</th>
-							<th class="bt">Возврат</th>
-							<th class="bt">Резмеры<br>Вес</th>
+						</tr>
+						<tr class="hdr" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 30px;">
+							<th>Склад</th>
+							<th>Возврат</th>
 						</tr>
 					</thead>
 					<?$ii = 1;
@@ -148,83 +146,70 @@ h1.filial { text-align: center; font-size: 27px; }
 							<?foreach($a as &$i){
 								if($i['opt_qty'] > 0){?>
 									<tr class="main">
-										<td class="bl c1"><?=$ii++?></td>
-										<td class="c2"><?=$i['article']?></td>
-										<td class="c3"><?=$i['art']?></td>
-										<td class="c4">
+										<td class="c1 bl tal abbrs" rowspan="2"><?=$ii++?><br><?=$i['article']?><br><?=$i['art']?></td>
+										<td class="c2" rowspan="2">
 											<?if($i['image'] != ''){?>
 												<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
 											<?}else{?>
 												<img height="96" width="96" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
 											<?}?>
 										</td>
-										<td class="name c5">
+										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_opt'])?'<span class="note_red">'.$i['note_opt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
-										<td class="c6"><?=$i['site_price_opt']?></td>
-										<td class="c7"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
-										<td class="c8" style="<?=($i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0)? 'color: #f00; font-weight: bold;':null;?>">
-											<?=$i['contragent_qty'] >= 0 ? $i['contragent_qty'] : null;?>
+										<td class="c4 tal" rowspan="2" style="font-size: 8pt; padding: 0 1%;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+										<td class="c5" rowspan="2"><?= number_format($i['site_price_opt'], 2, ",", "")?></td>
+										<!-- Заказано -->
+										<td class="c6"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
+										<!-- Факт -->
+										<td class="c7" style="<?=($i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0)? 'color: #f00; font-weight: bold;':null;?>">
+											<?=$i['contragent_qty'] >= 0?$i['contragent_qty']:null;?>
 										</td>
-										<td class="c9"></td>
-										<td class="c10" style="text-align: right;">
-											<?if(!in_array($i['id_product'], $products) || $i['out'] == 1){?>
-												<?=$i['volume'] > 0?$i['volume']:'   ';?><small> кг&nbsp;</small>
-												<hr>
-												<?=$i['weight'] > 0?$i['weight'].'<small> м<sup>3</sup></small>&nbsp;':'<small style="float: left; clear: both; width: 100%; text-align: left !important;">&nbsp;д<hr>&nbsp;ш<hr>&nbsp;в</small>';?>
-											<?}else{?>
-												<small><small>Не заполнять</small></small>
-											<?}?>
-										</td>
-										<?$volume += $i['volume']*$i['opt_qty'];?>
-										<?$weight += $i['weight']*$i['opt_qty'];?>
+									</tr>
+									<tr class="main">
+										<!-- Склад -->
+										<td><?=$i['warehouse_quantity'] > 0?$i['warehouse_quantity']:null?></td>
+										<!-- Возврат -->
+										<td></td>
 									</tr>
 								<?}
 								if($i['mopt_qty'] > 0){?>
 									<tr>
-										<td class="bl c1"><?=$ii++?></td>
-										<td class="c2"><?=$i['article_mopt']?></td>
-										<td class="c3"><?=$i['art']?></td>
-										<td class="c4">
+										<td class="c1 bl tal abbrs" rowspan="2"><?=$ii++?><br><?=$i['article_mopt']?><br><?=$i['art']?></td>
+										<td class="c2" rowspan="2">
 											<?if($i['image'] != ''){?>
 												<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
 											<?}else{?>
 												<img height="96" width="96" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>" />
 											<?}?>
 										</td>
-										<td class="name c5">
+										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
-										<td class="c6"><?=$i['site_price_mopt']?></td>
-										<td class="c7"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
-										<td class="c8" style="<?if($i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0){?>color: #f00; font-weight: bold;<?}?>">
-											<?=$i['contragent_mqty'] >= 0 ? $i['contragent_mqty'] : null;?>
+										<td class="c4 tal" rowspan="2" style="font-size: 8pt; padding: 0 1%;">font-size: 8pt; Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+										<td class="c5" rowspan="2"><?= number_format($i['site_price_mopt'], 2, ",", "")?></td>
+										<!-- Заказано -->
+										<td class="c6">
+											<?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?>
 										</td>
-										<td class="c9"></td>
-										<td class="c10" style="text-align: right;">
-											<?if(!in_array($i['id_product'], $products) || $i['out'] == 1){?>
-												<?=$i['volume'] > 0?$i['volume']:'   ';?><small> кг&nbsp;</small>
-												<hr>
-												<?=$i['weight'] > 0?$i['weight'].'<small> м<sup>3</sup></small>&nbsp;':'<small style="float: left; clear: both; width: 100%; text-align: left !important;">&nbsp;д<hr>&nbsp;ш<hr>&nbsp;в</small>';?>
-											<?}else{?>
-												<small><small>Не заполнять</small></small>
-											<?}?>
+										<!-- Факт -->
+										<td class="c7" style="<?if($i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0){?>color: #f00; font-weight: bold;<?}?>">
+											<?=$i['contragent_mqty'] >= 0?$i['contragent_mqty']:null;?>
 										</td>
-										<?$volume += $i['volume']*$i['mopt_qty'];?>
-										<?$weight += $i['weight']*$i['mopt_qty'];?>
+									</tr>
+									<tr class="main">
+										<!-- Склад -->
+										<td><?=$i['warehouse_quantity'] > 0?$i['warehouse_quantity']:null?></td>
+										<!-- Возврат -->
+										<td></td>
 									</tr>
 								<?}
 							}?>
 							<tr>
-								<td colspan="10" class="bl" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 5px;"></td>
+								<td colspan="7" class="bl" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 5px;"></td>
 							</tr>
 						</tbody>
 					<?}?>
-					<tr>
-						<th colspan="6" class="nb"></th>
-						<th colspan="3" class="nb" style="text-align: right; padding-right: .5em;">Суммарный объем:<br>Суммарный вес:</th>
-						<th class="bl" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 5px;"><?=$weight;?> м<sup>3</sup><br><?=$volume;?> кг</th>
-					</tr>
 				</table>
 			<?}
 		}
