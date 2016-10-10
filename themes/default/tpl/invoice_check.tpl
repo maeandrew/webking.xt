@@ -77,6 +77,25 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
     display: block;
     clear: left;
 }
+
+.rose { background: #ffc4c4 !important; }
+.green { background: #c4ffc6 !important; }
+.red_bold { color: #f00 !important; font-weight: bold !important; }
+
+.table_header td span b{ font-size: 14px; }
+.table_header td span.invoice b { font-size: 30px; padding: 0 50px; }
+.table_header td.right_block { max-width: 320px; }
+.table_header td.right_block span:first-of-type b { font-size: 18px; }
+.table_header td.right_block span:last-of-type b { font-size: 15px; }
+.table_main .thead tr.hdr { min-height: 30px !important; }
+.table_main td.charcs { font-size: 8pt; padding: 0 1%; }
+.table_main tr:last-of-type { height: 5px !important; }
+.table_main.closed_order { width: 100%; }
+.table_main.closed_order thead tr td { border: 0; }
+
+h1.checked { padding: 20px 0; float: left; }
+h1.data_time { padding: 20px 270px 0; float: right; }
+
 </style>
 </head>
 <body>
@@ -86,17 +105,17 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 		<tbody>
 			<tr class="top">
 				<td colspan="10">
-					<span class="invoice">Проверочная накладная № <b style="font-size: 30px; padding: 0 50px;"><?=$id_order?></b> от <?=date("d.m.Y", $order['creation_date'])?></span>
+					<span class="invoice">Проверочная накладная № <b><?=$id_order?></b> от <?=date("d.m.Y", $order['creation_date'])?></span>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<span><b style="font-size: 14px;"><?=$addr_deliv?></b></span>
+					<span><b><?=$addr_deliv?></b></span>
 				</td>
-				<td style="max-width: 320px;">
-					<span>Сумма заказа - <b style="font-size: 18px;"><?=$sum_discount?></b></span>
+				<td class="right_block">
+					<span>Сумма заказа - <b><?=$sum_discount?></b></span>
 					<br/>
-					<span><b style="font-size: 15px;"><?=$order['note2']?></b></span>
+					<span><b><?=$order['note2']?></b></span>
 				</td>
 			</tr>
 		</tbody>
@@ -123,7 +142,7 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 						<col width="<?=$c7?>">
 					</colgroup>
 					<thead>
-						<tr class="hdr" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 30px;">
+						<tr class="hdr <?=$key == 'closed'? 'green' : 'rose';?>">
 							<th class="bt bl tal" rowspan="2">№,<br>Скл.,<br>Артикул</th>
 							<th class="bt" rowspan="2">Фото</th>
 							<th class="bt" rowspan="2">Название</th>
@@ -132,7 +151,7 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 							<th class="bt">Заказано</th>
 							<th class="bt">Факт</th>
 						</tr>
-						<tr class="hdr" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 30px;">
+						<tr class="hdr <?=$key == 'closed'? 'green' : 'rose';?>">
 							<th>Склад</th>
 							<th>Возврат</th>
 						</tr>
@@ -157,12 +176,12 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_opt'])?'<span class="note_red">'.$i['note_opt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
-										<td class="c4 tal" rowspan="2" style="font-size: 8pt; padding: 0 1%;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+										<td class="c4 tal charcs" rowspan="2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
 										<td class="c5" rowspan="2"><?= number_format($i['site_price_opt'], 2, ",", "")?></td>
 										<!-- Заказано -->
 										<td class="c6"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
 										<!-- Факт -->
-										<td class="c7" style="<?=($i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0)? 'color: #f00; font-weight: bold;':null;?>">
+										<td class="c7 <?=$i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0? 'red_bold':null;?>">
 											<?=$i['contragent_qty'] >= 0?$i['contragent_qty']:null;?>
 										</td>
 									</tr>
@@ -186,14 +205,14 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
-										<td class="c4 tal" rowspan="2" style="font-size: 8pt; padding: 0 1%;">font-size: 8pt; Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+										<td class="c4 tal charcs" rowspan="2">font-size: 8pt; Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
 										<td class="c5" rowspan="2"><?= number_format($i['site_price_mopt'], 2, ",", "")?></td>
 										<!-- Заказано -->
 										<td class="c6">
 											<?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?>
 										</td>
 										<!-- Факт -->
-										<td class="c7" style="<?if($i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0){?>color: #f00; font-weight: bold;<?}?>">
+										<td class="c7 <?=$i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0?'red_bold':null;?>">
 											<?=$i['contragent_mqty'] >= 0?$i['contragent_mqty']:null;?>
 										</td>
 									</tr>
@@ -206,7 +225,7 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 								<?}
 							}?>
 							<tr>
-								<td colspan="7" class="bl" style="<?=$key == 'closed'? 'background: #c4ffc6;' : 'background: #ffc4c4;';?> height: 5px;"></td>
+								<td colspan="7" class="bl <?=$key == 'closed'? 'green' : 'rose';?>"></td>
 							</tr>
 						</tbody>
 					<?}?>
@@ -214,15 +233,15 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 			<?}
 		}
 	}else{?>
-		<table class="table_main" style="width: 100%;">
+		<table class="table_main closed_order">
 			<thead>
-				<tr class="hdr" style="background: #c4ffc6;">
-					<td style="border: 0;"><h1>Заказ закрыт</h1></td>
+				<tr class="hdr green">
+					<td><h1>Заказ закрыт</h1></td>
 				</tr>
 			</thead>
 		</table>
 	<?}?>
-	<h1 style="padding: 20px 0; float: left;">Проверил:</h1><h1 style="padding: 20px 270px 0; float: right;">Дата, время:</h1>
+	<h1 class="checked">Проверил:</h1><h1 class="data_time">Дата, время:</h1>
 <?}?>
 </body>
 </html>
