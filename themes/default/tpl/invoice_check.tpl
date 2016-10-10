@@ -31,7 +31,7 @@ h1 { font-size: 19px; }
 .table_main { margin: 10px 0 0 1px; }
 .table_main tr { page-break-inside: avoid; font-size: 17px;}
 .table_main td { position: relative; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
-.table_main th { text-align: center; font-size: 12px; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
+.table_main th { text-align: center; font-size: 12px; height: 30px; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
 .table_main td.name { padding: 0 1%; text-align: left; border-right: 1px #000 solid; border-bottom: 1px #000 solid; }
 .table_main .hdr td { font-weight: bold; padding: 1px; }
 .table_main .main td { height: 50px; font-size: 17px; }
@@ -87,7 +87,6 @@ thead>tr>th:first-of-type { padding: 0 .5% !important; }
 .table_header td.right_block { max-width: 320px; }
 .table_header td.right_block span:first-of-type b { font-size: 18px; }
 .table_header td.right_block span:last-of-type b { font-size: 15px; }
-.table_main .thead tr.hdr { min-height: 30px !important; }
 .table_main td.charcs { font-size: 8pt; padding: 0 1%; }
 .table_main tr:last-of-type { height: 5px !important; }
 .table_main.closed_order { width: 100%; }
@@ -148,12 +147,12 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 							<th class="bt" rowspan="2">Название</th>
 							<th class="bt" rowspan="2">Характеристики</th>
 							<th class="bt" rowspan="2">Цена за<br>шт.</th>
-							<th class="bt">Заказано</th>
-							<th class="bt">Факт</th>
+							<th class="bt hght">Заказано</th>
+							<th class="bt hght">Факт</th>
 						</tr>
 						<tr class="hdr <?=$key == 'closed'? 'green' : 'rose';?>">
-							<th>Склад</th>
-							<th>Возврат</th>
+							<th class="hght">Склад</th>
+							<th class="hght">Возврат</th>
 						</tr>
 					</thead>
 					<?$ii = 1;
