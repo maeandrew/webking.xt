@@ -186,6 +186,7 @@ if(!_acl::isAdmin()){
 	if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 		$available_sorting_values = array(
 			'popularity desc' => 'популярные сверху',
+			'create_date desc' => 'новые сверху',
 			'price_opt asc' => 'от дешевых к дорогим',
 			'price_opt desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
@@ -194,6 +195,7 @@ if(!_acl::isAdmin()){
 	}else{
 		$available_sorting_values = array(
 			'popularity desc' => 'популярные сверху',
+			'create_date desc' => 'новые сверху',
 			'price_opt asc' => 'от дешевых к дорогим',
 			'price_opt desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
