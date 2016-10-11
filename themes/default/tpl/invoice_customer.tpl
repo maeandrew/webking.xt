@@ -13,7 +13,7 @@
 	/*.undln{text-decoration:underline;}*/
 	/*.lb{border-left:1px dashed #000;padding-left:5px;}*/
 	.table_header {width:800px;padding: 10px;padding-bottom: 0px;}
-	.table_header .top td {padding:10px 0 15px 0;font-size:14px;}
+	.table_header .top td {padding-top: 10px;font-size:14px;}
 	.table_header .first_col {width: 90px;}
 	.table_header .second_col {width: 325px;font-weight: bold;}
 	/*.table_header .top span.invoice {margin-left:20px;font-size:18px;text-decoration:underline;}*/
@@ -48,6 +48,9 @@
 		-o-transform: rotate(-20deg);
 		transform: rotate(-20deg);
 	}
+	.spacer {
+		height: 1em;
+	}
 	.hidden {
 		display: none;
 	}
@@ -57,7 +60,7 @@
 	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
 		<tbody>
 			<tr>
-	            <td colspan="4"  valign="top" style="padding: 9px 18px 9px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
+	            <td colspan="4"  valign="top" style="padding: 0 18px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
 	                <img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
 	            </td>
 			</tr>
@@ -71,22 +74,6 @@
 	</table>
 	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" style="padding: 10px; ">
 		<tbody>
-			<tr>
-				<td>Отправитель:</td>
-				<td style="font-weight: bold;">
-					<?if(isset($remitter)){?>
-						<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
-					<?}else{?>
-						Не указан
-					<?}?>
-				</td>
-			</tr>
-			<tr>
-				<td>Менеджер:</td>
-				<td style="font-weight: bold;">
-					<?=$Contragent['name']?>
-				</td>
-			</tr>
 			<tr>
 				<td>Получатель:</td>
 				<td style="font-weight: bold;">
@@ -102,7 +89,7 @@
 			</tr>
 			<?if(!empty($address)){?>
 				<tr>
-					<td>Компания доставки:</td>
+					<td>Транспортная компания:</td>
 					<td style="font-weight: bold;">
 						<?=$address['shipping_company_title']?>
 					</td>
@@ -149,6 +136,25 @@
 					</td>
 				</tr>
 			<?}?>
+			<tr>
+				<td colspan="4" class="spacer"></td>
+			</tr>
+			<tr>
+				<td>Отправитель:</td>
+				<td style="font-weight: bold;">
+					<?if(isset($remitter)){?>
+						<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
+					<?}else{?>
+						Не указан
+					<?}?>
+				</td>
+			</tr>
+			<tr>
+				<td>Менеджер:</td>
+				<td style="font-weight: bold;">
+					<?=$Contragent['name']?>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	<?
