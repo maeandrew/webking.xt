@@ -473,6 +473,7 @@
 }
 .product_page .product .apps_panel .social ul li{
 	padding: 0;
+	background: transparent;
 }
 .product_page .product .apps_panel .isfavorite{
 	color: red;

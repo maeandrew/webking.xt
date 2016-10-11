@@ -94,7 +94,7 @@
 .product_page .product .apps_panel ul{display:flex;justify-content:space-between}
 .product_page .product .apps_panel ul li{cursor:pointer;outline:0;padding:0 20px;background:#fff;color:#9e9e9e;border-radius:3px;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .product_page .product .apps_panel>ul>li:hover{background:#018b06;color:#fff}
-.product_page .product .apps_panel .social ul li{padding:0}
+.product_page .product .apps_panel .social ul li{padding:0;background:0 0}
 .product_page .product .apps_panel .isfavorite{color:red}
 .product_page .product .apps_panel ul li .waiting_list,.product_page .product .apps_panel ul li i{vertical-align:middle;line-height:30px;outline:0;color:#9e9e9e;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 .product_page .product .apps_panel ul li .arrow,.product_page .product .apps_panel ul li:hover .icon,.product_page .product .apps_panel ul li:hover i,.product_page .product .sold_produxt_info ul li .arrow{color:#fff}
