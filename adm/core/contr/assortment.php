@@ -18,6 +18,36 @@ if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET[
 $Users = new Users();
 $Products = new Products();
 $Supplier = new Suppliers();
+
+$arr = false;
+if(isset($_GET['smb'])){
+	// unset($_GET);
+	if(isset($_GET['filter_target_date']) && $_GET['filter_target_date'] !== ''){
+		$arr['creation_date'] = $_GET['filter_target_date'];
+		list($d,$m,$y) = explode(".", trim($arr['creation_date']));
+		$arr['creation_date'] = mktime(0, 0, 0, $m , $d, $y);
+	}
+	if(isset($_GET['filter_active']) && $_GET['filter_active'] !== ''){
+		$arr['active'] = $_GET['filter_active'];
+	}
+	if(isset($_GET['in_usd']) && $_GET['in_usd'] !== '0'){
+		$arr['inusd'] = $_GET['in_usd'];
+	}
+	if(isset($_GET['filter_contragent_name']) && $_GET['filter_contragent_name'] !== ''){
+		$arr['ca.name_c'] = $_GET['filter_contragent_name'];
+	}
+	if(isset($_GET['filter_email']) && $_GET['filter_email'] !== ''){
+		$arr['u.email'] =  $_GET['filter_email'];
+	}
+	if(isset($_GET['filter_customer_name']) && $_GET['filter_customer_name'] !== ''){
+		$arr['u.name'] = $_GET['filter_customer_name'];
+	}
+}elseif(isset($_GET['clear_filters'])){
+	unset($_GET);
+	$url = explode('?',$_SERVER['REQUEST_URI']);
+	header('Location: '.$url[0]);
+	exit();
+}
 //Подключение/отключение поставщика
 if(isset($_POST['suppliers_activity'])){
 	$update_supplier['active'] = $_POST['supplier_activ'];
@@ -57,7 +87,7 @@ if(isset($_FILES['import_file'])){
 		$tpl->Assign('errm', 1);
 	}
 }
-
+$arr['a.id_supplier'] = $id_supplier;
 /*Pagination*/
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -66,7 +96,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 		$_GET['page_id'] = $_POST['page_nbr'];
 	}
-	$cnt = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier));
+	$cnt = $Products->GetProductsCntSupCab($arr);
 	$tpl->Assign('cnt', $cnt);
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -85,7 +115,7 @@ $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
 	),
 	' AND a.product_limit > 0 AND (a.price_mopt_otpusk > 0 OR a.price_opt_otpusk > 0)'
 );
-$Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier, 'p.visible' => 1));
+$Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab($arr);
 $Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($id_supplier));
 $check_sum = $Supplier->GetCheckSumSupplierProducts($id_supplier);
 $tpl->Assign('check_sum', $check_sum);

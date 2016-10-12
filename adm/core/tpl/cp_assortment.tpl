@@ -196,37 +196,36 @@
 				<col width="8%">
 				<col width="4%">
 				<thead>
-					<!-- <tr class="filter">
-						<td>Фильтры:</td>
-						<td>
-							<input type="text" class="input-m" name="filter_id_order" value="<?=isset($_GET['filter_id_order'])?htmlspecialchars($_GET['filter_id_order']):null?>" placeholder="№ заказа">
-						</td>
-						<td>
-							<select name="id_order_status" class="input-m" placeholder="Статус заказа">
-								<option <?=$_GET['id_order_status'] == 0?'selected="true"':null?> value="0">-- Все --</option>
-								<?foreach($order_statuses as $k=>$item){?>
-									<option <?=$item['id_order_status'] == $_GET['id_order_status']?'selected="true"':null?> value="<?=$item['id_order_status'];?>"><?=$item['name'];?>
-									</option>
-								<?}?>
-							</select>
-						</td>
-						<td>
-							<input type="text" class="input-m" value="<?=isset($_GET['filter_contragent_name'])?htmlspecialchars($_GET['filter_contragent_name']):null?>" placeholder="Менеджер" name="filter_contragent_name">
-						</td>
-						<td>
-							<input type="text" class="input-m" value="<?=isset($_GET['filter_customer_name'])?htmlspecialchars($_GET['filter_customer_name']):null?>" placeholder="Покупатель" name="filter_customer_name">
-						</td>
-						<td class="left">
-							<input type="text" class="input-m" value="<?=isset($_GET['filter_email'])?htmlspecialchars($_GET['filter_email']):null?>" placeholder="E-mail" name="filter_email">
-						</td>
-						<td class="left">
-							<button type="submit" name="smb" class="btn-m-default">Применить</button>
-						</td>
-						<td class="left">
-							<button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
-						</td>
-						<td class="left">&nbsp;</td>
-					</tr> -->
+					<tr class="filter">
+						<form action="<?=$_SERVER['REQUEST_URI']?>/" method="get">
+							<td>Фильтры:</td>
+							<td class="center">
+								<input type="text" class="input-m" value="<?=isset($_GET['filter_art'])?htmlspecialchars($_GET['filter_art']):null?>" placeholder="Артикул товара" name="filter_art">
+							</td>
+							<td class="center">
+							</td>
+							<td>
+								<select name="filter_active" class="input-m" placeholder="Наличие">
+									<option value="" <?=!isset($_GET['filter_active']) || $_GET['filter_active'] == ''?'selected':null?>>-- Все --</option>
+									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] == 1?'selected':null?> value="1">Есть</option>
+									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] == 0?'selected':null?> value="0">Нет</option>
+								</select>
+							</td>
+							<td></td>
+							<td></td>
+							<td class="center">
+								<select name="filter_inusd" class="input-m" placeholder="Доллар">
+									<option value="" <?=!isset($_GET['filter_inusd']) || $_GET['filter_inusd'] == ''?'selected':null?>>-- Все --</option>
+									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] == 1?'selected':null?> value="1">Да</option>
+									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] == 0?'selected':null?> value="0">Нет</option>
+								</select>
+							</td>
+							<td class="right">
+								<button type="submit" name="smb" class="btn-m-default">Применить</button>
+								<button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
+							</td>
+						</tr>
+					</form>
 					<tr class="animate">
 						<?switch($_GET['order']){
 					case 'asc':
