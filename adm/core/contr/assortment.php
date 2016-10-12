@@ -1,5 +1,5 @@
 <?php
-$header = 'Ассортимент поставщика';
+$header = 'Информация о поставщике';
 $tpl->Assign('h1', $header);
 $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
@@ -78,13 +78,17 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 
 // ---------Информация о поставщике
 $Supplier->fields['active_products_cnt'] = $Products->GetProductsCntSupCab(
-	array('a.id_supplier' => $id_supplier, 'a.active' => 1, 'p.visible' => 1),
+	array(
+		'a.id_supplier' => $id_supplier,
+		'a.active' => 1,
+		'p.visible' => 1
+	),
 	' AND a.product_limit > 0 AND (a.price_mopt_otpusk > 0 OR a.price_opt_otpusk > 0)'
 );
 $Supplier->fields['all_products_cnt'] = $Products->GetProductsCntSupCab(array('a.id_supplier'=>$id_supplier, 'p.visible' => 1));
 $Supplier->fields['moderation_products_cnt'] = count($Products->GetProductsOnModeration($id_supplier));
 $check_sum = $Supplier->GetCheckSumSupplierProducts($id_supplier);
-$tpl->Assign("check_sum", $check_sum);
+$tpl->Assign('check_sum', $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);
 $Products->SetProductsList1($id_supplier, $order, $limit);

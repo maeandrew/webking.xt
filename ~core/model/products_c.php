@@ -1133,7 +1133,8 @@ class Products {
 	public function SetProductsList1($id_supplier, $order = null, $limit){
 		// SQL выборки для админки
 		$sql = "SELECT DISTINCT ".implode(", ", $this->usual_fields).",
-			pv.count_views, a.*
+			pv.count_views, a.*,
+			(SELECT name FROM xt_user WHERE id_user = p.edit_user) AS edit_username
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."assortiment AS a
 				ON a.id_product = p.id_product

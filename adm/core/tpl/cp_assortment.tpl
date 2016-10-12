@@ -1,8 +1,7 @@
-<!-- <h1><?=$h1?></h1> -->
+<h1><?=$h1?></h1>
 <div id="assortment" class="grid">
 	<div class="row">
 		<div class="col-md-12">
-			<h2>Информация о поставщике</h2>
 			<p>Имя: <?=$supplier['name']?></p>
 			<p>Телефоны: <?=$supplier['phones']?></p>
 			<p>Контактный телефон: <?=$supplier['real_phone']?></p>
@@ -169,8 +168,7 @@
 		</div>
 	</div>
 
-
-
+	<h2>Ассортимент</h2>
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
@@ -185,7 +183,6 @@
 					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
 				</label>
 			</div>
-			<h2>Ассортимент</h2>
 		</div>
 		<div class="col-md-12">
 			<table class="list">
@@ -199,6 +196,37 @@
 				<col width="8%">
 				<col width="4%">
 				<thead>
+					<!-- <tr class="filter">
+						<td>Фильтры:</td>
+						<td>
+							<input type="text" class="input-m" name="filter_id_order" value="<?=isset($_GET['filter_id_order'])?htmlspecialchars($_GET['filter_id_order']):null?>" placeholder="№ заказа">
+						</td>
+						<td>
+							<select name="id_order_status" class="input-m" placeholder="Статус заказа">
+								<option <?=$_GET['id_order_status'] == 0?'selected="true"':null?> value="0">-- Все --</option>
+								<?foreach($order_statuses as $k=>$item){?>
+									<option <?=$item['id_order_status'] == $_GET['id_order_status']?'selected="true"':null?> value="<?=$item['id_order_status'];?>"><?=$item['name'];?>
+									</option>
+								<?}?>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="input-m" value="<?=isset($_GET['filter_contragent_name'])?htmlspecialchars($_GET['filter_contragent_name']):null?>" placeholder="Менеджер" name="filter_contragent_name">
+						</td>
+						<td>
+							<input type="text" class="input-m" value="<?=isset($_GET['filter_customer_name'])?htmlspecialchars($_GET['filter_customer_name']):null?>" placeholder="Покупатель" name="filter_customer_name">
+						</td>
+						<td class="left">
+							<input type="text" class="input-m" value="<?=isset($_GET['filter_email'])?htmlspecialchars($_GET['filter_email']):null?>" placeholder="E-mail" name="filter_email">
+						</td>
+						<td class="left">
+							<button type="submit" name="smb" class="btn-m-default">Применить</button>
+						</td>
+						<td class="left">
+							<button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
+						</td>
+						<td class="left">&nbsp;</td>
+					</tr> -->
 					<tr class="animate">
 						<?switch($_GET['order']){
 					case 'asc':
@@ -245,6 +273,10 @@
 							<td>
 								<a href ="<?=$GLOBALS['URL_base']?>adm/productedit/<?=$item['id_product']?>"><p><?=$item['name'];?></p>
 								<p>Арт. <?=$item['art'];?></p></a>
+								<p>Изменение ассортимента: <b><?=$item['edited_time']?date('d.m.Y', strtotime($item['edited_time'])).' в '.date('H:i', strtotime($item['edited_time'])):'Н/д';?></b></p>
+								<p>Редактирование товара: <b><?=$item['edit_date']?date('d.m.Y', strtotime($item['edit_date'])).' в '.date('H:i', strtotime($item['edit_date'])):'Н/д'?></b></p>
+								<p>Редактор: <b><?=$item['edit_username']?$item['edit_username']:'Н/д'?></b></p>
+								<?//print_r($item)?>
 							</td>
 							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
