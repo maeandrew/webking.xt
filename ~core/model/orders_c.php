@@ -394,7 +394,8 @@ class Orders {
 			osp.id_supplier_altern, osp.id_supplier_mopt_altern,
 			(SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user=osp.id_supplier_altern) AS article_altern,
 			(SELECT "._DB_PREFIX_."supplier.article FROM "._DB_PREFIX_."supplier WHERE "._DB_PREFIX_."supplier.id_user=osp.id_supplier_mopt_altern) AS article_mopt_altern,
-			p.weight, p.volume, osp.note_opt, osp.note_mopt, p.sertificate, p.checked, osp.warehouse_quantity
+			p.weight, p.volume, osp.note_opt, osp.note_mopt, p.sertificate, p.checked, osp.warehouse_quantity,
+			a.sup_comment
 			FROM "._DB_PREFIX_."osp AS osp
 			LEFT JOIN "._DB_PREFIX_."order AS o
 				ON osp.id_order = o.id_order
