@@ -15,8 +15,8 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
-			<table class="list">
+		<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 form_create_act">
+			<!-- <table class="list">
 				<thead>
 					<tr>
 						<td colspan="2">Акты сверки</td>
@@ -52,7 +52,53 @@
 						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=multiple" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
-			</table>
+			</table> -->
+			<!-- показывать цену товаров, отобрать активные, отобрать в долларе и т.д. -->
+			<form action="/">
+				<h5>Создание акта сверки</h5>
+				<div>
+					<label>1. Тип</label>
+					<select name="act_type">
+						<option value="new">Новый</option>
+						<option value="wide">Широкий</option>
+						<option value="multiple">Многоразовый</option>
+					</select>
+				</div>
+				<div>
+					<label for="show_prod_price">2. Показывать цену</label>
+					<input type="checkbox" name="show_prod_price">
+				</div>
+				<div>
+					<label for="dollar">3. Доллар</label>
+					<select name="dollar">
+						<option value="null">Все</option>
+						<option value="true">Только в долларах</option>
+						<option value="false">Только в гривнах</option>
+					</select>
+				</div>
+				<div>
+					<label for="sort_active">4. Наличие</label>
+					<select name="prod_avail">
+						<option value="null">Все</option>
+						<option value="true">Только в наличии</option>
+						<option value="false">Только не в наличии</option>
+					</select>
+				</div>
+				<div class="date_interval">
+					<p>5. Диапазон дат изменения</p>
+					<div class="from_block">
+						<span>Дата от</span><br>
+						<input type="date" name="from">
+					</div>
+					<div class="to_block">
+						<span>Дата до</span><br>
+						<input type="date" name="to">
+					</div>
+				</div>
+				<div class="btn_sbm_wrap">
+					<button type="submit" name="smb_act" class="btn-m-green">Создать</button>
+				</div>
+			</form>
 		</div>
 		<div class="col-lg-2 col-md-3 col-sm-8 col-xs-12 infoBlock sb_block">
 			<div class="sb_container supplier_info animate">
