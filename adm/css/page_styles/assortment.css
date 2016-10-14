@@ -1,3 +1,6 @@
+.list tbody td {
+	padding: 5px;
+}
 .row:first-child {
 	margin-bottom: 10px;
 }
@@ -25,6 +28,8 @@
 .icon-remove {
 	font-size: 1.5em;
 	cursor: pointer;
+	text-align: center;
+	width: 20px;
 }
 .icon-remove:hover {
 	color: red;
@@ -36,7 +41,7 @@
 }
 .form_create_act form div{
 	margin-top: 8px;
-} 
+}
 .form_create_act form{
 	padding: 1em;
 	border: 1px solid #2196f3;
@@ -166,7 +171,7 @@
 	/*padding: 5px;*/
 }
 
-.current_supplier {	
+.current_supplier {
 	margin-right: 5px;
 }
 .active_supplier {

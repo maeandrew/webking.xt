@@ -22,25 +22,26 @@ $Supplier = new Suppliers();
 $arr = false;
 if(isset($_GET['smb'])){
 	// unset($_GET);
-	if(isset($_GET['filter_target_date']) && $_GET['filter_target_date'] !== ''){
-		$arr['creation_date'] = $_GET['filter_target_date'];
-		list($d,$m,$y) = explode(".", trim($arr['creation_date']));
-		$arr['creation_date'] = mktime(0, 0, 0, $m , $d, $y);
+	if(isset($_GET['filter_date_from']) && $_GET['filter_date_from'] !== ''){
+		$edited_time_from = $_GET['filter_date_from'];
+		list($d,$m,$y) = explode(".", trim($edited_time_from));
+		$edited_time_from = mktime(0, 0, 0, $m , $d, $y);
 	}
+	if(isset($_GET['filter_date_to']) && $_GET['filter_date_to'] !== ''){
+		$edited_time_to = $_GET['filter_date_to'];
+		// list($d,$m,$y) = explode(".", trim($edited_time_to));
+		// $edited_time_to = mktime(0, 0, 0, $m , $d, $y);
+	}
+	$arr['edited_time'] = array($edited_time_from, $edited_time_to);
+
 	if(isset($_GET['filter_active']) && $_GET['filter_active'] !== ''){
-		$arr['active'] = $_GET['filter_active'];
+		$params = 'HAVING active = '.$_GET['filter_active'];
 	}
-	if(isset($_GET['in_usd']) && $_GET['in_usd'] !== '0'){
-		$arr['inusd'] = $_GET['in_usd'];
+	if(isset($_GET['filter_inusd']) && $_GET['filter_inusd'] !== ''){
+		$arr['inusd'] = $_GET['filter_inusd'];
 	}
-	if(isset($_GET['filter_contragent_name']) && $_GET['filter_contragent_name'] !== ''){
-		$arr['ca.name_c'] = $_GET['filter_contragent_name'];
-	}
-	if(isset($_GET['filter_email']) && $_GET['filter_email'] !== ''){
-		$arr['u.email'] =  $_GET['filter_email'];
-	}
-	if(isset($_GET['filter_customer_name']) && $_GET['filter_customer_name'] !== ''){
-		$arr['u.name'] = $_GET['filter_customer_name'];
+	if(isset($_GET['filter_art']) && $_GET['filter_art'] !== ''){
+		$arr['p.art'] = $_GET['filter_art'];
 	}
 }elseif(isset($_GET['clear_filters'])){
 	unset($_GET);
@@ -96,7 +97,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all')||(!isset($_GET['limit'])))
 	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 		$_GET['page_id'] = $_POST['page_nbr'];
 	}
-	$cnt = $Products->GetProductsCntSupCab($arr);
+	$cnt = $Products->GetProductsCntSupCab($arr, $params);
 	$tpl->Assign('cnt', $cnt);
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	$limit = ' LIMIT '.$GLOBALS['Start'].','.$GLOBALS['Limit_db'];
@@ -121,7 +122,7 @@ $check_sum = $Supplier->GetCheckSumSupplierProducts($id_supplier);
 $tpl->Assign('check_sum', $check_sum);
 
 $tpl->Assign('supplier', $Supplier->fields);
-$Products->SetProductsList1($id_supplier, $order, $limit);
+$Products->SetProductsList1($id_supplier, $order, $limit, $arr, $params);
 $products = $Products->list;
 if($products){
 	foreach($products as &$p){

@@ -232,29 +232,29 @@
 		</div>
 		<div class="col-md-12">
 			<table class="list">
-				<col width="5%">
-				<col width="8%">
-				<col width="35%">
-				<col width="8%">
-				<col width="8%">
-				<col width="12%">
-				<col width="12%">
-				<col width="8%">
-				<col width="4%">
+				<col width="20px">
+				<col width="100px">
+				<col width="auto">
+				<col width="400px">
+				<col width="100px">
+				<col width="100px">
+				<col width="120px">
+				<col width="100px">
+				<col width="230px">
 				<thead>
 					<tr class="filter">
 						<form action="<?=$_SERVER['REQUEST_URI']?>/" method="get">
-							<td>Фильтры:</td>
-							<td class="center">
+							<td class="right" colspan="3">
 								<input type="text" class="input-m" value="<?=isset($_GET['filter_art'])?htmlspecialchars($_GET['filter_art']):null?>" placeholder="Артикул товара" name="filter_art">
 							</td>
-							<td class="center">
-							</td>
 							<td>
+								С <input type="date" class="input-m" name="filter_date_from" value="<?=isset($_GET['filter_date_from'])?htmlspecialchars($_GET['filter_date_from']):null?>"> по <input type="date" class="input-m" name="filter_date_to" value="<?=isset($_GET['filter_date_to'])?htmlspecialchars($_GET['filter_date_to']):null?>">
+							</td>
+							<td class="center">
 								<select name="filter_active" class="input-m" placeholder="Наличие">
 									<option value="" <?=!isset($_GET['filter_active']) || $_GET['filter_active'] == ''?'selected':null?>>-- Все --</option>
 									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] == 1?'selected':null?> value="1">Есть</option>
-									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] == 0?'selected':null?> value="0">Нет</option>
+									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] === 0?'selected':null?> value="0">Нет</option>
 								</select>
 							</td>
 							<td></td>
@@ -263,7 +263,7 @@
 								<select name="filter_inusd" class="input-m" placeholder="Доллар">
 									<option value="" <?=!isset($_GET['filter_inusd']) || $_GET['filter_inusd'] == ''?'selected':null?>>-- Все --</option>
 									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] == 1?'selected':null?> value="1">Да</option>
-									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] == 0?'selected':null?> value="0">Нет</option>
+									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] === 0?'selected':null?> value="0">Нет</option>
 								</select>
 							</td>
 							<td class="right">
@@ -287,8 +287,9 @@
 						$mark = '';
 				}?>
 						<td colspan="3">Название</td>
+						<td class="left">Изменения</td>
 						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.active&order=<?=$_GET['sort']=='a.active'?$order:'asc';?>">Наличие <?=$_GET['sort']=='a.active'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
-						<td>Минимальное кол-во</td>
+						<td>Мин. кол-во</td>
 						<td class="price_mopt_title_js">Цена розн.</td>
 						<td class="price_opt_title_js">Цена опт</td>
 						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.inusd&order=<?=$_GET['sort']=='a.inusd'?$order:'asc';?>">USD <?=$_GET['sort']=='a.inusd'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
@@ -318,10 +319,12 @@
 							<td>
 								<a href ="<?=$GLOBALS['URL_base']?>adm/productedit/<?=$item['id_product']?>"><p><?=$item['name'];?></p>
 								<p>Арт. <?=$item['art'];?></p></a>
+								<?//print_r($item)?>
+							</td>
+							<td class="left">
 								<p>Изменение ассортимента: <b><?=$item['edited_time']?date('d.m.Y', strtotime($item['edited_time'])).' в '.date('H:i', strtotime($item['edited_time'])):'Н/д';?></b></p>
 								<p>Редактирование товара: <b><?=$item['edit_date']?date('d.m.Y', strtotime($item['edit_date'])).' в '.date('H:i', strtotime($item['edit_date'])):'Н/д'?></b></p>
 								<p>Редактор: <b><?=$item['edit_username']?$item['edit_username']:'Н/д'?></b></p>
-								<?//print_r($item)?>
 							</td>
 							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
