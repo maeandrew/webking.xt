@@ -54,11 +54,11 @@
 				</tr>
 			</table> -->
 			<!-- показывать цену товаров, отобрать активные, отобрать в долларе и т.д. -->
-			<form action="/">
+			<form action="/adm/act_supplier/<?=$id_supplier?>/" method="get" target="_blank">
 				<h5>Создание акта сверки</h5>
 				<div>
 					<label>1. Тип</label>
-					<select name="act_type">
+					<select name="type">
 						<option value="new">Новый</option>
 						<option value="wide">Широкий</option>
 						<option value="multiple">Многоразовый</option>
@@ -66,11 +66,11 @@
 				</div>
 				<div>
 					<label for="show_prod_price">2. Показывать цену</label>
-					<input type="checkbox" name="show_prod_price">
+					<input type="checkbox" name="show_prod_price" value="true">
 				</div>
 				<div>
 					<label for="dollar">3. Доллар</label>
-					<select name="dollar">
+					<select name="dollar" disabled>
 						<option value="null">Все</option>
 						<option value="true">Только в долларах</option>
 						<option value="false">Только в гривнах</option>
@@ -78,7 +78,7 @@
 				</div>
 				<div>
 					<label for="sort_active">4. Наличие</label>
-					<select name="prod_avail">
+					<select name="prod_avail" disabled>
 						<option value="null">Все</option>
 						<option value="true">Только в наличии</option>
 						<option value="false">Только не в наличии</option>
@@ -88,11 +88,11 @@
 					<p>5. Диапазон дат изменения</p>
 					<div class="from_block">
 						<span>Дата от</span><br>
-						<input type="date" name="from">
+						<input type="date" name="from" disabled>
 					</div>
 					<div class="to_block">
 						<span>Дата до</span><br>
-						<input type="date" name="to">
+						<input type="date" name="to" disabled>
 					</div>
 				</div>
 				<div class="btn_sbm_wrap">
@@ -254,16 +254,17 @@
 								<select name="filter_active" class="input-m" placeholder="Наличие">
 									<option value="" <?=!isset($_GET['filter_active']) || $_GET['filter_active'] == ''?'selected':null?>>-- Все --</option>
 									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] == 1?'selected':null?> value="1">Есть</option>
-									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] === 0?'selected':null?> value="0">Нет</option>
+									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] === '0'?'selected':null?> value="0">Нет</option>
 								</select>
 							</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td class="center">
 								<select name="filter_inusd" class="input-m" placeholder="Доллар">
 									<option value="" <?=!isset($_GET['filter_inusd']) || $_GET['filter_inusd'] == ''?'selected':null?>>-- Все --</option>
 									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] == 1?'selected':null?> value="1">Да</option>
-									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] === 0?'selected':null?> value="0">Нет</option>
+									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] === '0'?'selected':null?> value="0">Нет</option>
 								</select>
 							</td>
 							<td class="right">

@@ -36,7 +36,6 @@
 }
 .form_create_act h5{
 	font-size: 1.3em;
-	text-align: center;
 	margin-bottom: 15px;
 }
 .form_create_act form div{
@@ -100,7 +99,6 @@
 .form_create_act .btn_sbm_wrap button{
 	width: 150px;
 	display: block;
-	margin: 0 auto;
 }
 .infoBlock {
 	border: 1px solid #444444;
