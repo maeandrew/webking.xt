@@ -184,11 +184,9 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
@@ -198,11 +196,9 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
@@ -235,10 +231,11 @@
 				<col width="20px">
 				<col width="100px">
 				<col width="auto">
-				<col width="400px">
+				<col width="250px">
 				<col width="100px">
 				<col width="100px">
 				<col width="120px">
+				<col width="100px">
 				<col width="100px">
 				<col width="230px">
 				<thead>
@@ -257,9 +254,7 @@
 									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] === '0'?'selected':null?> value="0">Нет</option>
 								</select>
 							</td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td class="colspan" colspan="3"></td>
 							<td class="center">
 								<select name="filter_inusd" class="input-m" placeholder="Доллар">
 									<option value="" <?=!isset($_GET['filter_inusd']) || $_GET['filter_inusd'] == ''?'selected':null?>>-- Все --</option>
@@ -323,8 +318,8 @@
 								<?//print_r($item)?>
 							</td>
 							<td class="left">
-								<p>Изменение ассортимента: <b><?=$item['edited_time']?date('d.m.Y', strtotime($item['edited_time'])).' в '.date('H:i', strtotime($item['edited_time'])):'Н/д';?></b></p>
-								<p>Редактирование товара: <b><?=$item['edit_date']?date('d.m.Y', strtotime($item['edit_date'])).' в '.date('H:i', strtotime($item['edit_date'])):'Н/д'?></b></p>
+								<p>Изм. ассорт.: <b><?=$item['edited_time']?date('d.m.Y', strtotime($item['edited_time'])).' в '.date('H:i', strtotime($item['edited_time'])):'Н/д';?></b></p>
+								<p>Ред-ние товара: <b><?=$item['edit_date']?date('d.m.Y', strtotime($item['edit_date'])).' в '.date('H:i', strtotime($item['edit_date'])):'Н/д'?></b></p>
 								<p>Редактор: <b><?=$item['edit_username']?$item['edit_username']:'Н/д'?></b></p>
 							</td>
 							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
@@ -464,6 +459,7 @@
 			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
+			$('.colspan').attr('colspan', 2);
 			$('.price_mopt_title_js').html('Цена');
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
@@ -479,6 +475,7 @@
 			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
+			$('.colspan').attr('colspan', 3);
 			$('.price_mopt_title_js').html('Цена розн.');
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");

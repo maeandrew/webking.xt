@@ -49,6 +49,7 @@ if(isset($_GET['smb'])){
 	header('Location: '.$url[0]);
 	exit();
 }
+$arr['a.id_supplier'] = $id_supplier;
 //Подключение/отключение поставщика
 if(isset($_POST['suppliers_activity'])){
 	$update_supplier['active'] = $_POST['supplier_activ'];
@@ -62,11 +63,11 @@ $Supplier->SetFieldsById($id_supplier, 1);
 
 //экспорт в exel
 if(isset($_GET['export'])){
-	$Products->SetProductsList1($id_supplier, $order, '');
+	$Products->SetProductsList1($id_supplier, $order, '', $arr);
 	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $id_supplier), $Supplier->fields['article'].' '.date('d.m'));
 	exit(0);
 }elseif(isset($_GET['export_usd'])){
-	$Products->SetProductsList1($id_supplier, $order, '');
+	$Products->SetProductsList1($id_supplier, $order, '', $arr);
 	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $id_supplier), $Supplier->fields['article'].' '.date('d.m').' usd');
 	exit(0);
 }
@@ -88,7 +89,6 @@ if(isset($_FILES['import_file'])){
 		$tpl->Assign('errm', 1);
 	}
 }
-$arr['a.id_supplier'] = $id_supplier;
 /*Pagination*/
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$GLOBALS['Limit_db'] = $_GET['limit'];

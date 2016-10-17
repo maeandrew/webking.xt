@@ -1133,6 +1133,7 @@ class Products {
 	public function SetProductsList1($id_supplier, $order = null, $limit, $filters = array(), $params = ''){
 		$where = '';
 		if(!empty($filters)){
+			$where .= 'WHERE ';
 			if($filters['edited_time'][0] && $filters['edited_time'][0] !== '' && $filters['edited_time'][1] && $filters['edited_time'][1] !== ''){
 				$where .= 'a.edited_time BETWEEN "'.$filters['edited_time'][0].'" AND "'.$filters['edited_time'][1].'" AND ';
 			}elseif($filters['edited_time'][0] && $filters['edited_time'][0] !== '' && !$filters['edited_time'][1]){
@@ -1159,8 +1160,7 @@ class Products {
 			LEFT JOIN '._DB_PREFIX_.'units AS un
 				ON un.id = p.id_unit
 			LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
-				ON pv.id_product = p.id_product
-			WHERE '.
+				ON pv.id_product = p.id_product '.
 			$where.'
 			GROUP BY p.id_product '.
 			$params.' '.
