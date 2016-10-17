@@ -143,7 +143,11 @@
 	<p class="supplier"><?=$Supplier['name']?> - <?=$Supplier['article']?> - <?=$Supplier['place']?>
 	<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
 	</p>
-	<?foreach($products as $i){?>
+	<?$price = false;
+	if(isset($_GET['show_prod_price']) && $_GET['show_prod_price'] == 'true'){
+		$price = true;
+	}
+	foreach($products as $i){?>
 		<?$wh = "height=\"250\" width=\"250\"";?>
 		<div class="block">
 			<div class="description">
@@ -179,7 +183,7 @@
 						<td class="date"><?=$a==1?date('d.m.Y'):null;?></td>
 						<?if($Supplier['single_price'] == 1){?>
 							<td class="price" colspan="2">
-								<?if($a == 1){
+								<?if($a == 1 && $price === true){
 									if($i['inusd'] == 1){?>
 										<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
 									<?}else{?>
@@ -189,7 +193,7 @@
 							</td>
 						<?}else{?>
 							<td class="price">
-								<?if($a == 1){
+								<?if($a == 1 && $price === true){
 									if($i['inusd'] == 1){?>
 										<?=$i['price_mopt_otpusk'] !== '0'?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
 									<?}else{?>
@@ -198,7 +202,7 @@
 								}?>
 							</td>
 							<td class="price">
-								<?if($a == 1){
+								<?if($a == 1 && $price === true){
 									if($i['inusd'] == 1){?>
 										<?=$i['price_opt_otpusk'] !== '0'?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
 									<?}else{?>

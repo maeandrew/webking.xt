@@ -50,8 +50,8 @@ class Customers extends Users {
 			return false;
 		}
 		foreach($arr as &$value){
-			$products = new Products();
-			$value['images'] = $products->GetPhotoById($value['id_product']);
+			$Products = new Products();
+			$value['images'] = $Products->GetPhotoById($value['id_product']);
 		}
 		return $arr;
 	}
@@ -97,8 +97,8 @@ class Customers extends Users {
 			return false;
 		}
 		foreach($arr as &$value){
-			$products = new Products();
-			$value['images'] = $products->GetPhotoById($value['id_product']);
+			$Products = new Products();
+			$value['images'] = $Products->GetPhotoById($value['id_product']);
 		}
 		return $arr;
 	}

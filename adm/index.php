@@ -32,8 +32,8 @@ if($GLOBALS['CurrentController'] != 'productedit'){
 	// G::AddCSS('adm.css');
 }
 if(isset($_GET['check_art'])){
-	$products = new Products();
-	echo "<!-- ".$products->CheckArticle($_GET['check_art'])."-->";
+	$Products = new Products();
+	echo "<!-- ".$Products->CheckArticle($_GET['check_art'])."-->";
 }
 if(isset($_GET['img'])){
 	$img = new Images();
@@ -43,6 +43,7 @@ if(isset($_GET['clear_thumbs'])){
 	$img = new Images();
 	$img->clearThumbs();
 }
+
 // var_dump(file_exists('adm/css/page_styles/'.$GLOBALS['CurrentController'].'.css'));
 // if(file_exists('adm/css/page_styles/'.$GLOBALS['CurrentController'].'.css')){
 	G::AddCSS('page_styles/'.$GLOBALS['CurrentController'].'.css');

@@ -521,8 +521,8 @@ class Suppliers extends Users {
 			ORDER BY a.inusd, p.name";
 		$arr = $this->db->GetArray($sql);
 		foreach($arr as &$product){
-			$products = new Products();
-			$product['images'] = $products->GetPhotoById($product['id_product']);
+			$Products = new Products();
+			$product['images'] = $Products->GetPhotoById($product['id_product']);
 		}
 		return $arr;
 	}
@@ -688,8 +688,8 @@ class Suppliers extends Users {
 				}
 				$this->db->CompleteTrans();
 			}
-			$products = new Products();
-			$products->RecalcSitePrices(array($id));
+			$Products = new Products();
+			$Products->RecalcSitePrices(array($id));
 		}
 		// $time = microtime(true) - $testtimestart;
 		// printf('Скрипт 2 выполнялся %.4F сек.', $time);

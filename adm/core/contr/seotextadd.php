@@ -2,7 +2,7 @@
 if(!_acl::isAllow('seotext')){
 	die("Access denied");
 }
-$SEO = new SEO();
+$Seo = new Seo();
 unset($parsed_res);
 $tpl->Assign('h1', 'Добавление Seo-текста');
 $ii = count($GLOBALS['IERA_LINKS']);
@@ -13,7 +13,7 @@ if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Seotext_form_validate();
 	if(!$err){
-		if($id = $SEO->AddSeoText($_POST)){
+		if($id = $Seo->AddSeoText($_POST)){
 			$tpl->Assign('msg', 'Seo-текст добавлен.');
 			unset($_POST);
 		}else{

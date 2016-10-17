@@ -681,7 +681,10 @@ function removeLoadAnimation(obj) {
 	componentHandler.upgradeDom();
 }
 //Добавление товара в избранное
-function AddFavorite(id_product, targetEl){
+function AddFavorite(id_product, targetEl, is_prod = false){
+	console.log(is_prod);
+	console.log(targetEl);
+
 	ajax('product', 'add_favorite', {id_product: id_product}).done(function(data){
 		var res = {};
 		if(data.answer == 'login'){
@@ -693,8 +696,13 @@ function AddFavorite(id_product, targetEl){
 			if(data.answer == 'ok'){
 				$('.userChoiceFav').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в избранное'};
-				targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
-				targetEl.next().empty().html('Товар уже <br> в избранном');
+				if(is_prod){
+					targetEl.find('.favorite_js').empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
+					targetEl.find('span').empty().text('В избранном');
+				}else{
+					targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
+					targetEl.next().empty().html('Товар уже <br> в избранном');
+				}
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -709,7 +717,7 @@ function AddFavorite(id_product, targetEl){
 	return false;
 }
 //Удаление товара из избранных
-function RemoveFavorite(id_product, targetEl){
+function RemoveFavorite(id_product, targetEl, is_prod = false){
 	ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
 		var res = {};
 		if(data.answer == 'login'){
@@ -719,8 +727,13 @@ function RemoveFavorite(id_product, targetEl){
 			if(data.answer == 'ok'){
 				$('.userChoiceFav').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из избранного'};
-				targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
-				targetEl.next().empty().html('Добавить товар <br> в избранное');
+				if(is_prod){
+					targetEl.find('.favorite_js').empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
+					targetEl.find('span').empty().text('В избранное');
+				}else{
+					targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
+					targetEl.next().empty().html('Добавить товар <br> в избранное');
+				}
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};

@@ -16,8 +16,8 @@ require('/home/xtorg/x-torg.com/www/~core/model/products_c.php');
 
 	$db = new mysqlDb($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 	$GLOBALS['db'] =& $db;
-	$product = new Products();
+	$Products = new Products();
 	$db->StartTrans();
-		$product->Re_null();
+		$Products->Re_null();
 	$db->CompleteTrans();
 ?>

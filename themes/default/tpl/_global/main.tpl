@@ -150,7 +150,7 @@
 	</noscript>
 	<script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK1pgVfW7PcvNFyKyEj8_md7h2l2vTV9U&language=ru"></script>
 </head>
-<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?>">
+<body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?> <?=$GLOBALS['CurrentController'] == 'product'?' for_product_page':null?>">
 	<!-- Google Tag Manager -->
 	<?if(SETT != 0){?>
 		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"

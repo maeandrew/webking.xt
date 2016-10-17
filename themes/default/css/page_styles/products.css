@@ -26,7 +26,7 @@ h5 {
 	background-color: #fff;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	padding: 10px;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	position: relative;
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -414,7 +414,7 @@ label.info_key {
 }
 .block_view .products .card {
 	width: calc(20% - 20px);
-	margin: 10px;
+	margin: 0 10px 20px;
 	position: relative;
 }
 .block_view .products .card a {

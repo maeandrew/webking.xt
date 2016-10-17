@@ -101,6 +101,7 @@ if(!isset($sorting)){
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 	$available_sorting_values = array(
 		'popularity desc' => 'популярные',
+		'create_date desc' => 'новые сверху',
 		'price_opt asc' => 'от дешевых к дорогим',
 		'price_opt desc' => 'от дорогих к дешевым',
 		'name asc' => 'по названию от А до Я',
@@ -109,6 +110,7 @@ if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPP
 }else{
 	$available_sorting_values = array(
 		'popularity desc' => 'популярные',
+		'create_date desc' => 'новые сверху',
 		'price_opt asc' => 'от дешевых к дорогим',
 		'price_opt desc' => 'от дорогих к дешевым',
 		'name asc' => 'по названию от А до Я',
@@ -232,7 +234,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 	$sphinx->SetConnectTimeout(1);
 	$sphinx->SetArrayResult(true);
 	$sphinx->setMaxQueryTime(100);
-	$sphinx->setLimits(0,150);
+	$sphinx->setLimits(0, 10000);
 	$sphinx->SetSortMode(SPH_SORT_RELEVANCE);
 	$sphinx->SetRankingMode(SPH_RANK_PROXIMITY_BM25);
 	// разбор строки запроса

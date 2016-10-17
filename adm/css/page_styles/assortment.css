@@ -1,3 +1,6 @@
+.list tbody td {
+	padding: 5px;
+}
 .row:first-child {
 	margin-bottom: 10px;
 }
@@ -25,16 +28,84 @@
 .icon-remove {
 	font-size: 1.5em;
 	cursor: pointer;
+	text-align: center;
+	width: 20px;
 }
 .icon-remove:hover {
 	color: red;
+}
+.form_create_act h5{
+	font-size: 1.3em;
+	margin-bottom: 15px;
+}
+.form_create_act form div{
+	margin-top: 8px;
+}
+.form_create_act form{
+	padding: 1em;
+	border: 1px solid #2196f3;
+	background: #f2fcff;
+	border-radius: 5px;
+}
+.form_create_act form label{
+	width: 130px;
+	display: block;
+	padding: 8px 0;
+	float: left;
+}
+.form_create_act form label[for="show_prod_price"]{
+	padding: 3px 0;
+}
+.form_create_act form input[name="show_prod_price"]{
+	margin: 5px 0;
+}
+.form_create_act .date_interval{
+	min-height: 70px;
+	margin-bottom: 10px;
+}
+.form_create_act .date_interval .from_block{
+	float: left;
+	margin-left: 1em;
+}
+.form_create_act .date_interval .to_block{
+	float: right;
+}
+@media (min-width: 1198px) and (max-width: 1244px){
+	.form_create_act select{
+		margin-left: 1em;
+	}
+	.form_create_act .date_interval .from_block,
+	.form_create_act .date_interval .to_block{
+		float: none;
+		margin-left: 1em;
+	}
+	.form_create_act .date_interval [type="date"]{
+		width: 150px !important;
+	}
+}
+.form_create_act select,
+.form_create_act .date_interval [type="date"]{
+	padding: 5px;
+}
+.form_create_act select{
+	width: 150px;
+}
+.form_create_act .date_interval [type="date"]{
+	width: 133px;
+}
+.form_create_act .btn_sbm_wrap{
+	clear: both;
+}
+.form_create_act .btn_sbm_wrap button{
+	width: 150px;
+	display: block;
 }
 .infoBlock {
 	border: 1px solid #444444;
 	border-radius: 5px;
 	padding: 0;
 	background-color: #f2f2f2;
-	margin-bottom: 80px;
+	/*margin-bottom: 80px;*/
 }
 .infoTitle {
 	min-height: 30px;
@@ -42,12 +113,14 @@
 	color: #fff;
 	font-size: 1.1em;
 	line-height: 2em;
+	padding: 5px;
 }
 .line {
 	min-height: 30px;
 	border-bottom: 1px solid #A5A5A5;
 	margin: 0 10px;
-    padding: 5px 0;
+	/*padding: 5px 0;*/
+	padding: 12px 0;
 }
 .redBlock {
 	border: 1px solid red;
@@ -67,21 +140,27 @@
 .flexWrap button {
 	flex: 0 0 105px;
 }
+.dollar{
+	padding: 5px 0;
+}
 .dollar input {
 	padding: 5px;
 }
 .excelBlock {
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 45px;
+}
+.excelBlock input[type="file"]{
+	margin: 0;
 }
 .add_functions p {
 	margin: 10px;
+	padding: 5px 0;
 }
 .import_excel,
 .export_excel,
 .excelBlock input {
 	width: 100%;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
 }
 .excelBlock input {
 	padding: 5px;
@@ -90,7 +169,7 @@
 	/*padding: 5px;*/
 }
 
-.current_supplier {	
+.current_supplier {
 	margin-right: 5px;
 }
 .active_supplier {
@@ -101,4 +180,7 @@
 }
 .suppliers_activity_form {
 	margin-top: 5px;
+}
+.product_list {
+	margin-top: 20px;
 }

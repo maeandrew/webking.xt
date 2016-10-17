@@ -282,8 +282,6 @@ class mysqlPDO {
 	* @return bool
 	*/
 	public function Update($table, $fields, $where){
-//		$keys = array_keys($fields);
-//		$values = array_values($fields);
 		$sql = "UPDATE $table SET ";
 		$arr = array();
 		foreach($fields as $k=>$v){

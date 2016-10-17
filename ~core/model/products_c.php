@@ -103,10 +103,10 @@ class Products {
 	/**
 	 * Установить данные о товаре по его id
 	 * @param integer $id_product	id товара
-	 * @param integer $visible	учитывать видимость товара 1 - нет, 0 - да
+	 * @param integer $visible	учитывать видимость товара 1 - да, 0 - нет
 	 * @param integer $active	учитывать активность товара 1 - да, 0 - нет
 	 */
-	public function SetFieldsById($id_product, $visible = 0, $active = 0){
+	public function SetFieldsById($id_product, $visible = 1, $active = 0){
 		$sql = 'SELECT p.*,
 				un.unit_xt AS units,
 				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
@@ -119,8 +119,8 @@ class Products {
 				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
 			WHERE p.id_product = '.$id_product.
-			($visible == 0?' AND p.visible = 1 ':null).
-			($active == 1?' HAVING active = 1 AND p.visible = 1 ':null).'
+			($visible == 1?' AND p.visible = 1 ':null).
+			($active == 1?' HAVING active = 1 ':null).'
 			LIMIT 1';
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
@@ -142,6 +142,7 @@ class Products {
 	 * Товар по rewrite
 	 * @param string  $rewrite		rewrite товара
 	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
+	 * @return bool
 	 */
 	public function SetFieldsByRewrite($rewrite, $visibility = 0){
 		$sql = 'SELECT p.*,
@@ -275,6 +276,7 @@ class Products {
 	 * @param integer	$id_product		id товара
 	 * @param integer	$rating			оценка товара
 	 */
+
 	public function SubmitProductComment($text, $author, $author_name, $authors_email = false, $id_product, $rating=null, $pid_comment=null, $visible=null){
 		if(empty($text)){
 			return false;
@@ -1128,20 +1130,42 @@ class Products {
 	 * [SetProductsList1 description]
 	 * @param [type] $id_supplier [description]
 	 */
-	public function SetProductsList1($id_supplier, $order = null, $limit){
+	public function SetProductsList1($id_supplier, $order = null, $limit, $filters = array(), $params = ''){
+		$where = '';
+		if(!empty($filters)){
+			$where .= 'WHERE ';
+			if($filters['edited_time'][0] && $filters['edited_time'][0] !== '' && $filters['edited_time'][1] && $filters['edited_time'][1] !== ''){
+				$where .= 'a.edited_time BETWEEN "'.$filters['edited_time'][0].'" AND "'.$filters['edited_time'][1].'" AND ';
+			}elseif($filters['edited_time'][0] && $filters['edited_time'][0] !== '' && !$filters['edited_time'][1]){
+				$where .= 'a.edited_time >= "'.$filters['edited_time'][0].'" AND ';
+			}elseif($filters['edited_time'][1] && $filters['edited_time'][1] !== '' && !$filters['edited_time'][0]){
+				$where .= 'a.edited_time <= "'.$filters['edited_time'][1].'" AND ';
+			}
+			unset($filters['edited_time']);
+			if($filters !== FALSE && count($filters)){
+				foreach($filters as $k=>$v){
+					$where_a[] = "$k=\"$v\"";
+				}
+				$where .= implode(" AND ", $where_a);
+			}
+		}
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ", $this->usual_fields).",
-			pv.count_views, a.*
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+		$sql = 'SELECT DISTINCT '.implode(', ', $this->usual_fields).',
+			pv.count_views, a.*,
+			(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+			(SELECT name FROM xt_user WHERE id_user = p.edit_user) AS edit_username
+			FROM '._DB_PREFIX_.'product AS p
+			LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 				ON a.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."units AS un
+			LEFT JOIN '._DB_PREFIX_.'units AS un
 				ON un.id = p.id_unit
-			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
-				ON pv.id_product = p.id_product
-			WHERE a.id_supplier = ".$id_supplier."
-			GROUP BY p.id_product".
-			(($order !== null)?"  ORDER BY ".$order:null).$limit;
+			LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
+				ON pv.id_product = p.id_product '.
+			$where.'
+			GROUP BY p.id_product '.
+			$params.' '.
+			(($order !== null)?" ORDER BY ".$order:null).
+			$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1443,25 +1467,33 @@ class Products {
 	 * @param string  $params [description]
 	 */
 	public function GetProductsCntSupCab($and = false, $params = ''){
-		$where = " ";
+		$where = '';
+		if($and['edited_time'][0] && $and['edited_time'][0] !== '' && $and['edited_time'][1] && $and['edited_time'][1] !== ''){
+			$where .= 'a.edited_time BETWEEN "'.$and['edited_time'][0].'" AND "'.$and['edited_time'][1].'" AND ';
+		}elseif($and['edited_time'][0] && $and['edited_time'][0] !== '' && !$and['edited_time'][1]){
+			$where .= 'a.edited_time >= "'.$and['edited_time'][0].'" AND ';
+		}elseif($and['edited_time'][1] && $and['edited_time'][1] !== '' && !$and['edited_time'][0]){
+			$where .= 'a.edited_time <= "'.$and['edited_time'][1].'" AND ';
+		}
+		unset($and['edited_time']);
 		if($and !== FALSE && count($and)){
 			foreach($and as $k=>$v){
 				$where_a[] = "$k=\"$v\"";
 			}
 			$where .= implode(" AND ", $where_a);
 		}
-		$sql = "SELECT COUNT(DISTINCT p.id_product) as cnt
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+		$sql = 'SELECT DISTINCT p.id_product,
+			(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active
+			FROM '._DB_PREFIX_.'product AS p
+			LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 				ON p.id_product = a.id_product
-			WHERE ".$where.
+			WHERE '.$where.' '.
 			$params;
-		$arr = $this->db->GetOneRowArray($sql);
+		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return 0;
-		}else{
-			return $arr['cnt'];
 		}
+		return count($arr);
 	}
 	/**
 	 * [SetProductsListFromArr description]
@@ -1928,6 +1960,7 @@ class Products {
 				a.price_mopt_recommend
 			FROM '._DB_PREFIX_.'assortiment AS a
 			WHERE a.active = 1'
+			// .' AND a.id_product = 26802';
 			.(!empty($ids_products)?' HAVING a.id_product IN ('.implode(', ', $ids_products).')':null);
 		unset($ids_products);
 		$arr = $this->db->GetArray($sql);
@@ -1937,10 +1970,10 @@ class Products {
 			}
 			foreach($products_array as $k=>&$product){
 				foreach($product as &$p){
-					if(!isset($result_prices[$k]['mopt']) || ($p['price_mopt_recommend'] > 0 && $p['price_mopt_recommend'] < $result_prices[$k]['mopt'])){
+					if($p['price_mopt_recommend'] > 0 && (!isset($result_prices[$k]['mopt']) || $p['price_mopt_recommend'] < $result_prices[$k]['mopt'])){
 						$result_prices[$k]['mopt'] = $p['price_mopt_recommend'];
 					}
-					if(!isset($result_prices[$k]['opt']) || ($p['price_opt_recommend'] > 0 && $p['price_opt_recommend'] < $result_prices[$k]['opt'])){
+					if($p['price_opt_recommend'] > 0 && (!isset($result_prices[$k]['opt']) || $p['price_opt_recommend'] < $result_prices[$k]['opt'])){
 						$result_prices[$k]['opt'] = $p['price_opt_recommend'];
 					}
 				}
@@ -1964,12 +1997,12 @@ class Products {
 				// 	$f['price_opt'] = "CEILING(".$a['opt']."*price_coefficient_opt)";
 				// }else{
 				// }
-				$f['price_opt'] = 'ROUND('.$a['opt'].'*price_coefficient_opt, 2)';
+				$f['price_opt'] = 'ROUND('.(isset($a['opt'])?$a['opt']:0).'*price_coefficient_opt, 2)';
 				// if ($a['mopt'] > 100) {
 				// 	$f['price_mopt'] = "CEILING(".$a['mopt']."*price_coefficient_mopt)";
 				// }else{
 				// }
-				$f['price_mopt'] = 'ROUND('.$a['mopt'].'*price_coefficient_mopt, 2)';
+				$f['price_mopt'] = 'ROUND('.(isset($a['mopt'])?$a['mopt']:0).'*price_coefficient_mopt, 2)';
 				$this->db->StartTrans();
 				if(!$this->db->UpdatePro(_DB_PREFIX_.'product', $f, 'id_product = '.$k)){
 					$this->db->FailTrans();
@@ -4756,6 +4789,4 @@ class Products {
 		}
 		return true;
 	}
-
-
 }

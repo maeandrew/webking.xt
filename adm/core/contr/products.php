@@ -15,9 +15,9 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	exit();
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$products = new Products();
+$Products = new Products();
 	if(isset($_POST['smb']) && isset($_POST['ord'])){
-		$products->Reorder($_POST);
+		$Products->Reorder($_POST);
 		$tpl->Assign('msg', 'Сортировка выполнена успешно.');
 	}elseif(isset($_FILES["import_file"])){
 		// Импорт
@@ -28,9 +28,9 @@ $products = new Products();
 		// Проверяем загружен ли файл
 		if(is_uploaded_file($_FILES["import_file"]["tmp_name"])){
 			set_time_limit(3600);
-			//list($total_added, $total_updated) = $products->ProcessProductsFile($_FILES["import_file"]["tmp_name"]);
+			//list($total_added, $total_updated) = $Products->ProcessProductsFile($_FILES["import_file"]["tmp_name"]);
 			if (isset($_POST['smb_check'])) {
-				$res = $products->CheckProductsFile($_FILES["import_file"]["tmp_name"]);
+				$res = $Products->CheckProductsFile($_FILES["import_file"]["tmp_name"]);
 				if (is_array($res)) {
 					list($total_added, $total_updated) = $res;
 					$tpl->Assign('total_added', $total_added);
@@ -40,7 +40,7 @@ $products = new Products();
 				}
 
 			}elseif(isset($_POST['smb_import'])){
-				list($total_added, $total_updated) = $products->ProcessProductsFile($_FILES["import_file"]["tmp_name"]);
+				list($total_added, $total_updated) = $Products->ProcessProductsFile($_FILES["import_file"]["tmp_name"]);
 				$tpl->Assign('total_added', $total_added);
 				$tpl->Assign('total_updated', $total_updated);
 			}
@@ -51,8 +51,8 @@ $products = new Products();
 		}
 	}
 	if(isset($_POST['smb']) && isset($_POST['supl'])){
-		$products->SetProductsList1($_POST['supl']);
-		list($r,$cats_cols) = $products->GetExportRows($products->list);
+		$Products->SetProductsList1($_POST['supl']);
+		list($r,$cats_cols) = $Products->GetExportRows($Products->list);
 	// Формирование заголовка
 	$h = array('Артикул');
 	for($ii=0;$ii<$cats_cols;$ii++){
@@ -61,13 +61,13 @@ $products = new Products();
 	$h = array_merge($h, array(	'Название','Сертификат','Фото 1','Фото 2','Фото 3',
 								'Макс кол-во поставщиков', 'Коэф опт', 'Коэф мелк опт', 'Описание', 'Страна', 'Кол-во в ящ',
 								'Минимальное количество по мелкому опту', 'Кратность', 'Видимость', 'транслит', 'Вес', 'Объем', 'Обяз прим', 'Ед. измерения'));
-	$products->GenExcelFile($h, $r, $cats_cols);
+	$Products->GenExcelFile($h, $r, $cats_cols);
 
 	exit(0);
 }
 
 $orderby = " sort ASC, ord ASC, name ASC";
-$products->SetProductsList(array('cp.id_category'=>$id_category), null, array('order_by' => $orderby, 'administration' => '1'));
+$Products->SetProductsList(array('cp.id_category'=>$id_category), null, array('order_by' => $orderby, 'administration' => '1'));
 
 $arr = $dbtree->GetNodeFields($id_category, array('name', 'category_level'));
 // --- --- --- subcats
@@ -75,7 +75,7 @@ $l = $arr['category_level']+1;
 $tpl->Assign('subcats', $dbtree->GetSubCats($id_category, array('id_category', 'name', 'translit', 'art', 'category_level')));
 
 // === === === subcats
-$tpl->Assign('list', $products->list);
+$tpl->Assign('list', $Products->list);
 $tpl->Assign('catname', $arr['name']);
 $tpl->Assign('id_category', $id_category);
 $parsed_res = array(
@@ -91,7 +91,7 @@ foreach($res as $cat){
 	}
 }
 if(in_array("export", $GLOBALS['REQAR'])){
-	list($r,$cats_cols) = $products->GetExportRows($products->list);
+	list($r,$cats_cols) = $Products->GetExportRows($Products->list);
 	// Формирование заголовка
 	$h = array('Артикул');
 	for($ii=0;$ii<$cats_cols;$ii++){
@@ -100,15 +100,15 @@ if(in_array("export", $GLOBALS['REQAR'])){
 	$h = array_merge($h, array(	'Название','Сертификат','Фото 1','Фото 2','Фото 3',
 								'Макс кол-во поставщиков', 'Коэф опт', 'Коэф мелк опт', 'Описание', 'Страна', 'Кол-во в ящ',
 								'Минимальное количество по мелкому опту', 'Кратность', 'Видимость', 'транслит', 'Вес', 'Объем', 'Обяз прим', 'Ед. измерения'));
-	$products->GenExcelFile($h, $r, $cats_cols);
+	$Products->GenExcelFile($h, $r, $cats_cols);
 	exit(0);
 }elseif(in_array("exportactive", $GLOBALS['REQAR'])){
-	foreach($products->list AS $p){
+	foreach($Products->list AS $p){
 		if($p['sort'] == 0){
 			$prodlist[] = $p;
 		}
 	}
-	list($r,$cats_cols) = $products->GetExportRows($prodlist);
+	list($r,$cats_cols) = $Products->GetExportRows($prodlist);
 
 	// Формирование заголовка
 	$h = array('Артикул');
@@ -119,11 +119,11 @@ if(in_array("export", $GLOBALS['REQAR'])){
 		'Макс кол-во поставщиков', 'Коэф опт', 'Коэф мелк опт', 'Описание', 'Страна',
 		'Кол-во в ящ', 'Минимальное количество по мелкому опту', 'Кратность', 'Видимость',
 		'транслит', 'Вес', 'Объем', 'Обяз прим', 'Ед. измерения'));
-	$products->GenExcelFile($h, $r, $cats_cols);
+	$Products->GenExcelFile($h, $r, $cats_cols);
 	exit(0);
 }elseif (in_array("export_sup_prices", $GLOBALS['REQAR'])){
-	list($r, $suppliers_qty) = $products->GetExportSupPricesRows($products->list);
-	$products->GenExcelSupPricesFile($r, $suppliers_qty);
+	list($r, $suppliers_qty) = $Products->GetExportSupPricesRows($Products->list);
+	$Products->GenExcelSupPricesFile($r, $suppliers_qty);
 	exit(0);
 }else{
 	if(isset($_SESSION['_POST_'])) unset($_SESSION['_POST_']);

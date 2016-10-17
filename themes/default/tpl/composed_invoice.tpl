@@ -482,8 +482,9 @@ tr.min td {
 									<td class="name c4">
 										<?if($i['note_opt']!=''){?>
 											<span class="note_red" style="font-size: 16px;"><?=$i['note_opt']?></span><br>
-										<?}
-										echo $i['name'];?>
+										<?}?>
+										<?=$i['name'];?>
+										<?=$i['sup_comment'];?>
 									</td>
 									<td class="c5">
 										<?if(!$suppliers[$id_supplier]['is_partner'] && isset($_GET['no_prices']) == false){
@@ -518,8 +519,9 @@ tr.min td {
 									<td class="name c4">
 										<?if($i['note_mopt']!=''){?>
 											<span class="note_red" style="font-size: 16pt;"><?=$i['note_mopt']?></span><br>
-										<?}
-										echo $i['name'];?>
+										<?}?>
+										<?=$i['name'];?>
+										<?=$i['sup_comment'];?>
 									</td>
 									<td class="c5">
 										<?if(!$suppliers[$id_supplier]['is_partner'] && isset($_GET['no_prices']) == false){

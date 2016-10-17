@@ -1,6 +1,6 @@
 <?php
 
-	$Seo = new SEO();
+	$Seo = new Seo();
 
 	// ---- center ----
 	unset($parsed_res);

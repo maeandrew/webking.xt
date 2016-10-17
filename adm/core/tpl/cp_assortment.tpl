@@ -1,8 +1,7 @@
-<!-- <h1><?=$h1?></h1> -->
+<h1><?=$h1?></h1>
 <div id="assortment" class="grid">
 	<div class="row">
 		<div class="col-md-12">
-			<h2>Информация о поставщике</h2>
 			<p>Имя: <?=$supplier['name']?></p>
 			<p>Телефоны: <?=$supplier['phones']?></p>
 			<p>Контактный телефон: <?=$supplier['real_phone']?></p>
@@ -16,8 +15,8 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
-			<table class="list">
+		<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 form_create_act">
+			<!-- <table class="list">
 				<thead>
 					<tr>
 						<td colspan="2">Акты сверки</td>
@@ -53,7 +52,53 @@
 						<a href="<?=$GLOBALS['URL_base']?>adm/act_supplier/<?=$id_supplier?>/?type=multiple" target="_blank" title="Откроется в новой вкладке" class="btn-m-lblue fr">Открыть</a>
 					</td>
 				</tr>
-			</table>
+			</table> -->
+			<!-- показывать цену товаров, отобрать активные, отобрать в долларе и т.д. -->
+			<form action="/adm/act_supplier/<?=$id_supplier?>/" method="get" target="_blank">
+				<h5>Создание акта сверки</h5>
+				<div>
+					<label>1. Тип</label>
+					<select name="type">
+						<option value="new">Новый</option>
+						<option value="wide">Широкий</option>
+						<option value="multiple">Многоразовый</option>
+					</select>
+				</div>
+				<div>
+					<label for="show_prod_price">2. Показывать цену</label>
+					<input type="checkbox" name="show_prod_price" value="true">
+				</div>
+				<div>
+					<label for="dollar">3. Доллар</label>
+					<select name="dollar" disabled>
+						<option value="null">Все</option>
+						<option value="true">Только в долларах</option>
+						<option value="false">Только в гривнах</option>
+					</select>
+				</div>
+				<div>
+					<label for="sort_active">4. Наличие</label>
+					<select name="prod_avail" disabled>
+						<option value="null">Все</option>
+						<option value="true">Только в наличии</option>
+						<option value="false">Только не в наличии</option>
+					</select>
+				</div>
+				<div class="date_interval">
+					<p>5. Диапазон дат изменения</p>
+					<div class="from_block">
+						<span>Дата от</span><br>
+						<input type="date" name="from" disabled>
+					</div>
+					<div class="to_block">
+						<span>Дата до</span><br>
+						<input type="date" name="to" disabled>
+					</div>
+				</div>
+				<div class="btn_sbm_wrap">
+					<button type="submit" name="smb_act" class="btn-m-green">Создать</button>
+				</div>
+			</form>
 		</div>
 		<div class="col-lg-2 col-md-3 col-sm-8 col-xs-12 infoBlock sb_block">
 			<div class="sb_container supplier_info animate">
@@ -139,11 +184,9 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
@@ -153,11 +196,9 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
-
 							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
@@ -169,8 +210,7 @@
 		</div>
 	</div>
 
-
-
+	<h2>Ассортимент</h2>
 	<div class="product_list row">
 		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
 		<div class="col-md-12">
@@ -185,20 +225,49 @@
 					<input type="checkbox" id="switch_price" class="price_switcher_js" <?=(isset($supplier['single_price']) && $supplier['single_price'] == 1)?'checked':null?> >
 				</label>
 			</div>
-			<h2>Ассортимент</h2>
 		</div>
 		<div class="col-md-12">
 			<table class="list">
-				<col width="5%">
-				<col width="8%">
-				<col width="35%">
-				<col width="8%">
-				<col width="8%">
-				<col width="12%">
-				<col width="12%">
-				<col width="8%">
-				<col width="4%">
+				<col width="20px">
+				<col width="100px">
+				<col width="auto">
+				<col width="250px">
+				<col width="100px">
+				<col width="100px">
+				<col width="120px">
+				<col width="100px">
+				<col width="100px">
+				<col width="230px">
 				<thead>
+					<tr class="filter">
+						<form action="<?=$_SERVER['REQUEST_URI']?>/" method="get">
+							<td class="right" colspan="3">
+								<input type="text" class="input-m" value="<?=isset($_GET['filter_art'])?htmlspecialchars($_GET['filter_art']):null?>" placeholder="Артикул товара" name="filter_art">
+							</td>
+							<td>
+								С <input type="date" class="input-m" name="filter_date_from" value="<?=isset($_GET['filter_date_from'])?htmlspecialchars($_GET['filter_date_from']):null?>"> по <input type="date" class="input-m" name="filter_date_to" value="<?=isset($_GET['filter_date_to'])?htmlspecialchars($_GET['filter_date_to']):null?>">
+							</td>
+							<td class="center">
+								<select name="filter_active" class="input-m" placeholder="Наличие">
+									<option value="" <?=!isset($_GET['filter_active']) || $_GET['filter_active'] == ''?'selected':null?>>-- Все --</option>
+									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] == 1?'selected':null?> value="1">Есть</option>
+									<option <?=isset($_GET['filter_active']) && $_GET['filter_active'] === '0'?'selected':null?> value="0">Нет</option>
+								</select>
+							</td>
+							<td class="colspan" colspan="3"></td>
+							<td class="center">
+								<select name="filter_inusd" class="input-m" placeholder="Доллар">
+									<option value="" <?=!isset($_GET['filter_inusd']) || $_GET['filter_inusd'] == ''?'selected':null?>>-- Все --</option>
+									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] == 1?'selected':null?> value="1">Да</option>
+									<option <?=isset($_GET['filter_inusd']) && $_GET['filter_inusd'] === '0'?'selected':null?> value="0">Нет</option>
+								</select>
+							</td>
+							<td class="right">
+								<button type="submit" name="smb" class="btn-m-default">Применить</button>
+								<button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
+							</td>
+						</tr>
+					</form>
 					<tr class="animate">
 						<?switch($_GET['order']){
 					case 'asc':
@@ -214,8 +283,9 @@
 						$mark = '';
 				}?>
 						<td colspan="3">Название</td>
+						<td class="left">Изменения</td>
 						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.active&order=<?=$_GET['sort']=='a.active'?$order:'asc';?>">Наличие <?=$_GET['sort']=='a.active'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
-						<td>Минимальное кол-во</td>
+						<td>Мин. кол-во</td>
 						<td class="price_mopt_title_js">Цена розн.</td>
 						<td class="price_opt_title_js">Цена опт</td>
 						<td><a href="<?=$GLOBALS['URL_base']?>adm/assortment/<?=$id_supplier?>/?sort=a.inusd&order=<?=$_GET['sort']=='a.inusd'?$order:'asc';?>">USD <?=$_GET['sort']=='a.inusd'?'<span class="icon-font">'.$mark.'</span>':null;?></a></td>
@@ -245,6 +315,12 @@
 							<td>
 								<a href ="<?=$GLOBALS['URL_base']?>adm/productedit/<?=$item['id_product']?>"><p><?=$item['name'];?></p>
 								<p>Арт. <?=$item['art'];?></p></a>
+								<?//print_r($item)?>
+							</td>
+							<td class="left">
+								<p>Изм. ассорт.: <b><?=$item['edited_time']?date('d.m.Y', strtotime($item['edited_time'])).' в '.date('H:i', strtotime($item['edited_time'])):'Н/д';?></b></p>
+								<p>Ред-ние товара: <b><?=$item['edit_date']?date('d.m.Y', strtotime($item['edit_date'])).' в '.date('H:i', strtotime($item['edit_date'])):'Н/д'?></b></p>
+								<p>Редактор: <b><?=$item['edit_username']?$item['edit_username']:'Н/д'?></b></p>
 							</td>
 							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
@@ -383,6 +459,7 @@
 			$('.price_2, .price_opt_title_js').css({
 				"display": "none"
 			});
+			$('.colspan').attr('colspan', 2);
 			$('.price_mopt_title_js').html('Цена');
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");
@@ -398,6 +475,7 @@
 			$('.price_2, .price_opt_title_js').css({
 				"display": "table-cell"
 			});
+			$('.colspan').attr('colspan', 3);
 			$('.price_mopt_title_js').html('Цена розн.');
 			$.each($('td.price_1 input'), function(){
 				var id = $(this).attr('id').replace(/\D+/g,"");

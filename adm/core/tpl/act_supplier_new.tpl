@@ -144,7 +144,7 @@
 
 	<?$ii=1;
 	$price = false;
-	if(isset($_GET['price']) && $_GET['price'] == 'true'){
+	if(isset($_GET['show_prod_price']) && $_GET['show_prod_price'] == 'true'){
 		$price = true;
 	}?>
 	<?foreach ($products as $i){?>
