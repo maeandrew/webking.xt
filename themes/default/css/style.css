@@ -3291,6 +3291,7 @@ canvas[id^=chart_]{
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 10px;
+	flex-wrap: wrap;
 }
 .min {
 	padding: 10px;
@@ -4078,7 +4079,13 @@ iframe[name="google_conversion_frame"] {
 		-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	}
 }
-@media (max-width: 400px) {
+@media (max-width: 1000px) {
+	.news_item {
+		width: 49%;
+		margin-top: 10px;
+	}
+}
+@media (max-width: 450px) {
 	#savedCopyContainer .screen_btn {
 		display: none !important;
 	}
