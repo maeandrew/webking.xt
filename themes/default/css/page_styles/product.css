@@ -822,6 +822,9 @@
 .product_page .product #socialShare .social li a.tw {
 	background-color: #28c3ff;
 }
+.product_page .product #socialShare .social li a.viber {
+	background-color: #5c2e88;
+}
 .product_page .product #socialShare .social li a:hover {
 	background-color: #757575;
 }

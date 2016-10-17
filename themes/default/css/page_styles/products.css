@@ -1000,6 +1000,7 @@ label.info_key {
     position: relative;
     display: flex;
     padding-top: 20px;
+    width: 100%;
 }
 
 #preview .favorite,
@@ -1012,7 +1013,7 @@ label.info_key {
 	cursor: pointer;
 }
 #preview .social {
-    width: 210px;
+    width: 240px;
     padding: 5px 0;
     text-align: center;
 }
@@ -1045,6 +1046,9 @@ label.info_key {
 }
 #preview .social li a.tw {
 	background-color: #28c3ff;
+}
+#preview .social li a.viber {
+	background-color: #5c2e88;
 }
 #preview .social li a:hover {
 	background-color: #757575;

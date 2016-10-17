@@ -99,6 +99,9 @@
 .share_social_block a.tw {
 	background-color: #28c3ff;
 }
+.share_social_block a.viber {
+	background-color: #5c2e88;
+}
 .share_social_block a:hover {
 	background-color: #757575;
 }

@@ -138,10 +138,10 @@ label.info_key{position:absolute;top:10px;right:4px}
 #preview .btn_buy{height:36px}
 #preview .quantityReverseBlock{display:flex;flex-direction:row-reverse;margin-left:35px}
 #preview .quantity{display:flex;width:100%;justify-content:center;padding-top:10px}
-#preview .add_to_fav_trend_block{opacity:1;position:relative;display:flex;padding-top:20px}
+#preview .add_to_fav_trend_block{opacity:1;position:relative;display:flex;padding-top:20px;width:100%}
 #preview .favorite,#preview .fortrending,#preview .share{width:33%;text-align:center}
 #preview .share i:hover{cursor:pointer}
-#preview .social{width:210px;padding:5px 0;text-align:center}
+#preview .social{width:240px;padding:5px 0;text-align:center}
 #preview .social li{display:inline-block;cursor:pointer;outline:0}
 #preview .social li a{display:inline-block;height:30px;width:30px;border-radius:50%;margin-right:4px}
 #preview .social li:last-child a{margin-right:0}
@@ -150,6 +150,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 #preview .social li a.g_pl{background-color:#ff6d4a}
 #preview .social li a.f{background-color:#496194}
 #preview .social li a.tw{background-color:#28c3ff}
+#preview .social li a.viber{background-color:#5c2e88}
 #preview .social li a:hover{background-color:#757575}
 #preview .mdl-grid .mdl-tabs__tab-bar{margin-bottom:5px}
 #preview .tab-content .mdl-tabs__panel{height:calc(80vh - 370px);overflow-y:auto;overflow-x:hidden}

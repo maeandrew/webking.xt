@@ -162,7 +162,11 @@
 			<br><?=$Supplier['usd_products'] > 0?'Текущий курс: '.$Supplier['currency_rate']:null;?>
 		</p>
 	</div>
-	<?foreach($products as $k=>$i){?>
+	<?$price = false;
+	if(isset($_GET['show_prod_price']) && $_GET['show_prod_price'] == 'true'){
+		$price = true;
+	}
+	foreach($products as $k=>$i){?>
 		<?$wh = "height=\"120\" width=\"120\"";?>
 		<div class="block">
 			<div class="title">
@@ -197,17 +201,21 @@
 						</tr>
 						<tr>
 							<td>
-								<?if($i['inusd'] == 1){?>
-									<?=$i['price_mopt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
-								<?}else{?>
-									<?=$i['price_mopt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+								<?if($price === true){?>
+									<?if($i['inusd'] == 1){?>
+										<?=$i['price_mopt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_mopt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?}else{?>
+										<?=$i['price_mopt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_mopt_otpusk'], 2, ",", "").' грн':null;?>
+									<?}?>
 								<?}?>
 							</td>
 							<td>
-								<?if($i['inusd'] == 1){?>
-									<?=$i['price_opt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
-								<?}else{?>
-									<?=$i['price_opt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
+								<?if($price === true){?>
+									<?if($i['inusd'] == 1){?>
+										<?=$i['price_opt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_opt_otpusk_usd'], 2, ",", "").' $':null;?>
+									<?}else{?>
+										<?=$i['price_opt_otpusk'] > 0 && isset($_POST['price'])?number_format($i['price_opt_otpusk'], 2, ",", "").' грн':null;?>
+									<?}?>
 								<?}?>
 							</td>
 						</tr>

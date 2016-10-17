@@ -1130,21 +1130,42 @@ class Products {
 	 * [SetProductsList1 description]
 	 * @param [type] $id_supplier [description]
 	 */
-	public function SetProductsList1($id_supplier, $order = null, $limit){
+	public function SetProductsList1($id_supplier, $order = null, $limit, $filters = array(), $params = ''){
+		$where = '';
+		if(!empty($filters)){
+			$where .= 'WHERE ';
+			if($filters['edited_time'][0] && $filters['edited_time'][0] !== '' && $filters['edited_time'][1] && $filters['edited_time'][1] !== ''){
+				$where .= 'a.edited_time BETWEEN "'.$filters['edited_time'][0].'" AND "'.$filters['edited_time'][1].'" AND ';
+			}elseif($filters['edited_time'][0] && $filters['edited_time'][0] !== '' && !$filters['edited_time'][1]){
+				$where .= 'a.edited_time >= "'.$filters['edited_time'][0].'" AND ';
+			}elseif($filters['edited_time'][1] && $filters['edited_time'][1] !== '' && !$filters['edited_time'][0]){
+				$where .= 'a.edited_time <= "'.$filters['edited_time'][1].'" AND ';
+			}
+			unset($filters['edited_time']);
+			if($filters !== FALSE && count($filters)){
+				foreach($filters as $k=>$v){
+					$where_a[] = "$k=\"$v\"";
+				}
+				$where .= implode(" AND ", $where_a);
+			}
+		}
 		// SQL выборки для админки
-		$sql = "SELECT DISTINCT ".implode(", ", $this->usual_fields).",
+		$sql = 'SELECT DISTINCT '.implode(', ', $this->usual_fields).',
 			pv.count_views, a.*,
+			(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
 			(SELECT name FROM xt_user WHERE id_user = p.edit_user) AS edit_username
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+			FROM '._DB_PREFIX_.'product AS p
+			LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 				ON a.id_product = p.id_product
-			LEFT JOIN "._DB_PREFIX_."units AS un
+			LEFT JOIN '._DB_PREFIX_.'units AS un
 				ON un.id = p.id_unit
-			LEFT JOIN "._DB_PREFIX_."prod_views AS pv
-				ON pv.id_product = p.id_product
-			WHERE a.id_supplier = ".$id_supplier."
-			GROUP BY p.id_product".
-			(($order !== null)?"  ORDER BY ".$order:null).$limit;
+			LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
+				ON pv.id_product = p.id_product '.
+			$where.'
+			GROUP BY p.id_product '.
+			$params.' '.
+			(($order !== null)?" ORDER BY ".$order:null).
+			$limit;
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1446,25 +1467,33 @@ class Products {
 	 * @param string  $params [description]
 	 */
 	public function GetProductsCntSupCab($and = false, $params = ''){
-		$where = " ";
+		$where = '';
+		if($and['edited_time'][0] && $and['edited_time'][0] !== '' && $and['edited_time'][1] && $and['edited_time'][1] !== ''){
+			$where .= 'a.edited_time BETWEEN "'.$and['edited_time'][0].'" AND "'.$and['edited_time'][1].'" AND ';
+		}elseif($and['edited_time'][0] && $and['edited_time'][0] !== '' && !$and['edited_time'][1]){
+			$where .= 'a.edited_time >= "'.$and['edited_time'][0].'" AND ';
+		}elseif($and['edited_time'][1] && $and['edited_time'][1] !== '' && !$and['edited_time'][0]){
+			$where .= 'a.edited_time <= "'.$and['edited_time'][1].'" AND ';
+		}
+		unset($and['edited_time']);
 		if($and !== FALSE && count($and)){
 			foreach($and as $k=>$v){
 				$where_a[] = "$k=\"$v\"";
 			}
 			$where .= implode(" AND ", $where_a);
 		}
-		$sql = "SELECT COUNT(DISTINCT p.id_product) as cnt
-			FROM "._DB_PREFIX_."product AS p
-			LEFT JOIN "._DB_PREFIX_."assortiment AS a
+		$sql = 'SELECT DISTINCT p.id_product,
+			(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active
+			FROM '._DB_PREFIX_.'product AS p
+			LEFT JOIN '._DB_PREFIX_.'assortiment AS a
 				ON p.id_product = a.id_product
-			WHERE ".$where.
+			WHERE '.$where.' '.
 			$params;
-		$arr = $this->db->GetOneRowArray($sql);
+		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return 0;
-		}else{
-			return $arr['cnt'];
 		}
+		return count($arr);
 	}
 	/**
 	 * [SetProductsListFromArr description]
