@@ -1000,6 +1000,7 @@ label.info_key {
     position: relative;
     display: flex;
     padding-top: 20px;
+    width: 100%;
 }
 
 #preview .favorite,
