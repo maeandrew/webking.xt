@@ -158,6 +158,13 @@
 							<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
 						</a>
 					</li>
+					<?if(G::isMobile()){?>
+						<li>
+							<a href="viber://forward?text=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="viber" title="Viber">
+								<img src="<?=$GLOBALS['URL_img_theme']?>viber.svg" alt="Viber">
+							</a>
+						</li>
+					<?}?>
 				</ul>
 			</div>
 		</div>

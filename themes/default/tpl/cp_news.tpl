@@ -18,5 +18,10 @@
 		<a href="https://plus.google.com/share?url=<?=Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);?>" target="_blank" class="g_pl" title="google+" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>google-plus.svg" alt="google+"></a>
 		<a href="http://www.facebook.com/sharer.php?u=<?=Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);?>&title='<?=$data['title']?>'&description=<?=strip_tags($data['descr_short'])?>&picture=<?=_base_url?><?=$data['thumbnail']?>" target="_blank" class="f" title="Facebook" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>facebook.svg" alt="Facebook"></a>
 		<a href="https://twitter.com/share?url=<?=Link::Custom($GLOBALS['CurrentController'], $GLOBALS['Rewrite']);?>&text=<?=$data['title']?>" target="_blank" class="tw" title="Twitter" onclick="popupWin = window.open(this.href,'contacts','location,width=500,height=400,top=100,left=100'); popupWin.focus(); return false"><img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter"></a>
+		<?if(G::isMobile()){?>
+			<a href="viber://forward?text=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="viber" title="Viber">
+				<img src="<?=$GLOBALS['URL_img_theme']?>viber.svg" alt="Viber">
+			</a>
+		<?}?>
 	</div>
 </div>

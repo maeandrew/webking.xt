@@ -359,16 +359,13 @@
 										<img src="<?=$GLOBALS['URL_img_theme']?>twitter.svg" alt="Twitter">
 									</a>
 								</li>
-								<li>
-									<a id="INSERT THE BUTTON ID HERE" href="viber://forward?text=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="viber" title="Viber">
-										<img src="<?=$GLOBALS['URL_img_theme']?>viber.svg" alt="Viber">
-									</a>
-								    <!-- <script>
-								    var buttonID = "INSERT THE BUTTON ID HERE";
-								    var text = "Check this out: ";
-								    document.getElementById(buttonID).setAttribute('href', "viber://forward?text=" + encodeURIComponent(window.location.href));
-								    </script> -->
-								</li>
+								<?if(G::isMobile()){?>
+									<li>
+										<a href="viber://forward?text=<?=Link::Product($GLOBALS['Rewrite']);?>" target="_blank" class="viber" title="Viber">
+											<img src="<?=$GLOBALS['URL_img_theme']?>viber.svg" alt="Viber">
+										</a>
+									</li>
+								<?}?>
 							</ul>
 						</div>
 					</div>
