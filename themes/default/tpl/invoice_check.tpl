@@ -32,7 +32,7 @@ h1 { font-size: 19px; }
 .table_main tr { page-break-inside: avoid; font-size: 17px;}
 .table_main td { position: relative; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
 .table_main th { text-align: center; font-size: 12px; height: 30px; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
-.table_main td.name { padding: 0 1%; text-align: left; border-right: 1px #000 solid; border-bottom: 1px #000 solid; }
+.table_main td.name { padding: 0 1%; text-align: left; border-right: 1px #000 solid; border-bottom: 1px #000 solid; font-size: 14px;}
 .table_main .hdr td { font-weight: bold; padding: 1px; }
 .table_main .main td { height: 50px; font-size: 17px; }
 .table_main .main td img { width: 96px; }
@@ -164,7 +164,9 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 							<?foreach($a as &$i){
 								if($i['opt_qty'] > 0){?>
 									<tr class="main">
-										<td class="c1 bl tal abbrs" rowspan="2"><?=$ii++?><br><?=$i['article']?><br><?=$i['art']?></td>
+										<td class="c1 bl tal abbrs" rowspan="2">
+											<?=$i['art']?><br><?=$ii++?><br><?=$i['article']?>
+										</td>
 										<td class="c2" rowspan="2">
 											<?if($i['image'] != ''){?>
 												<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
@@ -175,7 +177,15 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_opt'])?'<span class="note_red">'.$i['note_opt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
-										<td class="c4 tal charcs" rowspan="2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+										<td class="c4 tal charcs" rowspan="2">
+											<?if(!empty($i['specifications'])){
+												foreach($i['specifications'] as $spec){?>
+													<b><?=$spec['caption']?></b> - <?=$spec['value']?> <?=$spec['units']?><br>
+												<?}
+											}else{?>
+												-
+											<?}?>
+										</td>
 										<td class="c5" rowspan="2"><?= number_format($i['site_price_opt'], 2, ",", "")?></td>
 										<!-- Заказано -->
 										<td class="c6"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
@@ -193,7 +203,9 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 								<?}
 								if($i['mopt_qty'] > 0){?>
 									<tr>
-										<td class="c1 bl tal abbrs" rowspan="2"><?=$ii++?><br><?=$i['article_mopt']?><br><?=$i['art']?></td>
+										<td class="c1 bl tal abbrs" rowspan="2">
+											<?=$i['art']?><br><?=$ii++?><br><?=$i['article_mopt']?>
+										</td>
 										<td class="c2" rowspan="2">
 											<?if($i['image'] != ''){?>
 												<img height="96" width="96" src="<?=G::GetImageUrl($i['image'], 'medium')?>">
@@ -204,7 +216,15 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
 										</td>
-										<td class="c4 tal charcs" rowspan="2">font-size: 8pt; Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
+										<td class="c4 tal charcs" rowspan="2">
+											<?if(!empty($i['specifications'])){
+												foreach($i['specifications'] as $spec){?>
+													<b><?=$spec['caption']?></b> - <?=$spec['value']?> <?=$spec['units']?><br>
+												<?}
+											}else{?>
+												-
+											<?}?>
+										</td>
 										<td class="c5" rowspan="2"><?= number_format($i['site_price_mopt'], 2, ",", "")?></td>
 										<!-- Заказано -->
 										<td class="c6">

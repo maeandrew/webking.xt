@@ -80,6 +80,7 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 				}
 				$i = 0;
 				foreach($arr as $v){
+					$v['specifications'] = $Products->GetSpecificationList($v['id_product']);
 					if($v['mopt_qty'] > 0){
 						$positions[$v['article_mopt']][$i] = $v;
 						$positions[$v['article_mopt']][$i]['opt_qty'] = 0;
