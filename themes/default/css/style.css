@@ -3609,9 +3609,7 @@ div.modalEditOrder .applyBtn {
 	padding: 5px 0;
 }
 .mobile_carousel .owl-item img {
-	left: 50%;
-	position: relative;
-	transform: translateX(-50%);
+	width: 100%;
 }
 .owl-dot {
 	width: 20px;
