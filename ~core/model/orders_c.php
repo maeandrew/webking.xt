@@ -566,10 +566,9 @@ class Orders {
 		$Supplier = new Suppliers();
 		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
 		foreach($OrderCart as $id_product=>$item){
-			if(!isset($item['mode'])){
-				var_dump($item);die();
-			}
-			//print_r($item);
+			// if(!isset($item['mode'])){
+			// 	var_dump($item);die();
+			// }
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $id_product;
 			// Определяем поставщика для товара
@@ -582,14 +581,9 @@ class Orders {
 				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
-
 				$Products = new Products();
 				$Products->SetFieldsById($id_product);
 				$product = $Products->fields;
-
-				// if($_SESSION['member']['id_user'] == 20793){
-				// 	print_r($product);
-				// }
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
 				$p[$ii]['note'] = $item['note'];
@@ -1659,14 +1653,15 @@ class Orders {
 	}
 
 	public function GetOrderForCart($and){
-		$sql = "SELECT o.id_order, osp.id_product,
-				osp.box_qty, osp.opt_qty, osp.mopt_qty,
-				osp.opt_sum, osp.mopt_sum, osp.note_opt,
-				osp.note_mopt, osp.default_sum_opt, osp.default_sum_mopt
-			FROM "._DB_PREFIX_."osp AS osp
-			LEFT JOIN "._DB_PREFIX_."order AS o
+		$sql = 'SELECT o.id_order, osp.id_product,
+			osp.box_qty, osp.opt_qty, osp.mopt_qty,
+			osp.default_sum_opt, osp.default_sum_mopt,
+			osp.note_opt, osp.note_mopt, osp.note,
+			osp.opt_sum, osp.mopt_sum
+			FROM '._DB_PREFIX_.'osp AS osp
+			LEFT JOIN '._DB_PREFIX_.'order AS o
 				ON osp.id_order = o.id_order
-			".$this->db->GetWhere($and);
+			'.$this->db->GetWhere($and);
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;

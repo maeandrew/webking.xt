@@ -8,7 +8,7 @@
 			<?}
 		}
 	}
-	unset($_SESSION['errm'])?>
+	unset($_SESSION['errm']);?>
 	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
 		<script>p_ids = new Array();ii=0;</script>
 		<table border="0" cellpadding="0" cellspacing="0" class="returns_table table" width="100%">
@@ -33,23 +33,13 @@
 				$t['mopt_sum'] = 0;
 				$t['contragent_mqty'] = 0;
 				$t['contragent_msum'] = 0;
-				?>
-				<?$articles_arr = array();
-				foreach($data as $i){?>
-					<?if(($i['opt_qty'] != 0 && $show_pretense === false) || ($i['opt_qty'] != 0 && $show_pretense === true && $i['contragent_qty'] != $i['fact_qty'])){ // строка по опту?>
-						<?$articles_arr[] = $i['article'];?>
+				$articles_arr = array();
+				foreach($data as $i){
+					if(($i['opt_qty'] != 0 && $show_pretense === false) || ($i['opt_qty'] != 0 && $show_pretense === true && $i['contragent_qty'] != $i['fact_qty'])){ // строка по опту
+						$articles_arr[] = $i['article'];?>
 						<tr>
 							<td class="image_cell">
-								<!-- <?if($i['images'] != ''){?>
-									<a href="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>">
-										<img src="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>" alt="<?=htmlspecialchars($i['name'])?>" title="Нажмите для увеличения">
-									</a>
-								<?}else{?>
-									<a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onClick="return hs.expand(this)" class="highslide">
-										<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения" />
-									</a>
-								<?}?> -->
-								<?if(!empty($item['images'])){?>
+								<?if(!empty($i['images'])){?>
 									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
 									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
 								<?}else{?>
@@ -84,20 +74,11 @@
 							<?$t['contragent_sum']+=$i['contragent_sum'];?>
 						</tr>
 					<?}
-					if(($i['mopt_qty'] != 0 && $show_pretense === false) || ($i['mopt_qty'] != 0 && $show_pretense === true && $i['contragent_mqty'] != $i['fact_mqty'])){ // строка по мелкому опту?>
-					<?$articles_arr[] = $i['article_mopt'];?>
+					if(($i['mopt_qty'] != 0 && $show_pretense === false) || ($i['mopt_qty'] != 0 && $show_pretense === true && $i['contragent_mqty'] != $i['fact_mqty'])){ // строка по мелкому опту
+						$articles_arr[] = $i['article_mopt'];?>
 						<tr>
 							<td class="image_cell">
-								<!-- <?if($i['image'] != ''){?>
-									<a href="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>">
-										<img src="<?=_base_url.G::GetImageUrl($i['image'], 'medium')?>" alt="<?=htmlspecialchars($i['name'])?>" title="Нажмите для увеличения">
-									</a>
-								<?}else{?>
-									<a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onClick="return hs.expand(this)" class="highslide">
-										<img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения" />
-									</a>
-								<?}?> -->
-								<?if(!empty($item['images'])){?>
+								<?if(!empty($i['images'])){?>
 									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
 									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
 								<?}else{?>

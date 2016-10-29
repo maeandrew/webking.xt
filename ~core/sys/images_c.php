@@ -18,8 +18,8 @@ class Images {
 	}
 	public function upload($files, $path){
 		$this->checkStructure($path);
-		$tmp_name = $files["file"]["tmp_name"];
-		$name = $files["file"]["name"];
+		$tmp_name = $files['file']['tmp_name'];
+		$name = $files['file']['name'];
 		$destination = $path.$name;
 		//Только для дублирования фото на X-torg
 		if($GLOBALS['CurrentController'] == 'cabinet'){

@@ -1,8 +1,7 @@
 <?php
 class mysqlPDO {
 	public $response;
-	public $iCID; // connect ID
-	var $connection; // connect ID (для совместимости с dbtree)
+	public $connection; // connect ID (для совместимости с dbtree)
 	public $sql;
 	public $errno;
 
@@ -13,9 +12,9 @@ class mysqlPDO {
 	*/
 	public function __construct($host = 'localhost', $user = 'root', $password = '', $database = '', $new_link = 0){
 		try{
-			$this->connection = $this->iCID = new PDO('mysql:dbname='.$database.';host='.$host, $user, $password);
+			$this->connection = new PDO('mysql:dbname='.$database.';host='.$host, $user, $password);
 		}catch(PDOException $e){
-			echo 'Подключение не удалось: ' . $e->getMessage();
+			echo 'Подключение не удалось: ';// . $e->getMessage();
 			exit();
 		}
 		$sql = 'SET NAMES utf8';
@@ -29,7 +28,7 @@ class mysqlPDO {
 	* @return ничего не возвращает
 	*/
 	public function Prepare($sql){
-		return $this->iCID->prepare($sql);
+		return $this->connection->prepare($sql);
 	}
 
 	/**
@@ -37,7 +36,7 @@ class mysqlPDO {
 	* @return ничего не возвращает
 	*/
 	public function Close(){
-		mysql_close($this->iCID);
+		mysql_close($this->connection);
 	}
 
 	/**
@@ -57,7 +56,7 @@ class mysqlPDO {
 	* @return String
 	*/
 	public function Quote($str){
-		return $this->iCID->quote($str);
+		return $this->connection->quote($str);
 	}
 
 	/**
@@ -148,7 +147,7 @@ class mysqlPDO {
 	* @return int Id
 	*/
 //	public function GetInsId(){
-//		return mysql_insert_id($this->iCID);
+//		return mysql_insert_id($this->connection);
 //	}
 
 	/**
@@ -221,6 +220,9 @@ class mysqlPDO {
 			}
 		}
 		$sql .=")";
+		// if(G::IsLogged() && $_SESSION['member']['id_user'] == 25143){
+		// 	print_r($sql);
+		// }
 		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
 	}
 
@@ -341,8 +343,7 @@ class mysqlPDO {
 	* @return string
 	*/
 	public function GetLastId(){
-		$last_id = $this->connection->lastInsertId();
-		return $last_id;
+		return $this->connection->lastInsertId();
 	}
 
 	// -----------------------------------------------   dbtree   --------------------------------------------
@@ -499,8 +500,7 @@ class mysqlPDO {
 	* @return string
 	*/
 	function ErrorMsg(){
-
-		return "<span style=\"color:red;\">". implode(' - ', $this->connection->errorInfo()) ."</span>";//переписал в PDO и убрал паредаваемый параметр $this->iCID
+		return "<span style=\"color:red;\">". implode(' - ', $this->connection->errorInfo()) ."</span>";//переписал в PDO и убрал паредаваемый параметр $this->connection
 	}
 
 	/**

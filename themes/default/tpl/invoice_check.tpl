@@ -33,6 +33,7 @@ h1 { font-size: 19px; }
 .table_main td { position: relative; text-align: center; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
 .table_main th { text-align: center; font-size: 12px; height: 30px; border-right: 1px #000 solid; border-bottom: 1px #000 solid; vertical-align: middle; }
 .table_main td.name { padding: 0 1%; text-align: left; border-right: 1px #000 solid; border-bottom: 1px #000 solid; font-size: 14px;}
+.table_main .name div { position: absolute; bottom: 0; right: 0; padding: 5px; font-weight: bold; background: rgba(255, 255, 255, .8); }
 .table_main .hdr td { font-weight: bold; padding: 1px; }
 .table_main .main td { height: 50px; font-size: 17px; }
 .table_main .main td img { width: 96px; }
@@ -44,6 +45,7 @@ tr.min td { height: 1px; font-size: 1px; line-height: 1px; margin: 0px; padding:
 .note_red { width: 100%; display: block; clear: left; color: red; font-weight: bold; }
 h1.filial { text-align: center; font-size: 27px; }
 .abbrs { font-size: 17px !important; line-height: 19px !important; padding: 0 .5% !important; }
+.abbrs span { width: 100%; display: block; text-align: right; }
 thead>tr>th:first-of-type { padding: 0 .5% !important; }
 @media print {
 	h1.filial { display: none; }
@@ -119,14 +121,14 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 			</tr>
 		</tbody>
 	</table>
-	<?	
+	<?
 	$c1 = 65;
 	$c2 = 100;
-	$c3 = 280;
-	$c4 = 280;
-	$c5 = 75;
-	$c6 = 65;
-	$c7 = 65;
+	$c3 = 245;
+	$c4 = 200;
+	$c5 = 70;
+	$c6 = 60;
+	$c7 = 60;
 	if(!empty($arr['opened'])){
 		foreach($arr as $key=>&$array){
 			if(count($array) > 0){?>
@@ -146,13 +148,12 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 							<th class="bt" rowspan="2">Фото</th>
 							<th class="bt" rowspan="2">Название</th>
 							<th class="bt" rowspan="2">Характеристики</th>
-							<th class="bt" rowspan="2">Цена за<br>шт.</th>
 							<th class="bt hght">Заказано</th>
-							<th class="bt hght">Факт</th>
+							<th class="bt" rowspan="2">Факт</th>
+							<th class="bt" rowspan="2">Возврат</th>
 						</tr>
 						<tr class="hdr <?=$key == 'closed'? 'green' : 'rose';?>">
 							<th class="hght">Склад</th>
-							<th class="hght">Возврат</th>
 						</tr>
 					</thead>
 					<?$ii = 1;
@@ -165,7 +166,7 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 								if($i['opt_qty'] > 0){?>
 									<tr class="main">
 										<td class="c1 bl tal abbrs" rowspan="2">
-											<?=$i['art']?><br><?=$ii++?><br><?=$i['article']?>
+											<?=$i['art']?><br><span><?=$ii++?><br><?=$i['article']?></span>
 										</td>
 										<td class="c2" rowspan="2">
 											<?if($i['image'] != ''){?>
@@ -176,6 +177,7 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 										</td>
 										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_opt'])?'<span class="note_red">'.$i['note_opt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
+											<div><?=number_format($i['site_price_opt'], 2, ",", "")?> грн.</div>
 										</td>
 										<td class="c4 tal charcs" rowspan="2">
 											<?if(!empty($i['specifications'])){
@@ -186,25 +188,27 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 												-
 											<?}?>
 										</td>
-										<td class="c5" rowspan="2"><?= number_format($i['site_price_opt'], 2, ",", "")?></td>
 										<!-- Заказано -->
-										<td class="c6"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?></td>
+										<td class="c5">
+											<?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?>
+											<?=$i['units']?>
+										</td>
 										<!-- Факт -->
-										<td class="c7 <?=$i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0? 'red_bold':null;?>">
+										<td class="c6 <?=$i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0? 'red_bold':null;?>" rowspan="2">
 											<?=$i['contragent_qty'] >= 0?$i['contragent_qty']:null;?>
 										</td>
+										<!-- Возврат -->
+										<td rowspan="2"></td>
 									</tr>
 									<tr class="main">
 										<!-- Склад -->
 										<td><?=$i['warehouse_quantity'] > 0?$i['warehouse_quantity']:null?></td>
-										<!-- Возврат -->
-										<td></td>
 									</tr>
 								<?}
 								if($i['mopt_qty'] > 0){?>
 									<tr>
 										<td class="c1 bl tal abbrs" rowspan="2">
-											<?=$i['art']?><br><?=$ii++?><br><?=$i['article_mopt']?>
+											<?=$i['art']?><br><span><?=$ii++?><br><?=$i['article_mopt']?></span>
 										</td>
 										<td class="c2" rowspan="2">
 											<?if($i['image'] != ''){?>
@@ -215,6 +219,7 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 										</td>
 										<td class="name c3" rowspan="2">
 											<?=!empty($i['note_mopt'])?'<span class="note_red">'.$i['note_mopt'].'</span>':null?><?=$i['name']?><?=!empty($i['instruction'])?'<span class="instruction">'.$i['instruction'].'</span>':null?>
+											<div><?=number_format($i['site_price_mopt'], 2, ",", "")?> грн.</div>
 										</td>
 										<td class="c4 tal charcs" rowspan="2">
 											<?if(!empty($i['specifications'])){
@@ -225,21 +230,20 @@ h1.data_time { padding: 20px 270px 0; float: right; }
 												-
 											<?}?>
 										</td>
-										<td class="c5" rowspan="2"><?= number_format($i['site_price_mopt'], 2, ",", "")?></td>
 										<!-- Заказано -->
-										<td class="c6">
+										<td class="c5">
 											<?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?><span class="subvalue"><?=$i['warehouse_quantity']?></span><?}?> <?=$i['units']?>
 										</td>
 										<!-- Факт -->
-										<td class="c7 <?=$i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0?'red_bold':null;?>">
+										<td class="c6 <?=$i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0?'red_bold':null;?>" rowspan="2">
 											<?=$i['contragent_mqty'] >= 0?$i['contragent_mqty']:null;?>
 										</td>
+										<!-- Возврат -->
+										<td rowspan="2"></td>
 									</tr>
 									<tr class="main">
 										<!-- Склад -->
 										<td><?=$i['warehouse_quantity'] > 0?$i['warehouse_quantity']:null?></td>
-										<!-- Возврат -->
-										<td></td>
 									</tr>
 								<?}
 							}?>

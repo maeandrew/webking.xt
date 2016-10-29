@@ -7,7 +7,7 @@ $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][0]['title'] = "Каталог";
 $GLOBALS['IERA_LINKS'][0]['url'] =  _base_url.'/cat/';
 $GLOBALS['IERA_LINKS'] = array();
-$GLOBALS['IERA_LINKS'][1]['title'] = "Карта каталога ХарьковТорг";
+$GLOBALS['IERA_LINKS'][1]['title'] = "Карта каталога xt.ua";
 $GLOBALS['IERA_LINKS'][1]['url'] =  _base_url.'/cat/';
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 unset($parsed_res);

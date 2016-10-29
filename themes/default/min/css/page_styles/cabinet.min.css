@@ -519,7 +519,7 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .switch_price_container{width:150px;height:35px;text-align:center;float:right;padding-right:10px;padding-top:5px;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);margin-bottom:5px;margin-top:10px}
 .switch_price_container span{float:left;display:block;width:calc(100% - 30px);line-height:24px}
 .switch_price_container label{width:30px;float:right}
-.order_number_filter{margin-left:10px;width:400px}
+.order_number_filter{max-width:50%}
 .order_number_filter form{display:flex;justify-content:space-between}
 .order_number_filter input{height:35px;padding-left:5px}
 .rait_comment p{text-align:center;font-size:16px;font-weight:700;padding-top:10px;padding-bottom:10px}

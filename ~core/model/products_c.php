@@ -1894,9 +1894,9 @@ class Products {
 		$suppliers = new Suppliers();
 		$suppliers->SetFieldsById($arr['id_supplier'], 1);
 		$supp_fields = $suppliers->fields;
-		$f['id_product'] = trim($arr['id_product']);
-		$f['id_supplier'] = trim($arr['id_supplier']);
-		$f['product_limit'] = trim($arr['product_limit']);
+		$f['id_product'] = $arr['id_product'];
+		$f['id_supplier'] = $arr['id_supplier'];
+		// $f['product_limit'] = trim($arr['product_limit']);
 		$f['inusd'] = $arr['inusd'];
 		if($arr['inusd'] != 1){
 			$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
@@ -2099,8 +2099,9 @@ class Products {
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
-		$f['create_user'] = trim($_SESSION['member']['id_user']);
+		$f['create_user'] = isset($arr['create_user'])?$arr['create_user']:$_SESSION['member']['id_user'];
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		// print_r($f);die();
 		// Добавляем товар в бд
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
@@ -3418,19 +3419,20 @@ class Products {
 	 * [PriceListProductCount description]
 	 */
 	public function PriceListProductCount(){
-		$sql = "SELECT c.id_category, c.category_level, c.name,
+		$sql = 'SELECT c.id_category, c.category_level, c.name,
 			c.pid, c.visible, COUNT(p.id_product) AS products
-			FROM "._DB_PREFIX_."category AS c
-			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
+			FROM '._DB_PREFIX_.'category AS c
+			LEFT JOIN '._DB_PREFIX_.'cat_prod AS cp
 				ON c.id_category = cp.id_category
-			LEFT JOIN "._DB_PREFIX_."product AS p
-				ON (p.id_product = cp.id_product AND (p.price_opt > 0 OR p.price_mopt > 0))
+			LEFT JOIN '._DB_PREFIX_.'product AS p
+				ON p.id_product = cp.id_product AND (p.price_opt > 0 OR p.price_mopt > 0)
 			WHERE c.visible = 1
+			AND c.sid = 1
 			AND c.category_level > 0
 			GROUP BY c.id_category
-			ORDER BY c.category_level";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr){
+			ORDER BY c.category_level, c.position DESC';
+			// print_r($sql);
+		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $arr;
@@ -3569,15 +3571,14 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON p.id_product = osp.id_product
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product
+				ON cp.id_product = p.id_product AND cp.main = 1
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE pl.id = ".$id."
 			GROUP BY p.id_product";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr === true){
+		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $arr;

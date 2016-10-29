@@ -33,10 +33,10 @@ $GLOBALS['IERA_LINKS'][] = array(
 $User = new Users();
 $User->SetUser($_SESSION['member']);
 if($User->fields['gid'] == _ACL_CUSTOMER_ OR $User->fields['gid'] == _ACL_DILER_ OR $User->fields['gid'] == _ACL_CONTRAGENT_){
-	$tpl->Assign("gid", $User->fields['gid']);
+	$tpl->Assign('gid', $User->fields['gid']);
 	$Order = new Orders();
 	$Order->SetFieldsById($id_order);
-	$tpl->Assign("order", $Order->fields);
+	$tpl->Assign('order', $Order->fields);
 	$header .= ' № '.$Order->fields['id_order'].' <p class="subtext"> от '.date('d.m.Y', $Order->fields['creation_date']);
 	if($User->fields['gid'] == _ACL_CONTRAGENT_ && $Order->fields['target_date'] != NULL){
 		$header .= ' на '.date('d.m.Y', $Order->fields['target_date']);
@@ -67,13 +67,19 @@ if($User->fields['gid'] == _ACL_CUSTOMER_ OR $User->fields['gid'] == _ACL_DILER_
 	}
 	$Customer = new Customers();
 	$Customer->SetFieldsById($User->fields['id_user']);
-	$tpl->Assign("Customer", $Customer->fields);
+	$tpl->Assign('Customer', $Customer->fields);
 	if($User->fields['gid'] == _ACL_CONTRAGENT_){
 		$arr = $Order->GetOrderForCustomer(array("o.id_order" => $id_order));
 	}else{
 		$arr = $Order->GetOrderForCustomer(array("o.id_customer" => $User->fields['id_user'], "o.id_order" => $id_order));
 	}
-	$tpl->Assign("data", $arr);
+	if($arr){
+		$Products = new Products();
+		foreach($arr as &$p){
+			$p['images'] = $Products->GetPhotoById($p['id_product']);
+		}
+	}
+	$tpl->Assign('data', $arr);
 	if($arr[0]['id_pretense_status'] != 0){
 		$pretarr = $Order->GetPretenseAdditionalRows($id_order);
 		$tpl->Assign("pretarr", $pretarr);
@@ -110,4 +116,4 @@ if($User->fields['gid'] == _ACL_CUSTOMER_ OR $User->fields['gid'] == _ACL_DILER_
 $tpl->Assign('header', $header);
 if(true == $parsed_res['issuccess']) {
 	$tpl_center .= $parsed_res['html'];
-}?>
+}

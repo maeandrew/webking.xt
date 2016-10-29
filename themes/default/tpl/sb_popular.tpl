@@ -1,7 +1,7 @@
 
 <?if($GLOBALS['CurrentController'] != 'product'){?>
-	<a href="<?=_base_url?>/price/" style="display: block; border-bottom: 2px solid #3A9A11;padding-bottom: 10px;" title="Скачать прайс-лист интернет-магазина ХарьковТОРГ">
-		<img style="display: block;margin: 0 auto;" alt="Скачать прайс-лист интернет-магазина ХарьковТОРГ" src="<?=file_exists($GLOBALS['PATH_root'].'/images/price_icon.png')?_base_url.'/images/price_icon.png':'/images/nofoto.png'?>"/>
+	<a href="<?=_base_url?>/price/" style="display: block; border-bottom: 2px solid #3A9A11;padding-bottom: 10px;" title="Скачать прайс-лист службы снабжения xt.ua">
+		<img style="display: block;margin: 0 auto;" alt="Скачать прайс-лист  службы снабжения xt.ua" src="<?=file_exists($GLOBALS['PATH_root'].'/images/price_icon.png')?_base_url.'/images/price_icon.png':'/images/nofoto.png'?>"/>
 	</a>
 	<br>
 	<!-- <p class="catalog_map">

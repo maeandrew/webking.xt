@@ -2,8 +2,7 @@
 if(!_acl::isAllow('users')){
 	die("Access denied");
 }
-$User = new Users();
-$Contragent = new Contragents();
+$Contragents = new Contragents();
 $Customers = new Customers();
 unset($parsed_res);
 $tpl->Assign('h1', 'Добавление контрагента');
@@ -11,12 +10,12 @@ $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/users/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление контрагента";
-if($Contragent->SetRemittersList()){
-	$tpl->Assign("remitters", $Contragent->list);
+if($Contragents->SetRemittersList()){
+	$tpl->Assign("remitters", $Contragents->list);
 }
 if(isset($_POST['smb'])){
 	$_POST['details'] = '';
-	foreach($Contragent->list as $detail){
+	foreach($Contragents->list as $detail){
 		if(isset($_POST['details'.$detail['id']])){
 			if($_POST['details'] != ''){
 				$_POST['details'] .= ';';
@@ -27,14 +26,14 @@ if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Contragent_form_validate();
 	if(!$err){
-		if($id = $Contragent->AddContragent($_POST)){
+		if($id = $Contragents->AddContragent($_POST)){
 			$Customers->AddContragentCustomer($_POST);
 			$tpl->Assign('msg', 'Контрагент добавлен.');
 			unset($_POST);
 		}else{
 			$tpl->Assign('msg', 'Контрагент не добавлен.');
-			if($Contragent->db->errno == 1062){
-				$errm['email'] = "Такой email уже есть в базе."; 
+			if($Contragents->db->errno == 1062){
+				$errm['email'] = "Такой email уже есть в базе.";
 				$tpl->Assign('errm', $errm);
 			}
 		}
@@ -62,11 +61,4 @@ if(!isset($_POST['smb'])){
 	$_POST['citys_ids'][] = 0;
 	$_POST['delivery_services_ids'][] = 0;
 }
-$parsed_res = array(
-	'issuccess' => TRUE,
-	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_ae.tpl')
-);
-if(TRUE == $parsed_res['issuccess']) {
-	$tpl_center .= $parsed_res['html'];
-}
-?>
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_ae.tpl');

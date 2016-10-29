@@ -152,15 +152,11 @@ class Suppliers extends Users {
 	 * @param [type] $arr [description]
 	 */
 	public function AddSupplier($arr){
-		global $Users;
 		// user
 		$arr['gid'] = _ACL_SUPPLIER_;
-		$this->db->StartTrans();
-		if(!$Users->AddUser($arr)){
-			$this->db->FailTrans();
+		if(!$id_user = parent::AddUser($arr)){
 			return false;
 		}
-		$id_user = $this->db->GetLastId();
 		// Supplier
 		$f['id_user'] = $id_user;
 		$f['article'] = trim($arr['article']);
@@ -179,6 +175,7 @@ class Suppliers extends Users {
 		if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on"){
 			$f['send_mail_order'] = 1;
 		}
+		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'supplier', $f)){
 			echo $this->db->ErrorMsg();
 			$this->db->FailTrans();

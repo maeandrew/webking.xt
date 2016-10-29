@@ -20,7 +20,7 @@ if(isset($_POST['smb'])){
 		}else{
 			$tpl->Assign('msg', 'Пользователь не добавлен.');
 			if($User->db->errno == 1062){
-				$errm['email'] = "Такой email уже есть в базе."; 
+				$errm['email'] = "Такой email уже есть в базе.";
 				$tpl->Assign('errm', $errm);
 			}
 		}

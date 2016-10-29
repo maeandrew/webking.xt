@@ -1,6 +1,6 @@
 <?php
 if(!_acl::isAllow('product')){
-	die("Access denied");
+	die('Access denied');
 }
 // ---- center ----
 unset($parsed_res);
@@ -22,7 +22,7 @@ if(isset($_POST['smb'])) {
 	}
 	$_POST['art'] = $Products->CheckArticle((int)$_POST['art']);
 	require_once($GLOBALS['PATH_block'] . 't_fnc.php'); // для ф-ции проверки формы
-	if (isset($_POST['price']) && $_POST['price'] == "") {
+	if (isset($_POST['price']) && $_POST['price'] == '') {
 		$_POST['price'] = 0;
 	}
 	list($err, $errm) = Product_form_validate();
@@ -79,12 +79,12 @@ if(isset($_POST['smb'])) {
 				//Формирем массив поставщиков товара
 				for ($i = 0; $i < count($_POST['id_supplier']); $i++) {
 					$supp_arr[] = array(
-						"id_assortiment" => isset($_POST['id_assortiment'][$i]) ? $_POST['id_assortiment'][$i] : false,
-						"id_supplier" => $_POST['id_supplier'][$i],
-						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
-						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
-						"product_limit" => $_POST['product_limit'][$i],
-						"inusd" => $_POST['inusd'][$i]
+						'id_assortiment' => isset($_POST['id_assortiment'][$i]) ? $_POST['id_assortiment'][$i] : false,
+						'id_supplier' => $_POST['id_supplier'][$i],
+						'price_opt_otpusk' => $_POST['price_opt_otpusk'][$i],
+						'price_mopt_otpusk' => $_POST['price_mopt_otpusk'][$i],
+						'product_limit' => $_POST['product_limit'][$i],
+						'inusd' => $_POST['inusd'][$i]
 					);
 				}
 
@@ -111,13 +111,13 @@ if(isset($_POST['smb'])) {
 				}
 			}
 			$tpl->Assign('msg', 'Товар добавлен.');
-			echo "<script Language=\"JavaScript\">setTimeout(\"document.location='" . $GLOBALS['URL_base'] . "adm/productedit/" . $id . "'\", 2000);</script>";
+			echo '<script>setTimeout("document.location=\''.$GLOBALS['URL_base'].'adm/productedit/'.$id.'\'", 2000);</script>';
 			unset($_POST);
-		} else {
+		}else{
 			$tpl->Assign('msg', 'Товар не добавлен.');
 			$tpl->Assign('errm', $errm);
 		}
-	} else {
+	}else{
 		// показываем все заново но с сообщениями об ошибках
 		$tpl->Assign('msg', 'Товар не добавлен.');
 		$tpl->Assign('errm', $errm);
@@ -142,7 +142,7 @@ if(!isset($_POST['smb'])){
 	}
 }
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Каталог";
+$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Каталог';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cat/';
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$res = $dbtree->Parents($GLOBALS['REQAR'][1], array('id_category', 'name', 'category_level'));
@@ -159,4 +159,4 @@ $parsed_res = array('issuccess' => TRUE,
 // --------------------------------------------------------------------------------------
 if (TRUE == $parsed_res['issuccess']) {
 	$tpl_center .= $parsed_res['html'];
-}?>
+}

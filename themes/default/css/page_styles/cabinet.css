@@ -1398,7 +1398,7 @@ table.kontrag.table{
 		-webkit-transition: 0.5s ease;
 		bottom: -34px;
 	}
-	
+
 	.customer_cab #edit_personal .user_avatar:hover .avatar_menu,
 	.customer_cab #edit_personal .user_avatar:hover .del_avatar {
 		bottom: 0;
@@ -1446,7 +1446,7 @@ table.kontrag.table{
 	.customer_cab #edit_personal .user_avatar img{
 		width: 100%;
 	}
-	
+
 	.customer_cab #edit_personal .big_size_err,
 	.customer_cab #edit_personal .big_size_title{
 		width: calc(100% - 170px);
@@ -2963,8 +2963,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 
 .order_number_filter {
-	margin-left: 10px;
-	width: 400px;
+	max-width: 50%;
 }
 .order_number_filter form {
 	display: flex;

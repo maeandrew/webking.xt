@@ -13,7 +13,7 @@
 				</div>
 				<div class="col-md-12">
 					<label for="email">E-mail:</label><?=isset($errm['email'])?"<span class=\"errmsg\">".$errm['email']."</span><br>":null?>
-					<input type="text" name="email" id="email" class="input-l" pattern="(^([\w\.]+)@([\w]+)\.([\w]+)$)|(^$)" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null?>">
+					<input type="text" name="email" id="email" class="input-l" value="<?=isset($_POST['email'])?htmlspecialchars($_POST['email']):null?>">
 				</div>
 				<div class="col-md-12">
 					<label for="passwd">Пароль:</label><?=isset($errm['passwd'])?"<span class=\"errmsg\">".$errm['passwd']."</span><br>":null?>
@@ -86,7 +86,7 @@
 			<?if(isset($GLOBALS['REQAR'][1])){?>
 				<p><a href="<?=$GLOBALS['URL_base']?>cabinet_admin_supplier/<?=$_POST['id_user']?>">Установить эксклюзивные товары</a></p>
 			<?}?>
-			
+
 			<input type="hidden" name="gid" id="gid" value="<?=isset($_POST['gid'])?$_POST['gid']:0?>">
 			<input type="hidden" name="id_user" id="id_user" value="<?=isset($_POST['id_user'])?$_POST['id_user']:0?>">
 			<button type="submit" name="clear-assort" class="btn-l-red-inv fr save-btn" onclick="if(!confirm('Все товары поставщика будут удалены из ассортимента!\nДействие необратимо!')){return false;}">Очистить ассортимент поставщика</button>
