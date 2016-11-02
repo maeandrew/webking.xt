@@ -162,9 +162,13 @@ class Suppliers extends Users {
 		$f['article'] = trim($arr['article']);
 		$f['phones'] = trim($arr['phones']);
 		$f['place'] = trim($arr['place']);
-		$f['currency_rate'] = trim($arr['currency_rate']);
-		$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
-		$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
+		$f['currency_rate'] = (float)trim(isset($arr['currency_rate']) && $arr['currency_rate'] !== ''?$arr['currency_rate']:$GLOBALS['CONFIG']['currency_rate']);
+		if($arr['koef_nazen_mopt'] !== ''){
+			$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
+		}
+		if($arr['koef_nazen_opt'] !== ''){
+			$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
+		}
 		$f['filial'] = trim($arr['filial']);
 		$f['is_partner'] = 0; if (isset($arr['is_partner']) && $arr['is_partner'] == "on") $f['is_partner'] = 1;
 		$f['make_csv'] = 0;

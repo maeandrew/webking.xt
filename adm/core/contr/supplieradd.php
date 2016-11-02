@@ -1,6 +1,6 @@
 <?php
 if(!_acl::isAllow('users')){
-	die("Access denied");
+	die('Access denied');
 }
 $User = new Users();
 $Supplier = new Suppliers();
@@ -20,7 +20,7 @@ if(isset($_POST['smb'])){
 		}else{
 			$tpl->Assign('msg', 'Поставщик не добавлен.');
 			if($Supplier->db->errno == 1062){
-				$errm['email'] = "Такой email уже есть в базе."; 
+				$errm['email'] = "Такой email уже есть в базе.";
 				$tpl->Assign('errm', $errm);
 			}
 		}
@@ -34,9 +34,4 @@ if(!isset($_POST['smb'])){
 	$_POST['id_user'] = 0;
 }
 $tpl->Assign('filials', $Supplier->GetFilialList());
-$parsed_res = array('issuccess' => TRUE,
-						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_supplier_ae.tpl'));
-if(TRUE == $parsed_res['issuccess']) {
-	$tpl_center .= $parsed_res['html'];
-}
-?>
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_supplier_ae.tpl');
