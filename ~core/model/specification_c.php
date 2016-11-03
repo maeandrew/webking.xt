@@ -7,23 +7,32 @@ class Specification{
 	/** Конструктор
 		 * @return
 	 	 */
-	 public function __construct (){
+	public function __construct(){
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array("id", "caption", "units");
 	}
-			
+
+	public function SpecExistsByCaption($caption){
+		$sql = 'SELECT *
+			FROM '._DB_PREFIX_.'specs
+			WHERE caption = '.$this->db->Quote($caption);
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 
 	// по id
 	public function SetFieldsById($id){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
 				FROM "._DB_PREFIX_."specs
-				WHERE id = \"$id\"";
+				WHERE id = ".$id;
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
 		}
 		return true;
-	}	
+	}
 
 	// Список
 	public function SetList($param=0, $limit=""){
@@ -47,7 +56,7 @@ class Specification{
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON s.id = sc.id_spec
 			WHERE id_cat = ".$id_cat;
-				
+
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -77,9 +86,11 @@ class Specification{
 
 	// Добавление
 	public function Add($arr){
-		$f['id'] = trim($arr['id']);
+		// $f['id'] = trim($arr['id']);
 		$f['caption'] = trim($arr['caption']);
-		$f['units'] = trim($arr['units']);
+		if(isset($arr['units'])){
+			$f['units'] = trim($arr['units']);
+		}
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'specs', $f)){
 			$this->db->FailTrans();
@@ -105,7 +116,7 @@ class Specification{
 
 	public function AddSpecToProd($arr, $id_product){
 		$f['id_spec'] = trim($arr['id_spec']);
-		$f['id_prod'] = trim($id_product);
+		$f['id_prod'] = $id_product;
 		$f['value'] = trim($arr['value']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'specs_prods', $f)){
@@ -168,7 +179,7 @@ class Specification{
 		$this->db->CompleteTrans();
 		return true;
 	}
-			
+
 	// Удаление
 	public function Del($id){
 		$sql = "DELETE FROM "._DB_PREFIX_."specs WHERE `id` =  $id";
@@ -301,4 +312,3 @@ class Specification{
 	}
 
 }
-?>

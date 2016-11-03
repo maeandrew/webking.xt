@@ -1912,6 +1912,9 @@ class Products {
 		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
 		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
 		$f['edited'] = date('Y-m-d');
+		if(isset($arr['sup_comment']) && $arr['sup_comment'] !== ''){
+			$f['sup_comment'] = $arr['sup_comment'];
+		}
 		$this->db->StartTrans();
 		//Заполнение массива для проверки на совпадения
 		$check['id_product'] = $arr['id_product'];
