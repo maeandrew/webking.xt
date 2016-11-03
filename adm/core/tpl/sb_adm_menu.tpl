@@ -40,10 +40,18 @@
 						<li <?=$GLOBALS['CurrentController'] == 'productadd'?'class="sel"':null;?>>
 							<a href="/adm/productadd/">Добавить товар</a>
 						</li>
-						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
-							<a href="/adm/unload_products/">Выгрузка товаров</a>
-						</li><?}?>
+						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
+							<li <?=$GLOBALS['CurrentController'] == 'unload_products'?'class="sel"':null;?>>
+								<a href="/adm/unload_products/">Выгрузка товаров</a>
+							</li>
+						<?}?>
 					</ul>
+				</li>
+			<?}?>
+
+			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
+				<li <?=$GLOBALS['CurrentController'] == 'site_parsers'?'class="sel"':null;?>>
+					<a href="/adm/site_parsers/">Парсер сайтов</a>
 				</li>
 			<?}?>
 
@@ -254,7 +262,7 @@
 					</li>
 				<?}?>
 			<?}?>
-			
+
 			<?if(_acl::isAllow('monitoring')){?>
 				<li <?=$GLOBALS['CurrentController'] == 'monitoring' && !isset($GLOBALS['REQAR'][1])?'class="sel"':null;?>>
 					<a href="/adm/monitoring/">Мониторинг</a>
