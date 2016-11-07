@@ -105,12 +105,29 @@ class Seo {
 		foreach($formats as $format){
 			$format_by_types[$format['type']][] = $format;
 		}
-		$sql = 'SELECT p.translit
+		$sql = 'SELECT p.translit, p.id_product
 				FROM '._DB_PREFIX_.'product AS p
 				WHERE (SELECT COUNT(*) FROM '._DB_PREFIX_.'seo_text AS s WHERE s.url = CONCAT(\''.Link::Product("', p.translit, '").'\')) = 0
+				AND id_product IN (SELECT id_product FROM xt_cat_prod WHERE main = 1)
 				ORDER BY RAND() LIMIT '.$cnt_prod;
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
+		}
+		function random_keywords($id_product, $id_category = false, $result = array()){
+			global $db;
+			if(!$id_category){
+				$sql1 = 'SELECT c.id_category, c.pid, c.page_keywords FROM '._DB_PREFIX_.'cat_prod as cp LEFT JOIN '._DB_PREFIX_.'category AS c ON c.id_category = cp.id_category WHERE cp.id_product = '.$id_product.' AND cp.main = 1';
+			}else{
+				$sql1 = 'SELECT c.id_category, c.pid, c.page_keywords FROM '._DB_PREFIX_.'category AS c WHERE c.id_category = '.$id_category;
+			}
+			$res = $db->GetOneRowArray($sql1);
+			if($res['page_keywords'] !== ''){
+				$result[] = $res['page_keywords'];
+			}
+			if($res['pid'] != 0){
+				$result = random_keywords($id_product, $res['pid'], $result);
+			}
+			return $result;
 		}
 		// Заносим в БД сеотекст к товарам
 		$sql = 'INSERT INTO '._DB_PREFIX_.'seo_text (url, text) VALUES ';
@@ -164,6 +181,27 @@ class Seo {
 			}
 			$rand_seotext = $format_by_types[3][array_rand($format_by_types[3])];
 			$rand_injection .= sprintf($rand_seotext['format'], implode(', ', array_rand(array_flip($arr_shops), $rand_seotext['quantity'])));
+			$rand_injection .= '<br><br>';
+
+			if(!isset($arr_keywords)){
+				$res = random_keywords($val['id_product']);
+				$text = '';
+				$rand_injection .= 'Теги: ';
+				foreach($res as $value){
+					if($value){
+						$keywords = explode(', ', $value);
+						if(count($keywords) > 5){
+							$result = implode(', ', array_rand(array_flip($keywords), 5));
+						}else{
+							$result = implode(', ', $keywords);
+						}
+						if($result != ''){
+							$text .= ($text != ''?', ':null).$result;
+						}
+					}
+				}
+				$rand_injection .= $text;
+			}
 			$sql .= '('.$this->db->Quote(Link::Product($val['translit'])).', '.$this->db->Quote($rand_injection).')'.($arr[$k+1]?', ':null);
 		}
 		if(!$this->db->Query($sql)){
