@@ -13,11 +13,17 @@ class Parser {
 		$Images = new Images();
 		$product = array();
 		$html = file_get_html($url);
-		// Название товара
-		$product['name'] = $html->find('[itemprop="name"]', 0)->plaintext;
-		if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
+		if(!$html){
 			return false;
 		}
+		// Название товара
+		$product['name'] = $html->find('[itemprop="name"]', 0)->plaintext;
+		if(!$product['name']){
+			return false;
+		}
+		// if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
+		// 	return false;
+		// }
 		// Описание товара
 		$product['descr'] = $html->find('[itemprop="description"]', 0)->plaintext;
 		// Указываем базовую активность товара

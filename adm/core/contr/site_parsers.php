@@ -44,17 +44,32 @@ if(isset($_POST['parse'])){
 			}
 			$keys[] = $i;
 		}
+		$Products = new Products();
 		$Parser = new Parser();
 		// ini_set('memory_limit', '728M');
 		ini_set('max_execution_time', 3000);
+		$k = $l = $i = 0;
 		foreach($array as $row){
 			$res = array_combine($keys, $row);
-			if(isset($res['url']) && $res['url'] !== ''){
+			if(isset($res['url']) && $res['url'] !== '' && !$Products->SetFieldsByRewrite(G::StrToTrans($res['name']))){
+				// print_r($res['name']);
+				// print_r('</br>');
+				// var_dump(G::StrToTrans($res['name']));
+				// print_r('</br>');
+				// var_dump(!$Products->SetFieldsByRewrite(G::StrToTrans($res['name'])));die();
 				if($Parser->parseUrl($res['url'])){
-					sleep(1);
+					$k++;
+					sleep(3);
+				}else{
+					$l++;
 				}
+			}else{
+				$i++;
 			}
 		}
+		print_r('<pre>товарів додано: '.$k.'</pre>');
+		print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
+		print_r('<pre>товарів пропущено: '.$i.'</pre>');
 		// ini_set('memory_limit', '192M');
 		ini_set('max_execution_time', 30);
 	}
