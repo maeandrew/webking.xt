@@ -3309,7 +3309,6 @@ canvas[id^=chart_]{
 .xt_news .news_description {
 	max-height: 8em;
 	overflow: hidden;
-	margin-bottom: 10px;
 }
 .xt_news .news_description > p {
 	text-align: justify;
@@ -3393,16 +3392,17 @@ canvas[id^=chart_]{
 }
 /* Блок сео текста */
 #seoTextBlock {
+	/*font-size: .7em;*/
 	color: #9E9E9E;
 	text-align: justify;
 	border-top: 1px solid #e0e0e0;
 	padding: 1.8em 0;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 #seoTextBlock * {
 	font-weight: normal !important;
 	color: #9E9E9E !important;
-	background: #f3f3f3 !important;
+	/*background: #f3f3f3 !important;*/
 	text-align: left !important;
 }
 #seoTextBlock p {
@@ -3414,9 +3414,9 @@ canvas[id^=chart_]{
 	background-color: transparent;
 }
 #seoTextBlock h2 {
-	font-size: 1.8em;
+	font-size: 1.5em;
 	line-height: 2em;
-	margin: .5em 0 !important;
+	margin: .5em 0 0 !important;
 }
 /* Стили функции редактирования характеристик товара в админке */
 #editProdSpecValue {
