@@ -241,21 +241,21 @@ $(function(){
 
 	// SEO-text (Скрывать, если его длина превышает 1к символов)
 	var seoText = $('#seoTextBlock').text();
-	if (seoText.length > 1000){
-		$('#seoTextBlock').css('height', '175px').parent('.mdl-grid')
-		.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised hidden">Свернуть</button>');
-	}
-	$('#expand_btn').click(function() {
-		$("#seoTextBlock").css({'height': '100%'});
-		$(this).addClass('hidden');
-		$('#rollUp_btn').removeClass('hidden');
-		resizeAsideScroll('show_more');
-	});
-	$('#rollUp_btn').click(function() {
-		$('#seoTextBlock').css({'height': '175px'});
-		$(this).addClass('hidden');
-		$('#expand_btn').removeClass('hidden');
-	});
+	// if (seoText.length > 1000){
+	// 	$('#seoTextBlock').css('height', '175px').parent('.mdl-grid')
+	// 	.append('<button id="expand_btn" class="mdl-button mdl-js-button mdl-button--raised">Развернуть</button><button id="rollUp_btn" class="mdl-button mdl-js-button mdl-button--raised hidden">Свернуть</button>');
+	// }
+	// $('#expand_btn').click(function() {
+	// 	$("#seoTextBlock").css({'height': '100%'});
+	// 	$(this).addClass('hidden');
+	// 	$('#rollUp_btn').removeClass('hidden');
+	// 	resizeAsideScroll('show_more');
+	// });
+	// $('#rollUp_btn').click(function() {
+	// 	$('#seoTextBlock').css({'height': '175px'});
+	// 	$(this).addClass('hidden');
+	// 	$('#expand_btn').removeClass('hidden');
+	// });
 
 	//Скрытие фильтров в зависимости от выбранного уровня товара ---
 	if(($('ul.second_nav.allSections > li.active > ul[data-lvl="2"] > li.active:has(ul)')).length === 0 || $('ul.second_nav.allSections ul[data-lvl="3"] > li').hasClass('active')) {
