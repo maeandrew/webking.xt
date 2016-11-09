@@ -622,16 +622,16 @@ footer .copyright p{line-height:1.7em}
 .min{padding:10px}
 .xt_news h6{line-height:1.3em;font-weight:500;color:#000;margin:0;padding-bottom:0}
 .xt_news a h6:hover{color:#FF5722}
-.xt_news .news_description{max-height:11em;overflow:hidden;margin-bottom:10px}
+.xt_news .news_description{max-height:8em;overflow:hidden}
 .xt_news .news_description>p{text-align:justify;line-height:20px}
 .news_image{width:100%;height:160px}
 .xt_news img{box-sizing:border-box;background-color:#fff;max-width:100%;max-height:100%;position:relative;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)}
-.news_item{width:24%;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);position:relative}
+.news_item{width:24%;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);position:relative;padding-bottom:60px}
 .news_item .news_description *{font:normal normal 14px/1.4em Roboto}
 .news_item .read_more{position:absolute;bottom:0;background:#fff;width:100%}
 .news_item .read_more a{display:block;text-align:center}
 .news_item .read_more a:hover{background:#FF5722;color:#fff}
-.news_item .news_date{padding:10px 10px 0 10px}
+.news_item .news_date{padding:0 10px}
 .news_item .news_date p{font-size:12px;border-top:1px solid #e0e0e0}
 .last_news_title a{background:#fff;border-bottom:1px solid #e0e0e0}
 .last_news_title a:hover{background:#FF5722;color:#fff}
