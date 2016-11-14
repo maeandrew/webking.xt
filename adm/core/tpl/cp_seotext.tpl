@@ -12,7 +12,6 @@
             <tr class="filter">
                 <td id="id_seo_input"><input type="text" class="input-m" name="filter_id" value="<?=isset($_GET['filter_id'])?htmlspecialchars($_GET['filter_id']):null?>" placeholder="ID записи"></td>
                 <td id="url_seo_input"><input  type="text" class="input-m" name="filter_url" value="<?=isset($_GET['filter_url'])?htmlspecialchars($_GET['filter_url']):null?>" placeholder="URL (полный)"></td>
-                <td id="text_seo_input"></td>
                 <td id="author_seo_input"><input  type="text" class="input-m" value="<?=isset($_GET['filter_contragent_name'])?htmlspecialchars($_GET['filter_contragent_name']):null?>" placeholder="Автор" name="filter_contragent_name"> </td>
 				<td id="date_seo_input"></td>
 				<td id="status_seo_input"></td>
@@ -24,7 +23,6 @@
 	          <tr>
 	            <td class="left">ID</td>
 				<td class="left">URL</td>
-				<td class="left">Текст</td>
 				<td class="left">Автор</td>
 				<td class="left">Дата</td>
 	            <td class="center">Статус</td>
@@ -40,9 +38,6 @@
 					<td>
 						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=$i['url']?></a>
 						<a class="icon-font btn-m-orange-inv watchSeoText" title="Посмотреть текст на странице" href="<?=$i['url']?>">v</a>
-					</td>
-					<td>
-						<a href="/adm/seotextedit/<?=$i['id'];?>"><?=htmlspecialchars($i['text'])?></a>
 					</td>
 					<td>
 						<?=$i['username']?>

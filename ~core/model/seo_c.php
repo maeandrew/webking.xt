@@ -35,15 +35,14 @@ class Seo {
 	}
 	// Список SeoText
 	public function SeoTextList($limit = ''){
-		$sql = 'SELECT '.implode(', ',$this->usual_fields).',
-			name AS username
-			FROM '._DB_PREFIX_.'seo_text
-			LEFT JOIN '._DB_PREFIX_.'user
-			ON id_author = id_user
-			ORDER BY id desc '.
+		$sql = 'SELECT st.id, st.url, st.creation_date,
+			st.visible, u.name AS username
+			FROM '._DB_PREFIX_.'seo_text AS st
+			LEFT JOIN '._DB_PREFIX_.'user AS u
+				ON st.id_author = u.id_user
+			ORDER BY st.id DESC '.
 			$limit;
-		$this->list = $this->db->GetArray($sql);
-		if(!$this->list){
+		if(!$this->list = $this->db->GetArray($sql)){
 			return false;
 		}
 		return true;
