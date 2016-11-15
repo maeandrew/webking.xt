@@ -700,7 +700,7 @@
 	}
 	#content .page_dealer .sub_ul span{
 		display: inline-block;
-		width: 150px;
+		min-width: 30%;
 	}
 	#content .page_dealer p.tagline{
 		margin: 15px auto 10px;
@@ -711,21 +711,33 @@
 	#content .page_dealer .full_text p.text_center{
 		text-align: center;
 	}
-	@media (max-width: 1100px) {
-		#content .page_dealer li {
+	@media (max-width: 1100px){
+		#content .page_dealer{
 			font-size: 1.2em;
+		}
+		#content .page_dealer li {
+			font-size: 1.4em;
 		}
 	}
 	@media (max-width: 964px) {
 		#content .page_dealer ul {
 			margin-left: 10%;
 		}
-		#content .page_dealer .info_circle p {
-			font-size: 1.2em;
-			width: 100px;
-		}
 		#content .page_dealer .forflex {
-			flex-basis: 80%;
+			flex-basis: 100%;
+		}
+	}
+	@media (max-width: 600px) {
+		#content .page_dealer{
+			font-size: 1em;
+		}
+	}
+	@media (max-width: 450px){
+		#content .page_dealer ul.sub_ul{
+			margin-left: 5%;
+		}
+		#content .page_dealer .full_text p.new_point {
+			margin-top: 25px;
 		}
 	}
 /* Общие медиа запросы */
@@ -883,9 +895,6 @@
 		#content .page_payment .btn_plus,
 		#content .page_information .btn_plus {
 			bottom: 9%;
-		}
-		#content .page_dealer .forflex {
-			flex-basis: 60%;
 		}
 	}
 	@media (max-width: 450px) {
