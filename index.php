@@ -20,11 +20,11 @@ G::Start();
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/reset.css', 0);
 G::AddCSS('../plugins/mdl-select.min.css', 1);
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
-G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/footer.css', 1);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/colors.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/style.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/header.css', 0);
+G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/footer.css', 1);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/custom.css', 1);
-G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/colors.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/jquery-ui.css', 1);
 /* plugins css */
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/page_styles/'.$GLOBALS['CurrentController'].'.css', 0);
