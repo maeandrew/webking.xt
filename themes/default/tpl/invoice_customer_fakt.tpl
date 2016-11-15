@@ -28,7 +28,8 @@ body { font-family: "Trebuchet MS", Helvetica, sans-serif; font-size: 12px; colo
 .blf { border-left: 1px solid #FFF;}
 .brf { border-right: 1px solid #FFF;}
 .bn { border: 0 !important; }
-.table_main{margin: 10px 0 0 1px;}
+.table_main{margin: 10px 0 0 1px;page-break-after: always;}
+.table_main:last-of-type{page-break-after: avoid;}
 .table_main td{padding:1px 1px 0;font-size:12px; text-align:center; border-right:1px #000 solid;border-bottom:1px #000 solid;vertical-align: middle;}
 .table_main td.name{padding:1px;font-size:12px; text-align:left; border-right:1px #000 solid;border-bottom:1px #000 solid;}
 .table_main .hdr td{font-weight: bold;padding: 1px;}
@@ -95,7 +96,7 @@ $c9 = 60;
 $c10 = 60;
 $c11 = 65;
 ?>
-<table border="0" cellpadding="0" cellspacing="0" class="table_main" style="page-break-after: always;">
+<table border="0" cellpadding="0" cellspacing="0" class="table_main">
 	<col width="<?=$c1?>"/>
 	<col width="<?=$c2?>"/>
 	<col width="<?=$c3?>"/>
