@@ -2703,6 +2703,7 @@ class Products {
 	 * @param [type] $id_supplier [description]
 	 */
 	public function GetExportAssortRows($list, $id_supplier){
+		ini_set('memory_limit', '512M');
 		$sql = "SELECT DISTINCT a.id_product, a.price_opt_otpusk,
 			a.price_mopt_otpusk, a.product_limit, a.sup_comment
 			FROM "._DB_PREFIX_."assortiment AS a
@@ -2722,6 +2723,8 @@ class Products {
 				);
 			}
 		}
+		unset($arr);
+		ini_set('memory_limit', '192M');
 		return $result;
 	}
 	/**
