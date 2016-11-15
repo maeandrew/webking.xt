@@ -2,7 +2,7 @@
 	#content {
 		font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 		font-size: 14px;
-		font-weight: 100;
+		font-weight: 400;
 		font-style: normal;
 		color: #47525d;
 		background: #fff;
@@ -17,11 +17,11 @@
 	}
 	#content h4 {
 		font-size: 1.8em;
-		font-weight: 100;
+		font-weight: 400;
 	}
 	#content p {
 		font-size: 1.3em;
-		font-weight: 100;
+		font-weight: 400;
 		line-height: 1.2em;
 	}
 	#content img {
@@ -147,7 +147,7 @@
 		}
 		#content .pages_group p {
 			font-size: 1.3em;
-			font-weight: 100;
+			font-weight: 400;
 			line-height: 1.2em;
 		}
 		#content .pages_group .blockline {
@@ -196,7 +196,7 @@
 				text-align: center;
 				line-height: 1em;
 				font-size: 1.8em;
-				font-weight: 100;
+				font-weight: 400;
 				color: #535E68;
 				-webkit-transition: all .4s ease-in-out;
 				-o-transition: all .4s ease-in-out;
@@ -320,7 +320,7 @@
 		list-style: disc;
 		font-size: 1.3em;
 		text-align: left;
-		font-weight: 100;
+		font-weight: 400;
 	}
 	/*Media*/
 		@media (max-width: 1366px) {
@@ -568,7 +568,7 @@
 		color: #47525d;
 	}
 	#content .page_payment li {
-		font-weight: 100;
+		font-weight: 400;
 		margin-left: 20%;
 	}
 /* Страница "Поставки магазинам"/ class="page_supply" */
@@ -678,7 +678,7 @@
 	}
 	#content .page_dealer li {
 		text-align: left;
-		font-weight: 100;
+		font-weight: 400;
 		font-size: 1.7em;
 		line-height: 1.8em;
 		list-style-type: disc;

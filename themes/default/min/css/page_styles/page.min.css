@@ -1,7 +1,7 @@
-#content{font-family:Roboto,Helvetica,Arial,sans-serif;font-size:14px;font-weight:100;font-style:normal;color:#47525d;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);position:relative;margin-bottom:20px}
+#content{font-family:Roboto,Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;font-style:normal;color:#47525d;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);position:relative;margin-bottom:20px}
 #content h1{font-size:2em;font-weight:600;text-align:center}
-#content h4{font-size:1.8em;font-weight:100}
-#content p{font-size:1.3em;font-weight:100;line-height:1.2em}
+#content h4{font-size:1.8em;font-weight:400}
+#content p{font-size:1.3em;font-weight:400;line-height:1.2em}
 #content img{display:block;margin:0 auto;max-width:100%}
 #content video{display:block;width:100%}
 #content .main_img{max-width:100%}
@@ -27,7 +27,7 @@
 .modals .modal_container button:hover{background-color:#018B06}
 #content .pages_group .flexWrapReverse .blockOfText{margin-left:0}
 #content .pages_group img{max-width:100%}
-#content .pages_group p{font-size:1.3em;font-weight:100;line-height:1.2em}
+#content .pages_group p{font-size:1.3em;font-weight:400;line-height:1.2em}
 #content .pages_group .blockline{border-top:1px solid #E6EAED;border-bottom:none}
 #content .pages_group .blockline:first-child{border-top:none}
 #content .pages_group .blockline:last-child{border-bottom:1px solid #E6EAED}
@@ -36,7 +36,7 @@
 #content .psevdo_btn{background-color:#69ab3f;min-width:34%;width:50%;display:block;margin:0 auto;font-size:1.3em;text-transform:inherit}
 #content .pages_group .three_inline .forflex{flex-basis:33%}
 #content .three_inline .info_circle img{width:61%}
-.btn_plus,.btn_plus--beta{cursor:pointer;text-align:center;line-height:1em;font-size:1.8em;font-weight:100;color:#535E68;-webkit-transition:all .4s ease-in-out;-o-transition:all .4s ease-in-out;transition:all .4s ease-in-out;display:flex;justify-content:center;width:150px}
+.btn_plus,.btn_plus--beta{cursor:pointer;text-align:center;line-height:1em;font-size:1.8em;font-weight:400;color:#535E68;-webkit-transition:all .4s ease-in-out;-o-transition:all .4s ease-in-out;transition:all .4s ease-in-out;display:flex;justify-content:center;width:150px}
 .btn_plus--beta{margin:10px auto}
 .btn_plus{z-index:1;position:absolute;top:120%}
 .btn_plus.pos-left .btn_plus_sign{margin-right:10%}
@@ -59,7 +59,7 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_delivery .delivery2:hover{cursor:zoom-in}
 #content .page_delivery .delivery5{width:60%}
 #delivery2 img{max-width:100%;max-height:790px}
-#content .blockOfText ul{list-style:disc;font-size:1.3em;text-align:left;font-weight:100}
+#content .blockOfText ul{list-style:disc;font-size:1.3em;text-align:left;font-weight:400}
 @media (max-width:1366px){#delivery2 img{max-width:100%;max-height:680px}
 }
 @media (max-width:550px){#content .page_delivery .blockline video{width:380px!important;height:220px!important}
@@ -110,7 +110,7 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_payment .invisibleblock .flexwrapp{flex-direction:column;padding-left:4%;padding-right:4%}
 #content .page_payment .invisibleblock div div{height:80px}
 #content .page_payment ul{list-style:disc;font-size:1.3em;font-weight:400;color:#47525d}
-#content .page_payment li{font-weight:100;margin-left:20%}
+#content .page_payment li{font-weight:400;margin-left:20%}
 #content .page_discounts{border-bottom:1px solid #E6EAED}
 #content .page_provision_companies img{max-width:38%!important}
 #content .page_contacts video{width:40%;margin:0 auto}
@@ -139,7 +139,7 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_dealer h4{text-align:center;margin-top:0}
 #content .page_dealer .container .blockOfText h4{text-align:left}
 #content .page_dealer ul{margin-left:5%}
-#content .page_dealer li{text-align:left;font-weight:100;font-size:1.7em;line-height:1.8em;list-style-type:disc;margin:10px 0}
+#content .page_dealer li{text-align:left;font-weight:400;font-size:1.7em;line-height:1.8em;list-style-type:disc;margin:10px 0}
 #content .page_dealer ul.sub_ul li{list-style-type:none}
 #content .page_dealer ul.sub_ul li i{vertical-align:middle;margin:0 10px}
 #content .page_dealer .full_text{text-align:justify}
