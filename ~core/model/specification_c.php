@@ -228,23 +228,27 @@ class Specification{
 
 	// Список
 	public function GetMonitoringList($limit = false, $where = false){
-		$sql2 = "SELECT id AS id_caption, caption, units FROM  "._DB_PREFIX_."specs";//достаем из БД характеристики
-		$list2 = $this->db->GetArray($sql2);
-		if(!$list2){
+		ini_set('memory_limit', '512M');
+		//достаем из БД характеристики
+		$sql = "SELECT id AS id_caption, caption, units FROM  "._DB_PREFIX_."specs";
+		$specifications = $this->db->GetArray($sql, 'id_caption');
+		if(!$specifications){
 			return false;
 		}
 
-		$sql3 = "SELECT id_category, `name` FROM  "._DB_PREFIX_."category WHERE visible = 1";//достаем из БД имена категорий
-		$list3 = $this->db->GetArray($sql3);
-		if(!$list3){
+		//достаем из БД имена категорий
+		$sql = "SELECT id_category, name FROM  "._DB_PREFIX_."category";
+		$categories = $this->db->GetArray($sql, 'id_category');
+		if(!$categories){
 			return false;
 		}
+		// print_r($categories);die();
 
-		$sql = "SELECT cp.id_category, sp.id_spec AS id_caption, sp.`value`, count(*) AS count
+		$sql = "SELECT cp.id_category, sp.id_spec AS id_caption, sp.value, count(*) AS count
 			FROM "._DB_PREFIX_."specs_prods AS sp
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp ON sp.id_prod = cp.id_product AND sp.id_prod IS NOT NULL
-			WHERE sp.`value` <> ''  AND cp.id_category IS NOT NULL
-			GROUP BY cp.id_category, sp.id_spec, sp.`value`";
+			WHERE sp.value <> '' AND cp.id_category IS NOT NULL
+			GROUP BY cp.id_category, sp.id_spec, sp.value";
 		if($where){
 			$sql .= " HAVING ";
 			$i = 0;
@@ -258,30 +262,20 @@ class Specification{
 				$i++;
 			}
 		}
-		$sql .= "ORDER BY cp.id_category, sp.id_spec".
-			($limit ?  " LIMIT". $limit : '');
+		$sql .= " ORDER BY cp.id_category, sp.id_spec".
+			($limit?" LIMIT".$limit:'');
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
 		}
 
-		foreach($list3 as $val){
-			$cat[$val['id_category']] = $val['name'];
-		}
 		foreach($this->list as &$v){
-			$v['name'] = $cat[$v['id_category']];
+			$v['name'] = $categories[$v['id_category']]['name'];
+			$v['caption'] = $specifications[$v['id_caption']]['caption'];
+			$v['units'] = $specifications[$v['id_caption']]['units'];
 		}
-
-		foreach($list2 as $val){
-			$specs[$val['id_caption']] = array(
-				'caption' => $val['caption'],
-				'units' => $val['units']
-			);
-		}
-		foreach($this->list as &$v){
-			$v['caption'] = $specs[$v['id_caption']]['caption'];
-			$v['units'] = $specs[$v['id_caption']]['units'];
-		}
+		unset($categories, $specifications);
+		ini_set('memory_limit', '192M');
 		return true;
 	}
 
