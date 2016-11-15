@@ -663,12 +663,12 @@
 			}
 		}
 /* Страница "Стать дилером" / class="page_dealer" */
+	#content .page_dealer{
+		font-size: 1.3em
+	}
 	#content .page_dealer h4 {
 		text-align: center;
 		margin-top: 0;
-	}
-	#content .page_dealer .three_inline {
-		margin-top: 54px;
 	}
 	#content .page_dealer .container .blockOfText h4 {
 		text-align: left;
@@ -679,12 +679,37 @@
 	#content .page_dealer li {
 		text-align: left;
 		font-weight: 100;
-		font-size: 1.3em;
-		line-height: 1.4em;
+		font-size: 1.7em;
+		line-height: 1.8em;
 		list-style-type: disc;
+		margin: 10px 0;
 	}
-	#content .page_dealer .info_circle p {
-		font-weight: 500;
+	#content .page_dealer ul.sub_ul li {
+		list-style-type: none;
+	}
+	#content .page_dealer ul.sub_ul li i{
+		vertical-align: middle;
+		margin: 0 10px;
+	}
+	#content .page_dealer .full_text{
+		text-align: justify;
+	}
+	#content .page_dealer .full_text p{
+		margin: 5px 0;
+		line-height: 1.6em;
+	}
+	#content .page_dealer .sub_ul span{
+		display: inline-block;
+		width: 150px;
+	}
+	#content .page_dealer p.tagline{
+		margin: 15px auto 10px;
+	}
+	#content .page_dealer .full_text p.new_point{
+		margin-top: 40px;
+	}
+	#content .page_dealer .full_text p.text_center{
+		text-align: center;
 	}
 	@media (max-width: 1100px) {
 		#content .page_dealer li {
