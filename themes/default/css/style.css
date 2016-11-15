@@ -1374,11 +1374,15 @@ section.center {
 	aside .filters .filter_block {
 		padding: 4px 0;
 		border-bottom: 1px solid #e5e5e5;
+		position: relative;
 	}
 	aside .filters .filter_block .more {
 		text-align: right;
 		cursor: pointer;
 		padding-right: 5px;
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 	aside .filters .filter_block .more i{
 		vertical-align: middle;
@@ -1393,7 +1397,7 @@ section.center {
 	aside .filters .filter_block:last-of-type ul {
 		border: none;
 	}
-	aside .filters .filter_block ul li:nth-child(n+6) {
+	aside .filters .filter_block ul li/* :nth-child(n+6) */ {
 		display: none;
 	}
 	aside .filters .filter_block label {

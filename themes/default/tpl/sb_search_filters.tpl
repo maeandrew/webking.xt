@@ -39,7 +39,7 @@
 			}
 		});
 		/*$("#amount").append($("#slider_price").slider("values", 0)+" грн - "+$("#slider_price").slider("values", 1 )+" грн");*/
-		
+
 		// Добавление/удаление элементов в массиве
 		$('.filters input').on('change', function(){
 			var dataSpec = $(this).data('spec');
@@ -86,9 +86,9 @@
 		//	$('.disabled').click(function(event) {
 		//		event.preventDefault();
 		//	});
-		
+
 		/*Смена позиции кнопок блока фильтра*/
-		// $('.panel_container_js').on("scroll", function(){				
+		// $('.panel_container_js').on("scroll", function(){
 		// 	changeFiltersBtnsPosition();
 		// });
 
@@ -166,22 +166,24 @@
 								</label>
 							</li>
 						<?}?>
-						<div class="more <?=count($spec['values'])>5?'hid':'hidden';?>"><i class="material-icons">expand_more</i><span>Больше</span></div>
+						<div class="more hid"><i class="material-icons">expand_more</i><!-- <span>Развернуть</span> --></div>
 					</ul>
 				</div>
 			<?}
-		}?>		
+		}?>
 	</div>
 </div>
 <script>
 	$(document).ready(function() {
 		$('.more').click(function(event) {
 			if ($(this).hasClass('hid')) {
-				$(this).closest('.filter_block').find('li:nth-child(n+6)').css({"display": "block"});
-				$(this).removeClass('hid').find('.material-icons').empty().html("expand_less").next('span').empty().html("Скрыть");
+				// $(this).closest('.filter_block').find('li:nth-child(n+6)').css({"display": "block"});
+				$(this).closest('.filter_block').find('li').css({"display": "block"});
+				$(this).removeClass('hid').find('.material-icons').empty().html("expand_less").next('span').empty();//.html("Скрыть");
 			}else{
-				$(this).closest('.filter_block').find('li:nth-child(n+6)').css({"display": "none"});
-				$(this).addClass('hid').find('.material-icons').empty().html("expand_more").next('span').empty().html("Больше");
+				// $(this).closest('.filter_block').find('li:nth-child(n+6)').css({"display": "none"});
+				$(this).closest('.filter_block').find('li').css({"display": "none"});
+				$(this).addClass('hid').find('.material-icons').empty().html("expand_more").next('span').empty();//.html("Развернуть");
 			}
 		});
 	});

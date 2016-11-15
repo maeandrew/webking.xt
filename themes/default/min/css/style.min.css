@@ -245,13 +245,13 @@ aside .catalog .second_nav li ul{display:none;margin-left:15px}
 aside .catalog .second_nav li>ul li>ul li a{display:inline-block;padding-right:0}
 aside .filters{display:none}
 aside .filters .filters_container{overflow:auto}
-aside .filters .filter_block{padding:4px 0;border-bottom:1px solid #e5e5e5}
-aside .filters .filter_block .more{text-align:right;cursor:pointer;padding-right:5px}
+aside .filters .filter_block{padding:4px 0;border-bottom:1px solid #e5e5e5;position:relative}
+aside .filters .filter_block .more{text-align:right;cursor:pointer;padding-right:5px;position:absolute;top:0;right:0}
 aside .filters .filter_block .more i{vertical-align:middle}
 aside .filters .filter_block p{text-align:left;font-weight:700}
 aside .filters .filter_block ul{padding-bottom:0}
 aside .filters .filter_block:last-of-type ul{border:none}
-aside .filters .filter_block ul li:nth-child(n+6){display:none}
+aside .filters .filter_block ul li{display:none}
 aside .filters .filter_block label{color:#444}
 aside .filters .filter_block li:hover label{color:#FF5722;cursor:pointer}
 aside .filters .filter_block li:hover .mdl-checkbox__box-outline{border-color:#FF5722}
