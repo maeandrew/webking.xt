@@ -3392,17 +3392,14 @@ canvas[id^=chart_]{
 }
 /* Блок сео текста */
 #seoTextBlock {
-	/*font-size: .7em;*/
 	color: #9E9E9E;
 	text-align: justify;
 	border-top: 1px solid #e0e0e0;
 	padding: 1.8em 0;
-	/*overflow: hidden;*/
 }
 #seoTextBlock * {
 	font-weight: normal !important;
 	color: #9E9E9E !important;
-	/*background: #f3f3f3 !important;*/
 	text-align: left !important;
 }
 #seoTextBlock p {
