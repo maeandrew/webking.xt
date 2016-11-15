@@ -24,10 +24,10 @@ if(isset($GLOBALS['REQAR'][1])){
 			$tpl->Assign('cat_spec', $cat_spec);
 			if(isset($_GET['smb'])){
 				if(isset($_GET['id_category']) && $_GET['id_category'] !== '0'){
-					$arr['id_category'] = $_GET['id_category'];
+					$where['id_category'] = $_GET['id_category'];
 				}
 				if(isset($_GET['id_caption']) && $_GET['id_caption'] !== '0'){
-					$arr['id_caption'] = $_GET['id_caption'];
+					$where['id_caption'] = $_GET['id_caption'];
 				}
 			}elseif(isset($_GET['clear_filters'])){
 				unset($_GET);
@@ -35,7 +35,7 @@ if(isset($GLOBALS['REQAR'][1])){
 				header('Location: '.$url[0]);
 				exit();
 			}
-			$specification->GetMonitoringList(false, $arr);
+			$specification->GetMonitoringList($where);
 			if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit'])){
 				if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
 					$_GET['page_id'] = $_POST['page_nbr'];
@@ -50,7 +50,7 @@ if(isset($GLOBALS['REQAR'][1])){
 			foreach($specification->list as $value){
 				$specifications[$value['id_caption']] = $value['caption'];
 			}
-			$specification->GetMonitoringList($limit, $arr);
+			$specification->GetMonitoringList($limit, $where);
 			$tpl->Assign('specifications', $specifications);
 			$tpl->Assign('list', $specification->list);
 			break;
