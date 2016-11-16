@@ -15,8 +15,8 @@
 						<td class="center"></td>
 					</tr>
 				</thead>
-			<?foreach($list as $i){?>
-				<tbody>
+			<?if(!empty($list)){
+				foreach($list as $i){?>
 					<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 						<colgroup>
 							<col width="5%">
@@ -38,7 +38,15 @@
 							<?}?>
 						</tbody>
 					</table>
-				</tbody>
+				<?}
+			}else{?>
+				<table border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
+					<thead>
+						<tr class="translit_title">
+							<td colspan="4">Все ок! Дубли товаров не найдены!</td>
+						</tr>
+					</thead>
+				</table>
 			<?}?>
 		</table>
 	</form>
