@@ -554,8 +554,8 @@ body {
 }
 .container {
 	float: right;
-	width: 82%;
-	padding-left: 1%;
+	width: calc(100% - 250px);
+	padding-left: 15px;
 }
 .content {
 	width: 100%;

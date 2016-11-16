@@ -1,6 +1,6 @@
 aside {
 	float: left;
-	width: 18%;
+	width: 250px;
 	position: relative;
 	z-index: 10;
 }
@@ -8,68 +8,68 @@ aside .block {
 	padding: 1em;
 	margin: 1em 0;
 	background-color: #fff;
-	border-radius: 0 .5em .5em 0;
+	border-radius: 0 .2em .2em 0;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
 }
-aside .block span {
-	float: left;
-	clear: both;
+aside .sb-menu a {
+	display: block;
+	color: #333;
 }
-aside .block ul.sb_menu {
+aside .sb-menu__sub-menu {
+	margin-left: 10px;
 }
-aside .block ul.sb_menu li {
+aside .sb-menu__sub-menu__item,
+aside .sb-menu__item {
 	clear: both;
 	line-height: 24px;
+	position: relative;
+	padding: 5px 15px;
+	margin-left: -1em;
+	margin-right: -1em;
 }
-aside .block ul.sb_menu > li {
-	padding-top: 0.5em;
-}
-aside .block ul.sb_menu > li:first-of-type {
-	padding: 0;
-}
-aside .block ul.sb_menu li a,
-aside .block ul.sb_menu li a:visited {
-	text-decoration: none;
-}
-aside .block ul.sb_menu li a:hover {
-	text-decoration: underline;
-}
-aside .block ul.sb_menu li.sel a {
+aside .sb-menu__item {
 	font-weight: bold;
+}
+aside .sb-menu__sub-menu__item {
+	margin-top: 0;
+}
+aside .sb-menu__sub-menu__item:hover,
+aside .sb-menu__item:hover {
+	background: #f5f5f5;
+}
+aside .sb-menu__item_active {
+	background: #f5f5f5;
+}
+aside .sb-menu__item_active a {
 	color: #444;
+	font-weight: bold;
 }
-aside .block ul.sb_menu li a.add {
-	display: none;
-	/* float: right;
-	height: 24px;
+
+aside .sb-menu__item_disabled:hover {
+	background: transparent;
+}
+aside .sb-menu__item_disabled a {
+	color: #aaa;
+	font-weight: normal;
+	text-decoration: none !important;
+}
+aside .sb-menu__item__add {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 18px;
+	text-align: center;
 	width: 24px;
-	display: block;
-	background: url(../images/add_nav.png) no-repeat;
-	text-indent: -9999px;*/
+	height: 24px;
+	line-height: 24px;
+	border-radius: 50%;
+	background: #22B473;
+	color: #fff !important;
+	text-decoration: none !important;
 }
-aside .block ul.sb_menu li a.add.sel {
-	background-position: 0 -24px;
-}
-aside .block ul.sb_menu li.sb_menusub {
-	padding: 0;
-}
-aside .block ul.sb_menusub {
-	margin-left: 10px;
-	padding: 0;
-	list-style: none;
-	color: #959595;
-}
-aside .block ul.sb_menusub li {
-	line-height: 20px;
-	width: 100%;
-	float: left;
-	clear: both;
-}
-aside .block ul.sb_menusub li:before {
-	content: "→";
-	margin-right: .5em;
-}
-aside .block ul.sb_menu li.notalone {
-	padding-top: 30px;
+aside .sb-menu__item__add:hover {
+	text-decoration: none;
+	background: #4ec38f;
 }
 aside .block span {
 	line-height: 1.5em;
