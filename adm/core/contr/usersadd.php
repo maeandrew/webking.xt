@@ -7,7 +7,7 @@ unset($parsed_res);
 $header = 'Добавление пользователя';
 $tpl->Assign('h1', $header);
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
+$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Пользователи';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/users/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 if(isset($_POST['smb'])){
@@ -20,7 +20,7 @@ if(isset($_POST['smb'])){
 		}else{
 			$tpl->Assign('msg', 'Пользователь не добавлен.');
 			if($User->db->errno == 1062){
-				$errm['email'] = "Такой email уже есть в базе.";
+				$errm['email'] = 'Такой email уже есть в базе.';
 				$tpl->Assign('errm', $errm);
 			}
 		}
@@ -33,10 +33,4 @@ if(isset($_POST['smb'])){
 if(!isset($_POST['smb'])){
 	$_POST['id_user'] = 0;
 }
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_user_ae.tpl')
-);
-if(true == $parsed_res['issuccess']){
-	$tpl_center .= $parsed_res['html'];
-}
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_user_ae.tpl');
