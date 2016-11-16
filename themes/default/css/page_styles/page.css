@@ -664,27 +664,30 @@
 		}
 /* Страница "Стать дилером" / class="page_dealer" */
 	#content .page_dealer{
-		font-size: 1.3em
+		font-size: 1.3em;
 	}
-	#content .page_dealer h4 {
+	#content .page_dealer p{
+		font-size: 1em;
+	}
+	#content .page_dealer h4{
 		text-align: center;
 		margin-top: 0;
 	}
-	#content .page_dealer .container .blockOfText h4 {
+	#content .page_dealer .container .blockOfText h4{
 		text-align: left;
 	}
-	#content .page_dealer ul {
+	#content .page_dealer ul{
 		margin-left: 5%;
 	}
-	#content .page_dealer li {
+	#content .page_dealer li{
 		text-align: left;
 		font-weight: 400;
-		font-size: 1.7em;
-		line-height: 1.8em;
+		font-size: 1.3em;
+		line-height: 1.6\em;
 		list-style-type: disc;
 		margin: 10px 0;
 	}
-	#content .page_dealer ul.sub_ul li {
+	#content .page_dealer ul.sub_ul li{
 		list-style-type: none;
 	}
 	#content .page_dealer ul.sub_ul li i{
@@ -715,19 +718,19 @@
 		#content .page_dealer{
 			font-size: 1.2em;
 		}
-		#content .page_dealer li {
+		#content .page_dealer li{
 			font-size: 1.4em;
 		}
 	}
-	@media (max-width: 964px) {
-		#content .page_dealer ul {
+	@media (max-width: 964px){
+		#content .page_dealer ul{
 			margin-left: 10%;
 		}
-		#content .page_dealer .forflex {
+		#content .page_dealer .forflex{
 			flex-basis: 100%;
 		}
 	}
-	@media (max-width: 600px) {
+	@media (max-width: 600px){
 		#content .page_dealer{
 			font-size: 1em;
 		}
@@ -736,7 +739,7 @@
 		#content .page_dealer ul.sub_ul{
 			margin-left: 5%;
 		}
-		#content .page_dealer .full_text p.new_point {
+		#content .page_dealer .full_text p.new_point{
 			margin-top: 25px;
 		}
 	}

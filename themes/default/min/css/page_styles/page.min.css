@@ -136,10 +136,11 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_contacts .blockOfText .mini_text{width:100%}
 }
 #content .page_dealer{font-size:1.3em}
+#content .page_dealer p{font-size:1em}
 #content .page_dealer h4{text-align:center;margin-top:0}
 #content .page_dealer .container .blockOfText h4{text-align:left}
 #content .page_dealer ul{margin-left:5%}
-#content .page_dealer li{text-align:left;font-weight:400;font-size:1.7em;line-height:1.8em;list-style-type:disc;margin:10px 0}
+#content .page_dealer li{text-align:left;font-weight:400;font-size:1.3em;line-height:1.6\em;list-style-type:disc;margin:10px 0}
 #content .page_dealer ul.sub_ul li{list-style-type:none}
 #content .page_dealer ul.sub_ul li i{vertical-align:middle;margin:0 10px}
 #content .page_dealer .full_text{text-align:justify}
