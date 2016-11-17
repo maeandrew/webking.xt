@@ -3371,6 +3371,7 @@ canvas[id^=chart_]{
 .last_news_title a {
 	background: #fff;
 	border-bottom: 1px solid #e0e0e0;
+	line-height: 16px;
 }
 .last_news_title a:hover {
 	background: #FF5722;

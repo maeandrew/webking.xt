@@ -1272,3 +1272,91 @@
 		width: 80px;
 	}
 }
+
+@media print {
+	a[href]:after {
+	    content: "";
+	  }
+	.breadcrumbs_wrap,
+	.header_right,
+	.product .content_header,
+	.product .apps_panel,
+	.advantage_block,
+	.sliders,
+	.products_links_block,
+	.last_news,
+	.footer_wrap,
+	.go_up,
+	.waiting_block_for_img_canvas,
+	.err_msg_as_wrap,
+	.phone_err_msg,
+	.qty_buy,
+	.product_availability,
+	.product_buy .buy_block .btn_buy,
+	.product_page .product .fortabs,
+	.owl-carousel.owl-loaded {
+		display: none !important;
+	}
+	.logo {
+		width: 100%;
+	}
+	.logo a img {
+		margin: 0 auto;
+		display: block;
+	}
+	.product_page .product .product_buy .price,
+	.product_page .product .product_buy .price:first-letter,
+	.product_page .product .product_buy .price_cont span,
+	.product_page .product .product_buy .price_cont span:first-letter {
+		color: #018b06 !important;
+	}
+	/*.product_page .product .product_buy .price:first-letter {
+		color: #018b06 !important;
+	}*/
+
+
+	.product_page .product .products_details {
+		min-height: auto;
+		height: auto;
+	}
+	.product_page .product .product_main_img {
+		display: block;
+		width: 100%;
+	}
+	.product_page .product .tab-content {
+		position: relative;
+		min-height: auto;
+	}
+	.product_page .product .tab-content:before {
+		content: 'Характеристики';
+		position: absolute;
+		left: calc(50% - 80px);
+		top: -25px;
+		font-size: 1.5em;
+		padding-bottom: 10px;
+	}
+	.product_page .product .tab-content .mdl-cell {
+		width: 50%;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.mdl-cell--hide-tablet {
+		display: block !important;
+	}
+	#caruselCont {
+		width: 55%;
+		float: left;
+		height: 330px;
+	}
+	#caruselCont img {
+		transform: none;
+		top: 0;
+	}
+	#specCont {
+		width: 35%;
+		float: right;
+	}
+	.page_content {
+		min-height: auto;
+	}
+}
