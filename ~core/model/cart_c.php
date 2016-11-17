@@ -281,7 +281,7 @@ class Cart {
 			}
 			return $_SESSION['cart'];
 		}
-		if(isset($_SESSION['cart']['id'])){
+		if(isset($_SESSION['cart']['id']) && !empty($_SESSION['cart']['products'])){
 			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
 			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
 				$f['ready'] = 0;

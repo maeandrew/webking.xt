@@ -107,7 +107,6 @@ G::ToGlobals(array(
 			'specifications',
 			'supplier_cab',
 			'units',
-			'users',
 			'wishes',
 			'segmentations',
 			'supplier_prov',
@@ -116,7 +115,11 @@ G::ToGlobals(array(
 			'orders_category',
 			'order',
 			'guestbook',
-			'graphics'
+			'graphics',
+			'users',
+			'customers',
+			'contragents',
+			'suppliers'
 		),
 		// groups
 		'groups' => array(
@@ -154,7 +157,8 @@ G::ToGlobals(array(
 					'orders_category',
 					'monitoring',
 					'guestbook',
-					'graphics'
+					'graphics',
+					'suppliers'
 				)
 			),
 			3 => array(

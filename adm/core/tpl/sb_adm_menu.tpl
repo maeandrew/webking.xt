@@ -126,6 +126,11 @@
 					</li>
 				</ul>
 			<?}?>
+			<?if(!_acl::isAllow('users') && _acl::isAllow('suppliers')){?>
+				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'users'?' sb-menu__item_active':null;?>">
+					<a href="/adm/users/<?=_ACL_SUPPLIER_?>">Поставщики</a>
+				</li>
+			<?}?>
 			<?if(_acl::isAllow('profiles')){?>
 				<li class="sb-menu__item">
 					<a href="/adm/profiles/" <?=$GLOBALS['CurrentController'] == 'profiles'?'sel':null;?>>Профили пользователей</a>
