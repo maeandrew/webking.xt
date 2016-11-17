@@ -177,12 +177,12 @@
 			file.previewElement.innerHTML += '<input type="hidden" name="add_image" value="'+path+'">';
 	});
 
-	var id_category = $('[name="id_category"]').val();
-	var id_specification = $('#sid').val();
 
 	$(function(){
+		var id_category = $('[name="id_category"]').val();
 		$('.addspec').on('click', function(){
-			ajax('cattags', 'setspectocat', {id_category: id_category, id_specification: id_specification});
+			id_specification = $('#sid').val();
+			ajax('cattags', 'setSpecToCat', {id_category: id_category, id_specification: id_specification});
 		});
 
 		$('body').on('click', '.dz-message', function(){
