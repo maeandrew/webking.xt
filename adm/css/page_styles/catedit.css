@@ -15,3 +15,16 @@
 	float: left;
 	margin-right: 10px;
 }
+#catae .image_block_new {
+	width: 120px;
+}
+#catae .image_block {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#catae .image_block .icon-font {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}

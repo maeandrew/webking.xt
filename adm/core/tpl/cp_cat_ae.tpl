@@ -51,7 +51,7 @@
 				<div class="image_block image_block_js exist_photo_js">
 					<div class="image">
 						<img src="<?=$_POST['category_img']?>">
-						<span class="icon-font <?=!empty($_POST['category_img'])?'del_exist_photo_js':'hidden'?>" title="Удалить">t</span>
+						<span class="icon-font image_block_delete <?=!empty($_POST['category_img'])?'del_exist_photo_js':'hidden'?>" title="Удалить">t</span>
 						<input class="curent_img hidden" type="text" value="<?=$_POST['category_img']?>">
 					</div>
 				</div>
