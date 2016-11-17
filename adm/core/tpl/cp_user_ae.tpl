@@ -1,8 +1,15 @@
 <h1><?=$h1?></h1>
-
-<?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
-<?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
-
+<?if(isset($errm) && isset($msg)){?>
+	<div class="notification error">
+		<span class="strong">Ошибка!</span>
+		<?=$msg?>
+	</div>
+<?}elseif(isset($msg)){?>
+	<div class="notification success">
+		<span class="strong">Сделано!</span>
+		<?=$msg?>
+	</div>
+<?}?>
 <div id="customerae" class="grid">
     <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="row">
 		<div class="col-md-4">
