@@ -335,6 +335,7 @@
 				height: 220px !important;
 			}
 		}
+
 /* Страница "О нас" / class="page_about_us" */
 	#content .page_about_us p {
 		width: 76%;
@@ -501,6 +502,7 @@
 				line-height: 21px;
 				margin-top: 0;
 			}*/
+
 /* Страница "Справка" / class="page_information" */
 	/*#content a.a_question {
 		color: #454F5D;
@@ -547,6 +549,7 @@
 		#content .ac-container input:checked ~ article {
 			height: auto;
 		}
+
 /* Страница "Оплата" / class="page_payment" */
 	#content .page_payment .invisibleblock img {
 		margin: 0;
@@ -571,16 +574,21 @@
 		font-weight: 400;
 		margin-left: 20%;
 	}
+
 /* Страница "Поставки магазинам"/ class="page_supply" */
+
 /* Страница "Скидки" / class="page_discounts" */
 	#content .page_discounts {
 		border-bottom: 1px solid #E6EAED;
 	}
+
 /* Страница "Обеспечение быта"/ class="page_provision" */
+
 /* Страница "Снабжение предприятий" / class="page_provision_companies" */
 	#content .page_provision_companies img {
 		max-width: 38% !important;
 	}
+
 /* Страница "Контакты" / class="page_contacts" */
 	#content .page_contacts video {
 		width: 40%;
@@ -662,12 +670,13 @@
 				width: 100%;
 			}
 		}
+
 /* Страница "Стать дилером" / class="page_dealer" */
 	#content .page_dealer{
-		font-size: 1.3em;
+		/*font-size: 1.3em;*/
 	}
 	#content .page_dealer p{
-		font-size: 1em;
+		font-size: 1.3em;
 	}
 	#content .page_dealer h4{
 		text-align: center;
@@ -683,7 +692,7 @@
 		text-align: left;
 		font-weight: 400;
 		font-size: 1.3em;
-		line-height: 1.6\em;
+		line-height: 1.6em;
 		list-style-type: disc;
 		margin: 10px 0;
 	}
@@ -743,6 +752,7 @@
 			margin-top: 25px;
 		}
 	}
+
 /* Общие медиа запросы */
 	@media (max-width: 1200px) {
 		#content .main_img {
