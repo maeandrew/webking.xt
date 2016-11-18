@@ -35,23 +35,23 @@
 <body class="bg-retina_dust">
 	<div id="back_modal" class="hidden"></div>
 	<section id="wrapper">
-		<header class="paper_shadow_1 animate">
-			<!-- <i class="icon-font">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</i> -->
-			<?=$__header?>
-		</header>
 		<aside>
 			<!-- <br>
 			<a href="#" class="btn-m-red send_test_email_js">Отправить письмо!</a> -->
 			<?=$__sidebar_l?>
 		</aside><!-- sideLeft -->
 		<article class="container">
+			<header class="paper_shadow_1 animate">
+				<!-- <i class="icon-font">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</i> -->
+				<?=$__header?>
+			</header>
 			<div class="content paper_shadow_1">
 				<?=$__center?>
 			</div><!-- #content-->
+			<footer>
+				<small>&copy; <?=date("Y", time())?> ХарьковТОРГ</small>
+			</footer><!-- #footer -->
 		</article><!-- #container-->
-		<footer>
-			<small>&copy; <?=date("Y", time())?> ХарьковТОРГ</small>
-		</footer><!-- #footer -->
 		<div id="toTop" class="btn-l animate">Наверх</div>
 	</section><!-- #wrapper -->
 	<script type="text/javascript">FixHeader();</script>

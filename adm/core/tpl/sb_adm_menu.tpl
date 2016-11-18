@@ -1,7 +1,10 @@
 <?if(G::IsLogged()){?>
-	<div class="block paper_shadow_1">
-		<h2>Меню</h2>
+	<div class="block">
+		<!-- <h2>Меню</h2> -->
 		<ul class="sb-menu">
+			<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'main'?' sb-menu__item_active':null;?>">
+				<a href="/adm/"><span class="icon-transf">F </span>Администрирование</a>
+			</li>
 			<?if(_acl::isAllow('pages')){?>
 				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'coment'?' sb-menu__item_active':null;?>">
 					<a href="/adm/coment/" <?=$commentCount>0?'class="color-red"':null;?>>Вопросы по товару (<?=$commentCount;?>)</a>

@@ -633,7 +633,7 @@ footer .copyright p{line-height:1.7em}
 .news_item .read_more a:hover{background:#FF5722;color:#fff}
 .news_item .news_date{padding:0 10px}
 .news_item .news_date p{font-size:12px;border-top:1px solid #e0e0e0}
-.last_news_title a{background:#fff;border-bottom:1px solid #e0e0e0}
+.last_news_title a{background:#fff;border-bottom:1px solid #e0e0e0;line-height:16px}
 .last_news_title a:hover{background:#FF5722;color:#fff}
 .last_news_title{border-top:1px solid #e0e0e0;padding:0;margin-left:15px;margin-right:15px;padding-top:10px}
 .last_news_title h4{margin:0}

@@ -1,8 +1,9 @@
 header {
 	position: fixed;
-	width: 100%;
+	width: calc(100% - 250px);
 	z-index: 1000;
 	top: 0;
+	right: 0;
 	bottom: calc(100% - 70px);
 	overflow: hidden;
 	/*height: 70px;*/
