@@ -18,12 +18,20 @@
 .product_page h1 a{
 	font-size: .7em;
 }
-.product_page h1 a i{
+.product_page .prod_name_block {
+	display: flex;
+}
+.product_page .prod_editing {
+	margin: auto;
+}
+/*.product_page h1 a i,*/
+.product_page .prod_editing_icon {
 	vertical-align: text-bottom;
 	background: #fff;
 	border-radius: 50%;
 	padding: .3em;
-	font-size: .9em;
+	/*font-size: .9em;*/
+	font-size: 20px;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .product_page .product .mdl-cell {
@@ -1294,7 +1302,8 @@
 	.product_availability,
 	.product_buy .buy_block .btn_buy,
 	.product_page .product .fortabs,
-	.owl-carousel.owl-loaded {
+	.owl-carousel.owl-loaded,
+	#prod_editing {
 		display: none !important;
 	}
 	.logo {

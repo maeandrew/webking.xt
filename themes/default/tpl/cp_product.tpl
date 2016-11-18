@@ -13,14 +13,16 @@
 	}?>
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--9-col">
-			<h1 itemprop="name">
+			<div class="prod_name_block">
 				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 					<!-- Ссылка на редактирование товара для администратором -->
-					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank"><i class="material-icons">mode_edit</i></a>
+					<a id="prod_editing" class="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank"><i class="prod_editing_icon material-icons">mode_edit</i></a>
 					<div class="mdl-tooltip" for="prod_editing">Редактировать товар</div>
 				<?}?>
-				<?=$item['name']?>
-			</h1>
+				<h1 itemprop="name">
+					<?=$item['name']?>
+				</h1>
+			</div>
 			<div class="mdl-grid">
 				<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
 					<div id="owl-product_mobile_img_js" class="mobile_carousel mdl-cell--hide-desktop">
