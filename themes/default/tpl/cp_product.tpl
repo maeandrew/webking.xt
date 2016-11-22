@@ -663,6 +663,7 @@
 		</div>
 	</div>
 </div>
+<a href="<?=Link::Custom('product_label', $item['translit'])?>" rel="nofollow">Печать ценника</a>
 <section class="sliders">
 	<?if(isset($related_prods) && !empty($related_prods)){?>
 		<div class="slider_products">
