@@ -649,7 +649,7 @@
 						</div>
 					<?}
 				}else{
-					if(G::IsLogged() && $_SESSION['member']['gid'] !== _ACL_SUPPLIER_){?>
+					if(!G::IsLogged() || $_SESSION['member']['gid'] !== _ACL_SUPPLIER_){?>
 						<div id="price_details" class="extra_info_block">
 							<script>
 								ajax('product', 'priceHelp', {id_product: $('.product_buy').data('idproduct'), mark: 1}, 'html').done(function(data){
