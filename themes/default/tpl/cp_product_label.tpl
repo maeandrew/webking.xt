@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link href="http://xt/themes/default/css/fonts.css" rel="stylesheet">
+	<link href="/themes/default/css/fonts.css" rel="stylesheet">
 	<style>
 		* {
 			padding: 0px;
@@ -22,7 +22,7 @@
 			margin-bottom: 20px;
 		}
 		.prod_title {
-			font-size: 22px;
+			font-size: 26px;
 			margin-bottom: 5px;
 		}
 		.prod_art {
@@ -41,6 +41,7 @@
 		}
 		.price span {
 			font-size: 0.7em;
+			font-weight: bold;
 		}
 		.curent_price {
 			color: #018b06;
@@ -108,7 +109,7 @@
 				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';}?>
 			<div class="price_block">
-				<p class="price curent_price"><?=($product['price_opt'] > 0?number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./шт.</span></p>
+				<p class="price curent_price"><?=($product['price_opt'] > 0?number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$product['units']?></span></p>
 				<?if (isset($product_mark) && $product_mark === 'action') {?>
 					<p class="price old_price">
 						<?if (!isset($_SESSION['cart']['products'][$product['id_product']]['quantity']) || ($_SESSION['cart']['products'][$product['id_product']]['quantity'] >= $product['inbox_qty'])){?>
@@ -116,7 +117,7 @@
 						<?}else{?>
 							<?=number_format($product['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 						<?}?>
-						<span> грн./шт.</span>
+						<span> грн./<?=$product['units']?></span>
 					</p>
 				<?}?>
 			</div>
