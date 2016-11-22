@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link href="http://xt/themes/default/css/fonts.css" rel="stylesheet">
+	<link href="/themes/default/css/fonts.css" rel="stylesheet">
 	<style>
 		* {
 			padding: 0px;
@@ -18,12 +18,16 @@
 			position: relative;
 		}
 		.prod_img {
-			width: 100%;
+			max-width: 100%;
+			max-height: 50vh;
 			margin-bottom: 20px;
+			display: block;
+			margin: 0 auto;
 		}
 		.prod_title {
 			font-size: 22px;
 			margin-bottom: 5px;
+			margin-top: 10px;
 		}
 		.prod_art {
 			color: #9e9e9e;
