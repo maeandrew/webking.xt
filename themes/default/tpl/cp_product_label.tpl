@@ -27,6 +27,7 @@
 		}
 		.prod_art {
 			color: #9e9e9e;
+			font-size: 18px;
 		}
 		.price_block {
 			padding-top: 50px;
@@ -37,6 +38,9 @@
 			font-size: 60px;
 			display: inline-block;
 			font-family: 'Oswald', sans-serif;
+		}
+		.price span {
+			font-size: 0.7em;
 		}
 		.curent_price {
 			color: #018b06;
@@ -91,51 +95,33 @@
 <body>
 	<div class="main">
 		<div class="content">
-			<!-- <img class="prod_img" src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg"> -->
-
-			<?if(!empty($item['images'])){?>
-				<img class="prod_img" src="<?=G::GetImageUrl($item['images'][0]['src'])?>"/>
-			<?}else if(!empty($item['img_1'])){?>
-				<img class="prod_img" src="<?=G::GetImageUrl($item['img_1'])?>"/>
+			<?if(!empty($product['images'])){?>
+				<img class="prod_img" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
+			<?}else if(!empty($product['img_1'])){?>
+				<img class="prod_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
 			<?}else{?>
 				<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
 			<?}?>
-
-			<p class="prod_title"><?=$item['name']?> Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-			<p class="prod_art">Артикул: <?=$item['art']?></p>
-
-			<!-- <div class="price_wrap">
-				<div class="price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-					<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
-						<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
-					</div>
-					<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
-				</div>
+			<p class="prod_title"><?=$product['name']?></p>
+			<p class="prod_art">Артикул: <?=$product['art']?></p>
+			<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
+				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$product_mark = 'action';}?>
+			<div class="price_block">
+				<p class="price curent_price"><?=($product['price_opt'] > 0?number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./шт.</span></p>
 				<?if (isset($product_mark) && $product_mark === 'action') {?>
-					<div class="base_price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null;?>">
-						<div class="base_price">
-							<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
-								<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
-							<?}else{?>
-								<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
-							<?}?>
-						</div>
-						<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
-					</div>
+					<p class="price old_price">
+						<?if (!isset($_SESSION['cart']['products'][$product['id_product']]['quantity']) || ($_SESSION['cart']['products'][$product['id_product']]['quantity'] >= $product['inbox_qty'])){?>
+							<?=number_format($product['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+						<?}else{?>
+							<?=number_format($product['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+						<?}?>
+						<span> грн./шт.</span>
+					</p>
 				<?}?>
 			</div>
-			 -->
-
-
-
-
-			<div class="price_block">
-				<p class="price curent_price">30.50<span> грн./шт.</span></p>
-				<p class="price old_price">40.80<span> грн./шт.</span></p>
-			</div>
-
 			<div class="prod_qr_code">
-				<img src="http://xt/themes/default/img/_xt.svg">
+				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
 			</div>
 		</div>
 		<div class="footer">
@@ -145,7 +131,7 @@
 			<div class="contacts">
 				<p>Служба снабжения Харьков Торг</p>
 				<p>тел.: 0505953494, 0673211121</p>
-				<p>www.xt.ua</p>
+				<p>сайт: xt.ua</p>
 			</div>
 		</div>
 	</div>
