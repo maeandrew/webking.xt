@@ -409,6 +409,7 @@
 							<a href="#seasonality" class="mdl-tabs__tab fortabs_tab seasonality_js">График спроса</a>
 						</div>
 					</div>
+					<p class="for_print_tabs_title hidden">Характеристики</p>
 					<div class="tab-content">
 						<div id="description" class="mdl-tabs__panel">
 							<?if(!empty($item['descr_xt_full'])){?>
@@ -874,3 +875,14 @@
 		<?}?>
 	</div>
 </section>
+
+<div class="for_print hidden">
+	<div>
+		<p>Доставка</p>
+		<input type="text">
+	</div>
+	<div>
+		<p>Телефоны</p>
+		<input type="text">
+	</div>
+</div>

@@ -1306,9 +1306,13 @@
 	.product_buy .buy_block .btn_buy,
 	.product_page .product .fortabs,
 	.owl-carousel.owl-loaded,
-	.jivo-iframe-container-bottom,
+	.jivosite_test,
+	/* .jivo-iframe-container-bottom,
+	#jivo-iframe-container,
+	#jivo-label-text, */
 	#prod_editing,
-	#seoTextBlock {
+	#seoTextBlock,
+	footer {
 		display: none !important;
 	}
 	.logo {
@@ -1318,8 +1322,18 @@
 		margin: 0 auto;
 		display: block;
 	}
-	.header {
-		position: relative;
+	header {
+		position: static;
+		margin: 0px;
+		padding: 0px;
+		height: 30px;
+	}
+	body {
+		padding-top: 0px;
+		overflow: hidden;
+	}
+	.copyright {
+		padding: 0px;
 	}
 	.product_page .product .product_buy .price,
 	.product_page .product .product_buy .price:first-letter,
@@ -1327,11 +1341,6 @@
 	.product_page .product .product_buy .price_cont span:first-letter {
 		color: #018b06 !important;
 	}
-	/*.product_page .product .product_buy .price:first-letter {
-		color: #018b06 !important;
-	}*/
-
-
 	.product_page .product .products_details {
 		min-height: auto;
 		height: auto;
@@ -1343,22 +1352,43 @@
 	.product_page .product .tab-content {
 		position: relative;
 		min-height: auto;
+		height: 430px;
+		overflow: hidden;
 	}
-	.product_page .product .tab-content:before {
+	/*.product_page .product .tab-content:before {
 		content: 'Характеристики';
 		position: absolute;
 		left: calc(50% - 80px);
 		top: -25px;
 		font-size: 1.5em;
 		padding-bottom: 10px;
-	}
+	}*/
 	.product_page .product .tab-content .mdl-cell {
 		width: 50%;
 		padding-bottom: 0;
 		margin-bottom: 0;
 	}
-	.mdl-cell--hide-tablet {
+	.mdl-cell--hide-tablet,
+	.product_page .product .for_print_tabs_title,
+	.for_print {
 		display: block !important;
+	}
+	.product_page .product .for_print_tabs_title {
+		font-size: 1.5em;
+		padding-bottom: 10px;
+		text-align: center;
+	}
+	.for_print div {
+		margin-bottom: 10px;
+	}
+	.for_print p {
+		width: 10%;
+		float: left;
+		line-height: 30px;
+	}
+	.for_print input {
+		height: 30px;
+		width: 85%;
 	}
 	#caruselCont {
 		width: 55%;
@@ -1368,7 +1398,7 @@
 	#caruselCont img {
 		transform: none;
 		top: 0;
-		max-height: 320px;
+		max-height: 310px;
 	}
 	#specCont {
 		width: 35%;
