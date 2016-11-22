@@ -69,31 +69,37 @@
 		    -webkit-transform: rotate(12deg);
 		    transform: rotate(-12deg);
 		}
-		.prod_qr_code img {
-			height: 100px;
-			width: 100px;
-			border: 1px solid #eee;
-			float: right;
-			clear: both;
-		}
 		.footer {
 			position: absolute;
-			padding-top: 20px;
+			padding-top: 10px;
 			bottom: 0;
 			left: 0;
 			right: 0;
 			border-top: 1px solid #eee;
+			display: flex;
 		}
 		.logo {
 			width: 20%;
-			float: left;
+   			margin-top: 20px;
 		}
 		.logo img {
 			width: 100%;
 		}
 		.contacts {
-			width: 100%;
-			text-align: right;
+			width: calc(80% - 100px);
+			text-align: center;
+			line-height: 30px;
+			font-size: 20px;
+		}
+		.prod_qr_code {
+			/*width: 20%;*/
+		}
+		.prod_qr_code img {
+			height: 100px;
+			width: 100px;
+			border: 1px solid #eee;
+			margin: 0 auto;
+    		display: block;
 		}
 	</style>
 </head>
@@ -125,9 +131,9 @@
 					</p>
 				<?}?>
 			</div>
-			<div class="prod_qr_code">
+			<!-- <div class="prod_qr_code">
 				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
-			</div>
+			</div> -->
 		</div>
 		<div class="footer">
 			<div class="logo">
@@ -137,6 +143,9 @@
 				<p>Служба снабжения Харьков Торг</p>
 				<p>тел.: 0505953494, 0673211121</p>
 				<p>сайт: xt.ua</p>
+			</div>
+			<div class="prod_qr_code">
+				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
 			</div>
 		</div>
 	</div>
