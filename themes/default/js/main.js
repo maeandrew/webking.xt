@@ -2159,10 +2159,10 @@ $(function(){
 	//Модальное окно товара-подарка
 	$('.product_label_js').on('click', function(){
 		addLoadAnimation('#gift_products');
-		removeLoadAnimation('#gift_products');
 		ajax('product','GetGiftsList',{},'html').done(function(response){
-			console.log(response);
+			removeLoadAnimation('#gift_products');
 			$('#gift_products .modal_container').html(response);
+			Position($('#gift_products'));
 		});
 	});
 	//Выбор товара

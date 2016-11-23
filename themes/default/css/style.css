@@ -4688,7 +4688,7 @@ div[for="rating_block"] {
 	padding: 10px;
 	max-height: 270px;
 	background: #fff;
-	width: calc(25% - 10px);
+	min-width: calc(25% - 10px);
 	margin: 5px;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
