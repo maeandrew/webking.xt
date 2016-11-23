@@ -785,10 +785,11 @@ class Products {
 	public function GetGiftsList(){
 		$sql = "SELECT p.*,
 			(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
-			(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active
+			(CASE WHEN (SELECT COUNT(*) FROM "._DB_PREFIX_."assortiment AS a LEFT JOIN "._DB_PREFIX_."user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active
 			FROM "._DB_PREFIX_."product AS p
 			WHERE p.gift = 1
 			HAVING active = 1";
+		print_r($sql);
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
