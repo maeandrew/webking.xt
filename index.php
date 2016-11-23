@@ -151,6 +151,7 @@ if(in_array($GLOBALS['CurrentController'], $GLOBALS['NoTemplate'])){
 		$GLOBALS['MainTemplate'] = 'main_empty.tpl';
 	}
 }
+$tpl->Assign('product_label_modal', $tpl->Parse($GLOBALS['PATH_tpl_global'].'product_label_modal.tpl'));
 echo $tpl->Parse($GLOBALS['PATH_tpl_global'].$GLOBALS['MainTemplate']);
 // include svg icons library
 $e_time = G::getmicrotime();
