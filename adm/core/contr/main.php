@@ -167,21 +167,21 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'new_resize_product_im
 
 
 // Dashboard statistics
-$news = new News();
-$users = new Users();
-$orders = new Orders();
+$News = new News();
+$Users = new Users();
+$Orders = new Orders();
 
 // dates
 $today = date('d-m-Y');
 $tpl->Assign('today', $today);
-$statistics[$today]['stat_regs'] = $users->GetRegisteredUsersListByDate($today);
-$statistics[$today]['stat_ords'] = $orders->GetOrdersCountListByDate($today);
-$statistics[$today]['stat_comm'] = $news->GetCommentsCountByDate($today);
+$statistics[$today]['stat_regs'] = $Users->GetRegisteredUsersListByDate($today);
+$statistics[$today]['stat_ords'] = $Orders->GetOrdersCountListByDate($today);
+$statistics[$today]['stat_comm'] = $News->GetCommentsCountByDate($today);
 $yesterday = date('d-m-Y', strtotime($today.' -1 day'));
 $tpl->Assign('yesterday', $yesterday);
-$statistics[$yesterday]['stat_regs'] = $users->GetRegisteredUsersListByDate($yesterday);
-$statistics[$yesterday]['stat_ords'] = $orders->GetOrdersCountListByDate($yesterday);
-$statistics[$yesterday]['stat_comm'] = $news->GetCommentsCountByDate($yesterday);
+$statistics[$yesterday]['stat_regs'] = $Users->GetRegisteredUsersListByDate($yesterday);
+$statistics[$yesterday]['stat_ords'] = $Orders->GetOrdersCountListByDate($yesterday);
+$statistics[$yesterday]['stat_comm'] = $News->GetCommentsCountByDate($yesterday);
 for($i=0; $i <= 8; $i++){
 	$dates[] = date('d-m-Y', strtotime($today.' -'.$i.' week'));
 }
@@ -203,20 +203,20 @@ for($i=0; $i < 9; $i++){
 }
 foreach($weeks as $k => $v){
 	if($k == 0){
-		$week_stats[$v['sunday']]['chart_regs'] = $users->GetRegisteredUsersListByWeek($v['monday'], $today);
-		$week_stats[$v['sunday']]['chart_ords'] = $orders->GetOrdersCountListByWeek($v['monday'], $today);
-		$week_stats[$v['sunday']]['chart_ords_ly'] = $orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], date('d-m-Y',strtotime($today.'-1 year')));
+		$week_stats[$v['sunday']]['chart_regs'] = $Users->GetRegisteredUsersListByWeek($v['monday'], $today);
+		$week_stats[$v['sunday']]['chart_ords'] = $Orders->GetOrdersCountListByWeek($v['monday'], $today);
+		$week_stats[$v['sunday']]['chart_ords_ly'] = $Orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], date('d-m-Y',strtotime($today.'-1 year')));
 	}else{
-		$week_stats[$v['sunday']]['chart_regs'] = $users->GetRegisteredUsersListByWeek($v['monday'], $v['sunday']);
-		$week_stats[$v['sunday']]['chart_ords'] = $orders->GetOrdersCountListByWeek($v['monday'], $v['sunday']);
-		$week_stats[$v['sunday']]['chart_ords_ly'] = $orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], $last_year_weeks[$k]['sunday']);
+		$week_stats[$v['sunday']]['chart_regs'] = $Users->GetRegisteredUsersListByWeek($v['monday'], $v['sunday']);
+		$week_stats[$v['sunday']]['chart_ords'] = $Orders->GetOrdersCountListByWeek($v['monday'], $v['sunday']);
+		$week_stats[$v['sunday']]['chart_ords_ly'] = $Orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], $last_year_weeks[$k]['sunday']);
 	}
 }
 $tpl->Assign('week_stats', $week_stats);
 
 // get last comments list
-$news->SetListComment();
-$tpl->Assign('comments', $news->list);
+$News->SetListComment();
+$tpl->Assign('comments', $News->list);
 
 // categories count
 $sql = "SELECT COUNT(*) AS cnt
