@@ -4669,6 +4669,41 @@ div[for="rating_block"] {
 	}
 }
 
+/* Gifts modal */
+#gift_products {
+	background: #f4f6f5;
+}
+#gift_products .gifts_wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+#gift_products .gifts_wrap .gift_product {
+	padding: 10px;
+	max-height: 270px;
+	background: #fff;
+	width: calc(25% - 10px);
+	margin: 5px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+}
+#gift_products .gifts_wrap .gift_product img {
+	width: 100%;
+	margin-bottom: 10px;
+}
+#gift_products .gifts_wrap .gift_product .gift_product_title {
+	height: 34px;
+    overflow: hidden;
+}
+#gift_products .gifts_wrap .gift_product .gift_product_art {
+    font-size: 0.929em;
+    color: #818181;
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
+
+
+
+
 /*Стили для модального окна, в котором выводится результат отправки данных на сервер*/
 	.modals .issue_result{
 		padding: 20px;

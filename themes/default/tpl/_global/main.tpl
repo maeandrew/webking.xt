@@ -709,7 +709,6 @@
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored continue_make_order_js" data-name="confirmMyPhone">Продолжить</button>
 			</div>
 		</div>
-
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
@@ -734,6 +733,13 @@
 		<!-- Модальное окно просмотра ориганального изображения -->
 		<div id="big_photo" data-type="modal">
 			<img src="/images/nofoto.png" alt="Оригинал">
+		</div>
+		product_label
+		<div id="gift_products" data-type="modal">
+			Список товаров-подарков
+			<div class="modal_container">
+				<?=$product_label_modal?>
+			</div>
 		</div>
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
@@ -828,7 +834,6 @@
 		<div id="issue_result" class="issue_result_js issue_result" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
-
 		<div id="issue_result_ok" class="issue_result_js issue_result" data-type="modal">
 			<div class="modal_container">
 				<div class="issue_ok"><i class="material-icons">check_circle</i></div>

@@ -9,7 +9,13 @@
 	}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 		$product_mark = 'new';
 	}?>
-	<a href="<?=Link::Custom('product_label', $item['translit'])?>" class="mdl-button product_label" rel="nofollow" target="_blank" title="Откроется в новой вкладке"><i class="material-icons">&#xE8AD;</i>Печать ценника</a>
+
+	<!-- <a href="<?=Link::Custom('product_label', $item['translit'])?>" class="mdl-button product_label btn_js" data-name="product_label" rel="nofollow" target="_blank" title="Откроется в новой вкладке"><i class="material-icons">&#xE8AD;</i>Печать ценника</a> -->
+
+	<div class="mdl-button product_label btn_js" data-name="gift_products">
+		<i class="material-icons">&#xE8AD;</i>Печать ценника
+	</div>
+
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--9-col">
 			<div class="prod_name_block">
