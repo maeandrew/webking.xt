@@ -741,7 +741,7 @@
 				<?=$product_label_modal?>
 			</div>
 			<form action="">
-				<input type="hidden">
+				<input type="hidden" name="id_gift">
 				<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</div>
 			</form>
 		</div>

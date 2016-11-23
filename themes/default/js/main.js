@@ -2162,6 +2162,7 @@ $(function(){
 		removeLoadAnimation('#gift_products');
 		ajax('product','GetGiftsList',{},'html').done(function(response){
 			console.log(response);
+			$('#gift_products .modal_container').html(response);
 		});
 	});
 	//Выбор товара

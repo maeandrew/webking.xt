@@ -1,72 +1,17 @@
 <div class="gifts_wrap">
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай) Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
-	<div class="gift_product gift_product_js">
-		<img src="http://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-		<p class="gift_product_title">Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)</p>
-		<p class="gift_product_art">Артикул: 22145</p>
-	</div>
+	<?if(isset($gifts)){
+		foreach ($gifts as $product) {?>
+			<div class="gift_product gift_product_js">
+				<?if(!empty($product['images'])){?>
+					<img class="main_img_js" itemprop="image" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
+				<?}else if(!empty($product['img_1'])){?>
+					<img class="main_img_js" itemprop="image" src="<?=G::GetImageUrl($product['img_1'])?>"/>
+				<?}else{?>
+					<img class="main_img_js" itemprop="image" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+				<?}?>
+				<p class="gift_product_title"><?=$product["name"]?></p>
+				<p class="gift_product_art">Артикул: <?=$product["art"]?></p>
+			</div>
+		<?}
+	}?>
 </div>
