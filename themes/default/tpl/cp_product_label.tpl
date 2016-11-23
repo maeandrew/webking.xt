@@ -17,6 +17,9 @@
 			margin: 0px auto;
 			position: relative;
 		}
+		.image_wrap {
+			height: 50vh;
+		}
 		.prod_img {
 			max-width: 100%;
 			max-height: 50vh;
@@ -28,23 +31,26 @@
 			font-size: 35px;
 			margin-bottom: 5px;
 			margin-top: 10px;
+			white-space: nowrap;
+    		text-overflow: ellipsis;
+    		overflow: hidden;
 		}
 		.prod_art {
 			color: #505050;
 			font-size: 18px;
 		}
 		.price_block {
-			padding-top: 50px;
-			padding-bottom: 50px;
+			padding-top: 100px;
+			/*padding-bottom: 50px;*/
 			text-align: center;
 		}
 		.price {
-			font-size: 60px;
+			font-size: 70px;
 			display: inline-block;
 			font-family: 'Oswald', sans-serif;
 		}
 		.price span {
-			font-size: 0.7em;
+			font-size: 0.5em;
 			font-weight: bold;
 		}
 		.curent_price {
@@ -52,7 +58,7 @@
 		}
 		.old_price {
 			color: #9e9e9e;
-			font-size: 30px;
+			font-size: 35px;
 			position: relative;
 			margin-left: 20px;
 		}
@@ -103,13 +109,15 @@
 <body>
 	<div class="main">
 		<div class="content">
-			<?if(!empty($product['images'])){?>
-				<img class="prod_img" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
-			<?}else if(!empty($product['img_1'])){?>
-				<img class="prod_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
-			<?}else{?>
-				<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
-			<?}?>
+			<div class="image_wrap">
+				<?if(!empty($product['images'])){?>
+					<img class="prod_img" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
+				<?}else if(!empty($product['img_1'])){?>
+					<img class="prod_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
+				<?}else{?>
+					<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+				<?}?>
+			</div>
 			<p class="prod_title"><?=$product['name']?></p>
 			<p class="prod_art">Артикул: <?=$product['art']?></p>
 			<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
@@ -124,13 +132,10 @@
 						<?}else{?>
 							<?=number_format($product['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
 						<?}?>
-						<span> грн./<?=$product['units']?></span>
+						<span> грн.</span>
 					</p>
 				<?}?>
 			</div>
-			<!-- <div class="prod_qr_code">
-				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
-			</div> -->
 		</div>
 		<div class="footer">
 			<div class="logo">
