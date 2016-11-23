@@ -14,18 +14,21 @@
 		.main {
 			width: 700px;
 			height: 1030px;
-			margin: 0px auto;
+			margin: 0 auto;
 			position: relative;
 		}
 		.image_wrap {
 			height: 50vh;
+			line-height: 50vh;
+			text-align: center;
 		}
 		.prod_img {
 			max-width: 100%;
 			max-height: 50vh;
 			margin-bottom: 20px;
-			display: block;
-			margin: 0 auto;
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0;
 		}
 		.prod_title {
 			font-size: 35px;
@@ -86,16 +89,29 @@
 		}
 		.logo {
 			width: 20%;
-   			margin-top: 20px;
+			margin-top: 10px;
 		}
 		.logo img {
 			width: 100%;
+		}
+		.logo p {
+			font-size: .9em; text-align: center; display: block;
 		}
 		.contacts {
 			width: calc(80% - 100px);
 			text-align: center;
 			line-height: 30px;
 			font-size: 20px;
+			padding: 20px 10%;
+			box-sizing: border-box;
+		}
+		.contacts .site {
+			float: left;
+			line-height: 60px;
+			font-size: 3em;
+		}
+		.contacts .phones {
+			float: right;
 		}
 		.prod_qr_code img {
 			height: 100px;
@@ -103,6 +119,7 @@
 			border: 1px solid #eee;
 			margin: 0 auto;
     		display: block;
+    		box-sizing: border-box;
 		}
 	</style>
 </head>
@@ -139,12 +156,15 @@
 		</div>
 		<div class="footer">
 			<div class="logo">
-				<img src="http://xt/themes/default/img/_xt.svg">
+				<img src="/themes/default/img/_xt.svg">
+				<p>Служба снабжения ХарьковТОРГ</p>
 			</div>
 			<div class="contacts">
-				<p>Служба снабжения Харьков Торг</p>
-				<p>тел.: 0505953494, 0673211121</p>
-				<p>сайт: xt.ua</p>
+				<p class="site">xt.ua</p>
+				<div class="phones">
+					<p>(050) 595 34 94</p>
+					<p>(067) 321 11 21</p>
+				</div>
 			</div>
 			<div class="prod_qr_code">
 				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
