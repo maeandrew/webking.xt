@@ -305,10 +305,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'GetGiftsList':
 				$gifts = $Products->GetGiftsList();
-				foreach($gifts as &$gift){
-					$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+				if(!empty($gifts)){
+					foreach($gifts as &$gift){
+						$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+					}
+					$tpl->Assign('gifts', $gifts);
 				}
-				$tpl->Assign('gifts', $gifts);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'product_label_modal.tpl');
 				break;
 			default:
