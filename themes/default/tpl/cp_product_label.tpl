@@ -25,12 +25,12 @@
 			margin: 0 auto;
 		}
 		.prod_title {
-			font-size: 26px;
+			font-size: 35px;
 			margin-bottom: 5px;
 			margin-top: 10px;
 		}
 		.prod_art {
-			color: #9e9e9e;
+			color: #505050;
 			font-size: 18px;
 		}
 		.price_block {
@@ -48,7 +48,7 @@
 			font-weight: bold;
 		}
 		.curent_price {
-			color: #018b06;
+			color: #FF5722;
 		}
 		.old_price {
 			color: #9e9e9e;
@@ -64,7 +64,7 @@
 		    left: -6px;
 		    width: 110%;
 		    height: 2px;
-		    background: #018b06;
+		    background: #FF5722;
 		    -ms-transform: rotate(12deg);
 		    -webkit-transform: rotate(12deg);
 		    transform: rotate(-12deg);
@@ -90,9 +90,6 @@
 			text-align: center;
 			line-height: 30px;
 			font-size: 20px;
-		}
-		.prod_qr_code {
-			/*width: 20%;*/
 		}
 		.prod_qr_code img {
 			height: 100px;
