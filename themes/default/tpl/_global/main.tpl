@@ -740,6 +740,10 @@
 			<div class="modal_container">
 				<?=$product_label_modal?>
 			</div>
+			<form action="">
+				<input type="hidden">
+				<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</div>
+			</form>
 		</div>
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">

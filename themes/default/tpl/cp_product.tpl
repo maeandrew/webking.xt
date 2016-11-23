@@ -12,7 +12,7 @@
 
 	<!-- <a href="<?=Link::Custom('product_label', $item['translit'])?>" class="mdl-button product_label btn_js" data-name="product_label" rel="nofollow" target="_blank" title="Откроется в новой вкладке"><i class="material-icons">&#xE8AD;</i>Печать ценника</a> -->
 
-	<div class="mdl-button product_label btn_js" data-name="gift_products">
+	<div class="mdl-button product_label product_label_js btn_js" data-name="gift_products">
 		<i class="material-icons">&#xE8AD;</i>Печать ценника
 	</div>
 

@@ -2156,6 +2156,25 @@ $(function(){
 		}
 	});
 
+	//Модальное окно товара-подарка
+	$('.product_label_js').on('click', function(){
+		addLoadAnimation('#gift_products');
+		removeLoadAnimation('#gift_products');
+		ajax('product','GetGiftsList',{},'html').done(function(response){
+			console.log(response);
+		});
+	});
+	//Выбор товара
+	$('#gift_products').on('click','.gift_product_js', function(){
+		if($(this).hasClass('active')){
+			$('#gift_products .gift_product_js').removeClass('disabled').removeClass('active');
+		}else{
+			$('#gift_products .gift_product_js').removeClass('active').addClass('disabled');
+			$(this).removeClass('disabled').addClass('active');
+		}
+	});
+
+
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 	$('#preview, #caruselCont').on('click', '#owl-product_mini_img_js .owl-item', function(event){
