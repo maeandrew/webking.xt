@@ -40,7 +40,7 @@
 		}
 		.prod_art {
 			color: #505050;
-			font-size: 18px;
+			font-size: 22px;
 		}
 		.price_block {
 			padding-top: 100px;
@@ -109,6 +109,7 @@
 			float: left;
 			line-height: 60px;
 			font-size: 3em;
+			font-weight: bold;
 		}
 		.contacts .phones {
 			float: right;

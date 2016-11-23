@@ -1,16 +1,15 @@
 <!-- Классы-метки notactive и active ставятся в зависимости от того, активен товар или нет и задают соответствующие стили -->
 <div class="product <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>" itemscope itemtype="http://schema.org/Product">
-	<?// Проверяем доступнось розницы
-	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
-	// Проверяем доступнось опта
-	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
-	$product_mark = '';
+	<?$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false; // Проверяем доступнось розницы
+	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false; // Проверяем доступнось опта
 	$interval = date_diff(date_create(date("Y-m-d", strtotime($item['create_date']))), date_create(date("Y-m-d")));
+	$product_mark = '';
 	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 		$product_mark = 'action';
 	}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 		$product_mark = 'new';
 	}?>
+	<a href="<?=Link::Custom('product_label', $item['translit'])?>" class="mdl-button product_label" rel="nofollow" target="_blank" title="Откроется в новой вкладке"><i class="material-icons">&#xE8AD;</i>Печать ценника</a>
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--9-col">
 			<div class="prod_name_block">
@@ -19,9 +18,7 @@
 					<a id="prod_editing" class="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank"><i class="prod_editing_icon material-icons">mode_edit</i></a>
 					<div class="mdl-tooltip" for="prod_editing">Редактировать товар</div>
 				<?}?>
-				<h1 itemprop="name">
-					<?=$item['name']?>
-				</h1>
+				<h1 itemprop="name"><?=$item['name']?></h1>
 			</div>
 			<div class="mdl-grid">
 				<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
@@ -663,7 +660,6 @@
 		</div>
 	</div>
 </div>
-<a href="<?=Link::Custom('product_label', $item['translit'])?>" rel="nofollow">Печать ценника</a>
 <section class="sliders">
 	<?if(isset($related_prods) && !empty($related_prods)){?>
 		<div class="slider_products">
