@@ -765,9 +765,9 @@ class Products {
 		if(!$this->list){
 			return false;
 		}
-		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
-		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
-		//Добавляем эти значения в массив $list
+		// Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
+		// Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
+		// Добавляем эти значения в массив $list
 		foreach($this->list as &$v){
 			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
 			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
@@ -789,7 +789,6 @@ class Products {
 			FROM "._DB_PREFIX_."product AS p
 			WHERE p.gift = 1
 			HAVING active = 1";
-		print_r($sql);
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
