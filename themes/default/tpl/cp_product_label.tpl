@@ -43,7 +43,7 @@
 			font-size: 22px;
 		}
 		.price_block {
-			padding-top: 100px;
+			/*padding-top: 100px;*/
 			text-align: center;
 		}
 		.price {
@@ -77,6 +77,24 @@
 		    -webkit-transform: rotate(12deg);
 		    transform: rotate(-12deg);
 		}
+
+
+		.gift_block {
+			height: 200px;
+		}
+		.gift_image_wrap {
+			width: 200px;
+			height: 200px;
+		}
+		.gift_img {
+			max-width: 100%;
+		}
+
+
+
+
+
+
 		.footer {
 			position: absolute;
 			padding-top: 10px;
@@ -152,6 +170,20 @@
 						<span> грн.</span>
 					</p>
 				<?}?>
+			</div>
+			<? var_dump($gift)	?>
+			<div class="gift_block">
+				<div class="gift_image_wrap">
+					<?if(!empty($product['images'])){?>
+						<img class="gift_img" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
+					<?}else if(!empty($product['img_1'])){?>
+						<img class="gift_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
+					<?}else{?>
+						<img class="gift_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+					<?}?>
+				</div>
+				<p class="gift_title"><?=$product['name']?></p>
+				<p class="gift_art">Артикул: <?=$product['art']?></p>
 			</div>
 		</div>
 		<div class="footer">
