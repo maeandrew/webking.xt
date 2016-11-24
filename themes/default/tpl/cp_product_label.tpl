@@ -159,7 +159,7 @@
 				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';}?>
 			<div class="price_block">
-				<p class="price curent_price"><?=($product['price_opt'] > 0?number_format($product['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$product['units']?></span></p>
+				<p class="price curent_price"><?=($product['price_mopt'] > 0?number_format($product['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$product['units']?></span></p>
 				<?if (isset($product_mark) && $product_mark === 'action') {?>
 					<p class="price old_price">
 						<?if (!isset($_SESSION['cart']['products'][$product['id_product']]['quantity']) || ($_SESSION['cart']['products'][$product['id_product']]['quantity'] >= $product['inbox_qty'])){?>
@@ -194,8 +194,10 @@
 			<div class="contacts">
 				<p class="site">xt.ua</p>
 				<div class="phones">
-					<p>(050) 595 34 94</p>
-					<p>(067) 321 11 21</p>
+					С нами можно связаться:
+					<p>(050) 309-84-20</p>
+					<p>(067) 574-10-13</p>
+					<p>(057) 780-38-61</p>
 				</div>
 			</div>
 			<div class="prod_qr_code">
