@@ -9,8 +9,8 @@ $product = $Products->fields;
 $product['images'] = $Products->GetPhotoById($product['id_product']);
 $tpl->Assign('product', $product);
 
-if(isset($_POST['id_gift'])){
-	$Products->SetFIeldsById($_POST['id_gift']);
+if(isset($_REQUEST['id_gift']) && is_numeric($_REQUEST['id_gift'])){
+	$Products->SetFIeldsById($_REQUEST['id_gift']);
 	$gift = $Products->fields;
 	$gift['images'] = $Products->GetPhotoById($gift['id_product']);
 	$tpl->Assign('gift', $gift);
