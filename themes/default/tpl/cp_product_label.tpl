@@ -43,8 +43,8 @@
 			font-size: 22px;
 		}
 		.price_block {
-			/*padding-top: 30px;*/
-			/*padding-bottom: 30px;*/
+			padding-top: 25px;
+			padding-bottom: 25px;
 			text-align: center;
 		}
 		.price {
