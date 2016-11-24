@@ -2159,18 +2159,21 @@ $(function(){
 	//Модальное окно товара-подарка
 	$('.product_label_js').on('click', function(){
 		addLoadAnimation('#gift_products');
-		removeLoadAnimation('#gift_products');
 		ajax('product','GetGiftsList',{},'html').done(function(response){
-			console.log(response);
+			removeLoadAnimation('#gift_products');
+			$('#gift_products .modal_container').html(response);
+			Position($('#gift_products'));
 		});
 	});
 	//Выбор товара
 	$('#gift_products').on('click','.gift_product_js', function(){
 		if($(this).hasClass('active')){
 			$('#gift_products .gift_product_js').removeClass('disabled').removeClass('active');
+			$('.id_gift_input_js').val(null);
 		}else{
 			$('#gift_products .gift_product_js').removeClass('active').addClass('disabled');
 			$(this).removeClass('disabled').addClass('active');
+			$('.id_gift_input_js').val($(this).find('.id_gift_product_js').val());
 		}
 	});
 
