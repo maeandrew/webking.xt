@@ -100,8 +100,8 @@
     		text-align: center;
 		}
 		.gift_img {
-			max-width: 100%;
-			max-height: 120px;
+			width: 120px;
+			height: 120px;
 			vertical-align: middle;
     		display: inline-block;
 		}
@@ -211,9 +211,9 @@
 					</div>
 					<div class="gift_image_wrap">
 						<?if(!empty($gift['images'])){?>
-							<img class="gift_img" src="<?=G::GetImageUrl($gift['images'][0]['src'])?>"/>
+							<img class="gift_img" src="<?=G::GetImageUrl($gift['images'][0]['src'],'medium')?>"/>
 						<?}else if(!empty($gift['img_1'])){?>
-							<img class="gift_img" src="<?=G::GetImageUrl($gift['img_1'])?>"/>
+							<img class="gift_img" src="<?=G::GetImageUrl($gift['img_1'],'medium')?>"/>
 						<?}else{?>
 							<img class="gift_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
 						<?}?>
