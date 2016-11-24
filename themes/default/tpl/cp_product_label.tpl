@@ -146,18 +146,20 @@
 			text-align: center;
 			line-height: 30px;
 			font-size: 20px;
-			padding: 0px 5%;
+			padding: 10px 10%;
 			box-sizing: border-box;
 		}
 		.contacts .site {
 			float: left;
-			line-height: 60px;
+			line-height: 70px;
 			font-size: 3em;
 			font-weight: bold;
 			padding-top: 20px;
 		}
 		.contacts .phones {
 			float: right;
+			font-size: 0.8em;
+			line-height: 1.3em;
 		}
 		.prod_qr_code img {
 			height: 100px;
@@ -229,7 +231,7 @@
 			<div class="contacts">
 				<p class="site">xt.ua</p>
 				<div class="phones">
-					С нами можно связаться:
+					Связь с нами:
 					<p>(050) 309-84-20</p>
 					<p>(067) 574-10-13</p>
 					<p>(057) 780-38-61</p>
