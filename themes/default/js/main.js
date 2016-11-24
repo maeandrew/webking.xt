@@ -2169,9 +2169,11 @@ $(function(){
 	$('#gift_products').on('click','.gift_product_js', function(){
 		if($(this).hasClass('active')){
 			$('#gift_products .gift_product_js').removeClass('disabled').removeClass('active');
+			$('.id_gift_input_js').val(null);
 		}else{
 			$('#gift_products .gift_product_js').removeClass('active').addClass('disabled');
 			$(this).removeClass('disabled').addClass('active');
+			$('.id_gift_input_js').val($(this).find('.id_gift_product_js').val());
 		}
 	});
 

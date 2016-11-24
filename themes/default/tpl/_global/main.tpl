@@ -738,10 +738,10 @@
 		<div id="gift_products" data-type="modal">
 			Список товаров-подарков
 			<div class="modal_container">
-				<?=$product_label_modal?>
+				<!-- <?=$product_label_modal?> -->
 			</div>
 			<form action="">
-				<input type="hidden" name="id_gift">
+				<input type="hidden" name="id_gift" class="id_gift_input_js">
 				<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</div>
 			</form>
 		</div>
