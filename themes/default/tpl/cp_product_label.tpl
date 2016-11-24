@@ -43,7 +43,8 @@
 			font-size: 22px;
 		}
 		.price_block {
-			/*padding-top: 100px;*/
+			/*padding-top: 30px;*/
+			/*padding-bottom: 30px;*/
 			text-align: center;
 		}
 		.price {
@@ -80,14 +81,40 @@
 
 
 		.gift_block {
-			height: 200px;
+			height: 140px;
+		    padding: 10px;
+		    display: flex;
+		    flex-wrap: wrap;
+		    padding-top: 10px;
+		    border: 2px solid red;
+		}
+		.gift_title {
+			width: 100%;
+		    text-align: center;
+		    padding-bottom: 10px;
+		    font-size: 26px;
+		    color: red;
 		}
 		.gift_image_wrap {
-			width: 200px;
-			height: 200px;
+			width: 100px;
+			height: 100px;
+			margin-right: 10px;
 		}
 		.gift_img {
 			max-width: 100%;
+			max-height: 100px;
+		}
+		.gift_descr {
+			width: calc(100% - 210px);
+		}
+		.gift_name {
+			font-size: 18px;
+    		max-height: 44px;
+    		overflow: hidden;
+		}
+		.gift_art {
+			color: #505050;
+			font-size: 15px;
 		}
 
 
@@ -119,7 +146,7 @@
 			text-align: center;
 			line-height: 30px;
 			font-size: 20px;
-			padding: 20px 10%;
+			padding: 0px 5%;
 			box-sizing: border-box;
 		}
 		.contacts .site {
@@ -127,6 +154,7 @@
 			line-height: 60px;
 			font-size: 3em;
 			font-weight: bold;
+			padding-top: 20px;
 		}
 		.contacts .phones {
 			float: right;
@@ -171,20 +199,27 @@
 					</p>
 				<?}?>
 			</div>
-			<? var_dump($gift)	?>
-			<div class="gift_block">
-				<div class="gift_image_wrap">
-					<?if(!empty($product['images'])){?>
-						<img class="gift_img" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
-					<?}else if(!empty($product['img_1'])){?>
-						<img class="gift_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
-					<?}else{?>
-						<img class="gift_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
-					<?}?>
+			<?if(isset($gift)){?>
+				<div class="gift_block">
+					<p class="gift_title">Ваш подарок</p>
+					<div class="gift_image_wrap">
+						<?if(!empty($gift['images'])){?>
+							<img class="gift_img" src="<?=G::GetImageUrl($gift['images'][0]['src'])?>"/>
+						<?}else if(!empty($gift['img_1'])){?>
+							<img class="gift_img" src="<?=G::GetImageUrl($gift['img_1'])?>"/>
+						<?}else{?>
+							<img class="gift_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+						<?}?>
+					</div>
+					<div class="gift_descr">
+						<p class="gift_name"><?=$gift['name']?></p>
+						<p class="gift_art">Артикул: <?=$gift['art']?></p>
+					</div>
+					<div class="prod_qr_code">
+						<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($gift['translit'])?>&chld=H|0">
+					</div>
 				</div>
-				<p class="gift_title"><?=$product['name']?></p>
-				<p class="gift_art">Артикул: <?=$product['art']?></p>
-			</div>
+			<?}?>
 		</div>
 		<div class="footer">
 			<div class="logo">
