@@ -82,30 +82,31 @@
 
 		.gift_block {
 			height: 140px;
-		    padding: 10px;
+		    /*padding: 10px;*/
 		    display: flex;
-		    flex-wrap: wrap;
-		    padding-top: 10px;
-		    border: 2px solid red;
+		    /*flex-wrap: wrap;*/
+		    /*padding-top: 10px;*/
+		    border: 2px solid #FF5722;
 		}
 		.gift_title {
 			width: 100%;
-		    text-align: center;
 		    padding-bottom: 10px;
 		    font-size: 26px;
-		    color: red;
+		    color: #FF5722;
 		}
 		.gift_image_wrap {
-			width: 100px;
-			height: 100px;
-			margin-right: 10px;
+			padding: 10px;
+    		line-height: 120px;
+    		text-align: center;
 		}
 		.gift_img {
 			max-width: 100%;
-			max-height: 100px;
+			max-height: 120px;
+			vertical-align: middle;
+    		display: inline-block;
 		}
 		.gift_descr {
-			width: calc(100% - 210px);
+			padding: 10px;
 		}
 		.gift_name {
 			font-size: 18px;
@@ -115,6 +116,7 @@
 		.gift_art {
 			color: #505050;
 			font-size: 15px;
+			padding-top: 10px;
 		}
 
 
@@ -154,7 +156,6 @@
 			line-height: 70px;
 			font-size: 3em;
 			font-weight: bold;
-			padding-top: 20px;
 		}
 		.contacts .phones {
 			float: right;
@@ -203,7 +204,11 @@
 			</div>
 			<?if(isset($gift)){?>
 				<div class="gift_block">
-					<p class="gift_title">Ваш подарок</p>
+					<div class="gift_descr">
+					<p class="gift_title">+ ПОДАРОК</p>
+						<p class="gift_name"><?=$gift['name']?></p>
+						<p class="gift_art">Артикул: <?=$gift['art']?></p>
+					</div>
 					<div class="gift_image_wrap">
 						<?if(!empty($gift['images'])){?>
 							<img class="gift_img" src="<?=G::GetImageUrl($gift['images'][0]['src'])?>"/>
@@ -212,13 +217,6 @@
 						<?}else{?>
 							<img class="gift_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
 						<?}?>
-					</div>
-					<div class="gift_descr">
-						<p class="gift_name"><?=$gift['name']?></p>
-						<p class="gift_art">Артикул: <?=$gift['art']?></p>
-					</div>
-					<div class="prod_qr_code">
-						<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($gift['translit'])?>&chld=H|0">
 					</div>
 				</div>
 			<?}?>
