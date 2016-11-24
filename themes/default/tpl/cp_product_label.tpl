@@ -78,14 +78,9 @@
 		    -webkit-transform: rotate(12deg);
 		    transform: rotate(-12deg);
 		}
-
-
 		.gift_block {
 			height: 140px;
-		    /*padding: 10px;*/
 		    display: flex;
-		    /*flex-wrap: wrap;*/
-		    /*padding-top: 10px;*/
 		    border: 2px solid #FF5722;
 		}
 		.gift_title {
@@ -118,12 +113,6 @@
 			font-size: 15px;
 			padding-top: 10px;
 		}
-
-
-
-
-
-
 		.footer {
 			position: absolute;
 			padding-top: 10px;
