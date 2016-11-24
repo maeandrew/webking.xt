@@ -734,17 +734,18 @@
 		<div id="big_photo" data-type="modal">
 			<img src="/images/nofoto.png" alt="Оригинал">
 		</div>
-		product_label
+
 		<div id="gift_products" data-type="modal">
 			Список товаров-подарков
 			<div class="modal_container">
 				<!-- <?=$product_label_modal?> -->
 			</div>
-			<form action="">
+			<form action="<?=Link::Custom('product_label',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>">
 				<input type="hidden" name="id_gift" class="id_gift_input_js">
-				<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</div>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</button>
 			</form>
 		</div>
+
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>

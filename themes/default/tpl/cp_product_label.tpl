@@ -44,7 +44,6 @@
 		}
 		.price_block {
 			padding-top: 100px;
-			/*padding-bottom: 50px;*/
 			text-align: center;
 		}
 		.price {
