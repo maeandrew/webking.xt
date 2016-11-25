@@ -17,7 +17,7 @@ if(isset($_SERVER['HTTP_REFERER'])){
 }
 
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 
 $Order = new Orders();
 if(isset($id_order)){
@@ -153,7 +153,7 @@ foreach ($orders as &$order) {
 }
 $tpl->Assign('orders', $orders);
 
-$address_list = $Address->GetListByUserId($User->fields['id_user']);
+$address_list = $Address->GetListByUserId($Users->fields['id_user']);
 $tpl->Assign('address_list', $address_list);
 
 /*$arr = array();
@@ -165,9 +165,9 @@ foreach($orders as &$order_2){
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").'));
 $tpl->Assign('msg_address', array('type' => 'info', 'text' => 'В данном заказе отсутствует адрес доставки. Вы можете выбрать его выше.'));
 
-$User->SetUser($_SESSION['member']);
+$Users->SetUser($_SESSION['member']);
 
-$tpl->Assign('User', $User->fields);
+$tpl->Assign('User', $Users->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('order_statuses', $order_statuses);
 

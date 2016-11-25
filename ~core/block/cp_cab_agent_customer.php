@@ -3,13 +3,11 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'url' => _base_url.'/cabinet/orders/'
 );
-G::metaTags();
 
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
-$Cart = new Cart();
 
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
 
@@ -18,41 +16,8 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$tpl->Assign('referer', $referer);
 }
 
-
-if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive' || $_GET['t'] == 'jocompleted' || $_GET['t'] == 'joinwork')){
-	$infoJO = $Cart->GetInfoJO($_GET['t']);
-
-	$infoProductsCartUsers = $Cart->GetProductsForPromo($infoJO['promo']);
-}
-//if(isset($_GET['t']) && !empty($_GET['t']) && ($_GET['t'] == 'joactive')){
-//	$infoJO = $Cart->GetInfoJO($_GET['t']);
-//
-//	$infoProductsCartUsers = $Cart->GetProductsForPromo($infoJO['promo']);
-//}elseif(isset($_GET['t']) && !empty($_GET['t']) && $_GET['t'] == 'jocompleted' || $_GET['t'] == 'joinwork'){
-//	$infoJO = $Cart->GetInfoJO($_GET['t']);
-//
-//	$infoProductsCartUsers = $Cart->GetProductsForPromo($infoJO['promo']);
-//}
-
-
-
-
-
-
-if($infoJO && $infoProductsCartUsers){
-	if (isset($infoJO) && is_array($infoJO)){
-		$tpl->Assign('list', $infoJO['products']);
-		$prod_list[$infoJO['id_cart']] = $tpl->Parse($GLOBALS['PATH_tpl_global'].'order_products_list.tpl');
-	}
-	$tpl->Assign('infoJO', $infoJO);
-	$tpl->Assign('users_list', $infoProductsCartUsers);
-}
-if(isset($prod_list)) {
-	$tpl->Assign('prod_list', $prod_list);
-}
-
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 
 $Order = new Orders();
 if(isset($id_order)){
@@ -112,6 +77,27 @@ $tpl->Assign('available_filter_values', $available_filter_values);
 $tpl->Assign('filters', $filters);
 // =========================================================
 
+$status ='';
+if (isset($_GET['t']) && !empty($_GET['t']) ){
+	switch($_GET['t']){
+		case 'working':
+			$status = ' AND id_order_status IN (1,6)';
+			break;
+		case 'completed':
+			$status = ' AND id_order_status = 2';
+			break;
+		case 'canceled':
+			$status = ' AND id_order_status IN (5,4)';
+			break;
+		case 'drafts':
+			$status = ' AND id_order_status = 3';
+			break;
+		default:
+			$status= false;
+			break;
+	}
+}
+
 $fields = array('creation_date', 'target_date', 'id_order', 'status', 'pretense', 'pretense_status', 'return', 'return_status');
 $f_assoc = array(
 	'creation_date'		=>'o.creation_date',
@@ -137,16 +123,24 @@ if(isset($_GET['limit'])){
 // 	}
 // }
 // Список заказов
-$orders = $Customer->GetOrders($orderby);
+$GLOBALS['Limit_db'] = 10; // кол-во заказов на одной странице
+$cnt = count($Customer->GetOrders( false, false, $status));
+$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+// print_r(' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']);
+// die();
+$limit = isset($GLOBALS['Start'])?(' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']):"";
+// var_dump($limit);
+$orders = $Customer->GetOrders($orderby, $limit, $status);
+// die();
 $order_statuses = $Order->GetStatuses();
-//print_r($orders);
 
 $Contragent = new Contragents();
+$Address = new Address();
 foreach ($orders as &$order) {
 	$Order->SetFieldsById($order['id_order']);
-
 	$Contragent->SetFieldsById($Order->fields['id_contragent']);
 	$order['contragent_info'] = $Contragent->fields;
+	$order['address_info'] = $Address->getAddressOrder($order['id_order']);
 }
 $Citys = new Citys();
 foreach ($orders as &$order) {
@@ -159,26 +153,26 @@ foreach ($orders as &$order) {
 }
 $tpl->Assign('orders', $orders);
 
+$address_list = $Address->GetListByUserId($Users->fields['id_user']);
+$tpl->Assign('address_list', $address_list);
+
 /*$arr = array();
 foreach($orders as &$order_2){
 	$arr = $Order->GetOrderForCustomer(array("o.id_order" => $order_2['id_order']));
 }*/
 
 //$tpl->Assign('products', $arr);
+$tpl->Assign('msg', array('type' => 'info', 'text' => 'Заказы отгружаются в статусе "Выполняется". Этот статус заказ получает после подтверждения полной или частичной предоплаты по заказу (условия в разделе "Оплата и доставка").'));
+$tpl->Assign('msg_address', array('type' => 'info', 'text' => 'В данном заказе отсутствует адрес доставки. Вы можете выбрать его выше.'));
 
-$User->SetUser($_SESSION['member']);
+$Users->SetUser($_SESSION['member']);
 
-$tpl->Assign('User', $User->fields);
+$tpl->Assign('User', $Users->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('order_statuses', $order_statuses);
 
-
 $parsed_res = array(
 	'issuccess' => TRUE,
-	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_cooperative.tpl')
+	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders.tpl')
 );
-
-//
-
-
 ?>

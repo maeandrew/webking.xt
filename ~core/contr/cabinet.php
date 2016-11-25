@@ -22,29 +22,33 @@ switch($Users->fields['gid']){
 		}else{
 			if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'){
 				$header = 'Мои заказы';
-				require($GLOBALS['PATH_block'].'cp_cab_orders_customer.php');
+				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'){
 				$header = 'Настройки';
-				require($GLOBALS['PATH_block'].'cp_cab_settings_customer.php');
+				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'feedback'){
 				$header = 'Обратная связь';
-				require($GLOBALS['PATH_block'].'cp_cab_feedback_customer.php');
+				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'){
 				$header = 'Бонусная программа';
-				require($GLOBALS['PATH_block'].'cp_cab_bonus_customer.php');
+				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'favorites'){
 				$header = 'Избранные товары';
-				require($GLOBALS['PATH_block'].'cp_cab_favorites_customer.php');
+				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'){
 				$header = 'Лист ожидания';
-				require($GLOBALS['PATH_block'].'cp_cab_waitinglist_customer.php');
+				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'){
 				$header = 'Совместные заказы';
-				require($GLOBALS['PATH_block'].'cp_cab_cooperative.php');
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'){
+				$header = 'Совместные заказы';
+				$rewrite = $GLOBALS['Rewrite'];
 			}else{
 				$header = 'Личные данные';
-				require($GLOBALS['PATH_block'].'cp_cab_personal_customer.php');
+				$rewrite = 'personal';
 			}
+			require($GLOBALS['PATH_block'].'cp_cab_'.$rewrite.'_customer.php');
 		}
 		break;
 	case _ACL_SUPPLIER_:

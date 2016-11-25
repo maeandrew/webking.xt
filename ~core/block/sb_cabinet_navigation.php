@@ -2,7 +2,6 @@
 if(isset($GLOBALS['Rewrite'])){
 	$tpl->Assign('cabinet_page', $GLOBALS['Rewrite']);
 }
-$Users = new Users();
 foreach($Users->GetGroups() as $group){
 	if($group['gid'] == $_SESSION['member']['gid']){
 		$profile = $group['name'];

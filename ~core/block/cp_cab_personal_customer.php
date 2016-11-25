@@ -18,7 +18,7 @@ $tpl->Assign('addresses', $addresses);
 /* selecting clear data */
 
 // about customer
-$Customers->SetFieldsById($User->fields['id_user']);
+$Customers->SetFieldsById($Users->fields['id_user']);
 $Customer = $Customers->fields;
 $cont_person = explode(' ', $Customer['cont_person']);
 // outside managers
@@ -91,8 +91,7 @@ $tpl->Assign('tempmanager', $tempmanager);
 
 
 $success = false;
-$User->SetUser($_SESSION['member']);
-$tpl->Assign('User', $User->fields);
+$tpl->Assign('User', $Users->fields);
 
 if(isset($_POST['save_delivery'])){
 	$region = $Address->GetRegionByTitle($_POST['region']);
