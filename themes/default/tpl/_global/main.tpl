@@ -288,13 +288,19 @@
 					</div>
 				</div>
 			<?}?>
-			<?if(isset($seotext)){?>
+			<?if(!empty($seotext)){?>
+				<!-- <a href="/adm/seotextedit/<?=$seotext['id']?>">Редактировать</a> -->
+				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
+					<!-- Ссылка на редактирование товара для администратором -->
+					<a id="seotext_editing" class="seotext_editing" href="<?=Link::Custom('adm', 'seotextedit');?>/<?=$seotext['id']?>" target="_blank"><i class="seotext_editing_icon material-icons">mode_edit</i></a>
+					<div class="mdl-tooltip" for="seotext_editing">Редактировать текст</div>
+				<?}?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-						<?=$seotext?>
+						<?=$seotext['text']?>
 					</div>
 				</div>
-			<?}elseif (isset($GLOBALS['descr_for_seo'])) {?>
+			<?}elseif(isset($GLOBALS['descr_for_seo'])){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
 						<?foreach($GLOBALS['descr_for_seo'] as $item){
@@ -740,7 +746,7 @@
 			<div class="modal_container">
 				<!-- <?=$product_label_modal?> -->
 			</div>
-			<form action="<?=Link::Custom('product_label',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>">
+			<form action="<?=Link::Custom('product_label',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">
 				<input type="hidden" name="id_gift" class="id_gift_input_js">
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</button>
 			</form>

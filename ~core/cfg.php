@@ -184,7 +184,7 @@ require($GLOBALS['PATH_model'].'parser_c.php');
 $Seo = new SEO();
 if($Seo->SetFieldsByUrl(_base_url.$_SERVER['REQUEST_URI'])){
 	if($Seo->fields['visible'] == 1){
-		$tpl->Assign('seotext', $Seo->fields['text']);
+		$tpl->Assign('seotext', $Seo->fields);
 	}
 }
 // почтовая конфигурация
