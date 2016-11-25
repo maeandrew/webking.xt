@@ -7,8 +7,8 @@
 	<link href="/themes/default/css/fonts.css" rel="stylesheet">
 	<style>
 		* {
-			padding: 0px;
-			margin: 0px;
+			padding: 0;
+			margin: 0;
 			font-family: Arial, sans-serif;
 		}
 		.main {
