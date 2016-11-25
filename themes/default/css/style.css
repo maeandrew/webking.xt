@@ -3399,7 +3399,7 @@ canvas[id^=chart_]{
 	color: #9E9E9E;
 	text-align: justify;
 	border-top: 1px solid #e0e0e0;
-	padding: 1.8em 0;
+	padding: 0.8em 0;
 }
 #seoTextBlock * {
 	font-weight: normal !important;
@@ -3419,6 +3419,21 @@ canvas[id^=chart_]{
 	line-height: 2em;
 	margin: .5em 0 0 !important;
 }
+
+#seoTextBlock .seotext_editing {
+	background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 500 !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+#seoTextBlock .seotext_editing,
+#seoTextBlock .seotext_editing i {
+	color: #000 !important;
+}
+
+
 /* Стили функции редактирования характеристик товара в админке */
 #editProdSpecValue {
 	background: #e0e0e0;
