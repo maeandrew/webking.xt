@@ -2289,9 +2289,6 @@ $(function(){
 		Position(preview);
 		preview.find('.modal_container').html('');
 		addLoadAnimation(preview);
-
-		console.log('312654');
-
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.modal_container').html(data);
 			componentHandler.upgradeDom();
