@@ -46,7 +46,7 @@
 .price_form legend {
 	position: relative;
 	padding-right: 25px;
-	float: left;
+	/*float: left;*/
 	font-weight: bold;
 	height: 20px;
 }
