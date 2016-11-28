@@ -295,7 +295,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 .content_header .cart_info{padding:10px 0;position:relative;display:flex;flex-wrap:nowrap;justify-content:space-between}
 .content_header .cart_info .order_balance,.content_header .cart_info .your_discount{line-height:25px}
 .content_header .cart_info .tabs_container{padding:0 10px;display:flex;justify-content:center;height:25px}
-.content_header .cart_info .tabs_container li{display:inline-block;width:80px;font-size:14px;border:1px solid #e5e5e5;border-right-width:0;padding:0 5px;box-sizing:border-box;line-height:20px;color:#c1c1c1;font-weight:600;cursor:pointer;text-align:center;-webkit-transition:all .3s cubic-bezier(.4,0,.2,1);-o-transition:all .3s cubic-bezier(.4,0,.2,1);transition:all .3s cubic-bezier(.4,0,.2,1)}
+.content_header .cart_info .tabs_container li{display:inline-block;width:80px;font-size:14px;border:1px solid #e5e5e5;border-right-width:0;padding:0 5px;box-sizing:border-box;line-height:24px;color:#c1c1c1;font-weight:600;cursor:pointer;text-align:center;-webkit-transition:all .3s cubic-bezier(.4,0,.2,1);-o-transition:all .3s cubic-bezier(.4,0,.2,1);transition:all .3s cubic-bezier(.4,0,.2,1)}
 .content_header .cart_info .tabs_container li:first-of-type{border-radius:3px 0 0 3px}
 .content_header .cart_info .tabs_container li:last-of-type{border-radius:0 3px 3px 0;border-right-width:1px}
 .content_header .cart_info .tabs_container li:hover{border-color:#FF5722;color:inherit}
@@ -313,8 +313,7 @@ aside .catalog_close:hover i{color:inherit;position:absolute;transform:scale(1.2
 .headerPriceBlock{margin-top:0}
 .suplierPriceBlock .card_item,.suplierPriceBlock .count_cell,.suplierPriceBlock .price,.suplierPriceBlock .product_check{text-align:center;margin-left:5px;float:left;width:80px}
 .products .card .product_photo{position:relative;width:130px;float:left;padding:5px 10px 5px 0}
-.products .card .product_photo a{display:block}
-.products .card .product_photo a img{display:block;max-height:120px;max-width:100%;margin:0 auto}
+.products .card .product_photo img{display:block;max-height:120px;max-width:100%;margin:0 auto}
 .products .card .product_name{padding-top:10px;position:relative}
 .products .card .product_name .title_move_product{font-size:1em;line-height:1.6em}
 .products .card .ordered{position:absolute;color:#018b06;right:0;top:10px;cursor:help}

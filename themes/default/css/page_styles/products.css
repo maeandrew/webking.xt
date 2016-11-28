@@ -1114,7 +1114,7 @@ label.info_key {
 	margin-right: 5px;
 }
 .card .add_to_fav_trend_block:hover,
-.card .product_photo a:hover,
+.card .product_photo:hover,
 .card .market_action:hover {
 	cursor: zoom-in !important;
 	cursor: -moz-zoom-in !important;

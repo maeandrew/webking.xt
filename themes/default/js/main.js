@@ -2283,13 +2283,15 @@ $(function(){
 		$('#big_photo img').css('height', $('#big_photo[data-type="modal"]').outerHeight() + "px");
 	});
 	// ------------
-	$('.show_preview_js').on('click', function(e){
-		e.preventDefault();
+	$('body').on('click','.show_preview_js', function(){
 		var preview = $('#preview'),
 			id_product = $(this).closest('.card').data('idproduct');
 		Position(preview);
 		preview.find('.modal_container').html('');
 		addLoadAnimation(preview);
+
+		console.log('312654');
+
 		ajax('product', 'GetPreview', {'id_product': id_product}, 'html').done(function(data){
 			preview.find('.modal_container').html(data);
 			componentHandler.upgradeDom();
