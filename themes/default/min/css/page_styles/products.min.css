@@ -167,7 +167,7 @@ label.info_key{position:absolute;top:10px;right:4px}
 #preview .images_block_title_mobile{display:none}
 #preview .supplier_block{width:100%;display:flex;justify-content:center}
 #preview .supplier_block .price{margin-right:5px}
-.card .add_to_fav_trend_block:hover,.card .market_action:hover,.card .product_photo a:hover{cursor:zoom-in!important;cursor:-moz-zoom-in!important;cursor:-webkit-zoom-in!important}
+.card .add_to_fav_trend_block:hover,.card .market_action:hover,.card .product_photo:hover{cursor:zoom-in!important;cursor:-moz-zoom-in!important;cursor:-webkit-zoom-in!important}
 #price_details{min-width:40vw;min-height:40vh}
 #price_details table{margin-bottom:1em;width:100%}
 #price_details th{font-weight:700;padding:.5em;border:1px solid #eee}

@@ -26,20 +26,18 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<?}?>
 				<div class="product_section" id="product_<?=$item['id_product']?>">
 					<div class="product_photo">
-						<a href="<?=Link::Product($item['translit']);?>">
-							<div class="<?=$st['class']?>"></div>
-							<?if(!empty($item['images'])){?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-								<noscript>
-									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-								</noscript>
-							<?}else{?>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-								<noscript>
-									<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-								</noscript>
-							<?}?>
-						</a>
+						<div class="<?=$st['class']?>"></div>
+						<?if(!empty($item['images'])){?>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+							<noscript>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+							</noscript>
+						<?}else{?>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+							<noscript>
+								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+							</noscript>
+						<?}?>
 					</div>
 					<div class="product_name p<?=$item['id_product']?>">
 						<a href="<?=Link::Product($item['translit']);?>" class="cat_<?=$item['id_product']?>"><?=G::CropString($item['name'])?></a>
@@ -234,19 +232,17 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					</div>
 				<?}?>
 				<div class="product_photo card_item">
-					<a href="<?=Link::Product($item['translit']);?>">
-						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-							<noscript>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-							</noscript>
-						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-							<noscript>
-								<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-							</noscript>
-						<?}?>
-					</a>
+					<?if(!empty($item['images'])){?>
+						<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+						<noscript>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+						</noscript>
+					<?}else{?>
+						<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+						<noscript>
+							<img alt="<?=htmlspecialchars(G::CropString($item['name']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+						</noscript>
+					<?}?>
 				</div>
 				<p class="product_name card_item"><a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a><span class="product_article">Арт: <?=$item['art'];?></span></p>
 				<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
@@ -330,16 +326,14 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<img src="<?=_base_url?>/images/<?=$product_mark?>.png" alt="<?=$product_mark === 'action'?'акционный товар':'новый товар'?>">
 					</div>
 				<?}?>
-				<div class="product_photo">
-					<a href="<?=Link::Product($item['translit']);?>">
-						<?if(!empty($item['images'])){?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/></noscript>
-						<?}else{?>
-							<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy show_preview_js btn_js" data-name="preview" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
-							<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
-						<?}?>
-					</a>
+				<div class="product_photo show_preview_js btn_js" data-name="preview">
+					<?if(!empty($item['images'])){?>
+						<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy "  src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/>
+						<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['images'][0]['src'], 'medium')?>"/></noscript>
+					<?}else{?>
+						<img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" class="lazy"  src="/images/nofoto.png" data-original="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/>
+						<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
+					<?}?>
 					<!-- <div class="add_to_fav_trend_block mdl-cell--hide-phone"> -->
 					<div class="add_to_fav_trend_block">
 						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?><?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?' hidden':null?>" data-id-product="<?=$item['id_product'];?>">
@@ -368,7 +362,6 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<span class="mdl-checkbox__label title_move_product">Перенести в категорию</span>
 						</label>
 					<?}?>
-
 					<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 						<?if(isset($item['c_mark']) && $item['c_mark'] > 0){?>
 							<meta itemprop="worstRating" content="1">
@@ -398,7 +391,6 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<span class="qty_ratings">(Оценок: <?=$item['c_mark']?>)</span>
 						<?}?>
 					</div>
-
 					<div class="product_info">
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
