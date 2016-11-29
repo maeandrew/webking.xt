@@ -260,7 +260,7 @@ if(isset($_GET['savedprices']) == false){
 }else{?>
 	<h1><?=$name?></h1>
 <?}
-if($_GET['photo'] == 2){ // Если нужно отобразить фото товаров
+if($_GET['photo'] == 2){ // Если нужно отобразить большие фото товаров
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
 		$ii = 0;
 		foreach($list as $l1){
@@ -393,7 +393,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить фото т
 				}
 			}
 		}
-	}else{ // Сформированный прайс
+	}else{ // Сформированый прайс
 		foreach($cat as $l){?>
 			<table class="header">
 				<tr>
@@ -462,7 +462,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить фото т
 			</div>
 		<?}
 	}
-}else{ // Если не нужно отображать фото товаров
+}else{ // Если не нужно отображать фото товаров или мальенткие
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
 		$ii = 0;
 		foreach($list as $k=>$l1){
@@ -473,7 +473,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить фото т
 					if(!empty($l2['products'])){?>
 						<table class="header">
 							<tr>
-								<th colspan="<?=$_GET['photo'] == 0?'4':'5';?>" ><?=$l2['name'];?></th>
+								<th colspan="<?=$_GET['photo'] == 0?'4':'5';?>"><?=$l2['name'];?></th>
 							</tr>
 							<?if($ii == 0){?>
 								<tr><?=$headrow;?></tr>
@@ -624,7 +624,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить фото т
 				$ii++;
 			}
 		}
-	}else{ // Сформированній прайс
+	}else{ // Сформированый прайс
 		if(isset($cat) == true){
 			foreach($cat as $l){
 				$n = 0;$i = 0;?>

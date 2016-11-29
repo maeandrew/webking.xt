@@ -70,15 +70,16 @@
 
 				</fieldset>
 				<fieldset>
-					<legend>Фотография
+					<legend>Вид
 						<label class="info_key">?</label>
 						<div class="info_description">
 							<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
 						</div>
 					</legend>
-					<label class="mdl-radio mdl-js-radio" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фотографий</label>
-					<label class="mdl-radio mdl-js-radio" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">с фотографиями</label>
-					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">с большими фотографиями</label>
+					<label class="mdl-radio mdl-js-radio" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фото</label>
+					<label class="mdl-radio mdl-js-radio" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">маленькие фото</label>
+					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">большие фото</label>
+					<label class="mdl-radio mdl-js-radio" for="label"><input type="radio" name="photo" class="mdl-radio__button" id="label" value="3">ценник</label>
 				</fieldset>
 
 				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">Снять все выделения</button>
@@ -194,7 +195,7 @@
 		var contHeight = $(".page_content_js").height();
 		var formHeight = $("#dynamic-params").height();
 		var endScroll = (contHeight - formHeight);
-		
+
 		if(contHeight < formHeight){
 			endScroll = 50;
 		}
