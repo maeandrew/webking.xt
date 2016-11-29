@@ -678,27 +678,9 @@ class Products {
 	 * @param array   $params [description]
 	 */
 	public function SetProductsList($and = false, $limit = null, $params = array()){
-		// $where = "";
 		if($this->filter === false) return false;
-
 		$where2 = $this->filter;
-
 		$selectsegm = isset($GLOBALS['Segment'])?' AND p.id_product IN (SELECT id_product FROM xt_segment_prods WHERE id_segment IN (SELECT id FROM xt_segmentation WHERE id = '.$GLOBALS['Segment'].'))':null;
-
-		// if($and !== FALSE && count($and)){
-		// 	$where = " AND ";
-		// 	foreach ($and as $k=>$v){
-		// 		if($k=='customs'){
-		// 			foreach($v as $a){
-		// 				$where_a[] = $a;
-		// 			}
-		// 		}else{
-		// 			$where_a[] = "$k=\"$v\"";
-		// 		}
-		// 	}
-		// 	$where .= implode(" AND ", $where_a);
-		// }
-
 		$group_by = '';
 		if(isset($params['group_by'])){
 			$group_by = ' GROUP BY '.$params['group_by'];
@@ -783,9 +765,9 @@ class Products {
 		if(!$this->list){
 			return false;
 		}
-		//Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
-		//Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
-		//Добавляем эти значения в массив $list
+		// Формируем оптовые и мелкооптовые цены на товары для вывода на экран при различных скидках
+		// Достаем значения (коэфициенты) с глобальной переменной "CONFIG" и умножаем на цену
+		// Добавляем эти значения в массив $list
 		foreach($this->list as &$v){
 			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['opt_correction_set']]);
 			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$v['mopt_correction_set']]);
@@ -799,6 +781,30 @@ class Products {
 			}
 		}
 		return true;
+	}
+	public function GetGiftsList(){
+		$sql = "SELECT p.*,
+			(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
+			(CASE WHEN (SELECT COUNT(*) FROM "._DB_PREFIX_."assortiment AS a LEFT JOIN "._DB_PREFIX_."user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active
+			FROM "._DB_PREFIX_."product AS p
+			WHERE p.gift = 1
+			HAVING active = 1";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach($res as &$p){
+			$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
+			$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
+			$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+			for($i=0; $i<=3; $i++){
+				$p['prices_opt'][$i] = round($p['price_opt']* $coef_price_opt[$i], 2);
+				$p['prices_mopt'][$i] = round($p['price_mopt']* $coef_price_mopt[$i], 2);
+				$p['base_prices_opt'][$i] = round($p['price_opt']* $base_coef_price_opt[$i], 2);
+				$p['base_prices_mopt'][$i] = round($p['price_mopt']* $base_coef_price_mopt[$i], 2);
+			}
+		}
+		return $res;
 	}
 	/**
 	 * Добавление графика (по категории)

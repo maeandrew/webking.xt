@@ -288,13 +288,19 @@
 					</div>
 				</div>
 			<?}?>
-			<?if(isset($seotext)){?>
+			<?if(!empty($seotext)){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-						<?=$seotext?>
+						<!-- <a href="/adm/seotextedit/<?=$seotext['id']?>">Редактировать</a> -->
+						<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
+							<!-- Ссылка на редактирование товара для администратором -->
+							<a id="seotext_editing" class="seotext_editing mdl-button mdl-js-button" href="<?=Link::Custom('adm', 'seotextedit');?>/<?=$seotext['id']?>" target="_blank"><i class="seotext_editing_icon material-icons">mode_edit</i> Редактировать</a>
+							<div class="mdl-tooltip" for="seotext_editing">Редактировать SEO текст</div>
+						<?}?>
+						<?=$seotext['text']?>
 					</div>
 				</div>
-			<?}elseif (isset($GLOBALS['descr_for_seo'])) {?>
+			<?}elseif(isset($GLOBALS['descr_for_seo'])){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
 						<?foreach($GLOBALS['descr_for_seo'] as $item){
@@ -709,7 +715,6 @@
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored continue_make_order_js" data-name="confirmMyPhone">Продолжить</button>
 			</div>
 		</div>
-
 		<!-- Модалки кабинета. Заказы -->
 		<div id="cloneOrder" class="modalEditOrder" data-type="modal">
 			<h5>Заменить товар в текущей корзине <br> или добавить в нее?</h5>
@@ -735,6 +740,18 @@
 		<div id="big_photo" data-type="modal">
 			<img src="/images/nofoto.png" alt="Оригинал">
 		</div>
+
+		<div id="gift_products" data-type="modal">
+			Список товаров-подарков
+			<div class="modal_container">
+				<!-- <?=$product_label_modal?> -->
+			</div>
+			<form action="<?=Link::Custom('product_label',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">
+				<input type="hidden" name="id_gift" class="id_gift_input_js">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</button>
+			</form>
+		</div>
+
 		<!-- Authentication -->
 		<div id="verification" data-type="modal">
 			<h4>Выберите удобный для Вас<br>способ подтверждения доступа</h4>
@@ -828,7 +845,6 @@
 		<div id="issue_result" class="issue_result_js issue_result" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
-
 		<div id="issue_result_ok" class="issue_result_js issue_result" data-type="modal">
 			<div class="modal_container">
 				<div class="issue_ok"><i class="material-icons">check_circle</i></div>

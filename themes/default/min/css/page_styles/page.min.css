@@ -135,8 +135,7 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_contacts .three_inline .info_circle p{width:100px;min-height:115px;margin:2% auto;font-size:1em}
 #content .page_contacts .blockOfText .mini_text{width:100%}
 }
-#content .page_agent,#content .page_dealer{font-size:1.3em}
-#content .page_dealer p{font-size:1em}
+#content .page_dealer p{font-size:1.3em}
 #content .page_dealer h4{text-align:center;margin-top:0}
 #content .page_dealer .container .blockOfText h4{text-align:left}
 #content .page_dealer ul{margin-left:5%}

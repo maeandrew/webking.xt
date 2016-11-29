@@ -60,40 +60,35 @@ if(isset($_POST['smb']) && isset($_POST['date'])){
 	}else{
 		echo "<script>alert('Возникли проблемы при очистке базы.');</script>";
 	}
-}
-if(isset($_POST['update_statuses'])){
+}elseif(isset($_POST['update_statuses'])){
 	$Status = new Status();
 	if($Status->UpdateStatuses()){
 		echo "<script>alert('Статусы обновлены');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Возникли проблемы при обновлении статусов.');</script>";
 	}
-}
-if(isset($_POST['update_statuses_hit'])){
+}elseif(isset($_POST['update_statuses_hit'])){
 	$Status = new Status();
 	if($Status->UpdateStatuses_Hit()){
 		echo "<script>alert('Статусы обновлены');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Возникли проблемы при обновлении статусов.');</script>";
 	}
-}
-if(isset($_POST['update_popular'])){
+}elseif(isset($_POST['update_popular'])){
 	$Status = new Status();
 	if($Status->UpdateStatuses_Popular()){
 		echo "<script>alert('Статусы обновлены');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Возникли проблемы при обновлении статусов.');</script>";
 	}
-}
-if(isset($_POST['update_prodazi'])){
+}elseif(isset($_POST['update_prodazi'])){
 	$Status = new Status();
 	if($Status->UpdateProductsPopularity()){
 		echo "<script>alert('Статусы обновлены');window.location.replace('".$GLOBALS['URL_base']."adm');</script>";
 	}else{
 		echo "<script>alert('Возникли проблемы при обновлении статусов.');</script>";
 	}
-}
-if(isset($_POST['sitemap'])){
+}elseif(isset($_POST['sitemap'])){
 	if($res === false){
 		echo "<script>alert('Возникли проблемы при генерации карты сайта.');</script>";
 	} else if($res = G::SiteMap($_POST['sitemap']=='all'?null:$_POST['sitemap'])){
@@ -172,21 +167,21 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'new_resize_product_im
 
 
 // Dashboard statistics
-$news = new News();
-$users = new Users();
-$orders = new Orders();
+$News = new News();
+$Users = new Users();
+$Orders = new Orders();
 
 // dates
 $today = date('d-m-Y');
 $tpl->Assign('today', $today);
-$statistics[$today]['stat_regs'] = $users->GetRegisteredUsersListByDate($today);
-$statistics[$today]['stat_ords'] = $orders->GetOrdersCountListByDate($today);
-$statistics[$today]['stat_comm'] = $news->GetCommentsCountByDate($today);
+$statistics[$today]['stat_regs'] = $Users->GetRegisteredUsersListByDate($today);
+$statistics[$today]['stat_ords'] = $Orders->GetOrdersCountListByDate($today);
+$statistics[$today]['stat_comm'] = $News->GetCommentsCountByDate($today);
 $yesterday = date('d-m-Y', strtotime($today.' -1 day'));
 $tpl->Assign('yesterday', $yesterday);
-$statistics[$yesterday]['stat_regs'] = $users->GetRegisteredUsersListByDate($yesterday);
-$statistics[$yesterday]['stat_ords'] = $orders->GetOrdersCountListByDate($yesterday);
-$statistics[$yesterday]['stat_comm'] = $news->GetCommentsCountByDate($yesterday);
+$statistics[$yesterday]['stat_regs'] = $Users->GetRegisteredUsersListByDate($yesterday);
+$statistics[$yesterday]['stat_ords'] = $Orders->GetOrdersCountListByDate($yesterday);
+$statistics[$yesterday]['stat_comm'] = $News->GetCommentsCountByDate($yesterday);
 for($i=0; $i <= 8; $i++){
 	$dates[] = date('d-m-Y', strtotime($today.' -'.$i.' week'));
 }
@@ -208,24 +203,25 @@ for($i=0; $i < 9; $i++){
 }
 foreach($weeks as $k => $v){
 	if($k == 0){
-		$week_stats[$v['sunday']]['chart_regs'] = $users->GetRegisteredUsersListByWeek($v['monday'], $today);
-		$week_stats[$v['sunday']]['chart_ords'] = $orders->GetOrdersCountListByWeek($v['monday'], $today);
-		$week_stats[$v['sunday']]['chart_ords_ly'] = $orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], date('d-m-Y',strtotime($today.'-1 year')));
+		$week_stats[$v['sunday']]['chart_regs'] = $Users->GetRegisteredUsersListByWeek($v['monday'], $today);
+		$week_stats[$v['sunday']]['chart_ords'] = $Orders->GetOrdersCountListByWeek($v['monday'], $today);
+		$week_stats[$v['sunday']]['chart_ords_ly'] = $Orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], date('d-m-Y',strtotime($today.'-1 year')));
 	}else{
-		$week_stats[$v['sunday']]['chart_regs'] = $users->GetRegisteredUsersListByWeek($v['monday'], $v['sunday']);
-		$week_stats[$v['sunday']]['chart_ords'] = $orders->GetOrdersCountListByWeek($v['monday'], $v['sunday']);
-		$week_stats[$v['sunday']]['chart_ords_ly'] = $orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], $last_year_weeks[$k]['sunday']);
+		$week_stats[$v['sunday']]['chart_regs'] = $Users->GetRegisteredUsersListByWeek($v['monday'], $v['sunday']);
+		$week_stats[$v['sunday']]['chart_ords'] = $Orders->GetOrdersCountListByWeek($v['monday'], $v['sunday']);
+		$week_stats[$v['sunday']]['chart_ords_ly'] = $Orders->GetOrdersCountListByWeek($last_year_weeks[$k]['monday'], $last_year_weeks[$k]['sunday']);
 	}
 }
 $tpl->Assign('week_stats', $week_stats);
 
 // get last comments list
-$news->SetListComment();
-$tpl->Assign('comments', $news->list);
+$News->SetListComment();
+$tpl->Assign('comments', $News->list);
 
 // categories count
 $sql = "SELECT COUNT(*) AS cnt
-	FROM "._DB_PREFIX_."category";
+	FROM "._DB_PREFIX_."category
+	WHERE sid = 1";
 $res = $db->GetOneRowArray($sql);
 $tpl->Assign("cat_cnt", $res['cnt']);
 
@@ -247,19 +243,11 @@ $tpl->Assign("items_cnt", $res['cnt']);
 $tpl->Assign('last_article', $Products->GetLastArticle());
 
 // active products count
-$sql = "SELECT COUNT(DISTINCT a.id_product) AS cnt
-	FROM "._DB_PREFIX_."assortiment a
-	LEFT JOIN "._DB_PREFIX_."calendar_supplier c
-		ON a.id_supplier = c.id_supplier
-	WHERE a.active = 1
-	AND c.date = '".date('Y-m-d', strtotime($today.' +2 day'))."'
-	AND c.work_day = 1";
+$sql = 'SELECT COUNT(*) AS cnt
+	FROM '._DB_PREFIX_.'product AS p
+	WHERE (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1';
 $res = $db->GetOneRowArray($sql);
 $tpl->Assign("active_tov", $res['cnt']);
-// $tpl->Assign('orders_list', $orders_list);
 
 unset($parsed_res);
 include($GLOBALS['PATH_block'].'cp_main.php');
-if(TRUE == $parsed_res['issuccess']){
-	$tpl_center .= $parsed_res['html'];
-}?>

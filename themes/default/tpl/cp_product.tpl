@@ -1,26 +1,31 @@
 <!-- Классы-метки notactive и active ставятся в зависимости от того, активен товар или нет и задают соответствующие стили -->
 <div class="product <?=isset($item['active']) && $item['active'] == 1?'active':'notactive';?>" itemscope itemtype="http://schema.org/Product">
-	<?// Проверяем доступнось розницы
-	$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
-	// Проверяем доступнось опта
-	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false;
-	$product_mark = '';
+	<?$mopt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false; // Проверяем доступнось розницы
+	$opt_available = ($item['price_mopt'] > 0 && $item['min_mopt_qty'] > 0)?true:false; // Проверяем доступнось опта
 	$interval = date_diff(date_create(date("Y-m-d", strtotime($item['create_date']))), date_create(date("Y-m-d")));
+	$product_mark = '';
 	if(in_array($item['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($item['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 		$product_mark = 'action';
 	}elseif ($item['prod_status'] == 3 && $interval->format('%a') < 30){
 		$product_mark = 'new';
 	}?>
+
+	<!-- <a href="<?=Link::Custom('product_label', $item['translit'])?>" class="mdl-button product_label btn_js" data-name="product_label" rel="nofollow" target="_blank" title="Откроется в новой вкладке"><i class="material-icons">&#xE8AD;</i>Печать ценника</a> -->
+
+	<div class="mdl-button product_label product_label_js btn_js" data-name="gift_products">
+		<i class="material-icons">&#xE8AD;</i>Печать ценника
+	</div>
+
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--9-col">
-			<h1 itemprop="name">
+			<div class="prod_name_block">
 				<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 					<!-- Ссылка на редактирование товара для администратором -->
-					<a id="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank"><i class="material-icons">mode_edit</i></a>
+					<a id="prod_editing" class="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$item['id_product']?>" target="_blank"><i class="prod_editing_icon material-icons">mode_edit</i></a>
 					<div class="mdl-tooltip" for="prod_editing">Редактировать товар</div>
 				<?}?>
-				<?=$item['name']?>
-			</h1>
+				<h1 itemprop="name"><?=$item['name']?></h1>
+			</div>
 			<div class="mdl-grid">
 				<div id="caruselCont" class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
 					<div id="owl-product_mobile_img_js" class="mobile_carousel mdl-cell--hide-desktop">
@@ -407,6 +412,7 @@
 							<a href="#seasonality" class="mdl-tabs__tab fortabs_tab seasonality_js">График спроса</a>
 						</div>
 					</div>
+					<p class="for_print_tabs_title hidden">Характеристики</p>
 					<div class="tab-content">
 						<div id="description" class="mdl-tabs__panel">
 							<?if(!empty($item['descr_xt_full'])){?>
@@ -646,7 +652,7 @@
 						</div>
 					<?}
 				}else{
-					if(G::IsLogged() && $_SESSION['member']['gid'] !== _ACL_SUPPLIER_){?>
+					if(!G::IsLogged() || $_SESSION['member']['gid'] !== _ACL_SUPPLIER_){?>
 						<div id="price_details" class="extra_info_block">
 							<script>
 								ajax('product', 'priceHelp', {id_product: $('.product_buy').data('idproduct'), mark: 1}, 'html').done(function(data){
@@ -872,3 +878,14 @@
 		<?}?>
 	</div>
 </section>
+
+<div class="for_print hidden">
+	<div>
+		<p>Доставка</p>
+		<input type="text">
+	</div>
+	<div>
+		<p>Телефоны</p>
+		<input type="text">
+	</div>
+</div>

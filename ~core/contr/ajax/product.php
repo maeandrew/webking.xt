@@ -303,6 +303,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'bonus_explain.tpl');
 
 				break;
+			case 'GetGiftsList':
+				$gifts = $Products->GetGiftsList();
+				if(!empty($gifts)){
+					foreach($gifts as &$gift){
+						$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+					}
+					$tpl->Assign('gifts', $gifts);
+				}
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'product_label_modal.tpl');
+				break;
 			default:
 				break;
 		}

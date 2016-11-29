@@ -9,10 +9,10 @@
 
 	$success = false;
 
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 
 	//Список ожидания
-	$waiting_list = $Customer->GetWaitingList($User->fields['id_user']);
+	$waiting_list = $Customer->GetWaitingList($Users->fields['id_user']);
 	if ($waiting_list) {
 		foreach ($waiting_list as $key => $value) {
 			if($value['price_opt'] == 0 && $value['price_mopt'] == 0){
@@ -22,11 +22,11 @@
 			}
 		}
 	}
-	
-	$User->SetUser($_SESSION['member']);
+
+	$Users->SetUser($_SESSION['member']);
 
 	$tpl->Assign('waiting_list', $waiting_list);
-	$tpl->Assign('User', $User->fields);
+	$tpl->Assign('User', $Users->fields);
 	$tpl->Assign('Customer', $Customer->fields);
 
 	$parsed_res = array('issuccess' => TRUE,

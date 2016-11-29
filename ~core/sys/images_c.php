@@ -66,13 +66,11 @@ class Images {
 				return true;
 			}
 		}else{
-			// $img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/13/*.jpg');
 			$img_arr = glob($GLOBALS['PATH_product_img'].$this->default_folder.'/*/*/*/*.jpg');
 		}
-		// print_r($img_arr);die();
-		ini_set('memory_limit', '256M');
-		ini_set('max_execution_time', '120');
-		set_time_limit(120);
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', '3600');
+		set_time_limit(3600);
 		foreach($img_arr as $filename){
 			$this->img_info = array_merge(getimagesize($filename), pathinfo($filename));
 			if(in_array($this->img_info['mime'], $this->valid_extensions)){

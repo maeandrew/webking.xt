@@ -35,8 +35,8 @@
                 }
                 break;
             case "setSpecToCat":
-                $dbtree->UpdateEditUserDate($_POST['id_category']);
                 if($Specification->AddSpecToCat($_POST)){
+                    $dbtree->UpdateEditUserDate($_POST['id_category']);
                     echo json_encode('ok');
                 }
                 break;

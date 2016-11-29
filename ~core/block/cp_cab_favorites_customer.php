@@ -11,10 +11,10 @@
 
 	$success = false;
 
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 
 	//Список избранных товаров
-	$favorites = $Customer->GetListFavorites($User->fields['id_user']);
+	$favorites = $Customer->GetListFavorites($Users->fields['id_user']);
 	if ($favorites) {
 		foreach ($favorites as $key => $value) {
 			if($value['price_opt'] == 0 && $value['price_mopt'] == 0){
@@ -24,11 +24,11 @@
 			}
 		}
 	}
-	
-	$User->SetUser($_SESSION['member']);
+
+	$Users->SetUser($_SESSION['member']);
 
 	$tpl->Assign('favorites', $favorites);
-	$tpl->Assign('User', $User->fields);
+	$tpl->Assign('User', $Users->fields);
 	$tpl->Assign('Customer', $Customer->fields);
 
 	$parsed_res = array('issuccess' => TRUE,

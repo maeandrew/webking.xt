@@ -2,6 +2,16 @@
 .product_page .breadcrumbs_wrap {
 	padding: 0 10px;
 }
+.product_page .product_label {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+}
+.product_page .product_label i {
+	margin-right: 10px;
+}
 .product_page .center {
 	width: 100%;
 }
@@ -18,12 +28,20 @@
 .product_page h1 a{
 	font-size: .7em;
 }
-.product_page h1 a i{
+.product_page .prod_name_block {
+	display: flex;
+}
+.product_page .prod_editing {
+	margin: auto;
+}
+/*.product_page h1 a i,*/
+.product_page .prod_editing_icon {
 	vertical-align: text-bottom;
 	background: #fff;
 	border-radius: 50%;
 	padding: .3em;
-	font-size: .9em;
+	/*font-size: .9em;*/
+	font-size: 20px;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .product_page .product .mdl-cell {
@@ -1270,5 +1288,133 @@
 	}
 	.product_page .product .content_header .cart_info .tabs_container li{
 		width: 80px;
+	}
+}
+
+@media print {
+	a[href]:after {
+	    content: "";
+	  }
+	.breadcrumbs_wrap,
+	.header_right,
+	.product .content_header,
+	.product .apps_panel,
+	.advantage_block,
+	.sliders,
+	.product_page .slider_products,
+	.product .similar_products_mini,
+	.products_links_block,
+	.last_news,
+	.footer_wrap,
+	.go_up,
+	.waiting_block_for_img_canvas,
+	.err_msg_as_wrap,
+	.phone_err_msg,
+	.qty_buy,
+	.product .product_aside,
+	.product_availability,
+	.product_buy .buy_block .btn_buy,
+	.product_page .product .fortabs,
+	.owl-carousel.owl-loaded,
+	.jivosite_test,
+	/* .jivo-iframe-container-bottom,
+	#jivo-iframe-container,
+	#jivo-label-text, */
+	#prod_editing,
+	#seoTextBlock,
+	footer {
+		display: none !important;
+	}
+	.logo {
+		width: 100%;
+	}
+	.logo a img {
+		margin: 0 auto;
+		display: block;
+	}
+	header {
+		position: static;
+		margin: 0px;
+		padding: 0px;
+		height: 30px;
+	}
+	body {
+		padding-top: 0px;
+		overflow: hidden;
+	}
+	.copyright {
+		padding: 0px;
+	}
+	.product_page .product .product_buy .price,
+	.product_page .product .product_buy .price:first-letter,
+	.product_page .product .product_buy .price_cont span,
+	.product_page .product .product_buy .price_cont span:first-letter {
+		color: #018b06 !important;
+	}
+	.product_page .product .products_details {
+		min-height: auto;
+		height: auto;
+	}
+	.product_page .product .product_main_img {
+		display: block;
+		width: 100%;
+	}
+	.product_page .product .tab-content {
+		position: relative;
+		min-height: auto;
+		height: 430px;
+		overflow: hidden;
+	}
+	/*.product_page .product .tab-content:before {
+		content: 'Характеристики';
+		position: absolute;
+		left: calc(50% - 80px);
+		top: -25px;
+		font-size: 1.5em;
+		padding-bottom: 10px;
+	}*/
+	.product_page .product .tab-content .mdl-cell {
+		width: 50%;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.mdl-cell--hide-tablet,
+	.product_page .product .for_print_tabs_title,
+	.for_print {
+		display: block !important;
+	}
+	.product_page .product .for_print_tabs_title {
+		font-size: 1.5em;
+		padding-bottom: 10px;
+		text-align: center;
+	}
+	.for_print div {
+		margin-bottom: 10px;
+	}
+	.for_print p {
+		width: 10%;
+		float: left;
+		line-height: 30px;
+	}
+	.for_print input {
+		height: 30px;
+		width: 85%;
+	}
+	#caruselCont {
+		width: 55%;
+		float: left;
+		height: 330px;
+	}
+	#caruselCont img {
+		transform: none;
+		top: 0;
+		max-height: 310px;
+	}
+	#specCont {
+		width: 35%;
+		float: right;
+	}
+	.page_content {
+		min-height: auto;
 	}
 }

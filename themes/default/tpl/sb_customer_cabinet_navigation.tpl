@@ -5,8 +5,6 @@
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
-				<div class="mdl-tooltip" for="icon_face">Личные данные</div>
-			</span>
 			</span>
 			<ul class="nav <?=!isset($GLOBALS['Rewrite'])?'active show':null;?>">
 				<li class="child <?=!isset($_GET['t']) || $_GET['t']=='contacts'?'active':null;?>">
@@ -21,7 +19,6 @@
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">shopping_cart</i><span class="textInALink">Мои заказы</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
-				<div class="mdl-tooltip" for="icon_shopping_cart">Мои заказы</div>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'?'active show':null;?>">
 				<li class="nav <?=!isset($GLOBALS['Rewrite'])?'active':null;?>">
@@ -45,15 +42,9 @@
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">person_add</i><span class="textInALink">Совместные заказы</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
-				<div class="mdl-tooltip" for="icon_person_add">Совместные заказы</div>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'?'active show':null;?>">
-				<!--<li>
-					<a name="t" value="joall" class="all <?=(isset($_GET['t']) && $_GET['t']=='joall')?'active':null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear' => true))?>?t=joall">Все</a>
-				</li>-->
 				<li class="active_order_js">
-					<!--<input type="hidden" data-idcart="<?=$_SESSION['cart']['id']?>" data-iduser="<?=$_SESSION['member']['id_user']?>" data-promo="<?=$_SESSION['cart']['promo']?>" />
-					<a class="working <?=(isset($_GET['t']) && $_GET['t']=='working')? 'active' : null;?>" >Активный</a>-->
 					<a name="t" value="joactive" class="working <?=(isset($_GET['t']) && $_GET['t']=='joactive')? 'active' : null;?>" href="<?=Link::Custom('cabinet', 'cooperative', array('clear' => true))?>?t=joactive">Активный</a>
 				</li>
 				<li>
@@ -67,8 +58,6 @@
 		<li id="icon_people" class="hidden">
 			<span class="link_wrapp">
 				<a href="#"><i class="material-icons">people</i><span class="textInALink">Списки друзей</span></a>
-				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->
-				<div class="mdl-tooltip" for="icon_people">Списки друзей</div>
 			</span>
 		</li>
 		<li id="icon_settings" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'class="active"':null;?>>
@@ -107,42 +96,27 @@
 		<li id="icon_flag" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'favorites'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="<?=Link::Custom('cabinet', 'favorites', array('clear' => true))?>"><i class="material-icons">flag</i><span class="textInALink">Избраное</span></a>
-				<div class="mdl-tooltip" for="icon_flag">Избраное</div>
-				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->
 			</span>
 		</li>
 		<li id="icon_timeline" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'?'class="active"':null;?>>
 			<span class="link_wrapp">
 				<a href="<?=Link::Custom('cabinet', 'waitinglist', array('clear' => true))?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
-				<div class="mdl-tooltip" for="icon_timeline">Лист ожидания</div>
-				<!-- <span class="more_cat"><i class="material-icons">&#xE315;</i></span> -->
+			</span>
+		</li>
+		<li id="icon_people" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'?'class="active"':null;?>>
+			<span class="link_wrapp">
+				<a href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>"><i class="material-icons">people</i><span class="textInALink">Уголок агента</span></a>
 			</span>
 		</li>
 	</ul>
 </div>
-<!-- <ul>
-	<li><a href=""></a></li>
-	<li><a href=""></a></li>
-	<li>
-		<a href=""></a>
-		<ul>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-			<li><a href=""></a></li>
-		</ul>
-	</li>
-	<li><a href=""></a></li>
-	<li><a href=""></a></li>
-</ul> -->
 <script>
 	$(document).ready(function() {
-		$('.cab_left_bar_js').on('click','.link_wrapp', function() {
+		$('.cab_left_bar_js').on('click','.link_wrapp', function(){
 			var parent = $(this).closest('li'),
 				parent_active = parent.hasClass('active');
 			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow').css('opacity', '0');
-			if ($(document).outerWidth() < 1150) {
+			if($(document).outerWidth() < 1150){
 				parent.closest('.page_content_js').removeClass('posZIndex');
 			}
 			if(!parent_active){
@@ -152,10 +126,10 @@
 				}
 			}
 		});
-		if ($(document).outerWidth() > 1150) {
+		if($(document).outerWidth() > 1150){
 			$('.show').slideDown('slow');
 		}
-		$('body').on('click', '.posZIndex div:not(.cab_left_bar_js)', function() {
+		$('body').on('click', '.posZIndex div:not(.cab_left_bar_js)', function(){
 			$('.cab_left_bar_js > ul > li.active').removeClass('active').find('ul').stop(true, true).slideUp('slow').css('opacity', '0');
 		});
 	});

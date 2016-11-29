@@ -259,11 +259,11 @@
 							<td>
 								<form id="image_resize" action="<?=$GLOBALS['URL_base'];?>adm/main/new_resize_product_images/" method="POST">
 									<label class="fд">Создание уменьшенных копий изображений товаров в отдельной папке на сервере.</label>
-									<label class="fr" title="Удалить существующие миниатюры и создать их заново.">Пересоздать <input type="checkbox" name="resize_all" id="resize_all"></label>
+									<!-- <label class="fr" title="Удалить существующие миниатюры и создать их заново.">Пересоздать <input type="checkbox" name="resize_all" id="resize_all"></label> -->
 								</form>
 							</td>
 							<td>
-								<!-- <button type="submit" name="image_resize" form="image_resize" class="btn-m-red size_s fr">Создать</button> -->
+								<button type="submit" name="image_resize" form="image_resize" class="btn-m-red size_s fr">Создать</button>
 							</td>
 						</tr>
 						<tr>

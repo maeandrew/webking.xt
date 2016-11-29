@@ -5,7 +5,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 );
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 if(isset($_POST['save_bonus'])){
 	if($Customer->registerBonus($_POST)){
 		header("Location: ".Link::Custom('cabinet', 'bonus', array('clear'=>true))."?t=bonus_info&success");

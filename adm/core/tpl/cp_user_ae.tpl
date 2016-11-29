@@ -1,10 +1,17 @@
 <h1><?=$h1?></h1>
-
-<?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
-<?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
-
+<?if(isset($errm) && isset($msg)){?>
+	<div class="notification error">
+		<span class="strong">Ошибка!</span>
+		<?=$msg?>
+	</div>
+<?}elseif(isset($msg)){?>
+	<div class="notification success">
+		<span class="strong">Сделано!</span>
+		<?=$msg?>
+	</div>
+<?}?>
 <div id="customerae" class="grid">
-    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="row">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="row">
 		<div class="col-md-4">
 			<div class="row">
 				<div class="col-md-12">
@@ -24,6 +31,13 @@
 					<input type="text" name="passwd" id="passwd" <?=$GLOBALS['REQAR'][0] == 'useradd'?'required':null;?> class="input-m" value="<?=isset($_POST['passwd'])?htmlspecialchars($_POST['passwd']):null?>">
 				</div>
 				<div class="col-md-12">
+					<label for="active">Активность:</label><?=isset($errm['active'])?"<span class=\"errmsg\">".$errm['active']."</span><br>":null?>
+					<select name="active" id="active" class="input-m">
+						<option value="0" <?=isset($_POST['active']) && $_POST['active'] == '0'?'selected':null;?>>Отключен</option>
+						<option value="1" <?=isset($_POST['active']) && $_POST['active'] == '1'?'selected':null;?>>Включен</option>
+					</select>
+				</div>
+				<div class="col-md-12">
 					<?if(isset($_POST['id_user'])){?>
 						<input type="hidden" name="id_user" value="<?=$_POST['id_user']?>">
 					<?}?>
@@ -34,10 +48,23 @@
 						<?}?>
 					</select>
 				</div>
+				<div class="col-md-12">
+					<div class="additional_fields additional_fields_js"></div>
+				</div>
 			</div>
 		</div>
 		<div class="col-md-12">
 			<button name="smb" type="submit" id="form_submit" class="btn-m-default save-btn">Сохранить</button>
 		</div>
-    </form>
+	</form>
 </div>
+<script>
+$(function(){
+	$('#gid').on('change', function(){
+		$('.additional_fields_js').html('');
+		ajax('profiles', 'getAdditionalFields', {id_profile: $(this).val()}, 'html').done(function(data){
+			$('.additional_fields_js').html(data);
+		});
+	});
+});
+</script>
