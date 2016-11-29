@@ -663,6 +663,7 @@
 			}
 		}
 /* Страница "Стать дилером" / class="page_dealer" */
+	#content .page_agent,
 	#content .page_dealer{
 		font-size: 1.3em;
 	}
@@ -679,17 +680,20 @@
 	#content .page_dealer ul{
 		margin-left: 5%;
 	}
-	#content .page_dealer li{
+	#content .page_dealer li,
+	#content .page_agent li{
 		text-align: left;
 		font-weight: 400;
 		font-size: 1.3em;
-		line-height: 1.6\em;
+		line-height: 1.6em;
 		list-style-type: disc;
 		margin: 10px 0;
 	}
+	#content .page_agent ul li,
 	#content .page_dealer ul.sub_ul li{
 		list-style-type: none;
 	}
+	#content .page_agent ul li i,
 	#content .page_dealer ul.sub_ul li i{
 		vertical-align: middle;
 		margin: 0 10px;
@@ -705,7 +709,8 @@
 		display: inline-block;
 		min-width: 30%;
 	}
-	#content .page_dealer p.tagline{
+	#content .page_dealer p.tagline,
+	#content .page_agent p.tagline{
 		margin: 15px auto 10px;
 	}
 	#content .page_dealer .full_text p.new_point{
@@ -714,24 +719,54 @@
 	#content .page_dealer .full_text p.text_center{
 		text-align: center;
 	}
+	#content .page_agent .blockline:nth-child(2) .forflex {
+		order: 2;
+	}
+	#content .page_agent .blockline:nth-child(2) .forflex:first-of-type {
+		order: 1;
+	}
+	#content .page_agent .blockline:last-of-type *{
+		text-align: center;
+	}
+	#content .page_agent .blockline:last-of-type p{
+		margin: 5px 0;
+	}
+	#content .page_agent .payment_information_img{
+		max-width: 300px;
+	}
+
 	@media (max-width: 1100px){
-		#content .page_dealer{
+		#content .page_dealer,
+		#content .page_agent{
 			font-size: 1.2em;
 		}
-		#content .page_dealer li{
+		#content .page_dealer li,
+		#content .page_agent li{
 			font-size: 1.4em;
 		}
 	}
 	@media (max-width: 964px){
-		#content .page_dealer ul{
+		#content .page_dealer ul,
+		#content .page_agent ul{
 			margin-left: 10%;
 		}
-		#content .page_dealer .forflex{
+		#content .page_dealer .forflex,
+		#content .page_agent .forflex{
 			flex-basis: 100%;
+		}
+		#content .page_agent h4{
+			text-align: center;
+		}
+		#content .page_agent .blockline:nth-child(2) .forflex {
+			order: 1;
+		}
+		#content .page_agent .blockline:nth-child(2) .forflex:first-of-type {
+			order: 2;
 		}
 	}
 	@media (max-width: 600px){
-		#content .page_dealer{
+		#content .page_dealer,
+		#content .page_agent{
 			font-size: 1em;
 		}
 	}
@@ -836,7 +871,8 @@
 	@media (max-width: 600px) {
 		#content .blockOfText p,
 		#content .page_about_us p,
-		#content .page_dealer li {
+		#content .page_dealer li,
+		#content .page_agent li {
 			font-size: 1em;
 			max-width: 100%;
 		}
@@ -913,7 +949,8 @@
 		#content .page_payment li {
 			 margin-left: 35%;
 		}
-		#content .page_dealer ul {
+		#content .page_dealer ul,
+		#content .page_agent ul {
 			margin-left: 11%;
 		}
 		#content .page_dealer .info_circle p {
