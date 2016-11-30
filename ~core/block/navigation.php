@@ -17,7 +17,7 @@ if($GLOBALS['CurrentController'] == 'products'){
 	$GLOBALS['GLOBAL_CURRENT_ID_CATEGORY'] = isset($GLOBALS['current_categories']) && is_array($GLOBALS['current_categories'])?end($GLOBALS['current_categories']):0;
 }
 	// print_r(G::getmicrotime() - $s_time);die();
-$navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
+$navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'category_img', 'pid'), 1);
 foreach($navigation as &$l1){
 	$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
 	foreach($level2 as &$l2){
