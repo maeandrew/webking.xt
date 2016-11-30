@@ -25,6 +25,15 @@ if(count($_GET['column']) > 1){?>
 		<?}?>
 	</table>
 <?}
+if(isset($_GET['savedprices']) == false){
+	if($_GET['header']){?>
+		<h1><?=$_GET['header']?></h1>
+	<?}else{?>
+		<h1>Прайс-лист<!--  службы снабжения xt.ua --></h1>
+	<?}
+}else{?>
+	<h1><?=$name?></h1>
+<?}
 if($_GET['photo'] !== 2){
 	$headrow = '<th class="header__article">Арт.</th>'.
 		($_GET['photo'] == 1?'<th class="header__image">Фото</th>':null).
@@ -32,15 +41,6 @@ if($_GET['photo'] !== 2){
 		<th class="header__units">Мин.</th>
 		<th class="header__price">Цена</th>';
 }
-if(isset($_GET['savedprices']) == false){
-	if($_GET['header']){?>
-		<h1><?=$_GET['header']?></h1>
-	<?}else{?>
-		<h1>Прайс-лист службы снабжения xt.ua</h1>
-	<?}
-}else{?>
-	<h1><?=$name?></h1>
-<?}
 if($_GET['photo'] == 2){ // Если нужно отобразить большие фото товаров
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
 		$ii = 0;
