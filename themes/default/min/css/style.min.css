@@ -475,7 +475,7 @@ section.center{width:calc(100% - 260px)}
 .mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield__label{color:#757575}
 .mdl-button--accent.mdl-button--accent.mdl-button--fab,.mdl-button--accent.mdl-button--accent.mdl-button--raised{background-color:#FF5722}
 .mdl-textfield__label:after{background-color:#757575}
-#individualMargin{width:240px;padding-top:0;padding-bottom:10px}
+#individualMargin{width:100%;padding-top:0;padding-bottom:10px}
 #individualMargin .mdl-textfield__input{border-bottom:1px solid rgba(0,0,0,.12)}
 #individualMargin .mdl-textfield__label{font-size:14px;top:10px}
 #individualMargin span{top:29px}
