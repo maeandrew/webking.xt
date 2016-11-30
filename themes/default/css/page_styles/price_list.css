@@ -217,6 +217,7 @@ h1.global_cat:first-of-type {
 	height: 1030px;
 	margin: 0 auto;
 	position: relative;
+	page-break-after: always;
 }
 .image_wrap {
 	height: 50vh;
