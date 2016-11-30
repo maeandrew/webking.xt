@@ -207,43 +207,32 @@
 					<?=$__breadcrumbs?>
 					<?=$__center?>
 				<?}else{?>
-					<h4>Пополнение ассортимента</h4>
-					<div class="content_header">
-						<div class="list_settings">
-							<div class="sort mdl-cell--hide-phone"></div>
-							<div class="catalog_button btn_js mdl-cell--hide-desktop mdl-cell--hide-tablet" data-name="catalog">Каталог</div>
-							<div class="productsListView">
-								<label class="mdl-cell--hide-phone">Вид:</label>
-								<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
-								<span class="mdl-tooltip" for="changeToList">Списком</span>
-								<i id="changeToBlock" class="material-icons changeView_js <?=!isset($_COOKIE['product_view']) || $_COOKIE['product_view'] == 'block' ? 'activeView' : NULL?>" data-view="block">view_module</i>
-								<span class="mdl-tooltip" for="changeToBlock">Блоками</span>
-								<i id="changeToColumn" class="material-icons changeView_js hidden <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'column' ? 'activeView' : NULL?>" data-view="column">view_column</i>
-								<span class="mdl-tooltip" for="changeToColumn">Колонками</span>
-							</div>
-						</div>
-					</div>
-					<div id="view_block_js" class="<?=isset($_COOKIE['product_view'])?$_COOKIE['product_view'].'_view':'block_view'?> col-md-12 ajax_loading">
-						<div class="row">
-							<div class="products">
-								<?=$products_list;?>
-							</div>
-							<?if($GLOBALS['CurrentController'] != 'main'){?>
-							<div class="preview ajax_loading mdl-shadow--4dp">
-								<div class="preview_content">
-									<div class="mdl-grid" style="overflow: hidden;">
-										<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
-											<div id="owl-product_slide_js"></div>
-										</div>
-									</div>
-								</div>
-								<div class="triangle"></div>
-								<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-							</div>
+					<?if(!empty($navigation)){?>
+						<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
+							<?php foreach ($navigation as $value) {?>
+								<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
+									<span class="subCategoryImageWrap">
+										<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+									</span>
+									<span class="subCategoryTitleWrap">
+										<span class="subCategoryTitle"><?=$value['name']?></span>
+									</span>
+								</a>
 							<?}?>
 						</div>
-					</div>
-					<!-- <div class="show_more mdl-cell--hide-phone"><a href="#">Показать еще 30 товаров</a></div> -->
+						<div class="subCategories mdl-cell--hide-phone">
+							<?php foreach ($navigation as $value) {?>
+								<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
+									<span class="subCategoryImageWrap">
+										<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+									</span>
+									<span class="subCategoryTitleWrap">
+										<span class="subCategoryTitle"><?=$value['name']?></span>
+									</span>
+								</a>
+							<?}?>
+						</div>
+					<?}?>
 				<?}?>
 			</div>
 			<!-- Блок последних новостей -->
