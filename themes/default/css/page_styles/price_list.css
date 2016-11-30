@@ -211,3 +211,152 @@ h1.global_cat {
 h1.global_cat:first-of-type {
 	page-break-before: avoid;
 }
+
+.main {
+	width: 700px;
+	height: 1030px;
+	margin: 0 auto;
+	position: relative;
+}
+.image_wrap {
+	height: 50vh;
+	line-height: 50vh;
+	text-align: center;
+}
+.prod_img {
+	max-width: 100%;
+	max-height: 50vh;
+	margin-bottom: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
+}
+.prod_title {
+	font-size: 35px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.prod_art {
+	color: #505050;
+	font-size: 22px;
+}
+.price_block {
+	padding-top: 25px;
+	padding-bottom: 25px;
+	text-align: center;
+}
+.price {
+	font-size: 70px;
+	display: inline-block;
+	font-family: 'Oswald', sans-serif;
+}
+.price span {
+	font-size: 0.5em;
+	font-weight: bold;
+}
+.curent_price {
+	color: #FF5722;
+}
+.old_price {
+	color: #9e9e9e;
+	font-size: 35px;
+	position: relative;
+	margin-left: 20px;
+}
+.old_price:before {
+	content: '';
+    display: block;
+    position: absolute;
+    top: 18px;
+    left: -6px;
+    width: 110%;
+    height: 2px;
+    background: #FF5722;
+    -ms-transform: rotate(12deg);
+    -webkit-transform: rotate(12deg);
+    transform: rotate(-12deg);
+}
+.gift_block {
+	height: 140px;
+    display: flex;
+    border: 2px solid #FF5722;
+}
+.gift_title {
+	width: 100%;
+    padding-bottom: 10px;
+    font-size: 26px;
+    color: #FF5722;
+}
+.gift_image_wrap {
+	padding: 10px;
+	line-height: 120px;
+	text-align: center;
+}
+.gift_img {
+	width: 120px;
+	height: 120px;
+	vertical-align: middle;
+	display: inline-block;
+}
+.gift_descr {
+	padding: 10px;
+}
+.gift_name {
+	font-size: 18px;
+	max-height: 44px;
+	overflow: hidden;
+}
+.gift_art {
+	color: #505050;
+	font-size: 15px;
+	padding-top: 10px;
+}
+.footer {
+	position: absolute;
+	padding-top: 10px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-top: 1px solid #eee;
+	display: flex;
+}
+.logo {
+	width: 20%;
+	margin-top: 10px;
+}
+.logo img {
+	width: 100%;
+}
+.logo p {
+	font-size: .9em; text-align: center; display: block;
+}
+.contacts {
+	width: calc(80% - 100px);
+	text-align: center;
+	line-height: 30px;
+	font-size: 20px;
+	padding: 10px 10%;
+	box-sizing: border-box;
+}
+.contacts .site {
+	float: left;
+	line-height: 70px;
+	font-size: 3em;
+	font-weight: bold;
+}
+.contacts .phones {
+	float: right;
+	font-size: 0.8em;
+	line-height: 1.3em;
+}
+.prod_qr_code img {
+	height: 100px;
+	width: 100px;
+	border: 1px solid #eee;
+	margin: 0 auto;
+	display: block;
+	box-sizing: border-box;
+}
