@@ -243,7 +243,64 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 			</div>
 		<?}
 	}
-}else{ // Если не нужно отображать фото товаров или мальенткие
+}elseif ($_GET['photo'] == 3){
+	foreach($list as $item){
+		foreach($item as $product){
+			var_dump($product['name']);
+		}
+	}
+
+	?>
+	<div class="main">
+		<div class="content">
+			<div class="image_wrap">
+				<?if(!empty($product['images'])){?>
+					<img class="prod_img" src="<?=G::GetImageUrl($product['images'][0]['src'])?>"/>
+				<?}else if(!empty($product['img_1'])){?>
+					<img class="prod_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
+				<?}else{?>
+					<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+				<?}?>
+			</div>
+			<p class="prod_title"><?=$product['name']?></p>
+			<p class="prod_art">Артикул: <?=$product['art']?></p>
+			<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
+				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$product_mark = 'action';}?>
+			<div class="price_block">
+				<p class="price curent_price"><?=($product['price_mopt'] > 0?number_format($product['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$product['units']?></span></p>
+				<?if (isset($product_mark) && $product_mark === 'action') {?>
+					<p class="price old_price">
+						<?if (!isset($_SESSION['cart']['products'][$product['id_product']]['quantity']) || ($_SESSION['cart']['products'][$product['id_product']]['quantity'] >= $product['inbox_qty'])){?>
+							<?=number_format($product['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+						<?}else{?>
+							<?=number_format($product['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+						<?}?>
+						<span> грн.</span>
+					</p>
+				<?}?>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="logo">
+				<img src="/themes/default/img/_xt.svg">
+				<p>Служба снабжения ХарьковТОРГ</p>
+			</div>
+			<div class="contacts">
+				<p class="site">xt.ua</p>
+				<div class="phones">
+					Связь с нами:
+					<p>(050) 309-84-20</p>
+					<p>(067) 574-10-13</p>
+					<p>(057) 780-38-61</p>
+				</div>
+			</div>
+			<div class="prod_qr_code">
+				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
+			</div>
+		</div>
+	</div>
+<?}else{ // Если не нужно отображать фото товаров или мальенткие
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
 		$ii = 0;
 		foreach($list as $k=>$l1){
