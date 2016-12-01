@@ -140,6 +140,8 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_dealer .container .blockOfText h4{text-align:left}
 #content .page_dealer ul{margin-left:5%}
 #content .page_agent li,#content .page_dealer li{text-align:left;font-weight:400;font-size:1.3em;line-height:1.6em;list-style-type:disc;margin:10px 0}
+#content .page_agent li{position:relative;padding-left:2.5em}
+#content .page_agent li i{position:absolute;left:0}
 #content .page_agent ul li,#content .page_dealer ul.sub_ul li{list-style-type:none}
 #content .page_agent ul li i,#content .page_dealer ul.sub_ul li i{vertical-align:middle;margin:0 10px}
 #content .page_dealer .full_text{text-align:justify}
@@ -150,19 +152,28 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 #content .page_dealer .full_text p.text_center{text-align:center}
 #content .page_agent .blockline:nth-child(2) .forflex{order:2}
 #content .page_agent .blockline:nth-child(2) .forflex:first-of-type{order:1}
-#content .page_agent .blockline:last-of-type *{text-align:center}
-#content .page_agent .blockline:last-of-type p{margin:5px 0}
+#content .page_agent .blockline.contacts *{text-align:center}
 #content .page_agent .payment_information_img{max-width:300px}
+#content .page_agent .blockline.three_inline_wrap h4{text-align:center}
+#content .page_agent .blockline.three_inline_wrap .flexwrapp{align-items:flex-start}
+#content .page_agent .blockline.three_inline_wrap .forflex{padding:1em;max-width:300px;text-align:left}
+#content .page_agent .blockline.three_inline_wrap .forflex h4{min-height:60px}
 @media (max-width:1100px){#content .page_agent,#content .page_dealer{font-size:1.2em}
 #content .page_agent li,#content .page_dealer li{font-size:1.4em}
+#content .page_agent .forflex h4{font-size:1.5em}
+}
+@media (min-width:964px) and (max-width:1100px){#content .page_agent .blockline.three_inline_wrap .forflex h4{min-height:80px}
 }
 @media (max-width:964px){#content .page_agent ul,#content .page_dealer ul{margin-left:10%}
 #content .page_agent .forflex,#content .page_dealer .forflex{flex-basis:100%}
 #content .page_agent h4{text-align:center}
 #content .page_agent .blockline:nth-child(2) .forflex{order:1}
 #content .page_agent .blockline:nth-child(2) .forflex:first-of-type{order:2}
+#content .page_agent .blockline.three_inline_wrap .flexwrapp{flex-wrap:wrap}
+#content .page_agent .blockline.three_inline_wrap .forflex h4{min-height:40px}
 }
 @media (max-width:600px){#content .page_agent,#content .page_dealer{font-size:1em}
+#content .page_agent li i{font-size:1.4em}
 }
 @media (max-width:450px){#content .page_dealer ul.sub_ul{margin-left:5%}
 #content .page_dealer .full_text p.new_point{margin-top:25px}

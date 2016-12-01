@@ -18,6 +18,18 @@
 					<textarea rows="1" name="header"></textarea>
 				</fieldset>
 				<fieldset>
+					<legend>Вид
+						<label class="info_key">?</label>
+						<div class="info_description">
+							<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
+						</div>
+					</legend>
+					<label class="mdl-radio mdl-js-radio" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фото</label>
+					<label class="mdl-radio mdl-js-radio" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">маленькие фото</label>
+					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">большие фото</label>
+					<label class="mdl-radio mdl-js-radio" for="label"><input type="radio" name="photo" class="mdl-radio__button" id="label" value="3">ценник</label>
+				</fieldset>
+				<fieldset>
 					<legend>Цена
 						<label class="info_key">?</label>
 						<div class="info_description">
@@ -47,7 +59,7 @@
 					</legend>
 
 					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-more">
-						<input type="checkbox" id="checkbox-more" class="mdl-checkbox__input" name="column[]" value="0">при заказе более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.
+						<input type="checkbox" id="checkbox-more" class="mdl-checkbox__input" checked name="column[]" value="0">при заказе более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.
 					</label>
 
 					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-on">
@@ -59,7 +71,7 @@
 					</label>
 
 					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-to">
-						<input type="checkbox" id="checkbox-to" class="mdl-checkbox__input" checked name="column[]" value="3">при заказе до <?=$GLOBALS['CONFIG']['retail_order_margin']?>грн.
+						<input type="checkbox" id="checkbox-to" class="mdl-checkbox__input" name="column[]" value="3">при заказе до <?=$GLOBALS['CONFIG']['retail_order_margin']?>грн.
 					</label>
 
 					<div id="individualMargin" class="mdl-textfield mdl-js-textfield">
@@ -69,17 +81,15 @@
 					</div>
 
 				</fieldset>
-				<fieldset>
-					<legend>Вид
+				<fieldset class="orientation hidden">
+					<legend>Ориентация
 						<label class="info_key">?</label>
 						<div class="info_description">
-							<p>В зависимости от этого параметра, будет сформирован прайс-лист с изображениями товаров или без них.</p>
+							<p>При включении альбомной ориентации, необходимо при печати также указать альбомную ориентацию листа</p>
 						</div>
 					</legend>
-					<label class="mdl-radio mdl-js-radio" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фото</label>
-					<label class="mdl-radio mdl-js-radio" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">маленькие фото</label>
-					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">большие фото</label>
-					<label class="mdl-radio mdl-js-radio" for="label"><input type="radio" name="photo" class="mdl-radio__button" id="label" value="3">ценник</label>
+					<label class="mdl-radio mdl-js-radio" for="portrait"><input type="radio" checked name="orientation" class="mdl-radio__button" id="portrait" value="0">портретная</label>
+					<label class="mdl-radio mdl-js-radio" for="landscape"><input type="radio" name="orientation" class="mdl-radio__button" id="landscape" value="1">альбомная</label>
 				</fieldset>
 
 				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">Снять все выделения</button>
@@ -88,13 +98,11 @@
 				<div class="price-counter">
 					<?if(isset($_GET['savedprices']) == true){?>
 						<input type="hidden" name="savedprices">
-						<!--<style>.price-counter .variables {color: transparent;text-shadow: none;}</style>-->
 					<?}?>
 					<p class="variables">Выбрано<span class="selected-count value">0</span></p>
 					<p class="variables">Лимит<span class="limit-count value">3000</span></p>
 					<p class="variables">Осталось<span class="remain-count value">3000</span></p>
 					<input type="hidden" required name="selected-array" class="selected-array">
-					<!-- <input type="submit" class="confirm btn-m-orange" value="Прайс-лист"> -->
 					<button class="mdl-button mdl-js-button mdl-button--raised confirm">Прайс-лист</button>
 				</div>
 			</div>
@@ -184,10 +192,19 @@
 			</ul>
 		<?}?>
 	</div>
-</div> <!-- END class="price_list_page" -->
+</div>
 <script>
 	$(function(){
 		$(".categories_js").removeClass('ajax_loading');
+	});
+	$('[name="photo"]').on('change', function(){
+		if($(this).val() == 3){
+			$('.orientation').removeClass('hidden');
+			$('input[name="column[]"]').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
+		}else{
+			$('.orientation').addClass('hidden');
+			$('input[name="column[]"]').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
+		}
 	});
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	var params = $('#dynamic-params'),

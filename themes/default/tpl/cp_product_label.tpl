@@ -225,7 +225,7 @@
 				</div>
 			</div>
 			<div class="prod_qr_code">
-				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
+				<img src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
 			</div>
 		</div>
 	</div>

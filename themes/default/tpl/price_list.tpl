@@ -37,11 +37,18 @@ if(isset($_GET['savedprices']) == false && $_GET['photo'] != 3){
 	if($_GET['header']){?>
 		<h1><?=$_GET['header']?></h1>
 	<?}else{?>
-		<h1>Прайс-лист службы снабжения xt.ua</h1>
+		<h1>Прайс-лист<!--  службы снабжения xt.ua --></h1>
 	<?}
 }else{?>
 	<h1><?=$_GET['photo'] != 3?$name:null?></h1>
 <?}
+if($_GET['photo'] !== 2){
+	$headrow = '<th class="header__article">Арт.</th>'.
+		($_GET['photo'] == 1?'<th class="header__image">Фото</th>':null).
+		'<th class="header__name">Наименование</th>
+		<th class="header__units">Мин.</th>
+		<th class="header__price">Цена</th>';
+}
 if($_GET['photo'] == 2){ // Если нужно отобразить большие фото товаров
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
 		$ii = 0;

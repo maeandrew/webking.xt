@@ -52,9 +52,11 @@ if(isset($_GET['savedprices']) == true){
 	foreach($selected_list as $sl){
 		$list[$sl] = $Products->PriceListProductsByCat($sl);
 		$cat[] = $dbtree->CheckParent($sl);
-		foreach($list[$sl] as &$p){
-			$images = $Products->GetPhotoById($p['id_product']);
-			$p['image'] = $images[0]['src'];
+		if(!empty($list[$sl])){
+			foreach($list[$sl] as &$p){
+				$images = $Products->GetPhotoById($p['id_product']);
+				$p['image'] = $images[0]['src'];
+			}
 		}
 	}
 	$tpl->Assign('cat', $cat);
