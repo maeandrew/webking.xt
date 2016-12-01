@@ -4,8 +4,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>Прайс-лист</title>
 	<link rel="stylesheet" href="/themes/default/min/css/page_styles/price_list.min.css">
+	<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">
 </head>
-<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?>">
+<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> landscape">
 <?$price = array(
 	'0'=>"При сумме заказа более ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'1'=>"При сумме заказа от ".$GLOBALS['CONFIG']['wholesale_order_margin']." до ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
@@ -256,16 +257,16 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 						<div>
 							<?foreach($l2['products'] as $p){?>
 								<div class="main">
+									<div class="image_wrap">
+										<?if($p['image'] != ''){?>
+											<img class="prod_img" src="<?=G::GetImageUrl($p['image'])?>">
+										<?}elseif(!empty($p['img_1'])){?>
+											<img class="prod_img" src="<?=G::GetImageUrl($p['img_1'])?>"/>
+										<?}else{?>
+											<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+										<?}?>
+									</div>
 									<div class="content">
-										<div class="image_wrap">
-											<?if($p['image'] != ''){?>
-												<img class="prod_img" src="<?=G::GetImageUrl($p['image'])?>">
-											<?}elseif(!empty($p['img_1'])){?>
-												<img class="prod_img" src="<?=G::GetImageUrl($p['img_1'])?>"/>
-											<?}else{?>
-												<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
-											<?}?>
-										</div>
 										<p class="prod_title"><?=$p['name']?></p>
 										<p class="prod_art">Артикул: <?=$p['art']?></p>
 										<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);?>
@@ -307,16 +308,16 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 								<?if(isset($l3['products'])){
 									foreach($l3['products'] as $p){?>
 										<div class="main">
+											<div class="image_wrap">
+												<?if($p['image'] != ''){?>
+													<img class="prod_img" src="<?=G::GetImageUrl($p['image'])?>">
+												<?}elseif(!empty($p['img_1'])){?>
+													<img class="prod_img" src="<?=G::GetImageUrl($p['img_1'])?>"/>
+												<?}else{?>
+													<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+												<?}?>
+											</div>
 											<div class="content">
-												<div class="image_wrap">
-													<?if($p['image'] != ''){?>
-														<img class="prod_img" src="<?=G::GetImageUrl($p['image'])?>">
-													<?}elseif(!empty($p['img_1'])){?>
-														<img class="prod_img" src="<?=G::GetImageUrl($p['img_1'])?>"/>
-													<?}else{?>
-														<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
-													<?}?>
-												</div>
 												<p class="prod_title"><?=$p['name']?></p>
 												<p class="prod_art">Артикул: <?=$p['art']?></p>
 												<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);?>
@@ -355,17 +356,17 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 	}else{ // Сформированый прайс
 		foreach($list as $item){
 			foreach($item as $product){?>
-				<div class="main">
+				<div class="main landscape">
+					<div class="image_wrap">
+						<?if($product['image'] != ''){?>
+							<img class="prod_img" src="<?=G::GetImageUrl($product['image'])?>">
+						<?}elseif(!empty($product['img_1'])){?>
+							<img class="prod_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
+						<?}else{?>
+							<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+						<?}?>
+					</div>
 					<div class="content">
-						<div class="image_wrap">
-							<?if($product['image'] != ''){?>
-								<img class="prod_img" src="<?=G::GetImageUrl($product['image'])?>">
-							<?}elseif(!empty($product['img_1'])){?>
-								<img class="prod_img" src="<?=G::GetImageUrl($product['img_1'])?>"/>
-							<?}else{?>
-								<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
-							<?}?>
-						</div>
 						<p class="prod_title"><?=$product['name']?></p>
 						<p class="prod_art">Артикул: <?=$product['art']?></p>
 						<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
@@ -375,23 +376,23 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 								<span> грн./<?=$product['units']?></span>
 							</p>
 						</div>
-					</div>
-					<div class="footer">
-						<div class="logo">
-							<img src="/themes/default/img/_xt.svg">
-							<p>Служба снабжения ХарьковТОРГ</p>
-						</div>
-						<div class="contacts">
-							<p class="site">xt.ua</p>
-							<div class="phones">
-								Связь с нами:
-								<p>(050) 309-84-20</p>
-								<p>(067) 574-10-13</p>
-								<p>(057) 780-38-61</p>
+						<div class="footer">
+							<div class="logo">
+								<img src="/themes/default/img/_xt.svg">
+								<p>Служба снабжения ХарьковТОРГ</p>
 							</div>
-						</div>
-						<div class="prod_qr_code">
-							<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
+							<div class="contacts">
+								<p class="site">xt.ua</p>
+								<div class="phones">
+									Связь с нами:
+									<p>(050) 309-84-20</p>
+									<p>(067) 574-10-13</p>
+									<p>(057) 780-38-61</p>
+								</div>
+							</div>
+							<div class="prod_qr_code">
+								<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
+							</div>
 						</div>
 					</div>
 				</div>
