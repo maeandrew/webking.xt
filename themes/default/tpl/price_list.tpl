@@ -363,7 +363,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 	}else{ // Сформированый прайс
 		foreach($list as $item){
 			foreach($item as $product){?>
-				<div class="main landscape">
+				<div class="main">
 					<div class="image_wrap">
 						<?if($product['image'] != ''){?>
 							<img class="prod_img" src="<?=G::GetImageUrl($product['image'])?>">
