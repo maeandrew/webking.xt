@@ -81,6 +81,16 @@
 					</div>
 
 				</fieldset>
+				<fieldset class="orientation hidden">
+					<legend>Ориентация
+						<label class="info_key">?</label>
+						<div class="info_description">
+							<p>При включении альбомной ориентации, необходимо при печати также указать альбомную ориентацию листа</p>
+						</div>
+					</legend>
+					<label class="mdl-radio mdl-js-radio" for="portrait"><input type="radio" checked name="orientation" class="mdl-radio__button" id="portrait" value="0">портретная</label>
+					<label class="mdl-radio mdl-js-radio" for="landscape"><input type="radio" name="orientation" class="mdl-radio__button" id="landscape" value="1">альбомная</label>
+				</fieldset>
 
 				<button class="mdl-button mdl-js-button mdl-button--raised uncheck_all">Снять все выделения</button>
 
@@ -189,8 +199,10 @@
 	});
 	$('[name="photo"]').on('change', function(){
 		if($(this).val() == 3){
+			$('.orientation').removeClass('hidden');
 			$('input[name="column[]"]').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
 		}else{
+			$('.orientation').addClass('hidden');
 			$('input[name="column[]"]').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
 		}
 	});
