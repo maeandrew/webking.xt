@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link href="/themes/default/css/fonts.css" rel="stylesheet">
+	<link href="/themes/default/min/css/fonts.min.css" rel="stylesheet">
 	<style>
 		* {
 			padding: 0;
@@ -225,7 +225,7 @@
 				</div>
 			</div>
 			<div class="prod_qr_code">
-				<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
+				<img src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=<?=Link::Product($product['translit'])?>&chld=H|0">
 			</div>
 		</div>
 	</div>
