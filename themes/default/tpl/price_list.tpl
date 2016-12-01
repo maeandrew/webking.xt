@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="/themes/default/min/css/page_styles/price_list.min.css">
 	<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">
 </head>
-<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> landscape">
+<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> <?=$_GET['orientation'] == 1?'landscape':null?>">
 <?$price = array(
 	'0'=>"При сумме заказа более ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'1'=>"При сумме заказа от ".$GLOBALS['CONFIG']['wholesale_order_margin']." до ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
