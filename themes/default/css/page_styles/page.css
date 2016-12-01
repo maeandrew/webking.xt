@@ -810,6 +810,12 @@
 		#content .page_dealer .full_text p.new_point{
 			margin-top: 25px;
 		}
+		#content .page_agent .forflex img{
+			max-width: 250px;
+		}
+		#content .page_agent .payment_information_img{
+			max-width: 200px;
+		}
 	}
 
 /* Общие медиа запросы */

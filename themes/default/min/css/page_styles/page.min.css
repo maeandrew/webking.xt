@@ -177,6 +177,8 @@ a.btn_plus--beta:hover *,a.btn_plus:hover *{color:#69ab3f!important;border-color
 }
 @media (max-width:450px){#content .page_dealer ul.sub_ul{margin-left:5%}
 #content .page_dealer .full_text p.new_point{margin-top:25px}
+#content .page_agent .forflex img{max-width:250px}
+#content .page_agent .payment_information_img{max-width:200px}
 }
 @media (max-width:1200px){#content .main_img{width:50%!important}
 #content .pages_group .blockOfText h4{font-size:1.4em}
