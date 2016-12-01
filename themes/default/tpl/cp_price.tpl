@@ -180,8 +180,6 @@
 											<?}else{?>
 												<label for="cat-<?=$l2['id_category']?>"><?=$l2['name']?> [<?=$l2['products']?>]</label>
 											<?}?> -->
-
-
 										</li>
 									<?}?>
 								</ul>
@@ -199,10 +197,10 @@
 	});
 	$('[name="photo"]').on('change', function(){
 		if($(this).val() == 3){
-			$('.orientation').removeClass('hidden');
+			$('.orientation').removeClass('hidden').find('input').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
 			$('input[name="column[]"]').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
 		}else{
-			$('.orientation').addClass('hidden');
+			$('.orientation').addClass('hidden').find('input').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
 			$('input[name="column[]"]').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
 		}
 	});
