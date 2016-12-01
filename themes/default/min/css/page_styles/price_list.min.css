@@ -48,7 +48,7 @@ div.article,div.photo_inner{position:relative}
 div.photo_inner img{position:relative;max-height:245px;z-index:0}
 h1.global_cat{page-break-before:always}
 h1.global_cat:first-of-type{page-break-before:avoid}
-.main{width:700px;height:1030px;margin:0 auto;position:relative}
+.main{width:700px;height:1030px;margin:0 auto;position:relative;page-break-after:always}
 .image_wrap{height:50vh;line-height:50vh;text-align:center}
 .prod_img{max-width:100%;max-height:50vh;margin-bottom:20px;display:inline-block;vertical-align:middle;margin:0}
 .prod_title{font-size:35px;margin-bottom:5px;margin-top:10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
@@ -66,7 +66,7 @@ h1.global_cat:first-of-type{page-break-before:avoid}
 .gift_descr{padding:10px}
 .gift_name{font-size:18px;max-height:44px;overflow:hidden}
 .gift_art{color:#505050;font-size:15px;padding-top:10px}
-.footer{position:absolute;padding-top:10px;bottom:0;left:0;right:0;border-top:1px solid #eee;display:flex}
+.footer{position:absolute;padding-top:10px;bottom:0;left:0;right:0;display:flex}
 .logo{width:20%;margin-top:10px}
 .logo img{width:100%}
 .logo p{font-size:.9em;text-align:center;display:block}
@@ -74,3 +74,16 @@ h1.global_cat:first-of-type{page-break-before:avoid}
 .contacts .site{float:left;line-height:70px;font-size:3em;font-weight:700}
 .contacts .phones{float:right;font-size:.8em;line-height:1.3em}
 .prod_qr_code img{height:100px;width:100px;border:1px solid #eee;margin:0 auto;display:block;box-sizing:border-box}
+body.landscape{width:100%}
+.landscape .main{width:1000px;height:700px}
+.landscape .image_wrap{width:70%;float:left;height:100%;line-height:660px;padding:20px}
+.landscape .content{width:30%;float:right}
+.landscape .footer{left:70%;flex-wrap:wrap}
+.landscape .prod_img{max-height:calc(100% - 40px);margin-bottom:0}
+.landscape .prod_title{white-space:pre-wrap;font-size:25px;max-height:115px;overflow:hidden}
+.landscape .price_block{padding-top:35%;padding-bottom:0}
+.landscape .price{font-size:50px}
+.landscape .contacts{order:3;width:100%;padding:0;display:flex;padding-top:10px}
+.landscape .contacts .site{width:50%}
+.landscape .contacts .phones{width:50%}
+.landscape .logo,.landscape .prod_qr_code{width:50%}

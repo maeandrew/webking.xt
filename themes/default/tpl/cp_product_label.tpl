@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link href="/themes/default/min/css/fonts.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">
 	<style>
 		* {
 			padding: 0;

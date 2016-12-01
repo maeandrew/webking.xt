@@ -217,6 +217,7 @@ h1.global_cat:first-of-type {
 	height: 1030px;
 	margin: 0 auto;
 	position: relative;
+	page-break-after: always;
 }
 .image_wrap {
 	height: 50vh;
@@ -320,7 +321,7 @@ h1.global_cat:first-of-type {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	border-top: 1px solid #eee;
+	/*border-top: 1px solid #eee;*/
 	display: flex;
 }
 .logo {
@@ -359,4 +360,61 @@ h1.global_cat:first-of-type {
 	margin: 0 auto;
 	display: block;
 	box-sizing: border-box;
+}
+
+body.landscape {
+	width: 100%;
+}
+.landscape .main {
+	width: 1000px;
+    height: 700px;
+}
+.landscape .image_wrap {
+	width: 70%;
+    float: left;
+    height: 100%;
+    line-height: 660px;
+    padding: 20px;
+}
+.landscape .content {
+	width: 30%;
+    float: right;
+}
+.landscape .footer {
+	left: 70%;
+    flex-wrap: wrap;
+}
+.landscape .prod_img {
+	max-height: calc(100% - 40px);
+	margin-bottom: 0;
+}
+.landscape .prod_title {
+	white-space: pre-wrap;
+	font-size: 25px;
+	max-height: 115px;
+	overflow: hidden;
+}
+.landscape .price_block {
+	padding-top: 35%;
+	padding-bottom: 0;
+}
+.landscape .price {
+	font-size: 50px;
+}
+.landscape .contacts {
+	order: 3;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    padding-top: 10px;
+}
+.landscape .contacts .site {
+	width: 50%;
+}
+.landscape .contacts .phones {
+	width: 50%;
+}
+.landscape .logo,
+.landscape .prod_qr_code {
+	width: 50%;
 }
