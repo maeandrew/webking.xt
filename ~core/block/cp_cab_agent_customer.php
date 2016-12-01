@@ -173,6 +173,6 @@ $tpl->Assign('order_statuses', $order_statuses);
 
 $parsed_res = array(
 	'issuccess' => TRUE,
-	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_orders.tpl')
+	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_agent.tpl')
 );
 ?>

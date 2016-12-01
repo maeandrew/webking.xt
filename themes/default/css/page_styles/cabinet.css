@@ -1727,7 +1727,9 @@ table.kontrag.table{
 		font-weight: normal;
 	}
 	.customer_cab .add_new_address,
-	.customer_cab .edit_contacts_block, #bonus .bonus_content {
+	.customer_cab .edit_contacts_block,
+	.customer_cab .license_agreement,
+	#bonus .bonus_content {
 		/*padding: 0px 15px 15px 15px;*/
 		padding: 15px;
 		margin-top: 1em;
@@ -3036,6 +3038,32 @@ div[id^="items_panel_"] .btnWrapFlex {
 .msg_text {
 	white-space: normal;
 }
+
+/* Раздел агента */
+.customer_cab .license_agreement {
+	width: calc(100% - 15px);
+	height: 70vh;
+	margin-top: 0;
+}
+.customer_cab .license_agreement h2 {
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+.license_agreement_descr {
+	height: calc(75vh - 155px);
+    overflow: auto;
+    padding-right: 10px;
+    text-align: justify;
+}
+.confirm_block {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+
+
 
 
 @media (max-width: 1150px) and (not handheld) {

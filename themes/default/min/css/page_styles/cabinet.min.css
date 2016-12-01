@@ -349,7 +349,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab .saved_addresses .address h4 .actions i:hover{color:#ff5722}
 .customer_cab .saved_addresses .address li{text-align:right;clear:both;font-weight:700}
 .customer_cab .saved_addresses .address li span{float:left;font-weight:400}
-#bonus .bonus_content,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{padding:15px;margin-top:1em;background:#fff;width:350px;float:left;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
+#bonus .bonus_content,.customer_cab .add_new_address,.customer_cab .edit_contacts_block,.customer_cab .license_agreement{padding:15px;margin-top:1em;background:#fff;width:350px;float:left;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 #bonus .bonus_content,.customer_cab .edit_contacts_block{width:330px}
 #bonus .fright{width:100%;margin-top:10px}
 .customer_cab .discount_select{padding-top:0}
@@ -536,6 +536,10 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .change_delivery button{margin-left:20px}
 .change_delivery .mdl-selectfield__list-option-box{max-height:155px}
 .msg_text{white-space:normal}
+.customer_cab .license_agreement{width:calc(100% - 15px);height:70vh;margin-top:0}
+.customer_cab .license_agreement h2{margin-top:0;margin-bottom:10px}
+.license_agreement_descr{height:calc(75vh - 155px);overflow:auto;padding-right:10px;text-align:justify}
+.confirm_block{display:flex;justify-content:space-between;padding-top:15px;padding-bottom:15px}
 @media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
 }
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
