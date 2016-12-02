@@ -15,7 +15,9 @@ if(isset($_SERVER['HTTP_REFERER'])){
 	$referer = explode('/',str_replace('http://', '', $_SERVER['HTTP_REFERER']));
 	$tpl->Assign('referer', $referer);
 }
-
+if(isset($_REQUEST['confirm_agent']) && !G::isAgent() && $Users->ConfirmAgent()){
+	header('Location: '.Link::Custom('cabinet', 'agent', array('clear' => true)));
+}
 $Customer = new Customers();
 $Customer->SetFieldsById($Users->fields['id_user']);
 

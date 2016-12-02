@@ -9,7 +9,7 @@ class Users {
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id_user", "name", "email", "descr", "gid", "active", "news", "promo_code", "phone");
+		$this->usual_fields = array('id_user', 'name', 'email', 'descr', 'gid', 'active', 'news', 'promo_code', 'phone', 'agent', 'agent_acception_date');
 	}
 
 	// public function CheckUser($arr){
@@ -38,7 +38,7 @@ class Users {
 			OR email = '".$f['email']."@x-torg.com'
 			OR phone = '".$f['email']."')";
 		}
-		$sql = "SELECT id_user, email, gid, promo_code, name, phone
+		$sql = "SELECT id_user, email, gid, promo_code, name, phone, agent
 			FROM "._DB_PREFIX_."user
 			WHERE ".$where."
 			AND passwd = '".md5($f['passwd'])."'
@@ -113,7 +113,7 @@ class Users {
 		if(empty($arr)){
 			return false;
 		}
-		return $this->SetFieldsById($arr['id_user']);
+		return $this->SetFieldsById($arr['id_user'], 1);
 	}
 
 	// Пользователь по id
@@ -271,9 +271,11 @@ class Users {
 		}else{
 			$f['news'] = 0;
 		}
-		$f['active'] = 1;
-		if(isset($arr['active']) && $arr['active'] == "on"){
-			$f['active'] = 0;
+		if(isset($arr['active'])){
+			$f['active'] = $arr['active'];
+		}
+		if(isset($arr['agent'])){
+			$f['agent'] = $arr['agent'];
 		}
 		$this->db->StartTrans();
 		if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
@@ -573,5 +575,19 @@ class Users {
 		}
 		return true;
 	}
-
+	// Подтверждение условия соглашения и начало деятельности как агента
+	public function ConfirmAgent(){
+		$sql = "UPDATE "._DB_PREFIX_."user
+			SET agent = 1,
+			agent_acception_date = CURRENT_TIMESTAMP
+			WHERE id_user = ".$_SESSION['member']['id_user'];
+		$this->db->StartTrans();
+		if(!$this->db->Query($sql)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		$_SESSION['member']['agent'] = 1;
+		return true;
+	}
 }

@@ -814,4 +814,12 @@ class G {
 		}
 		return htmlspecialchars(_base_url.$url);
 	}
+
+
+	public static function IsAgent(){
+		if(G::IsLogged() && isset($_SESSION['member']['agent']) && $_SESSION['member']['agent'] == 1){
+			return true;
+		}
+		return false;
+	}
 }
