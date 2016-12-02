@@ -42,7 +42,7 @@ body.block_view{width:1077px}
 table.information{page-break-after:always;width:500px;text-align:left}
 table.information th{text-align:center;font-weight:400;font-size:18px}
 table.information td,table.information th{padding:0 5px;border:1px solid #aaa}
-table.information .price{text-align:center;width:100px}
+table.information .price{text-align:center;width:100px;display:block;font-size:16px}
 span.best_price{display:block;background-image:url(../../images/best_price.png);-webkit-background-size:100%;background-size:100%;background-repeat:no-repeat}
 div.article,div.photo_inner{position:relative}
 div.photo_inner img{position:relative;max-height:245px;z-index:0}
@@ -55,7 +55,7 @@ h1.global_cat:first-of-type{page-break-before:avoid}
 .prod_art{color:#505050;font-size:22px}
 .price_block{padding-top:25px;padding-bottom:25px;text-align:center}
 .price{font-size:70px;display:inline-block;font-family:Oswald,sans-serif}
-.price span{font-size:.5em;font-weight:700}
+.price p{font-weight:700}
 .curent_price{color:#FF5722}
 .old_price{color:#9e9e9e;font-size:35px;position:relative;margin-left:20px}
 .old_price:before{content:'';display:block;position:absolute;top:18px;left:-6px;width:110%;height:2px;background:#FF5722;-ms-transform:rotate(12deg);-webkit-transform:rotate(12deg);transform:rotate(-12deg)}

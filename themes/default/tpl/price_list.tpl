@@ -6,14 +6,14 @@
 	<link rel="stylesheet" href="/themes/default/min/css/page_styles/price_list.min.css">
 	<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">
 </head>
-<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> <?=$_GET['orientation'] == 1?'landscape':null?>">
+<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> <?=isset($_GET['orientation']) && $_GET['orientation'] == 1?'landscape':null?>">
 <?$price = array(
 	'0'=>"При сумме заказа более ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'1'=>"При сумме заказа от ".$GLOBALS['CONFIG']['wholesale_order_margin']." до ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'2'=>"При сумме заказа от ".$GLOBALS['CONFIG']['retail_order_margin']." до ".$GLOBALS['CONFIG']['wholesale_order_margin']."грн.",
 	'3'=>"При сумме заказа до ".$GLOBALS['CONFIG']['retail_order_margin']."грн.",
 );
-if(count($_GET['column']) > 1 && $_GET['photo'] != 3){?>
+if(isset($_GET['column'])?count($_GET['column']) > 1:null && $_GET['photo'] != 3){?>
 	<table class="information">
 		<tr>
 			<th colspan="2">Цветовые обозначения</th>
@@ -21,7 +21,7 @@ if(count($_GET['column']) > 1 && $_GET['photo'] != 3){?>
 		<?foreach($_GET['column'] as $column){?>
 			<tr>
 				<td><?=$price[$column];?></td>
-				<td class="price price-<?=$column?>"><span>#,##</span></td>
+				<td class="price price-<?=$column?>"><p>#,##</p></td>
 			</tr>
 		<?}?>
 	</table>
@@ -93,22 +93,26 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 									<tr class="product__article">
 										<td colspan="2">Арт. <?=$p['art'];?></td>
 									</tr>
-									<tr class="product__details__header">
-										<td>Цена за ед. товара</td>
-										<td>Мин. кол-во</td>
-									</tr>
-									<tr class="product__details__body">
-										<td class="prooduct__details__price">
-											<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
-												echo number_format($p['price_mopt']*$margin, 2, ',', '');
-											}else{
-												foreach($_GET['column'] as $column){?>
-													<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
-												<?}
-											}?>
-										</td>
-										<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
-									</tr>
+									<?if(isset($no_price)){?>
+										<tr class="product__details__header">
+											<td>Цена за ед. товара</td>
+											<td>Мин. кол-во</td>
+										</tr>
+										<tr class="product__details__body">
+											<td class="prooduct__details__price">
+												<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+													echo number_format($p['price_mopt']*$margin, 2, ',', '');
+												}else{
+													foreach($_GET['column'] as $column){?>
+														<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
+													<?}
+												}?>
+											</td>
+											<td rowspan="<?=count($_GET['column'])?>">
+												<p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p>
+											</td>
+										</tr>
+									<?}?>
 								</table>
 								<?$i2++;
 							}?>
@@ -156,22 +160,24 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 											<tr class="product__article">
 												<td colspan="2">Арт. <?=$p['art'];?></td>
 											</tr>
-											<tr class="product__details__header">
-												<td>Цена за ед. товара</td>
-												<td>Мин. кол-во</td>
-											</tr>
-											<tr class="product__details__body">
-												<td class="prooduct__details__price">
-													<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
-														echo number_format($p['price_mopt']*$margin, 2, ',', '');
-													}else{
-														foreach($_GET['column'] as $column){?>
-															<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
-														<?}
-													}?>
-												</td>
-												<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
-											</tr>
+											<?if(isset($no_price)){?>
+												<tr class="product__details__header">
+													<td>Цена за ед. товара</td>
+													<td>Мин. кол-во</td>
+												</tr>
+												<tr class="product__details__body">
+													<td class="prooduct__details__price">
+														<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+															echo number_format($p['price_mopt']*$margin, 2, ',', '');
+														}else{
+															foreach($_GET['column'] as $column){?>
+																<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
+															<?}
+														}?>
+													</td>
+													<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
+												</tr>
+											<?}?>
 										</table>
 										<?$i3++;
 									}
@@ -225,22 +231,24 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 							<tr class="product__article">
 								<td colspan="2">Арт. <?=$p['art'];?></td>
 							</tr>
-							<tr class="product__details__header">
-								<td>Цена за ед. товара</td>
-								<td>Мин. кол-во</td>
-							</tr>
-							<tr class="product__details__body">
-								<td class="prooduct__details__price">
-									<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
-										echo number_format($p['price_mopt']*$margin, 2, ',', '');
-									}else{
-										foreach($_GET['column'] as $column){?>
-											<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
-										<?}
-									}?>
-								</td>
-								<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
-							</tr>
+							<?if(isset($no_price)){?>
+								<tr class="product__details__header">
+									<td>Цена за ед. товара</td>
+									<td>Мин. кол-во</td>
+								</tr>
+								<tr class="product__details__body">
+									<td class="prooduct__details__price">
+										<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+											echo number_format($p['price_mopt']*$margin, 2, ',', '');
+										}else{
+											foreach($_GET['column'] as $column){?>
+												<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
+											<?}
+										}?>
+									</td>
+									<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
+								</tr>
+							<?}?>
 						</table>
 						<?$ii++;
 					}
@@ -277,9 +285,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<p class="prod_title"><?=$p['name']?></p>
 										<p class="prod_art">Артикул: <?=$p['art']?></p>
 										<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);?>
-										<div class="price_block">
-											<p class="price curent_price"><?=($p['price_mopt'] > 0?number_format($p['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$p['units']?></span></p>
-										</div>
+										<?if(isset($no_price)){?>
+											<div class="price_block">
+												<p class="price curent_price"><?=($p['price_mopt'] > 0?number_format($p['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$p['units']?></span></p>
+											</div>
+										<?}?>
 									</div>
 									<div class="footer">
 										<div class="logo">
@@ -328,9 +338,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<p class="prod_title"><?=$p['name']?></p>
 												<p class="prod_art">Артикул: <?=$p['art']?></p>
 												<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);?>
-												<div class="price_block">
-													<p class="price curent_price"><?=($p['price_mopt'] > 0?number_format($p['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$p['units']?></span></p>
-												</div>
+												<?if(isset($no_price)){?>
+													<div class="price_block">
+														<p class="price curent_price"><?=($p['price_mopt'] > 0?number_format($p['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?><span> грн./<?=$p['units']?></span></p>
+													</div>
+												<?}?>
 											</div>
 											<div class="footer">
 												<div class="logo">
@@ -377,12 +389,14 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 						<p class="prod_title"><?=$product['name']?></p>
 						<p class="prod_art">Артикул: <?=$product['art']?></p>
 						<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
-						<div class="price_block">
-							<p class="price curent_price">
-								<?=($product['price_mopt'] > 0?number_format($product['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
-								<span> грн./<?=$product['units']?></span>
-							</p>
-						</div>
+						<?if(isset($no_price)){?>
+							<div class="price_block">
+								<p class="price curent_price">
+									<?=($product['price_mopt'] > 0?number_format($product['price_mopt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
+									<span> грн./<?=$product['units']?></span>
+								</p>
+							</div>
+						<?}?>
 						<div class="footer">
 							<div class="logo">
 								<img src="/themes/default/img/_xt.svg">
@@ -473,12 +487,14 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<td class="product__name"><?=$p['name']?></td>
 										<td class="product__units"><?=$p['min_mopt_qty'].' '.$p['units']?></td>
 										<td class="product__price price_container">
-											<?if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
-												echo number_format($p['price_mopt']*$margin,2,",","");
-											}else{
-												foreach($_GET['column'] as $column){?>
-													<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column],2,",","");?></span>
-												<?}
+											<?if(isset($no_price)){
+												if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+													echo number_format($p['price_mopt']*$margin,2,",","");
+												}else{
+													foreach($_GET['column'] as $column){?>
+														<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column],2,",","");?></span>
+													<?}
+												}
 											}?>
 										</td>
 									</tr>
@@ -548,12 +564,14 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<td class="product__name"><?=$p['name']?></td>
 												<td class="product__units"><?=$p['min_mopt_qty'].' '.$p['units']?></td>
 												<td class="product__price price_container">
-													<?if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
-														echo number_format($p['price_mopt']*$margin,2,",","");
-													}else{
-														foreach($_GET['column'] as $column){?>
-															<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column],2,",","");?></span>
-														<?}
+													<?if(isset($no_price)){
+														if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+															echo number_format($p['price_mopt']*$margin,2,",","");
+														}else{
+															foreach($_GET['column'] as $column){?>
+																<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column],2,",","");?></span>
+															<?}
+														}
 													}?>
 												</td>
 											</tr>
@@ -617,12 +635,14 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<td class="product__name"><?=$l['name']?></td>
 										<td class="product__units"><?=$l['min_mopt_qty'].' '.$l['units']?></td>
 										<td class="product__price price_container">
-											<?if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
-												echo number_format($l['price_mopt']*$margin,2,",","");
-											}else{
-												foreach($_GET['column'] as $column){?>
-													<span class="price-<?=$column;?>"><?=number_format($l['price_mopt']*$margins[$column],2,",","");?></span>
-												<?}
+											<?if(isset($no_price)){
+												if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+													echo number_format($l['price_mopt']*$margin,2,",","");
+												}else{
+													foreach($_GET['column'] as $column){?>
+														<span class="price-<?=$column;?>"><?=number_format($l['price_mopt']*$margins[$column],2,",","");?></span>
+													<?}
+												}
 											}?>
 										</td>
 									</tr>
