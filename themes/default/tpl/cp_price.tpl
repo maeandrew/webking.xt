@@ -59,6 +59,10 @@
 					</legend>
 
 					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-more">
+						<input type="checkbox" id="checkbox-more" class="mdl-checkbox__input" checked name="no_price" value="1">Показывать цену
+					</label>
+
+					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-more">
 						<input type="checkbox" id="checkbox-more" class="mdl-checkbox__input" checked name="column[]" value="0">при заказе более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?>грн.
 					</label>
 
@@ -198,11 +202,19 @@
 	$('[name="photo"]').on('change', function(){
 		if($(this).val() == 3){
 			$('.orientation').removeClass('hidden').find('input').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
-			$('input[name="column[]"]').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
 		}else{
 			$('.orientation').addClass('hidden').find('input').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
-			$('input[name="column[]"]').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
 		}
+	});
+	$('[name="no_price"]').on('change', function(){
+		if($(this).is(':checked')){
+			$('input[name="column[]"]').prop('disabled', false).closest('label').removeClass('is-disabled').css('color', '');
+			// console.log('checked');
+		}else{
+			$('input[name="column[]"]').prop('disabled', true).closest('label').addClass('is-disabled').css('color', 'gray');
+			// console.log('unchecked');
+		}
+
 	});
 	/** Плавающий блок параметров на странице формирования прайс-листа */
 	var params = $('#dynamic-params'),
