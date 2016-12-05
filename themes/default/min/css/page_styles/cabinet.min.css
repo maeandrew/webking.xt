@@ -540,6 +540,36 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .customer_cab .license_agreement h2{margin-top:0;margin-bottom:10px}
 .license_agreement_descr{height:calc(75vh - 155px);overflow:auto;padding-right:10px;text-align:justify}
 .confirm_block{display:flex;justify-content:space-between;padding-top:15px;padding-bottom:15px}
+.agent_profile_info{width:calc(100% - 15px);display:flex;justify-content:space-between;margin-top:10px}
+.info_item{width:calc(100% / 3);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;position:relative}
+.clients{margin-right:20px;margin-left:20px}
+.info_icon{float:left;margin-right:10px}
+.info_icon i{background:#018b06;color:#fff;display:block;height:60px;width:60px;border-radius:50%;font-size:3em;text-align:center;line-height:60px}
+.info_descr{padding:5px}
+.info_descr p{font-size:16px;margin-bottom:5px;margin-top:5px}
+.info_descr_text{font-weight:700}
+.action_icon{position:absolute;top:5px;right:5px;color:#cacccb}
+.action_icon i{font-size:16px}
+.action_icon:hover{cursor:pointer;color:#888}
+.orders_history{width:calc(100% - 15px);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;margin-top:20px}
+.orders_history h2{margin:10px}
+.agents_client_order,.orders_history_header{display:flex}
+.agents_client_order{width:80%;margin-left:20%;height:50px;border-top:1px solid #DCDCDC}
+.agents_client_order.opening_tab{width:100%;margin:0;border:none}
+.orders_history_header{border-bottom:2px solid #FF5722;background:#f4f6f5}
+.agents_client_order .order_info,.orders_history_header .header_item{padding:13px}
+.orders_history_header .date{width:20%}
+.agents_client_order .date{width:90%}
+.agents_client_order .order_sum,.agents_client_order .profit,.orders_history_header .order_sum,.orders_history_header .profit{width:10%;white-space:nowrap}
+.agents_client_order .client,.agents_client_order .phone,.orders_history_header .client,.orders_history_header .phone{width:30%}
+.agents_client_order .client i{color:#FF5722;font-size:18px;line-height:24px}
+.agents_client_order .order_sum,.agents_client_order .profit{color:#018b06}
+.orders_history_content .opening_tab .profit{width:10%}
+.orders_history_content:nth-of-type(odd){background:#f4f6f5}
+.orders_history_content{max-height:50px;overflow:hidden;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
+.agents_client_order .client i:hover,.orders_history_content .opening_tab:hover{cursor:pointer}
+.orders_history_content .opening_tab i{transition:transform .4s;transform:rotate(0)}
+.orders_history_content.opened .opening_tab i{transform:rotate(90deg)}
 @media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
 }
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
