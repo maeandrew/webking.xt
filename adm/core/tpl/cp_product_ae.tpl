@@ -181,6 +181,7 @@
 						<div class="btn-m-default open_modal upload_loaded_photo_js" data-target="upload_photo">Выбрать загруженые фото</div>
 						<div class="modal_hidden" id="upload_photo">
 							<form action="">
+								<input type="hidden" name="id_product" value="<?=$_POST['id_product']?>">
 								<div class="upload_photo_content">
 									<div class="image_item">
 										<img src="https://xt.ua/product_images/medium/2015/12/14/75532-1.jpg">
@@ -865,8 +866,8 @@
 			var create_date = $(this).closest('.upload_loaded_photo_block').find('.create_date_js').val();
 			if (create_date != '') {
 				console.log(create_date);
-				// ajax('products','getUploadedImages',{},'html').done(function(){
-				// 	$('#upload_photo').html();
+				// ajax('products','getUploadedImages',{create_date: create_date},'html').done(function(){
+				// 	$('#upload_photo .upload_photo_content').html();
 				// });
 			}else{
 				$('#upload_photo').html('Дата создания и редактирования товара отсутствует. Придумайте шото другое');
