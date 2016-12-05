@@ -139,6 +139,7 @@
 							<input type="text" id="img_3" name="img_3" class="input-m" value="<?=isset($_POST['img_3'])?$_POST['img_3']:null?>">
 						</div>
 					</div>
+
 					<label>Изображения товара xt.ua:</label>
 					<div id="photobox">
 						<div class="previews">
@@ -172,6 +173,93 @@
 							<input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 						</div>
 					</div>
+
+					<!-- <?if(!isset($_POST['images']) && empty($_POST['images'])){?> -->
+					<!-- <?}?> -->
+					<div class="upload_loaded_photo_block">
+						<input type="hidden" class="create_date_js" value="<?=isset($_POST['create_date'])?$_POST['create_date']:(isset($_POST['edit_date'])?$_POST['edit_date']:null)?>">
+						<div class="btn-m-default open_modal upload_loaded_photo_js" data-target="upload_photo">Выбрать загруженые фото</div>
+						<div class="modal_hidden" id="upload_photo">
+							<form action="">
+								<div class="upload_photo_content">
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2015/12/14/75532-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/09/37263-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/efiles/image/500/47742.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/05/07/37052-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2015/12/14/75532-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/09/37263-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/efiles/image/500/47742.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/05/07/37052-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2015/12/14/75532-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/09/37263-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/efiles/image/500/47742.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/05/07/37052-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+									<div class="image_item">
+										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
+										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
+									</div>
+								</div>
+								<button class="btn-m-default confirm_upload_photo_btn">ОК</button>
+							</form>
+						</div>
+					</div>
+
 					<label>Видео о товарe:</label>
 					<p class="add_video">Добавить видео <span class="icon-font">a</span></p>
 					<ul class="video_block">
@@ -718,7 +806,7 @@
 				data.mode = 'mopt';
 				data.price = parent.find('[name="supplier_price_mopt"]').val();
 			}
-			ajax('supplier', 'updateAssort', data)
+			ajax('supplier', 'updateAssort', data);
 		});
 		//Заполнение списка артикулов поставщиков
 		$('[name="supplier_article"]').keyup(function(){
@@ -772,7 +860,18 @@
 			}
 		});
 
-
+		//Выбрать загруженные ранее фото
+		$('.upload_loaded_photo_js').on('click', function(){
+			var create_date = $(this).closest('.upload_loaded_photo_block').find('.create_date_js').val();
+			if (create_date != '') {
+				console.log(create_date);
+				// ajax('products','getUploadedImages',{},'html').done(function(){
+				// 	$('#upload_photo').html();
+				// });
+			}else{
+				$('#upload_photo').html('Дата создания и редактирования товара отсутствует. Придумайте шото другое');
+			}
+		});
 
 		if($('.catblock:not(.hidden)').length > 1){
 			$('.delcat').show();

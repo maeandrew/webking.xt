@@ -529,3 +529,24 @@
 	text-shadow: 2px 2px 4px rgba(150, 150, 150, 1);
 	cursor: pointer;
 }
+/* Upload photo modal */
+#upload_photo .upload_photo_content {
+	max-height: 80vh;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+#upload_photo .upload_photo_content .image_item {
+	width: calc(25% - 10px);
+	margin-right: 10px;
+	margin-bottom: 10px;
+    border: 1px solid #eee;
+    padding: 10px;
+}
+#upload_photo .upload_photo_content .image_item img {
+	max-width: 100%;
+}
+#upload_photo .confirm_upload_photo_btn {
+	float: right;
+	margin-top: 10px;
+}
