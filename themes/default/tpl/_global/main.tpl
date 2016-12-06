@@ -438,6 +438,11 @@
 		<div id="preview" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
+		<div id="gift_select" data-type="modal">
+			<div class="modal_container">
+			</div>
+			<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js" data-name="cart">Продолжить</div>
+		</div>
 		<div id="price_details" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
