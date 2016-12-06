@@ -238,9 +238,23 @@ h1.global_cat:first-of-type {
 	font-size: 35px;
 	margin-bottom: 5px;
 	margin-top: 10px;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	text-overflow: ellipsis;
 	overflow: hidden;
+	position: relative;
+	max-height: 2.4em;
+}
+.prod_title::after {
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 30%;
+	height: 1.2em;
+	background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+	background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+	background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 }
 .prod_art {
 	color: #505050;

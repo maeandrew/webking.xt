@@ -51,7 +51,8 @@ h1.global_cat:first-of-type{page-break-before:avoid}
 .main{width:700px;height:1030px;margin:0 auto;position:relative;page-break-after:always}
 .image_wrap{height:50vh;line-height:50vh;text-align:center}
 .prod_img{max-width:100%;max-height:50vh;margin-bottom:20px;display:inline-block;vertical-align:middle;margin:0}
-.prod_title{font-size:35px;margin-bottom:5px;margin-top:10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.prod_title{font-size:35px;margin-bottom:5px;margin-top:10px;text-overflow:ellipsis;overflow:hidden;position:relative;max-height:2.4em}
+.prod_title::after{content:'';display:block;position:absolute;bottom:0;right:0;width:30%;height:1.2em;background-image:-webkit-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1) 50%);background-image:-o-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1) 50%);background-image:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,1) 50%)}
 .prod_art{color:#505050;font-size:22px}
 .price_block{padding-top:25px;padding-bottom:25px;text-align:center}
 .price{font-size:70px;display:inline-block;font-family:Oswald,sans-serif}
