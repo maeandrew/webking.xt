@@ -865,7 +865,6 @@
 		$('.upload_loaded_photo_js').on('click', function(){
 			var create_date = $(this).closest('.upload_loaded_photo_block').find('.create_date_js').val();
 			if (create_date != '') {
-				console.log(create_date);
 				// ajax('products','getUploadedImages',{create_date: create_date},'html').done(function(){
 				// 	$('#upload_photo .upload_photo_content').html();
 				// });
