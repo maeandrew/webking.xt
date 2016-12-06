@@ -34,9 +34,23 @@
 			font-size: 35px;
 			margin-bottom: 5px;
 			margin-top: 10px;
-			white-space: nowrap;
-    		text-overflow: ellipsis;
-    		overflow: hidden;
+			/*white-space: nowrap;*/
+			text-overflow: ellipsis;
+			overflow: hidden;
+			position: relative;
+			max-height: 2.4em;
+		}
+		.prod_title::after {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 30%;
+			height: 1.2em;
+			background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+			background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+			background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 		}
 		.prod_art {
 			color: #505050;
@@ -67,46 +81,46 @@
 		}
 		.old_price:before {
 			content: '';
-		    display: block;
-		    position: absolute;
-		    top: 18px;
-		    left: -6px;
-		    width: 110%;
-		    height: 2px;
-		    background: #FF5722;
-		    -ms-transform: rotate(12deg);
-		    -webkit-transform: rotate(12deg);
-		    transform: rotate(-12deg);
+			display: block;
+			position: absolute;
+			top: 18px;
+			left: -6px;
+			width: 110%;
+			height: 2px;
+			background: #FF5722;
+			-ms-transform: rotate(12deg);
+			-webkit-transform: rotate(12deg);
+			transform: rotate(-12deg);
 		}
 		.gift_block {
 			height: 140px;
-		    display: flex;
-		    border: 2px solid #FF5722;
+			display: flex;
+			border: 2px solid #FF5722;
 		}
 		.gift_title {
 			width: 100%;
-		    padding-bottom: 10px;
-		    font-size: 26px;
-		    color: #FF5722;
+			padding-bottom: 10px;
+			font-size: 26px;
+			color: #FF5722;
 		}
 		.gift_image_wrap {
 			padding: 10px;
-    		line-height: 120px;
-    		text-align: center;
+			line-height: 120px;
+			text-align: center;
 		}
 		.gift_img {
 			width: 120px;
 			height: 120px;
 			vertical-align: middle;
-    		display: inline-block;
+			display: inline-block;
 		}
 		.gift_descr {
 			padding: 10px;
 		}
 		.gift_name {
 			font-size: 18px;
-    		max-height: 44px;
-    		overflow: hidden;
+			max-height: 44px;
+			overflow: hidden;
 		}
 		.gift_art {
 			color: #505050;
@@ -156,8 +170,8 @@
 			width: 100px;
 			border: 1px solid #eee;
 			margin: 0 auto;
-    		display: block;
-    		box-sizing: border-box;
+			display: block;
+			box-sizing: border-box;
 		}
 	</style>
 </head>
@@ -218,10 +232,10 @@
 			<div class="contacts">
 				<p class="site">xt.ua</p>
 				<div class="phones">
-					Связь с нами:
+					Контакты:
 					<p>(050) 309-84-20</p>
 					<p>(067) 574-10-13</p>
-					<p>(057) 780-38-61</p>
+					<p>(063) 425-91-83</p>
 				</div>
 			</div>
 			<div class="prod_qr_code">
