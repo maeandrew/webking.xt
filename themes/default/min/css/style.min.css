@@ -159,6 +159,10 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart ul.order_head li.price{width:30%}
 #cart ul.order_head li.sum_li{width:calc(10% + 30px)}
 #cart .card{clear:both;border:1px solid #e0e0e0;border-bottom:none;overflow:auto}
+#cart .card:first-of-type{border-top:0}
+#cart .gift_item{background:#ff5722;line-height:50px;min-height:50px;padding:0 10px;text-align:center}
+#cart .gift_item .gift_title{color:#fff;font-size:2em;font-weight:700}
+#cart .gift_item .mdl-button{width:120px;background:#fff}
 #cart .card .product_name{float:left;display:table-row;min-width:200px;width:calc(60% - 170px);text-align:left;padding:5px}
 #cart .card .product_buy{width:30%;float:left;position:relative;min-width:auto}
 #cart .card .product_buy .buy_block{justify-content:space-around}
@@ -183,15 +187,22 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .cart_login_btn{margin-bottom:10px}
 #cart .action_block .mdl-textfield{width:100%}
 #cart .action_block .wrapp .cart_continue{float:right;margin:0;margin-right:10px;width:160px}
-#cart .for_err_promo .tooltip_wrapp{padding-top:55px}
 #cart .action_block form .mdl-checkbox{float:left;clear:both;text-align:left}
 #cart .action_block form .number_label{position:absolute;top:-10px;left:0;font-size:20px}
-#cart .action_block .promo_input{display:inline-block;float:left;width:140px;margin-right:10px}
+#cart .action_block .promo_input{display:inline-block;float:left;width:140px;margin-right:10px;padding:0}
 #cart .action_block .promo_input input{text-align:left}
 #cart .action_block .mdl-textfield__error.visibleForUser{visibility:inherit;width:200%}
-#cart .action_block .apply_promoCode{width:120px;box-shadow:none}
+#cart .action_block .promocode label{display:block}
+#cart .action_block .promocode__input{padding:0 5px;line-height:2em;border-radius:.2em;width:calc(100% - 130px)}
+#cart .action_block .promocode__input_error{border-color:red}
+#cart .action_block .promocode__activated{line-height:1em;float:left;font-size:24px;font-weight:700}
+#cart .action_block .promocode__info{clear:both}
+#cart .action_block .promocode__error{color:red;font-size:.8em}
+#cart .action_block .promocode__apply{width:120px;line-height:2em;float:right;text-align:center;padding:0 5px;background:#f5f5f5;border-radius:.2em;cursor:pointer}
+#cart .action_block .promocode__remove{height:24px;float:right;font-size:.9em;text-align:center;padding:0 3px;background:#f5f5f5;border-radius:.2em;border:1px solid #e0e0e0;cursor:pointer}
+#cart .action_block .promocode__remove i{line-height:22px;font-size:18px}
 #cart .action_block .del_promoCode{height:28px;border-radius:3px;vertical-align:middle;cursor:pointer;line-height:32px}
-#cart .action_block .cart_warning{width:95%;margin-bottom:10px;padding:10px;border-radius:5px;box-shadow:0 0 10px #ff5722}
+#cart .action_block .cart_warning{width:95%;margin-bottom:10px;padding:10px;border-radius:.2px;box-shadow:0 1px 4px #e0e0e0}
 #cart .action_block .cart_warning p:nth-child(2){margin-top:10px;font-weight:500}
 #cart .action_block .info_admin,#cart .action_block .info_client{width:95%;margin-bottom:10px}
 #cart .action_block .info_client.ic_ready{color:#4CAF50}
