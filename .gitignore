@@ -236,9 +236,8 @@ images/1915900953.png
 # *.png
 adm/**/*.png
 robots.txt
-robots.txt
 *.txt
-*.jpg
+# *.jpg
 .phpintel/*
 *.csv
 *.xls
