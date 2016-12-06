@@ -549,7 +549,7 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .info_descr p{font-size:16px;margin-bottom:5px;margin-top:5px}
 .info_descr_text{font-weight:700}
 .action_icon{position:absolute;top:5px;right:5px;color:#cacccb}
-.action_icon i{font-size:16px}
+.action_icon i{font-size:18px}
 .action_icon:hover{cursor:pointer;color:#888}
 .orders_history{width:calc(100% - 15px);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;margin-top:20px}
 .orders_history h2{margin:10px}
