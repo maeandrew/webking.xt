@@ -732,9 +732,7 @@
 
 		<div id="gift_products" data-type="modal">
 			Список товаров-подарков
-			<div class="modal_container">
-				<!-- <?=$product_label_modal?> -->
-			</div>
+			<div class="modal_container"></div>
 			<form action="<?=Link::Custom('product_label',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">
 				<input type="hidden" name="id_gift" class="id_gift_input_js">
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn take_gift_btn_js">Выбрать</button>

@@ -9,11 +9,14 @@
 					</div>
 					<div class="info_descr">
 						<p class="info_descr_title">Ваш промокод:</p>
-						<p class="info_descr_text">AK<?=$_SESSION['member']['id_user']?></p>
+						<p class="info_descr_text">AG<?=$_SESSION['member']['id_user']?></p>
 					</div>
-					<div class="action_icon">
-						<i id="print_promocode" class="material-icons">print</i>
-						<div class="mdl-tooltip" for="print_promocode">Распечатать промокод</div>
+					<div type="submit" class="action_icon">
+						<form action="<?=Link::Custom('promo_certificate',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">
+							<i id="print_promocode" class="material-icons">print</i>
+							<button>df</button>
+							<div class="mdl-tooltip" for="print_promocode">Распечатать промокод</div>
+						</form>
 					</div>
 				</div>
 				<div class="info_item clients">
@@ -22,7 +25,7 @@
 					</div>
 					<div class="info_descr">
 						<p class="info_descr_title">Привелечено клиентов:</p>
-						<p class="info_descr_text">154</p>
+						<p class="info_descr_text">0</p>
 					</div>
 				</div>
 				<div class="info_item bonuses">
@@ -31,15 +34,15 @@
 					</div>
 					<div class="info_descr">
 						<p class="info_descr_title">Получено бонусов:</p>
-						<p class="info_descr_text">1236 грн.</p>
+						<p class="info_descr_text">0 грн.</p>
 					</div>
-					<div class="action_icon">
+					<div class="action_icon hidden">
 						<i id="bonuses_history" class="material-icons">history</i>
 						<div class="mdl-tooltip" for="bonuses_history">Просмотреть исторю начисления бонусов</div>
 					</div>
 				</div>
 			</div>
-			<div class="orders_history">
+			<div class="orders_history ">
 				<h2>История</h2>
 				<div class="orders_history_header">
 					<div class="header_item date">Дата</div>
@@ -101,123 +104,6 @@
 						<div class="order_info phone">+38 (066) 666-65-66</div>
 						<div class="order_info order_sum">1200 грн.</div>
 						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-				</div>
-				<div class="orders_history_content">
-					<div class="agents_client_order opening_tab open_close_btn_js">
-						<div class="order_info date">
-							<i class="material-icons">&#xE315;</i>
-							02.12.2016
-						</div>
-						<div class="order_info profit">1200 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-				</div>
-				<div class="orders_history_content">
-					<div class="agents_client_order opening_tab open_close_btn_js">
-						<div class="order_info date">
-							<i class="material-icons">&#xE315;</i>
-							02.12.2016
-						</div>
-						<div class="order_info profit">1200 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12 грн.</div>
-					</div>
-				</div>
-				<div class="orders_history_content">
-					<div class="agents_client_order opening_tab open_close_btn_js">
-						<div class="order_info date">
-							<i class="material-icons">&#xE315;</i>
-							02.12.2016
-						</div>
-						<div class="order_info profit">1200 грн.</div>
-					</div>
-					<div class="agents_client_order">
-						<div class="order_info client">Варламов Мудак Петрович</div>
-						<div class="order_info phone">+38 (066) 666-65-66</div>
-						<div class="order_info order_sum">1200 грн.</div>
-						<div class="order_info profit">12000 грн.</div>
 					</div>
 					<div class="agents_client_order">
 						<div class="order_info client">Варламов Мудак Петрович</div>
