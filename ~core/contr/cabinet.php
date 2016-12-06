@@ -42,7 +42,7 @@ switch($Users->fields['gid']){
 				$header = 'Совместные заказы';
 				$rewrite = $GLOBALS['Rewrite'];
 			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'){
-				$header = 'Совместные заказы';
+				$header = 'Уголок агента';
 				$rewrite = $GLOBALS['Rewrite'];
 			}else{
 				$header = 'Личные данные';
