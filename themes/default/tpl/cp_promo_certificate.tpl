@@ -57,15 +57,11 @@
 			display: flex;
 			flex-wrap: wrap;
 		}
-		.flyer_content {
-			/*border-bottom: 1px solid #dcdcdc;*/
-		}
 		.cagories {
 			width: 60%;
 		}
 		.cagories img {
 			height: 150px;
-			/*margin-left: -80px;*/
 		}
 		.flyer_info {
 			width: 40%;
@@ -75,16 +71,10 @@
 			padding-bottom: 5px;
 		}
 		.cagories p {
-			/* width: calc(50% - 10px);
-			padding: 5px;
-			text-align: center; */
 			width: 50%;
 		}
 		.flyer_footer {
-			/*margin-top: 10px;*/
-			/*padding-bottom: 10px;*/
 			padding-top: 5px;
-    		/*border-top: 1px solid #dcdcdc;*/
 		}
 		.promocode_block {
 			width: 40%;
@@ -117,6 +107,7 @@
 </head>
 <body>
 	<div class="main">
+		<? var_dump($_SESSION['member']) ?>
 		<div class="flyer">
 			<div class="flyer_header">
 				<h2 class="flyer_title">Подарочный сертификат на первый заказ</h2>
@@ -140,12 +131,12 @@
 			</div>
 			<div class="flyer_footer">
 				<div class="personal_consultant_block">
-					<p class="personal_consultant_name">Александр</p><span>+38 (063) 2545655</span>
+					<p class="personal_consultant_name"><?=$_SESSION['member']['name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
 					<p class="personal_consultant_title">Ваш личный консультант:</p>
 				</div>
 				<div class="promocode_block">
 					<p class="promocode_title">Промокод:</p>
-					<p class="promocode">AG123456</p>
+					<p class="promocode">AG<?=$_SESSION['member']['id_user']?></p>
 				</div>
 			</div>
 		</div>
@@ -172,12 +163,12 @@
 			</div>
 			<div class="flyer_footer">
 				<div class="personal_consultant_block">
-					<p class="personal_consultant_name">Александр</p><span>+38 (063) 2545655</span>
+					<p class="personal_consultant_name">Александр</p><span>тел. <?=$_SESSION['member']['phone']?></span>
 					<p class="personal_consultant_title">Ваш личный консультант:</p>
 				</div>
 				<div class="promocode_block">
 					<p class="promocode_title">Промокод:</p>
-					<p class="promocode">AG123456</p>
+					<p class="promocode">AG<?=$_SESSION['member']['id_user']?></p>
 				</div>
 			</div>
 		</div>
@@ -204,12 +195,12 @@
 			</div>
 			<div class="flyer_footer">
 				<div class="personal_consultant_block">
-					<p class="personal_consultant_name">Александр</p><span>+38 (063) 2545655</span>
+					<p class="personal_consultant_name">Александр</p><span>тел. <?=$_SESSION['member']['phone']?></span>
 					<p class="personal_consultant_title">Ваш личный консультант:</p>
 				</div>
 				<div class="promocode_block">
 					<p class="promocode_title">Промокод:</p>
-					<p class="promocode">AG123456</p>
+					<p class="promocode">AG<?=$_SESSION['member']['id_user']?></p>
 				</div>
 			</div>
 		</div>
