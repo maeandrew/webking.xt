@@ -13,8 +13,7 @@
 					</div>
 					<div type="submit" class="action_icon">
 						<form action="<?=Link::Custom('promo_certificate',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">
-							<i id="print_promocode" class="material-icons">print</i>
-							<button>df</button>
+							<button><i id="print_promocode" class="material-icons">print</i></button>
 							<div class="mdl-tooltip" for="print_promocode">Распечатать промокод</div>
 						</form>
 					</div>
@@ -42,7 +41,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="orders_history ">
+			<div class="orders_history hidden">
 				<h2>История</h2>
 				<div class="orders_history_header">
 					<div class="header_item date">Дата</div>
