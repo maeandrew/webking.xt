@@ -130,7 +130,7 @@
 			</div>
 			<div class="flyer_footer">
 				<div class="personal_consultant_block">
-					<p class="personal_consultant_name"><?=$_SESSION['member']['name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
+					<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
 					<p class="personal_consultant_title">Ваш личный консультант:</p>
 				</div>
 				<div class="promocode_block">
@@ -162,7 +162,7 @@
 			</div>
 			<div class="flyer_footer">
 				<div class="personal_consultant_block">
-					<p class="personal_consultant_name">Александр</p><span>тел. <?=$_SESSION['member']['phone']?></span>
+					<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
 					<p class="personal_consultant_title">Ваш личный консультант:</p>
 				</div>
 				<div class="promocode_block">
@@ -194,7 +194,7 @@
 			</div>
 			<div class="flyer_footer">
 				<div class="personal_consultant_block">
-					<p class="personal_consultant_name">Александр</p><span>тел. <?=$_SESSION['member']['phone']?></span>
+					<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
 					<p class="personal_consultant_title">Ваш личный консультант:</p>
 				</div>
 				<div class="promocode_block">
