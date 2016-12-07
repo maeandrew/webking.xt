@@ -482,29 +482,30 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				};
 				echo json_encode($res['promo']);
 				break;
-			case 'CheckPromo':
-				if(!$Cart->CheckPromo($_POST['promo'])){
-					$res['promo'] = false;
-					$res['msg'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
-				} else{
-					$res['promo'] = true;
-				}
-				echo json_encode($res);
-				break;
 			case 'ReadyUserJO':
 				if(!$Cart->UpdateCart(false, false, false, 1, $_POST['id_cart'])){
 					echo json_encode('no');
 				};
 				echo json_encode('ok');
 				break;
+			case 'CheckPromo':
+				if(!$Cart->CheckPromo($_POST['promo'])){
+					$res['promo'] = false;
+					$res['msg'] = 'Ошибка! Такого промокода не существует. Проверьте правильность ввода.';
+				}else{
+					$res['promo'] = true;
+				}
+				echo json_encode($res);
+				break;
 			case 'DeletePromo':
 				$echo = true;
 				if(!$Cart->UpdateCart(null, 0, 1, 0, $_POST['id_cart'])){
 					$echo = false;
 				}
+				unset($_SESSION['cart']['promo']);
 				echo json_encode($echo);
 				break;
-			case 'SaveOrderNote':  print_r(1); die();
+			case 'SaveOrderNote':
 				$echo = true;
 				if(!$Cart->UpdateCartNote($_POST['note'])){
 					$echo = false;
@@ -520,6 +521,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$echo = false;
 				}
 				echo json_encode($echo);
+				break;
+			case 'giftSelect':
+				// $_SESSION['cart']['promo']
+				if($gifts = $Products->GetGiftsList()){
+					$tpl->Assign('gifts', $gifts);
+				}
+				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'gift_select_modal.tpl');
 				break;
 			default:
 				break;

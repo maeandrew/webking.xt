@@ -234,7 +234,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						echo json_encode(false);
 					}
 				break;
-			case"getValuesOfTypes":
+			case "getValuesOfTypes":
 				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);
 				foreach ($valitem as &$v){
 					echo '<option value="'.$v['value'].'">';

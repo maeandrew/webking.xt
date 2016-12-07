@@ -179,6 +179,7 @@ require($GLOBALS['PATH_model'].'config_c.php');
 require($GLOBALS['PATH_model'].'newsletter_c.php');
 require($GLOBALS['PATH_model'].'simple_html_dom_c.php');
 require($GLOBALS['PATH_model'].'parser_c.php');
+require($GLOBALS['PATH_model'].'promo_c.php');
 
 // Получение SEO данных для адреса
 $Seo = new SEO();

@@ -41,6 +41,15 @@ function GetQuizAjax(params){
 		Position($('#quiz'));
 	});
 }
+// Получение списка подарков
+function GetGiftSelectAjax(){
+	$('#gift_select > .modal_container').html('');
+	ajax('cart', 'giftSelect', false, 'html').done(function(data){
+		$('#gift_select > .modal_container').html(data);
+		removeLoadAnimation('#gift_select');
+		Position($('#gift_select'));
+	});
+}
 // Получение списка товаров в кабинете
 function GetCabProdAjax(id_order, rewrite){
 	$('.content').addClass('loading');
@@ -375,6 +384,9 @@ function ChangePriceRange(column, manual){
 }
 function openObject(id, params){
 	switch(id){
+		case 'gift_select':
+			GetGiftSelectAjax(params);
+			break;
 		case 'cart':
 			GetCartAjax(params);
 			break;

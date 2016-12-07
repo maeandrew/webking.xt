@@ -724,15 +724,16 @@ class Cart {
 
 	//Добавить/удалить статус и промокод для заказа (корзины)
 	public function UpdateCart($promo = false, $status = false, $adm = false, $ready = false, $id_cart = false){
-		$cart_id = $this->DBCart();
-		$id_cart = $id_cart?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$cart_id);
-		$sql = "UPDATE "._DB_PREFIX_."cart	SET "
+		$id_cart = $id_cart?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$this->DBCart());
+		// print_r($id_cart);
+		$sql = "UPDATE "._DB_PREFIX_."cart SET "
 			.($promo !== false?"promo = ".($promo === null?'NULL':"'".$promo."'").", ":null)
 			.($status !== false?"status = ".$status.", ":null)
 			.($adm !== false?"adm = ".$adm.", ":null)
 			.($ready !== false?"ready = ".$ready.", ":null);
 		$sql = substr($sql, 0, -2);
 		$sql .= " WHERE id_cart = ". $id_cart;
+		// print_r($sql);die();
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -749,7 +750,6 @@ class Cart {
 			$sql = "UPDATE "._DB_PREFIX_."cart
 				SET note = ".$this->db->Quote($note)."
 				WHERE id_cart = ".$_SESSION['cart']['id'];
-			print_r($_SESSION['cart']);
 			$this->db->StartTrans();
 			if(!$this->db->Query($sql)){
 				$this->db->FailTrans();
@@ -762,18 +762,28 @@ class Cart {
 
 	//Проверка промокода
 	public function CheckPromo($promo){
-		switch (substr($promo, 0, 2)){
+		switch(substr($promo, 0, 2)){
 			case 'JO':
-				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."cart WHERE promo = '".$promo."' AND adm = 1 AND `status` = '10'")){
+				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."cart WHERE promo = '".$promo."' AND adm = 1 AND status = '10'")){
 					return false;
-				} else{
-					if(!$this->UpdateCart($promo, 10, 0, 0)){
-						return false;
-					}
-					return $promo;
 				}
+				$status = 10;
+				break;
+			case 'AG':
+				if((G::IsLogged() && $_SESSION['member']['id_user'] == substr($promo, 2)) || G::HasAgent() || !$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."user WHERE id_user = ".substr($promo, 2)." AND agent = 1")){
+					return false;
+				}
+				$status = 0;
+				break;
+			default:
+				return false;
 				break;
 		}
+		if(!$this->UpdateCart($promo, $status)){
+			return false;
+		}
+		$_SESSION['cart']['promo'] = $promo;
+		return $promo;
 	}
 
 	//Проверка готовности корзины

@@ -822,4 +822,14 @@ class G {
 		}
 		return false;
 	}
+
+	public static function HasAgent(){
+		global $db;
+		if(G::IsLogged() && $db->GetArray("SELECT * FROM "._DB_PREFIX_."user_agent WHERE id_user = ".$_SESSION['member']['id_user'])){
+			return true;
+		}
+		return false;
+	}
+
+
 }
