@@ -166,12 +166,37 @@
 	<!-- End Недоступные товары -->
 
 	<!-- NEW Товары в корзине -->
-	<?if(promo::HasGift()){?>
-		<div class="gift_item">
-			<div class="gift_title">Выбирай подарок на свой вкус!</div>
-			<div class="mdl-button mdl-js-button mdl-button--accent btn_js" data-name="gift_select">Выбрать</div>
-		</div>
-	<?}?>
+	<?if(promo::HasGift()){
+		if(isset($gift)){?>
+			<div class="card">
+				<div class="card_wrapper">
+					<div class="product_photo">
+						<a href="<?=Link::Product($gift['translit']);?>">
+							<?if(!empty($gift['images'])){?>
+								<img alt="<?=htmlspecialchars(G::CropString($gift['name']))?>" src="<?=G::GetImageUrl($gift['images'][0]['src'], 'thumb')?>"/>
+							<?}else{?>
+								<img alt="<?=htmlspecialchars(G::CropString($gift['name']))?>" src="<?=G::GetImageUrl($gift['img_1'], 'thumb')?>"/>
+							<?}?>
+						</a>
+					</div>
+					<div class="product_name">
+						<a href="<?=Link::Product($gift['translit']);?>" class="description_<?=$gift['id_product'];?>">
+							<?=G::CropString($gift['name'], 180)?>
+						</a>
+						<span class="product_article">Артикул: <?=$gift['art']?></span>
+					</div>
+					<div class="remove_prod">
+						<div class="mdl-button mdl-js-button mdl-button--accent btn_js" data-name="gift_select">Сменить</div>
+					</div>
+				</div>
+			</div>
+		<?}else{?>
+			<div class="gift_item">
+				<div class="gift_title">Выбирай подарок на свой вкус!</div>
+				<div class="mdl-button mdl-js-button mdl-button--accent btn_js" data-name="gift_select">Выбрать</div>
+			</div>
+		<?}
+	}?>
 	<div class="order_wrapp">
 		<?$i = 0;
 		$summ_prod = count($_SESSION['cart']['products']);
