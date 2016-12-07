@@ -926,7 +926,7 @@ div[for=rating_block]{font-size:12px}
 #gift_products .modal_container{max-height:calc(80vh - 52px)}
 #gift_products .take_gift_btn{margin-top:10px;float:right}
 #gift_products .gifts_wrap{display:flex;flex-wrap:wrap}
-#gift_products .gifts_wrap .gift_product{padding:10px;max-height:270px;background:#fff;min-width:calc(25% - 10px);margin:5px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
+#gift_products .gifts_wrap .gift_product{padding:10px;max-height:270px;background:#fff;width:calc(25% - 10px);margin:5px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 #gift_products .gifts_wrap .gift_product:hover{cursor:pointer;box-shadow:0 2px 10px -1px rgba(0,0,0,.2)}
 #gift_products .gifts_wrap .gift_product.active{box-shadow:0 2px 10px 3px rgba(0,0,0,.2)}
 #gift_products .gifts_wrap .gift_product.disabled{opacity:.5}
