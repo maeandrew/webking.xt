@@ -782,12 +782,15 @@ class Products {
 		}
 		return true;
 	}
-	public function GetGiftsList(){
+	public function GetGiftsList($promo = false){
+		if($promo){
+			$gift = ' AND p.id_product IN (SELECT id_product FROM '._DB_PREFIX_.'promo_gifts WHERE id_promo = (SELECT id_promo FROM '._DB_PREFIX_.'promo_code WHERE code = '.$promo.'))';
+		}
 		$sql = "SELECT p.*,
 			(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
 			(CASE WHEN (SELECT COUNT(*) FROM "._DB_PREFIX_."assortiment AS a LEFT JOIN "._DB_PREFIX_."user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active
 			FROM "._DB_PREFIX_."product AS p
-			WHERE p.gift = 1
+			WHERE p.gift = 1".(isset($gift)?$gift:null)."
 			HAVING active = 1";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
