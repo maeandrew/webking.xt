@@ -107,7 +107,6 @@
 </head>
 <body>
 	<div class="main">
-		<? var_dump($_SESSION['member']) ?>
 		<div class="flyer">
 			<div class="flyer_header">
 				<h2 class="flyer_title">Подарочный сертификат на первый заказ</h2>
