@@ -441,7 +441,9 @@
 		<div id="gift_select" class="gift_modal" data-type="modal">
 			<div class="modal_container">
 			</div>
-			<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js take_gift_btn" data-name="cart">Продолжить</div>
+			<input type="hidden" name="id_gift" class="id_gift_input_js">
+			<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn cart_gift_select_js">Продолжить</div>
+			<div class="mdl-button mdl-js-button mdl-button--raised btn_js back_btn" data-name="cart">Назад</div>
 		</div>
 		<div id="price_details" data-type="modal">
 			<div class="modal_container"></div>

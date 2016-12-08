@@ -4756,6 +4756,10 @@ div[for="rating_block"] {
 .gift_modal .modal_container {
 	max-height: calc(80vh - 52px);
 }
+.gift_modal .back_btn {
+	margin-top: 10px;
+	box-shadow: none;
+}
 .gift_modal .take_gift_btn {
 	margin-top: 10px;
 	float: right;
