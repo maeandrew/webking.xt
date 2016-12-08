@@ -586,6 +586,12 @@ class Users {
 			$this->db->FailTrans();
 			return false;
 		}
+		$f['name'] = 'Промо-код агента';
+		$f['code'] = 'AG'.$_SESSION['member']['id_user'];
+		if(!$this->db->Insert(_DB_PREFIX_.'promo_code', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
 		$this->db->CompleteTrans();
 		$_SESSION['member']['agent'] = 1;
 		return true;
