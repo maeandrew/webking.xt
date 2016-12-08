@@ -30,24 +30,34 @@
 			margin: 0;
 		}
 		.prod_title {
+			color: #7b7b7b;
 			font-size: 22px;
 			margin-bottom: 5px;
 			margin-top: 10px;
-			font-weight: bold;
-			white-space: nowrap;
 			text-overflow: ellipsis;
-			position: absolute;
-			bottom: 110px;
 			overflow: hidden;
-			max-width: 100%;
+			position: relative;
+			max-height: 2.4em;
+		}
+		.prod_title::after {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 20%;
+			height: 1.2em;
+			background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+			background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+			background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 		}
 		.prod_art {
-			color: #505050;
-			font-size: 22px;
+			font-size: 16px;
 			text-align: right;
-			position: absolute;
-			bottom: 145px;
-			right: 0;
+		}
+		.prod_art span {
+			font-size: 2em;
+			font-weight: bold;
 		}
 		.price_block {
 			padding-top: 25px;
@@ -180,6 +190,8 @@
 					<img class="prod_img" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
 				<?}?>
 			</div>
+			<p class="prod_art">Артикул: <span><?=$product['art']?></span></p>
+			<p class="prod_title"><?=$product['name']?></p>
 			<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);
 				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
 					$product_mark = 'action';}?>
@@ -214,8 +226,6 @@
 					</div>
 				</div>
 			<?}?>
-			<p class="prod_art">Артикул: <?=$product['art']?></p>
-			<p class="prod_title"><?=$product['name']?></p>
 		</div>
 		<div class="footer">
 			<div class="logo">
