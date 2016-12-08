@@ -9,8 +9,7 @@ class promo {
 	}
 	public static function HasGift(){
 		global $Products;
-		// $_SESSION['cart']['promo']
-		if(self::IsActivePromo() && !empty($Products->GetGiftsList())){
+		if(self::IsActivePromo() && !empty($Products->GetGiftsList($_SESSION['cart']['promo']))){
 			return true;
 		}
 		return false;

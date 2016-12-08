@@ -23,11 +23,11 @@ if(isset($_POST['target'])){
 }
 
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign('current_customer', $Customer->fields);
-$klients = $Customer->SetList($User->fields['email']);
+$klients = $Customer->SetList($Users->fields['email']);
 $tpl->Assign('klient', $klients);
-$Contragent->SetFieldsById($User->fields['id_user']);
+$Contragent->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign("contragent", $Contragent->fields);
 $contrdates = $Contragent->SetCurrentWeek();
 $DaysOfWeek = array("Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб");
@@ -108,9 +108,9 @@ if(isset($_POST['show_order'])){
 }
 
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $User->fields['id_user'], $GLOBALS['REQAR'][1]);	
+	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $Users->fields['id_user'], $GLOBALS['REQAR'][1]);
 }else{
-	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user'], false, $order_number);
+	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], false, $order_number);
 }
 
 // Пагинатор ===============================================
@@ -124,7 +124,7 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !is
 	$cnt = count($orders);
 	$tpl->Assign('cnt', $cnt);
 	$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
-	
+
 	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 	unset($cnt);
 	$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
@@ -136,16 +136,16 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !is
 
 // Список заказов
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $User->fields['id_user'], $GLOBALS['REQAR'][1], $limit);
+	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $Users->fields['id_user'], $GLOBALS['REQAR'][1], $limit);
 	$tpl->Assign('filtered_client', $GLOBALS['REQAR'][1]);
 }else{
-	$orders = $Contragent->GetContragentOrders($orderby, $target, $User->fields['id_user'], $limit, $order_number);
+	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], $limit, $order_number);
 }
-$Contragent->SetFieldsById($User->fields['id_user']);
+$Contragent->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign('contragent', $Contragent->fields);
 $tpl->Assign('orders', $orders);
-$tpl->Assign('current', $User->fields);
-$customers = $Customer->GetCustomersByContragent($User->fields['id_user']);
+$tpl->Assign('current', $Users->fields);
+$customers = $Customer->GetCustomersByContragent($Users->fields['id_user']);
 $tpl->Assign('customers', $customers);
 $order_statuses = $Order->GetStatuses();
 $tpl->Assign('order_statuses', $order_statuses);

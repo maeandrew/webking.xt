@@ -784,7 +784,7 @@ class Products {
 	}
 	public function GetGiftsList($promo = false){
 		if($promo){
-			$gift = ' AND p.id_product IN (SELECT id_product FROM '._DB_PREFIX_.'promo_gifts WHERE id_promo = (SELECT id_promo FROM '._DB_PREFIX_.'promo_code WHERE code = '.$promo.'))';
+			$gift = ' AND p.id_product IN (SELECT id_product FROM '._DB_PREFIX_.'promo_gifts WHERE id_promo = (SELECT id FROM '._DB_PREFIX_.'promo_code WHERE code = \''.$promo.'\'))';
 		}
 		$sql = "SELECT p.*,
 			(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
@@ -1016,13 +1016,33 @@ class Products {
 	 * Выборка товаров для главной
 	 */
 	public function GetRandomList(){
-		$sql = "SELECT *, pv.count_views,
-				FROM "._DB_PREFIX_."product p
-				JOIN "._DB_PREFIX_."prod_status s
-				LEFT JOIN "._DB_PREFIX_."prod_views AS pv
-					ON pv.id_product = p.id_product
-				WHERE p.prod_status = s.id
-				AND s.id = 3 ORDER BY";
+		// $sql = 'SELECT p.*,
+		// 	(CASE WHEN p.price_opt = 0 THEN p.price_mopt ELSE p.price_opt END) AS price_opt,
+		// 	pv.count_views,
+		// 	un.unit_xt AS units,
+		// 	cp.id_category,
+		// 	(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+		// 	(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+		// 	(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+		// 	(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark
+		// 	FROM '._DB_PREFIX_.'cat_prod AS cp
+		// 		RIGHT JOIN '._DB_PREFIX_.'product AS p
+		// 			ON cp.id_product = p.id_product
+		// 		LEFT JOIN '._DB_PREFIX_.'units AS un
+		// 			ON un.id = p.id_unit
+		// 		LEFT JOIN '._DB_PREFIX_.'prod_views AS pv
+		// 			ON pv.id_product = p.id_product
+		// 	GROUP BY p.id_product
+		// 	HAVING active = 1
+		// 	ORDER BY RAND()
+		// 	LIMIT 15';
+		// $sql = "SELECT *, pv.count_views,
+		// 		FROM "._DB_PREFIX_."product p
+		// 		JOIN "._DB_PREFIX_."prod_status s
+		// 		LEFT JOIN "._DB_PREFIX_."prod_views AS pv
+		// 			ON pv.id_product = p.id_product
+		// 		WHERE p.prod_status = s.id
+		// 		AND s.id = 3 ORDER BY";
 		/*$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -4787,5 +4807,18 @@ class Products {
 			$this->db->CompleteTrans();
 		}
 		return true;
+	}
+
+	public function GetProductsWithoutImages($limit = 10){
+		$sql = "SELECT id_product, art FROM "._DB_PREFIX_."product
+			WHERE id_product NOT IN (SELECT i.id_product FROM "._DB_PREFIX_."image AS i)
+			ORDER BY RAND()";
+			// LIMIT ".$limit;
+			// ORDER BY RAND()";
+			// WHERE id_product > 154362
+		if(!$result = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $result;
 	}
 }
