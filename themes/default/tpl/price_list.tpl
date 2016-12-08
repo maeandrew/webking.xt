@@ -335,8 +335,8 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<?}?>
 											</div>
 											<div class="content">
+												<p class="prod_art">Артикул: <span><?=$p['art']?></span></p>
 												<p class="prod_title"><?=$p['name']?></p>
-												<p class="prod_art">Артикул: <?=$p['art']?></p>
 												<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);?>
 												<?if(isset($_GET['no_price'])){?>
 													<div class="price_block">
@@ -386,8 +386,8 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 						<?}?>
 					</div>
 					<div class="content">
+						<p class="prod_art">Артикул: <span><?=$product['art']?></span></p>
 						<p class="prod_title"><?=$product['name']?></p>
-						<p class="prod_art">Артикул: <?=$product['art']?></p>
 						<?$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
 						<?if(isset($_GET['no_price'])){?>
 							<div class="price_block">
