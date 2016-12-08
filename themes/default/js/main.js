@@ -2165,19 +2165,29 @@ $(function(){
 			Position($('#gift_products'));
 		});
 	});
-	//Выбор товара
-	$('#gift_products').on('click','.gift_product_js', function(){
+	//Выбор товара в модальном окне
+	$('.gift_modal').on('click','.gift_product_js', function(){
 		if($(this).hasClass('active')){
-			$('#gift_products .gift_product_js').removeClass('disabled').removeClass('active');
+			$('.gift_modal .gift_product_js').removeClass('disabled').removeClass('active');
 			$('.id_gift_input_js').val(null);
 		}else{
-			$('#gift_products .gift_product_js').removeClass('active').addClass('disabled');
+			$('.gift_modal .gift_product_js').removeClass('active').addClass('disabled');
 			$(this).removeClass('disabled').addClass('active');
 			$('.id_gift_input_js').val($(this).find('.id_gift_product_js').val());
 		}
 	});
-
-
+	//Выбор подарка в корзине
+	$('.cart_gift_select_js').on('click',function(){
+		// addLoadAnimation('.gift_modal');
+		// var id_product = $(this).closest('.gift_modal').find('.id_gift_input_js').val();
+		// ajax('','',{id_product: id_product}.done(function(){
+		// 	removeLoadAnimation('.gift_modal');
+		// 	closeObject('gift_select');
+		// 	openObject('cart');
+		// });
+		closeObject('gift_select');
+		openObject('cart');
+	});
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 	$('#preview, #caruselCont').on('click', '#owl-product_mini_img_js .owl-item', function(event){

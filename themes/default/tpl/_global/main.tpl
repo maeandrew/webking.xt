@@ -438,10 +438,12 @@
 		<div id="preview" data-type="modal">
 			<div class="modal_container"></div>
 		</div>
-		<div id="gift_select" data-type="modal">
+		<div id="gift_select" class="gift_modal" data-type="modal">
 			<div class="modal_container">
 			</div>
-			<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn_js" data-name="cart">Продолжить</div>
+			<input type="hidden" name="id_gift" class="id_gift_input_js">
+			<div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent take_gift_btn cart_gift_select_js">Продолжить</div>
+			<div class="mdl-button mdl-js-button mdl-button--raised btn_js back_btn" data-name="cart">Назад</div>
 		</div>
 		<div id="price_details" data-type="modal">
 			<div class="modal_container"></div>
@@ -735,7 +737,7 @@
 			<img src="/images/nofoto.png" alt="Оригинал">
 		</div>
 
-		<div id="gift_products" data-type="modal">
+		<div id="gift_products" class="gift_modal" data-type="modal">
 			Список товаров-подарков
 			<div class="modal_container"></div>
 			<form action="<?=Link::Custom('product_label',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">

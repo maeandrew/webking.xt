@@ -12,7 +12,7 @@
 						<p class="info_descr_text">AG<?=$_SESSION['member']['id_user']?></p>
 					</div>
 					<div type="submit" class="action_icon">
-						<form action="<?=Link::Custom('promo_certificate',isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:null)?>" target="_blank">
+						<form action="<?=Link::Custom('promo_certificate')?>" target="_blank">
 							<button><i id="print_promocode" class="material-icons">print</i></button>
 							<div class="mdl-tooltip" for="print_promocode">Распечатать сертификат</div>
 						</form>
