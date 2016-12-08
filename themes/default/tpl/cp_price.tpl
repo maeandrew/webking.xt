@@ -58,8 +58,8 @@
 						</div> -->
 					</legend>
 
-					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-more">
-						<input type="checkbox" id="checkbox-more" class="mdl-checkbox__input" checked name="no_price" value="1">Показывать цену
+					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-showprice">
+						<input type="checkbox" id="checkbox-showprice" class="mdl-checkbox__input" checked name="no_price" value="1">Показывать цену
 					</label>
 
 					<label class="mdl-checkbox mdl-js-checkbox" for="checkbox-more">
