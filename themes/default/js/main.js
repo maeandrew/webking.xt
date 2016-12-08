@@ -2178,15 +2178,13 @@ $(function(){
 	});
 	//Выбор подарка в корзине
 	$('.cart_gift_select_js').on('click',function(){
-		// addLoadAnimation('.gift_modal');
-		// var id_product = $(this).closest('.gift_modal').find('.id_gift_input_js').val();
-		// ajax('','',{id_product: id_product}.done(function(){
-		// 	removeLoadAnimation('.gift_modal');
-		// 	closeObject('gift_select');
-		// 	openObject('cart');
-		// });
-		closeObject('gift_select');
-		openObject('cart');
+		addLoadAnimation('.gift_modal');
+		var id_product = $(this).closest('.gift_modal').find('.id_gift_input_js').val();
+		ajax('cart','chosenGift',{id_product: id_product}).done(function(){
+			removeLoadAnimation('.gift_modal');
+			closeObject('gift_select');
+			openObject('cart');
+		});
 	});
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
