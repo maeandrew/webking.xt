@@ -41,7 +41,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="orders_history">
+			<div class="orders_history hidden">
 				<h2>История</h2>
 				<div class="orders_history_header">
 					<div class="header_item date">Дата</div>
