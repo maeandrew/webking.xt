@@ -118,6 +118,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				if(isset($_SESSION['cart']['id_gift'])){
 					$Products->SetFieldsById($_SESSION['cart']['id_gift']);
+					$Products->fields['images'] = $Products->GetPhotoById($Products->fields['id_product']);
 					$tpl->Assign('gift', $Products->fields);
 				}
 				/* output data */
@@ -506,6 +507,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$echo = false;
 				}
 				unset($_SESSION['cart']['promo']);
+				unset($_SESSION['cart']['id_gift']);
 				echo json_encode($echo);
 				break;
 			case 'SaveOrderNote':
@@ -527,6 +529,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'giftSelect':
 				if($gifts = $Products->GetGiftsList($_SESSION['cart']['promo'])){
+					foreach($gifts as &$gift){
+						$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+					}
 					$tpl->Assign('gifts', $gifts);
 				}
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'gift_select_modal.tpl');
