@@ -4831,7 +4831,7 @@ div[for="rating_block"] {
     line-height: 1em;
     color: #FF5722;
     font-weight: bold;
-    border-radius: .2em;
+    border-radius:2px;
 }
 .agent_banner:hover {
 	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
