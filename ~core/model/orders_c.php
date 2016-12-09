@@ -5,7 +5,7 @@ class Orders {
 	private $usual_fields;
 	private $usual_fields2;
 	public $list;
-	public function __construct (){
+	public function __construct(){
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array("o.id_order", "o.id_order_status", "o.phones",
 			"o.id_delivery", "o.id_parking", "o.id_city", "o.id_delivery_service",
@@ -422,6 +422,7 @@ class Orders {
 	// Создание заказа
 	public function Add($arr = null){
 		global $Cart;
+		global $Products;
 		if(isset($arr)) {
 			$GetCartForPromo = $Cart->GetCartForPromo($arr);
 			$OrderCart = array();
@@ -563,25 +564,21 @@ class Orders {
 		}
 		unset($f);
 		// Заполнение связки заказ-товары
-		$Supplier = new Suppliers();
+		$Suppliers = new Suppliers();
 		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
 		foreach($OrderCart as $id_product=>$item){
-			// if(!isset($item['mode'])){
-			// 	var_dump($item);die();
-			// }
-			$p[$ii]['id_order'] = $id_order;
-			$p[$ii]['id_product'] = $id_product;
 			// Определяем поставщика для товара
 			if($id_supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
+				$p[$ii]['id_order'] = $id_order;
+				$p[$ii]['id_product'] = $id_product;
 				if($item['mode'] == 'opt'){
 					$p[$ii]['id_supplier'] = $id_supplier;
 				}else{
 					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
 				}
-				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Supplier->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
+				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Suppliers->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
-				$Products = new Products();
 				$Products->SetFieldsById($id_product);
 				$product = $Products->fields;
 				$p[$ii]['box_qty'] = $item['quantity']/$product['inbox_qty'];
@@ -610,8 +607,33 @@ class Orders {
 					$p[$ii]['opt_sum'] = 0;
 					$p[$ii]['site_price_opt'] = 0;
 				}
+				$p[$ii]['gift'] = 0;
 			}
 			$ii++;
+		}
+		if(isset($_SESSION['cart']['id_gift']) && $id_supplier = $this->GetSupplierForProduct($_SESSION['cart']['id_gift'], 'mopt')){
+			$p[$ii]['id_order'] = $id_order;
+			$p[$ii]['id_product'] = $_SESSION['cart']['id_gift'];
+			$p[$ii]['id_supplier_mopt'] = $id_supplier;
+			$p[$ii]['price_mopt_otpusk'] = $Suppliers->GetPriceOtpusk($id_supplier, $_SESSION['cart']['id_gift'], 'mopt');
+			$order_otpusk_prices_sum += 0.01;
+			$sup_nb++;
+			$Products->SetFieldsById($_SESSION['cart']['id_gift']);
+			$product = $Products->fields;
+			$p[$ii]['box_qty'] = 1/$product['inbox_qty'];
+			$p[$ii]['mopt_qty'] = 1;
+			$p[$ii]['note'] = 'Подарок!';
+			$p[$ii]['default_sum_mopt'] = '0.01';
+			$p[$ii]['opt_qty'] = 0;
+			$p[$ii]['note_opt'] = '';
+			$p[$ii]['default_sum_opt'] = 0;
+			$p[$ii]['id_supplier'] = 0;
+			$p[$ii]['price_opt_otpusk'] = 0;
+			$p[$ii]['mopt_sum'] = '0.01';
+			$p[$ii]['site_price_mopt'] = '0.01';
+			$p[$ii]['opt_sum'] = 0;
+			$p[$ii]['site_price_opt'] = 0;
+			$p[$ii]['gift'] = 1;
 		}
 		// Если ни у одного товара нет поставщика
 		if($sup_nb == 0){
@@ -674,6 +696,7 @@ class Orders {
 		}
 		return $id_order;
 	}
+
 	// public function Add($arr){
 		// //************************************************************
 		// $discount = 0;

@@ -281,6 +281,7 @@ class Cart {
 			}
 			return $_SESSION['cart'];
 		}
+		var_dump($_SESSION['cart']['products']);
 		if(isset($_SESSION['cart']['id']) && !empty($_SESSION['cart']['products'])){
 			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
 			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
@@ -354,7 +355,7 @@ class Cart {
 			foreach($res1 as $value){
 				if(isset($_SESSION['cart']['products'][$value['id_product']])){
 					$this->db->StartTrans();
-					$this->db->DeleteRowFrom(_DB_PREFIX_."cart_product", "id_product", $value['id_product']);
+					$this->db->DeleteRowFrom(_DB_PREFIX_.'cart_product', 'id_product', $value['id_product']);
 					$this->db->CompleteTrans();
 				}
 			}
@@ -362,13 +363,13 @@ class Cart {
 			$_SESSION['cart']['promo'] = $res['promo'];
 			$_SESSION['cart']['adm'] = $res['adm'];
 			$_SESSION['cart']['ready'] = $res['ready'];
-			$_SESSION['cart']['ready'] = isset($res['note'])?$res['note']:'';
-			$this->DBCart();
+			$_SESSION['cart']['note'] = isset($res['note'])?$res['note']:'';
 			$sql = "SELECT * FROM "._DB_PREFIX_."cart_product WHERE id_cart = ".$res['id_cart'];
 			$res = $this->db->GetArray($sql);
 			foreach($res as $value){
 				$this->UpdateCartQty($value);
 			}
+			$this->DBCart();
 			return true;
 		}
 		return false;
