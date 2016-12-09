@@ -4,10 +4,16 @@
 }
 .product_page .product_label {
 	position: absolute;
-	top: 0;
+	top: -35px;
 	right: 10px;
 	background: #fff;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+}
+.product_page .agent_banner {
+	margin-right: 10px;
+}
+.product_page .product {
+	position: relative;
 }
 .product_page .product_label i {
 	margin-right: 10px;
