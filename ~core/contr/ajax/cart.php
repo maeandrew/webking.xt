@@ -21,6 +21,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Cart->DBCart();
 				echo json_encode(true);
 				break;
+			case 'GetCart':
+				echo json_encode($_SESSION['cart']);
+				break;
 			case 'GetCartPage':
 				unset($parsed_res);
 				if(G::IsLogged()){
@@ -113,7 +116,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$Delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['name'], $saved['city']['region']);
 					$deliverydepartments_list = $Delivery->list;
 				}
-
+				if(isset($_SESSION['cart']['id_gift'])){
+					$Products->SetFieldsById($_SESSION['cart']['id_gift']);
+					$tpl->Assign('gift', $Products->fields);
+				}
 				/* output data */
 				$tpl->Assign('customer', $customer);
 				$tpl->Assign('regions_list', $regions_list);
@@ -274,9 +280,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				$Cart->DBCart();
 				echo json_encode($res);
-				break;
-			case 'GetCart':
-				echo json_encode($_SESSION['cart']);
 				break;
 			case 'update_note':
 				if(isset($_SESSION['cart']['products'][$_POST['id_product']]) && !empty($_SESSION['cart']['products'][$_POST['id_product']])){
@@ -527,6 +530,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$tpl->Assign('gifts', $gifts);
 				}
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'gift_select_modal.tpl');
+				break;
+			case 'chosenGift':
+				$_SESSION['cart']['id_gift'] = $_POST['id_product'];
+				echo true;
 				break;
 			default:
 				break;

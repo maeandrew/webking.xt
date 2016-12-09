@@ -623,21 +623,22 @@
 		<!-- <button class="mdl-button mdl-js-button mdl-button--raised buy_more">Сохранить черновик</button> -->
 		<input type="hidden" class="min_sum_order" value="<?=$GLOBALS['CONFIG']['min_sum_order']?>">
 		<input type="hidden" class="current_user" value="<?=$current_user?>">
-			<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
-				<!-- <div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>> -->
-				<div id="button-cart1">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag <?=$min_sum_order === false && $current_user != 4?'hidden':null?>" type='submit' value="Отправить">Оформить заказ</button>
-					<p <?=$current_user == 4 || $min_sum_order === true?'class="hidden"':null?>>Минимальная сумма заказа <?=$GLOBALS['CONFIG']['min_sum_order']?> грн.</p>
-				</div>
-			<?}else{?>
-				<p>Вы не можете использовать корзину</p>
-			<?}?>
+		<?if(!G::IsLogged() || !_acl::isAdmin()){?> <!-- когда клиент просто оформляет заказ-->
+			<!-- <div id="button-cart1" <?=isset($_SESSION['cart']['promo'])?'class="hidden"':null;?>> -->
+			<div id="button-cart1">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent make_order_tag <?=$min_sum_order === false && $current_user != 4?'hidden':null?>" type='submit' value="Отправить">Оформить заказ</button>
+				<p <?=$current_user == 4 || $min_sum_order === true?'class="hidden"':null?>>Минимальная сумма заказа <?=$GLOBALS['CONFIG']['min_sum_order']?> грн.</p>
+			</div>
+		<?}else{?>
+			<p>Вы не можете использовать корзину</p>
+		<?}?>
+
 		<?if(!isset($_SESSION['cart']['promo'])){?>	 <!-- когда клиент выберает чекбокс -->
 			<button class="cart_continue_js cart_continue mdl-button mdl-js-button mdl-button--raised mdl-button--colored hidden joint_cart_continue_js joint_purchase_continue_js">Продолжить</button>
 		<?}?>
 
 		<?if(isset($_SESSION['cart']['promo']) && isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 1) {?> <!-- когда клиент оформляет совместный заказ -->
-			<a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Управление заказом"/></a>
+			<!-- <a href="<?=Link::Custom('cabinet', 'cooperative')?>?t=joactive"><input type="button" class="order_management order_management_js mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Управление заказом"/></a> -->
 		<?}else if(isset($_SESSION['cart']['promo']) && isset($_SESSION['cart']['adm']) && $_SESSION['cart']['adm'] == 0) {?> <!-- когда клиент присоеденяется к совместному заказу -->
 			<input type="button" class="confirm_order_js mdl-button mdl-js-button mdl-button--raised <?=isset($_SESSION['cart']['ready']) && $_SESSION['cart']['ready']==1?null:'mdl-button--colored';?>" value="Готово"/>
 		<?}?>
