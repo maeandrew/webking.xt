@@ -1004,7 +1004,7 @@ section.center {
 	}
 	#cart .gift_card .remove_prod {
 		padding-top: 30px;
-    	padding-right: 20px;
+    	/*padding-right: 5px;*/
 	}
 	#cart #total {
 		width: 300px;
