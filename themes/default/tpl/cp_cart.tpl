@@ -189,7 +189,7 @@
 						ВАШ ПОДАРОК
 					</div>
 					<div class="remove_prod">
-						<div class="mdl-button mdl-js-button mdl-button--accent btn_js" data-name="gift_select">Сменить</div>
+						<div class="mdl-button mdl-js-button mdl-button--accent btn_js" data-name="gift_select">Заменить</div>
 					</div>
 				</div>
 			</div>
