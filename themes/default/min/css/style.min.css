@@ -163,6 +163,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .gift_item{background:#ff5722;line-height:50px;min-height:50px;padding:0 10px;text-align:center}
 #cart .gift_item .gift_title{color:#fff;font-size:2em;font-weight:700}
 #cart .gift_item .mdl-button{width:120px;background:#fff}
+#cart .gift_card{border-bottom:1px solid #ff5722}
 #cart .card .product_name{float:left;display:table-row;min-width:200px;width:calc(60% - 170px);text-align:left;padding:5px}
 #cart .card .product_buy{width:30%;float:left;position:relative;min-width:auto}
 #cart .card .product_buy .buy_block{justify-content:space-around}
@@ -174,6 +175,8 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 #cart .card .product_photo img{max-width:100%;max-height:80px}
 #cart .card .summ{width:10%;float:left;text-align:right;line-height:100px}
 .cartInfBlock{height:28px;line-height:28px;position:absolute;left:calc(50% - 160px);top:15px;background:#ff5722;color:#fff;width:320px;border-radius:10px;text-align:center}
+#cart .gift_card .product_buy{text-align:center;color:#ff5722;font-weight:700;font-size:20px}
+#cart .gift_card .remove_prod{padding-top:30px;padding-right:20px}
 #cart #total{width:300px;overflow:auto;float:right;border-left:1px solid #e0e0e0;padding:10px}
 #cart .cart_footer{border:1px solid #e0e0e0;background:#f5f5f5;overflow:auto}
 #cart #total .total{font-size:.8em;line-height:25px;width:100%;color:#888}

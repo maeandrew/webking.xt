@@ -168,7 +168,7 @@
 	<!-- NEW Товары в корзине -->
 	<?if(promo::HasGift()){
 		if(isset($gift)){?>
-			<div class="card">
+			<div class="card gift_card">
 				<div class="card_wrapper">
 					<div class="product_photo">
 						<a href="<?=Link::Product($gift['translit']);?>">
@@ -184,6 +184,9 @@
 							<?=G::CropString($gift['name'], 180)?>
 						</a>
 						<span class="product_article">Артикул: <?=$gift['art']?></span>
+					</div>
+					<div class="product_buy">
+						ВАШ ПОДАРОК
 					</div>
 					<div class="remove_prod">
 						<div class="mdl-button mdl-js-button mdl-button--accent btn_js" data-name="gift_select">Сменить</div>

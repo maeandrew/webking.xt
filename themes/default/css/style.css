@@ -923,6 +923,9 @@ section.center {
 		width: 120px;
 		background: #fff;
 	}
+	#cart .gift_card {
+		border-bottom: 1px solid #ff5722;
+	}
 	#cart .card .product_name {
 		float: left;
 		display: table-row;
@@ -992,6 +995,16 @@ section.center {
 		width: 320px;
 		border-radius: 10px;
 		text-align: center;
+	}
+	#cart .gift_card .product_buy {
+		text-align: center;
+		color: #ff5722;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	#cart .gift_card .remove_prod {
+		padding-top: 30px;
+    	padding-right: 20px;
 	}
 	#cart #total {
 		width: 300px;
