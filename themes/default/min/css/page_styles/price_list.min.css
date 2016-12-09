@@ -82,8 +82,7 @@ body.landscape{width:100%}
 .landscape .content{width:30%;float:right}
 .landscape .footer{left:70%;flex-wrap:wrap}
 .landscape .prod_img{max-height:calc(100% - 40px);margin-bottom:0}
-.landscape .prod_title{white-space:pre-wrap;font-size:25px;max-height:115px;overflow:hidden;bottom:200px}
-.landscape .prod_art{bottom:320px}
+.landscape .prod_title{white-space:pre-wrap;font-size:25px;max-height:115px;overflow:hidden}
 .landscape .price_block{padding-top:35%;padding-bottom:0}
 .landscape .price{font-size:50px}
 .landscape .contacts{order:3;width:100%;padding:0;display:flex;padding-top:10px}

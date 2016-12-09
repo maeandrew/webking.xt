@@ -411,10 +411,6 @@ body.landscape {
 	font-size: 25px;
 	max-height: 115px;
 	overflow: hidden;
-	bottom: 200px;
-}
-.landscape .prod_art {
-	bottom: 320px;
 }
 .landscape .price_block {
 	padding-top: 35%;
