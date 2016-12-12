@@ -607,4 +607,12 @@ class Users {
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	public function GetAgentInfo($id_agent){
+		$sql = "SELECT * FROM "._DB_PREFIX_."order WHERE id_customer IN (SELECT id_user FROM "._DB_PREFIX_."user_agent WHERE id_agent = ".$id_agent.")";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 }

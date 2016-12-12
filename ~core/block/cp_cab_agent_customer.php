@@ -12,6 +12,16 @@ if(isset($_REQUEST['confirm_agent']) && !G::isAgent() && $Users->ConfirmAgent())
 	header('Location: '.Link::Custom('cabinet', 'agent', array('clear' => true)));
 }
 
+$orders = $Users->GetAgentInfo($_SESSION['member']['id_user']);
+foreach($orders as $order){
+	if(!isset($history[date('d.m.Y', $order['creation_date'])]['orders_sum'])){
+		$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] = $order['sum_discount'];
+	}else{
+		$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] += $order['sum_discount'];
+	}
+	$history[date('d.m.Y', $order['creation_date'])]['orders'][] = $order;
+}
+$tpl->Assign('history', $history);
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Бонус начисляется только при условии успешного выполнения и рассчитывается с фактической суммы заказа.'));
 
 $Users->SetUser($_SESSION['member']);
