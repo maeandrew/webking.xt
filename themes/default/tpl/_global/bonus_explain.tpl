@@ -3,6 +3,7 @@
 </div>
 
 <?$base_price = $product['prices_mopt'][3] > 0?$product['prices_mopt'][3]:$product['prices_opt'][3];
+$base_price = $product['price_mopt'];
 if($product['prices_opt'][3] > 0){?>
 	<table class="prices_table">
 		<tr>
@@ -68,12 +69,13 @@ if($product['prices_opt'][3] > 0){?>
 			<!-- <td><?=(100-$corrections['mopt'][2]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Розница (базовая) <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
+			<td class="title_column">Розница<span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_mopt'][3], 2, ",", "")?></td>
-			<td>0</td>
+			<td><?=(100-round($product['prices_mopt'][3]/$base_price, 2)*100)?></td>
 		</tr>
 	</table>
 <?}?>
+<b>Базовая цена - <?=number_format($base_price, 2, ",", "")?>грн.</b>
 <table class="bonus_table hidden">
 	<tr>
 		<th colspan="3">Бонусная программа</th>
