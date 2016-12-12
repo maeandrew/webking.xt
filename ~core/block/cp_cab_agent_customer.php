@@ -14,10 +14,12 @@ if(isset($_REQUEST['confirm_agent']) && !G::isAgent() && $Users->ConfirmAgent())
 
 $orders = $Users->GetAgentInfo($_SESSION['member']['id_user']);
 foreach($orders as $order){
-	if(!isset($history[date('d.m.Y', $order['creation_date'])]['orders_sum'])){
-		$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] = $order['sum_discount'];
-	}else{
-		$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] += $order['sum_discount'];
+	if($order['id_order_status'] == 2){
+		if(!isset($history[date('d.m.Y', $order['creation_date'])]['orders_sum'])){
+			$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] = $order['sum_discount'];
+		}else{
+			$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] += $order['sum_discount'];
+		}
 	}
 	$history[date('d.m.Y', $order['creation_date'])]['orders'][] = $order;
 }
