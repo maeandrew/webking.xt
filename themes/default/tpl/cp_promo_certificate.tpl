@@ -107,102 +107,40 @@
 </head>
 <body>
 	<div class="main">
-		<div class="flyer">
-			<div class="flyer_header">
-				<h2 class="flyer_title">Подарочный сертификат на первый заказ</h2>
-				<div class="logo">
-					<img src="/themes/default/img/_xt.svg">
-					<p class="site">xt.ua</p>
+		<?for($i = 0; $i < (isset($_REQUEST['share'])?1:3); $i++){?>
+			<div class="flyer">
+				<div class="flyer_header">
+					<h2 class="flyer_title">Подарочный сертификат на первый заказ</h2>
+					<div class="logo">
+						<img src="/themes/default/img/_xt.svg">
+						<p class="site">xt.ua</p>
+					</div>
+					<p class="company_title">Служба снабжения ХарьковТорг</p>
 				</div>
-				<p class="company_title">Служба снабжения ХарьковТорг</p>
-			</div>
-			<div class="flyer_content">
-				<div class="cagories">
-					<img src="/images/assort.jpg">
+				<div class="flyer_content">
+					<div class="cagories">
+						<img src="/images/assort.jpg">
+					</div>
+					<div class="flyer_info">
+						<p>Минимальный заказ 100 грн.</p>
+						<p>Бесплатная доставка по Украине</p>
+						<p>Оптовые скидки до 50% от XT.UA</p>
+						<p>Обмен и возврат товара в течении 14 дней</p>
+						<p>Вместе дешевле! Совместные покупки (СП)</p>
+					</div>
 				</div>
-				<div class="flyer_info">
-					<p>Минимальный заказ 100 грн.</p>
-					<p>Бесплатная доставка по Украине</p>
-					<p>Оптовые скидки до 50% от XT.UA</p>
-					<p>Обмен и возврат товара в течении 14 дней</p>
-					<p>Вместе дешевле! Совместные покупки (СП)</p>
-				</div>
-			</div>
-			<div class="flyer_footer">
-				<div class="personal_consultant_block">
-					<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
-					<p class="personal_consultant_title">Ваш личный консультант</p>
-				</div>
-				<div class="promocode_block">
-					<p class="promocode_title">Промокод:</p>
-					<p class="promocode">AG<?=$_SESSION['member']['id_user']?></p>
-				</div>
-			</div>
-		</div>
-		<div class="flyer">
-			<div class="flyer_header">
-				<h2 class="flyer_title">Подарочный сертификат на первый заказ</h2>
-				<div class="logo">
-					<img src="/themes/default/img/_xt.svg">
-					<p class="site">xt.ua</p>
-				</div>
-				<p class="company_title">Служба снабжения ХарьковТорг</p>
-			</div>
-			<div class="flyer_content">
-				<div class="cagories">
-					<img src="/images/assort.jpg">
-				</div>
-				<div class="flyer_info">
-					<p>Минимальный заказ 100 грн.</p>
-					<p>Бесплатная доставка по Украине</p>
-					<p>Оптовые скидки до 50% от XT.UA</p>
-					<p>Обмен и возврат товара в течении 14 дней</p>
-					<p>Вместе дешевле! Совместные покупки (СП)</p>
+				<div class="flyer_footer">
+					<div class="personal_consultant_block">
+						<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$user['phone']?></span>
+						<p class="personal_consultant_title">Ваш личный консультант</p>
+					</div>
+					<div class="promocode_block">
+						<p class="promocode_title">Промокод:</p>
+						<p class="promocode">AG<?=$user['id_user']?></p>
+					</div>
 				</div>
 			</div>
-			<div class="flyer_footer">
-				<div class="personal_consultant_block">
-					<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
-					<p class="personal_consultant_title">Ваш личный консультант</p>
-				</div>
-				<div class="promocode_block">
-					<p class="promocode_title">Промокод:</p>
-					<p class="promocode">AG<?=$_SESSION['member']['id_user']?></p>
-				</div>
-			</div>
-		</div>
-		<div class="flyer">
-			<div class="flyer_header">
-				<h2 class="flyer_title">Подарочный сертификат на первый заказ</h2>
-				<div class="logo">
-					<img src="/themes/default/img/_xt.svg">
-					<p class="site">xt.ua</p>
-				</div>
-				<p class="company_title">Служба снабжения ХарьковТорг</p>
-			</div>
-			<div class="flyer_content">
-				<div class="cagories">
-					<img src="/images/assort.jpg">
-				</div>
-				<div class="flyer_info">
-					<p>Минимальный заказ 100 грн.</p>
-					<p>Бесплатная доставка по Украине</p>
-					<p>Оптовые скидки до 50% от XT.UA</p>
-					<p>Обмен и возврат товара в течении 14 дней</p>
-					<p>Вместе дешевле! Совместные покупки (СП)</p>
-				</div>
-			</div>
-			<div class="flyer_footer">
-				<div class="personal_consultant_block">
-					<p class="personal_consultant_name"><?=$customer['first_name']?></p><span>тел. <?=$_SESSION['member']['phone']?></span>
-					<p class="personal_consultant_title">Ваш личный консультант</p>
-				</div>
-				<div class="promocode_block">
-					<p class="promocode_title">Промокод:</p>
-					<p class="promocode">AG<?=$_SESSION['member']['id_user']?></p>
-				</div>
-			</div>
-		</div>
+		<?}?>
 	</div>
 </body>
 </html>

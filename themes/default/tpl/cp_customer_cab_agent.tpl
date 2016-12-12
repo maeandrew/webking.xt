@@ -13,6 +13,7 @@
 					</div>
 					<div type="submit" class="action_icon">
 						<form action="<?=Link::Custom('promo_certificate')?>" target="_blank">
+							<input type="hidden" name="agent" value="<?=$_SESSION['member']['id_user']?>">
 							<button><i id="print_promocode" class="material-icons">print</i></button>
 							<div class="mdl-tooltip" for="print_promocode">Распечатать сертификат</div>
 						</form>
