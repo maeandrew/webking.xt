@@ -21,6 +21,7 @@ foreach($orders as $order){
 	}
 	$history[date('d.m.Y', $order['creation_date'])]['orders'][] = $order;
 }
+krsort($history);
 $tpl->Assign('history', $history);
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Бонус начисляется только при условии успешного выполнения и рассчитывается с фактической суммы заказа.'));
 
