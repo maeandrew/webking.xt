@@ -596,4 +596,15 @@ class Users {
 		$_SESSION['member']['agent'] = 1;
 		return true;
 	}
+	public function SubscribeAgentUser($id_user, $id_agent){
+		$f['id_user'] = $id_user;
+		$f['id_agent'] = $id_agent;
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'user_agent', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
 }

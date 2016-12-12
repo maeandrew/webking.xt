@@ -281,7 +281,6 @@ class Cart {
 			}
 			return $_SESSION['cart'];
 		}
-		var_dump($_SESSION['cart']['products']);
 		if(isset($_SESSION['cart']['id']) && !empty($_SESSION['cart']['products'])){
 			//Меняем готовность заказа (ready=0) при изменении количества товаров в корзине
 			if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '' && $_SESSION['cart']['adm'] == 0){
@@ -636,7 +635,7 @@ class Cart {
 		$res['products'] = $a['products'];
 		$res['total_sum'] = $a['total_sum'];
 		$res['discount'] = $a['discount'];
-		//Добавляем информацию об участниках совместного заказа
+		// Добавляем информацию об участниках совместного заказа
 		$res['infoCarts'] = $this->GetInfoForPromo($res['promo']);
 		$b = $this->GetProductsForPromo($res['promo']);
 		foreach($res['infoCarts'] as &$val){
@@ -714,7 +713,7 @@ class Cart {
 		return $res;
 	}
 
-	//Формирование промокода
+	// Формирование промокода
 	public function CreatePromo($prefix){
 		$promo = $prefix.G::GenerateVerificationCode();
 		if(!$this->UpdateCart($promo, 10, 1, 1)){
@@ -723,7 +722,7 @@ class Cart {
 		return $promo;
 	}
 
-	//Добавить/удалить статус и промокод для заказа (корзины)
+	// Добавить/удалить статус и промокод для заказа (корзины)
 	public function UpdateCart($promo = false, $status = false, $adm = false, $ready = false, $id_cart = false){
 		$id_cart = $id_cart?$id_cart:(isset($_SESSION['cart']['id'])?$_SESSION['cart']['id']:$this->DBCart());
 		// print_r($id_cart);
@@ -744,10 +743,10 @@ class Cart {
 		return true;
 	}
 
-	//Добавить/удалить статус и промокод для заказа (корзины)
+	// Добавить/удалить статус и промокод для заказа (корзины)
 	public function UpdateCartNote($note){
 		$_SESSION['cart']['note'] = $note;
-		if (isset($_SESSION['cart']['id'])) {
+		if(isset($_SESSION['cart']['id'])){
 			$sql = "UPDATE "._DB_PREFIX_."cart
 				SET note = ".$this->db->Quote($note)."
 				WHERE id_cart = ".$_SESSION['cart']['id'];
@@ -761,7 +760,7 @@ class Cart {
 		return true;
 	}
 
-	//Проверка промокода
+	// Проверка промокода
 	public function CheckPromo($promo){
 		switch(substr($promo, 0, 2)){
 			case 'JO':
@@ -771,13 +770,15 @@ class Cart {
 				$status = 10;
 				break;
 			case 'AG':
-				if((G::IsLogged() && $_SESSION['member']['id_user'] == substr($promo, 2)) || G::HasAgent() || !$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."user WHERE id_user = ".substr($promo, 2)." AND agent = 1")){
+				if((G::IsLogged() && $_SESSION['member']['id_user'] == substr($promo, 2)) || G::HasAgent() || !$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."promo_code WHERE code = '".$promo."' AND active = 1")){
 					return false;
 				}
 				$status = 0;
 				break;
 			default:
-				return false;
+				if(!$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."promo_code WHERE code = '".$promo."' AND active = 1")){
+					return false;
+				}
 				break;
 		}
 		if(!$this->UpdateCart($promo, $status)){
@@ -787,7 +788,7 @@ class Cart {
 		return $promo;
 	}
 
-	//Проверка готовности корзины
+	// Проверка готовности корзины
 	public function CheckCartReady($promo){
 		$sql = "SELECT COUNT(ready) AS count FROM "._DB_PREFIX_."cart
 		 		WHERE ready = 0 AND promo = '".$promo."'";
@@ -797,7 +798,7 @@ class Cart {
 		return $res['count'];
 	}
 
-	//Обновление статуса корзины по промокоду
+	// Обновление статуса корзины по промокоду
 	public  function UpdateStatusCart($promo, $status){
 		$sql = "UPDATE "._DB_PREFIX_."cart	SET status = '".$status."'
 				WHERE promo = '".$promo."'";
