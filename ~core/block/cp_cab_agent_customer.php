@@ -25,6 +25,9 @@ foreach($orders as $order){
 }
 krsort($history);
 $tpl->Assign('history', $history);
+
+$agent_users = $Users->GetUsersByAgent($_SESSION['member']['id_user']);
+$tpl->Assign('agent_users', $agent_users);
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Бонус начисляется только при условии успешного выполнения и рассчитывается с фактической суммы заказа.'));
 
 $Users->SetUser($_SESSION['member']);

@@ -613,7 +613,17 @@ class Users {
 			LEFT JOIN "._DB_PREFIX_."user_agent AS ua
 				ON ua.id_user = o.id_customer
 			WHERE ua.id_agent = ".$id_agent."
+			AND ua.active = 1
 			AND from_unixtime(o.target_date) > ua.activation_date";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function GetUsersByAgent($id_agent){
+		$sql = "SELECT * FROM "._DB_PREFIX_."users_agent AS ua
+			WHERE ua.id_agent = ".$id_agent."
+			AND ua.active = 1";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}

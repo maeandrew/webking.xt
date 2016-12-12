@@ -25,7 +25,7 @@
 					</div>
 					<div class="info_descr">
 						<p class="info_descr_title">Привелечено клиентов:</p>
-						<p class="info_descr_text">0</p>
+						<p class="info_descr_text"><?=count($agent_users);?></p>
 					</div>
 				</div>
 				<div class="info_item bonuses">
