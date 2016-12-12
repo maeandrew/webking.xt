@@ -58,7 +58,7 @@
 								<i class="material-icons">&#xE315;</i>
 								<?=$date?>
 							</div>
-							<div class="order_info profit"><?=number_format($value['orders_sum'] * 0.03, 2, ',', '')?> грн.</div>
+							<div class="order_info profit"><?=number_format((isset($value['orders_sum'])?$value['orders_sum']:0) * 0.03, 2, ',', '')?> грн.</div>
 						</div>
 						<?foreach ($value['orders'] as $order) {?>
 							<div class="agents_client_order
@@ -74,7 +74,7 @@
 								<div class="mdl-tooltip" for="processing_order_<?=$order['id_order']?>">Заказ в обработке</div>
 								<div class="order_info phone"><?=$order['phones']?></div>
 								<div class="order_info order_sum"><?=number_format($order['sum'], 2, ',', '')?> грн.</div>
-								<div class="order_info profit"><?=number_format($value['orders_sum'] * 0.03, 2, ',', '')?> грн.</div>
+								<div class="order_info profit"><?=number_format($order['sum'] * 0.03, 2, ',', '')?> грн.</div>
 							</div>
 						<?}?>
 					</div>
