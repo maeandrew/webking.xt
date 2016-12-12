@@ -458,7 +458,7 @@
 						<?}?>
 					<?}?>
 
-					<?if(G::IsLogged() || _acl::isAdmin()){?>
+
 						<div class="promocode">
 							<label for="promocode">Промо-код</label>
 							<?if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != '') {?>
@@ -521,7 +521,6 @@
 
 							</div>
 						<?}?>
-					<?}?>
 					<div class="mdl-selectfield mdl-js-selectfield">
 						<select id="select_contragent" name="id_contragent" class="mdl-selectfield__select">
 							<option value="" disabled selected>Менеджер</option>
