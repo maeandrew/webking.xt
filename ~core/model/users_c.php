@@ -609,7 +609,11 @@ class Users {
 	}
 
 	public function GetAgentInfo($id_agent){
-		$sql = "SELECT * FROM "._DB_PREFIX_."order WHERE id_customer IN (SELECT id_user FROM "._DB_PREFIX_."user_agent WHERE id_agent = ".$id_agent.")";
+		$sql = "SELECT o.* FROM "._DB_PREFIX_."order AS o
+			LEFT JOIN "._DB_PREFIX_."user_agent AS ua
+				ON ua.id_user = o.id_customer
+			WHERE ua.id_agent = ".$id_agent."
+			AND from_unixtime(o.target_date) > ua.activation_date";
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
