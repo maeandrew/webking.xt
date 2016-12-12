@@ -423,6 +423,7 @@ class Orders {
 	public function Add($arr = null){
 		global $Cart;
 		global $Products;
+		global $Users;
 		if(isset($arr)) {
 			$GetCartForPromo = $Cart->GetCartForPromo($arr);
 			$OrderCart = array();
@@ -437,6 +438,12 @@ class Orders {
 		if(empty($OrderCart)){
 			print_r('products error');
 			return false;
+		}
+		if(isset($_SESSION['cart']['promo']) && substr($_SESSION['cart']['promo'], 0, 2) == 'AG'){
+			if(!$Users->SubscribeAgentUser($_SESSION['member']['id_user'], substr($_SESSION['cart']['promo'], 2))){
+				print_r('agent subscription error');
+				return false;
+			}
 		}
 		// $discount = 0;
 		// if(isset($_SESSION['cart']['discount'])){
@@ -525,6 +532,9 @@ class Orders {
 					$id_contragent = $customer['id_contragent'];
 				}
 			}
+		}
+		if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''){
+			$f['promo_code'] = $_SESSION['cart']['promo'];
 		}
 		$f['id_contragent'] = $id_contragent;
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
@@ -660,19 +670,18 @@ class Orders {
 		if($order_status == 1 && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
 			$Mailer = new Mailer();
 			$Mailer->SendOrderInvoicesToCustomers($id_order);
-			$User = new Users();
-			$User->SetFieldsById($_SESSION['member']['id_user']);
+			$Users->SetFieldsById($_SESSION['member']['id_user']);
 			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
 			$Contragents = new Contragents();
 			$string = $Contragents->GetSavedFields($id_contragent);
 			$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
-//			 if($User->fields['phone'] != '' ){
+//			 if($Users->fields['phone'] != '' ){
 //				$Gateway->execCommad(
 //					'sendSMS',
 //					array(
 //						'sender' => $GLOBALS['CONFIG']['invoice_logo_sms'],
 //						'text' => 'Заказ № '.$id_order.' принят. Ваш менеджер '.$manager2send,
-//						'phone' => $User->fields['phone'],
+//						'phone' => $Users->fields['phone'],
 //						'datetime' => null,
 //						'sms_lifetime' => 0
 //					)
@@ -681,6 +690,9 @@ class Orders {
 		}
 		if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 			unset($_SESSION['cart']['base_order'], $_SESSION['cart']['id_customer'], $_SESSION['member']['bonus']);
+		}
+		if(isset($_SESSION['cart']['promo'])){
+			unset($_SESSION['cart']['promo']);
 		}
 		if(isset($_SESSION['cart']['note'])){
 			unset($_SESSION['cart']['note']);
