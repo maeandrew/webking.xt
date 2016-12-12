@@ -61,9 +61,17 @@
 							<div class="order_info profit"><?=number_format($value['orders_sum'] * 0.03, 2, ',', '')?> грн.</div>
 						</div>
 						<?foreach ($value['orders'] as $order) {?>
-							<div class="agents_client_order">
-								<div class="order_info client"><?=$order['cont_person']?> <span><i id="new_client_12345" class="material-icons">&#xE548;</i></span></div>
-								<div class="mdl-tooltip" for="new_client_12345">Новый клиент</div>
+							<div class="agents_client_order
+								<?if ($order['id_order_status'] == 1 || $order['id_order_status'] == 6) {
+									echo "processing";
+								}elseif ($order['id_order_status'] == 2) {
+									echo "done";
+								}else{
+									echo "disabled";
+								}?>">
+								<div class="order_info client"><?=$order['cont_person']?> <span><i id="new_client_<?=$order['id_order']?>" class="material-icons <?=isset($order['promo_code'])?null:'hidden'?>">&#xE548;</i></span> <span><i id="processing_order_<?=$order['id_order']?>" class="material-icons <?=$order['id_order_status'] == 1 || $order['id_order_status'] == 6?null:'hidden'?>">&#xE8FD;</i></span></div>
+								<div class="mdl-tooltip" for="new_client_<?=$order['id_order']?>">Новый клиент</div>
+								<div class="mdl-tooltip" for="processing_order_<?=$order['id_order']?>">Заказ в обработке</div>
 								<div class="order_info phone"><?=$order['phones']?></div>
 								<div class="order_info order_sum"><?=number_format($order['sum'], 2, ',', '')?> грн.</div>
 								<div class="order_info profit"><?=number_format($value['orders_sum'] * 0.03, 2, ',', '')?> грн.</div>

@@ -3145,6 +3145,12 @@ div[id^="items_panel_"] .btnWrapFlex {
 	height: 50px;
 	border-top: 1px solid #DCDCDC;
 }
+.agents_client_order.processing {
+	color: #bdbdbd;
+}
+.agents_client_order.disabled {
+	text-decoration: line-through;
+}
 .agents_client_order.opening_tab {
 	width: 100%;
 	margin: 0;
@@ -3177,10 +3183,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 .agents_client_order .phone {
 	width: 30%;
 }
-/*.agents_client_order .client {
-	width: 50%;
-	padding-left: 20%;
-}*/
 .agents_client_order .client i {
 	color:#FF5722;
 	font-size: 18px;
@@ -3189,6 +3191,10 @@ div[id^="items_panel_"] .btnWrapFlex {
 .agents_client_order .order_sum,
 .agents_client_order .profit {
 	color: #018b06;
+}
+.agents_client_order.processing .order_sum,
+.agents_client_order.processing .profit{
+	color: #bdbdbd;
 }
 .orders_history_content .opening_tab .profit {
 	width: 10%;

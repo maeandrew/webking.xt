@@ -556,6 +556,8 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .orders_history h2{margin:10px}
 .agents_client_order,.orders_history_header{display:flex}
 .agents_client_order{width:100%;margin-left:20%;height:50px;border-top:1px solid #DCDCDC}
+.agents_client_order.processing{color:#bdbdbd}
+.agents_client_order.disabled{text-decoration:line-through}
 .agents_client_order.opening_tab{width:100%;margin:0;border:none}
 .orders_history_header{border-bottom:2px solid #FF5722;background:#f4f6f5}
 .agents_client_order .order_info,.orders_history_header .header_item{padding:13px}
@@ -565,6 +567,7 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .agents_client_order .client,.agents_client_order .phone,.orders_history_header .client,.orders_history_header .phone{width:30%}
 .agents_client_order .client i{color:#FF5722;font-size:18px;line-height:24px}
 .agents_client_order .order_sum,.agents_client_order .profit{color:#018b06}
+.agents_client_order.processing .order_sum,.agents_client_order.processing .profit{color:#bdbdbd}
 .orders_history_content .opening_tab .profit{width:10%}
 .orders_history_content:nth-of-type(odd){background:#f4f6f5}
 .orders_history_content{max-height:50px;overflow:hidden;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
