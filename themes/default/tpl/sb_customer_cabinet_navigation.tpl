@@ -110,7 +110,7 @@
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'?'active show':null;?>">
 				<li class="child <?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>">
-					<a class="<?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_history">Сводка</a>
+					<a class="<?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_history">История</a>
 				</li>
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>">
 					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=clients">Список клиентов</a>
