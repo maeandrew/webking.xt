@@ -3134,7 +3134,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 	border: none;
 	background: none;
 }
-.orders_history {
+.orders_history,
+.agents_clients_list {
 	width: calc(100% - 15px);
 	background: #fff;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
@@ -3146,14 +3147,19 @@ div[id^="items_panel_"] .btnWrapFlex {
 	margin: 10px;
 }
 .orders_history_header,
-.agents_client_order {
+.agents_client_order,
+.agents_client_header,
+.agents_client {
 	display: flex;
 }
 .agents_client_order {
 	width: 100%;
 	margin-left: 130px;
-	height: 50px;
 	border-top: 1px solid #DCDCDC;
+}
+.agents_client_order,
+.agents_client {
+	height: 50px;
 }
 .agents_client_order.processing {
 	color: #bdbdbd;
@@ -3166,13 +3172,17 @@ div[id^="items_panel_"] .btnWrapFlex {
 	margin: 0;
 	border: none;
 }
-.orders_history_header {
+.orders_history_header,
+.agents_client_header {
     border-bottom: 2px solid #FF5722;
     background: #f4f6f5;
 }
 .orders_history_header .header_item,
-.agents_client_order .order_info {
+.agents_client_order .order_info,
+.agents_client_header .header_item,
+.agents_client .client_info {
 	padding: 13px;
+	white-space: nowrap;
 }
 .orders_history_header .date {
 	width: 130px;
@@ -3185,7 +3195,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 .agents_client_order .order_sum,
 .agents_client_order .profit {
 	width: 120px;
-	white-space: nowrap;
 }
 .orders_history_header .phone,
 .agents_client_order .phone {
@@ -3193,10 +3202,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 
 .agents_client_order .client,
-.orders_history_header .client {
+.orders_history_header .header_item.client {
 	width: calc(100% - 490px);
 }
-.agents_client_order .client i {
+.agents_client_order .client i,
+.agents_client .status i {
 	color:#FF5722;
 	font-size: 18px;
     line-height: 24px;
@@ -3212,7 +3222,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 .orders_history_content .opening_tab .profit {
 	width: 120px;
 }
-.orders_history_content:nth-of-type(odd) {
+.orders_history_content:nth-of-type(odd),
+.agents_client:nth-of-type(odd) {
 	background: #f4f6f5;
 }
 .orders_history_content {
@@ -3223,7 +3234,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 	transition: all .4s cubic-bezier(.4, 0, .2, 1);
 }
 .orders_history_content .opening_tab:hover,
-.agents_client_order .client i:hover {
+.agents_client_order .client i:hover,
+.agents_client .status i:hover {
 	cursor: pointer;
 }
 .orders_history_content .opening_tab i {
@@ -3234,6 +3246,23 @@ div[id^="items_panel_"] .btnWrapFlex {
 	transform: rotate(90deg);
 }
 
+/* Стили списка склиентов агента */
+.header_item,
+.client_info {
+	width: 120px;
+}
+.header_item.order_number,
+.client_info.order_number {
+	width: 50px;
+	text-align: center;
+}
+.header_item.client,
+.client_info.client {
+	width: calc(100% - 530px);
+}
+.agents_client.disabled {
+	color: #bdbdbd;
+}
 
 
 
