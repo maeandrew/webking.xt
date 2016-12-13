@@ -48,7 +48,7 @@ if($GLOBALS['CurrentController'] == 'cart'){
 G::AddJS('../plugins/dropzone.js', false, 1);
 G::AddJS('../plugins/jquery.lazyload.min.js', false, 1);
 G::AddJS('../plugins/jquery.cookie.js', false, 1);
-G::AddJS('../plugins/maskedinput.min.js', true);
+G::AddJS('../plugins/maskedinput.min.js', false);
 G::AddJS('../js/html2canvas.js', true);
 if($GLOBALS['CurrentController'] == 'page'){
 	G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/page.js', true);
