@@ -621,7 +621,11 @@ class Users {
 		return $res;
 	}
 	public function GetUsersByAgent($id_agent){
-		$sql = "SELECT * FROM "._DB_PREFIX_."users_agent AS ua
+		$sql = "SELECT u.*, c.*, ua.* FROM "._DB_PREFIX_."user_agent AS ua
+			LEFT JOIN "._DB_PREFIX_."user AS u
+				ON u.id_user = ua.id_user
+			LEFT JOIN "._DB_PREFIX_."customer AS c
+				ON c.id_user = u.id_user
 			WHERE ua.id_agent = ".$id_agent."
 			AND ua.active = 1";
 		if(!$res = $this->db->GetArray($sql)){
