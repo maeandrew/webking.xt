@@ -103,10 +103,19 @@
 				<a href="<?=Link::Custom('cabinet', 'waitinglist', array('clear' => true))?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
 			</span>
 		</li>
-		<li id="icon_people" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'?'class="active"':null;?>>
+		<li id="icon_people" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'?'class="active"':null;?>>
 			<span class="link_wrapp">
-				<a href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>"><i class="material-icons">people</i><span class="textInALink">Уголок агента</span></a>
+				<a href="#"><i class="material-icons">people</i><span class="textInALink">Уголок агента</span></a>
+				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 			</span>
+			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'?'active show':null;?>">
+				<li class="child <?=!isset($_GET['t']) || $_GET['t'] == 'agent'?'active':null;?>">
+					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'agent'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>">Сводка</a>
+				</li>
+				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>">
+					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=clients">Список клиентов</a>
+				</li>
+			</ul>
 		</li>
 	</ul>
 </div>
