@@ -3113,12 +3113,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 	right: 5px;
 }
 .action_icon i {
-	font-size: 18px;
 	color: #cacccb;
 }
 .info_item:hover .action_icon i {
 	cursor: pointer;
-	color: #888;
+	color: #FF5722;
 }
 .action_icon button {
 	border: none;
