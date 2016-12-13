@@ -59,6 +59,7 @@
 		}
 		.gift_prod {
 			width: 60%;
+			padding-top: 5px;
 		}
 		.gift_prod_image {
 			width: 50%;
