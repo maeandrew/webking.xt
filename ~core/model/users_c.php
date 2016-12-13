@@ -609,9 +609,12 @@ class Users {
 	}
 
 	public function GetAgentInfo($id_agent){
-		$sql = "SELECT o.* FROM "._DB_PREFIX_."order AS o
+		$sql = "SELECT o.*, c.*
+			FROM "._DB_PREFIX_."order AS o
 			LEFT JOIN "._DB_PREFIX_."user_agent AS ua
 				ON ua.id_user = o.id_customer
+			LEFT JOIN "._DB_PREFIX_."customer AS c
+				ON c.id_user = o.id_customer
 			WHERE ua.id_agent = ".$id_agent."
 			AND ua.active = 1
 			AND from_unixtime(o.target_date) > ua.activation_date";
