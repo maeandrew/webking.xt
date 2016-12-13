@@ -3141,7 +3141,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .agents_client_order {
 	width: 100%;
-	margin-left: 20%;
+	margin-left: 130px;
 	height: 50px;
 	border-top: 1px solid #DCDCDC;
 }
@@ -3165,7 +3165,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	padding: 13px;
 }
 .orders_history_header .date {
-	width: 20%;
+	width: 130px;
 }
 .agents_client_order .date {
 	width: 90%;
@@ -3174,14 +3174,17 @@ div[id^="items_panel_"] .btnWrapFlex {
 .orders_history_header .profit,
 .agents_client_order .order_sum,
 .agents_client_order .profit {
-	width: 10%;
+	width: 120px;
 	white-space: nowrap;
 }
-.orders_history_header .client,
 .orders_history_header .phone,
-.agents_client_order .client,
 .agents_client_order .phone {
-	width: 30%;
+	width: 120px;
+}
+
+.agents_client_order .client,
+.orders_history_header .client {
+	width: calc(100% - 490px);
 }
 .agents_client_order .client i {
 	color:#FF5722;
@@ -3197,7 +3200,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	color: #bdbdbd;
 }
 .orders_history_content .opening_tab .profit {
-	width: 10%;
+	width: 120px;
 }
 .orders_history_content:nth-of-type(odd) {
 	background: #f4f6f5;
