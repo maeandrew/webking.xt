@@ -539,6 +539,9 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .customer_cab .license_agreement{width:calc(100% - 15px);height:70vh;margin-top:0}
 .customer_cab .license_agreement h2{margin-top:0;margin-bottom:10px}
 .license_agreement_descr{height:calc(75vh - 155px);overflow:auto;padding-right:10px;text-align:justify}
+.license_agreement_descr p{margin-bottom:10px;line-height:20px}
+.license_agreement_descr .underline{text-decoration:underline}
+.license_agreement_descr .section{margin-top:20px;margin-bottom:20px}
 .confirm_block{display:flex;justify-content:space-between;padding-top:15px;padding-bottom:15px}
 .agent_profile_info{width:calc(100% - 15px);display:flex;justify-content:space-between;margin-top:10px}
 .info_item{width:calc(100% / 3);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;position:relative}
@@ -549,8 +552,8 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .info_descr p{font-size:16px;margin-bottom:5px;margin-top:5px}
 .info_descr_text{font-weight:700}
 .action_icon{position:absolute;top:5px;right:5px}
-.action_icon i{font-size:18px;color:#cacccb}
-.info_item:hover .action_icon i{cursor:pointer;color:#888}
+.action_icon i{color:#cacccb}
+.info_item:hover .action_icon i{cursor:pointer;color:#FF5722}
 .action_icon button{border:none;background:0 0}
 .orders_history{width:calc(100% - 15px);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;margin-top:20px}
 .orders_history h2{margin:10px}

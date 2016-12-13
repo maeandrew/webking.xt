@@ -3056,6 +3056,17 @@ div[id^="items_panel_"] .btnWrapFlex {
     padding-right: 10px;
     text-align: justify;
 }
+.license_agreement_descr p {
+	margin-bottom: 10px;
+    line-height: 20px;
+}
+.license_agreement_descr .underline {
+	text-decoration: underline;
+}
+.license_agreement_descr .section {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
 .confirm_block {
 	display: flex;
 	justify-content: space-between;
