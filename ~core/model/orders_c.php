@@ -694,6 +694,9 @@ class Orders {
 		if(isset($_SESSION['cart']['promo'])){
 			unset($_SESSION['cart']['promo']);
 		}
+		if(isset($_SESSION['cart']['id_gift'])){
+			unset($_SESSION['cart']['id_gift']);
+		}
 		if(isset($_SESSION['cart']['note'])){
 			unset($_SESSION['cart']['note']);
 		}
