@@ -54,7 +54,7 @@
 				<?if (isset($history) && !empty($history)) {
 					foreach ($history as $date => $value) {?>
 						<div class="orders_history_content">
-							<div class="agents_client_order opening_tab open_close_btn_js">
+							<div class="agents_client_order opening_tab toggle_btn_js">
 								<div class="order_info date">
 									<i class="material-icons">&#xE315;</i>
 									<?=$date?>
@@ -238,9 +238,9 @@
 				$('.confirm_btn_js').attr('disabled', true);
 			}
 		});
-		$('.open_close_btn_js').on('click', function(){
+		$('.toggle_btn_js').on('click', function(){
 			var qty = $(this).closest('.orders_history_content').find('.agents_client_order').size();
-			if ($(this).closest('.orders_history_content').height() == 50){
+			if(!$(this).closest('.orders_history_content').hasClass('opened')){
 				$(this).closest('.orders_history_content').css('max-height', qty*50 + 'px');
 			}else{
 				$(this).closest('.orders_history_content').css('max-height', '50px');
