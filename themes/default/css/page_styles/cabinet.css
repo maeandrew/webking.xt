@@ -2667,12 +2667,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 130px;
 }
 .agents_client_order .date {
-	width: 90%;
+	width: calc(100% - 140px);
 }
 .orders_history_header .order_sum,
 .orders_history_header .profit,
-.agents_client_order .order_sum,
-.agents_client_order .profit {
+.agents_client_order .order_sum {
 	width: 120px;
 }
 .orders_history_header .phone,
@@ -2680,11 +2679,16 @@ div[id^="items_panel_"] .btnWrapFlex {
 	width: 120px;
 }
 
+.agents_client_order .profit {
+	width: 140px;
+}
+
 .agents_client_order .client,
 .orders_history_header .header_item.client {
-	width: calc(100% - 490px);
+	width: calc(100% - 510px);
 }
 .agents_client_order .client i,
+.agents_client_order .profit i,
 .agents_client .status i {
 	color:#FF5722;
 	font-size: 18px;
@@ -2699,7 +2703,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	color: #bdbdbd;
 }
 .orders_history_content .opening_tab .profit {
-	width: 120px;
+	width: 140px;
 }
 .orders_history_content:nth-of-type(odd),
 .agents_client:nth-of-type(odd) {
@@ -2714,6 +2718,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .orders_history_content .opening_tab:hover,
 .agents_client_order .client i:hover,
+.agents_client_order .profit i:hover,
 .agents_client .status i:hover {
 	cursor: pointer;
 }
@@ -2741,6 +2746,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .agents_client.disabled {
 	color: #bdbdbd;
+}
+.agent_mobile_label {
+	display: none;
 }
 
 @media (max-width: 1150px) {
@@ -2865,6 +2873,12 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	h4 {
 		margin: 5px 0 10px;
+	}
+	.agents_client_order {
+		margin: 0;
+	}
+	.agents_client_order .client {
+		width: calc(100% - 350px)
 	}
 }
 @media (max-width: 728px) {
@@ -3077,6 +3091,38 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#supplier_cab .cabinet_block {
 		margin-left: 0;
 	}
+	.orders_history_header,
+	.agents_client_header {
+		display: none;
+	}
+	.agents_client_order {
+		flex-wrap: wrap;
+    	height: auto;
+    	position: relative;
+	}
+	.agents_client_order .order_info {
+		white-space: normal;
+	}
+	.agents_client_order .client {
+		width: 100%;
+	}
+	.orders_history_header
+	.header_item,
+	.agents_client_order .order_info,
+	.agents_client_header .header_item,
+	.agents_client .client_info,
+	.orders_history_content .opening_tab .profit {
+		width: 100%;
+	}
+	.agent_mobile_label {
+		display: inline;
+	}
+	.agents_client_order.opening_tab .order_info {
+		width: 50%;
+	}
+	.orders_history_content .opening_tab .profit {
+		line-height: 18px;
+	}
 }
 @media (max-width: 600px) {
 	.customer_cab #favorites .table_tbody .tableRowHeader {
@@ -3151,6 +3197,21 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.info_icon {
     	float: left;
     	margin-right: 10px;
+	}
+	.agents_client_order .order_info {
+		padding: 10px;
+	}
+	.agents_client_order .order_info.client {
+		white-space: nowrap;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	position: relative;
+    	padding-right: 25px;
+	}
+	.agents_client_order .client i {
+		position: absolute;
+		top: 8px;
+   		right: 5px;
 	}
 }
 @media (max-width: 470px) {

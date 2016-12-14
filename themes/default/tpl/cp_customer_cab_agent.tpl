@@ -201,7 +201,8 @@
 		$('.toggle_btn_js').on('click', function(){
 			var qty = $(this).closest('.orders_history_content').find('.agents_client_order').size();
 			if(!$(this).closest('.orders_history_content').hasClass('opened')){
-				$(this).closest('.orders_history_content').css('max-height', qty*50 + 'px');
+				$(this).closest('.orders_history_content').css('max-height', qty*50*4 + 'px');
+				console.log(IsMobile);
 			}else{
 				$(this).closest('.orders_history_content').css('max-height', '50px');
 			}

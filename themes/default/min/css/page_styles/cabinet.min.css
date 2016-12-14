@@ -560,23 +560,25 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .agents_client_header,.orders_history_header{border-bottom:2px solid #FF5722;background:#f4f6f5}
 .agents_client .client_info,.agents_client_header .header_item,.agents_client_order .order_info,.orders_history_header .header_item{padding:13px;white-space:nowrap}
 .orders_history_header .date{width:130px}
-.agents_client_order .date{width:90%}
-.agents_client_order .order_sum,.agents_client_order .profit,.orders_history_header .order_sum,.orders_history_header .profit{width:120px}
+.agents_client_order .date{width:calc(100% - 140px)}
+.agents_client_order .order_sum,.orders_history_header .order_sum,.orders_history_header .profit{width:120px}
 .agents_client_order .phone,.orders_history_header .phone{width:120px}
-.agents_client_order .client,.orders_history_header .header_item.client{width:calc(100% - 490px)}
-.agents_client .status i,.agents_client_order .client i{color:#FF5722;font-size:18px;line-height:24px}
+.agents_client_order .profit{width:140px}
+.agents_client_order .client,.orders_history_header .header_item.client{width:calc(100% - 510px)}
+.agents_client .status i,.agents_client_order .client i,.agents_client_order .profit i{color:#FF5722;font-size:18px;line-height:24px}
 .agents_client_order .order_sum,.agents_client_order .profit{color:#018b06}
 .agents_client_order.processing .order_sum,.agents_client_order.processing .profit{color:#bdbdbd}
-.orders_history_content .opening_tab .profit{width:120px}
+.orders_history_content .opening_tab .profit{width:140px}
 .agents_client:nth-of-type(odd),.orders_history_content:nth-of-type(odd){background:#f4f6f5}
 .orders_history_content{max-height:50px;overflow:hidden;-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
-.agents_client .status i:hover,.agents_client_order .client i:hover,.orders_history_content .opening_tab:hover{cursor:pointer}
+.agents_client .status i:hover,.agents_client_order .client i:hover,.agents_client_order .profit i:hover,.orders_history_content .opening_tab:hover{cursor:pointer}
 .orders_history_content .opening_tab i{transition:transform .4s;transform:rotate(0)}
 .orders_history_content.opened .opening_tab i{transform:rotate(90deg)}
 .client_info,.header_item{width:120px}
 .client_info.order_number,.header_item.order_number{width:50px;text-align:center}
 .client_info.client,.header_item.client{width:calc(100% - 530px)}
 .agents_client.disabled{color:#bdbdbd}
+.agent_mobile_label{display:none}
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
 #cab_left_bar .textInALink{display:none}
 #cab_left_bar .link_wrapp .more_cat{display:none}
@@ -612,6 +614,8 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .sb_container .line{width:49%;padding-left:5px;padding-right:5px}
 .supplier_info{display:flex;flex-wrap:wrap}
 h4{margin:5px 0 10px}
+.agents_client_order{margin:0}
+.agents_client_order .client{width:calc(100% - 350px)}
 }
 @media (max-width:728px){.order .content .additional{flex-wrap:wrap}
 .order .content .additional>div{flex-basis:50%;padding-bottom:1.429em}
@@ -663,6 +667,14 @@ h4{margin:5px 0 10px}
 @media (max-width:727px){.customer_cab #favorites .table_tbody .name_cell,.customer_cab #waiting_list .table_tbody .name_cell{padding-left:10px;line-height:1.4em}
 .customer_cab #favorites .table_thead,.customer_cab #waiting_list .table_thead{display:none}
 #supplier_cab .cabinet_block{margin-left:0}
+.agents_client_header,.orders_history_header{display:none}
+.agents_client_order{flex-wrap:wrap;height:auto;position:relative}
+.agents_client_order .order_info{white-space:normal}
+.agents_client_order .client{width:100%}
+.agents_client .client_info,.agents_client_header .header_item,.agents_client_order .order_info,.orders_history_content .opening_tab .profit,.orders_history_header .header_item{width:100%}
+.agent_mobile_label{display:inline}
+.agents_client_order.opening_tab .order_info{width:50%}
+.orders_history_content .opening_tab .profit{line-height:18px}
 }
 @media (max-width:600px){.customer_cab #favorites .table_tbody .tableRowHeader{display:none}
 .customer_cab #favorites .table_tbody .tableRow .name_cell{order:1;flex-basis:100%;padding:0;padding-bottom:1em;margin-bottom:1em;margin-top:1em;border-bottom:1px dashed #d7d7d7}
@@ -683,6 +695,9 @@ h4{margin:5px 0 10px}
 .info_item{width:100%}
 .info_icon i{margin:0}
 .info_icon{float:left;margin-right:10px}
+.agents_client_order .order_info{padding:10px}
+.agents_client_order .order_info.client{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;position:relative;padding-right:25px}
+.agents_client_order .client i{position:absolute;top:8px;right:5px}
 }
 @media (max-width:470px){.breadcrumbs{padding-left:0}
 .orderProdName{overflow:hidden}
