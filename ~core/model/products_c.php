@@ -1480,14 +1480,16 @@ class Products {
 	 */
 	public function GetProductsCntSupCab($and = false, $params = ''){
 		$where = '';
-		if($and['edited_time'][0] && $and['edited_time'][0] !== '' && $and['edited_time'][1] && $and['edited_time'][1] !== ''){
-			$where .= 'a.edited_time BETWEEN "'.$and['edited_time'][0].'" AND "'.$and['edited_time'][1].'" AND ';
-		}elseif($and['edited_time'][0] && $and['edited_time'][0] !== '' && !$and['edited_time'][1]){
-			$where .= 'a.edited_time >= "'.$and['edited_time'][0].'" AND ';
-		}elseif($and['edited_time'][1] && $and['edited_time'][1] !== '' && !$and['edited_time'][0]){
-			$where .= 'a.edited_time <= "'.$and['edited_time'][1].'" AND ';
+		if(isset($arr['edited_time'])){
+			if($and['edited_time'][0] && $and['edited_time'][0] !== '' && $and['edited_time'][1] && $and['edited_time'][1] !== ''){
+				$where .= 'a.edited_time BETWEEN "'.$and['edited_time'][0].'" AND "'.$and['edited_time'][1].'" AND ';
+			}elseif($and['edited_time'][0] && $and['edited_time'][0] !== '' && !$and['edited_time'][1]){
+				$where .= 'a.edited_time >= "'.$and['edited_time'][0].'" AND ';
+			}elseif($and['edited_time'][1] && $and['edited_time'][1] !== '' && !$and['edited_time'][0]){
+				$where .= 'a.edited_time <= "'.$and['edited_time'][1].'" AND ';
+			}
+			unset($and['edited_time']);
 		}
-		unset($and['edited_time']);
 		if($and !== FALSE && count($and)){
 			foreach($and as $k=>$v){
 				$where_a[] = "$k=\"$v\"";

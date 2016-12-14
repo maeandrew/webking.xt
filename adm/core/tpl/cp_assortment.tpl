@@ -8,7 +8,7 @@
 			<p>Контактный email: <?=$supplier['real_mail']?></p>
 			<p>Адрес: <?=$supplier['place']?></p>
 			<form class="suppliers_activity_form" method="post" action="<?=$_SERVER['REQUEST_URI']?>">
-				<input name="supplier_activ" hidden value="<?=$supplier['active'] == 1?'on':'off'?>">
+				<input name="supplier_active" hidden value="<?=$supplier['active'] == 1?0:1;?>">
 				<span class="current_supplier <?=$supplier['active'] == 1?'active_supplier':'inactive_supplier'?>">Поставщик <?=$supplier['active'] == 0?'не ':null?>активен</span>
 				<button type="submit" name="suppliers_activity" class="btn-m-default <?=$supplier['active'] == 1?'btn-m-red-inv disable_supplier_js':'btn-m-green-inv'?>"><?=$supplier['active'] == 1?'Выкл':'Вкл'?></button>
 			</form>
