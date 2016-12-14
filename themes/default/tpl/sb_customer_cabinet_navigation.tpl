@@ -115,6 +115,11 @@
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>">
 					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=clients">Список клиентов</a>
 				</li>
+				<?if(G::IsAgent()){?>
+				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'agent_license'?'active':null;?>">
+					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'agent_license'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_license">Условия соглашения</a>
+				</li>
+				<?}?>
 			</ul>
 		</li>
 	</ul>

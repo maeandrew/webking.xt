@@ -98,7 +98,7 @@ class Suppliers extends Users {
 			WHERE "._DB_PREFIX_."promo_code.code = '".$code."'";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		global $Users;
-		if(!$Users->SetFieldsById($this->fields['id_user'], $all = 0)){
+		if(!$Users->SetFieldsById($this->fields['id_user'], 0)){
 			return false;
 		}
 		if(!$this->fields){
@@ -243,7 +243,8 @@ class Suppliers extends Users {
 	 *
 	 */
 	public function UpdateSupplier($arr, $only_activity = false){
-		$Users = new Users();
+		global $Users;
+		$Users->SetFieldsById($arr['id_user'], 1);
 		$arr['gid'] = $Users->fields['gid'];
 		if(!$Users->UpdateUser($arr)){
 			return false;
@@ -283,14 +284,14 @@ class Suppliers extends Users {
 			}
 			$this->db->CompleteTrans();
 		}
-		$Products = new Products();
 		$sql = "SELECT a.id_product
 			FROM "._DB_PREFIX_."assortiment a
-			WHERE id_supplier = \"$id_supplier\"";
+			WHERE id_supplier = ".$f['id_user'];
 		$arr = $this->db->GetArray($sql);
 		foreach($arr as &$p){
 			$p = $p['id_product'];
 		}
+		global $Products;
 		$Products->RecalcSitePrices($arr);
 		// if(isset($arr['active']) && $arr['active'] == "on"){
 		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);

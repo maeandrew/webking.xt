@@ -4,7 +4,7 @@
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><br><?}?>
 
 <?if(isset($list) && count($list)){?>
-	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" class="configs_list">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 			<colgroup>
 				<col width="10%">
@@ -29,7 +29,7 @@
 							<a href="<?=$GLOBALS['URL_base'].'adm/configedit/'.$i['id_config']?>"><?=$i['name']?></a>
 						</td>
 						<td><?=$i['caption'];?></td>
-						<td class="left"><?=$i['value'];?></td>
+						<td class="left value"><div class="<?=strlen($i['value'])>150?'overflow':null;?>"><?=htmlspecialchars($i['value']);?></div></td>
 						<td class="center np">
 							<input type="text" name="ord[<?=$i['id_config']?>]" class="input-s" value="<?=$i['ord']?>"/>
 						</td>
