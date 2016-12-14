@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="customer_cab col-md-6">
 		<h1>Уголок агента</h1>
-		<?if(!G::IsAgent()){?>
+		<?if(G::IsAgent()){?>
 			<div class="agent_profile_info">
 				<div class="info_item promocode">
 					<div class="info_icon">
