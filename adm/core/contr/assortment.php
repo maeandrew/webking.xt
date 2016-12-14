@@ -52,10 +52,10 @@ if(isset($_GET['smb'])){
 $arr['a.id_supplier'] = $id_supplier;
 //Подключение/отключение поставщика
 if(isset($_POST['suppliers_activity'])){
-	$update_supplier['active'] = $_POST['supplier_activ'];
+	$update_supplier['active'] = $_POST['supplier_active'];
 	$update_supplier['id_user'] = $id_supplier;
 	$Supplier->UpdateSupplier($update_supplier, true);
-	// if($_POST['supplier_activ'] == 'on'){
+	// if($_POST['supplier_active'] == 1){
 	// 	$Products->UpdateActivityProducttSupplier($update_supplier['id_user']);
 	// }
 }
