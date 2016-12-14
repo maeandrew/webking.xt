@@ -50,6 +50,7 @@
 			<div class="license_agreement">
 				<h2>Условия соглашения сотрудничества</h2>
 				<div class="license_agreement_descr">
+					<!-- <?=GLOBALS['CONFIG']['agent_license_agreement']?> -->
 					<p class="section">1. ПРЕДМЕТ СОГЛАШЕНИЯ И ВСТУПЛЕНИЕ В СИЛУ</p>
 					<p>1.1. Настоящее Соглашение регулирует отношения между Агентом, с одной стороны, и Администрацией сайта xt.ua (далее - Администрация), с другой стороны, по предоставлению Агенту права доступа к www.xt.ua (далее - Портал) и право пользования инструментами Портала, согласно  учетной записи при регистрации.</p>
 					<p>1.2. Настоящее Соглашение вступает в силу с момента  нажатия пользователем  кнопки, завершающей процедуру регистрации и позволяющей Пользователю приступить к использованию  сервиса стать агентом  в кабинете пользователя. подтверждение получения статуса Агента настоящей оферты происходит путем выражения Пользователем согласия с агентским соглашениемт на сайте  xt.ua и присвоение агенту уникального номера- промокода.</p>
@@ -177,7 +178,7 @@
 				<div class="confirm_block">
 					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="confirm">
 						<input type="checkbox" id="confirm" class="mdl-checkbox__input confirm_checkbox_js">
-						<span class="mdl-checkbox__label">Я принимаю условия соглашения</span>
+						<span class="mdl-checkbox__label confirm_text">Я принимаю условия соглашения</span>
 					</label>
 					<form action="">
 						<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored confirm_btn_js" name="confirm_agent" disabled="disabled">Продолжить</button>
@@ -200,7 +201,8 @@
 		$('.toggle_btn_js').on('click', function(){
 			var qty = $(this).closest('.orders_history_content').find('.agents_client_order').size();
 			if(!$(this).closest('.orders_history_content').hasClass('opened')){
-				$(this).closest('.orders_history_content').css('max-height', qty*50 + 'px');
+				$(this).closest('.orders_history_content').css('max-height', qty*50*4 + 'px');
+				console.log(IsMobile);
 			}else{
 				$(this).closest('.orders_history_content').css('max-height', '50px');
 			}
