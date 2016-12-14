@@ -577,18 +577,6 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .client_info.order_number,.header_item.order_number{width:50px;text-align:center}
 .client_info.client,.header_item.client{width:calc(100% - 530px)}
 .agents_client.disabled{color:#bdbdbd}
-@media screen and (max-width:480px){.customer_cab #edit_personal .big_size_err{top:120px}
-.customer_cab #edit_personal .user_avatar .avatar_menu{bottom:0}
-.customer_cab #edit_personal .user_avatar .del_avatar{opacity:1}
-.customer_cab .license_agreement{height:77vh}
-.confirm_block{flex-wrap:wrap}
-.confirm_block .confirm_text{white-space:nowrap;font-size:14px}
-.confirm_block form{width:100%;margin-top:20px}
-}
-@media screen and (max-width:320px){.customer_cab #edit_personal .big_size_err,.customer_cab #edit_personal .big_size_title{width:calc(100% - 160px)}
-}
-@media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
-}
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
 #cab_left_bar .textInALink{display:none}
 #cab_left_bar .link_wrapp .more_cat{display:none}
@@ -598,6 +586,8 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 #cab_left_bar .active_icon .active{color:#FF5722}
 #cab_left_bar li[id^=icon_].active .link_wrapp i.material-icons{color:#FF5722}
 .customer_cab{width:calc(100vw - 62px)}
+}
+@media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
 }
 @media (max-width:1060px){.nav li{margin-left:.5em}
 .posZIndex .cab_left_bar_js{z-index:1}
@@ -667,6 +657,8 @@ h4{margin:5px 0 10px}
 .change_delivery a{width:100%;display:block;text-align:center;margin-top:20px}
 .change_delivery button{margin:0}
 .change_delivery .mdl-selectfield{width:100%}
+.info_icon{float:none;margin:0}
+.info_icon i{margin:0 auto}
 }
 @media (max-width:727px){.customer_cab #favorites .table_tbody .name_cell,.customer_cab #waiting_list .table_tbody .name_cell{padding-left:10px;line-height:1.4em}
 .customer_cab #favorites .table_thead,.customer_cab #waiting_list .table_thead{display:none}
@@ -678,6 +670,19 @@ h4{margin:5px 0 10px}
 .customer_cab #favorites .table_tbody .tableRow .changedOrder .titleForTablet{display:block;margin-right:5px;font-weight:600}
 .customer_cab #favorites .table_tbody .image_cell{flex:0 0 100%;padding:0}
 .customer_cab #favorites .table_tbody .image_cell img{vertical-align:middle;height:auto;width:100%}
+}
+@media screen and (max-width:480px){.customer_cab #edit_personal .big_size_err{top:120px}
+.customer_cab #edit_personal .user_avatar .avatar_menu{bottom:0}
+.customer_cab #edit_personal .user_avatar .del_avatar{opacity:1}
+.customer_cab .license_agreement{height:77vh}
+.confirm_block{flex-wrap:wrap}
+.confirm_block .confirm_text{white-space:nowrap;font-size:14px}
+.confirm_block form{width:100%;margin-top:20px}
+.agent_profile_info{flex-wrap:wrap}
+.clients{margin:0}
+.info_item{width:100%}
+.info_icon i{margin:0}
+.info_icon{float:left;margin-right:10px}
 }
 @media (max-width:470px){.breadcrumbs{padding-left:0}
 .orderProdName{overflow:hidden}
@@ -726,4 +731,6 @@ h4{margin:5px 0 10px}
 @media (max-width:325px){#orders_history .orderBntsMob .replaceOrderBtn{padding-left:10px}
 #orders_history .orderBntsMob .cnslOrderBtn{padding-left:5px}
 .customer_cab #edit_personal .big_size_err,.customer_cab #edit_personal .big_size_title{width:calc(100% - 160px)}
+}
+@media screen and (max-width:320px){.customer_cab #edit_personal .big_size_err,.customer_cab #edit_personal .big_size_title{width:calc(100% - 160px)}
 }
