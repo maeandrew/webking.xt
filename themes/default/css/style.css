@@ -584,6 +584,7 @@ _:-ms-lang(x), [class^="active_"] .banner,
 		padding: 0 1em;
 		border: 1px solid #018b06;
 		border-right: 0;
+		white-space: nowrap;
 	}
 	.breadcrumbs li:first-of-type a:after {
 		border-left-color: #018b06;

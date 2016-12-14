@@ -295,12 +295,6 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .customer_cab #edit_personal .big_size_title.big_size_title_err{color:#d50000}
 .customer_cab #edit_personal .big_size_err{top:140px;font-size:13px;text-align:left}
 .customer_cab #edit_personal .user_avatar>label{color:#4CAF50;font-size:12px}
-@media screen and (max-width:480px){.customer_cab #edit_personal .big_size_err{top:120px}
-.customer_cab #edit_personal .user_avatar .avatar_menu{bottom:0}
-.customer_cab #edit_personal .user_avatar .del_avatar{opacity:1}
-}
-@media screen and (max-width:320px){.customer_cab #edit_personal .big_size_err,.customer_cab #edit_personal .big_size_title{width:calc(100% - 160px)}
-}
 .customer_cab #edit_personal .user_avatar #photobox::after,.customer_cab #edit_personal .user_avatar #photobox::before{content:'';display:block;position:absolute;background-color:transparent;z-index:10}
 .customer_cab #edit_personal .user_avatar #photobox::before{top:30px;right:0;width:30px;height:87px}
 .customer_cab #edit_personal .user_avatar #photobox::after{top:0;width:120px;height:117px}
@@ -583,6 +577,16 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .client_info.order_number,.header_item.order_number{width:50px;text-align:center}
 .client_info.client,.header_item.client{width:calc(100% - 530px)}
 .agents_client.disabled{color:#bdbdbd}
+@media screen and (max-width:480px){.customer_cab #edit_personal .big_size_err{top:120px}
+.customer_cab #edit_personal .user_avatar .avatar_menu{bottom:0}
+.customer_cab #edit_personal .user_avatar .del_avatar{opacity:1}
+.customer_cab .license_agreement{height:77vh}
+.confirm_block{flex-wrap:wrap}
+.confirm_block .confirm_text{white-space:nowrap;font-size:14px}
+.confirm_block form{width:100%;margin-top:20px}
+}
+@media screen and (max-width:320px){.customer_cab #edit_personal .big_size_err,.customer_cab #edit_personal .big_size_title{width:calc(100% - 160px)}
+}
 @media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
 }
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
@@ -717,6 +721,7 @@ h4{margin:5px 0 10px}
 .date_container .bdate_select_block{width:32%}
 #bonus,.bonus_detalies,.bonus_info,.customer_cab .add_new_address,.customer_cab .edit_contacts_block{width:98%}
 .addres_field{width:calc(100vw - 100px)}
+.customer_cab .license_agreement{width:98%}
 }
 @media (max-width:325px){#orders_history .orderBntsMob .replaceOrderBtn{padding-left:10px}
 #orders_history .orderBntsMob .cnslOrderBtn{padding-left:5px}

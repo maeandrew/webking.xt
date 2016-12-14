@@ -1,4 +1,3 @@
-
 <div class="orders_history">
 	<h2>История</h2>
 	<div class="orders_history_header">

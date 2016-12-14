@@ -1473,7 +1473,7 @@ table.kontrag.table{
 		color: #4CAF50;
 		font-size: 12px;
 	}
-	@media screen and (max-width: 480px){
+	/* @media screen and (max-width: 480px){
 		.customer_cab #edit_personal .big_size_err{
 			top: 120px;
 		}
@@ -1483,13 +1483,21 @@ table.kontrag.table{
 		.customer_cab #edit_personal .user_avatar .del_avatar{
 			opacity: 1;
 		}
+		.customer_cab .license_agreement {
+			height: 80vh;
+		}
+		.confirm_block form {
+			width: 100%;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
 	}
 	@media screen and (max-width: 320px){
 		.customer_cab #edit_personal .big_size_err,
 		.customer_cab #edit_personal .big_size_title{
 			width: calc(100% - 160px);
 		}
-	}
+	} */
 
 	/*Стили для "только что" загруженной аватарки пользователя - некликабельное поле */
 	.customer_cab #edit_personal .user_avatar #photobox::before,
@@ -3267,21 +3275,37 @@ div[id^="items_panel_"] .btnWrapFlex {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media screen and (max-width: 480px){
+	.customer_cab #edit_personal .big_size_err{
+		top: 120px;
+	}
+	.customer_cab #edit_personal .user_avatar .avatar_menu{
+		bottom: 0;
+	}
+	.customer_cab #edit_personal .user_avatar .del_avatar{
+		opacity: 1;
+	}
+	.customer_cab .license_agreement {
+		height: 77vh;
+	}
+	.confirm_block {
+		flex-wrap: wrap;
+	}
+	.confirm_block .confirm_text {
+		white-space: nowrap;
+    	font-size: 14px;
+	}
+	.confirm_block form {
+		width: 100%;
+		margin-top: 20px;
+	}
+}
+@media screen and (max-width: 320px){
+	.customer_cab #edit_personal .big_size_err,
+	.customer_cab #edit_personal .big_size_title{
+		width: calc(100% - 160px);
+	}
+}
 @media (max-width: 1150px) and (not handheld) {
 	#cab_left_bar .link_wrapp div[for^=icon_] {
 		display: block;
@@ -3804,6 +3828,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.addres_field {
 		width: calc(100vw - 100px);
+	}
+	.customer_cab .license_agreement {
+		width: 98%;
 	}
 }
 @media (max-width: 325px) {
