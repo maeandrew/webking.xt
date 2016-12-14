@@ -41,6 +41,6 @@ $Users->SetUser($_SESSION['member']);
 $tpl->Assign('User', $Users->fields);
 $tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.(isset($_GET['t'])?$_GET['t']:'agent_history').'.tpl'));
 $parsed_res = array(
-	'issuccess' => TRUE,
+	'issuccess' => true,
 	'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_customer_cab_agent.tpl')
 );
