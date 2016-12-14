@@ -2636,8 +2636,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	margin-left: 130px;
 	border-top: 1px solid #DCDCDC;
 }
-.agents_client_order,
-.agents_client {
+.agents_client_order {
 	height: 50px;
 }
 .agents_client_order.processing {
@@ -2795,6 +2794,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.posZIndex .cab_left_bar_js {
 		z-index: 1;
+	}
+	.agents_client .client_info {
+		white-space: normal;
 	}
 }
 @media (max-width: 999px) {
@@ -3113,7 +3115,12 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.agents_client .client_info,
 	.orders_history_content .opening_tab .profit {
 		width: 100%;
+		padding: 5px;
 	}
+	/*.client_info.order_number {
+		width: 50px;
+    	text-align: left;
+	}*/
 	.agent_mobile_label {
 		display: inline;
 	}
@@ -3122,6 +3129,21 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.orders_history_content .opening_tab .profit {
 		line-height: 18px;
+	}
+	.agents_client {
+		flex-wrap: wrap;
+    	height: auto;
+	}
+	.agents_client .client_info {
+		width: 50%;
+	}
+	.agents_client .client_info.order_number {
+		width: 40px;
+    	text-align: left;
+    	padding-right: 0;
+	}
+	.agents_client .client_info.client {
+		width: calc(100% - 40px);
 	}
 }
 @media (max-width: 600px) {
@@ -3258,6 +3280,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.customer_cab #edit_personal .user_avatar .del_avatar{
 		opacity: 1;
+	}
+	.agents_client .client_info {
+		width: 100%;
 	}
 }
 @media (max-width: 450px) {
