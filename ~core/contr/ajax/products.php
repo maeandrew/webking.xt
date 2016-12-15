@@ -234,13 +234,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						echo json_encode(false);
 					}
 				break;
-			case "getValuesOfTypes":
+			case 'getValuesOfTypes':
 				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);
 				foreach ($valitem as &$v){
 					echo '<option value="'.$v['value'].'">';
 				}
 				break;
-			case "getProductBatch":
+			case 'getProductBatch':
 				$list = $Products->GetProductsByIdUser($_POST['id_author'], $_POST['create_date'], $_POST['id_supplier']);
 				$prod_arr ='';
 				foreach($list as $item){
@@ -281,7 +281,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo $prod_arr;
 				break;
-			case "sessionFillCategory":
+			case 'sessionFillCategory':
 				if($_POST['checked'] == 1) {
 					$_SESSION['fill_category'][] = $_POST['id_product'];
 					echo 'ok';
@@ -292,7 +292,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo 'something wrong';
 				}
 				break;
-			case "fillCategory":
+			case 'fillCategory':
 				if(isset($_SESSION['fill_category']) && $_POST['id_category']){
 					if($Products->FillCategoryByIdProduct($_POST['id_category'], $_SESSION['fill_category'], $_POST['main'])){
 						unset($_SESSION['fill_category']);
@@ -303,6 +303,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}else{
 					echo 'something wrong';
 				}
+				break;
+			case 'agentGiftToggle':
+				if($_POST['add'] === true){
+					$_SESSION['member']['selected_gifts'][$_POST['id_product']] = $_POST['id_product'];
+				}else{
+					unset($_SESSION['member']['selected_gifts'][$_POST['id_product']]);
+				}
+				echo json_encode(true);
 				break;
 			default:
 				break;

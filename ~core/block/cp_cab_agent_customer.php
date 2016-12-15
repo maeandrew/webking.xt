@@ -43,6 +43,7 @@ if(isset($_GET['t']) && $_GET['t'] == 'agent_gifts'){
 		$gift['images'] = $Products->GetPhotoById($gift['id_product']);
 	}
 	$tpl->Assign('gifts', $gifts);
+	$tpl->Assign('selected_gifts', $_SESSION['member']['selected_gifts']);
 }
 
 $Users->SetUser($_SESSION['member']);
