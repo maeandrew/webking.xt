@@ -6,7 +6,8 @@
 	<link rel="stylesheet" href="/themes/default/min/css/page_styles/price_list.min.css">
 	<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">
 </head>
-<body class="<?=$_GET['photo'] != 2?'list':'block'?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> <?=isset($_GET['orientation']) && $_GET['orientation'] == 1?'landscape':null?>">
+<body class="<?= $_GET['photo'] == 2 ? 'block' : ($_GET['photo'] == 4 ? 'big_block' : 'list') ;?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> <?=isset($_GET['orientation']) && $_GET['orientation'] == 1?'landscape':null?>">
+
 <?$price = array(
 	'0'=>"При сумме заказа более ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'1'=>"При сумме заказа от ".$GLOBALS['CONFIG']['wholesale_order_margin']." до ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
@@ -419,6 +420,216 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 				</div>
 			<?}
 		}
+	}
+}elseif ($_GET['photo'] == 4){
+	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
+		$ii = 0;
+		foreach($list as $l1){
+			if(isset($l1['subcats'])){?>
+				<h1 <?=$ii > 0?'class="global_cat"':null;?>><?=$l1['name']?></h1>
+				<?$ii++;
+				foreach($l1['subcats'] as $l2){
+					$i2 = 1;
+					if(!empty($l2['products'])){?>
+						<div>
+							<?foreach($l2['products'] as $p){?>
+								<?if($p['price_mopt'] == 0){
+									if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+										$margin = str_replace(",",".",$_GET['margin']);
+									}else{
+										$margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
+									}
+								}else{
+									if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+										$margin = str_replace(",",".",$_GET['margin']);
+									}else{
+										$margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
+									}
+								}?>
+								<table class="product">
+									<tr>
+										<td class="product__image" rowspan="4">
+											<div class="photo_inner">
+												<?if($p['image'] != ''){?>
+													<img height="250" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+												<?}else{?>
+													<img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+												<?}
+												if($p['opt_correction_set'] == 3 || $p['mopt_correction_set'] == 3){?>
+													<span class="best_price" title="Лучшая цена"></span>
+												<?}?>
+											</div>
+										</td>
+										<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
+									</tr>
+									<tr class="product__article">
+										<td colspan="2">Арт. <?=$p['art'];?></td>
+									</tr>
+									<?if(isset($_GET['no_price'])){?>
+										<tr class="product__details__header">
+											<td>Цена за ед. товара</td>
+											<td>Мин. кол-во</td>
+										</tr>
+										<tr class="product__details__body">
+											<td class="prooduct__details__price">
+												<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+													echo number_format($p['price_mopt']*$margin, 2, ',', '');
+												}else{
+													foreach($_GET['column'] as $column){?>
+														<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
+													<?}
+												}?>
+											</td>
+											<td rowspan="<?=count($_GET['column'])?>">
+												<p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p>
+											</td>
+										</tr>
+									<?}?>
+								</table>
+								<?$i2++;
+							}?>
+						</div>
+					<?}elseif(!empty($l2['subcats'])){
+						foreach($l2['subcats'] as $l3){
+							$i3 = 1;?>
+							<table class="header">
+								<tr>
+									<th colspan="<?=$_GET['photo'] == 0?'4':'5';?>"><?=$l3['name'];?></th>
+								</tr>
+							</table>
+							<div>
+								<?if(isset($l3['products'])){
+									foreach($l3['products'] as $p){
+										if($p['price_mopt'] == 0){
+											if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+												$margin = str_replace(",",".",$_GET['margin']);
+											}else{
+												$margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
+											}
+										}else{
+											if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+												$margin = str_replace(",",".",$_GET['margin']);
+											}else{
+												$margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
+											}
+										}?>
+										<table class="product">
+											<tr>
+												<td class="product__image" rowspan="4">
+													<div class="photo_inner">
+														<?if($p['image'] != ''){?>
+															<img height="250" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+														<?}else{?>
+															<img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+														<?}
+														if($p['opt_correction_set'] == 3 || $p['mopt_correction_set'] == 3){?>
+															<span class="best_price" title="Лучшая цена"></span>
+														<?}?>
+													</div>
+												</td>
+												<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
+											</tr>
+											<tr class="product__article">
+												<td colspan="2">Арт. <?=$p['art'];?></td>
+											</tr>
+											<?if(isset($_GET['no_price'])){?>
+												<tr class="product__details__header">
+													<td>Цена за ед. товара</td>
+													<td>Мин. кол-во</td>
+												</tr>
+												<tr class="product__details__body">
+													<td class="prooduct__details__price">
+														<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+															echo number_format($p['price_mopt']*$margin, 2, ',', '');
+														}else{
+															foreach($_GET['column'] as $column){?>
+																<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
+															<?}
+														}?>
+													</td>
+													<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
+												</tr>
+											<?}?>
+										</table>
+										<?$i3++;
+									}
+								}?>
+							</div>
+						<?}
+					}
+				}
+			}
+		}
+	}else{ // Сформированый прайс
+		foreach($cat as $l){?>
+			<table class="header">
+				<tr>
+					<th colspan="<?=$_GET['photo'] == 0?'4':'5';?>"><?=$l['name'];?></th>
+				</tr>
+			</table>
+			<div>
+				<?$ii=1;
+				foreach($list as $pi){
+					foreach($pi as $p){?>
+						<?if($p['price_mopt'] == 0){
+							if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+								$margin = str_replace(',', '.',$_GET['margin']);
+							}else{
+								$margins = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
+							}
+						}else{
+							if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
+								$margin = str_replace(",",".",$_GET['margin']);
+							}else{
+								$margins = explode(';',$GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
+							}
+						}?>
+						<table class="product">
+							<tr>
+								<td class="product__image" rowspan="4">
+									<div class="photo_inner">
+										<?if($p['image'] != ''){?>
+											<img height="250" src="<?=G::GetImageUrl($p['image'], 'medium')?>" alt="<?=$p['name']?>">
+										<?}else{?>
+											<img height="250" src="<?=G::GetImageUrl($p['img_1'], 'medium')?>" />
+										<?}
+										if($p['opt_correction_set'] == 3 || $p['mopt_correction_set'] == 3){?>
+											<span class="best_price" title="Лучшая цена"></span>
+										<?}?>
+									</div>
+								</td>
+								<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
+							</tr>
+							<tr class="product__article">
+								<td colspan="2">Арт. <?=$p['art'];?></td>
+							</tr>
+							<?if(isset($_GET['no_price'])){?>
+								<tr class="product__details__header">
+									<td>Цена за ед. товара</td>
+									<td>Мин. кол-во</td>
+								</tr>
+								<tr class="product__details__body">
+									<td class="prooduct__details__price">
+										<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
+											echo number_format($p['price_mopt']*$margin, 2, ',', '');
+										}else{
+											foreach($_GET['column'] as $column){?>
+												<span class="price-<?=$column;?>"><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?></span>
+											<?}
+										}?>
+									</td>
+									<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
+								</tr>
+							<?}?>
+						</table>
+						<?$ii++;
+					}
+				}
+				if(($ii%2) == 0){?>
+					</table>
+				<?}?>
+			</div>
+		<?}
 	}
 }else{ // Если не нужно отображать фото товаров или мальенткие
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
