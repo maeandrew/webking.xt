@@ -2779,7 +2779,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .gift img {
 	max-width: 100%;
-    height: 170px;
+    max-height: 170px;
     margin: 10px auto;
     display: block;
 }
@@ -2952,6 +2952,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.agents_client_order .client {
 		width: calc(100% - 350px)
+	}
+	.gift {
+		width: calc(25% - 10px);
 	}
 }
 @media (max-width: 728px) {
@@ -3150,6 +3153,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.info_icon i {
 		margin: 0 auto;
 	}
+	.gift {
+		width: calc(100% / 3 - 10px);
+	}
 }
 @media (max-width: 727px) {
 	.customer_cab #favorites .table_tbody .name_cell,
@@ -3305,6 +3311,13 @@ div[id^="items_panel_"] .btnWrapFlex {
 		position: absolute;
 		top: 8px;
    		right: 5px;
+	}
+	.gift {
+		width: calc(50% - 10px);
+	}
+	.add_gift_btn {
+		padding-left: 15px;
+    	padding-right: 15px;
 	}
 }
 @media (max-width: 470px) {
