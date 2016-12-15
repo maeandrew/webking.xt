@@ -313,6 +313,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'product_label_modal.tpl');
 				break;
+			case 'agentGiftToggle':
+				if($_POST['add'] == 1){
+					$_SESSION['member']['selected_gifts'][$_POST['id_product']] = $_POST['id_product'];
+				}else{
+					unset($_SESSION['member']['selected_gifts'][$_POST['id_product']]);
+				}
+				echo json_encode(true);
+				break;
 			default:
 				break;
 		}

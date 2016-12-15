@@ -2753,6 +2753,74 @@ div[id^="items_panel_"] .btnWrapFlex {
 	display: none;
 }
 
+/* Страница подарков */
+
+.gifts_container {
+	display: flex;
+    flex-wrap: wrap;
+}
+.gift {
+	padding: 10px;
+    background: #fff;
+    width: calc(20% - 10px);
+    margin: 5px 10px 5px 0px;
+    position: relative;
+    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+}
+.gift.selected {
+	box-shadow: 0px 0px 0px 2px #018b06;
+}
+.gift:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
+}
+.gift.selected:hover {
+	box-shadow: 0px 0px 2px 2px #018b06;
+}
+.gift img {
+	max-width: 100%;
+    height: 170px;
+    margin: 10px auto;
+    display: block;
+}
+.gift_title {
+	height: 34px;
+    overflow: hidden;
+}
+.gift_art {
+	font-size: 0.929em;
+    color: #818181;
+    white-space: nowrap;
+    margin-top: 10px;
+}
+.gift_selected {
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	height: 16px;
+	color: #818181;
+}
+.gift_selected span {
+	display: none;
+}
+.gift.selected .gift_selected span {
+	display: inline;
+}
+.gift button {
+	margin: 0 auto;
+    display: block;
+}
+.gift .del_gift_btn {
+	display: none;
+}
+.gift.selected .del_gift_btn {
+	display: block;
+}
+.gift.selected .add_gift_btn {
+	display: none;
+}
+
+
 @media (max-width: 1150px) {
 	#cab_left_bar {
 		width: 45px;

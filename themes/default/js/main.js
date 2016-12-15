@@ -2186,6 +2186,21 @@ $(function(){
 			openObject('cart');
 		});
 	});
+	//Выбор подарка в кабинете агента
+	$('.gift_btn_js').on('click', function(){
+		var item = $(this);
+		var id_product = item.closest('.gift').find('.id_gift_js').val();
+		var id_agent = $('.id_agent_js').val();
+		var add = item.closest('.gift').hasClass('selected')?0:1;
+		addLoadAnimation(item.closest('.gift'));
+		ajax('product', 'agentGiftToggle',{id_product:id_product, id_agent:id_agent, add:add}, 'html').done(function(response){
+			removeLoadAnimation(item.closest('.gift'));
+			item.closest('.gift').toggleClass('selected');
+			console.log(response);
+		});
+
+	});
+
 	// Функционал для страницы продукта
 	// Слайдер миниатюр картинок. Перемещение выбраной картинки в окно просмотра
 	$('#preview, #caruselCont').on('click', '#owl-product_mini_img_js .owl-item', function(event){
