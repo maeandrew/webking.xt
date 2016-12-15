@@ -2535,14 +2535,17 @@ div[id^="items_panel_"] .btnWrapFlex {
     padding-right: 10px;
     text-align: justify;
 }
-.license_agreement_descr p {
+.license_agreement_descr p,
+.license_agreement_main p {
 	margin-bottom: 10px;
     line-height: 20px;
 }
-.license_agreement_descr .underline {
+.license_agreement_descr .underline,
+.license_agreement_main .underline {
 	text-decoration: underline;
 }
-.license_agreement_descr .section {
+.license_agreement_descr .section,
+.license_agreement_main .section {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }

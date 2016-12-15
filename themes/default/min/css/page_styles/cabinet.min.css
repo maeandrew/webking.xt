@@ -533,9 +533,9 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .customer_cab .license_agreement{width:calc(100% - 15px);height:70vh;margin-top:0}
 .customer_cab .license_agreement h2{margin-top:0;margin-bottom:10px}
 .license_agreement_descr{height:calc(75vh - 155px);overflow:auto;padding-right:10px;text-align:justify}
-.license_agreement_descr p{margin-bottom:10px;line-height:20px}
-.license_agreement_descr .underline{text-decoration:underline}
-.license_agreement_descr .section{margin-top:20px;margin-bottom:20px}
+.license_agreement_descr p,.license_agreement_main p{margin-bottom:10px;line-height:20px}
+.license_agreement_descr .underline,.license_agreement_main .underline{text-decoration:underline}
+.license_agreement_descr .section,.license_agreement_main .section{margin-top:20px;margin-bottom:20px}
 .confirm_block{display:flex;justify-content:space-between;padding-top:15px;padding-bottom:15px}
 .agent_profile_info{width:calc(100% - 15px);display:flex;justify-content:space-between;margin-top:10px}
 .info_item{width:calc(100% / 3);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;position:relative}
