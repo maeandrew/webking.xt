@@ -26,7 +26,8 @@
 					</legend>
 					<label class="mdl-radio mdl-js-radio" for="without"><input type="radio" checked name="photo" class="mdl-radio__button" id="without" value="0">без фото</label>
 					<label class="mdl-radio mdl-js-radio" for="with"><input type="radio" name="photo" class="mdl-radio__button" id="with" value="1">маленькие фото</label>
-					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">большие фото</label>
+					<label class="mdl-radio mdl-js-radio" for="withbig"><input type="radio" name="photo" class="mdl-radio__button" id="withbig" value="2">средние фото</label>
+					<label class="mdl-radio mdl-js-radio" for="crazy_big_photo"><input type="radio" name="photo" class="mdl-radio__button" id="crazy_big_photo" value="4">большие фото</label>
 					<label class="mdl-radio mdl-js-radio" for="label"><input type="radio" name="photo" class="mdl-radio__button" id="label" value="3">ценник</label>
 				</fieldset>
 				<fieldset>
