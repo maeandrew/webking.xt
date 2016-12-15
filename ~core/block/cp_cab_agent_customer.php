@@ -37,6 +37,10 @@ $agent_users = $Users->GetUsersByAgent($_SESSION['member']['id_user']);
 $tpl->Assign('agent_users', $agent_users);
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Бонус начисляется только при условии успешного выполнения и рассчитывается с фактической суммы заказа.'));
 
+if(isset($_GET['t']) && $_GET['t'] == 'agent_gifts'){
+	$tpl->Assign('gifts', $Products->GetGiftsList('AG'.$_SESSION['member']['id_user']));
+}
+
 $Users->SetUser($_SESSION['member']);
 $tpl->Assign('User', $Users->fields);
 $tpl->Assign('content', $tpl->Parse($GLOBALS['PATH_tpl_global'].'cab_'.(isset($_GET['t'])?$_GET['t']:'agent_history').'.tpl'));
