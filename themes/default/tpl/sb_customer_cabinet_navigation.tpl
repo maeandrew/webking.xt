@@ -109,17 +109,17 @@
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 			</span>
 			<ul class="nav <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'?'active show':null;?>">
-				<li class="child <?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>">
-					<a class="<?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_history">История</a>
-				</li>
-				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>">
-					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=clients">Список клиентов</a>
-				</li>
 				<?if(G::IsAgent()){?>
+					<li class="child <?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>">
+						<a class="<?=!isset($_GET['t']) || $_GET['t'] == 'agent_history'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_history">История</a>
+					</li>
+					<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>">
+						<a class="<?=isset($_GET['t']) && $_GET['t'] == 'clients'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=clients">Список клиентов</a>
+					</li>
+				<?}?>
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'agent_license'?'active':null;?>">
 					<a class="<?=isset($_GET['t']) && $_GET['t'] == 'agent_license'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_license">Условия соглашения</a>
 				</li>
-				<?}?>
 			</ul>
 		</li>
 	</ul>
