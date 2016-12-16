@@ -463,7 +463,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 									</tr>
 									<tr class="product__article">
-										<td colspan="2">Арт. <?=$p['art'];?></td>
+										<td colspan="1"><span>Арт.</span> <?=$p['art'];?></td>
 									</tr>
 									<?if(isset($_GET['no_price'])){?>
 										<tr class="product__details__header">
@@ -530,7 +530,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 											</tr>
 											<tr class="product__article">
-												<td colspan="2">Арт. <?=$p['art'];?></td>
+												<td colspan="1"><span>Арт.</span> <?=$p['art'];?></td>
 											</tr>
 											<?if(isset($_GET['no_price'])){?>
 												<tr class="product__details__header">
@@ -601,7 +601,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 								<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 							</tr>
 							<tr class="product__article">
-								<td colspan="2">Арт. <?=$p['art'];?></td>
+								<td colspan="1"><span>Арт.</span> <?=$p['art'];?></td>
 							</tr>
 							<?if(isset($_GET['no_price'])){?>
 								<tr class="product__details__header">
