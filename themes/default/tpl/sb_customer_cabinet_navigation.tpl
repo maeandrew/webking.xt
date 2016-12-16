@@ -117,7 +117,7 @@
 						<a class="<?=isset($_GET['t']) && $_GET['t'] == 'agent_clients'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_clients">Список клиентов</a>
 					</li>
 					<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'agent_gifts'?'active':null;?>">
-						<a class="<?=isset($_GET['t']) && $_GET['t'] == 'agent_gifts'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_gifts">Подарки</a>
+						<a class="<?=isset($_GET['t']) && $_GET['t'] == 'agent_gifts'?'active':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>?t=agent_gifts">Подарки клиентам</a>
 					</li>
 				<?}?>
 				<li class="child <?=isset($_GET['t']) && $_GET['t'] == 'agent_license'?'active':null;?>">

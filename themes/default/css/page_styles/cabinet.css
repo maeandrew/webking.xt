@@ -2836,7 +2836,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 .gift.selected .add_gift_btn {
 	display: none;
 }
-
+.gifts_info {
+	margin-bottom: 10px;
+}
 
 @media (max-width: 1150px) {
 	#cab_left_bar {
