@@ -1,6 +1,12 @@
 <div class="agents_gifts">
 	<h2>Подарки клиентам</h2>
-	<p class="gifts_info">Здесь вы можете выбрать подарки для ваших клиентов, которые они могут получить при первом заказе</p>
+	<div class="msg-info gifts_info">
+		<div class="msg_icon">
+			<i class="material-icons"></i>
+		</div>
+	    <p class="msg_title">!</p>
+	    <p class="msg_text">Здесь вы можете выбрать подарки для ваших клиентов, которые они могут получить при первом заказе</p>
+	</div>
 	<div class="gifts_container">
 		<input type="hidden" value="<?=$_SESSION['member']['id_user']?>" class="id_agent_js">
 		<?if(isset($gifts)){

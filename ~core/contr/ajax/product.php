@@ -315,10 +315,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'agentGiftToggle':
 				$promo = new promo();
-				$res['success'] = 0;
-				if($promo->TogglePromocodeGift($_POST['id_product'], 'AG'.$_POST['id_agent'], $_POST['add'])){
-					$res['success'] = 1;
-				}
+				$res['success'] = $promo->TogglePromocodeGift($_POST['id_product'], 'AG'.$_POST['id_agent'], $_POST['add']);
 				echo json_encode($res);
 				break;
 			default:

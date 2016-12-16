@@ -2193,10 +2193,15 @@ $(function(){
 		var id_agent = $('.id_agent_js').val();
 		var add = item.closest('.gift').hasClass('selected')?0:1;
 		addLoadAnimation(item.closest('.gift'));
-		ajax('product', 'agentGiftToggle',{id_product:id_product, id_agent:id_agent, add:add}, 'html').done(function(response){
+		ajax('product', 'agentGiftToggle',{id_product:id_product, id_agent:id_agent, add:add}).done(function(response){
 			removeLoadAnimation(item.closest('.gift'));
-			item.closest('.gift').toggleClass('selected');
-			console.log(response);
+			if(response.success === true){
+				item.closest('.gift').toggleClass('selected');
+			}else{
+				var res = {message: 'Действие прервано. Попробуйте повторить позже.'},
+				snackbarContainer = document.querySelector('#snackbar');
+				snackbarContainer.MaterialSnackbar.showSnackbar(res);
+			}
 		});
 
 	});
