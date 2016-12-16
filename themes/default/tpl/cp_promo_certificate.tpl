@@ -130,8 +130,8 @@
 				</div>
 				<div class="flyer_content">
 					<div class="gift_prod">
-						<!-- <img src="/images/assort.jpg"> -->
-						<div class="gift_prod_image">
+						<img src="/images/assort.jpg">
+						<!-- <div class="gift_prod_image">
 							<img src="https://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
 						</div>
 						<div class="gift_prod_name">
@@ -139,7 +139,7 @@
 						</div>
 						<div class="gift_prod_art">
 							Артикул: <span>22145</span>
-						</div>
+						</div> -->
 					</div>
 					<div class="flyer_info">
 						<div class="advantages">
