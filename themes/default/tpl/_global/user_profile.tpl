@@ -8,12 +8,16 @@
 		<div class="mainUserInf">
 			<div class="userNameBlock">
 				<div class="userNameInf listItems">
-					<?if(!empty($customer['last_name']) && !empty($customer['first_name']) && !empty($customer['middle_name'])){
-						echo $customer['last_name'].' '.$customer['first_name'].' '.$customer['middle_name'];
-					}elseif(!isset($_SESSION['member']['name'])){
-						echo isset($_SESSION['member']['email']) && !empty($_SESSION['member']['email'])?substr($_SESSION['member']['email'], 0, strpos($_SESSION['member']['email'], "@")):'';
-					}else{
+					<?if ($_SESSION['member']['gid'] == _ACL_CONTRAGENT_) {
 						echo $_SESSION['member']['name'];
+					}else{
+						if(!empty($customer['last_name']) && !empty($customer['first_name']) && !empty($customer['middle_name'])){
+							echo $customer['last_name'].' '.$customer['first_name'].' '.$customer['middle_name'];
+						}elseif(!isset($_SESSION['member']['name'])){
+							echo isset($_SESSION['member']['email']) && !empty($_SESSION['member']['email'])?substr($_SESSION['member']['email'], 0, strpos($_SESSION['member']['email'], "@")):'';
+						}else{
+							echo $_SESSION['member']['name'];
+						}
 					}?>
 				</div>
 				<a id="eup" class="editUserProf material-icons" href="<?=Link::Custom('cabinet')?>?t=contacts" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>create</a>

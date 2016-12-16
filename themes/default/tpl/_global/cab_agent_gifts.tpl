@@ -16,8 +16,8 @@
 					<p class="gift_title"><?=$product["name"]?></p>
 					<p class="gift_art">Артикул: <?=$product["art"]?></p>
 					<p class="gift_selected"><span>Добавлено</span></p>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent del_gift_btn gift_btn_js ">удалить</button>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_gift_btn gift_btn_js ">добавить</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent del_gift_btn gift_btn_js">удалить</button>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_gift_btn gift_btn_js">добавить</button>
 				</div>
 
 			<?}
