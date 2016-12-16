@@ -457,8 +457,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 						<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 					</tr>
 					<tr class="product__article">
-						<td class="product__article__system_comment"><?=$p['note']?></td>
-						<td>Арт. <span><?=$p['art'];?></span></td>
+						<td colspan="2"><p>Арт. <span><?=$p['art'];?></span></p> <p class="product__article__system_comment"><?=$p['note']?></p></td>
 					</tr>
 					<?if(isset($_GET['no_price'])){?>
 						<tr class="product__details__header">
