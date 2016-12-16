@@ -38,12 +38,16 @@ $tpl->Assign('agent_users', $agent_users);
 $tpl->Assign('msg', array('type' => 'info', 'text' => 'Бонус начисляется только при условии успешного выполнения и рассчитывается с фактической суммы заказа.'));
 
 if(isset($_GET['t']) && $_GET['t'] == 'agent_gifts'){
-	$gifts = $Products->GetGiftsList('AG'.$_SESSION['member']['id_user']);
-	foreach($gifts as &$gift){
-		$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+	if(!empty($gifts = $Products->GetGiftsList())){
+		foreach($gifts as &$gift){
+			$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+		}
+		$tpl->Assign('gifts', $gifts);
 	}
-	$tpl->Assign('gifts', $gifts);
-	$tpl->Assign('selected_gifts', $_SESSION['member']['selected_gifts']);
+	if(empty($selected_gifts = $Products->GetGiftsList('AG'.$_SESSION['member']['id_user']))){
+		$selected_gifts = array();
+	}
+	$tpl->Assign('selected_gifts', $selected_gifts);
 }
 
 $Users->SetUser($_SESSION['member']);
