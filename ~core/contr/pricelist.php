@@ -26,25 +26,26 @@ if(isset($_GET['savedprices']) == true){
 		);
 		$i++;
 	}
-	$fields = array('id_category', 'name', 'pid', 'category_level');
-	$var1 = $dbtree->GetCategories($fields, 1);
-	foreach($var1 as $v1){
-		$list[$v1['id_category']] = $v1;
-		foreach($dbtree->GetSubCats($v1['id_category'], $fields) as &$v2){
-			if(isset($list1[$v2['id_category']])){
-				$v2['products'] = $list1[$v2['id_category']]['products'];
-			}
-			foreach($dbtree->GetSubCats($v2['id_category'], $fields) as &$v3){
-				if(isset($list1[$v3['id_category']])){
-					$v3['products'] = $list1[$v3['id_category']]['products'];
-					$v2['subcats'][$v3['id_category']] = $v3;
-				}
-			}
-			if(isset($v2['subcats']) == true || isset($v2['products']) == true){
-				$list[$v2['pid']]['subcats'][$v2['id_category']] = $v2;
-			}
-		}
-	}
+	// $fields = array('id_category', 'name', 'pid', 'category_level');
+	// $var1 = $dbtree->GetCategories($fields, 1);
+	// foreach($var1 as $v1){
+	// 	$list[$v1['id_category']] = $v1;
+	// 	foreach($dbtree->GetSubCats($v1['id_category'], $fields) as &$v2){
+	// 		if(isset($list1[$v2['id_category']])){
+	// 			$v2['products'] = $list1[$v2['id_category']]['products'];
+	// 		}
+	// 		foreach($dbtree->GetSubCats($v2['id_category'], $fields) as &$v3){
+	// 			if(isset($list1[$v3['id_category']])){
+	// 				$v3['products'] = $list1[$v3['id_category']]['products'];
+	// 				$v2['subcats'][$v3['id_category']] = $v3;
+	// 			}
+	// 		}
+	// 		if(isset($v2['subcats']) == true || isset($v2['products']) == true){
+	// 			$list[$v2['pid']]['subcats'][$v2['id_category']] = $v2;
+	// 		}
+	// 	}
+	// }
+	$list = $list1;
 	$tpl->Assign('name', $name);
 }else{
 	$selected_list = explode(';', $_GET['selected-array']);
