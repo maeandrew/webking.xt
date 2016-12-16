@@ -196,7 +196,7 @@ body.big_block_view {
 	line-height: 0;
 }
 .big_block_view .product__image div.photo_inner{
-	width: 600px;
+	width: 480px;
     border: 15px solid #fff;
 }
 .big_block_view .product__image div.photo_inner img {
@@ -218,6 +218,10 @@ body.big_block_view {
 .big_block_view .product__name,
 .big_block_view .product__units {
 	padding: 0 5px;
+}
+.big_block_view .product__article__system_comment {
+	text-align: left !important;
+	font-size: .5em !important;
 }
 .big_block_view .product__details__header td {
 	text-align: center;
