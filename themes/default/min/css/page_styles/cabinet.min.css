@@ -541,12 +541,13 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .info_item{width:calc(100% / 3);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;position:relative}
 .clients{margin-right:20px;margin-left:20px}
 .info_icon{float:left;margin-right:10px}
-.info_icon i{background:#018b06;color:#fff;display:block;height:60px;width:60px;border-radius:50%;font-size:3em;text-align:center;line-height:60px}
-.info_descr{padding:5px}
+.info_icon i{color:#018b06;display:block;height:60px;width:40px;border-radius:50%;font-size:3em;text-align:center;line-height:60px}
+.info_descr{padding:5px;float:left}
 .info_descr p{font-size:16px;margin-bottom:5px;margin-top:5px}
 .info_descr_text{font-weight:700}
-.action_icon{position:absolute;top:5px;right:5px}
-.action_icon i{color:#cacccb}
+.promocode .action_icon{border-left:1px dashed #bdbdbd;padding-left:10px;padding-right:5px;text-align:center;float:right}
+.promocode .action_icon i{font-size:40px;line-height:40px}
+.action_icon i{color:#cacccb;font-size:50px;line-height:60px}
 .info_item:hover .action_icon i{cursor:pointer;color:#FF5722}
 .action_icon button{border:none;background:0 0}
 .agents_clients_list,.orders_history{width:calc(100% - 15px);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;margin-top:20px}
@@ -633,6 +634,7 @@ h4{margin:5px 0 10px}
 .agents_client_order{margin:0}
 .agents_client_order .client{width:calc(100% - 350px)}
 .gift{width:calc(25% - 10px)}
+.promocode .action_icon{display:none}
 }
 @media (max-width:728px){.order .content .additional{flex-wrap:wrap}
 .order .content .additional>div{flex-basis:50%;padding-bottom:1.429em}
@@ -689,7 +691,8 @@ h4{margin:5px 0 10px}
 .agents_client_order{flex-wrap:wrap;height:auto;position:relative}
 .agents_client_order .order_info{white-space:normal}
 .agents_client_order .client{width:100%}
-.agents_client .client_info,.agents_client_header .header_item,.agents_client_order .order_info,.orders_history_content .opening_tab .profit,.orders_history_header .header_item{width:100%;padding:5px}
+.agents_client .client_info,.agents_client_header .header_item,.agents_client_order .order_info,.orders_history_content .opening_tab .profit,.orders_history_header .header_item{width:100%}
+.agents_client .client_info{padding:5px}
 .agent_mobile_label{display:inline}
 .agents_client_order.opening_tab .order_info{width:50%}
 .orders_history_content .opening_tab .profit{line-height:18px}

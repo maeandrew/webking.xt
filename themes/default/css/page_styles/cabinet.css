@@ -2579,11 +2579,12 @@ div[id^="items_panel_"] .btnWrapFlex {
     margin-right: 10px;
 }
 .info_icon i {
-	background: #018b06;
-    color: #fff;
+/*	background: #018b06;
+    color: #fff;*/
+    color: #018b06;
     display: block;
     height: 60px;
-    width: 60px;
+    width: 40px;
     border-radius: 50%;
     font-size: 3em;
     text-align: center;
@@ -2591,6 +2592,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .info_descr {
 	padding: 5px;
+	float: left;
 }
 .info_descr p {
 	font-size: 16px;
@@ -2600,13 +2602,25 @@ div[id^="items_panel_"] .btnWrapFlex {
 .info_descr_text {
 	font-weight: bold;
 }
-.action_icon {
-	position: absolute;
-	top: 5px;
-	right: 5px;
+.promocode {
+	/*display: flex;
+	justify-content: space-between;*/
+}
+.promocode .action_icon {
+	border-left: 1px dashed #bdbdbd;
+	padding-left: 10px;
+    padding-right: 5px;
+    text-align: center;
+    float: right;
+}
+.promocode .action_icon i {
+	font-size: 40px;
+    line-height: 40px;
 }
 .action_icon i {
 	color: #cacccb;
+	font-size: 50px;
+    line-height: 60px;
 }
 .info_item:hover .action_icon i {
 	cursor: pointer;
@@ -2956,6 +2970,9 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.gift {
 		width: calc(25% - 10px);
 	}
+	.promocode .action_icon {
+		display: none;
+	}
 }
 @media (max-width: 728px) {
 	.order .content .additional {
@@ -3185,13 +3202,15 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.agents_client_order .client {
 		width: 100%;
 	}
-	.orders_history_header
-	.header_item,
+	.orders_history_header .header_item,
 	.agents_client_order .order_info,
 	.agents_client_header .header_item,
 	.agents_client .client_info,
 	.orders_history_content .opening_tab .profit {
 		width: 100%;
+	}
+
+	.agents_client .client_info {
 		padding: 5px;
 	}
 	/*.client_info.order_number {

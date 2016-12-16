@@ -17,6 +17,7 @@
 							<button><i id="print_promocode" class="material-icons">print</i></button>
 							<div class="mdl-tooltip" for="print_promocode">Распечатать сертификат</div>
 						</form>
+						<p>Распечатать</p>
 					</div>
 				</div>
 				<div class="info_item clients">
