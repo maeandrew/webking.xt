@@ -2613,6 +2613,9 @@ div[id^="items_panel_"] .btnWrapFlex {
     text-align: center;
     float: right;
 }
+.promocode .action_icon button:hover {
+	cursor: pointer;
+}
 .promocode .action_icon i {
 	font-size: 40px;
     line-height: 40px;
