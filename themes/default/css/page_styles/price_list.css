@@ -180,7 +180,7 @@ body.big_block_view {
 	border-bottom: 0;
 }
 .big_block_view .product {
-	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
 	height: 490px;
 	font-size: 26px;
 }
