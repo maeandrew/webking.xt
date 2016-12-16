@@ -46,6 +46,10 @@ if(isset($_GET['t']) && $_GET['t'] == 'agent_gifts'){
 	}
 	if(empty($selected_gifts = $Products->GetGiftsList('AG'.$_SESSION['member']['id_user']))){
 		$selected_gifts = array();
+	}else{
+		foreach($selected_gifts as &$selected_gift){
+			$selected_gift = $selected_gift['id_product'];
+		}
 	}
 	$tpl->Assign('selected_gifts', $selected_gifts);
 }
