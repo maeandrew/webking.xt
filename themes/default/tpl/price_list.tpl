@@ -421,12 +421,12 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 			<?}
 		}
 	}
-}elseif ($_GET['photo'] == 4){
+}elseif($_GET['photo'] == 4){
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
 		$ii = 0;
 		foreach($list as $l1){
 			if(isset($l1['subcats'])){?>
-				<h1 <?=$ii > 0?'class="global_cat"':null;?>><?=$l1['name']?></h1>
+				<!-- <h1 <?=$ii > 0?'class="global_cat"':null;?>><?=$l1['name']?></h1> -->
 				<?$ii++;
 				foreach($l1['subcats'] as $l2){
 					$i2 = 1;
@@ -463,7 +463,8 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 									</tr>
 									<tr class="product__article">
-										<td colspan="2">Арт. <?=$p['art'];?></td>
+										<td class="product__article__system_comment"><?=$p['note']?></td>
+										<td>Арт. <?=$p['art'];?></td>
 									</tr>
 									<?if(isset($_GET['no_price'])){?>
 										<tr class="product__details__header">
@@ -492,13 +493,13 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 					<?}elseif(!empty($l2['subcats'])){
 						foreach($l2['subcats'] as $l3){
 							$i3 = 1;?>
-							<table class="header">
+							<!-- <table class="header">
 								<tr>
 									<th colspan="<?=$_GET['photo'] == 0?'4':'5';?>"><?=$l3['name'];?></th>
 								</tr>
-							</table>
+							</table> -->
 							<div>
-								<?if(isset($l3['products'])){
+								<?if(!empty($l3['products'])){
 									foreach($l3['products'] as $p){
 										if($p['price_mopt'] == 0){
 											if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
@@ -530,7 +531,8 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 											</tr>
 											<tr class="product__article">
-												<td colspan="2">Арт. <?=$p['art'];?></td>
+												<td class="product__article__system_comment"><?=$p['note']?></td>
+												<td>Арт. <?=$p['art'];?></td>
 											</tr>
 											<?if(isset($_GET['no_price'])){?>
 												<tr class="product__details__header">
