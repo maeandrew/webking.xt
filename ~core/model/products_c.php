@@ -3584,7 +3584,8 @@ class Products {
 		$sql = "SELECT pl.id, pl.order, pl.name AS price_name, p.id_product,
 			p.art, p.name, p.img_1, p.min_mopt_qty, p.inbox_qty, un.unit_xt AS units,
 			p.price_mopt, p.price_opt, p.opt_correction_set, p.mopt_correction_set,
-			c.id_category, c.id_category, c.name AS cat_name, c.category_level
+			c.id_category, c.id_category, c.name AS cat_name, c.category_level,
+			osp.note
 			FROM "._DB_PREFIX_."pricelists AS pl
 			LEFT JOIN "._DB_PREFIX_."osp AS osp
 				ON osp.id_order = pl.order
@@ -3597,7 +3598,8 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE pl.id = ".$id."
-			GROUP BY p.id_product";
+			GROUP BY p.id_product
+			ORDER BY osp.sort ASC";
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}

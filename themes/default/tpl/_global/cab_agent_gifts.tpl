@@ -19,7 +19,6 @@
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent del_gift_btn gift_btn_js">удалить</button>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored add_gift_btn gift_btn_js">добавить</button>
 				</div>
-
 			<?}
 		}?>
 	</div>
