@@ -145,7 +145,6 @@
 	<div class="main">
 		<?for($i = 0; $i < (isset($_REQUEST['share'])?1:3); $i++){?>
 			<div class="flyer">
-<<<<<<< HEAD
 				<div class="gift_prod">
 					<div class="gift_prod_descr">
 						<p class="flyer_title">Подарочный сертификат</p>
