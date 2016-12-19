@@ -511,7 +511,7 @@ class Cart {
 
 
 	// Выборка всех товаров из корзин связанных промо-кодом  по каждой корзине отдельно
-	public function  GetProductsForPromo($promo){
+	public function GetProductsForPromo($promo){
 		global $db;
 		$sql = "SELECT c.id_cart, c.id_user, p.id_product, p.art, p.name, p.images,
 				cp.quantity AS quantity, cp.note
@@ -770,7 +770,14 @@ class Cart {
 				$status = 10;
 				break;
 			case 'AG':
-				if((G::IsLogged() && $_SESSION['member']['id_user'] == substr($promo, 2)) || G::HasAgent() || !$res = $this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."promo_code WHERE code = '".$promo."' AND active = 1")){
+				$self = $has_orders = false;
+				if(G::IsLogged()){
+					$self = $_SESSION['member']['id_user'] == substr($promo, 2);
+					$orders = $this->db->GetOneRowArray("SELECT COUNT(*) AS cnt FROM "._DB_PREFIX_."order WHERE id_customer = ".$_SESSION['member']['id_user']);
+					$has_orders = $orders['cnt'] > 0;
+				}
+				$no_promo = !$this->db->GetOneRowArray("SELECT * FROM "._DB_PREFIX_."promo_code WHERE code = '".$promo."' AND active = 1");
+				if($self || $has_orders || G::HasAgent() || $no_promo){
 					return false;
 				}
 				$status = 0;

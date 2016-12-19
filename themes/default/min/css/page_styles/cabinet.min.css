@@ -596,7 +596,7 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .gift .del_gift_btn{display:none}
 .gift.selected .del_gift_btn{display:block}
 .gift.selected .add_gift_btn{display:none}
-.gifts_info{margin-bottom:10px;width:calc(100% - 10px)}
+.gifts_info{margin-bottom:10px;width:calc(100% - 10px);min-height:auto}
 .gifts_info .msg_text{margin-top:10px}
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
 #cab_left_bar .textInALink{display:none}

@@ -2839,6 +2839,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 .gifts_info {
 	margin-bottom: 10px;
 	width: calc(100% - 10px);
+	min-height: auto;
 }
 .gifts_info .msg_text {
 	margin-top: 10px;
