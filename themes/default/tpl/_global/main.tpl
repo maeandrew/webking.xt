@@ -179,19 +179,19 @@
 		<section class="banner">
 			<div class="banner_container">
 				<a class="banner_button" href="<?=Link::Custom('page', 'Snabzhenie_predpriyatij');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<img src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif">
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/factory.gif" alt="Снабжение предприятий">
 					<span class="static">Снабжение<br>предприятий</span>
 					<span class="floating">Снабжение предприятий</span>
 					<p>Комплексное обеспечение материалами, инструментами, оборудованием и комплектующими на долгосрочной основе<br><span class="read_more">Узнать больше</span></p>
 				</a>
 				<a class="banner_button" href="<?=Link::Custom('page', 'Postavki_magazinam');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<img src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif">
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/shop.gif" alt="Поставки магазинам">
 					<span class="static">Поставки<br>магазинам</span>
 					<span class="floating">Поставки магазинам</span>
 					<p>С нами у Вас есть возможность создать с нуля свой бизнес, или полностью обеспечить свой магазин товарами<br><span class="read_more">Узнать больше</span></p>
 				</a>
 				<a class="banner_button" href="<?=Link::Custom('page', 'Obespechenie_byta');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-					<img src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif">
+					<img src="<?=$GLOBALS['URL_img_theme']?>banner/home.gif" alt="Обеспечение быта">
 					<span class="static">Обеспечение<br>быта</span>
 					<span class="floating">Обеспечение быта</span>
 					<p>С магазином «ХТ» Вы экономите свое время и финансы<br><span class="read_more">Узнать больше</span></p>
@@ -461,12 +461,12 @@
 					<div class="mdl-grid">
 						<?if(!G::IsLogged()){?>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input input_validator_js" data-input-validate="name" name="name" type="text" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
+								<input class="mdl-textfield__input input_validator_js" data-input-validate="name" id="estimate_name" name="name" type="text" <?=isset($_SESSION['member']['name'])?'disableds':null?> value="<?=(isset($_SESSION['member']['name']))?$_SESSION['member']['name']:null?>">
 								<label class="mdl-textfield__label" for="estimate_name">Имя</label>
 								<span class="mdl-textfield__error">Ошибка ввода Имени!</span>
 							</div>
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" name="phone" type="text" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
+								<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" id="estimate_phone" name="phone" type="text" <?=(isset($_SESSION['member']['phone']))?'disableds':null?> value="<?=(isset($_SESSION['member']['phone']))?$_SESSION['member']['phone']:null?>">
 								<label class="mdl-textfield__label" for="estimate_phone">Телефон</label>
 								<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
 							</div>
@@ -478,7 +478,7 @@
 						</div>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 							<input class="mdl-textfield__input input_validator_js" data-input-validate="file" name="file" type="file" id="estimate_file">
-							<label class="mdl-textfield__label" for="estimate_file"></label>
+							<label class="mdl-textfield__label hidden" for="estimate_file">Загрузите файл</label>
 							<span class="mdl-textfield__error">Выберите файл!</span>
 						</div>
 						<div class="mdl-cell mdl-cell--12-col">
@@ -636,7 +636,6 @@
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<label for="user_number">Телефон</label>
 						<input class="mdl-textfield__input phone" type="text" id="user_number" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}">
-						<label class="mdl-textfield__label" for="user_number"></label>
 					</div>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >Найти</button>
 				</form>
@@ -676,7 +675,7 @@
 		<!-- Аналог alert -->
 		<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
 			<div class="mdl-snackbar__text"></div>
-			<button class="mdl-snackbar__action" type="button"></button>
+			<button class="mdl-snackbar__action" type="button">Действие</button>
 		</div>
 		<!-- Модалка Отзывы и вопросы -->
 		<div id="comment_question" class="modal_hidden" data-type="modal">
@@ -686,6 +685,7 @@
 			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 				<input type="hidden" name="id_product">
 				<input type="hidden" name="id_user">
+				<label class="hidden" for="feedback_text">Комментарий</label>
 				<textarea name="feedback_text" id="feedback_text" cols="30" rows="8" required></textarea>
 				<button type="submit" name="com_qtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Отправить</button>
 			</form>
@@ -771,7 +771,7 @@
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<label>Номер телефона</label>
 					<input class="mdl-textfield__input phone" name="value" type="text" id="recovery_phone" value="<?=isset($User['phone'])?$User['phone']:null?>" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}" disabled>
-					<label class="mdl-textfield__label" for="recovery_phone"></label>
+					<label class="mdl-textfield__label hidden" for="recovery_phone">Телефон</label>
 					<span class="mdl-textfield__error"></span>
 				</div>
 			</div>
