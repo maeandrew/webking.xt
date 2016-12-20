@@ -6,6 +6,7 @@
 				<label class="mdl-cell--hide-tablet mdl-cell--hide-desktop"><i class="material-icons">sort</i></label>
 				<label class="mdl-cell--hide-phone">Сортировать:</label>
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+					<label for="sorting" class="hidden">Сортировка</label>
 					<select id="sorting" name="sorting" class="mdl-selectfield__select sorting_js" onChange="SortProductsList($(this));">
 						<?foreach($available_sorting_values as $key => $alias){ ?>
 							<option <?=isset($GLOBALS['Sort']) && $GLOBALS['Sort'] == $key?'selected':null;?> value="<?=!isset($GLOBALS['Rewrite'])?Link::Custom($GLOBALS['CurrentController'], null, array('sort' => $key)):Link::Category($GLOBALS['Rewrite'], array('sort' => $key));?>"><?=$alias?></option>

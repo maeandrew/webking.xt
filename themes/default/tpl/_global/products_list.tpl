@@ -73,7 +73,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						</div>
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
-							<label class="info_key">?</label>
+							<label class="info_key" for="mopt_note_<?=$item['id_product']?>">?</label>
 							<div class="info_description">
 								<p>Поле для ввода примечания к товару.</p>
 							</div>
@@ -102,14 +102,14 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 								</div>
 								<div class="prodBasePrices hidden">
 									<?for($i = 0; $i < 4; $i++){?>
-										<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
-										<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
+										<input type="hidden" class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
+										<input type="hidden" class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
 									<?}?>
 								</div>
 								<div class="prodPrices hidden">
 									<?for($i = 0; $i < 4; $i++){?>
-										<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
-										<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+										<input type="hidden" class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+										<input type="hidden" class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
 									<?}?>
 								</div>
 								<div class="btn_buy">
@@ -394,7 +394,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					<div class="product_info">
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">
 							<textarea class="note_field" placeholder="<?=$item['note_control'] != 0?'ПРИМЕЧАНИЕ ОБЯЗАТЕЛЬНО!!!':' Примечание:'?>" id="mopt_note_<?=$item['id_product']?>" data-id="<?=$item['id_product']?>"><?=isset($_SESSION['cart']['products'][$item['id_product']]['note'])?$_SESSION['cart']['products'][$item['id_product']]['note']:null?></textarea>
-							<label class="info_key">?</label>
+							<label class="info_key" for="mopt_note_<?=$item['id_product']?>">?</label>
 							<div class="info_description">
 								<p>Поле для ввода примечания к товару.</p>
 							</div>
@@ -420,15 +420,15 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							</div>
 							<div class="prodBasePrices hidden">
 								<?for($i = 0; $i < 4; $i++){?>
-									<input class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
-									<input class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
+									<input type="hidden" class="basePriceOpt<?=$i?>" value="<?=number_format($item['base_prices_opt'][$i], 2, ",", "")?>">
+									<input type="hidden" class="basePriceMopt<?=$i?>" value="<?=number_format($item['base_prices_mopt'][$i], 2, ",", "")?>">
 								<?}?>
 							</div>
 							<div class="prodPrices hidden">
 								<div class="itemProdQty"><?=$item['min_mopt_qty']?></div>
 								<?for($i = 0; $i < 4; $i++){?>
-									<input class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
-									<input class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
+									<input type="hidden" class="priceOpt<?=$i?>" value="<?=$item['prices_opt'][$i]?>">
+									<input type="hidden" class="priceMopt<?=$i?>" value="<?=$item['prices_mopt'][$i]?>">
 								<?}?>
 							</div>
 							<div class="btn_buy">
