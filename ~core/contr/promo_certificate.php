@@ -5,6 +5,7 @@ $tpl->Assign('customer', $Customers->SetFieldsById($Users->fields['id_user']));
 $gifts = $Products->GetGiftsList('AG'.$Users->fields['id_user']);
 if(isset($gifts) && !empty($gifts)){
 	foreach($gifts as $gift){
+		$gift['images'] = $Products->GetPhotoById($gift['id_product']);
 		$tpl->Assign('gift', $gift);
 		echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_promo_certificate.tpl');
 	}
