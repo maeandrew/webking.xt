@@ -151,13 +151,19 @@
 						<p class="gift_title">При заказе на <span class="green">XT.UA получай подарок</span><sup class="star">*</sup></p>
 						<?if(isset($gift)){?>
 							<div class="gift_prod_image">
-								<img src="https://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
+								<?if(!empty($gift['images'])){?>
+									<img itemprop="image" src="<?=G::GetImageUrl($gift['images'][0]['src'], 'medium')?>"/>
+								<?}else if(!empty($gift['img_1'])){?>
+									<img itemprop="image" src="<?=G::GetImageUrl($gift['img_1'], 'medium')?>"/>
+								<?}else{?>
+									<img itemprop="image" src="<?=G::GetImageUrl('/images/nofoto.png')?>"/>
+								<?}?>
 							</div>
 							<div class="gift_prod_name">
-								Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)
+								<?=$gift['name']?>Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)
 							</div>
 							<div class="gift_prod_art">
-								Артикул: <span>22145</span>
+								Артикул: <span><?=$gift['art']?></span>
 							</div>
 						<?}else{?>
 							<img class="all_products_img" src="/images/assort.jpg">
