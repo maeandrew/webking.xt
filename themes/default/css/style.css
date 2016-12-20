@@ -630,7 +630,7 @@ _:-ms-lang(x), [class^="active_"] .banner,
 	margin: 0 auto;
 	max-width: 1600px;
 	position: relative;
-	margin-top: 1em;
+	margin-top: 20px;
 }
 aside,
 .center {
@@ -1282,7 +1282,7 @@ section.center {
 	}
 	aside .panel_container {
 		max-height: 100%;
-		padding-left: 10px;
+		padding-left: 20px;
 	}
 	.banner_hide aside {
 		position: fixed;
@@ -1291,7 +1291,7 @@ section.center {
 		bottom: auto;
 	}
 	aside .catalog .main_nav {
-		padding-bottom: 10px;
+		padding-bottom: 20px;
 	}
 	aside .catalog .main_nav li {
 		text-transform: uppercase;
@@ -1592,7 +1592,7 @@ section.center {
 		width: 100%;
 		font-size: 3em;
 		float: none;
-		margin: 0;
+		margin: 0 0 20px 0;
 	}
 /* Statistics */
 /*.stat_year {
@@ -3095,7 +3095,7 @@ section .stat_year {
 .avg_chart_wrap {
 	background-color: #fff;
 	padding: 1em;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
@@ -3608,14 +3608,13 @@ div.modalEditOrder .applyBtn {
 .mobile_carousel .subCategory{
 	position: relative;
 	width: calc(20% - 20px);
-	margin: 10px;
+	margin: 0 10px 20px;
 	height: 270px;
 	overflow: hidden;
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
 	background-color: #fff;
 	display: table;
-	padding: .5em;
 }
 .subCategories .separator,
 .mobile_carousel .separator{
@@ -3632,6 +3631,7 @@ div.modalEditOrder .applyBtn {
 	display: table-cell;
 	position: relative;
 	overflow: hidden;
+	padding: .5em;
 }
 .subCategories .subCategory .subCategoryImageWrap img,
 .mobile_carousel .subCategory .subCategoryImageWrap img{
@@ -3666,6 +3666,7 @@ div.modalEditOrder .applyBtn {
 	position: relative;
 	height: 3em;
 	vertical-align: middle;
+	padding: 0 .5em;
 }
 .mobile_carousel .subCategory{
 	width: calc(50% - 20px);
