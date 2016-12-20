@@ -266,8 +266,8 @@ label:hover + .info_description {
 	}
 }
 /* Internet Explorer 10+, Microsoft Edge Browser */
-_:-ms-lang(x), [class^="active_"] .banner,
-[class*=" active_"] .banner,
+_:-ms-lang(x), [class^="active_"] .advantages,
+[class*=" active_"] .advantages,
 [class^="active_"] .center ,
 [class*=" active_"] .center,
 [class^="active_"] footer,
@@ -637,7 +637,7 @@ aside,
 	margin: 0 auto;
 	position: relative;
 }
-.banner {
+.advantages {
 	overflow: hidden;
 	position: relative;
 	height: auto;
@@ -1284,7 +1284,7 @@ section.center {
 		max-height: 100%;
 		padding-left: 20px;
 	}
-	.banner_hide aside {
+	.advantages_hide aside {
 		position: fixed;
 		box-shadow: none;
 		max-height: calc(100vh - 52px);
@@ -3567,7 +3567,7 @@ div.modalEditOrder .applyBtn {
 	background: rgba(0,0,0,0.5);
 }
 @media (max-width: 768px) {
-	.banner {
+	.advantages {
 		margin-left: 0px;
 	}
 }
@@ -4029,12 +4029,12 @@ iframe[name="google_conversion_frame"] {
 	height: 20px;
 }
 /* Стили для баннера */
-.banner .banner_container {
+.advantages .advantages_container {
 	max-width: 1600px;
 	margin: 0 auto;
 	display: flex;
 }
-.banner .banner_button {
+.advantages .advantages_button {
 	float: left;
 	flex-basis: calc(100%/3);
 	position: relative;
@@ -4043,7 +4043,7 @@ iframe[name="google_conversion_frame"] {
 	padding: 2em 0;
 	color: #fff;
 }
-.banner .banner_button:after {
+.advantages .advantages_button:after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -4057,7 +4057,7 @@ iframe[name="google_conversion_frame"] {
 	opacity: 0;
 	z-index: 1;
 }
-.banner .banner_button img {
+.advantages .advantages_button img {
 	margin: 0 auto;
 	max-width: 100%;
 	padding: 10px;
@@ -4066,8 +4066,8 @@ iframe[name="google_conversion_frame"] {
 	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 }
-.banner .banner_button p,
-.banner .banner_button span.floating {
+.advantages .advantages_button p,
+.advantages .advantages_button span.floating {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -4079,7 +4079,7 @@ iframe[name="google_conversion_frame"] {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	z-index: 3;
 }
-.banner .banner_button span.static {
+.advantages .advantages_button span.static {
 	color: #444;
 	text-align: center;
 	width: 100%;
@@ -4091,15 +4091,15 @@ iframe[name="google_conversion_frame"] {
 	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 }
-.banner .banner_button span.floating {
+.advantages .advantages_button span.floating {
 	top: -1em;
 }
-.banner .banner_button p {
+.advantages .advantages_button p {
 	top: 100%;
 	font-size: 1em;
 	padding: 5px;
 }
-.banner .banner_button p span.read_more {
+.advantages .advantages_button p span.read_more {
 	display: inline-block;
 	padding: .5em 1em;
 	border: 1px solid #fff;
@@ -4109,25 +4109,25 @@ iframe[name="google_conversion_frame"] {
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
 	margin-top: 1em;
 }
-.banner .banner_button p span.read_more:hover {
+.advantages .advantages_button p span.read_more:hover {
 	color: #018b06;
 	background: #fff;
 }
-.banner .banner_button:hover:after {
+.advantages .advantages_button:hover:after {
 	opacity: 1;
 }
-.banner .banner_button:hover img {
+.advantages .advantages_button:hover img {
 	-webkit-filter: blur(5px) grayscale(100%);
 	filter: blur(5px) grayscale(100%);
 }
-.banner .banner_button:hover span.floating {
+.advantages .advantages_button:hover span.floating {
 	top: calc(50% - 3em);
 }
-.banner .banner_button:hover span.static {
+.advantages .advantages_button:hover span.static {
 	-webkit-filter: blur(5px) grayscale(100%);
 	filter: blur(5px) grayscale(100%);
 }
-.banner .banner_button:hover p {
+.advantages .advantages_button:hover p {
 	top: calc(50%);
 }
 @media (max-width: 450px) {
@@ -4553,7 +4553,7 @@ div[for="rating_block"] {
 	.content_header .list_settings {
 		width: 100%;
 	}
-	.banner .banner_button span.static {
+	.advantages .advantages_button span.static {
 		font-size: 1em;
 	}
 }
@@ -4744,21 +4744,21 @@ div[for="rating_block"] {
 }
 
 @media only screen and (max-device-width : 1024px) {
-	.banner .banner_button:hover:after {
+	.advantages .advantages_button:hover:after {
 		opacity: 0;
 	}
-	.banner .banner_button:hover img {
+	.advantages .advantages_button:hover img {
 		-webkit-filter: none;
 		filter: none;
 	}
-	.banner .banner_button:hover span.floating {
+	.advantages .advantages_button:hover span.floating {
 		display: none;
 	}
-	.banner .banner_button:hover span.static {
+	.advantages .advantages_button:hover span.static {
 		-webkit-filter: none;
 		filter: none;
 	}
-	.banner .banner_button:hover p {
+	.advantages .advantages_button:hover p {
 		display: none;
 	}
 }

@@ -439,8 +439,8 @@ $(function(){
 
 	//Scroll Magic
 	var header = $("header"),
-		over_scroll = $('body').hasClass('banner_hide')?true:false,
-		banner_height = $('.banner').outerHeight();
+		over_scroll = $('body').hasClass('advantages_hide')?true:false,
+		banner_height = $('.advantages').outerHeight();
 	var viewPort = $(window).height(); // высота окна
 	var window_width= $(window).width(); //ширина окна
 	var mainWindow = $('.main').outerHeight(); // высота главного блока
@@ -449,7 +449,7 @@ $(function(){
 	window.addEventListener("orientationchange", function() {
 	   viewPort = $(window).height();
 	   window_width_rotate = $(window).width();
-	   $('.banner').css('height', 'auto');
+	   $('.advantages').css('height', 'auto');
 	   if (over_scroll === false) {
   			if (window_width_rotate >= 728) {
 	  			$('aside').css({
@@ -495,9 +495,9 @@ $(function(){
 			//Скрытие баннера
 			if($(this).scrollTop() > banner_height){
 				over_scroll = true;
-				content_header_base_position = $('.content_header').offset().top;
-				$('.banner').height(0);
-				$('body').addClass('banner_hide');
+				content_header_base_position = $('.main').offset().top;
+				$('.advantages').height(0);
+				$('body').addClass('advantages_hide');
 				$('html, body').scrollTop(0);
 			}
 		}else{
@@ -560,13 +560,13 @@ $(function(){
 		if($('body').hasClass('c_main') && over_scroll === true){
 			event.preventDefault();
 			// banner_height = $('.banner').outerHeight();
-			$('.banner').animate({
+			$('.advantages').animate({
 				height: banner_height
 			}, 300);
 			$('html, body').animate({
 				scrollTop: 0
 			}, 300);
-			$('body').removeClass('banner_hide');
+			$('body').removeClass('advantages_hide');
 			header.removeClass("fixed_panel").addClass("default");
 			setTimeout(function(){over_scroll = false;},305);
 			if (IsMobile === true) {

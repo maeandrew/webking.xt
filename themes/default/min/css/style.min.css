@@ -43,7 +43,7 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 .background_panel{background-color:transparent;position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;visibility:hidden}
 @media (max-width:728px){[data-type=panel],[data-type=modal]{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 }
-[class*=" active_"] .banner,[class*=" active_"] .center,[class*=" active_"] footer,[class^=active_] .banner,[class^=active_] .center,[class^=active_] footer,_:-ms-lang(x){filter:none}
+[class*=" active_"] .advantages,[class*=" active_"] .center,[class*=" active_"] footer,[class^=active_] .advantages,[class^=active_] .center,[class^=active_] footer,_:-ms-lang(x){filter:none}
 [class*=" active_"],[class^=active_]{overflow:hidden}
 [class*=' active_'] .background_panel,[class^=active_] .background_panel{background-color:rgba(0,0,0,.4);visibility:visible}
 [data-type=modal] .modal_container div.mdl-card__supporting-text{margin:0 auto}
@@ -107,7 +107,7 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 }
 .main{width:100%;overflow:hidden;margin:0 auto;max-width:1600px;position:relative;margin-top:20px}
 .center,aside{margin:0 auto;position:relative}
-.banner{overflow:hidden;position:relative;height:auto;background-color:#fff;border-bottom:1px solid #e0e0e0}
+.advantages{overflow:hidden;position:relative;height:auto;background-color:#fff;border-bottom:1px solid #e0e0e0}
 section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 .no-sidebar section.center{width:100%}
 .no-sidebar .page_content{padding:0}
@@ -230,7 +230,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 }
 aside{width:300px;position:absolute;float:left;bottom:auto}
 aside .panel_container{max-height:100%;padding-left:20px}
-.banner_hide aside{position:fixed;box-shadow:none;max-height:calc(100vh - 52px);bottom:auto}
+.advantages_hide aside{position:fixed;box-shadow:none;max-height:calc(100vh - 52px);bottom:auto}
 aside .catalog .main_nav{padding-bottom:20px}
 aside .catalog .main_nav li{text-transform:uppercase;color:#bdbdbd;font-size:16px;font-size:1em;cursor:pointer;font-weight:500;border-bottom:1px solid #e0e0e0;padding:5px 10px;position:relative;background:#fff}
 aside .catalog .main_nav i{vertical-align:top;margin-right:10px;font-size:22px}
@@ -670,7 +670,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 #big_photo{padding:0;border:0;z-index:10000000}
 #big_photo[data-type=modal].opened a.close_modal{top:7px;right:10px;color:#fff;background:rgba(0,0,0,.1);border-radius:50%;line-height:24px;width:24px;height:24px;margin:0}
 #big_photo[data-type=modal].opened a.close_modal:hover{background:rgba(0,0,0,.5)}
-@media (max-width:768px){.banner{margin-left:0}
+@media (max-width:768px){.advantages{margin-left:0}
 }
 @media (min-width:728px) and (max-width:840px),(min-width:728px) and (orientation:landscape){.content_header .catalog_btn{display:none!important}
 }
@@ -758,21 +758,21 @@ iframe[name=google_conversion_frame]{display:none}
 .estimate_modal{text-align:center;width:500px}
 .estimate_modal .mdl-grid{width:80%;margin:0 auto}
 .estimate_info{height:20px}
-.banner .banner_container{max-width:1600px;margin:0 auto;display:flex}
-.banner .banner_button{float:left;flex-basis:calc(100%/3);position:relative;overflow:hidden;padding:2em 0;color:#fff}
-.banner .banner_button:after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(1,139,6,.8);transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);opacity:0;z-index:1}
-.banner .banner_button img{margin:0 auto;max-width:100%;padding:10px;display:block;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1)}
-.banner .banner_button p,.banner .banner_button span.floating{position:absolute;left:0;right:0;line-height:1.2em;text-align:center;font-size:2em;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);z-index:3}
-.banner .banner_button span.static{color:#444;text-align:center;width:100%;display:block;padding:.5em 0;font-size:2em;line-height:1.2em;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1)}
-.banner .banner_button span.floating{top:-1em}
-.banner .banner_button p{top:100%;font-size:1em;padding:5px}
-.banner .banner_button p span.read_more{display:inline-block;padding:.5em 1em;border:1px solid #fff;border-radius:.2em;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);margin-top:1em}
-.banner .banner_button p span.read_more:hover{color:#018b06;background:#fff}
-.banner .banner_button:hover:after{opacity:1}
-.banner .banner_button:hover img{-webkit-filter:blur(5px) grayscale(100%);filter:blur(5px) grayscale(100%)}
-.banner .banner_button:hover span.floating{top:calc(50% - 3em)}
-.banner .banner_button:hover span.static{-webkit-filter:blur(5px) grayscale(100%);filter:blur(5px) grayscale(100%)}
-.banner .banner_button:hover p{top:calc(50%)}
+.advantages .advantages_container{max-width:1600px;margin:0 auto;display:flex}
+.advantages .advantages_button{float:left;flex-basis:calc(100%/3);position:relative;overflow:hidden;padding:2em 0;color:#fff}
+.advantages .advantages_button:after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(1,139,6,.8);transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);opacity:0;z-index:1}
+.advantages .advantages_button img{margin:0 auto;max-width:100%;padding:10px;display:block;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1)}
+.advantages .advantages_button p,.advantages .advantages_button span.floating{position:absolute;left:0;right:0;line-height:1.2em;text-align:center;font-size:2em;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);z-index:3}
+.advantages .advantages_button span.static{color:#444;text-align:center;width:100%;display:block;padding:.5em 0;font-size:2em;line-height:1.2em;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1)}
+.advantages .advantages_button span.floating{top:-1em}
+.advantages .advantages_button p{top:100%;font-size:1em;padding:5px}
+.advantages .advantages_button p span.read_more{display:inline-block;padding:.5em 1em;border:1px solid #fff;border-radius:.2em;transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);margin-top:1em}
+.advantages .advantages_button p span.read_more:hover{color:#018b06;background:#fff}
+.advantages .advantages_button:hover:after{opacity:1}
+.advantages .advantages_button:hover img{-webkit-filter:blur(5px) grayscale(100%);filter:blur(5px) grayscale(100%)}
+.advantages .advantages_button:hover span.floating{top:calc(50% - 3em)}
+.advantages .advantages_button:hover span.static{-webkit-filter:blur(5px) grayscale(100%);filter:blur(5px) grayscale(100%)}
+.advantages .advantages_button:hover p{top:calc(50%)}
 @media (max-width:450px){.waiting_block_wrapp{position:relative}
 .tools_wrapp{display:none}
 .err_msg_as{width:100%;top:100%}
@@ -876,7 +876,7 @@ div[for=rating_block]{font-size:12px}
 .breadcrumbs li{display:none}
 }
 @media screen and (max-width:480px){.content_header .list_settings{width:100%}
-.banner .banner_button span.static{font-size:1em}
+.advantages .advantages_button span.static{font-size:1em}
 }
 #quiz{padding:0;border-top:10px solid #FF9776;border-radius:0;overflow:visible;left:calc(50% - 330px);width:660px}
 #quiz .modal_container{text-align:left;padding:2em;overflow:visible}
@@ -919,11 +919,11 @@ div[for=rating_block]{font-size:12px}
 #quiz .label_wrap{text-align:left}
 @media(max-width:654px){#quiz .line{width:100%}
 }
-@media only screen and (max-device-width :1024px){.banner .banner_button:hover:after{opacity:0}
-.banner .banner_button:hover img{-webkit-filter:none;filter:none}
-.banner .banner_button:hover span.floating{display:none}
-.banner .banner_button:hover span.static{-webkit-filter:none;filter:none}
-.banner .banner_button:hover p{display:none}
+@media only screen and (max-device-width :1024px){.advantages .advantages_button:hover:after{opacity:0}
+.advantages .advantages_button:hover img{-webkit-filter:none;filter:none}
+.advantages .advantages_button:hover span.floating{display:none}
+.advantages .advantages_button:hover span.static{-webkit-filter:none;filter:none}
+.advantages .advantages_button:hover p{display:none}
 }
 .gift_modal{background:#f4f6f5;width:80vw}
 .gift_modal .modal_container{max-height:calc(80vh - 52px)}
