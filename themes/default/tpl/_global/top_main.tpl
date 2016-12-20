@@ -6,10 +6,12 @@
 		<div class="search_wrap">
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
 				<i class="material-icons mob_s_btn mob_search_btn_js">&#xE8B6;</i>
+				<label for="search" class="hidden">Поиск</label>
 				<div class="mdl-textfield mdl-js-textfield search">
 					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
 				</div>
 				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label search_category mdl-cell--hide-phone">
+					<label for="search_category" class="hidden">Категория для поиска</label>
 					<select id="search_category" name="search_category" class="mdl-selectfield__select">
 						<option value="" data-id-category="0">По всем категориям</option>
 						<?foreach($navigation as &$v){ ?>
@@ -69,8 +71,8 @@
 					<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
 				</button>
 			<?}else{?>
-				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon  cabinet_btn hidden">
-					<!-- <i class="material-icons">account_circle</i> -->
+				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon cabinet_btn hidden">
+					<i class="material-icons">account_circle</i>
 				</button>
 				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored login_btn">Войти</a>
 			<?}?>
