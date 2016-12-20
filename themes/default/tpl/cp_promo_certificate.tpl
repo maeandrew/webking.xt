@@ -3,7 +3,6 @@
 		<div class="gift_prod">
 			<div class="gift_prod_descr">
 				<p class="flyer_title">Подарочный сертификат</p>
-				<p class="gift_title">При заказе на <span class="green">XT.UA получай подарок</span><sup class="star">*</sup></p>
 				<?if(isset($gift)){?>
 					<div class="gift_prod_image">
 						<?if(!empty($gift['images'])){?>
@@ -23,6 +22,7 @@
 				<?}else{?>
 					<img class="all_products_img" src="/images/assort.jpg">
 				<?}?>
+				<p class="gift_title"><span class="green">Получай подарок</span><sup class="star">*</sup> при заказе на <span class="green">XT.UA</span></p>
 			</div>
 			<div class="explanation">
 				* Под подарком подразумевается покупка товара за 0,01 грн. Для получения подарка необходимо применить промо-код в корзине сайта при оформлении заказа. Подарок доступен только при первом заказе.
