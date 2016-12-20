@@ -149,16 +149,19 @@
 					<div class="gift_prod_descr">
 						<p class="flyer_title">Подарочный сертификат</p>
 						<p class="gift_title">При заказе на <span class="green">XT.UA получай подарок</span><sup class="star">*</sup></p>
-						<img class="all_products_img" src="/images/assort.jpg">
-						<!-- <div class="gift_prod_image">
-							<img src="https://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
-						</div>
-						<div class="gift_prod_name">
-							Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)
-						</div>
-						<div class="gift_prod_art">
-							Артикул: <span>22145</span>
-						</div> -->
+						<?if(isset($gift)){?>
+							<div class="gift_prod_image">
+								<img src="https://xt.ua/product_images/original/2016/01/19/22145-1.jpg">
+							</div>
+							<div class="gift_prod_name">
+								Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)
+							</div>
+							<div class="gift_prod_art">
+								Артикул: <span>22145</span>
+							</div>
+						<?}else{?>
+							<img class="all_products_img" src="/images/assort.jpg">
+						<?}?>
 					</div>
 					<div class="explanation">
 						* Под подарком подразумевается покупка товара за 0,01 грн. Для получения подарка необходимо применить промо-код в корзине сайта при оформлении заказа. Подарок доступен только при первом заказе.
