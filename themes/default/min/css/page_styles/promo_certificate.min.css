@@ -27,4 +27,4 @@
 .green{color:#018b06}
 .gift_title{text-transform:uppercase;font-size:5mm;margin-top:3mm;margin-bottom:3mm}
 .star{font-size:.8em}
-.cut_line{border-bottom:1px dashed #e7e7e7;height:3mm;position:absolute;bottom:-13mm;left:-3mm;right:-3mm}
+.cut_line{border-bottom:1px dashed #444;height:3mm;position:absolute;bottom:-13mm;left:-3mm;right:-3mm}

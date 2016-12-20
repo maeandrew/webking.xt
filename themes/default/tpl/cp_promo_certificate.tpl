@@ -32,7 +32,7 @@
 			<div class="flyer_header">
 				<img class="logo" src="/themes/default/img/_xt.svg">
 				<p class="company_title">Служба снабжения ХарьковТорг</p>
-				<p class="site">www.xt.ua</p>
+				<p class="site">xt.ua</p>
 			</div>
 			<div class="promo_info">
 				<div class="personal_consultant_block">
