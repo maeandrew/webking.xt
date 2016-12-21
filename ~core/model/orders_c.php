@@ -617,6 +617,13 @@ class Orders {
 					$p[$ii]['opt_sum'] = 0;
 					$p[$ii]['site_price_opt'] = 0;
 				}
+				$p[$ii]['dealer_price'] = $item['actual_prices'][1];
+				$p[$ii]['partner_price'] = $item['actual_prices'][0];
+				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$p[$ii]['promo'] = 1;
+				}else{
+					$p[$ii]['promo'] = 0;
+				}
 				$p[$ii]['gift'] = 0;
 			}
 			$ii++;
@@ -642,7 +649,14 @@ class Orders {
 			$p[$ii]['mopt_sum'] = '0.01';
 			$p[$ii]['site_price_mopt'] = '0.01';
 			$p[$ii]['opt_sum'] = 0;
+			$p[$ii]['dealer_price'] = 0;
+			$p[$ii]['partner_price'] = 0;
 			$p[$ii]['site_price_opt'] = 0;
+			if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+				$p[$ii]['promo'] = 1;
+			}else{
+				$p[$ii]['promo'] = 0;
+			}
 			$p[$ii]['gift'] = 1;
 		}
 		// Если ни у одного товара нет поставщика
