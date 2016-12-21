@@ -14,7 +14,7 @@
 						<?}?>
 					</div>
 					<div class="gift_prod_name">
-						<?=$gift['name']?>Радиоприёмник аналоговый KIPO KB-308АС (19,8х11х5,9 см, Китай)
+						<?=$gift['name']?>
 					</div>
 					<div class="gift_prod_art">
 						Артикул: <span><?=$gift['art']?></span>
