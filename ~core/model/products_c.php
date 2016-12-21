@@ -23,7 +23,7 @@ class Products {
 			"p.old_price_opt", "p.mopt_correction_set", "p.opt_correction_set", "p.filial",
 			"p.popularity", "p.duplicate_user", "p.duplicate_comment", "p.duplicate_date", "p.edit_user",
 			"p.edit_date", "p.create_user", "p.create_date", "p.id_unit", "p.page_title", "p.page_description",
-			"p.page_keywords", "p.notation_price", "p.instruction", "p.indexation", "p.access_assort");
+			"p.page_keywords", "p.notation_price", "p.instruction", "p.indexation", "p.access_assort", "p.limit_per_order");
 		$this->usual_fields_cart = array("p.id_product", "p.art", "p.name", "p.translit", "p.descr", "c.note",
 			"p.country", "p.img_1", "p.img_2", "p.img_3", "p.sertificate", "p.price_opt", "p.price_mopt",
 			"p.inbox_qty", "p.min_mopt_qty", "p.max_supplier_qty", "p.weight", "p.volume", "p.qty_control",

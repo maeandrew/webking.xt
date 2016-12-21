@@ -292,6 +292,11 @@
 									</div>
 								</div>
 								<div class="priceMoptInf<?=($in_cart && $_SESSION['cart']['products'][$item['id_product']]['quantity'] < $item['inbox_qty'])?'':' hidden'?>">Малый опт</div>
+								<div class="limit_per_order">
+									<?if($item['limit_per_order'] > 0){?>
+										<p>Не больше <?=$item['limit_per_order']?> <?=$item['units']?> в заказе</p>
+									<?}?>
+								</div>
 							</div>
 						</div>
 						<div class="note <?=$item['note_control'] != 0?'note_control':null?> <?=isset($_SESSION['cart']['products'][$item['id_product']])?null:'hidden';?> <?=isset($_SESSION['cart']['products'][$item['id_product']]['note']) && $_SESSION['cart']['products'][$item['id_product']]['note'] != '' ?null:'activeNoteArea'?>">

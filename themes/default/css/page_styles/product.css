@@ -469,6 +469,12 @@
 	background: transparent;
 	z-index: 10000;
 }
+.product_page .product .limit_per_order{
+	margin-bottom: 10px;
+	text-align: center;
+	color: #ff5722;
+}
+
 .product_page .product .apps_panel{
 	clear: both;
 	position: relative;
