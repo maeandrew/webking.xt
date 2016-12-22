@@ -201,8 +201,8 @@
 	<?}?>
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
-			<?if(!G::IsLogged() || !G::IsAgent() && in_array($_SESSION['member']['gid'], array(_ACL_CUSTOMER_))){?>
-				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>">Стань агентом! Распространяй подарочный сертификат и зарабатывай до 20000 грн.</a>
+			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
+				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>"><?=$GLOBALS['CONFIG']['agent_banner'];?></a>
 			<?}?>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
