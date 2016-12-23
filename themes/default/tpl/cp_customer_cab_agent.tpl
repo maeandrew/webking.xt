@@ -27,7 +27,7 @@
 						<i class="material-icons">&#xE7F0;</i>
 					</div>
 					<div class="info_descr">
-						<p class="info_descr_title">Привелечено клиентов:</p>
+						<p class="info_descr_title">Привлечено клиентов:</p>
 						<p class="info_descr_text"><?=count($agent_users);?></p>
 					</div>
 				</div>
