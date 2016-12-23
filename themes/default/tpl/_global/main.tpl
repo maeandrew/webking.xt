@@ -202,7 +202,10 @@
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
 			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
-				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>"><?=$GLOBALS['CONFIG']['agent_banner'];?></a>
+				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>">
+					<span><?=$GLOBALS['CONFIG']['agent_banner'];?></span>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Подробнее</button>
+				</a>
 			<?}?>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
