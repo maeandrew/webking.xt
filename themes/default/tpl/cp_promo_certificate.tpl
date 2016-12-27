@@ -20,7 +20,7 @@
 						Артикул: <span><?=$gift['art']?></span>
 					</div>
 				<?}else{?>
-					<img class="all_products_img" src="/images/assort.jpg">
+					<img class="all_products_img" src="/images/assort.png">
 				<?}?>
 				<p class="gift_title"><span class="green">Получай подарок</span><sup class="star">*</sup> при заказе на <span class="green">XT.UA</span></p>
 			</div>
