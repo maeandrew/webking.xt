@@ -27,6 +27,7 @@ if(isset($_GET['column'])?count($_GET['column']) > 1:null && $_GET['photo'] != 3
 		<?}?>
 	</table>
 <?}
+
 if($_GET['photo'] !== 2){
 	$headrow = '<th class="header__article">Арт.</th>'.
 		($_GET['photo'] == 1?'<th class="header__image">Фото</th>':null).
@@ -317,11 +318,6 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 					<?}elseif(!empty($l2['subcats'])){
 						foreach($l2['subcats'] as $l3){
 							$i3 = 1;?>
-							<!-- <table class="header">
-								<tr>
-									<th colspan="<?=$_GET['photo'] == 0?'4':'5';?>"><?=$l3['name'];?></th>
-								</tr>
-							</table> -->
 							<div>
 								<?if(isset($l3['products'])){
 									foreach($l3['products'] as $p){?>
@@ -360,7 +356,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 													</div>
 												</div>
 												<div class="prod_qr_code">
-													<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($p['translit'])?>&chld=H|0">
+													<img src="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=<?=Link::Product($p['translit']);?>&chld=H|0">
 												</div>
 											</div>
 										</div>
@@ -423,8 +419,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 	}
 }elseif($_GET['photo'] == 4){
 	if(isset($_GET['savedprices']) == true){ // Сохраненный прайс
-		$ii = 0;
-		?>
+		$ii = 0;?>
 		<div>
 			<?foreach($list as $p){?>
 				<?if($p['price_mopt'] == 0){
@@ -457,7 +452,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 						<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 					</tr>
 					<tr class="product__article">
-						<td colspan="2"><p>Арт. <span><?=$p['art'];?></span></p> <p class="product__article__system_comment"><?=$p['note']?></p></td>
+						<td colspan="2"><p>Арт. <span><?=$p['art'];?></span></p> <p class="product__article__system_comment"><?=$p['note']?> [<?=$p['sort'];?>]</p></td>
 					</tr>
 					<?if(isset($_GET['no_price'])){?>
 						<tr class="product__details__header">

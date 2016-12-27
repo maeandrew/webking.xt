@@ -3582,24 +3582,26 @@ class Products {
 	 */
 	public function GetPricelistById($id){
 		$sql = "SELECT pl.id, pl.order, pl.name AS price_name, p.id_product,
-			p.art, p.name, p.img_1, p.min_mopt_qty, p.inbox_qty, un.unit_xt AS units,
+			p.art, p.translit, p.name, p.img_1, p.min_mopt_qty, p.inbox_qty, un.unit_xt AS units,
 			p.price_mopt, p.price_opt, p.opt_correction_set, p.mopt_correction_set,
-			c.id_category, c.id_category, c.name AS cat_name, c.category_level,
-			osp.note
+			c.id_category, c.name AS cat_name, c.category_level,
+			osp.note, osp.sort
 			FROM "._DB_PREFIX_."pricelists AS pl
 			LEFT JOIN "._DB_PREFIX_."osp AS osp
 				ON osp.id_order = pl.order
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON p.id_product = osp.id_product
 			LEFT JOIN "._DB_PREFIX_."cat_prod AS cp
-				ON cp.id_product = p.id_product AND cp.main = 1
+				ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."category AS c
 				ON c.id_category = cp.id_category
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
 			WHERE pl.id = ".$id."
+				AND cp.main = 1
 			GROUP BY p.id_product
 			ORDER BY osp.sort ASC";
+			// print_r($sql);
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -4431,19 +4433,19 @@ class Products {
 
 	public function generateCategory(){
 		$sql ='SELECT c.id_category, c.name, c.category_level, c.pid,
-			(CASE
-				WHEN c.category_level = 1 THEN c.id_category
-				WHEN c.category_level = 2 THEN c.pid
-				ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
-			END) AS sort,
-			(CASE
-				WHEN c.category_level = 2 THEN c.id_category
-				WHEN c.category_level = 3 THEN c.pid
-				ELSE 0
-			END) AS sort2
+				(CASE
+					WHEN c.category_level = 1 THEN c.id_category
+					WHEN c.category_level = 2 THEN c.pid
+					ELSE (SELECT c2.pid FROM '._DB_PREFIX_.'category AS c2 WHERE c2.id_category = c.pid)
+				END) AS sort,
+				(CASE
+					WHEN c.category_level = 2 THEN c.id_category
+					WHEN c.category_level = 3 THEN c.pid
+					ELSE 0
+				END) AS sort2
 			FROM '._DB_PREFIX_.'category AS c
 			WHERE c.category_level <> 0
-			AND c.sid = 1
+				AND c.sid = 1
 			ORDER BY sort, sort2, category_level';
 			// AND c.id_category <> 493
 			// AND c.pid NOT IN (493)

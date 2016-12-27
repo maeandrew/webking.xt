@@ -13,10 +13,12 @@ if(isset($_GET['savedprices']) == true){
 			$list1[] = array(
 				'id_product' => $l['id_product'],
 				'art' => $l['art'],
+				'translit' => $l['translit'],
 				'img_1' => $l['img_1'],
 				'image' => $image[0]['src'],
 				'name' => $l['name'],
 				'note' => $l['note'],
+				'sort' => $l['sort'],
 				'min_mopt_qty' => $l['min_mopt_qty'],
 				'inbox_qty' => $l['inbox_qty'],
 				'price_mopt' => $l['price_mopt'],
@@ -37,6 +39,7 @@ if(isset($_GET['savedprices']) == true){
 			$list1[$l['id_category']]['products'][] = array(
 				'id_product' => $l['id_product'],
 				'art' => $l['art'],
+				'translit' => $l['translit'],
 				'img_1' => $l['img_1'],
 				'image' => $image[0]['src'],
 				'name' => $l['name'],
