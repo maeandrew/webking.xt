@@ -198,6 +198,25 @@ class Address {
 		}
 		return $res;
 	}
+	public function getCity($company, $data){
+		$warehouses = $this->getWarehouses($company, $data);
+		if(empty($warehouses)){
+			return false;
+		}
+		return $warehouses[0];
+	}
+	public function getWarehouses($company, $data){
+		$sql = "SELECT id, id_city, warehouse AS name FROM "._DB_PREFIX_."locations_warehouses
+			WHERE id_shipping_company = ".$company['id']."
+			AND id_city = (SELECT lc.id FROM "._DB_PREFIX_."locations_cities AS lc WHERE lc.title = '".$data['city']."' AND lc.id_region = (SELECT lr.id FROM "._DB_PREFIX_."locations_regions AS lr WHERE lr.title = '".$data['region']."'))";
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function NonAPI($company, $function, $data = false){
+		return $this->$function($company, $data);
+	}
 	public function UseAPI($company, $function, $data = false){
 		$function = $company['api_prefix'].$function;
 		return $this->$function($company, $data);

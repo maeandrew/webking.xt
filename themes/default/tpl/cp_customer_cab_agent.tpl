@@ -37,7 +37,7 @@
 					</div>
 					<div class="info_descr">
 						<p class="info_descr_title">Получено бонусов:</p>
-						<p class="info_descr_text"><?=number_format($total_bonus * 0.03, 2, ',', '')?> грн.</p>
+						<p class="info_descr_text"><?=number_format($total_bonus, 2, ',', '')?> грн.</p>
 					</div>
 					<div class="action_icon hidden">
 						<i id="bonuses_history" class="material-icons">history</i>

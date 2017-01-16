@@ -12,17 +12,40 @@ if(isset($_REQUEST['confirm_agent']) && !G::isAgent() && $Users->ConfirmAgent())
 	header('Location: '.Link::Custom('cabinet', 'agent', array('clear' => true)));
 }
 
+$Orders = new Orders();
 $orders = $Users->GetAgentInfo($_SESSION['member']['id_user']);
 $total_bonus = 0;
+$percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
 if(!empty($orders)){
-	foreach($orders as $order){
+	foreach($orders as &$order){
+		$list = $Orders->GetOrderForCustomer(array('o.id_order' => $order['id_order']));
+		$order['agent_total'] = 0;
+		foreach($list as &$p){
+			if($p['promo'] == 0){
+				if($p['opt_qty'] > 0 ){
+					$order['agent_total'] += (($p['contragent_qty']<=0?0:$p['contragent_qty'])-$p['return_qty'])*$p['site_price_opt'];
+				}else{
+					$order['agent_total'] += (($p['contragent_mqty']<=0?0:$p['contragent_mqty'])-$p['return_mqty'])*$p['site_price_mopt'];
+				}
+			}
+		}
+		if($order['agent_total'] < 1000){
+			$coeff = $percents[0]*0.01;
+		}elseif($order['agent_total'] < 5000){
+			$coeff = $percents[1]*0.01;
+		}elseif($order['agent_total'] < 10000){
+			$coeff = $percents[2]*0.01;
+		}else{
+			$coeff = $percents[3]*0.01;
+		}
+		$order['agent_counted'] = round($order['agent_total']*$coeff, 2);
 		if($order['id_order_status'] == 2){
 			if(!isset($history[date('d.m.Y', $order['creation_date'])]['orders_sum'])){
-				$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] = $order['sum_discount'];
+				$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] = $order['agent_counted'];
 			}else{
-				$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] += $order['sum_discount'];
+				$history[date('d.m.Y', $order['creation_date'])]['orders_sum'] += $order['agent_counted'];
 			}
-			$total_bonus += $order['sum_discount'];
+			$total_bonus += $order['agent_counted'];
 		}
 		$history[date('d.m.Y', $order['creation_date'])]['orders'][$order['creation_date']] = $order;
 	}

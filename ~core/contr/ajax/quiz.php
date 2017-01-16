@@ -10,13 +10,14 @@
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'step':
+				$id_user = isset($_POST['id_user'])?$_POST['id_user']:$Users->fields['id_user'];
 				$contragent = $Orders->GetContragentByLastOrder();
 				$tpl->Assign('contragent', $contragent);
-				$Customers->SetFieldsById($Users->fields['id_user']);
+				$Customers->SetFieldsById($id_user);
 				$customer = $Customers->fields;
 				// Необходимо определить, какой тим диалога нужно вывести
 				// Проверяем, есть ли у клиента сохраненный адрес доставки
-				if($saved_addresses = $Address->GetListByUserId($Users->fields['id_user'])){
+				if($saved_addresses = $Address->GetListByUserId($id_user)){
 					// Если клиент уже делал заказы
 					$tpl->Assign('saved_addresses', $saved_addresses);
 				}
@@ -73,20 +74,36 @@
 						// $tpl->Assign('availabledeliverydepartment', $availabledeliverydepartment);
 					}
 				}
-
+				if(isset($_POST['id_user'])){
+					$tpl->Assign('id_user', $_POST['id_user']);
+				}
+				if(isset($_POST['target_id_order'])){
+					$tpl->Assign('target_id_order', $_POST['target_id_order']);
+				}
 				$tpl->Assign('step', $_POST['step']);
 				$tpl->Assign('customer', $customer);
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'quiz.tpl');
 				break;
 			case 'complete_step':
 				$echo = array('success' => false);
+				if(isset($_POST['id_user'])){
+					$echo['id_user'] = $_POST['id_user'];
+				}
+				if(isset($_POST['target_id_order'])){
+					$echo['target_id_order'] = $_POST['target_id_order'];
+				}
 				switch($_POST['current_step']){
 					case 1:
 						if(isset($_POST['id_address'])){
 							$echo['success'] = true;
 							$echo['target_step'] = 4;
-							if(isset($_SESSION['member']['last_order'])){
-								$Orders->SetOrderAddress($_SESSION['member']['last_order'], $_POST['id_address']);
+							if(isset($_POST['target_id_order'])){
+								$id_order = $_POST['target_id_order'];
+							}elseif(isset($_SESSION['member']['last_order'])){
+								$id_order = $_SESSION['member']['last_order'];
+							}
+							if(isset($id_order)){
+								$Orders->SetOrderAddress($id_order, $_POST['id_address']);
 							}
 						}else{
 							if($Customers->UpdateCustomer($_POST)){
@@ -97,6 +114,9 @@
 					case 2:
 						$region = $Address->GetRegionByTitle($_POST['region']);
 						$city = $Address->GetCityByTitle($_POST['city'], $region['id']);
+						if(isset($_POST['id_user'])){
+							$data['id_user'] = $_POST['id_user'];
+						}
 						$data['id_region'] = $city['id_region'];
 						$data['id_city'] = $city['id'];
 						if($Customers->UpdateCustomer($data)){
@@ -116,8 +136,13 @@
 						if($id_address = $Address->AddAddress($data)){
 							$echo['success'] = true;
 						}
-						if(isset($_SESSION['member']['last_order'])){
-							$Orders->SetOrderAddress($_SESSION['member']['last_order'], $id_address);
+						if(isset($_POST['target_id_order'])){
+							$id_order = $_POST['target_id_order'];
+						}elseif(isset($_SESSION['member']['last_order'])){
+							$id_order = $_SESSION['member']['last_order'];
+						}
+						if(isset($id_order)){
+							$Orders->SetOrderAddress($id_order, $id_address);
 						}
 						break;
 					default:

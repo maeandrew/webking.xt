@@ -19,35 +19,7 @@ class Invoice{
 			o.strachovka,
 			o.sum_discount,
 			o.target_date,
-			osp.box_qty,
-			osp.contragent_mqty,
-			osp.contragent_msum,
-			osp.contragent_qty,
-			osp.contragent_sum,
-			osp.fact_mqty,
-			osp.fact_msum,
-			osp.fact_qty,
-			osp.fact_sum,
-			osp.id_product,
-			osp.id_supplier,
-			osp.id_supplier_mopt,
-			osp.mopt_qty,
-			osp.mopt_sum,
-			osp.note_mopt,
-			osp.note_opt,
-			osp.opt_qty,
-			osp.opt_sum,
-			osp.price_mopt_otpusk,
-			osp.price_opt_otpusk,
-			osp.return_mqty,
-			osp.return_msum,
-			osp.return_qty,
-			osp.return_sum,
-			osp.site_price_mopt,
-			osp.site_price_opt,
-			osp.supplier_quantity_mopt,
-			osp.supplier_quantity_opt,
-			osp.warehouse_quantity,
+			osp.*,
 			p.art,
 			p.checked,
 			p.img_1,
@@ -56,7 +28,8 @@ class Invoice{
 			p.name,
 			p.units,
 			p.weight, p.volume,
-			s.article
+			s.article,
+			u.unit_xt AS unit
 			FROM "._DB_PREFIX_."osp AS osp
 				LEFT JOIN "._DB_PREFIX_."order o
 					ON osp.id_order = o.id_order
@@ -66,6 +39,8 @@ class Invoice{
 					ON osp.id_product = p.id_product
 				LEFT JOIN "._DB_PREFIX_."image AS i
 					ON osp.id_product = i.id_product AND i.ord = 0 AND i.visible = 1
+				LEFT JOIN "._DB_PREFIX_."units AS u
+					ON u.id = p.id_unit
 			".$this->db->GetWhere($and)."
 			GROUP BY osp.id_order, osp.id_product, osp.id_supplier
 			ORDER BY p.name";

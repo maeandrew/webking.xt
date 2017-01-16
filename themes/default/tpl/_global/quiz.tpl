@@ -36,7 +36,7 @@
 		<span class="post_office_address"><?=$saved_city['address']?></span>
 	</div>
 </div>
-<div class="modal_container step_<?=$step?> active" data-step="<?=$step?>">
+<div class="modal_container step_<?=$step?> active" data-step="<?=$step?>" <?=isset($id_user)?'data-id_user="'.$id_user.'"':null;?> <?=isset($target_id_order)?'data-target_id_order="'.$target_id_order.'"':null;?>>
 	<?switch($step){
 		case 1:
 			if(isset($saved_addresses)){?>

@@ -652,6 +652,9 @@ section.center {
 .no-sidebar section.center {
 	width: 100%;
 }
+.no-sidebar .breadcrumbs_wrap {
+	padding: 0 10px;
+}
 .no-sidebar .page_content {
 	padding: 0;
 }

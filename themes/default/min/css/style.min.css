@@ -110,6 +110,7 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 .advantages{overflow:hidden;position:relative;height:auto;background-color:#fff;border-bottom:1px solid #e0e0e0}
 section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 .no-sidebar section.center{width:100%}
+.no-sidebar .breadcrumbs_wrap{padding:0 10px}
 .no-sidebar .page_content{padding:0}
 #auth{width:400px;height:auto;overflow-y:auto}
 #auth h4{font-size:1.875em}

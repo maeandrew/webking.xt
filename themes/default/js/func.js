@@ -32,8 +32,15 @@ function GetCartAjax(){
 }
 // Получение опроса
 function GetQuizAjax(params){
-	var step = params.step === undefined?1:params.step,
-		data = {step: step};
+		data = {
+			step: params.step === undefined?1:params.step
+		};
+		if(params.id_user !== undefined){
+			data.id_user = params.id_user;
+		}
+		if(params.target_id_order !== undefined){
+			data.target_id_order = params.target_id_order;
+		}
 	ajax('quiz', 'step', data, 'html').done(function(data){
 		$('#quiz').html(data);
 		componentHandler.upgradeDom();
@@ -391,7 +398,10 @@ function openObject(id, params){
 			GetCartAjax(params);
 			break;
 		case 'quiz':
-			GetQuizAjax({reload: false});
+			if(params === undefined){
+				params = {reload: false};
+			}
+			GetQuizAjax(params);
 			break;
 	}
 	if(params === undefined || params.reload !== true){

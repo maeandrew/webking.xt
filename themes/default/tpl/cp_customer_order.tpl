@@ -1,4 +1,4 @@
-<div class="customer_order">
+<div class="customer_order mdl-grid">
 	<?if (isset($errm) && isset($msg)){?><div class="msg-error"><p><?=$msg?></p></div>><?}?>
 	<?=isset($errm['products'])?"<div class=\"msg-error\"><p>".$errm['products']."</p></div>":null;?>
 	<?if(isset($_SESSION['errm'])){
@@ -9,185 +9,231 @@
 		}
 	}
 	unset($_SESSION['errm']);?>
-	<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
-		<script>p_ids = new Array();ii=0;</script>
-		<table border="0" cellpadding="0" cellspacing="0" class="returns_table table" width="100%">
-			<thead>
-				<tr>
-					<th class="image_cell">Фото</th>
-					<th class="name_cell">Название</th>
-					<th class="price_cell">Цена за ед., грн.</th>
-					<th class="count_cell">Заказано, <br>ед.</th>
-					<th class="price_cell">Сумма <br>заказано</th>
-					<th class="count_cell">Отгружено, <br>ед.</th>
-					<th class="price_cell">Сумма <br>отгружено</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?
-				$t['opt_sum'] = 0;
-				$t['contragent_qty'] = 0;
-				$t['contragent_sum'] = 0;
-				$t['fact_qty'] = 0;
-				$t['fact_sum'] = 0;
-				$t['mopt_sum'] = 0;
-				$t['contragent_mqty'] = 0;
-				$t['contragent_msum'] = 0;
-				$articles_arr = array();
-				foreach($data as $i){
-					if(($i['opt_qty'] != 0 && $show_pretense === false) || ($i['opt_qty'] != 0 && $show_pretense === true && $i['contragent_qty'] != $i['fact_qty'])){ // строка по опту
-						$articles_arr[] = $i['article'];?>
-						<tr>
-							<td class="image_cell">
-								<?if(!empty($i['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
-								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
-								<?}?>
-
-							</td>
-							<td class="name_cell">
-								<a href="<?=Link::Product($i['translit']);?>"><?=$i['name']?></a>
-								<div>Арт.<?=$i['art']?></div>
-							</td>
-							<td class="price_cell">
-								<p id="pprice_opt_<?=$i['id_product']?>"><?=number_format($i['site_price_opt'], 2, ",", "")?></p>
-							</td>
-							<td class="count_cell">
-								<p><?=$i['opt_qty']?> шт.</p>
-							</td>
-							<td class="price_cell">
-								<p><?=number_format($i['opt_sum'], 2, ",", "")?></p>
-							</td>
-							<?$t['opt_sum']+=round($i['opt_sum'],2);?>
-							<?$i['contragent_qty'] = ($i['contragent_qty']>=0)?$i['contragent_qty']:$i['opt_qty'];?>
-							<td class="count_cell">
-								<p><?=$i['contragent_qty']?></p>
-							</td>
-							<?$t['contragent_qty']+=$i['contragent_qty'];?>
-							<?$i['contragent_sum'] = ($i['contragent_sum']!=0 || $i['contragent_qty']>=0)?$i['contragent_sum']:round($i['site_price_opt']*$i['opt_qty'],2);?>
-							<td class="price_cell">
-								<p><?=$i['contragent_sum'] == 0?'-':$i['contragent_sum'];?></p>
-							</td>
-							<?$t['contragent_sum']+=$i['contragent_sum'];?>
-						</tr>
-					<?}
-					if(($i['mopt_qty'] != 0 && $show_pretense === false) || ($i['mopt_qty'] != 0 && $show_pretense === true && $i['contragent_mqty'] != $i['fact_mqty'])){ // строка по мелкому опту
-						$articles_arr[] = $i['article_mopt'];?>
-						<tr>
-							<td class="image_cell">
-								<?if(!empty($i['images'])){?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
-								<?}else{?>
-									<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
-									<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
-								<?}?>
-							</td>
-							<td class="name_cell">
-								<a href="<?=Link::Product($i['translit']);?>"><?=$i['name']?></a>
-								<div>Арт.<?=$i['art']?></div>
-							</td>
-							<td class="price_cell">
-								<p id="pprice_mopt_<?=$i['id_product']?>"><?=number_format($i['site_price_mopt'], 2, ',', '')?></p>
-							</td>
-							<td class="price_cell">
-								<p><?=$i['mopt_qty']?> шт.</p>
-							</td>
-							<td class="price_cell">
-								<p><?=number_format($i['mopt_sum'], 2, ',', '')?></p>
-							</td>
-							<?$t['mopt_sum'] += round($i['mopt_sum'], 2);?>
-							<?$i['contragent_mqty'] = ($i['contragent_mqty'] >= 0)?$i['contragent_mqty']:$i['mopt_qty'];?>
-							<td class="count_cell">
-								<p><?=$i['contragent_mqty']?></p>
-							</td>
-							<?$t['contragent_mqty'] += $i['contragent_mqty'];?>
-							<?$i['contragent_msum'] = ($i['contragent_msum'] != 0 || $i['contragent_mqty'] >= 0)?$i['contragent_msum']:round($i['site_price_mopt']*$i['mopt_qty'], 2);?>
-							<td class="price_cell">
-								<p><?=$i['contragent_msum'] == 0? '-':$i['contragent_msum'];?></p>
-							</td>
-							<?$t['contragent_msum'] += $i['contragent_msum'];?>
-						</tr>
+	<div class="mdl-cell mdl-cell--12-col">
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--6-col">
+				<div class="customer">
+					<div><b>Покупатель</b></div>
+					<div>Имя: <?=$customer['first_name']?> <?=$customer['middle_name']?> <?=$customer['last_name']?></div>
+					<div>тел.: <?=$customer['phone']?></div>
+					<div>email: <?=$customer['email']?></div>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--6-col">
+				<div class="address">
+					<div><b>Адрес</b></div>
+					<?if(isset($address)){?>
+						<div>Область: <?=$address['region_title']?></div>
+						<div>Город: <?=$address['city_title']?></div>
+						<div>Способ доставки: <?=$address['delivery_type_title']?></div>
+						<div>Служба доставки: <?=$address['shipping_company_title']?></div>
+						<?if($address['id_delivery'] == 1){?>
+							<div>Отделение: <?=$address['delivery_department']?></div>
+						<?}else{?>
+							<div>Адрес доставки: <?=$address['address']?></div>
+						<?}?>
+						<a href="#" class="add_new_address_js">Изменить</a>
+					<?}else{?>
+						<div>Не указан</div>
+						<div class="change_delivery">
+							<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+								<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
+									<option value=""></option>
+									<?foreach ($address_list as $item) {?>
+										<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
+									<?}?>
+								</select>
+								<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
+							</div>
+							<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
+						</div>
+						<a href="#" class="add_new_address_js">Добавить новый</a>
 					<?}?>
-					<script>p_ids[ii++] = <?=$i['id_product']?>;</script>
-				<?}?>
-				<tr class="itogo">
-					<td colspan="3" class="spacer"></td>
-					<td ><p>Итого:</p></td>
-					<td class="count_cell"><p><?=$i['sum_discount']?></p></td>
-					<td class="price_cell"><p><?=$t['contragent_qty']+$t['contragent_mqty']?></p></td>
-					<td class="price_cell"><p><?=$t['contragent_sum']+$t['contragent_msum'] == 0?'-':$t['contragent_sum']+$t['contragent_msum'];?></p></td>
-				</tr>
-				<?if($i['id_pretense_status'] == 0){
-					$articles_arr = array_unique($articles_arr);?>
-					<?if($data[0]['id_order_status'] == 2 && $data[0]['id_pretense_status'] == 0){
-						if($active_pretense_btn){?>
-							<tr id="pretense_row">
-								<td class="code_cell">
-									<select name="pretense_article[]">
-										<?foreach ($articles_arr as $art){?>
-											<option value="<?=$art?>"><?=$art?></option>
-										<?}?>
-									</select>
-								</td>
-								<td class="name_cell">
-									<div class="unit4">
-										<input type="text" value="" name="pretense_name[]" class="input_table"/>
-									</div>
-								</td>
-								<td class="price_cell">
-										<div class="unit2">
-										<input type="text" name="pretense_price[]" value="" class="input_table"/>
-									</div>
-								</td>
-								<td colspan="5" class="count_cell">
-									<a href="#" onClick="AddPretenseRow(this);return false;">Добавить позицию</a>
-								</td>
-								<td class="count_cell">
-									<div class="unit">
-										<input type="text" name="pretense_qty[]" value="" class="input_table"/>
-									</div>
-								</td>
-								<td class="price_cell"><p></p></td>
-							</tr>
-						<?}
-					}
-				}else{
-					if(!empty($pretarr)){
-						foreach($pretarr as $p){?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mdl-cell mdl-cell--12-col">
+		<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="orderForm">
+			<script>p_ids = new Array();ii=0;</script>
+			<table border="0" cellpadding="0" cellspacing="0" class="returns_table table" width="100%">
+				<thead>
+					<tr>
+						<th class="image_cell">Фото</th>
+						<th class="name_cell">Название</th>
+						<th class="price_cell">Цена за ед., грн.</th>
+						<th class="count_cell">Заказано, <br>ед.</th>
+						<th class="price_cell">Сумма <br>заказано</th>
+						<th class="count_cell">Отгружено, <br>ед.</th>
+						<th class="price_cell">Сумма <br>отгружено</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?
+					$t['opt_sum'] = 0;
+					$t['contragent_qty'] = 0;
+					$t['contragent_sum'] = 0;
+					$t['fact_qty'] = 0;
+					$t['fact_sum'] = 0;
+					$t['mopt_sum'] = 0;
+					$t['contragent_mqty'] = 0;
+					$t['contragent_msum'] = 0;
+					$articles_arr = array();
+					foreach($data as $i){
+						if(($i['opt_qty'] != 0 && $show_pretense === false) || ($i['opt_qty'] != 0 && $show_pretense === true && $i['contragent_qty'] != $i['fact_qty'])){ // строка по опту
+							$articles_arr[] = $i['article'];?>
 							<tr>
-								<td class="code_cell">
-									<div class="unit">
-										<input type="text" disabled="disabled" value="<?=$p['article']?>" class="input_table"/>
-									</div>
+								<td class="image_cell">
+									<?if(!empty($i['images'])){?>
+										<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
+										<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
+									<?}else{?>
+										<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+										<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
+									<?}?>
+
 								</td>
 								<td class="name_cell">
-									<div class="unit4">
-										<input type="text" disabled="disabled" value="<?=$p['name']?>" class="input_table"/>
-									</div>
+									<a href="<?=Link::Product($i['translit']);?>"><?=$i['name']?></a>
+									<div>Арт.<?=$i['art']?></div>
 								</td>
 								<td class="price_cell">
-									<div class="unit2">
-										<input type="text" disabled="disabled" value="<?=$p['price']?>" class="input_table"/>
-									</div>
+									<p id="pprice_opt_<?=$i['id_product']?>"><?=number_format($i['site_price_opt'], 2, ",", "")?></p>
 								</td>
-								<td colspan="5" class="count_cell">&nbsp;</td>
 								<td class="count_cell">
-									<div class="unit">
-										<input type="text" disabled="disabled" value="<?=$p['qty']?>" class="input_table"/>
-									</div>
+									<p><?=$i['opt_qty']?> шт.</p>
 								</td>
-								<td class="price_cell"><p></p></td>
+								<td class="price_cell">
+									<p><?=number_format($i['opt_sum'], 2, ",", "")?></p>
+								</td>
+								<?$t['opt_sum']+=round($i['opt_sum'],2);?>
+								<?$i['contragent_qty'] = ($i['contragent_qty']>=0)?$i['contragent_qty']:$i['opt_qty'];?>
+								<td class="count_cell">
+									<p><?=$i['contragent_qty']?></p>
+								</td>
+								<?$t['contragent_qty']+=$i['contragent_qty'];?>
+								<?$i['contragent_sum'] = ($i['contragent_sum']!=0 || $i['contragent_qty']>=0)?$i['contragent_sum']:round($i['site_price_opt']*$i['opt_qty'],2);?>
+								<td class="price_cell">
+									<p><?=$i['contragent_sum'] == 0?'-':$i['contragent_sum'];?></p>
+								</td>
+								<?$t['contragent_sum']+=$i['contragent_sum'];?>
 							</tr>
 						<?}
-					}
-				}?>
-			</tbody>
-		</table>
-	</form>
+						if(($i['mopt_qty'] != 0 && $show_pretense === false) || ($i['mopt_qty'] != 0 && $show_pretense === true && $i['contragent_mqty'] != $i['fact_mqty'])){ // строка по мелкому опту
+							$articles_arr[] = $i['article_mopt'];?>
+							<tr>
+								<td class="image_cell">
+									<?if(!empty($i['images'])){?>
+										<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/>
+										<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['images'][0]['src'], 'medium')?>"/></noscript>
+									<?}else{?>
+										<img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/>
+										<noscript><img alt="<?=htmlspecialchars(G::CropString($i['id_product']))?>" src="<?=G::GetImageUrl($i['img_1'], 'medium')?>"/></noscript>
+									<?}?>
+								</td>
+								<td class="name_cell">
+									<a href="<?=Link::Product($i['translit']);?>"><?=$i['name']?></a>
+									<div>Арт.<?=$i['art']?></div>
+								</td>
+								<td class="price_cell">
+									<p id="pprice_mopt_<?=$i['id_product']?>"><?=number_format($i['site_price_mopt'], 2, ',', '')?></p>
+								</td>
+								<td class="price_cell">
+									<p><?=$i['mopt_qty']?> шт.</p>
+								</td>
+								<td class="price_cell">
+									<p><?=number_format($i['mopt_sum'], 2, ',', '')?></p>
+								</td>
+								<?$t['mopt_sum'] += round($i['mopt_sum'], 2);?>
+								<?$i['contragent_mqty'] = ($i['contragent_mqty'] >= 0)?$i['contragent_mqty']:$i['mopt_qty'];?>
+								<td class="count_cell">
+									<p><?=$i['contragent_mqty']?></p>
+								</td>
+								<?$t['contragent_mqty'] += $i['contragent_mqty'];?>
+								<?$i['contragent_msum'] = ($i['contragent_msum'] != 0 || $i['contragent_mqty'] >= 0)?$i['contragent_msum']:round($i['site_price_mopt']*$i['mopt_qty'], 2);?>
+								<td class="price_cell">
+									<p><?=$i['contragent_msum'] == 0? '-':$i['contragent_msum'];?></p>
+								</td>
+								<?$t['contragent_msum'] += $i['contragent_msum'];?>
+							</tr>
+						<?}?>
+						<script>p_ids[ii++] = <?=$i['id_product']?>;</script>
+					<?}?>
+					<tr class="itogo">
+						<td colspan="3" class="spacer"></td>
+						<td ><p>Итого:</p></td>
+						<td class="count_cell"><p><?=$i['sum_discount']?></p></td>
+						<td class="price_cell"><p><?=$t['contragent_qty']+$t['contragent_mqty']?></p></td>
+						<td class="price_cell"><p><?=$t['contragent_sum']+$t['contragent_msum'] == 0?'-':$t['contragent_sum']+$t['contragent_msum'];?></p></td>
+					</tr>
+					<?if($i['id_pretense_status'] == 0){
+						$articles_arr = array_unique($articles_arr);?>
+						<?if($data[0]['id_order_status'] == 2 && $data[0]['id_pretense_status'] == 0){
+							if($active_pretense_btn){?>
+								<tr id="pretense_row">
+									<td class="code_cell">
+										<select name="pretense_article[]">
+											<?foreach ($articles_arr as $art){?>
+												<option value="<?=$art?>"><?=$art?></option>
+											<?}?>
+										</select>
+									</td>
+									<td class="name_cell">
+										<div class="unit4">
+											<input type="text" value="" name="pretense_name[]" class="input_table"/>
+										</div>
+									</td>
+									<td class="price_cell">
+											<div class="unit2">
+											<input type="text" name="pretense_price[]" value="" class="input_table"/>
+										</div>
+									</td>
+									<td colspan="5" class="count_cell">
+										<a href="#" onClick="AddPretenseRow(this);return false;">Добавить позицию</a>
+									</td>
+									<td class="count_cell">
+										<div class="unit">
+											<input type="text" name="pretense_qty[]" value="" class="input_table"/>
+										</div>
+									</td>
+									<td class="price_cell"><p></p></td>
+								</tr>
+							<?}
+						}
+					}else{
+						if(!empty($pretarr)){
+							foreach($pretarr as $p){?>
+								<tr>
+									<td class="code_cell">
+										<div class="unit">
+											<input type="text" disabled="disabled" value="<?=$p['article']?>" class="input_table"/>
+										</div>
+									</td>
+									<td class="name_cell">
+										<div class="unit4">
+											<input type="text" disabled="disabled" value="<?=$p['name']?>" class="input_table"/>
+										</div>
+									</td>
+									<td class="price_cell">
+										<div class="unit2">
+											<input type="text" disabled="disabled" value="<?=$p['price']?>" class="input_table"/>
+										</div>
+									</td>
+									<td colspan="5" class="count_cell">&nbsp;</td>
+									<td class="count_cell">
+										<div class="unit">
+											<input type="text" disabled="disabled" value="<?=$p['qty']?>" class="input_table"/>
+										</div>
+									</td>
+									<td class="price_cell"><p></p></td>
+								</tr>
+							<?}
+						}
+					}?>
+				</tbody>
+			</table>
+		</form>
+	</div>
 	<table class="pretense">
 		<tr id="row_tpl">
 			<td class="code_cell">
@@ -218,11 +264,6 @@
 		</table>
 		<?if($gid == _ACL_CONTRAGENT_){?>
 			<div class="customerOrderFooter">
-				<div class="customer">
-					<span>Покупатель</span>
-					<span>Имя: <?=$order['cont_person']?></span>
-					<span>тел.: <?=$order['phones']?></span>
-				</div>
 				<div class="price-order">
 					<p>Cформировать прайс-лист:</p>
 						<form action="/pricelist-order/<?=$order['id_order']?>/" method="get" target="_blank">
@@ -294,6 +335,20 @@
 					$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
 				});
 			});
+		});
+		$('.change_delivery_btn_js').on('click', function(){
+			var id_addres =	$(this).closest('.change_delivery').find('.change_delivery_js').find('[value="'+ $(this).closest('.change_delivery').find('.change_delivery_js').val() +'"]').data('id');
+			ajax('order', 'addAddress', {id_order: id_order, id_address: id_addres}, 'html').done(function(data){
+				location.reload();
+			});
+		});
+		$('.add_new_address_js').on('click', function(){
+			event.preventDefault();
+			var params = {
+				target_id_order: id_order,
+				id_user: <?=$customer['id_user'];?>,
+			}
+			openObject('quiz', params);
 		});
 	});
 	function AddPretenseRow(obj){
