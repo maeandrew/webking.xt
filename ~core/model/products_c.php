@@ -176,6 +176,17 @@ class Products {
 		$this->fields = $arr;
 		return true;
 	}
+	public function GetSupComments($id_supplier){
+		$sql = "SELECT sup_comment FROM "._DB_PREFIX_."assortiment
+			WHERE id_supplier = ".$id_supplier;
+		if(!$result = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach ($result as $key => &$value) {
+			$value = $value['sup_comment'];
+		}
+		return $result;
+	}
 	/**
 	 * Товар по rewrite
 	 * @param string  $rewrite		rewrite товара
@@ -4377,9 +4388,9 @@ class Products {
 	 * Получить последний артикул в БД
 	 */
 	public function GetLastArticle(){
-		$sql = "SELECT art
+		$sql = "SELECT id_product, art
 			FROM "._DB_PREFIX_."product
-			WHERE (SELECT MAX(id_product) FROM "._DB_PREFIX_."product) = id_product";
+			WHERE id_product = (SELECT MAX(id_product) FROM "._DB_PREFIX_."product)";
 		$res = $this->db->GetOneRowArray($sql);
 		if(!$res){
 			return false;

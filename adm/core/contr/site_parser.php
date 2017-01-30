@@ -99,7 +99,7 @@ if(isset($_POST['parse'])){
 			// ini_set('memory_limit', '728M');
 			ini_set('max_execution_time', 3000);
 			$k = $l = $i = 0;
-			foreach($array as $key => $row){
+			foreach($array as $key => &$row){
 				$res = array_combine($headings, $row);
 				$product = array();
 				$skipped = false;
@@ -146,7 +146,8 @@ if(isset($_POST['parse'])){
 							}
 							break;
 						case 13:
-							if($Products->SetFieldsBySupComment(trim($row[0]), $id_supplier)){
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
 								// print_r('<pre>Supplier comment issue</pre>');
 								$skipped = true;
 								continue;
@@ -157,7 +158,8 @@ if(isset($_POST['parse'])){
 							}
 							break;
 						case 15:
-							if($Products->SetFieldsBySupComment(trim($row[0]), $id_supplier)){
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
 								// print_r('<pre>Supplier comment issue</pre>');
 								$skipped = true;
 								continue;
