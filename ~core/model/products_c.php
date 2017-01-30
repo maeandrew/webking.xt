@@ -139,6 +139,44 @@ class Products {
 	}
 
 	/**
+	 * Проверка доступности артикула
+	 * @param integer	$art		Артикул нового товара
+	 * @param array		$art_arr	Массив с имеющимися артикулами
+	 */
+	public function SetFieldsBySupComment($sup_comment, $id_supplier){
+		$sql = 'SELECT p.*,
+				un.unit_xt AS units,
+				(CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) AS active,
+				pv.count_views,	un.unit_prom,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1) AS c_count,
+				(SELECT AVG(c.rating) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_rating,
+				(SELECT COUNT(c.Id_coment) FROM '._DB_PREFIX_.'coment AS c WHERE c.url_coment = p.id_product AND c.visible = 1 AND c.rating IS NOT NULL AND c.rating > 0) AS c_mark,
+				(SELECT MIN(a.price_opt_otpusk) FROM '._DB_PREFIX_.'assortiment AS a WHERE a.id_product = p.id_product AND a.active = 1) AS price_opt_otpusk,
+				(SELECT MIN(a.price_mopt_otpusk) FROM '._DB_PREFIX_.'assortiment AS a WHERE a.id_product = p.id_product AND a.active = 1) AS price_mopt_otpusk
+			FROM '._DB_PREFIX_.'product AS p
+				LEFT JOIN '._DB_PREFIX_.'units AS un ON un.id = p.id_unit
+				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
+			WHERE p.id_product IN (SELECT a.id_product FROM '._DB_PREFIX_.'assortiment AS a WHERE a.sup_comment = '.$this->db->Quote($sup_comment).' AND a.id_supplier = '.$id_supplier.')
+			LIMIT 1';
+		$arr = $this->db->GetOneRowArray($sql);
+		if(!$arr){
+			return false;
+		}
+		$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
+		$coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['mopt_correction_set']]);
+		$base_coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+		$base_coef_price_mopt = explode(';', $GLOBALS['CONFIG']['correction_set_0']);
+		for($i=0; $i<=3; $i++){
+			$arr['prices_opt'][$i] = round($arr['price_opt']*$coef_price_opt[$i], 2);
+			$arr['prices_mopt'][$i] = round($arr['price_mopt']*$coef_price_mopt[$i], 2);
+			$arr['base_prices_opt'][$i] = round($arr['price_opt']*$base_coef_price_opt[$i], 2);
+			$arr['base_prices_mopt'][$i] = round($arr['price_mopt']*$base_coef_price_mopt[$i], 2);
+		}
+		$arr['categories_ids'] = $this->GetCatsOfProduct($arr['id_product']);
+		$this->fields = $arr;
+		return true;
+	}
+	/**
 	 * Товар по rewrite
 	 * @param string  $rewrite		rewrite товара
 	 * @param integer $visibility	учитывать видимость товара 1 - нет, 0 - да
@@ -2096,9 +2134,6 @@ class Products {
 		if(isset($arr['coefficient_volume'])){
 			$f['coefficient_volume'] = $arr['coefficient_volume'];
 		}
-		if(isset($arr['id_unit'])){
-			$f['id_unit'] = trim($arr['id_unit']);
-		}
 		if(isset($arr['notation_price'])){
 			$f['notation_price'] = trim($arr['notation_price']);
 		}
@@ -2113,6 +2148,7 @@ class Products {
 			}
 		}
 		$f['prod_status'] = 3;
+		$f['id_unit'] = isset($arr['id_unit'])?$arr['id_unit']:1;
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
@@ -4142,6 +4178,7 @@ class Products {
 	 * @param array		$art_arr	Массив с имеющимися артикулами
 	 */
 	public function CheckArticle($art, $art_arr = null){
+		ini_set('memory_limit', '256M');
 		if($art_arr == null){
 			$sql = "SELECT art
 				FROM "._DB_PREFIX_."product
@@ -4154,6 +4191,7 @@ class Products {
 		if(in_array($art, $art_arr)){
 			$art = $this->CheckArticle($art+1, $art_arr);
 		}
+		ini_set('memory_limit', '192M');
 		return $art;
 	}
 	/**
@@ -4819,9 +4857,6 @@ class Products {
 		$sql = "SELECT id_product, art FROM "._DB_PREFIX_."product
 			WHERE id_product NOT IN (SELECT i.id_product FROM "._DB_PREFIX_."image AS i)
 			ORDER BY RAND()";
-			// LIMIT ".$limit;
-			// ORDER BY RAND()";
-			// WHERE id_product > 154362
 		if(!$result = $this->db->GetArray($sql)){
 			return false;
 		}
