@@ -230,6 +230,9 @@ class Parser {
 			$id_unit = $Unit->Add(array('unit_xt' => $data[3], 'unit_prom' => $data[3]));
 		}
 		$product['id_unit'] = $id_unit;
+		// Получаем
+		$product['inbox_qty'] = $data[4];
+		$product['min_mopt_qty'] = $data[5];
 		// Получаем изображение товара
 		$filename = $GLOBALS['PATH_product_img'].'custom_upload'.DIRECTORY_SEPARATOR.$data[0].'.jpg';
 		if(!@getimagesize($filename)){

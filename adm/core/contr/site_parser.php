@@ -103,7 +103,7 @@ if(isset($_POST['parse'])){
 				$res = array_combine($headings, $row);
 				$product = array();
 				$skipped = false;
-				if($key < 16){
+				// if($key < 20){
 					switch ($_POST['site']){
 						case 5:
 							if(!$product = $Parser->zona($row)){
@@ -250,7 +250,7 @@ if(isset($_POST['parse'])){
 						// print_r('<pre>Product add issue</pre>');
 						$l++;
 					}
-				}
+				// }
 			}
 			print_r('<pre>товарів додано: '.$k.'</pre>');
 			print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
