@@ -37,7 +37,7 @@ class Suppliers extends Users {
 	 * @param boolean $order_by [description]
 	 */
 	public function SuppliersList($param = 0, $arr = false, $limit = "", $order_by = false){
-		$order_by = ' ORDER BY'.($order_by === false?' u.gid, u.name, u.id_user DESC':$order_by);
+		$order_by = ' ORDER BY '.($order_by === false?'u.gid, u.name, u.id_user DESC':$order_by);
 		if($limit != ''){
 			$limit = " limit $limit";
 		}

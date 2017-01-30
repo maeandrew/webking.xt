@@ -3604,9 +3604,6 @@ div.modalEditOrder .applyBtn {
 	flex-wrap: wrap;
 	margin: 0 -10px;
 }
-.mobile_carousel {
-	margin: 0px;
-}
 .subCategories .subCategory,
 .mobile_carousel .subCategory{
 	position: relative;
@@ -3674,7 +3671,6 @@ div.modalEditOrder .applyBtn {
 .mobile_carousel .subCategory{
 	width: calc(50% - 20px);
 	height: 180px;
-	padding-bottom: 4em;
 }
 .mobile_carousel .subCategory .subCategoryTitle{
 	height: 4.5em;
@@ -3726,14 +3722,17 @@ div.modalEditOrder .applyBtn {
 .owl-dot.active span {
 	border: 7px solid #888;
 }
-.subCategory span {
+.subCategory .subCategoryImageWrap {
 	width: 100%;
+	height: 150px;
 	display: block;
 	text-align: center;
 }
+.mobile_carousel .subCategory {
+	padding: 0;
+}
 #owl-subcategories_slide_js .subCategory img {
-	height: 150px;
-	width: 150px;
+	object-fit: cover;
 }
 /* Cookie message */
 .cookie_wrap {

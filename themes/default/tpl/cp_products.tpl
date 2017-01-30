@@ -6,7 +6,7 @@
 			<?php foreach ($category['subcats'] as $value) {?>
 				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
 					<span class="subCategoryImageWrap">
-						<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+						<img src="<?=_base_url?><?=!empty($value['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
 					</span>
 					<span class="subCategoryTitleWrap">
 						<span class="subCategoryTitle"><?=$value['name']?></span>

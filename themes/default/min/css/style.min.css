@@ -680,7 +680,6 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .switch_comment textarea{width:100%}
 }
 .mobile_carousel,.subCategories{display:flex;flex-wrap:wrap;margin:0 -10px}
-.mobile_carousel{margin:0}
 .mobile_carousel .subCategory,.subCategories .subCategory{position:relative;width:calc(20% - 20px);margin:0 10px 20px;height:270px;overflow:hidden;border:1px solid #d9d9d9;border-radius:.2em;background-color:#fff;display:table}
 .mobile_carousel .separator,.subCategories .separator{color:#999;margin:0 .5em}
 .mobile_carousel .subCategory:hover,.subCategories .subCategory:hover{cursor:pointer;border-color:#aaa}
@@ -690,7 +689,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .subCategories .subCategory:hover img{max-height:110%;max-width:110%}
 .subCategory .subCategoryTitleWrap{bottom:0;left:0;right:0;position:relative;display:table-row;text-align:center;background-color:#fff;font-size:1.3em}
 .subCategory .subCategoryTitle{display:table-cell;position:relative;height:3em;vertical-align:middle;padding:0 .5em}
-.mobile_carousel .subCategory{width:calc(50% - 20px);height:180px;padding-bottom:4em}
+.mobile_carousel .subCategory{width:calc(50% - 20px);height:180px}
 .mobile_carousel .subCategory .subCategoryTitle{height:4.5em;font-size:.9em}
 @media (max-width:1440px){.subCategories .subCategory{width:calc(25% - 20px)}
 }
@@ -706,8 +705,9 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .owl-dot{width:20px}
 .owl-dot span{display:block;width:0;height:0;background:#888;border-radius:50%;margin:0 auto;transition:all .4s ease-in-out;border:3px solid #888}
 .owl-dot.active span{border:7px solid #888}
-.subCategory span{width:100%;display:block;text-align:center}
-#owl-subcategories_slide_js .subCategory img{height:150px;width:150px}
+.subCategory .subCategoryImageWrap{width:100%;height:150px;display:block;text-align:center}
+.mobile_carousel .subCategory{padding:0}
+#owl-subcategories_slide_js .subCategory img{object-fit:cover}
 .cookie_wrap{position:relative;color:#fff}
 .cookie_msg{position:fixed;top:100%;width:100%;background-color:rgba(52,52,52,.85);transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);z-index:100000000}
 .cookie_msg p{text-align:justify;font-size:.9em;line-height:1.4em;max-width:calc(100% - 12em);padding:0 2em 2em}
