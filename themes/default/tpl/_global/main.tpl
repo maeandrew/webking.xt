@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 	<meta charset="utf-8">
+	<meta name="google-site-verification" content="3TtJwZYHqpBeSk9JqH1-4dl7gu8ZQSJeIVWRHl80Pxw" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title><?=$__page_title?$__page_title:null;?></title>
 	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
