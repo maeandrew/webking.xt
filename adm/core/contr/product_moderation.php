@@ -18,6 +18,7 @@ foreach($prods as $prod){
 		$list[$prod['id_supplier']][] = $prod;
 	}
 }
+unset($prods);
 // Формирование списка категорий для выпадающего списка
 $category = $Products->generateCategory();
 $tpl->Assign('category', $category);

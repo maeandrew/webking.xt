@@ -1,5 +1,4 @@
 <h1><?=$h1?></h1>
-<br>
 <div id="product_list">
 	<ul class="header">
 		<li class="name">Название товара</li>
@@ -49,7 +48,7 @@
 													<img class="lazy" src="/images/nofoto.png" data-original="<?=$image?>" alt="">
 													<noscript><img src="<?=$image?>" alt=""></noscript>
 												</a>
-												<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$image)){
+												<?if(@file_exists($_SERVER['DOCUMENT_ROOT'].$image)){
 													$size = getimagesize($_SERVER['DOCUMENT_ROOT'].$image);
 													echo $size[0].'x'.$size[1];
 												}
@@ -64,7 +63,7 @@
 													<img class="lazy" src="/images/nofoto.png" data-original="<?=$p['img_'.$i]?>" alt="">
 													<noscript><img src="<?=$p['img_'.$i]?>" alt=""></noscript>
 												</a>
-												<?if(file_exists($_SERVER['DOCUMENT_ROOT'].$p['img_'.$i])){
+												<?if(@file_exists($_SERVER['DOCUMENT_ROOT'].$p['img_'.$i])){
 													$size = getimagesize($_SERVER['DOCUMENT_ROOT'].$p['img_'.$i]);
 													echo $size[0].'x'.$size[1];
 												}?>
