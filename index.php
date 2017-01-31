@@ -143,6 +143,7 @@ $tpl->Assign('__nav', $GLOBALS['__nav']);
 $tpl->Assign('__header', $GLOBALS['__header']);
 $tpl->Assign('__breadcrumbs', $GLOBALS['__breadcrumbs']);
 $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
+
 if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }
@@ -157,5 +158,11 @@ echo $tpl->Parse($GLOBALS['PATH_tpl_global'].$GLOBALS['MainTemplate']);
 $e_time = G::getmicrotime();
 echo "<!--".date("d.m.Y H:i:s", time())." ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time-$s_time)." -->";
 unset($s_time, $e_time);
+
+// test string
+
+// вапвпа
+
 // echo memory_get_peak_usage()/pow(1000, 2);
+
 session_write_close();
