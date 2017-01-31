@@ -227,7 +227,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
 					if($unique_phone === true){
 						$string_phone = preg_replace('~[^0-9]+~','', $_POST['phone']);
-						if( strlen($string_phone) == 10){
+						if(strlen($string_phone) == 10){
 							$phone_num = 38 + $string_phone;
 						}elseif(strlen($string_phone) == 12) {
 							$phone_num = $string_phone;
@@ -253,7 +253,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['message'] = 'Пользователь авторизован';
 							$res['status'] = 1;
 						}
-					} else {
+					}else{
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! <a href="#" class="btn_js" data-name="auth">Авторизуйтесь!</a>';
 						$res['status'] = 2;
 					}
