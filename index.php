@@ -143,6 +143,7 @@ $tpl->Assign('__nav', $GLOBALS['__nav']);
 $tpl->Assign('__header', $GLOBALS['__header']);
 $tpl->Assign('__breadcrumbs', $GLOBALS['__breadcrumbs']);
 $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
+
 if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }
