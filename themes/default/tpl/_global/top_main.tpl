@@ -72,7 +72,7 @@
 				</button>
 			<?}else{?>
 				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon cabinet_btn hidden">
-					<i class="material-icons">account_circle</i>
+                    <img src="/images/noavatar.png"/>
 				</button>
 				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored login_btn">Войти</a>
 			<?}?>
