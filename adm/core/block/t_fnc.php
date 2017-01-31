@@ -230,6 +230,20 @@ function Supplier_form_validate($nocheck=array()){
 	return array($err, $errm);
 }
 
+function Parser_site_form_validate($nocheck=array()){
+	$errm = array();
+	$err=0;
+
+	$varname = 'title';
+	if (isset($_POST[$varname]) && $_POST[$varname]){
+		$_POST[$varname] = trim($_POST[$varname]);
+		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_glob'=>1);
+		$_POST[$varname] = str_ireplace(",", ".", $_POST[$varname]);
+		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
+	}
+	return array($err, $errm);
+}
 function Cat_form_validate(){
 	$errm = array();
 	$err=0;

@@ -65,9 +65,16 @@ if($User->fields['gid'] == _ACL_CUSTOMER_ OR $User->fields['gid'] == _ACL_DILER_
 			$tpl->Assign('msg', 'Информация не обновлена.');
 		}
 	}
+	$Address = new Address();
+	if($Order->fields['id_address'] !== null){
+		$tpl->Assign('address', $Address->GetAddressById($Order->fields['id_address']));
+	}else{
+		$tpl->Assign('address_list', $Address->GetListByUserId($Order->fields['id_customer']));
+	}
 	$Customer = new Customers();
-	$Customer->SetFieldsById($User->fields['id_user']);
-	$tpl->Assign('Customer', $Customer->fields);
+	$Customer->SetFieldsById($Order->fields['id_customer'], 0, true);
+	$tpl->Assign('customer', $Customer->fields);
+
 	if($User->fields['gid'] == _ACL_CONTRAGENT_){
 		$arr = $Order->GetOrderForCustomer(array("o.id_order" => $id_order));
 	}else{

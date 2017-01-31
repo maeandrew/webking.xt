@@ -18,7 +18,7 @@ G::ToGlobals(array(
 	'PATH_core'			=> $root.'core/',
 	'PATH_sys'			=> _root.'~core/sys/',
 	'PATH_model'		=> _root.'~core/model/',
-	'PATH_product_img'	=> _root.'product_images/',
+'PATH_product_img'	=> _root.'product_images/',
 	'PATH_block'		=> $root.'core/block/',
 	'PATH_contr'		=> $root.'core/contr/',
 	'PATH_tpl'			=> $root.'core/tpl/',
@@ -31,7 +31,7 @@ unset($config);
 $GLOBALS['DefaultController'] = 'main';
 //$GLOBALS['__graph'] = $tpl_graph;
 $GLOBALS['MainTemplate'] = 'main.tpl';
-$GLOBALS['NoSidebarTemplControllers'] = array('404', 'msg', 'srv');
+$GLOBALS['NoSidebarTemplControllers'] = array('msg', 'srv');
 // Массив ссылок иерархии (используются также в хлебных крошках)
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][] = array(
@@ -119,7 +119,8 @@ G::ToGlobals(array(
 			'users',
 			'customers',
 			'contragents',
-			'suppliers'
+			'suppliers',
+			'parser'
 		),
 		// groups
 		'groups' => array(
@@ -158,7 +159,8 @@ G::ToGlobals(array(
 					'monitoring',
 					'guestbook',
 					'graphics',
-					'suppliers'
+					'suppliers',
+					'parser'
 				)
 			),
 			3 => array(

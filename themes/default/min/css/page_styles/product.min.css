@@ -1,4 +1,3 @@
-.product_page .breadcrumbs_wrap{padding:0 10px}
 .product_page .product_label{position:absolute;top:-35px;right:10px;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 .product_page .agent_banner{margin-right:10px}
 .product_page .product{position:relative}
@@ -95,6 +94,7 @@
 .product_page .product .products_details .note textarea{width:100%;height:70px;max-height:90px;margin:0;margin-bottom:10px}
 .product_page .product.notactive .products_details .product_buy .buy_block .btn_buy button{background:#858585}
 .product_page .product.notactive .products_details .qty_buy::after{content:'';display:block;width:100%;height:80px;position:absolute;background:0 0;z-index:10000}
+.product_page .product .limit_per_order{margin-bottom:10px;text-align:center;color:#ff5722}
 .product_page .product .apps_panel{clear:both;position:relative}
 .product_page .product .apps_panel .mdl-menu{padding:10px}
 .product_page .product .apps_panel ul{display:flex;justify-content:space-between}

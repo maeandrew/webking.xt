@@ -1,0 +1,2398 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"utf8",
+				"utf8_general_ci"
+			],
+			[
+				"foreach",
+				"foreach\t<?php foreach (…) … <?php endforeach ?>"
+			],
+			[
+				"if",
+				"if\t<?php if (…) ?> … <?php endif ?>"
+			],
+			[
+				"GetCit",
+				"getCity"
+			],
+			[
+				"tra",
+				"transform"
+			],
+			[
+				"gif",
+				"gift"
+			],
+			[
+				"php",
+				"php\t<?…?>"
+			],
+			[
+				"_AC_",
+				"_ACL_SEO_"
+			],
+			[
+				"S",
+				"StartTrans"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"border-c",
+				"border-collapse"
+			],
+			[
+				"min-",
+				"min-width"
+			],
+			[
+				"sb-menu",
+				"sb-menu__item"
+			],
+			[
+				"memory_get_",
+				"memory_get_peak_usage"
+			],
+			[
+				"spec",
+				"Specification"
+			],
+			[
+				"fwb",
+				"fw-b\tfont-weight: bold;"
+			],
+			[
+				"l",
+				"left"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"Update",
+				"Update"
+			],
+			[
+				"AddToA",
+				"AddToAssortWithAdm"
+			],
+			[
+				"li",
+				"list\tAttr"
+			],
+			[
+				"arr",
+				"array"
+			],
+			[
+				"view",
+				"viewPort"
+			],
+			[
+				"attr",
+				"attr\t.attr() - single"
+			],
+			[
+				"con",
+				"controllers"
+			],
+			[
+				"contr",
+				"cont_arr"
+			],
+			[
+				"preg_match",
+				"preg_match_all"
+			],
+			[
+				"ar",
+				"arr"
+			],
+			[
+				"html",
+				"htmlspecialchars"
+			],
+			[
+				"str_re",
+				"str_replace"
+			],
+			[
+				"page",
+				"page_description"
+			],
+			[
+				"t",
+				"text-bottom"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"pr",
+				"Profiles"
+			],
+			[
+				"SetFie",
+				"SetFieldsBySlider\t(index.php)"
+			],
+			[
+				"ifelse",
+				"ifelse\tif … else …"
+			],
+			[
+				"COOKIE",
+				"_COOKIE"
+			],
+			[
+				"bc",
+				"border-color"
+			],
+			[
+				"list-",
+				"list-dc\tlist-style-type: decimal;"
+			],
+			[
+				"encode",
+				"json_encode"
+			],
+			[
+				"open",
+				"openObject"
+			],
+			[
+				"jc",
+				"jc-sb\tjustify-content: space-between;"
+			],
+			[
+				"mw",
+				"max-width"
+			],
+			[
+				"bn",
+				"bd-n\tborder: none;"
+			],
+			[
+				"curl_",
+				"curl_exec"
+			],
+			[
+				"G",
+				"GLOBALS"
+			],
+			[
+				"active",
+				"active_page"
+			],
+			[
+				"specs",
+				"specs_cats"
+			],
+			[
+				"id_cat",
+				"id_category"
+			],
+			[
+				"scroll",
+				"scrollTop\t.scrollTop()"
+			],
+			[
+				"a",
+				"auto"
+			],
+			[
+				"v",
+				"value\tAttr"
+			],
+			[
+				"this",
+				"this\t$(this)"
+			],
+			[
+				"Curre",
+				"CURRENT_ID_CATEGORY"
+			],
+			[
+				"_b",
+				"_base_url"
+			],
+			[
+				"number",
+				"number_format"
+			],
+			[
+				"id_",
+				"id_product"
+			],
+			[
+				"id_prod",
+				"id_prod"
+			],
+			[
+				"memory_get",
+				"memory_get_peak_usage"
+			],
+			[
+				"ajax",
+				"ajaxsend\t$.ajaxSend()"
+			],
+			[
+				"class_",
+				"class_exists"
+			],
+			[
+				"class",
+				"classname"
+			],
+			[
+				"mh",
+				"max-height"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"id_ca",
+				"id_category"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "~core/model/orders_c.php",
+			"settings":
+			{
+				"buffer_size": 72810,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Олександр/Documents/dumps/Dump20170112.sql",
+			"settings":
+			{
+				"buffer_size": 2619916,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Олександр/AppData/Local/Temp/fz3temp-2/wp-config.php",
+			"settings":
+			{
+				"buffer_size": 3368,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/contr/invoice_dealer.php",
+			"settings":
+			{
+				"buffer_size": 2545,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "invoice_dealer.php"
+			}
+		},
+		{
+			"file": "themes/default/tpl/invoice_dealer.tpl",
+			"settings":
+			{
+				"buffer_size": 7522,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/contr/ajax/quiz.php",
+			"settings":
+			{
+				"buffer_size": 6053,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/tpl/_global/quiz.tpl",
+			"settings":
+			{
+				"buffer_size": 11207,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/model/customers_c.php",
+			"settings":
+			{
+				"buffer_size": 28640,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/js/main.js",
+			"settings":
+			{
+				"buffer_size": 90445,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/js/func.js",
+			"settings":
+			{
+				"buffer_size": 42780,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/contr/ajax/location.php",
+			"settings":
+			{
+				"buffer_size": 7749,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/model/products_c.php",
+			"settings":
+			{
+				"buffer_size": 177400,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/model/locations_c.php",
+			"settings":
+			{
+				"buffer_size": 23186,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/contr/customer_order.php",
+			"settings":
+			{
+				"buffer_size": 4278,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/tpl/cp_customer_order.tpl",
+			"settings":
+			{
+				"buffer_size": 16511,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/sys/link_c.php",
+			"settings":
+			{
+				"buffer_size": 3899,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/block/cp_cab_customer.php",
+			"settings":
+			{
+				"buffer_size": 4353,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/contr/cabinet.php",
+			"settings":
+			{
+				"buffer_size": 3660,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/tpl/cp_customer_cab_orders.tpl",
+			"settings":
+			{
+				"buffer_size": 22959,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/css/page_styles/product.css",
+			"settings":
+			{
+				"buffer_size": 34683,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/css/style.css",
+			"settings":
+			{
+				"buffer_size": 101241,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "~core/model/invoice_c.php",
+			"settings":
+			{
+				"buffer_size": 6334,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/css/page_styles/customer_order.css",
+			"settings":
+			{
+				"buffer_size": 2197,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/css/page_styles/invoice_dealer.css",
+			"settings":
+			{
+				"buffer_size": 1860,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "invoice_dealer"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 227.0,
+		"last_filter": "grunt",
+		"selected_items":
+		[
+			[
+				"grunt",
+				"Grunt"
+			],
+			[
+				"set",
+				"Set Syntax: HTML"
+			],
+			[
+				"GRUNT",
+				"Grunt"
+			],
+			[
+				"Snippet: ajax",
+				"Snippet: $.ajax()"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Grunt"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"material",
+				"Material Theme: Configuration"
+			],
+			[
+				"materia",
+				"Material Theme: Configuration"
+			],
+			[
+				"SQL",
+				"Set Syntax: SQL"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"disa",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"disable",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"brows",
+				"Preferences: Browse Packages"
+			],
+			[
+				"theme",
+				"Colorsublime: Browse Themes"
+			],
+			[
+				"lint",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"enable",
+				"SublimeLinter: Enable Linting"
+			],
+			[
+				"all",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"find",
+				"PHPCompanion:Find Use"
+			],
+			[
+				"resource",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"res",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"resour",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"reco",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"JSON",
+				"Set Syntax: JSON"
+			],
+			[
+				"livereload",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"livere",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"p",
+				"Project: Close"
+			],
+			[
+				"liverel",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sftp",
+				"SFTP: Browse Server…"
+			],
+			[
+				"compare",
+				"Compare with..."
+			]
+		],
+		"width": 406.0
+	},
+	"console":
+	{
+		"height": 529.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/www/projects/webking.xt",
+		"/D/www/projects/webking.xt/themes",
+		"/D/www/projects/webking.xt/themes/default",
+		"/D/www/projects/webking.xt/themes/default/fonts",
+		"/D/www/projects/webking.xt/themes/default/fonts/anonymous"
+	],
+	"file_history":
+	[
+		"/C/Users/Олександр/AppData/Local/Temp/fz3temp-2/wp-config 2.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_orders_customer.php",
+		"/D/www/projects/webking.xt/~core/model/customers_c.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_customer_cab_orders.tpl",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/products.css",
+		"/D/www/projects/webking.xt/themes/default/css/style.css",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_product.tpl",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_agent_customer.php",
+		"/D/www/projects/webking.xt/index.php",
+		"/D/www/projects/webking.xt/~core/model/invoice_c.php",
+		"/D/www/projects/webking.xt/~core/contr/composed_invoice.php",
+		"/D/www/projects/webking.xt/~core/contr/price.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/main.tpl",
+		"/D/www/projects/webking.xt/~core/contr/products.php",
+		"/D/www/projects/webking.xt/~core/controller.php",
+		"/D/www/projects/webking.xt/~core/cfg.php",
+		"/D/www/projects/webking.xt/~core/contr/product.php",
+		"/D/www/projects/webking.xt/adm/core/contr/adminedit.php",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_admin_ae.tpl",
+		"/D/www/projects/webking.xt/~core/model/orders_c.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_customer_cab_orders_prod_list.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/cab_agent_history.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_customer_cab_agent.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_promo_certificate.tpl",
+		"/D/www/projects/webking.xt/~core/contr/cabinet.php",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/price_list.css",
+		"/D/www/projects/webking.xt/~core/model/products_c.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/price_list.tpl",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_product_ae.tpl",
+		"/D/www/projects/webking.xt/adm/core/contr/productedit.php",
+		"/D/www/projects/webking.xt/~core/contr/pricelist.php",
+		"/D/www/projects/webking.xt/~core/sys/dbtree_c.php",
+		"/D/www/projects/webking.xt/~core/contr/ajax/pricelists.php",
+		"/D/www/projects/webking.xt/~core/model/users_c.php",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_user_ae.tpl",
+		"/D/www/projects/webking.xt/adm/core/contr/usersedit.php",
+		"/D/www/projects/webking.xt/~core/contr/ajax/cabinet.php",
+		"/D/www/projects/webking.xt/adm/core/tpl/_global/main.tpl",
+		"/D/www/projects/webking.xt/xt.sublime-project",
+		"/D/www/projects/webking.xt/adm/core/contr/configs.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/products_list.tpl",
+		"/D/www/projects/webking.xt/~core/contr/ajax/cart.php",
+		"/D/www/projects/webking.xt/~core/model/cart_c.php",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/product.css",
+		"/D/www/projects/webking.xt/~core/contr/ajax/product.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/bonus_explain.tpl",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/promo_certificate.css",
+		"/D/www/projects/webking.xt/~core/contr/promo_certificate.php",
+		"/D/www/projects/webking.xt/themes/default/js/main.js",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_products.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/product_list.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_assortiment.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_contragent_cab.tpl",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/cabinet.css",
+		"/D/www/projects/webking.xt/~core/model/promo_c.php",
+		"/D/www/projects/webking.xt/~core/sys/db_c.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/top_main.tpl",
+		"/D/www/projects/webking.xt/~core/contr/ajax/supplier.php",
+		"/D/www/projects/webking.xt/themes/default/js/func.js",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_supplier_cab.tpl",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_supplier.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/cab_agent_gifts.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/sb_customer_cabinet_navigation.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/cab_agent_license.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_price.tpl",
+		"/D/www/projects/webking.xt/adm/css/page_styles/pricelist.css",
+		"/D/www/projects/webking.xt/~core/contr/ajax/products.php",
+		"/D/www/projects/webking.xt/adm/css/style.css",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_config.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/cab_clients.tpl",
+		"/D/www/projects/webking.xt/~core/model/suppliers_c.php",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_assortment.tpl",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_personal_customer.php",
+		"/D/www/projects/webking.xt/adm/core/contr/assortment.php",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/cab_agent.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/sb_cabinet_navigation.tpl",
+		"/C/KVRT_Data/Legal notices/legal_notices.txt",
+		"/D/www/projects/webking.xt/adm/index.php",
+		"/D/www/projects/webking.xt/~core/sys/global_c.php",
+		"/D/www/projects/webking.xt/themes/default/css/fonts.css",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_cart.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/gift_select_modal.tpl",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_contragent.php",
+		"/D/www/projects/webking.xt/~core/sys/acl_c.php",
+		"/D/www/projects/webking.xt/js/main.js",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_product_label.tpl",
+		"/D/www/projects/webking.xt/.gitignore",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/cart.css",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_main.tpl",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/price.css",
+		"/D/www/projects/webking.xt/~core/block/navigation.php",
+		"/C/Users/Олександр/Downloads/prom_ua (1).csv",
+		"/D/www/projects/webking.xt/~core/contr/csv_prom_new.php",
+		"/D/www/projects/webking.xt/~core/contr/main.php",
+		"/D/www/projects/webking.xt/~core/contr/sms_sender.php",
+		"/D/www/projects/webking.xt/adm/core/contr/main.php",
+		"/D/www/projects/webking.xt/~core/sys/images_c.php",
+		"/C/Users/Олександр/AppData/Local/Temp/fz3temp-2/index.php",
+		"/D/www/projects/webking.xt/adm/core/contr/productadd.php",
+		"/D/www/projects/webking.xt/adm/core/contr/site_parsers.php",
+		"/D/www/projects/webking.xt/~core/model/parser_c.php",
+		"/D/www/projects/webking.xt/themes/default/min/css/fonts.min.css",
+		"/D/aaaaaaaa.json",
+		"/D/www/projects/webking.xt/~core/block/sb_cabinet_navigation.php",
+		"/D/www/projects/webking.xt/~core/contr/ajax/profiles.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_cooperative_customer.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_cooperative.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_settings_customer.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_bonus_customer.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_waitinglist_customer.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_favorites_customer.php",
+		"/D/www/projects/webking.xt/~core/contr/product_label.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_department.php",
+		"/D/www/projects/webking.xt/adm/core/contr/moderation_edit_product.php",
+		"/D/www/projects/webking.xt/adm/core/contr/profiles.php",
+		"/D/www/projects/webking.xt/adm/js/func.js",
+		"/D/www/projects/webking.xt/adm/core/tpl/cp_supplier_ae.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/_global/profiles_additional_fields.tpl",
+		"/D/www/projects/webking.xt/themes/default/tpl/cp_department_cab.tpl",
+		"/D/www/projects/webking.xt/adm/core/tpl/sb_adm_menu.tpl",
+		"/D/www/projects/webking.xt/themes/default/css/page_styles/page.css",
+		"/D/www/projects/webking.xt/adm/css/header.css",
+		"/D/www/projects/webking.xt/adm/css/sidebar.css",
+		"/D/www/projects/webking.xt/adm/core/tpl/_global/main_header.tpl",
+		"/D/www/projects/webking.xt/adm/core/contr/usersadd.php",
+		"/D/www/projects/webking.xt/~core/model/locations_c.php",
+		"/D/www/projects/webking.xt/~core/block/cp_cab_anonim.php",
+		"/D/www/projects/webking.xt/~core/block/profiles_additional_fields.php"
+	],
+	"find":
+	{
+		"height": 48.0
+	},
+	"find_in_files":
+	{
+		"height": 136.0,
+		"where_history":
+		[
+			"D:\\www\\projects\\webking.xt\\,-*blueimp/*,-*plugins/*,-*node_modules/*,-*adm/*",
+			"D:\\www\\projects\\webking.xt\\,-*blueimp/*,-*plugins/*,-*node_modules/*",
+			"D:\\www\\projects\\webking.xt\\,-*blueimp/*,-*plugins/*",
+			"D:\\www\\projects\\webking.xt\\,-*blueimp/*",
+			"D:\\www\\projects\\webking.xt\\,-*blueimp/*.html",
+			"D:\\www\\projects\\webking.xt\\,-*.html",
+			"D:\\www\\projects\\webking.xt\\,-*\\blueimp\\*",
+			"D:\\www\\projects\\webking.xt\\,-D:\\www\\projects\\webking.xt\\blueimp\\*",
+			"D:\\www\\projects\\webking.xt\\,-D:\\www\\projects\\webking.xt\\blueimp\\",
+			"D:\\www\\projects\\webking.xt\\",
+			"D:\\www\\projects\\webking.xt\\adm\\",
+			"",
+			"D:\\www\\projects\\webking.xt\\adm\\",
+			"",
+			"D:\\www\\projects\\webking.xt\\",
+			"D:\\www\\projects\\webking.xt\\~core",
+			"D:\\www\\projects\\weblind.xt\\~core",
+			"\\~core",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"CHARSET=utf8mb4",
+			"COLLATE=utf8mb4_unicode_520_ci",
+			"COLLATE utf8mb4_unicode_520_ci",
+			"utf8_general_ci",
+			"utf8mb4",
+			"utf8mb4_unicode_520_ci",
+			"utf",
+			"target_id_order",
+			"GetQuizAjax",
+			"response",
+			"id_user",
+			"iarget_id_order",
+			"id_user",
+			"id_customer",
+			"id_user",
+			"target_order",
+			"id_user",
+			"quiz",
+			"id_customer",
+			"last_order",
+			"$Users->fields['id_user']",
+			"openObject",
+			"change_delivery_btn_js",
+			"hash",
+			"quiz",
+			"current_id_order",
+			"self",
+			"change_delivery_btn_js",
+			"addr",
+			"span",
+			"mdl-cell--6-col",
+			"<?=?>",
+			" <?=?>",
+			"no-sidebar",
+			".breadcrumbs_wrap",
+			".product_page .breadcrumbs_wrap",
+			"bread",
+			"no-side",
+			"delgetWarehouses",
+			"xt_",
+			"getCity",
+			"deliverySelect",
+			"h1",
+			"$product[$mode.'_qty']",
+			"print",
+			"medium",
+			"number",
+			"($product[$qty_mode]>0?$product[$qty_mode]:0)",
+			"$qty",
+			"qty",
+			">0",
+			"($mode == 'mopt'?'contragent_mqty':'contragent_qty')",
+			"mode2",
+			"product",
+			"$product[($mode == 'mopt'?'contragent_mqty':'contragent_qty')]>0?$product[($mode == 'mopt'?'contragent_mqty':'contragent_qty')]:0",
+			"$product[$mode.'_qty']",
+			"contragent_qty",
+			"site_price_",
+			"asdasdasf",
+			"item",
+			"GetImage",
+			"$orders[",
+			"$Orders",
+			"$orders",
+			"orders",
+			"total_customer",
+			"$total",
+			"opt",
+			"td",
+			"number",
+			"$order",
+			"0.0",
+			"$order",
+			"product",
+			"background",
+			"<?=$order['address']['region_title']?>",
+			"name",
+			"../../",
+			"../",
+			"roboto",
+			"Roboto",
+			"roboto",
+			"Roboto",
+			"roboto",
+			"Roboto",
+			"roboto",
+			"Roboto",
+			"roboto",
+			"Roboto",
+			"price",
+			", 2",
+			",\"\"",
+			"number_format",
+			"number",
+			"Locations",
+			"product",
+			"header",
+			"Ячейка",
+			"Orders",
+			"<td></td>",
+			"$tpl_center",
+			"parsed_res",
+			"<?",
+			"Сообщение",
+			"__page_description",
+			"description",
+			"description ",
+			"__page_description ",
+			"composed",
+			"sum_discount",
+			"sum",
+			"$counted",
+			"order_fact",
+			"return_",
+			"return",
+			"$coeff = ;",
+			"list",
+			"<?",
+			"$l2",
+			"art",
+			"note",
+			"return_qty",
+			"breath",
+			"   ",
+			"scale",
+			"top",
+			"prod_list.tpl",
+			"osp"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"CHARSET=utf8",
+			"COLLATE=utf-8",
+			"COLLATE=utf8",
+			"COLLATE=utf8_general_ci",
+			"COLLATE utf8_general_ci",
+			"utf8",
+			"utf8_general_ci",
+			",",
+			"/images/nofoto.png",
+			";\n",
+			"{\n",
+			"}\n",
+			";\n",
+			"satinweave"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "~core/model/orders_c.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 72810,
+						"regions":
+						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+									[
+										3369,
+										3381
+									]
+								],
+								"scope": "bookmarks"
+							}
+						},
+						"selection":
+						[
+							[
+								21505,
+								21619
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 8226.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Олександр/Documents/dumps/Dump20170112.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2619916,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3241,
+								3253
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/SQL/SQL.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Олександр/AppData/Local/Temp/fz3temp-2/wp-config.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3368,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2853,
+								2853
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 945.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "~core/contr/invoice_dealer.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2545,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								846,
+								846
+							]
+						],
+						"settings":
+						{
+							"auto_name": "invoice_dealer.php",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "themes/default/tpl/invoice_dealer.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7522,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5500,
+								5500
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "~core/contr/ajax/quiz.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6053,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								364,
+								364
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "themes/default/tpl/_global/quiz.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11207,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1483,
+								1483
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "~core/model/customers_c.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11197,
+								11204
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1109.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "themes/default/js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 90445,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								40520,
+								40520
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 16538.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "themes/default/js/func.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42780,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12885,
+								12885
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5534.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "~core/contr/ajax/location.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7749,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5714,
+								5714
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1581.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "~core/model/products_c.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 177400,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								151449,
+								151461
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 26.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "~core/model/locations_c.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23186,
+						"regions":
+						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+									[
+										6075,
+										6082
+									]
+								],
+								"scope": "bookmarks"
+							}
+						},
+						"selection":
+						[
+							[
+								130,
+								145
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "~core/contr/customer_order.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2411,
+								2411
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "themes/default/tpl/cp_customer_order.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15417,
+								15432
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5189.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "~core/sys/link_c.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3899,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1908,
+								1912
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 473.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "~core/block/cp_cab_customer.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4353,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4195,
+								4216
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "~core/contr/cabinet.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3660,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1977,
+								1984
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 134.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "themes/default/tpl/cp_customer_cab_orders.tpl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22295,
+								22945
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 8813.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "themes/default/css/page_styles/product.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34683,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19,
+								19
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "themes/default/css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 101241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13628,
+								13628
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 9323.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "~core/model/invoice_c.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								671,
+								671
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 22,
+					"file": "themes/default/css/page_styles/customer_order.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2197,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2163,
+								2163
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1440.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "themes/default/css/page_styles/invoice_dealer.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1860,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1744,
+								1744
+							]
+						],
+						"settings":
+						{
+							"auto_name": "invoice_dealer",
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material-Theme.tmTheme",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1134.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 42.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.676637370277,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 116.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 100.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "xt.sublime-project",
+	"replace":
+	{
+		"height": 92.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"orders_c",
+				"~core\\model\\orders_c.php"
+			],
+			[
+				"quiz.tpl",
+				"themes\\default\\tpl\\_global\\quiz.tpl"
+			],
+			[
+				"main.js",
+				"themes\\default\\js\\main.js"
+			],
+			[
+				"quiz.php",
+				"~core\\contr\\ajax\\quiz.php"
+			],
+			[
+				"cp_customer_cab_orders",
+				"themes\\default\\tpl\\cp_customer_cab_orders.tpl"
+			],
+			[
+				"cp_cab_",
+				"~core\\block\\cp_cab_orders_customer.php"
+			],
+			[
+				"cp_cab_orders",
+				"~core\\block\\cp_cab_orders_customer.php"
+			],
+			[
+				"cabinet.php",
+				"~core\\contr\\cabinet.php"
+			],
+			[
+				"cab_",
+				"~core\\block\\cp_cab_customer.php"
+			],
+			[
+				"customer_order.css",
+				"themes\\default\\css\\page_styles\\customer_order.css"
+			],
+			[
+				"product.css",
+				"themes\\default\\css\\page_styles\\product.css"
+			],
+			[
+				"products.css",
+				"themes\\default\\css\\page_styles\\products.css"
+			],
+			[
+				"style.css",
+				"themes\\default\\css\\style.css"
+			],
+			[
+				"cp_customer_order",
+				"themes\\default\\tpl\\cp_customer_order.tpl"
+			],
+			[
+				"locations_c",
+				"~core\\model\\locations_c.php"
+			],
+			[
+				"customer_order",
+				"~core\\contr\\customer_order.php"
+			],
+			[
+				"location.php",
+				"~core\\contr\\ajax\\location.php"
+			],
+			[
+				"func.js",
+				"themes\\default\\js\\func.js"
+			],
+			[
+				"quiz.",
+				"~core\\contr\\ajax\\quiz.php"
+			],
+			[
+				"product_c",
+				"~core\\model\\products_c.php"
+			],
+			[
+				"product.tpl",
+				"themes\\default\\tpl\\cp_product.tpl"
+			],
+			[
+				"agent_customer",
+				"~core\\block\\cp_cab_agent_customer.php"
+			],
+			[
+				"agentcustomer",
+				"~core\\block\\cp_cab_agent_customer.php"
+			],
+			[
+				"fonts",
+				"themes\\default\\css\\fonts.css"
+			],
+			[
+				"invoice_c",
+				"~core\\model\\invoice_c.php"
+			],
+			[
+				"index.php",
+				"index.php"
+			],
+			[
+				"controller.php",
+				"~core\\controller.php"
+			],
+			[
+				"main.tpl",
+				"themes\\default\\tpl\\_global\\main.tpl"
+			],
+			[
+				"products.php",
+				"~core\\contr\\products.php"
+			],
+			[
+				"product.php",
+				"~core\\contr\\product.php"
+			],
+			[
+				"cfg.php",
+				"~core\\cfg.php"
+			],
+			[
+				"composed_",
+				"~core\\contr\\composed_invoice.php"
+			],
+			[
+				"cab_hist",
+				"themes\\default\\tpl\\_global\\cab_agent_history.tpl"
+			],
+			[
+				"cp_customer_cab_agent",
+				"themes\\default\\tpl\\cp_customer_cab_agent.tpl"
+			],
+			[
+				"product_ae",
+				"adm\\core\\tpl\\cp_product_ae.tpl"
+			],
+			[
+				"productedit",
+				"adm\\core\\contr\\productedit.php"
+			],
+			[
+				"price_list.css",
+				"themes\\default\\css\\page_styles\\price_list.css"
+			],
+			[
+				"pricelist",
+				"~core\\contr\\pricelist.php"
+			],
+			[
+				"price_list.tpl",
+				"themes\\default\\tpl\\price_list.tpl"
+			],
+			[
+				"pricelist.php",
+				"~core\\contr\\pricelist.php"
+			],
+			[
+				"price",
+				"~core\\contr\\price.php"
+			],
+			[
+				"promo_cer",
+				"themes\\default\\tpl\\cp_promo_certificate.tpl"
+			],
+			[
+				"cp_user_ae",
+				"adm\\core\\tpl\\cp_user_ae.tpl"
+			],
+			[
+				"usersedit",
+				"adm\\core\\contr\\usersedit.php"
+			],
+			[
+				"cp_admin_ae",
+				"adm\\core\\tpl\\cp_admin_ae.tpl"
+			],
+			[
+				"adminedit.php",
+				"adm\\core\\contr\\adminedit.php"
+			],
+			[
+				"main",
+				"adm\\core\\tpl\\_global\\main.tpl"
+			],
+			[
+				"bonus_explain",
+				"themes\\default\\tpl\\_global\\bonus_explain.tpl"
+			],
+			[
+				"cart.php",
+				"~core\\contr\\ajax\\cart.php"
+			],
+			[
+				"products_c",
+				"~core\\model\\products_c.php"
+			],
+			[
+				"promo_ce",
+				"themes\\default\\css\\page_styles\\promo_certificate.css"
+			],
+			[
+				"promo_cert",
+				"themes\\default\\tpl\\cp_promo_certificate.tpl"
+			],
+			[
+				"orders_",
+				"~core\\model\\orders_c.php"
+			],
+			[
+				"products_list",
+				"themes\\default\\tpl\\_global\\products_list.tpl"
+			],
+			[
+				"products_l",
+				"themes\\default\\tpl\\_global\\products_list.tpl"
+			],
+			[
+				"agent",
+				"themes\\default\\tpl\\cp_customer_cab_agent.tpl"
+			],
+			[
+				"agentcab",
+				"themes\\default\\tpl\\cp_contragent_cab.tpl"
+			],
+			[
+				"promo_certif",
+				"themes\\default\\tpl\\cp_promo_certificate.tpl"
+			],
+			[
+				"supplier.php",
+				"~core\\contr\\ajax\\supplier.php"
+			],
+			[
+				"cp_supplier_cab",
+				"themes\\default\\tpl\\cp_supplier_cab.tpl"
+			],
+			[
+				"cp_cab_supplier",
+				"~core\\block\\cp_cab_supplier.php"
+			],
+			[
+				"top_",
+				"themes\\default\\tpl\\_global\\top_main.tpl"
+			],
+			[
+				"cart_c",
+				"~core\\model\\cart_c.php"
+			],
+			[
+				"promocertificate",
+				"themes\\default\\tpl\\cp_promo_certificate.tpl"
+			],
+			[
+				"cabinet.css",
+				"themes\\default\\css\\page_styles\\cabinet.css"
+			],
+			[
+				"promo_c",
+				"~core\\model\\promo_c.php"
+			],
+			[
+				"cp_cab_agent_customer",
+				"~core\\block\\cp_cab_agent_customer.php"
+			],
+			[
+				"agent.tpl",
+				"themes\\default\\tpl\\cp_customer_cab_agent.tpl"
+			],
+			[
+				"pricelist.css",
+				"adm\\css\\page_styles\\pricelist.css"
+			],
+			[
+				"price_list.",
+				"themes\\default\\tpl\\price_list.tpl"
+			],
+			[
+				"price.php",
+				"~core\\contr\\price.php"
+			],
+			[
+				"price.tpl",
+				"themes\\default\\tpl\\cp_price.tpl"
+			],
+			[
+				"proucts_c",
+				"~core\\model\\products_c.php"
+			],
+			[
+				"cabagent",
+				"~core\\block\\cp_cab_agent_customer.php"
+			],
+			[
+				"cab_gifts",
+				"themes\\default\\tpl\\_global\\cab_agent_gifts.tpl"
+			],
+			[
+				"customernavigation",
+				"themes\\default\\tpl\\sb_customer_cabinet_navigation.tpl"
+			],
+			[
+				"cab_agent_history",
+				"themes\\default\\tpl\\_global\\cab_agent_history.tpl"
+			],
+			[
+				"assortment",
+				"adm\\core\\tpl\\cp_assortment.tpl"
+			],
+			[
+				"assortm",
+				"adm\\core\\contr\\assortment.php"
+			],
+			[
+				"promo_",
+				"~core\\contr\\promo_certificate.php"
+			],
+			[
+				"cp_config",
+				"adm\\core\\tpl\\cp_config.tpl"
+			],
+			[
+				"configs",
+				"adm\\core\\contr\\configs.php"
+			],
+			[
+				"cab_agent",
+				"themes\\default\\tpl\\_global\\cab_agent.tpl"
+			],
+			[
+				"cabinet_",
+				"themes\\default\\tpl\\sb_customer_cabinet_navigation.tpl"
+			],
+			[
+				"cab_naviga",
+				"themes\\default\\tpl\\sb_cabinet_navigation.tpl"
+			],
+			[
+				"cp_cab_persona",
+				"~core\\block\\cp_cab_personal_customer.php"
+			],
+			[
+				"cb_cab_orders",
+				"~core\\block\\cp_cab_orders_customer.php"
+			],
+			[
+				"agenttpl",
+				"themes\\default\\tpl\\cp_customer_cab_agent.tpl"
+			],
+			[
+				"usrs_c",
+				"~core\\model\\users_c.php"
+			],
+			[
+				"global_c",
+				"~core\\sys\\global_c.php"
+			],
+			[
+				"acl_",
+				"~core\\sys\\acl_c.php"
+			],
+			[
+				"users_c",
+				"~core\\model\\users_c.php"
+			],
+			[
+				"price_",
+				"themes\\default\\tpl\\price_list.tpl"
+			],
+			[
+				"cart.tpl",
+				"themes\\default\\tpl\\cp_cart.tpl"
+			],
+			[
+				"cp_agent",
+				"~core\\block\\cp_cab_agent_customer.php"
+			],
+			[
+				"promo_certifica",
+				"~core\\contr\\promo_certificate.php"
+			],
+			[
+				"order_c",
+				"~core\\model\\orders_c.php"
+			],
+			[
+				"price_list",
+				"themes\\default\\css\\page_styles\\price_list.css"
+			],
+			[
+				"cp_cab_contragent",
+				"~core\\block\\cp_cab_contragent.php"
+			],
+			[
+				"fonts.css",
+				"themes\\default\\css\\fonts.css"
+			],
+			[
+				"product_label.",
+				"themes\\default\\tpl\\cp_product_label.tpl"
+			],
+			[
+				"product_label",
+				"themes\\default\\tpl\\cp_product_label.tpl"
+			],
+			[
+				"prodct_label",
+				"themes\\default\\tpl\\cp_product_label.tpl"
+			],
+			[
+				"modal",
+				"themes\\default\\tpl\\_global\\product_label_modal.tpl"
+			],
+			[
+				"gitignore",
+				".gitignore"
+			],
+			[
+				"cart.css",
+				"themes\\default\\css\\page_styles\\cart.css"
+			],
+			[
+				"label",
+				"themes\\default\\tpl\\cp_product_label.tpl"
+			],
+			[
+				"prom_",
+				"~core\\contr\\csv_prom_new.php"
+			],
+			[
+				"price.css",
+				"themes\\default\\css\\page_styles\\price.css"
+			],
+			[
+				"nav.php",
+				"~core\\block\\navigation.php"
+			],
+			[
+				"main.php",
+				"~core\\contr\\main.php"
+			],
+			[
+				"cp_main.tpl",
+				"adm\\core\\tpl\\cp_main.tpl"
+			],
+			[
+				"sms_sender",
+				"~core\\contr\\sms_sender.php"
+			],
+			[
+				"fonts.",
+				"themes\\default\\min\\css\\fonts.min.css"
+			],
+			[
+				"site_parser.php",
+				"adm\\core\\contr\\site_parsers.php"
+			],
+			[
+				"parser_c",
+				"~core\\model\\parser_c.php"
+			],
+			[
+				"parse",
+				"~core\\model\\parser_c.php"
+			],
+			[
+				"productadd",
+				"adm\\core\\contr\\productadd.php"
+			],
+			[
+				"image_c",
+				"~core\\sys\\images_c.php"
+			],
+			[
+				"images_c",
+				"~core\\sys\\images_c.php"
+			],
+			[
+				"orderscustomer",
+				"~core\\block\\cp_cab_orders_customer.php"
+			],
+			[
+				"cooperative",
+				"~core\\block\\cp_cab_cooperative.php"
+			],
+			[
+				"cp_cab_orders_customer",
+				"~core\\block\\cp_cab_orders_customer.php"
+			],
+			[
+				"cp_cab_cooperative",
+				"~core\\block\\cp_cab_cooperative.php"
+			],
+			[
+				"cp_cab_settings_customer",
+				"~core\\block\\cp_cab_settings_customer.php"
+			],
+			[
+				"cp_cab_bonus_customer",
+				"~core\\block\\cp_cab_bonus_customer.php"
+			],
+			[
+				"cp_cab_favorites_customer",
+				"~core\\block\\cp_cab_favorites_customer.php"
+			],
+			[
+				"cp_cab_waitinglist_customer",
+				"~core\\block\\cp_cab_waitinglist_customer.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"D:\\www\\projects\\webking.marc\\marc.sublime-project"
+			],
+			[
+				"barbat",
+				"D:\\www\\sublime_projects\\barbator.sublime-project"
+			],
+			[
+				"x-t",
+				"D:\\www\\sublime_projects\\x-torg.loc.sublime-project"
+			],
+			[
+				"x",
+				"D:\\www\\sublime_projects\\x-torg.loc.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 276.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

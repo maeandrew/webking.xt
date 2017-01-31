@@ -99,7 +99,7 @@ class Orders {
 	 */
 	public function SetFieldsById($id_order){
 		$sql = "SELECT ".implode(", ",$this->usual_fields)."
-			FROM "._DB_PREFIX_."order o
+			FROM "._DB_PREFIX_."order AS o
 			WHERE o.id_order = ".$id_order;
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
@@ -527,7 +527,7 @@ class Orders {
 					//рандомный выбор контрагента
 					$contragents = new Contragents();
 					$contragents->SetList();
-					$id_contragent = $contragents->list[array_rand($contragents->list)]['id_user'];
+					$id_contragent = 6481;//$contragents->list[array_rand($contragents->list)]['id_user'];
 				}else{
 					$id_contragent = $customer['id_contragent'];
 				}
@@ -567,10 +567,10 @@ class Orders {
 			$sql = "UPDATE "._DB_PREFIX_."cart
 				SET id_order = ".$id_order."
 				WHERE id_cart = ".$_SESSION['cart']['id'];
-		}
-		if(!$this->db->Query($sql)){
-			$this->db->FailTrans();
-			return false;
+			if(!$this->db->Query($sql)){
+				$this->db->FailTrans();
+				return false;
+			}
 		}
 		unset($f);
 		// Заполнение связки заказ-товары
@@ -617,6 +617,13 @@ class Orders {
 					$p[$ii]['opt_sum'] = 0;
 					$p[$ii]['site_price_opt'] = 0;
 				}
+				$p[$ii]['dealer_price'] = $item['actual_prices'][1];
+				$p[$ii]['partner_price'] = $item['actual_prices'][0];
+				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+					$p[$ii]['promo'] = 1;
+				}else{
+					$p[$ii]['promo'] = 0;
+				}
 				$p[$ii]['gift'] = 0;
 			}
 			$ii++;
@@ -642,7 +649,14 @@ class Orders {
 			$p[$ii]['mopt_sum'] = '0.01';
 			$p[$ii]['site_price_mopt'] = '0.01';
 			$p[$ii]['opt_sum'] = 0;
+			$p[$ii]['dealer_price'] = 0;
+			$p[$ii]['partner_price'] = 0;
 			$p[$ii]['site_price_opt'] = 0;
+			if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+				$p[$ii]['promo'] = 1;
+			}else{
+				$p[$ii]['promo'] = 0;
+			}
 			$p[$ii]['gift'] = 1;
 		}
 		// Если ни у одного товара нет поставщика
@@ -1371,16 +1385,19 @@ class Orders {
 
 	public function GetOrderForCustomer($and){
 		$sql = "SELECT o.id_order, o.id_order_status, o.sum_discount, osp.id_product,
-				osp.id_supplier_altern, osp.return_qty,
+				osp.id_supplier_altern,
 				(CASE WHEN osp.opt_qty >0 THEN osp.site_price_opt ELSE osp.site_price_mopt END) AS price,
 				p.inbox_qty, osp.box_qty,
 				(CASE WHEN osp.opt_qty >0 THEN osp.opt_qty ELSE osp.mopt_qty END) AS quantity,
 				osp.opt_qty, osp.mopt_qty, osp.opt_sum, osp.mopt_sum, s.article, osp.id_supplier, p.name, p.art,
-				osp.site_price_mopt, site_price_opt,
+				osp.site_price_mopt, osp.site_price_opt,
 				(CASE WHEN osp.note_opt <>'' THEN osp.note_opt ELSE osp.note_mopt END) AS note,
 				o.target_date, osp.contragent_qty, osp.contragent_mqty, osp.contragent_sum,
 				osp.contragent_msum, osp.fact_qty, osp.fact_sum,
-				osp.fact_mqty, osp.fact_msum, p.img_1, osp.return_sum, osp.return_mqty, osp.return_msum,
+				osp.fact_mqty, osp.fact_msum, p.img_1,
+				osp.return_qty, osp.return_sum,
+				osp.return_mqty, osp.return_msum,
+				osp.dealer_price, osp.partner_price, osp.promo,
 				p.units, o.id_pretense_status, o.id_return_status,
 				p.translit, osp.id_supplier_mopt_altern, osp.id_supplier_mopt, i.src AS images,
 				(SELECT "._DB_PREFIX_."supplier.article

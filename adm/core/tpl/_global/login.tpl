@@ -20,9 +20,7 @@
 	</head>
 	<body class="bg-retina_dust">
 		<div id="wrapper">
-			<div id="middle">
-				<?=$__center?>
-			</div>
+			<?=$__center?>
 		</div><!-- #wrapper -->
 		<footer>
 			<small>&copy; <?=date("Y", time())?> ХарьковТорг</small>

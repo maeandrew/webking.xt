@@ -133,7 +133,7 @@ $GLOBALS['NoBreadcrumbs']		= array('main', '404');
 // страницы без блока новостей в сайдбаре
 $GLOBALS['NoSidebarNews']		= array();
 // страницы без макета
-$GLOBALS['NoTemplate']			= array('pricelist-order');
+$GLOBALS['NoTemplate']			= array('pricelist-order', 'invoice_dealer');
 // страницы, на которых есть блок фильтров в сайдбаре
 $GLOBALS['WithFilters']			= array('products', 'main', 'product');
 // Массив ссылок иерархии (используются также в хлебных крошках)

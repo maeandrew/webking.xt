@@ -49,10 +49,19 @@
 				</ul>
 			<?}?>
 
-			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
-				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'site_parsers'?' sb-menu__item_active':null;?>">
-					<a href="/adm/site_parsers/">Парсер сайтов</a>
-				</li>
+			<?if(_acl::isAllow('parser')){?>
+				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'site_parsers'?' sb-menu__item_active':null;?>">Парсинг сайтов</li>
+				<ul class="sb-menu__sub-menu">
+					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
+						<li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'parser_sites'?' sb-menu__item_active':null;?>">
+							<a href="/adm/parser_sites" >Сайты для парсинга</a>
+							<a href="/adm/parser_sitesadd/" class="sb-menu__item__add animate" title="Добавить сайт"><i class="icon-add">a</i></a>
+						</li>
+					<?}?>
+					<li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'site_parser'?' sb-menu__item_active':null;?>">
+						<a href="/adm/site_parser/">Парсер</a>
+					</li>
+				</ul>
 			<?}?>
 
 			<?if (_acl::isAllow('specifications')){?>

@@ -15,7 +15,7 @@
 	position: relative;
 }
 .flyer {
-	border: 3mm solid #e7e7e7;
+	border: 3mm solid #bbb;
 	display: flex;
 	margin-bottom: 20mm;
 	height: 79mm;
@@ -35,18 +35,21 @@
 	color: #FF5722;
 	text-transform: uppercase;
 	font-size: 8mm;
+	font-weight: bold;
+	margin-bottom: 3mm;
 }
 .logo {
 	max-width: 100%;
 	height: 12mm;
 }
 .company_title {
-    color: #018b06;
+	color: #018b06;
 }
 .site {
-    text-align: center;
-    margin-top: 3mm;
-    font-size: 1.2em;
+	text-align: center;
+	margin-top: 3mm;
+	font-size: 1.7em;
+	font-weight: bold;
 }
 .flyer_content,
 .promo_info {
@@ -55,7 +58,7 @@
 }
 .flyer_content {
 	width: 30%;
-	border-left: 1px solid #e7e7e7;
+	border-left: 1px solid #bbb;
 	padding: 3mm;
 }
 .gift_prod {
@@ -108,11 +111,11 @@
 }
 .promocode {
 	font-size: 1.2em;
-    background: #018b06;
-    color: #fff;
-    letter-spacing: 0.1em;
-    font-weight: 500;
-    padding: 2mm;
+	background: #018b06;
+	color: #fff;
+	letter-spacing: 0.1em;
+	font-weight: 500;
+	padding: 2mm;
 }
 .promocode_title {
 	font-size: 1.2em;
@@ -121,7 +124,7 @@
 	position: absolute;
 	bottom: 0;
 	font-size: 2mm;
-	border-top: 1px solid #e7e7e7;
+	border-top: 1px solid #bbb;
 	padding: 3mm;
 }
 .green {
@@ -130,17 +133,18 @@
 .gift_title {
 	text-transform: uppercase;
 	font-size: 5mm;
-	margin-top: 3mm;
+	padding-top: 3mm;
 	margin-bottom: 3mm;
+	clear: both;
 }
 .star {
 	font-size: 0.8em;
 }
 .cut_line {
 	border-bottom: 1px dashed #444;
-    height: 3mm;
-    position: absolute;
-    bottom: -13mm;
-    left: -3mm;
-    right: -3mm;
+	height: 3mm;
+	position: absolute;
+	bottom: -13mm;
+	left: -3mm;
+	right: -3mm;
 }

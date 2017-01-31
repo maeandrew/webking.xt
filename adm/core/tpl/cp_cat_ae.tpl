@@ -25,7 +25,7 @@
 			<?if(isset($_POST['translit'])){ ?>
 				<div class="col-md-12 seo_block">
 					<div id="translit">
-						<a href="#" id="updtrans" class="refresh_btn updtrans_js" title="Нажимать, только при полной замене товара" onclick="updateTranslit();"><i class="icon-font">r</i></a>
+						<a href="#" id="updtrans" class="refresh_btn updtrans_js" title="Нажимать, только при полной замене товара"><i class="icon-font">r</i></a>
 						<p><?=$_POST['translit']?></p>
 					</div>
 				</div>
@@ -203,10 +203,8 @@
 			$('.exist_photo_js').addClass('hidden');
 			$('.curent_img').attr('name', 'remove_image');
 		});
-	});
-	$('.updtrans_js').on('click', function(){
-		ajax('cattags', 'updateTranslit', {id_category: id_category}).done(function(data){
-			$('#translit p').text(data);
+
+		$('body').on('click', '.updtrans_js', function(){
 			$('#updtrans').animate({ borderSpacing: 360 }, {
 				step: function(now,fx) {
 					$(this).css('-webkit-transform','rotate('+now+'deg)');
@@ -215,6 +213,9 @@
 				},
 				duration:'slow'
 			},'linear');
+			ajax('cattags', 'updateTranslit', {id_category: id_category}).done(function(data){
+				$('#translit p').text(data);
+			});
 		});
 	});
 	// CKEDITOR.replace('content', {

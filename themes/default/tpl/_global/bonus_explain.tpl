@@ -75,7 +75,7 @@ if($product['prices_opt'][3] > 0){?>
 		</tr>
 	</table>
 <?}?>
-<b>Базовая цена - <?=number_format($base_price, 2, ",", "")?>грн.</b>
+<b>Средняя розничная цена по Украине - <?=number_format($base_price, 2, ",", "")?>грн.</b>
 <table class="bonus_table hidden">
 	<tr>
 		<th colspan="3">Бонусная программа</th>

@@ -115,3 +115,13 @@
 	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
+
+
+
+.change_delivery button {
+    margin-left: 20px;
+}
+.change_delivery a {
+    float: left;
+    text-decoration: underline;
+}

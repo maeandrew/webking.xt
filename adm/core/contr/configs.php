@@ -29,6 +29,3 @@
 	}
 	// ---- right ----
 ?>
-S86
-
-k_manager10@gmail.com

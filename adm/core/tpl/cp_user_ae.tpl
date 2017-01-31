@@ -24,11 +24,15 @@
 				</div>
 				<div class="col-md-12">
 					<label for="phone">Телефон:</label><?=isset($errm['phone'])?"<span class=\"errmsg\">".$errm['phone']."</span><br>":null?>
-					<input type="text" name="phone" id="phone" class="input-m" required placeholder="+380123456787" value="<?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?>">
+					<input type="text" name="phone" id="phone" class="input-m" placeholder="+380123456787" value="<?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?>">
 				</div>
 				<div class="col-md-12">
 					<label for="passwd">Пароль:</label><?=isset($errm['passwd'])?"<span class=\"errmsg\">".$errm['passwd']."</span><br>":null?>
 					<input type="text" name="passwd" id="passwd" <?=$GLOBALS['REQAR'][0] == 'useradd'?'required':null;?> class="input-m" value="<?=isset($_POST['passwd'])?htmlspecialchars($_POST['passwd']):null?>">
+				</div>
+				<div class="col-md-12">
+					<label for="descr">Комментарий:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
+					<textarea name="descr" id="descr" class="input-m" rows="4" cols="80"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
 				</div>
 				<div class="col-md-12">
 					<label for="active">Активность:</label><?=isset($errm['active'])?"<span class=\"errmsg\">".$errm['active']."</span><br>":null?>
@@ -41,7 +45,7 @@
 					<?if(isset($_POST['id_user'])){?>
 						<input type="hidden" name="id_user" value="<?=$_POST['id_user']?>">
 					<?}?>
-					<label for="gid">Профиль:</label><?=isset($errm['gid'])?"<span class=\"errmsg\">".$errm['gid']."</span><br>":null?>
+					<label for="gid">Профиль пользователя:</label><?=isset($errm['gid'])?"<span class=\"errmsg\">".$errm['gid']."</span><br>":null?>
 					<select name="gid" id="gid" class="input-m">
 						<?foreach($GLOBALS['profiles'] as $key => $value){?>
 							<option value="<?=$value['id_profile'];?>" <?=isset($_POST['gid']) && $_POST['gid'] == $value['id_profile']?'selected':null;?>><?=$value['caption'] == ''?$value['name']:$value['caption'];?></option>

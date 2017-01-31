@@ -110,6 +110,7 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 .advantages{overflow:hidden;position:relative;height:auto;background-color:#fff;border-bottom:1px solid #e0e0e0}
 section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 .no-sidebar section.center{width:100%}
+.no-sidebar .breadcrumbs_wrap{padding:0 10px}
 .no-sidebar .page_content{padding:0}
 #auth{width:400px;height:auto;overflow-y:auto}
 #auth h4{font-size:1.875em}
@@ -679,7 +680,6 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .switch_comment textarea{width:100%}
 }
 .mobile_carousel,.subCategories{display:flex;flex-wrap:wrap;margin:0 -10px}
-.mobile_carousel{margin:0}
 .mobile_carousel .subCategory,.subCategories .subCategory{position:relative;width:calc(20% - 20px);margin:0 10px 20px;height:270px;overflow:hidden;border:1px solid #d9d9d9;border-radius:.2em;background-color:#fff;display:table}
 .mobile_carousel .separator,.subCategories .separator{color:#999;margin:0 .5em}
 .mobile_carousel .subCategory:hover,.subCategories .subCategory:hover{cursor:pointer;border-color:#aaa}
@@ -689,7 +689,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .subCategories .subCategory:hover img{max-height:110%;max-width:110%}
 .subCategory .subCategoryTitleWrap{bottom:0;left:0;right:0;position:relative;display:table-row;text-align:center;background-color:#fff;font-size:1.3em}
 .subCategory .subCategoryTitle{display:table-cell;position:relative;height:3em;vertical-align:middle;padding:0 .5em}
-.mobile_carousel .subCategory{width:calc(50% - 20px);height:180px;padding-bottom:4em}
+.mobile_carousel .subCategory{width:calc(50% - 20px);height:180px}
 .mobile_carousel .subCategory .subCategoryTitle{height:4.5em;font-size:.9em}
 @media (max-width:1440px){.subCategories .subCategory{width:calc(25% - 20px)}
 }
@@ -705,8 +705,9 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .owl-dot{width:20px}
 .owl-dot span{display:block;width:0;height:0;background:#888;border-radius:50%;margin:0 auto;transition:all .4s ease-in-out;border:3px solid #888}
 .owl-dot.active span{border:7px solid #888}
-.subCategory span{width:100%;display:block;text-align:center}
-#owl-subcategories_slide_js .subCategory img{height:150px;width:150px}
+.subCategory .subCategoryImageWrap{width:100%;height:150px;display:block;text-align:center}
+.mobile_carousel .subCategory{padding:0}
+#owl-subcategories_slide_js .subCategory img{object-fit:cover}
 .cookie_wrap{position:relative;color:#fff}
 .cookie_msg{position:fixed;top:100%;width:100%;background-color:rgba(52,52,52,.85);transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);z-index:100000000}
 .cookie_msg p{text-align:justify;font-size:.9em;line-height:1.4em;max-width:calc(100% - 12em);padding:0 2em 2em}
@@ -937,8 +938,25 @@ div[for=rating_block]{font-size:12px}
 .gift_modal .gifts_wrap .gift_product img{max-width:100%;height:170px;margin:10px auto;display:block}
 .gift_modal .gifts_wrap .gift_product .gift_product_title{height:34px;overflow:hidden}
 .gift_modal .gifts_wrap .gift_product .gift_product_art{font-size:.929em;color:#818181;white-space:nowrap;margin-top:10px}
-.agent_banner{display:block;background:#fff;margin-left:10px;margin-right:20px;padding:10px;margin-bottom:10px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);text-align:center;font-size:2em;line-height:1em;color:#FF5722;font-weight:700;border-radius:2px}
+.agent_banner{position:relative;display:flex;background:#fff;margin-left:20px;margin-right:20px;padding:10px;margin-bottom:20px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);text-align:center;font-size:2em;line-height:1em;color:#FF5722;border-radius:2px;justify-content:space-between}
 .agent_banner:hover{box-shadow:0 2px 10px -1px rgba(0,0,0,.2)}
+.agent_banner span{flex-grow:1;margin-right:10px}
+.agent_banner button{margin:0 auto;-webkit-animation:juggling 5s infinite;animation:juggling 5s infinite}
+@-webkit-keyframes juggling{0%{transform:rotate(0) scale(1)}
+5%{transform:rotate(3deg) scale(1.3)}
+10%{transform:rotate(0) scale(1.1)}
+18%{transform:rotate(-3deg) scale(1.3)}
+24%{transform:rotate(0) scale(1)}
+}
+@keyframes juggling{0%{transform:rotate(0) scale(1)}
+5%{transform:rotate(3deg) scale(1.3)}
+10%{transform:rotate(0) scale(1.1)}
+18%{transform:rotate(-3deg) scale(1.3)}
+24%{transform:rotate(0) scale(1)}
+}
+@media (max-width:470px){.agent_banner{flex-wrap:wrap}
+.agent_banner button{margin-top:10px}
+}
 .modals .issue_result{padding:20px}
 .modals .issue_result .modal_container div[class^=issue_]{margin:0 auto;text-align:center}
 .modals .issue_result .modal_container div[class^=issue_] i{font-size:5em}

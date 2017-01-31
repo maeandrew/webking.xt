@@ -134,6 +134,11 @@
 							if(!empty($city)){
 								$echo .= '<option data-ref="'.htmlspecialchars($city['Ref']).'" value="'.$company['id'].'">'.$company['title'].'</option>';
 							}
+						}else{
+							$city = $Address->NonAPI($company, 'getCity', $_POST);
+							if(!empty($city)){
+								$echo .= '<option data-ref="'.htmlspecialchars($city['id_city']).'" value="'.$company['id'].'">'.$company['title'].'</option>';
+							}
 						}
 					}
 				}
@@ -163,7 +168,12 @@
 				// 	$echo .= '<option selected="selected" disabled="disabled" class="color-sgrey">Отделение</option>';
 				// }
 				$echo = '';
-				$warehouses = $Address->UseAPI($Address->GetShippingCompanyById($_POST['shipping_comp']), 'getWarehouses', $_POST);
+				$company = $Address->GetShippingCompanyById($_POST['shipping_comp']);
+				if($company['has_api'] == 1 && $company['api_key'] != ''){
+					$warehouses = $Address->UseAPI($company, 'getWarehouses', $_POST);
+				}else{
+					$warehouses = $Address->NonAPI($company, 'getWarehouses', $_POST);
+				}
 				if(!empty($warehouses)){
 					foreach($warehouses as $warehouse){
 						$echo .= '<option data-ref="'.$warehouse['id'].'" value="'.htmlspecialchars($warehouse['name']).'">'.$warehouse['name'].'</option>';

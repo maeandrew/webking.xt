@@ -1,10 +1,6 @@
 <?php
-$GLOBALS['__page_title'] = 'e-comments';
-$GLOBALS['__page_description'] = 'e-comments';
-$GLOBALS['__page_h1'] = 'e-comments';
+$GLOBALS['__page_title'] = 'Страница не найдена';
+$GLOBALS['__page_description'] = 'Запрашиваемая страница не найдена';
+$tpl->Assign('h1', 'Запрашиваемая страница не найдена');
 unset($parsed_res);
-include($GLOBALS['PATH_block'].'cp_404.php');
-if(TRUE == $parsed_res['issuccess']) {
-	$tpl_center .= $parsed_res['html'];
-}
-?>
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_404.tpl');

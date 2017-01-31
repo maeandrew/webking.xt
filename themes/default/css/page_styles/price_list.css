@@ -341,6 +341,7 @@ h1.global_cat:first-of-type {
 	overflow: hidden;
 	position: relative;
 	max-height: 2.4em;
+	min-height: 2.4em;
 }
 .prod_title::after {
 	content: '';

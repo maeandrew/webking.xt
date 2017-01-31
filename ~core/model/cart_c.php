@@ -16,6 +16,9 @@ class Cart {
 		$Products = new Products();
 		$Products->SetFieldsById($data['id_product'], 0);
 		$product = $Products->fields;
+		if($product['limit_per_order'] > 0 && $data['quantity'] > $product['limit_per_order']){
+			$data['quantity'] = $product['limit_per_order'];
+		}
 		if($product['price_mopt'] == 0){
 			$product['min_mopt_qty'] = $product['inbox_qty'];
 		}

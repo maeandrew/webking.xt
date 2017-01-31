@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 	<meta charset="utf-8">
+	<meta name="google-site-verification" content="3TtJwZYHqpBeSk9JqH1-4dl7gu8ZQSJeIVWRHl80Pxw" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title><?=$__page_title?$__page_title:null;?></title>
 	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
@@ -201,8 +202,11 @@
 	<?}?>
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
-			<?if(!G::IsLogged() || !G::IsAgent() && in_array($_SESSION['member']['gid'], array(_ACL_CUSTOMER_))){?>
-				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>">Стань агентом! Распространяй подарочный сертификат и зарабатывай до 20000 грн.</a>
+			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
+				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>">
+					<span><?=$GLOBALS['CONFIG']['agent_banner'];?></span>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Подробнее</button>
+				</a>
 			<?}?>
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
@@ -215,7 +219,7 @@
 							<?php foreach ($navigation as $value) {?>
 								<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
 									<span class="subCategoryImageWrap">
-										<img src="<?=_base_url?><?=file_exists($category['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+										<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
 									</span>
 									<span class="subCategoryTitleWrap">
 										<span class="subCategoryTitle"><?=$value['name']?></span>

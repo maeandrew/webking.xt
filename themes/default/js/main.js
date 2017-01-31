@@ -953,13 +953,16 @@ $(function(){
 			data = {
 				validate: false,
 				current_step: $(this).closest('[class*="step_"]').data('step'),
-				target_step: $(this).data('step')
+				target_step: $(this).data('step'),
+				id_user: $(this).closest('[class*="step_"]').data('id_user'),
+				target_id_order: $(this).closest('[class*="step_"]').data('target_id_order'),
 			},
 			all = {
 				summary: $('#quiz .summary_info'),
 				current: $('.step_'+$(this).closest('[class*="step_"]').data('step')),
 				target: $('.step_'+$(this).data('step'))
 			};
+			console.log(data);
 		if(data.target_step == 1){
 			// all.summary.removeClass('active');
 			if(data.current_step == 2){
@@ -983,15 +986,15 @@ $(function(){
 					data.last_name = all.current.find('[name="last_name"]').val();
 					data.first_name = all.current.find('[name="first_name"]').val();
 					data.middle_name = all.current.find('[name="middle_name"]').val();
-					if(data.last_name.length == 0){
+					if(data.last_name.length === 0){
 						i++;
 						all.current.find('[name="last_name"]').addClass('is-invalid');
 					}
-					if(data.first_name.length == 0){
+					if(data.first_name.length === 0){
 						i++;
 						all.current.find('[name="first_name"]').addClass('is-invalid');
 					}
-					if(data.middle_name.length == 0){
+					if(data.middle_name.length === 0){
 						i++;
 						all.current.find('[name="middle_name"]').addClass('is-invalid');
 					}
@@ -1016,12 +1019,12 @@ $(function(){
 				// 	all.summary.find('.city').text(city).closest('.row').removeClass('hidden');
 				// 	$('.error_div').addClass('hidden');
 				// }
-				if(data.region == null || data.region.length == 0){
+				if(data.region === null || data.region.length === 0){
 					// Не выбрано отделение
 					all.current.find('.region').addClass('is-invalid');
 					i++;
 				}
-				if(data.city == null || data.city.length == 0){
+				if(data.city === null || data.city.length === 0){
 					// Не выбрано отделение
 					all.current.find('.city').addClass('is-invalid');
 					i++;
@@ -1082,13 +1085,13 @@ $(function(){
 					all.current.find('.delivery').addClass('is-invalid');
 					i++;
 				}else if(data.id_delivery == 1){
-					if(data.delivery_department == null || data.delivery_department.length == 0){
+					if(data.delivery_department === null || data.delivery_department.length === 0){
 						// Не выбрано отделение
 						all.current.find('.delivery_department').addClass('is-invalid');
 						i++;
 					}
 				}else if(data.id_delivery == 2){
-					if(data.address == ''){
+					if(data.address === ''){
 						// Не указан адрес
 						all.current.find('.address').addClass('is-invalid');
 						i++;
@@ -1124,12 +1127,27 @@ $(function(){
 			addLoadAnimation('#quiz');
 			if(data.target_step > data.current_step && data.validate === true){
 				ajax('quiz', 'complete_step', data).done(function(response){
-					if(response.success == true){
-						GetQuizAjax({reload: false, step: response.target_step?response.target_step:data.target_step});
+					console.log(response);
+					if(response.success === true){
+						var sand = { reload: false, step: response.target_step?response.target_step:data.target_step };
+						if(response.target_id_order){
+							sand.target_id_order = response.target_id_order;
+						}
+						if(response.id_user){
+							sand.id_user = response.id_user;
+						}
+						GetQuizAjax(sand);
 					}
 				});
 			}else{
-				GetQuizAjax({reload: false, step: data.target_step});
+				var sand = { reload: false, step: data.target_step };
+				if(response.target_id_order){
+					sand.target_id_order = response.target_id_order;
+				}
+				if(response.id_user){
+					sand.id_user = response.id_user;
+				}
+				GetQuizAjax(sand);
 			}
 		}
 	});

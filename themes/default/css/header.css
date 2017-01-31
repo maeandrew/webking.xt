@@ -46,6 +46,7 @@ header .header_wrapp .header_right .search_wrap {
 header .header_wrapp .header_right .search_wrap .search {
 	padding: 0;
 	width: 260px;
+	max-width: 30vw;
 	vertical-align: middle;
 }
 header .header_wrapp .header_right .search_wrap button,
