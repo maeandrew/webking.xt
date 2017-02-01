@@ -78,6 +78,19 @@ class Address {
 	/**
 	 * [GetRegionsList description]
 	 */
+	public function UpdateRegion($data){
+		$f['title'] = $data['title'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'locations_regions', $f, 'id = '.$data['id'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	/**
+	 * [GetRegionsList description]
+	 */
 	public function DeleteRegion($id){
 		$sql = "DELETE FROM "._DB_PREFIX_."locations_regions WHERE id =  ".$id;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
