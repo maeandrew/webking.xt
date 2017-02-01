@@ -142,6 +142,7 @@ class Address {
 	 */
 	public function AddCity($data){
 		$f['title'] = $data['title'];
+		$f['id_region'] = $data['id_region'];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'locations_cities', $f)){
 			$this->db->FailTrans();
