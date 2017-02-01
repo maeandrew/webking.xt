@@ -132,6 +132,46 @@ class Address {
 		}
 		return $res;
 	}
+
+
+
+
+
+	/**
+	 * [GetRegionsList description]
+	 */
+	public function AddCity($data){
+		$f['title'] = $data['title'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'locations_regions', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	/**
+	 * [GetCitysList description]
+	 */
+	public function UpdateCity($data){
+		$f['title'] = $data['title'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'locations_regions', $f, 'id = '.$data['id'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	/**
+	 * [GetCitysList description]
+	 */
+	public function DeleteCity($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."locations_regions WHERE id =  ".$id;
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
+	}
 	/**
 	 * [GetCitiesList description]
 	 */

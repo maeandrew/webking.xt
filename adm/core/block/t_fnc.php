@@ -559,6 +559,7 @@ function News_form_validate(){
 function Post_form_validate(){
 	$errm  = array();
 	$err = 0;
+
 	$varname = 'id';
 	if (isset($_POST[$varname])){
 		$_POST[$varname] = trim($_POST[$varname]);
@@ -620,18 +621,18 @@ function City_form_validate(){
 	$errm = array();
 	$err=0;
 
-	$varname = 'id_city';
+	$varname = 'id_region';
 	if (isset($_POST[$varname])){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>1, 'IsInt'=>1);
 		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
-		$errm[$varname] = "Не выбран город.";
-		$err=1;
+		$errm[$varname] = "Не выбрана область.";
+		$err = 1;
 	}
 
-	$varname = 'name';
+	$varname = 'title';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_glob'=>1);
