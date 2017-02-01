@@ -1,5 +1,6 @@
 <h1><?=$h1?></h1>
 <div class="grid sites_list">
+    <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
     <table class="list paper_shadow_1" border="0" cellspacing="0" cellpadding="0">
         <thead>
         <tr>
@@ -31,4 +32,5 @@
         <?}?>
         </tbody>
     </table>
+    <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
 </div>

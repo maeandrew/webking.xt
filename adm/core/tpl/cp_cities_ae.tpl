@@ -9,8 +9,8 @@
 		<input type="text" name="title" id="city_name" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>">
         <label for="id_region">Область</label>
         <select name="id_region" id="id_region" class="input-m">
-            <?foreach ($regions as $region) {?>
-                <option value="<?=$region['id']?>"><?=$region['title']?></option>
+            <?foreach($regions as $region) {?>
+                <option value="<?=$region['id']?>" <?=isset($_POST['id_region']) && $_POST['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
             <?}?>
         </select>
 		<input type="hidden" name="id" id="id_city" value="<?=isset($_POST['id'])?$_POST['id']:0?>">

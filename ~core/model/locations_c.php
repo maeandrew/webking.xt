@@ -177,7 +177,7 @@ class Address {
 	/**
 	 * [GetCitiesList description]
 	 */
-	public function GetCitiesList($region = false){
+	public function GetCitiesList($region = false, $limit = false){
 		$sql = "SELECT lc.*
 			FROM "._DB_PREFIX_."locations_cities AS lc";
 		if($region !== false){
@@ -187,6 +187,9 @@ class Address {
 				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
 				WHERE lr.title = ".$this->db->Quote($region);
 			}
+		}
+		if($limit){
+			$sql .= ' LIMIT '.$limit;
 		}
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
