@@ -16,6 +16,9 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cities/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Редактирование города';
 $tpl->Assign('h1', $header);
+
+$tpl->Assign('regions', $Address->GetRegionsList());
+
 if(!$city = $Address->GetCityById($id)) die("Ошибка при извлечении полей");
 if(isset($_POST['smb'])){
 	require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
