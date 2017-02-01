@@ -64,6 +64,20 @@ class Address {
 	/**
 	 * [GetRegionsList description]
 	 */
+	public function AddRegion($data){
+		$f['title'] = $this->db->Quote($arr['title']);
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'locations_regions', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	/**
+	 * [GetRegionsList description]
+	 */
 	public function GetRegionsList(){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_regions AS lr";

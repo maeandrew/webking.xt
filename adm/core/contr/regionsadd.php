@@ -11,11 +11,11 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/regions/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Добавление Области';
 $tpl->Assign('h1', $header);
 
-if (isset($_POST['smb'])){
-	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
+if(isset($_POST['smb'])){
+	require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Region_form_validate();
-    if (!$err){
-    	if ($id = $$ObjName->Add($_POST)){
+    if(!$err){
+    	if($id = $Address->AddRegion($_POST)){
 			$tpl->Assign('msg', 'Добавление прошло успешно.');
 			unset($_POST);
 		}else{
