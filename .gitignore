@@ -243,3 +243,7 @@ robots.txt
 *.xls
 node_modules/*
 .sublime-grunt.cache
+
+images/categories/*
+
+xt.sublime-workspace
