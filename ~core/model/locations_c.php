@@ -102,7 +102,7 @@ class Address {
 	public function GetRegionsList(){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_regions AS lr";
-		if(!$res = $this->db->GetArray($sql)){
+		if(!$res = $this->db->GetArray($sql, 'id')){
 			return false;
 		}
 		return $res;
@@ -149,6 +149,7 @@ class Address {
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
+		print_r($res);
 		return $res;
 	}
 	/**
