@@ -60,7 +60,10 @@ class Contragents extends Users{
 
 	public function SetList(){
 		$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
-		$where = (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_)|| !isset($_SESSION['member']['gid'])?' WHERE cc.work_day = 1 AND cc.date = "'.$date.'" AND c.remote = 0 AND c.site NOT LIKE "%diler%"':'';
+		$where = '';
+		if(SETT !== 0){
+			$where = (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_) || !isset($_SESSION['member']['gid'])?' WHERE cc.work_day = 1 AND cc.date = "'.$date.'" AND c.remote = 0 AND c.site NOT LIKE "%diler%"':'';
+		}
 		$sql = "SELECT DISTINCT c.id_user, c.name_c
 		FROM "._DB_PREFIX_."contragent AS c
 		LEFT JOIN "._DB_PREFIX_."calendar_contragent AS cc
