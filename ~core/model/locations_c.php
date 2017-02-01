@@ -65,7 +65,7 @@ class Address {
 	 * [GetRegionsList description]
 	 */
 	public function AddRegion($data){
-		$f['title'] = $this->db->Quote($data['title']);
+		$f['title'] = $data['title'];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'locations_regions', $f)){
 			$this->db->FailTrans();
