@@ -10,9 +10,7 @@
         </thead>
         <tbody>
             <?if(!empty($list)){
-                foreach($list as $item){
-
-?>
+                foreach($list as $item){?>
                     <tr>
                         <td><?=$item['id']?></td>
                         <td><?=$item['title']?></td>

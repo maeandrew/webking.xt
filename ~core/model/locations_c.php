@@ -143,7 +143,7 @@ class Address {
 	public function AddCity($data){
 		$f['title'] = $data['title'];
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'locations_regions', $f)){
+		if(!$this->db->Insert(_DB_PREFIX_.'locations_cities', $f)){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -157,7 +157,7 @@ class Address {
 	public function UpdateCity($data){
 		$f['title'] = $data['title'];
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_.'locations_regions', $f, 'id = '.$data['id'])){
+		if(!$this->db->Update(_DB_PREFIX_.'locations_cities', $f, 'id = '.$data['id'])){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -168,7 +168,7 @@ class Address {
 	 * [GetCitysList description]
 	 */
 	public function DeleteCity($id){
-		$sql = "DELETE FROM "._DB_PREFIX_."locations_regions WHERE id =  ".$id;
+		$sql = "DELETE FROM "._DB_PREFIX_."locations_cities WHERE id =  ".$id;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}

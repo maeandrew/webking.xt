@@ -4,7 +4,7 @@ $Address = new Address();
 $haeder = 'Города';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
-$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/regions/';
+$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cities/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Добавление города';
 $tpl->Assign('h1', $header);
 
