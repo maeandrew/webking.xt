@@ -157,6 +157,7 @@ class Address {
 	 */
 	public function UpdateCity($data){
 		$f['title'] = $data['title'];
+		$f['id_region'] = $data['id_region'];
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'locations_cities', $f, 'id = '.$data['id'])){
 			$this->db->FailTrans();
