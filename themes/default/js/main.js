@@ -1407,7 +1407,7 @@ $(function(){
 
 	$('#access_recovery').on('click', '#confirm_btn', function(e) {
 		e.preventDefault();
-		$('#access_recovery .mdl-textfield__error').empty();
+		$('#access_recover .mdl-textfield__error').empty();
 		// addLoadAnimation('#password_recovery');
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
@@ -1500,6 +1500,7 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
+
 			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
@@ -1530,18 +1531,17 @@ $(function(){
 				}
 				closeObject('auth');
 
-				if (data.member.gid == 3) {
+
+                if (data.member.gid == 3) {
 					$('#header_js .cart_item').addClass('hidden');
 					removeFromCart();
 				}
 
-				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-					$('#user_profile').append('<img src="/images/noavatar.png"/>');
-					$('.user_profile_js').html(data);
+                $('.login_btn').addClass('hidden');
+                $('.cabinet_btn').removeClass('hidden').find('img').attr('src',data.member.avatar);
 
-					$('.cabinet_btn').removeClass('hidden');
-					$('.login_btn').addClass('hidden');
-
+                ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+                    $('.user_profile_js').html(data);
 					$('#authorized').removeClass('hidden');
 					$('.userContainer').removeClass('hidden');
 					$('button[value="Неавторизован"]').addClass('hidden');
@@ -1583,29 +1583,30 @@ $(function(){
 	});
 
 	// Проверка формы регистрации
-	$('#sign_up .sign_up').click(function(e){
-		e.preventDefault();
-		addLoadAnimation('#sign_up');
-		var parent = $(this).closest('form'),
-			name = parent.find('[name="name"]').val(),
-			phone = parent.find('[name="phone"]').val(),
-			id_contragent = parent.find('[name="id_contragent"]').val(),
-			passwd = parent.find('[name="passwd"]').val(),
-			passwdconfirm = parent.find('[name="passwdconfirm"]').val(),
-			phone_str = phone.replace(/\D/g, "");
+	$('#sign_up .sign_up').click(function(e) {
+        e.preventDefault();
+        addLoadAnimation('#sign_up');
+        var parent = $(this).closest('form'),
+            name = parent.find('[name="name"]').val(),
+            phone = parent.find('[name="phone"]').val(),
+            id_contragent = parent.find('[name="id_contragent"]').val(),
+            passwd = parent.find('[name="passwd"]').val(),
+            passwdconfirm = parent.find('[name="passwdconfirm"]').val(),
+            phone_str = phone.replace(/\D/g, "");
 
-		if (phone_str.length === 10){
-			phone = 38 + phone_str;
-		}else{
-			phone = phone_str;
-		}
-		var data = {
-			name: name,
-			phone: phone,
-			id_contragent: id_contragent,
-			passwd: passwd,
-			passwdconfirm: passwdconfirm
-		}
+        if (phone_str.length === 10) {
+            phone = 38 + phone_str;
+        }else{
+            phone = phone_str;
+        }
+        var data = {
+            name: name,
+            phone: phone,
+            id_contragent: id_contragent,
+            passwd: passwd,
+            passwdconfirm: passwdconfirm
+        };
+
 		// var res = ValidateEmail(data, 1);
 		ajax('auth', 'register', data).done(function(data){
 			if(data.err === 0){
@@ -1665,7 +1666,6 @@ $(function(){
 						}else{
 							$('#issue_result_ok').find('.info_text').text('Загрузка прошла успешно!');
 						}
-						closeObject('estimateLoad');
 						parent.find('[name="comment"], [type="file"]').val('');
 						parent.find('.estimate_info_js').html('');
 						parent.find('.mdl-textfield').removeClass('is-invalid');
@@ -1679,7 +1679,6 @@ $(function(){
 						parent.find('.estimate_info_js').text(data.message);
 						break;
 					case 4:
-						closeObject('estimateLoad');
 						parent.find('.estimate_info_js').html('');
 						$('#issue_result_err').find('.info_text').html(data.message);
 						openObject('issue_result_err');
@@ -2089,6 +2088,7 @@ $(function(){
 						break;
 					case 3:
 						obj.hasClass('offers_js') ? closeObject('offers') : closeObject('issue');
+
 						$('.issue_result_js .modal_container').html('<div class="issue_ok"><i class="material-icons">check_circle</i></div><p class="info_text">Ваше сообщение было отправлено</p>');
 						openObject('issue_result');
 						break;

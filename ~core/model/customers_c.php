@@ -283,10 +283,9 @@ class Customers extends Users {
 	public function RegisterCustomer($arr){
 		//рандомный выбор контрагента
 		if(!isset($arr['id_contragent']) || empty($arr['id_contragent'])){
-			$contragents = new Contragents();
-			$contragents->SetList();
-			$managers_list = $contragents->list;
-			$arr['id_contragent'] = $contragents->list[array_rand($contragents->list)]['id_user'];
+			global $Contragents;
+			$Contragents->SetList();
+			$arr['id_contragent'] = $Contragents->list[array_rand($Contragents->list)]['id_user'];
 		}
 		return $this->AddCustomer($arr);
 	}
