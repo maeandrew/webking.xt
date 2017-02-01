@@ -1407,7 +1407,7 @@ $(function(){
 
 	$('#access_recovery').on('click', '#confirm_btn', function(e) {
 		e.preventDefault();
-		$('#access_recover .mdl-textfield__error').empty();
+		$('#access_recovery .mdl-textfield__error').empty();
 		// addLoadAnimation('#password_recovery');
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
