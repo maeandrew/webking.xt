@@ -149,7 +149,6 @@ class Address {
 		if(!$res = $this->db->GetArray($sql)){
 			return false;
 		}
-		print_r($res);
 		return $res;
 	}
 	/**
