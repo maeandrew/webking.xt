@@ -1407,7 +1407,7 @@ $(function(){
 
 	$('#access_recovery').on('click', '#confirm_btn', function(e) {
 		e.preventDefault();
-		$('#access_recover' + 'y .mdl-textfield__error').empty();
+		$('#access_recover .mdl-textfield__error').empty();
 		// addLoadAnimation('#password_recovery');
 		var parent = $(this).closest('[data-type="modal"]'),
 			id_user = parent.find('[type="hidden"]').val(),
@@ -1500,6 +1500,7 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
+
 			if(data.err != 1){
 				if (over_scroll === true) {
 					var page = $('.products_page'),
@@ -1553,9 +1554,9 @@ $(function(){
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 				if($('#auth').data('from') !== undefined){
-					 location.replace($('#auth').data('from'));
+					location.replace($('#auth').data('from'));
 				}else if(current_controller === 'main'){
-					 location.reload();
+					location.reload();
 				}
 			}else{
 				form.find('.error').text(data.msg).fadeIn();
@@ -1595,7 +1596,7 @@ $(function(){
 
         if (phone_str.length === 10) {
             phone = 38 + phone_str;
-        } else {
+        }else{
             phone = phone_str;
         }
         var data = {
@@ -1617,7 +1618,7 @@ $(function(){
 				});
 				openObject('registerComplete');
 			}else{
-				$.each(data.err, function(key, value) {
+				$.each(data.errm, function(key, value) {
 					// $('[name="'+key+'"] + .mdl-textfield__error').append(value);
 					$('[name="'+key+'"]').closest('.mdl-textfield').addClass('is-invalid').find('.mdl-textfield__error').html(value);
 				});
@@ -1661,7 +1662,6 @@ $(function(){
 								$('.cabinet_btn').removeClass('hidden');
 								$('.login_btn').addClass('hidden');
 								parent.find('input[name="name"], input[name="phone"]').closest('div').remove();
-                                closeObject('estimateLoad');
 							});
 						}else{
 							$('#issue_result_ok').find('.info_text').text('Загрузка прошла успешно!');
@@ -1679,7 +1679,6 @@ $(function(){
 						parent.find('.estimate_info_js').text(data.message);
 						break;
 					case 4:
-						closeObject('estimateLoad');
 						parent.find('.estimate_info_js').html('');
 						$('#issue_result_err').find('.info_text').html(data.message);
 						openObject('issue_result_err');
