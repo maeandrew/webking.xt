@@ -159,6 +159,25 @@
 					<a href="/adm/remitteradd/" class="sb-menu__item__add animate" title="Добавить отправителя"><i class="icon-add">a</i></a>
 				</li>
 			<?}?>
+                <li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'remitters'?' sb-menu__item_active':null;?>">Доставка</li>
+                <ul class="sb-menu__sub-menu">
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/regions">Области</a>
+                        <a href="/adm/regionsadd" class="sb-menu__item__add animate" title="Добавить Область"><i class="icon-add">a</i></a>
+                    </li>
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/cities">Города</a>
+                        <a href="/adm/citiesadd" class="sb-menu__item__add animate" title="Добавить Город"><i class="icon-add">a</i></a>
+                    </li>
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/monitoring/specifications/">Пункты выдачи</a>
+                        <a href="/adm/core/contr/regionsadd " class="sb-menu__item__add animate" title="Добавить Пункт Выдачи"><i class="icon-add">a</i></a>
+                    </li>
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && $GLOBALS['REQAR'][1] == 'specifications'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/monitoring/specifications/">Транспортные компании</a>
+                        <a href="/adm/core/contr/regionsadd" class="sb-menu__item__add animate" title="Добавить Траспортную Компанию"><i class="icon-add">a</i></a>
+                    </li>
+                </ul>
 			<?if(_acl::isAllow('monitoring')){?>
 				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && !isset($GLOBALS['REQAR'][1])?' sb-menu__item_active':null;?>">
 					<a href="/adm/monitoring/">Мониторинг</a>
