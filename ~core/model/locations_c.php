@@ -65,7 +65,7 @@ class Address {
 	 * [GetRegionsList description]
 	 */
 	public function AddRegion($data){
-		$f['title'] = $this->db->Quote($arr['title']);
+		$f['title'] = $this->db->Quote($data['title']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'locations_regions', $f)){
 			$this->db->FailTrans();
@@ -74,6 +74,14 @@ class Address {
 		$id = $this->db->GetLastId();
 		$this->db->CompleteTrans();
 		return $id;
+	}
+	/**
+	 * [GetRegionsList description]
+	 */
+	public function DeleteRegion($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."locations_regions WHERE id =  ".$id;
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
 	}
 	/**
 	 * [GetRegionsList description]
