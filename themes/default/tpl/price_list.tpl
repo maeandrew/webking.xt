@@ -42,7 +42,7 @@ if(isset($_GET['savedprices']) == false && $_GET['photo'] != 3){
 		<h1>Прайс-лист<!--  службы снабжения xt.ua --></h1>
 	<?}
 }else{?>
-	<h1><?=$_GET['photo'] != 3?$name:null?></h1>
+	<h1><?=$_GET['photo'] != 3?(isset($_GET['header'])?$_GET['header']:$name):null?></h1>
 <?}
 if($_GET['photo'] !== 2){
 	$headrow = '<th class="header__article">Арт.</th>'.

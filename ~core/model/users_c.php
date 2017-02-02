@@ -91,6 +91,7 @@ class Users {
 				WHERE c.id_user = ".$id_user;
 		}
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql);
+		$this->fields['avatar'] = G::GetUserAvatar($id_user);
 		// получаем список товаров, которые уже были в заказе
 		$sql = "SELECT DISTINCT osp.id_product, osp.opt_qty+osp.mopt_qty AS count
 			FROM "._DB_PREFIX_."order AS o

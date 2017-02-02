@@ -18,10 +18,10 @@
 					if(G::InsertGuestComment($_POST)){
 						$res['err'] = 3;
 						$res['msg'] = 'Сообщение отправлено.';
-					} else{
+					}else{
 						$res['err'] = 4;
 						$res['msg'] = 'Что-то пошло не так. Повторите попытку.';
-					};
+					}
 				}
 				echo json_encode($res);
 				break;

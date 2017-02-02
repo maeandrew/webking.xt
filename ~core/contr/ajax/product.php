@@ -227,7 +227,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
 					if($unique_phone === true){
 						$string_phone = preg_replace('~[^0-9]+~','', $_POST['phone']);
-						if( strlen($string_phone) == 10){
+						if(strlen($string_phone) == 10){
 							$phone_num = 38 + $string_phone;
 						}elseif(strlen($string_phone) == 12) {
 							$phone_num = $string_phone;
@@ -253,7 +253,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							$res['message'] = 'Пользователь авторизован';
 							$res['status'] = 1;
 						}
-					} else {
+					}else{
 						$res['message'] = 'Пользователь с таким номером телефона уже зарегистрирован! <a href="#" class="btn_js" data-name="auth">Авторизуйтесь!</a>';
 						$res['status'] = 2;
 					}
@@ -267,7 +267,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							if($_FILES['file']['size'] > 1024*3*1024){
 								$res['message'] = 'Размер файла превышает три мегабайта';
 								$res['status'] = 3;
-							} else {
+							}else{
 								$folder_name = 'estimates/'.$_SESSION['member']['id_user'].'/';
 								$pathname = $GLOBALS['PATH_root'].$folder_name;
 								$images = new Images();
@@ -275,10 +275,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 								if(move_uploaded_file($_FILES['file']['tmp_name'], $pathname.$_FILES['file']['name'])) {
 									// Если все загружено на сервер, выполнить запись в БД
 									$file = '/'.$folder_name.$_FILES['file']['name'];
-									$Product->UploadEstimate($file, $_POST['comment']);
+									$Products->UploadEstimate($file, $_POST['comment']);
 									$res['message'] = '<h4>Загрузка прошла успешно!</h4><p>Загрузка сметы доступна только зарегестрированным пользователям.</p><br><p>Поэтому для Вас был создан аккаунт на сайте <span class="bold_text">xt.ua</span>.</p><br><p>На указанный при загрузке сметы номер телефона <span class="bold_text">'.$_POST['phone'].'</span> отправлено <span class="bold_text">смс-сообщение</span> с временным паролем для входа в личный кабинет.</p><br><p>Перейдите в свой <a href="'.Link::Custom('cabinet', 'settings', array('clear' => true)).'?t=password"><span class="bold_text">личный кабинет</span></a> для смены временного пароля на постоянный.</p>';
 									$res['status'] = 1;
-								} else{
+								}else{
 									$res['message'] = '<h4>Произошла ошибка.</h4><p>Повторите попытку позже!</p>';
 									$res['status'] = 4;
 								}
