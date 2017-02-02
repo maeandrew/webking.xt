@@ -272,9 +272,11 @@ class Address {
 	public function AddShippingCompany($data){
 		$f['title'] = $data['title'];
 		$f['courier'] = $data['courier'];
-		$f['has_api'] = $data['api'];
+		$f['has_api'] = $data['has_api'];
 		$f['api_key'] = $data['api_key'];
 		$f['api_prefix'] = $data['api_prefix'];
+		// var_dump($data);
+		// die();
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'shipping_companies', $f)){
 			$this->db->FailTrans();
