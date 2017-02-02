@@ -28,8 +28,8 @@
     </form>
 </div>
 <script>
-         $('#api').on('change', function () {
-             var value = $('#api').val();
+         $('#has_api').on('change', function () {
+             var value = $('#has_api').val();
              if (value == 1)  {
                  $('#api__box').removeClass('hidden');
              }else {
