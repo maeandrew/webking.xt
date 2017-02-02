@@ -3,7 +3,6 @@
 $_SERVER['REQUEST_URI'] = preg_replace('#/$#is', '', $_SERVER['REQUEST_URI']);
 preg_match('/[\?].*$/', $_SERVER['REQUEST_URI'], $match);
 $GLOBALS['GetString'] = !empty($match)?$match[0]:'';
-$_SERVER['REQUEST_URI'] = preg_replace('/(\?.+$)/', '', $_SERVER['REQUEST_URI']);
 preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
 
 if($ma[1][0] == 'adm'){
@@ -15,10 +14,10 @@ if($ma[1][0] == 'adm'){
  */
 if(empty($ma[1])){
 	$ma[1][0] = $GLOBALS['DefaultController'];
-}elseif (!in_array($ma[1][0], $GLOBALS['Controllers'])){
+}elseif (!in_array(preg_replace('/(\?.+$)/', '', $ma[1][0]), $GLOBALS['Controllers'])){
 	array_unshift($ma[1], '404');
 }
-$GLOBALS['CurrentController'] = $ma[1][0];
+$GLOBALS['CurrentController'] = preg_replace('/(\?.+$)/', '', $ma[1][0]);
 $GLOBALS['REQAR'] = $ma[1];
 //$GLOBALS['__graph'] = $tpl_graph;
 
