@@ -9,6 +9,7 @@
             <td>Область</td>
             <td>Город</td>
             <td>Транспортная компания</td>
+            <td>Дилер</td>
             <td></td>
         </tr>
         </thead>
@@ -21,6 +22,7 @@
                     <td><?=$regions[$cities[$item['id_city']]['id_region']]['title']?></td>
                     <td><?=$cities[$item['id_city']]['title']?></td>
                     <td><?=$shipping_companies[$item['id_shipping_company']]['title'];?></td>
+                    <td><?=$dealers[$item['id_dealer']]['first_name'];?></td>
                     <td>
                         <a href="/adm/warehousesedit/<?=$item['id']?>" class="btn-m-green">Редактировать</a>
                         <a href="/adm/warehousesdel/<?=$item['id']?>" class="btn-m-red">Удалить</a>

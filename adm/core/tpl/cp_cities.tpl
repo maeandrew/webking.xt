@@ -17,7 +17,7 @@
                 ?>
                 <tr>
                     <td><?=$item['id']?></td>
-                    <td><?=$item['title']?>
+                    <td><?=$item['title']?></td>
                     <td><?=$regions[$item['id_region']]['title']?></td>
                     <td>
                         <a href="/adm/citiesedit/<?=$item['id']?>" class="btn-m-green">Редактировать</a>
