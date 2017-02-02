@@ -7,17 +7,13 @@ $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
 
 $tpl->Assign('regions', $Address->GetRegionsList());
+$region = false;
+if(isset($_GET['smb'])){
+	$region = (int) $_GET['id_region'];
+}else
 
-if(isset($_POST['smb'])){
-	if($_POST['filter_name']!==''){
-		$region = intval($_POST['id_region']);
-	}
-}
-
-if(isset($_POST['clear_filters'])){
-	if($_POST['filter_name']!==''){
-		$region = false;
-	}
+if(isset($_GET['clear_filters'])){
+	header ("Location: /adm/cities");
 }
 
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){

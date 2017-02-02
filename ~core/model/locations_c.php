@@ -163,12 +163,12 @@ class Address {
 	public function GetCitiesList($region = false, $limit = false){
 		$sql = "SELECT lc.*
 			FROM "._DB_PREFIX_."locations_cities AS lc";
-		if($region !== false){
+			if($region !== false){
 			if(is_integer($region)){
 				$sql .= " WHERE lc.id_region = ".$region;
 			}else{
 				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
-				WHERE lc.id_region = ".$this->db->Quote($region);
+				WHERE lc.title = ".$this->db->Quote($region);
 			}
 
 		}

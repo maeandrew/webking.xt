@@ -15,7 +15,7 @@
                     </select>
                 </td>
                 <td>
-                    <form action="" method="POST" id="submit_clear">
+                    <form action="" method="GET" id="submit_clear">
                         <button type="submit" name="smb" class="btn-m-default">Применить</button>
                         <button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
                     </form>
