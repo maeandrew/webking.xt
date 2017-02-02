@@ -174,7 +174,7 @@
                         <a href="/adm/warehouses/">Пункты выдачи</a>
                         <a href="/adm/warehousesadd " class="sb-menu__item__add animate" title="Добавить пункт выдачи"><i class="icon-add">a</i></a>
                     </li>
-                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'shipping_companies'?' sb-menu__item_active':null;?>">
+                    <li class="sb-menu__sub-menu__item hidden<?=$GLOBALS['CurrentController'] == 'shipping_companies'?' sb-menu__item_active':null;?>">
                         <a href="/adm/shipping_companies/">Транспортные компании</a>
                         <a href="/adm/shipping_companiesadd" class="sb-menu__item__add animate" title="Добавить траспортную компанию"><i class="icon-add">a</i></a>
                     </li>

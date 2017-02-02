@@ -28,7 +28,7 @@
         <label for="id_dealer">Дилер</label>
         <select name="id_dealer" id="id_dealer" class="input-m">
             <?foreach($dealers as $dealer) {?>
-                <option value="<?=$dealer['id_user']?>" <?=isset($_POST['id_dealer']) && $_POST['id_dealer'] == $dealer['id_user']?'selected="selected"':null;?>><?=$dealer['last_name'].' '.$dealer['first_name'].' '.$dealer['middle_name']?></option>
+                <option value="<?=$dealer['id_user']?>" <?=isset($_POST['id_dealer']) && $_POST['id_dealer'] == $dealer['id_user']?'selected="selected"':null;?>><?=$dealer['last_name'].' '.$dealer['first_name'].' '.$dealer['middle_name'].' - '.$dealer['email']?></option>
             <?}?>
         </select>
 		<input type="hidden" name="id" id="id_warehouse" value="<?=isset($_POST['id'])?$_POST['id']:0?>">
