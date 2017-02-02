@@ -98,9 +98,12 @@ class Address {
 	public function GetRegionsList(){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_regions AS lr";
+
 		if(!$res = $this->db->GetArray($sql, 'id')){
 			return false;
+
 		}
+		var_dump($res);
 		return $res;
 	}
 	public function GetRegionByTitle($title){
@@ -268,7 +271,10 @@ class Address {
 
 	public function AddShippingCompany($data){
 		$f['title'] = $data['title'];
-		$f['id_region'] = $data['id_region'];
+		$f['courier'] = $data['courier'];
+		$f['has_api'] = $data['api'];
+		$f['api_key'] = $data['api_key'];
+		$f['api_prefix'] = $data['api_prefix'];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'shipping_companies', $f)){
 			$this->db->FailTrans();
@@ -280,7 +286,6 @@ class Address {
 	}
 	public function UpdateShippingCompany($data){
 		$f['title'] = $data['title'];
-		$f['id_region'] = $data['id_region'];
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'shipping_companies', $f, 'id = '.$data['id'])){
 			$this->db->FailTrans();
