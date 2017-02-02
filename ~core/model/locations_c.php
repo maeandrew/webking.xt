@@ -208,6 +208,7 @@ class Address {
 	public function AddWarehouse($data){
 		$f['warehouse'] = $data['warehouse'];
 		$f['id_city'] = $data['id_city'];
+		$f['id_dealer'] = $data['id_dealer'];
 		$f['id_shipping_company'] = $data['id_shipping_company'];
 		// $f['id_dealer'] = $data['id_dealer'];
 		$this->db->StartTrans();
@@ -222,8 +223,8 @@ class Address {
 	public function UpdateWarehouse($data){
 		$f['warehouse'] = $data['warehouse'];
 		$f['id_city'] = $data['id_city'];
+		$f['id_dealer'] = $data['id_dealer'];
 		$f['id_shipping_company'] = $data['id_shipping_company'];
-		// $f['id_dealer'] = $data['id_dealer'];
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_.'locations_warehouses', $f, 'id = '.$data['id'])){
 			$this->db->FailTrans();
