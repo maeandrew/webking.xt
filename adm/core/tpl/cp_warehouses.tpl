@@ -3,6 +3,39 @@
     <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
     <table class="list paper_shadow_1" border="0" cellspacing="0" cellpadding="0">
         <thead>
+        <tr class="filter">
+            <td>Фильтры:</td>
+            <td></td>
+            <td>
+                <select name="id_region" id="id_region" class="input-m" form="submit_clear">
+                    <?foreach($regions as $region) {?>
+                        <option value="<?=$region['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
+                    <?}?>
+                </select>
+            </td>
+            <td>
+                <select name="id_city" id="id_city" class="input-m" form="submit_clear">
+                    <?foreach($cities as $city) {?>
+                        <option value="<?=$city['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $city['id']?'selected="selected"':null;?>><?=$city['title']?></option>
+                    <?}?>
+                </select>
+            </td>
+            <td>
+                <select name="id_shipping_company" id="id_shipping_company" class="input-m" form="submit_clear">
+                    <?foreach($shipping_companies as $company) {?>
+                        <option value="<?=$company['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $company['id']?'selected="selected"':null;?>><?=$company['title']?></option>
+                    <?}?>
+                </select>
+            </td>
+            <td></td>
+            <td>
+                <form action="" method="GET" id="submit_clear">
+                    <button type="submit" name="smb" class="btn-m-default">Применить</button>
+                    <button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
+                </form>
+            </td>
+
+        </tr>
         <tr>
             <td>ID</td>
             <td>Название</td>
@@ -38,3 +71,12 @@
     </table>
     <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
 </div>
+
+<script>
+    $('#id_region').on('change', function(){
+        var value = $(this).val();
+        ajax('location', 'generateCitiesListByIdRegion', {id_region: value}, 'html').done(function(data){
+            $('#id_city').html(data);
+        })
+    });
+</script>
