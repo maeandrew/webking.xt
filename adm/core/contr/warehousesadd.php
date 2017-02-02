@@ -1,5 +1,6 @@
 <?php
 $Address = new Address();
+$Users = new Users();
 
 $header = 'Добавление пункта выдачи';
 $ii = count($GLOBALS['IERA_LINKS']);
@@ -13,6 +14,8 @@ $tpl->Assign('regions', $Address->GetRegionsList());
 $tpl->Assign('cities', $Address->GetCitiesList());
 
 $tpl->Assign('shipping_companies', $Address->GetShippingCompaniesList());
+
+$tpl->Assign('dealers', $Users->GetDealersList());
 
 if(isset($_POST['smb'])){
 	require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы

@@ -1,5 +1,6 @@
 <?php
 $Address = new Address();
+$Users = new Users();
 
 // ---- center ----
 unset($parsed_res);
@@ -22,6 +23,8 @@ $tpl->Assign('regions', $Address->GetRegionsList());
 $tpl->Assign('cities', $Address->GetCitiesList());
 
 $tpl->Assign('shipping_companies', $Address->GetShippingCompaniesList());
+
+$tpl->Assign('dealers', $Users->GetDealersList());
 
 if(!$data = $Address->GetWarehouseById($id)) die("Ошибка при извлечении полей");
 if(isset($_POST['smb'])){

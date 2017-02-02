@@ -639,4 +639,18 @@ class Users {
 		}
 		return $res;
 	}
+	public function GetDealersList($limit = false){
+		$sql = "SELECT u.*, c.*
+			FROM "._DB_PREFIX_."user AS u
+			LEFT JOIN "._DB_PREFIX_."customer AS c
+				ON c.id_user = u.id_user
+			WHERE u.dealer = 1";
+		if($limit){
+			$sql .= ' LIMIT '.$limit;
+		}
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
 }
