@@ -210,7 +210,6 @@ class Address {
 		$f['id_city'] = $data['id_city'];
 		$f['id_dealer'] = $data['id_dealer'];
 		$f['id_shipping_company'] = $data['id_shipping_company'];
-		// $f['id_dealer'] = $data['id_dealer'];
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'locations_warehouses', $f)){
 			$this->db->FailTrans();

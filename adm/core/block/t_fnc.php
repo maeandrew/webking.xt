@@ -672,16 +672,16 @@ function Warehouse_form_validate(){
 		$err = 1;
 	}
 
-	// $varname = 'id_dealer';
-	// if (isset($_POST[$varname])){
-	// 	$_POST[$varname] = trim($_POST[$varname]);
-	// 	$carr = array('Lmin'=>1, 'IsInt'=>1);
-	// 	list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-	// 	if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	// }else{
-	// 	$errm[$varname] = "Не выбрана область.";
-	// 	$err = 1;
-	// }
+	$varname = 'id_dealer';
+	if (isset($_POST[$varname])){
+		$_POST[$varname] = trim($_POST[$varname]);
+		$carr = array('Lmin'=>1, 'IsInt'=>1);
+		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
+		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
+	}else{
+		$errm[$varname] = "Не выбрана область.";
+		$err = 1;
+	}
 
 	$varname = 'warehouse';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
