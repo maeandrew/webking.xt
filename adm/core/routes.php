@@ -3,7 +3,8 @@
 $_SERVER['REQUEST_URI'] = preg_replace('#/$#is', '', $_SERVER['REQUEST_URI']);
 preg_match('/[\?].*$/', $_SERVER['REQUEST_URI'], $match);
 $GLOBALS['GetString'] = !empty($match)?$match[0]:'';
-preg_match_all('#/([^/]+)\?#is', $_SERVER['REQUEST_URI'], $ma);
+$_SERVER['REQUEST_URI'] = preg_replace('/(\?.+$)/', '', $_SERVER['REQUEST_URI']);
+preg_match_all('#/([^/]+)#is', $_SERVER['REQUEST_URI'], $ma);
 
 if($ma[1][0] == 'adm'){
 	//unset($ma[1]);
