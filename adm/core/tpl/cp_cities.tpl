@@ -10,7 +10,7 @@
                 <td>
                     <select name="id_region" id="id_region" class="input-m" form="submit_clear">
                         <?foreach($regions as $region) {?>
-                            <option value="<?=$region['id']?>" <?=isset($_POST['id_region']) && $_POST['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
+                            <option value="<?=$region['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
                         <?}?>
                     </select>
                 </td>
