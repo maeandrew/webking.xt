@@ -1,20 +1,24 @@
 <?php
 $Address = new Address();
 
-$header = 'Добавление города';
+$header = 'Добавление пункта выдачи';
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Города';
-$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cities/';
+$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Пункты выдачи';
+$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/warehouses/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
 
 $tpl->Assign('regions', $Address->GetRegionsList());
 
+$tpl->Assign('cities', $Address->GetCitiesList());
+
+$tpl->Assign('shipping_companies', $Address->GetShippingCompaniesList());
+
 if(isset($_POST['smb'])){
 	require_once($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = City_form_validate();
+	list($err, $errm) = Warehouse_form_validate();
     if(!$err){
-    	if($id = $Address->AddCity($_POST)){
+    	if($id = $Address->AddWarehouse($_POST)){
 			$tpl->Assign('msg', 'Добавление прошло успешно.');
 			unset($_POST);
 		}else{
@@ -28,4 +32,4 @@ if(isset($_POST['smb'])){
     }
 }
 
-$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_cities_ae.tpl');
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_warehouses_ae.tpl');

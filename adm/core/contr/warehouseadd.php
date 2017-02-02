@@ -16,14 +16,14 @@
 		}else{
 			$tpl->Assign('msg', 'Поставщик не добавлен.');
 			if ($Supplier->db->errno == 1062){
-				$errm['email'] = "Такой email уже есть в базе."; 
+				$errm['email'] = "Такой email уже есть в базе.";
 				$tpl->Assign('errm', $errm);
 			}
 		}
 	}
 	$ii = count($GLOBALS['IERA_LINKS']);
-	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
-	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/warehouse/';
+	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Поставщики склада";
+	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/warehouse_supplier/';
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление поставщика склада";
 	$nonWarehouses = $Supplier->GetNonWarehouses();
 	$tpl->Assign('nonWarehouses', $nonWarehouses);

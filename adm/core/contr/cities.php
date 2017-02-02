@@ -8,7 +8,6 @@ $tpl->Assign('h1', $header);
 
 $tpl->Assign('regions', $Address->GetRegionsList());
 
-
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$GLOBALS['Limit_db'] = $_GET['limit'];
 }

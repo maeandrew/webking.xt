@@ -1,34 +1,38 @@
 <h1><?=$h1?></h1>
-<?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
-<?}elseif(isset($msg)){?>
-	<div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div>
-	<script>setTimeout(function(){location.replace("<?=$GLOBALS['URL_base']?>adm/warehouses/");}, 1500);</script>
-<?}?>
-<?if($warehouses){?>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
-	<col width="100%">
-	<thead>
-		<tr>
-			<td class="left">Имя</td>
-			<td class="left">Управление</td>
-		</tr>
-	</thead>
-	<tbody>
-		<? foreach($warehouses as $w){?>
-			<tr>
-				<td>
-					<a href="<?=$GLOBALS['URL_base'].'adm/supplieredit/'.$w['id_supplier']?>"><?=$w['name']?></a>
-				</td>
-				<td class="right actions">
-					<nobr>
-						<a href="<?=$GLOBALS['URL_base'].'adm/warehousedel/'.$w['id_supplier']?>" onclick="return confirm('Точно удалить?');" class="btn-l-red-inv">удалить</a>
-					</nobr>
-				</td>
-			</tr>
-		<?}?>
-	</tbody>
-</table>
-<?}else{?>
-	<h4>Складских поставщиков нету</h4>
-<?}?>
-	<p><a href="/adm/warehouseadd/">Добавить?</a></p>
+<div class="grid sites_list">
+    <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
+    <table class="list paper_shadow_1" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Область</td>
+            <td>Город</td>
+            <td>Транспортная компания</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <?if(!empty($list)){
+            foreach($list as $item){?>
+                <tr>
+                    <td><?=$item['id']?></td>
+                    <td><?=$item['warehouse']?></td>
+                    <td><?=$regions[$cities[$item['id_city']]['id_region']]['title']?></td>
+                    <td><?=$cities[$item['id_city']]['title']?></td>
+                    <td><?=$shipping_companies[$item['id_shipping_company']]['title'];?></td>
+                    <td>
+                        <a href="/adm/warehousesedit/<?=$item['id']?>" class="btn-m-green">Редактировать</a>
+                        <a href="/adm/warehousesdel/<?=$item['id']?>" class="btn-m-red">Удалить</a>
+                    </td>
+                </tr>
+            <?}
+        }else{?>
+            <tr>
+                <td colspan="3">Нет ни одного города, но его все-еще можно добавить <a href="/adm/warehousessadd/">здесь</a></td>
+            </tr>
+        <?}?>
+        </tbody>
+    </table>
+    <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
+</div>

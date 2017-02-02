@@ -10,11 +10,11 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	header('Location: '.$GLOBALS['URL_base'].'404/');
 	exit();
 }
-$header = 'Города';
+$header = 'Редактирование города';
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
+$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Города';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/cities/';
-$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Редактирование города';
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
 
 $tpl->Assign('regions', $Address->GetRegionsList());

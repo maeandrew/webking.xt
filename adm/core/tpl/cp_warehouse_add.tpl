@@ -5,13 +5,13 @@
 
 <div id="warehouseae">
     <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
-		<select name="id_supplier" class="input-l">
+		<select name="id_supplier" class="input-m">
 			<option disabled selected>-- Выберите поставщика --</option>
 			<?foreach($nonWarehouses as $w){?>
 				<option value="<?=$w['id_user']?>"><?=$w['name']?></option>
 			<?}?>
 		</select>
-		<button name="smb" type="submit" id="form_submit" class="btn-l-default save-btn">Добавить</button>
+		<button name="smb" type="submit" id="form_submit" class="btn-m-default save-btn">Добавить</button>
     </form>
 </div>
 <?if(isset($success)){ unset($success);?>
@@ -21,4 +21,3 @@
 	}, 1500);
 	</script>
 <?}?>
-<p><a href="/adm/warehouses/">Список поставщиков склада</a></p>
