@@ -16,7 +16,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/shipping_compan
 $GLOBALS['IERA_LINKS'][$ii]['title'] = 'Удаление транспортной компании';
 $tpl->Assign('h1', $header);
 
-if(!$Address->DeleteRegion($id)) die('Ошибка при удалении.');
+if(!$Address->DeleteShippingCompany($id)) die('Ошибка при удалении.');
 
 $tpl->Assign('msg', 'Удаление прошло успешно.');
 
