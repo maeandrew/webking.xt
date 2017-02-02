@@ -1,11 +1,11 @@
 <?php
 $Address = new Address();
 
-$haeder = 'Транспортные компании';
+$header = 'Добавление транспортной компании';
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
+$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Транспортные компании';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/shipping_companies/';
-$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Добавление транспортной компании';
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
 
 if(isset($_POST['smb'])){
