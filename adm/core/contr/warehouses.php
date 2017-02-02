@@ -1,5 +1,6 @@
 <?php
 $Address = new Address();
+$Users = new Users();
 
 $header = 'Пункты выдачи';
 $ii = count($GLOBALS['IERA_LINKS']);
@@ -11,6 +12,8 @@ $tpl->Assign('regions', $Address->GetRegionsList());
 $tpl->Assign('cities', $Address->GetCitiesList());
 
 $tpl->Assign('shipping_companies', $Address->GetShippingCompaniesList());
+
+$tpl->Assign('dealers', $Users->GetDealersList());
 
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$GLOBALS['Limit_db'] = $_GET['limit'];

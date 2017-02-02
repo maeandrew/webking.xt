@@ -648,7 +648,7 @@ class Users {
 		if($limit){
 			$sql .= ' LIMIT '.$limit;
 		}
-		if(!$res = $this->db->GetArray($sql)){
+		if(!$res = $this->db->GetArray($sql, 'id_user')){
 			return false;
 		}
 		return $res;
