@@ -192,6 +192,15 @@
 				}
 				echo json_encode(true);
 				break;
+			case 'generateCitiesListByIdRegion':
+				$echo = false;
+				if(isset($_REQUEST['id_region'])){
+					foreach($Address->GetCitiesList($_REQUEST['id_region']) as $city){
+						$echo .= '<option value="'.$city['id'].'">'.$city['title'].'</option>';
+					}
+				}
+				echo $echo;
+				break;
 			default:
 				break;
 		}
