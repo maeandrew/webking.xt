@@ -12,8 +12,8 @@
             <option value="0">Нет</option>
             <option value="1">Есть</option>
         </select>
-        <label for="api">API</label>
-        <select name="api" id="api" class="input-m">
+        <label for="has_api">API</label>
+        <select name="has_api" id="has_api" class="input-m">
             <option value="0">Нет</option>
             <option value="1">Да</option>
         </select>
