@@ -3,6 +3,23 @@
     <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
     <table class="list paper_shadow_1" border="0" cellspacing="0" cellpadding="0">
         <thead>
+            <tr class="filter">
+                <td>Фильтры:</td>
+                <td></td>
+                <td>
+                    <select name="id_region" id="id_region" class="input-m">
+                        <?foreach($regions as $region) {?>
+                            <option value="<?=$region['id']?>" <?=isset($_POST['id_region']) && $_POST['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
+                        <?}?>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" name="smb" class="btn-m-default">Применить</button>
+                    <button type="submit" name="clear_filters" class="btn-m-default-inv">Сбросить</button>
+                </td>
+            </tr>
+        </thead>
+        <thead>
         <tr>
             <td>ID</td>
             <td>Название</td>

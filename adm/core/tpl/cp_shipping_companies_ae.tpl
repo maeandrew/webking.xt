@@ -3,7 +3,7 @@
 <?if (isset($errm) && isset($msg)){?><div class="notification error"> <span class="strong">Ошибка!</span><?=$msg?></div>
 <?}elseif(isset($msg)){?><div class="notification success"> <span class="strong">Сделано!</span><?=$msg?></div><?}?>
 
-<div id="warehousesae">
+<div id="shipping_companies_ae">
     <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
         <label for="shipping_company_name">Название:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
         <input type="text" name="title" id="shipping_company_name" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>">
