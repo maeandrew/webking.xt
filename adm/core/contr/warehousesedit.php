@@ -13,7 +13,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }
 $header = 'Редактирование пункта выдачи';
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = 'пункты выдачи';
+$GLOBALS['IERA_LINKS'][$ii]['title'] = 'Пункты выдачи';
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/warehouses/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $tpl->Assign('h1', $header);
