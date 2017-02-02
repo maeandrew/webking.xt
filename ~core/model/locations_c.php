@@ -103,7 +103,6 @@ class Address {
 			return false;
 
 		}
-		var_dump($res);
 		return $res;
 	}
 	public function GetRegionByTitle($title){
