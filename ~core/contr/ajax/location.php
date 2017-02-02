@@ -195,7 +195,7 @@
 			case 'generateCitiesListByIdRegion':
 				$echo = false;
 				if(isset($_REQUEST['id_region'])){
-					foreach($Address->GetCitiesList($_REQUEST['id_region']) as $city){
+					foreach($Address->GetCitiesList((int) $_REQUEST['id_region']) as $city){
 						$echo .= '<option value="'.$city['id'].'">'.$city['title'].'</option>';
 					}
 				}
