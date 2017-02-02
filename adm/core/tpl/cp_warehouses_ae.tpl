@@ -35,3 +35,11 @@
 		<button name="smb" type="submit" id="form_submit" class="btn-m-default save-btn">Сохранить</button>
     </form>
 </div>
+<script>
+        $('#id_region').on('change', function(){
+            var value = $(this).val();
+            ajax('location', 'generateCitiesListByIdRegion', {id_region: value}, 'html').done(function(data){
+                console.log(data)
+            })
+        });
+</script>
