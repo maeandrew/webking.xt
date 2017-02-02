@@ -17,7 +17,6 @@
         </thead>
         <tbody>
         <?if(!empty($list)){
-            print_r($list);
             foreach($list as $item){?>
                 <tr>
                     <td><?=$item['id']?></td>
