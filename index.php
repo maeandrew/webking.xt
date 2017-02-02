@@ -8,7 +8,6 @@ date_default_timezone_set('Europe/Kiev');
 define('EXECUTE', 1);
 define('DIRSEP', DIRECTORY_SEPARATOR);
 ini_set('session.gc_maxlifetime', 43200);
-
 ini_set('session.cookie_lifetime', 43200);
 // ini_set('max_execution_time', 30);
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'sys'.DIRSEP.'global_c.php');
