@@ -25,10 +25,10 @@
                 <option value="<?=$shipping_company['id']?>" <?=isset($_POST['id_shipping_company']) && $_POST['id_shipping_company'] == $shipping_company['id']?'selected="selected"':null;?>><?=$shipping_company['title']?></option>
             <?}?>
         </select>
-        <label for="id_dealer">Транспортная компания</label>
+        <label for="id_dealer">Дилер</label>
         <select name="id_dealer" id="id_dealer" class="input-m">
             <?foreach($dealers as $dealer) {?>
-                <option value="<?=$dealer['id']?>" <?=isset($_POST['id_dealer']) && $_POST['id_dealer'] == $dealer['id']?'selected="selected"':null;?>><?=$dealer['title']?></option>
+                <option value="<?=$dealer['id']?>" <?=isset($_POST['id_dealer']) && $_POST['id_dealer'] == $dealer['id']?'selected="selected"':null;?>><?=$dealer['first_name'].' '.$dealer['middle_name'].' '.$dealer['last_name']?></option>
             <?}?>
         </select>
 		<input type="hidden" name="id" id="id_warehouse" value="<?=isset($_POST['id'])?$_POST['id']:0?>">
@@ -39,7 +39,7 @@
         $('#id_region').on('change', function(){
             var value = $(this).val();
             ajax('location', 'generateCitiesListByIdRegion', {id_region: value}, 'html').done(function(data){
-                console.log(data)
+                $('#id_city').html(data);
             })
         });
 </script>
