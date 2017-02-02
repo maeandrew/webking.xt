@@ -5,8 +5,8 @@
 
 <div id="warehousesae">
     <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
-        <label for="shipping_company_name">Название:</label><?=isset($errm['warehouse'])?"<span class=\"errmsg\">".$errm['warehouse']."</span><br>":null?>
-        <input type="text" name="warehouse" id="shipping_company_name" class="input-m" value="<?=isset($_POST['warehouse'])?htmlspecialchars($_POST['warehouse']):null?>">
+        <label for="shipping_company_name">Название:</label><?=isset($errm['title'])?"<span class=\"errmsg\">".$errm['title']."</span><br>":null?>
+        <input type="text" name="title" id="shipping_company_name" class="input-m" value="<?=isset($_POST['title'])?htmlspecialchars($_POST['title']):null?>">
         <label for="courier">Курьерская доставка</label>
         <select name="courier" id="courier" class="input-m">
             <option value="0">Нет</option>
@@ -23,7 +23,7 @@
             <label for="api_prefix">Префикс API</label>
             <input type="text" name="api_prefix" id="api_prefix" class="input-m">
         </div>
-        <input type="hidden" name="id" id="id_warehouse" value="<?=isset($_POST['id'])?$_POST['id']:0?>">
+        <input type="hidden" name="id" id="id_shipping_company" value="<?=isset($_POST['id'])?$_POST['id']:0?>">
         <button name="smb" type="submit" id="form_submit" class="btn-m-default save-btn">Сохранить</button>
     </form>
 </div>
