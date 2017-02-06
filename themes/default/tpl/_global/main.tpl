@@ -215,28 +215,25 @@
 					<?=$__center?>
 				<?}else{?>
 					<?if(!empty($navigation)){?>
-						<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
-							<?php foreach ($navigation as $value) {?>
-								<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
-									<span class="subCategoryImageWrap">
-										<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
-									</span>
-									<span class="subCategoryTitleWrap">
-										<span class="subCategoryTitle"><?=$value['name']?></span>
-									</span>
-								</a>
-							<?}?>
-						</div>
-						<div class="subCategories mdl-cell--hide-phone">
-							<?php foreach ($navigation as $value) {?>
-								<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
-									<span class="subCategoryImageWrap">
-										<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
-									</span>
-									<span class="subCategoryTitleWrap">
-										<span class="subCategoryTitle"><?=$value['name']?></span>
-									</span>
-								</a>
+						<div class="subCategories" id="subCategory_grid">
+							<?foreach($navigation as $value){?>
+								<div class="subCategory">
+									<a class="subCategory__link" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
+										<span class="subCategoryImageWrap">
+											<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
+										</span>
+										<span class="subCategoryTitleWrap">
+											<span class="subCategoryTitle"><?=$value['name']?></span>
+										</span>
+									</a>
+									<?if(!empty($value['subcats'])){?>
+										<ul class="subCategory__list">
+											<?foreach($value['subcats'] as $subcat){?>
+												<li><a href="<?=Link::Category($subcat['translit'], array('clear' => true))?>"><?=$subcat['name']?></a></li>
+											<?}?>
+										</ul>
+									<?}?>
+								</div>
 							<?}?>
 						</div>
 					<?}?>
@@ -426,9 +423,9 @@
 				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 				<!-- Обьявление в футере -->
 				<ins class="adsbygoogle"
-				     style="display:inline-block;width:300px;height:250px"
-				     data-ad-client="ca-pub-2337139989896773"
-				     data-ad-slot="4925398447"></ins>
+					 style="display:inline-block;width:300px;height:250px"
+					 data-ad-client="ca-pub-2337139989896773"
+					 data-ad-slot="4925398447"></ins>
 				<script>
 				(adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
