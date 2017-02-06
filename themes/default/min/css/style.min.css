@@ -702,7 +702,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 @media (max-width:950px){.subCategories .subCategory{width:calc(50% - 20px)}
 .subCategory .subCategoryTitle{max-width:150px}
 }
-@media (max-width:728px){.subCategories .subCategory{width:calc(100% - 20px)}
+@media (max-width:480px){.subCategories .subCategory{width:calc(100% - 20px)}
 }
 .owl-pagination{padding:5px 0}
 .mobile_carousel .owl-item img{width:100%}

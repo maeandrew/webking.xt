@@ -2,7 +2,7 @@
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if(!empty($category['subcats'])){?>
-		<div class="subCategories">
+		<div class="subCategories" id="subCategory_grid">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<div class="subCategory">
                     <a class="subCategory__link" href="<?=Link::Category($value['translit'], array('clear' => true))?>">

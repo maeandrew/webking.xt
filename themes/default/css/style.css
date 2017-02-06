@@ -3706,7 +3706,7 @@ div.modalEditOrder .applyBtn {
 		max-width: 150px;
 	}
 }
-@media (max-width: 728px){
+@media (max-width: 480px){
 	.subCategories .subCategory{
 		width: calc(100% - 20px);
 	}
