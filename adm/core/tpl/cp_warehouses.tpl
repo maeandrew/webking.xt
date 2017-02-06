@@ -8,6 +8,7 @@
             <td></td>
             <td>
                 <select name="id_region" id="id_region" class="input-m" form="submit_clear">
+                    <option value="" selected="selected"></option>
                     <?foreach($regions as $region) {?>
                         <option value="<?=$region['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
                     <?}?>
@@ -15,6 +16,7 @@
             </td>
             <td>
                 <select name="id_city" id="id_city" class="input-m" form="submit_clear">
+                    <option value="" selected="selected"></option>
                     <?foreach($cities as $city) {?>
                         <option value="<?=$city['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $city['id']?'selected="selected"':null;?>><?=$city['title']?></option>
                     <?}?>
@@ -22,6 +24,7 @@
             </td>
             <td>
                 <select name="id_shipping_company" id="id_shipping_company" class="input-m" form="submit_clear">
+                    <option value="" selected="selected"></option>
                     <?foreach($shipping_companies as $company) {?>
                         <option value="<?=$company['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $company['id']?'selected="selected"':null;?>><?=$company['title']?></option>
                     <?}?>
