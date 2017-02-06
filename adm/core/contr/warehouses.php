@@ -1,34 +1,55 @@
 <?php
-	if (!_acl::isAllow('users'))
-		die("Access denied");
- 
-	$Supplier = new Suppliers();
+$Address = new Address();
+$Users = new Users();
 
-	// ---- center ----
-	unset($parsed_res);
-	if(isset($_GET['success']) && $_GET['success'] == TRUE){
-		$msg = 'Поставщик удален';
+$header = 'Пункты выдачи';
+$ii = count($GLOBALS['IERA_LINKS']);
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
+$tpl->Assign('h1', $header);
+// Список областей
+$tpl->Assign('regions', $Address->GetRegionsList());
+// Список городов
+$tpl->Assign('cities', $Address->GetCitiesList(isset($_GET['id_region']) && (bool) $_GET['id_region']?(int) $_GET['id_region']: false) );
+// Список ТК
+$tpl->Assign('shipping_companies', $Address->GetShippingCompaniesList());
+// Список дилеров
+$tpl->Assign('dealers', $Users->GetDealersList());
+
+$where = false;
+
+if(isset($_GET['smb'])){
+	if($_GET['id_city'] != false){
+		$where[] = 'id_city = '.$_GET['id_city'];
 	}
-	$tpl->Assign('h1', 'Поставщики склада');
-
-	$ii = count($GLOBALS['IERA_LINKS']);
-	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
-	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/warehouses/';
-	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Поставщики склада";
-
-	$warehouses = $Supplier->GetWarehouses();
-	
-	$tpl->Assign('warehouses', $warehouses);
-	$tpl->Assign('msg', $msg);
-
-	$parsed_res = array('issuccess' => TRUE,
- 						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_warehouses.tpl'));
-
-
-	if (TRUE == $parsed_res['issuccess']) {
-		$tpl_center .= $parsed_res['html'];
+	if($_GET['id_region'] != false){
+	 	 $where[] = 'id_city IN (SELECT ls.id FROM '._DB_PREFIX_.'locations_cities AS ls WHERE ls.id_region = '.$_GET['id_region'].')';
+	 }
+	if($_GET['id_shipping_company'] != false){
+	 	$where[] = 'id_shipping_company = ' .$_GET['id_shipping_company'];
 	}
 
-	// ---- right ----
+}else
 
-?>
+if(isset($_GET['clear_filters'])){
+	header ("Location: /adm/warehouses");
+}
+
+// Пагинация
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$GLOBALS['Limit_db'] = $_GET['limit'];
+}
+if((isset($_GET['limit']) && $_GET['limit'] != 'all') || !isset($_GET['limit'])){
+	if(isset($_POST['page_nbr']) && is_numeric($_POST['page_nbr'])){
+		$_GET['page_id'] = $_POST['page_nbr'];
+	}
+	$cnt = count($Address->GetWarehousesList($where));
+	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+	$limit = ' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
+}else{
+	$GLOBALS['Limit_db'] = 0;
+	$limit = '';
+}
+// Список пунктов выдачи
+$tpl->Assign('list', $Address->GetWarehousesList($where, $limit));
+
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_warehouses.tpl');

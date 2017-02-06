@@ -61,20 +61,50 @@ class Address {
 		}
 		return $res;
 	}
-	/**
-	 * [GetRegionsList description]
-	 */
+
+
+
+
+
+
+
+
+	public function AddRegion($data){
+		$f['title'] = $data['title'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'locations_regions', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	public function UpdateRegion($data){
+		$f['title'] = $data['title'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'locations_regions', $f, 'id = '.$data['id'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	public function DeleteRegion($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."locations_regions WHERE id = ".$id;
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
+	}
 	public function GetRegionsList(){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_regions AS lr";
-		if(!$res = $this->db->GetArray($sql)){
+
+		if(!$res = $this->db->GetArray($sql, 'id')){
 			return false;
+
 		}
 		return $res;
 	}
-	/**
-	 * [GetRegionByTitle description]
-	 */
 	public function GetRegionByTitle($title){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_regions AS lr
@@ -97,28 +127,59 @@ class Address {
 		}
 		return $res;
 	}
-	/**
-	 * [GetCitiesList description]
-	 */
-	public function GetCitiesList($region = false){
+
+
+
+
+
+	public function AddCity($data){
+		$f['title'] = $data['title'];
+		$f['id_region'] = $data['id_region'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'locations_cities', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	public function UpdateCity($data){
+		$f['title'] = $data['title'];
+		$f['id_region'] = $data['id_region'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'locations_cities', $f, 'id = '.$data['id'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	public function DeleteCity($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."locations_cities WHERE id = ".$id;
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
+	}
+	public function GetCitiesList($region = false, $limit = false){
 		$sql = "SELECT lc.*
 			FROM "._DB_PREFIX_."locations_cities AS lc";
-		if($region !== false){
+			if($region !== false){
 			if(is_integer($region)){
 				$sql .= " WHERE lc.id_region = ".$region;
 			}else{
 				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
-				WHERE lr.title = ".$this->db->Quote($region);
+				WHERE lc.title = ".$this->db->Quote($region);
 			}
+
 		}
-		if(!$res = $this->db->GetArray($sql)){
+		if($limit){
+			$sql .= ' LIMIT '.$limit;
+		}
+		if(!$res = $this->db->GetArray($sql, 'id')){
 			return false;
 		}
 		return $res;
 	}
-	/**
-	 * [GetCityByTitle description]
-	 */
 	public function GetCityByTitle($title, $id_region = false){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_cities AS lc
@@ -131,9 +192,6 @@ class Address {
 		}
 		return $res;
 	}
-	/**
-	 * [GetCityById description]
-	 */
 	public function GetCityById($id){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."locations_cities AS lc
@@ -143,6 +201,136 @@ class Address {
 		}
 		return $res;
 	}
+
+
+
+
+
+
+
+	public function AddWarehouse($data){
+		$f['warehouse'] = $data['warehouse'];
+		$f['id_city'] = $data['id_city'];
+		$f['id_dealer'] = $data['id_dealer'];
+		$f['id_shipping_company'] = $data['id_shipping_company'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'locations_warehouses', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	public function UpdateWarehouse($data){
+		$f['warehouse'] = $data['warehouse'];
+		$f['id_city'] = $data['id_city'];
+		$f['id_dealer'] = $data['id_dealer'];
+		$f['id_shipping_company'] = $data['id_shipping_company'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'locations_warehouses', $f, 'id = '.$data['id'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	public function DeleteWarehouse($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."locations_warehouses WHERE id = ".$id;
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
+	}
+	public function GetWarehouseById($id){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."locations_warehouses AS lw
+			WHERE lw.id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function GetWarehousesList($where = false, $limit = false){
+		$sql = "SELECT lw.*
+			FROM "._DB_PREFIX_."locations_warehouses AS lw";
+		if(!empty($where)){
+			$sql .= ' WHERE '.implode(' AND ', $where);
+		}
+		if($limit){
+			$sql .= ' LIMIT '.$limit;
+		}
+		if(!$res = $this->db->GetArray($sql, 'id')){
+			return false;
+		}
+		return $res;
+	}
+
+
+
+
+
+
+	public function AddShippingCompany($data){
+		$f['title'] = $data['title'];
+		$f['courier'] = $data['courier'];
+		$f['has_api'] = $data['has_api'];
+		$f['api_key'] = $data['api_key'];
+		$f['api_prefix'] = $data['api_prefix'];
+		// var_dump($data);
+		// die();
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'shipping_companies', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	public function UpdateShippingCompany($data){
+		$f['title'] = $data['title'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'shipping_companies', $f, 'id = '.$data['id'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	public function DeleteShippingCompany($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."shipping_companies WHERE id = ".$id;
+		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		return true;
+	}
+	public function GetShippingCompanyById($id){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."shipping_companies AS sc
+			WHERE sc.id = ".$id;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+	public function GetShippingCompaniesList($where = false, $limit = false){
+		$sql = "SELECT sc.*
+			FROM "._DB_PREFIX_."shipping_companies AS sc";
+		if(!empty($where)){
+			$sql .= ' WHERE '.implode(' AND ', $where);
+		}
+		if($limit){
+			$sql .= ' LIMIT '.$limit;
+		}
+		if(!$res = $this->db->GetArray($sql, 'id')){
+			return false;
+		}
+		return $res;
+	}
+
+
+
+
+
+
+
 	public function AddAddress($data){
 		$f['title'] = $data['title'];
 		$f['id_user'] = isset($data['id_user'])?$data['id_user']:$_SESSION['member']['id_user'];
@@ -186,14 +374,6 @@ class Address {
 		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies
 			".($courier?'WHERE courier = 1':null);
 		if(!$res = $this->db->GetArray($sql)){
-			return false;
-		}
-		return $res;
-	}
-
-	public function GetShippingCompanyById($id){
-		$sql = "SELECT * FROM "._DB_PREFIX_."shipping_companies WHERE id = ".$id;
-		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		return $res;
@@ -484,7 +664,7 @@ class Regions {
 
 	// Удаление
 	public function Del($id){
-		$sql = "DELETE FROM "._DB_PREFIX_."region WHERE id_region =  ".$id;
+		$sql = "DELETE FROM "._DB_PREFIX_."region WHERE id_region = ".$id;
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}

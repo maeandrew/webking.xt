@@ -134,7 +134,8 @@
 						<a href="/adm/users/<?=_ACL_SUPPLIER_?>">Поставщики</a>
 					</li>
 					<li class="sb-menu__sub-menu__item">
-						<a href="/adm/warehouses/">Поставщики склада</a>
+						<a href="/adm/warehouse_supplier/">Поставщики склада</a>
+						<a href="/adm/warehouseadd/" class="sb-menu__item__add animate" title="Добавить поставщика склада"><i class="icon-add">a</i></a>
 					</li>
 				</ul>
 			<?}?>
@@ -159,6 +160,25 @@
 					<a href="/adm/remitteradd/" class="sb-menu__item__add animate" title="Добавить отправителя"><i class="icon-add">a</i></a>
 				</li>
 			<?}?>
+                <li class="sb-menu__item">Доставка</li>
+                <ul class="sb-menu__sub-menu">
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'regions'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/regions">Области</a>
+                        <a href="/adm/regionsadd" class="sb-menu__item__add animate" title="Добавить область"><i class="icon-add">a</i></a>
+                    </li>
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'cities'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/cities">Города</a>
+                        <a href="/adm/citiesadd" class="sb-menu__item__add animate" title="Добавить город"><i class="icon-add">a</i></a>
+                    </li>
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'warehouses'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/warehouses/">Пункты выдачи</a>
+                        <a href="/adm/warehousesadd " class="sb-menu__item__add animate" title="Добавить пункт выдачи"><i class="icon-add">a</i></a>
+                    </li>
+                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'shipping_companies'?' sb-menu__item_active':null;?>">
+                        <a href="/adm/shipping_companies/">Транспортные компании</a>
+                        <a href="/adm/shipping_companiesadd" class="sb-menu__item__add animate" title="Добавить траспортную компанию"><i class="icon-add">a</i></a>
+                    </li>
+                </ul>
 			<?if(_acl::isAllow('monitoring')){?>
 				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && !isset($GLOBALS['REQAR'][1])?' sb-menu__item_active':null;?>">
 					<a href="/adm/monitoring/">Мониторинг</a>

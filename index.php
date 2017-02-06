@@ -50,6 +50,8 @@ G::AddJS('../plugins/jquery.lazyload.min.js', false, 1);
 G::AddJS('../plugins/jquery.cookie.js', false, 1);
 G::AddJS('../plugins/maskedinput.min.js', false);
 G::AddJS('../js/html2canvas.js', true);
+G::AddJS('../plugins/masonry.pkgd.min.js', false);
+
 if($GLOBALS['CurrentController'] == 'page'){
 	G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/page.js', true);
 }

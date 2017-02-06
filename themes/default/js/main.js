@@ -2362,3 +2362,6 @@ $(function(){
 		userInfoValidator($(this));
 	});
 });
+$(document).ready(function(){
+    $('#subCategory_grid').masonry();
+});

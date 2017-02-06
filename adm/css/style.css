@@ -823,6 +823,10 @@ footer {
 	background: none repeat scroll 0 0 #E7EFEF;
 	padding: 5px;
 }
+.list .filter select,
+.list .filter input[type="text"]  {
+	width: 100%;
+}
 .list .filter [name="filter_art"] {
 	width: 90px;
 }
