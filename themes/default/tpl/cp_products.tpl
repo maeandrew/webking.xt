@@ -14,10 +14,9 @@
 					</span>
 				</a>
                     <ul class="subCategory__list">
-                        <li><a href="#">123</a></li>
-                        <li><a href="#">123</a></li>
-                        <li><a href="#">123</a></li>
-                        <li><a href="#">123</a></li>
+                        <?php foreach ($value['subcats'] as $subcat){?>
+                            <li><a href="<?=Link::Category($subcat['translit'], array('clear' => true))?>"><?=$subcat['name']?></a></li>
+                        <?}?>
                     </ul>
                 </div>
 			<?}?>

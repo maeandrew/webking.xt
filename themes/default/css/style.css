@@ -3627,6 +3627,7 @@ div.modalEditOrder .applyBtn {
 .subCategory__list a {
 	text-decoration: none;
 	display: block;
+	font-weight: normal;
 }
 .subCategories .separator,
 .mobile_carousel .separator{
@@ -3668,7 +3669,7 @@ div.modalEditOrder .applyBtn {
 	right: 0;
 	position: relative;
 	background-color: #fff;
-	font-size: 1em;
+	font-size: 1.1em;
 }
 .subCategoryTitleWrap  {
 	text-align: left;
