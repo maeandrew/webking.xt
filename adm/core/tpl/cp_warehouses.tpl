@@ -2,6 +2,11 @@
 <div class="grid sites_list">
     <?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null;?>
     <table class="list paper_shadow_1" border="0" cellspacing="0" cellpadding="0">
+        <colgroup>
+            <col width="50px">
+            <col>
+            <col span="4" width="15%">
+        </colgroup>
         <thead>
         <tr class="filter">
             <td>Фильтры:</td>
@@ -67,7 +72,7 @@
             <?}
         }else{?>
             <tr>
-                <td colspan="3">Нет ни одного города, но его все-еще можно добавить <a href="/adm/warehousessadd/">здесь</a></td>
+                <td colspan="7">Нет ни одного города, но его все-еще можно добавить <a href="/adm/warehousessadd/">здесь</a></td>
             </tr>
         <?}?>
         </tbody>
