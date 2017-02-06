@@ -2,23 +2,10 @@
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if(!empty($category['subcats'])){?>
-		<div id="owl-subcategories_slide_js" class="mobile_carousel mdl-cell--hide-desktop mdl-cell--hide-tablet">
+		<div class="subCategories">
 			<?php foreach ($category['subcats'] as $value) {?>
-				<a class="subCategory" href="<?=Link::Category($value['translit'])?>">
-					<span class="subCategoryImageWrap">
-						<img src="<?=_base_url?><?=!empty($value['category_img'])?$category['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
-					</span>
-					<span class="subCategoryTitleWrap">
-						<span class="subCategoryTitle"><?=$value['name']?></span>
-					</span>
-				</a>
-			<?}?>
-		</div>
-	<?}?>
-	<?if(!empty($category['subcats'])){?>
-		<div class="subCategories mdl-cell--hide-phone">
-			<?php foreach ($category['subcats'] as $value) {?>
-				<a class="subCategory" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
+				<div class="subCategory">
+                    <a class="subCategory__link" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
 					<span class="subCategoryImageWrap">
 						<img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
 					</span>
@@ -26,6 +13,13 @@
 						<span class="subCategoryTitle"><?=$value['name']?></span>
 					</span>
 				</a>
+                    <ul class="subCategory__list">
+                        <li><a href="#">123</a></li>
+                        <li><a href="#">123</a></li>
+                        <li><a href="#">123</a></li>
+                        <li><a href="#">123</a></li>
+                    </ul>
+                </div>
 			<?}?>
 		</div>
 	<?}?>
