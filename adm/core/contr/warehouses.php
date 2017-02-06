@@ -24,8 +24,8 @@ if(isset($_GET['smb'])){
 	if($_GET['id_region'] != false){
 	 	 $where[] = 'id_city IN (SELECT ls.id FROM '._DB_PREFIX_.'locations_cities AS ls WHERE ls.id_region = '.$_GET['id_region'].')';
 	 }
-	if($_GET['shipping_companies'] != false){
-	 	$where[] = 'id_shipping_company = ' .$_GET['shipping_companies'];
+	if($_GET['id_shipping_company'] != false){
+	 	$where[] = 'id_shipping_company = ' .$_GET['id_shipping_company'];
 	}
 
 }else
