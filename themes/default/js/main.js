@@ -2361,5 +2361,7 @@ $(function(){
 	$('body').on('focusout', '.input_validator_js', function(event){
 		userInfoValidator($(this));
 	});
+});
+$(document).ready(function(){
     $('#subCategory_grid').masonry();
 });
