@@ -9,7 +9,7 @@ $tpl->Assign('h1', $header);
 // Список областей
 $tpl->Assign('regions', $Address->GetRegionsList());
 // Список городов
-$tpl->Assign('cities', $Address->GetCitiesList());
+$tpl->Assign('cities', $Address->GetCitiesList(isset($_GET['id_region']) && (bool) $_GET['id_region']?(int) $_GET['id_region']: false) );
 // Список ТК
 $tpl->Assign('shipping_companies', $Address->GetShippingCompaniesList());
 // Список дилеров
