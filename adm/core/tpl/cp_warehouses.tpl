@@ -18,7 +18,7 @@
                 <select name="id_city" id="id_city" class="input-m" form="submit_clear">
                     <option value="" selected="selected">Не выбран</option>
                     <?foreach($cities as $city) {?>
-                        <option value="<?=$city['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $city['id']?'selected="selected"':null;?>><?=$city['title']?></option>
+                        <option value="<?=$city['id']?>" <?=isset($_GET['id_city']) && $_GET['id_city'] == $city['id']?'selected="selected"':null;?>><?=$city['title']?></option>
                     <?}?>
                 </select>
             </td>
@@ -26,7 +26,7 @@
                 <select name="id_shipping_company" id="id_shipping_company" class="input-m" form="submit_clear">
                     <option value="" selected="selected">Не выбрана</option>
                     <?foreach($shipping_companies as $company) {?>
-                        <option value="<?=$company['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $company['id']?'selected="selected"':null;?>><?=$company['title']?></option>
+                        <option value="<?=$company['id']?>" <?=isset($_GET['id_shipping_company']) && $_GET['id_shipping_company'] == $company['id']?'selected="selected"':null;?>><?=$company['title']?></option>
                     <?}?>
                 </select>
             </td>
