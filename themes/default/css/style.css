@@ -3608,8 +3608,8 @@ div.modalEditOrder .applyBtn {
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
 	background-color: #fff;
-	/*padding: 20px;*/
-	transition: border .4s cubic-bezier(.4,0,.2,1);
+	display: inline-block;
+	vertical-align: top;
 }
 .subCategory__link {
 	display: block;
@@ -3639,6 +3639,7 @@ div.modalEditOrder .applyBtn {
 	border-color: #aaa;
 }
 .subCategories .subCategory:hover .subCategory__list a {
+	transition: none;
 	color: #444;
 }
 .subCategories .subCategory .subCategory__list a:hover {
