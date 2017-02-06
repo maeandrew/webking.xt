@@ -255,6 +255,7 @@ class Address {
 		if(!empty($where)){
 			$sql .= ' WHERE '.implode(' AND ', $where);
 		}
+		var_dump($sql);
 		if($limit){
 			$sql .= ' LIMIT '.$limit;
 		}
@@ -262,6 +263,7 @@ class Address {
 			return false;
 		}
 		return $res;
+
 	}
 
 
