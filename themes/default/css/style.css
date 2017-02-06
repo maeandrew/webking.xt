@@ -3600,10 +3600,7 @@ div.modalEditOrder .applyBtn {
 }
 .subCategories,
 .mobile_carousel{
-	display: flex;
-	flex-wrap: wrap;
 	margin: 0 -10px;
-	align-items: flex-start;
 }
 .subCategories .subCategory,
 .mobile_carousel .subCategory{
