@@ -679,22 +679,23 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 .subCategories{justify-content:center}
 .switch_comment textarea{width:100%}
 }
-.mobile_carousel,.subCategories{margin:0 -10px}
-.mobile_carousel .subCategory,.subCategories .subCategory{position:relative;width:calc(20% - 20px);margin:0 10px 20px;border:1px solid #d9d9d9;border-radius:.2em;background-color:#fff;padding:20px}
-.subCategory__link{display:block}
-.subCategory__list{list-style:none;border-top:1px solid #d9d9d9;margin:20px -20px -20px;padding:20px}
-.subCategory__list a{text-decoration:none;display:block;font-weight:400}
-.mobile_carousel .separator,.subCategories .separator{color:#999;margin:0 .5em}
-.mobile_carousel .subCategory:hover,.subCategories .subCategory:hover{cursor:pointer;border-color:#aaa}
-.mobile_carousel .subCategory .subCategoryImageWrap,.subCategories .subCategory .subCategoryImageWrap{position:relative;overflow:hidden;padding:0}
-.mobile_carousel .subCategory .subCategoryImageWrap img,.subCategories .subCategory .subCategoryImageWrap img{max-height:100%;max-width:100%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)}
+.subCategories{margin:0 -10px}
+.subCategories .subCategory{position:relative;width:calc(20% - 20px);margin:0 10px 20px;border:1px solid #d9d9d9;border-radius:.2em;background-color:#fff;transition:border .4s cubic-bezier(.4,0,.2,1)}
+.subCategory__link{display:block;padding:20px}
+.subCategory__list{padding:20px;background:#fafafa}
+.subCategories .subCategory .subCategory__list a{text-decoration:none;display:block;font-weight:400;line-height:1em;padding-bottom:1em;color:#a7a7a7}
+.subCategories .subCategory .subCategory__list li:last-of-type a{padding-bottom:0}
+.subCategories .separator{color:#999;margin:0 .5em}
+.subCategories .subCategory:hover{cursor:pointer;border-color:#aaa}
+.subCategories .subCategory:hover .subCategory__list a{color:#444}
+.subCategories .subCategory .subCategory__list a:hover{color:#FF5722}
+.subCategories .subCategory .subCategoryImageWrap{position:relative;overflow:hidden;padding:0}
+.subCategories .subCategory .subCategoryImageWrap img{max-height:100%;max-width:100%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)}
 .subCategories .subCategory .subCategoryImageWrap img{transition:all .4s cubic-bezier(.4,0,.2,1)}
 .subCategories .subCategory:hover img{max-height:110%;max-width:110%}
-.subCategory .subCategoryTitleWrap{bottom:0;left:0;right:0;position:relative;background-color:#fff;font-size:1.1em}
+.subCategory .subCategoryTitleWrap{bottom:0;left:0;right:0;position:relative;background-color:#fff;font-size:1.1em;padding-top:20px;display:block}
 .subCategoryTitleWrap{text-align:left}
 .subCategory .subCategoryTitle{position:relative;height:3em;vertical-align:middle;padding:0}
-.mobile_carousel .subCategory{width:calc(50% - 20px);height:180px}
-.mobile_carousel .subCategory .subCategoryTitle{height:4.5em;font-size:.9em}
 @media (max-width:1440px){.subCategories .subCategory{width:calc(25% - 20px)}
 }
 @media (max-width:1280px){.subCategories .subCategory{width:calc(100%/3 - 20px)}
@@ -704,13 +705,7 @@ div.modalEditOrder .applyBtn{margin-right:20px}
 }
 @media (max-width:480px){.subCategories .subCategory{width:calc(100% - 20px)}
 }
-.owl-pagination{padding:5px 0}
-.mobile_carousel .owl-item img{width:100%}
-.owl-dot{width:20px}
-.owl-dot span{display:block;width:0;height:0;background:#888;border-radius:50%;margin:0 auto;transition:all .4s ease-in-out;border:3px solid #888}
-.owl-dot.active span{border:7px solid #888}
 .subCategory .subCategoryImageWrap{width:100%;height:150px;display:block;text-align:center}
-.mobile_carousel .subCategory{padding:0}
 #owl-subcategories_slide_js .subCategory img{object-fit:cover}
 .cookie_wrap{position:relative;color:#fff}
 .cookie_msg{position:fixed;top:100%;width:100%;background-color:rgba(52,52,52,.85);transition:all .4s cubic-bezier(.4,0,.2,1);-moz-transition:all .4s cubic-bezier(.4,0,.2,1);-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);z-index:100000000}
