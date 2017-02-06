@@ -8,6 +8,7 @@
             <td></td>
             <td>
                 <select name="id_region" id="id_region" class="input-m" form="submit_clear">
+                    <option value="" selected="selected">Не выбрана</option>
                     <?foreach($regions as $region) {?>
                         <option value="<?=$region['id']?>" <?=isset($_GET['id_region']) && $_GET['id_region'] == $region['id']?'selected="selected"':null;?>><?=$region['title']?></option>
                     <?}?>
