@@ -634,7 +634,7 @@ footer .copyright p{line-height:1.7em}
 }
 .loadBlock{position:absolute;top:0;bottom:0;left:0;right:0;z-index:10}
 .loadBlock .loadAnimation{top:calc(50% - 14px);left:calc(50% - 14px);position:absolute}
-.last_news_title,.xt_news{padding:0 15px;display:flex;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap}
+.last_news_title,.xt_news{padding:0 20px;display:flex;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap}
 .min{padding:10px}
 .xt_news h6{line-height:1.3em;font-weight:500;color:#000;margin:0;padding-bottom:0}
 .xt_news a h6:hover{color:#FF5722}
@@ -652,7 +652,7 @@ footer .copyright p{line-height:1.7em}
 .last_news{clear:both}
 .last_news_title a{background:#fff;border-bottom:1px solid #e0e0e0;line-height:16px}
 .last_news_title a:hover{background:#FF5722;color:#fff}
-.last_news_title{border-top:1px solid #e0e0e0;padding:0;margin-left:15px;margin-right:15px;padding-top:10px}
+.last_news_title{border-top:1px solid #e0e0e0;padding:0;margin-left:20px;margin-right:20px;padding-top:10px}
 .last_news_title h4{margin:0}
 .catalog .main_nav .activeSegment{color:#000}
 .catalog .main_nav li:hover{background:#fff}

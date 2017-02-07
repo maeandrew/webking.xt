@@ -101,7 +101,8 @@
 .more__information  {
 	font-size: 1.3em;
 }
-#agent_license h4, span  {
+#agent_license h4,
+#agent_license span  {
 	font-weight: 500;
 	font-size: 18px;
 }
