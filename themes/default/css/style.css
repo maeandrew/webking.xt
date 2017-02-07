@@ -1296,13 +1296,12 @@ section.center {
 	aside .catalog .label {
 		text-align: center;
 		padding: 0 15px;
-		background: #444444;
+		background: #018b06;
 		color: #ffffff;
 		font-weight: normal;
 		line-height: 2em;
 		font-size: 1.3em;
 		border-radius: 3px 3px 0 0;
-		border-bottom: 2px solid #018b06;
 	}
 	aside .catalog .main_nav {
 		padding-bottom: 20px;
