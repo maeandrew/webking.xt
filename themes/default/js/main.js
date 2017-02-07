@@ -483,14 +483,10 @@ $(function(){
 			parent = $(this).closest('li'),
 			parent_active = parent.hasClass('active');
 		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
-			$(this).find('.material-icons').text('add');
 
 		if(!parent_active){
 			parent.addClass('active').find('> ul').stop(true, true).slideDown();
-			$(this).find('.material-icons').text('remove');
 		}
-
-		$('.second_nav li:not(.active) .more_cat i').text('add');
 	});
 
 	//Кабинет
@@ -2263,4 +2259,8 @@ $(function(){
 });
 $(document).ready(function(){
 	 $('#subCategory_grid').masonry();
+	 ajax('navigation', 'GenerateCatalog', false, 'html').done(function(data){
+	 	console.log(data);
+	 })
 });
+
