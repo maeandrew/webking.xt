@@ -247,6 +247,61 @@ class Parser {
 		return $product;
 	}
 
+	public function mastertool($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		$Unit = new Unit();;
+		$data[0] = trim($data[0]);
+		// var_dump($data[0]);
+		$data[1] = trim($data[1]);
+
+		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1].' ('.$data[0].')'))){
+				$data[1] = $data[1].' ('.$data[0].')';
+				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
+				print_r('<pre>Translit issue</pre>');
+				return false;
+			}
+		}
+		// Получаем артикул товара
+		$product['sup_comment'] = trim($data[0]);
+		// Получаем название товара
+		$product['name'] = trim($data[1]);
+		// Получаем количество товара
+		$product['inbox_qty'] = $data[2];
+		$product['min_mopt_qty'] = $data[3];
+		// Получаем цену товара
+		$product['price_mopt_otpusk'] = trim($data[4]);
+		$product['price_opt_otpusk'] = trim($data[5]);
+		// Получаем id еденицы измерения товара. Если такой нет в БД - создаем новую.
+		if(!$id_unit = $Unit->GetUnitIDByName($data[6])) {
+			$id_unit = $Unit->Add(array('unit_xt' => $data[6], 'unit_prom' => $data[6]));
+		}
+		$id_product['id_unit'] = $id_unit;
+
+
+		// Получаем изображение товара
+		$filename = $GLOBALS['PATH_product_img'].'custom_upload'.DIRECTORY_SEPARATOR.$data[0].'.jpg';
+		var_dump(getimagesize($filename));
+
+die();
+		if(!@getimagesize($filename)){
+
+			return false;
+		}
+		$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+		$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+		$Images->checkStructure($path);
+		copy($filename, $path.$img_info['basename']);
+		$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+		$product['images_visible'][] = 1;
+
+		return $product;
+
+	}
+
+
 	public function zona($data){
 		global $Products;
 		global $Specification;

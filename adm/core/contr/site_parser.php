@@ -169,6 +169,18 @@ if(isset($_POST['parse'])){
 								}
 							}
 							break;
+						case 16: // Mastertool
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
+								print_r('<pre>Supplier comment issue</pre>');
+								$skipped = true;
+								continue;
+							}else{
+								if(!$product = $Parser->mastertool($row)){
+									continue;
+								}
+							}
+							break;
 						default:
 							# code...
 							break;
