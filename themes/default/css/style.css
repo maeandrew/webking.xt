@@ -1279,19 +1279,30 @@ section.center {
 /* SIDEBAR */
 	aside {
 		width: 300px;
-		position: absolute;
+		/*position: absolute;*/
 		float: left;
-		bottom: auto;
+		/*bottom: auto;*/
 	}
 	aside .panel_container {
-		max-height: 100%;
+		/*max-height: 100%;*/
 		padding-left: 20px;
 	}
 	.advantages_hide aside {
-		position: fixed;
+		/*position: fixed;*/
 		box-shadow: none;
-		max-height: calc(100vh - 52px);
-		bottom: auto;
+		/*max-height: calc(100vh - 52px);*/
+		/*bottom: auto;*/
+	}
+	aside .catalog .label {
+		text-align: center;
+		padding: 0 15px;
+		background: #444444;
+		color: #ffffff;
+		font-weight: normal;
+		line-height: 2em;
+		font-size: 1.3em;
+		border-radius: 3px 3px 0 0;
+		border-bottom: 2px solid #018b06;
 	}
 	aside .catalog .main_nav {
 		padding-bottom: 20px;
@@ -1337,11 +1348,15 @@ section.center {
 		font-size: 16px;
 		border-bottom: 1px solid #e0e0e0;
 	}
+	aside .catalog .second_nav li:last-of-type {
+		border-bottom: 0;
+	}
+
 	aside .catalog .second_nav {
 		background: #fff;
 		border-bottom: none;
-				overflow: auto;
-		max-height: calc(100vh - 168px);
+				/*overflow: auto;*/
+		/*max-height: calc(100vh - 168px);*/
 	}
 	aside .catalog .second_nav .link_wrapp .more_cat {
 		cursor: pointer;
@@ -1384,7 +1399,7 @@ section.center {
 	}
 	aside .catalog .second_nav li a {
 		font-weight: normal;
-		padding: 8px 0;
+		padding: 10px 0;
 		line-height: 1em;
 		padding-left: 15px;
 		padding-right: 30px;
@@ -1588,7 +1603,7 @@ section.center {
 /* PAGE CONTENT */
 	.page_content {
 		padding: 0 20px;
-		min-height: calc(100vh - 52px);
+		/*min-height: calc(100vh - 52px);*/
 	}
 	.page_content h1 {
 		display: block;
@@ -3449,6 +3464,9 @@ canvas[id^=chart_]{
 	font-size: 12px;
 	border-top: 1px solid #e0e0e0;
 }
+.last_news {
+	clear: both;
+}
 .last_news_title a {
 	background: #fff;
 	border-bottom: 1px solid #e0e0e0;
@@ -3591,9 +3609,6 @@ div.modalEditOrder .applyBtn {
 		border: 1px solid #e0e0e0;
 		text-align: center;
 	}
-	.subCategories {
-		justify-content: center;
-	}
 	.switch_comment textarea {
 		width: 100%;
 	}
@@ -3608,8 +3623,9 @@ div.modalEditOrder .applyBtn {
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
 	background-color: #fff;
-	display: inline-block;
 	vertical-align: top;
+	display: block;
+    float: left;
 }
 .subCategory__link {
 	display: block;
