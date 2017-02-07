@@ -247,6 +247,67 @@ class Parser {
 		return $product;
 	}
 
+	public function mastertool($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		$Unit = new Unit();;
+		$data[0] = trim($data[0]);
+		// var_dump($data[0]);
+		$data[1] = trim($data[1]);
+
+		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1].' ('.$data[0].')'))){
+				$data[1] = $data[1].' ('.$data[0].')';
+				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
+				print_r('<pre>Translit issue</pre>');
+				return false;
+			}
+		}
+		// Получаем артикул товара
+		$product['sup_comment'] = trim($data[0]);
+		// Получаем название товара
+		$product['name'] = trim($data[1]);
+		// Получаем количество товара
+		$product['inbox_qty'] = $data[2];
+		$product['min_mopt_qty'] = $data[3];
+		// Получаем цену товара
+		$product['price_mopt_otpusk'] = trim($data[4]);
+		$product['price_opt_otpusk'] = trim($data[5]);
+		// Получаем id еденицы измерения товара. Если такой нет в БД - создаем новую.
+		if(!$id_unit = $Unit->GetUnitIDByName($data[6])) {
+			$id_unit = $Unit->Add(array('unit_xt' => $data[6], 'unit_prom' => $data[6]));
+		}
+		$id_product['id_unit'] = $id_unit;
+
+
+		// Получаем изображение товара
+		$images = glob($GLOBALS['PATH_product_img'].'custom_upload/mastertool'.DIRECTORY_SEPARATOR.$data[0].'.jpg');
+		$images2 = glob($GLOBALS['PATH_product_img'].'custom_upload/mastertool'.DIRECTORY_SEPARATOR.$data[0].'_u.jpg');
+		$images = array_merge($images, $images2);
+
+		if(empty($images)){
+			return false;
+		}
+		foreach ($images as $img) {
+			if(!@getimagesize($img)){
+				continue;
+			}
+			$img_info = array_merge(getimagesize($img), pathinfo($img));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			copy($img, $path.$img_info['basename']);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+			$product['images_visible'][] = 1;
+		}
+		if(!isset($product['images'])){
+			return false;
+		}
+		return $product;
+
+	}
+
+
 	public function zona($data){
 		global $Products;
 		global $Specification;
