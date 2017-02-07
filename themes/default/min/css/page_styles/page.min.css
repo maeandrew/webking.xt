@@ -18,6 +18,18 @@
 #content .page_about_us,#content .page_contacts{text-align:center}
 #content .page_information .payment_information_img{max-width:70%}
 #content .page_payment .payment_information_img{max-width:50%}
+.agent__getstarted{font-size:24px;text-align:center;border-bottom:1px solid #E6EAED}
+.agent__getstarted p{margin:30px 0}
+.agent__getstarted a{margin-left:20px}
+.more__information{font-size:1.3em}
+#agent_license h4,span{font-weight:500;font-size:18px}
+#agent_license h4{font-size:20px}
+#agent_license ul{display:inline-block;margin-bottom:15px;list-style:circle;margin-left:30px;vertical-align:top;font-size:16px}
+#agent_license p{margin-bottom:15px;font-size:16px}
+#our__clients--modal{text-align:center}
+#our__clients--modal ul{margin-left:0;margin-right:8%}
+#our__clients--modal li{text-align:left}
+.agent__getstarted--modal{padding-bottom:30px}
 .modals .issue_result .modal_container{padding:2em}
 .modals .content_modal_win form{padding:.5em;margin:0 auto;height:auto;text-align:center}
 .modals .modal_container .mdl-card__supporting-text p{font-size:1.4em;font-weight:500;line-height:1.3em;text-align:center;margin:0 auto;color:#3F4A58;text-transform:inherit;max-width:400px}

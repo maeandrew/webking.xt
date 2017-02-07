@@ -232,7 +232,7 @@ section.center{width:calc(100% - 300px);float:right;overflow:hidden}
 aside{width:300px;float:left}
 aside .panel_container{padding-left:20px}
 .advantages_hide aside{box-shadow:none}
-aside .catalog .label{text-align:center;padding:0 15px;background:#444;color:#fff;font-weight:400;line-height:2em;font-size:1.3em;border-radius:3px 3px 0 0;border-bottom:2px solid #018b06}
+aside .catalog .label{text-align:center;padding:0 15px;background:#018b06;color:#fff;font-weight:400;line-height:2em;font-size:1.3em;border-radius:3px 3px 0 0}
 aside .catalog .main_nav{padding-bottom:20px}
 aside .catalog .main_nav li{text-transform:uppercase;color:#bdbdbd;font-size:16px;font-size:1em;cursor:pointer;font-weight:500;border-bottom:1px solid #e0e0e0;padding:5px 10px;position:relative;background:#fff}
 aside .catalog .main_nav i{vertical-align:top;margin-right:10px;font-size:22px}
