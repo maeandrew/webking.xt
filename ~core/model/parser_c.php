@@ -157,8 +157,8 @@ class Parser {
 			$url = $base_url.$link[0]->attr['href'];
 		}
 		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
-			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1].' ('.$data[0].')'))){
-				$data[1] = $data[1].' ('.$data[0].')';
+			$data[1] = $data[1].' ('.$data[0].')';
+			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
 				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
 				print_r('<pre>Translit issue</pre>');
 				return false;
@@ -204,6 +204,45 @@ class Parser {
 		return $product;
 	}
 
+	public function trislona($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		$data[0] = trim($data[0]);
+		$data[1] = trim($data[1]);
+		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+			$data[1] = $data[1].' ('.$data[0].')';
+			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+				print_r('expression2');
+				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
+				print_r('<pre>Translit issue</pre>');
+				return false;
+			}
+		}
+		// Получаем артикул товара
+		$product['sup_comment'] = trim($data[0]);
+		// Получаем название товара
+		$product['name'] = trim($data[1]);
+		// Получаем описание товара
+		$product['descr'] = str_replace('&nbsp;', ' ', strip_tags(trim($data[4])));
+		// Получаем цену товара
+		$product['price_mopt_otpusk'] = trim($data[5]);
+		$product['price_opt_otpusk'] = trim($data[6]);
+		$product['inbox_qty'] = trim($data[7]);
+		// Получаем изображения товара максимального размера
+		foreach(explode(',', $data[2]) as $filename){
+			if(strpos($filename, '.jpg')){
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($filename, $path.$img_info['basename']);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+				$product['images_visible'][] = 1;
+			}
+		}
+		return $product;
+	}
+
 	public function supertorba($data){
 		global $Products;
 		global $Specification;
@@ -212,8 +251,8 @@ class Parser {
 		$data[0] = trim($data[0]);
 		$data[1] = trim($data[1]);
 		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
-			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1].' ('.$data[0].')'))){
-				$data[1] = $data[1].' ('.$data[0].')';
+			$data[1] = $data[1].' ('.$data[0].')';
+			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
 				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
 				print_r('<pre>Translit issue</pre>');
 				return false;

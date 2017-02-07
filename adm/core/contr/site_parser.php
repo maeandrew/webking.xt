@@ -169,6 +169,21 @@ if(isset($_POST['parse'])){
 								}
 							}
 							break;
+						case 17:
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(is_array($supcomments)){
+								$supcomments = array_unique($supcomments);
+							}
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
+								// print_r('<pre>Supplier comment issue</pre>');
+								$skipped = true;
+								continue;
+							}else{
+								if(!$product = $Parser->trislona($row)){
+									continue;
+								}
+							}
+							break;
 						default:
 							# code...
 							break;
@@ -249,7 +264,7 @@ if(isset($_POST['parse'])){
 						// Добавляем товар в категорию
 						$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
 					}else{
-						// print_r('<pre>Product add issue</pre>');
+						print_r('<pre>Product add issue</pre>');
 						$l++;
 					}
 				// }
