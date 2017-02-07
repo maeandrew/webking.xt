@@ -2259,7 +2259,7 @@ $(function(){
 });
 $(document).ready(function(){
 	 $('#subCategory_grid').masonry();
-	 ajax('navigation', 'GenerateCatalog', false, 'html').done(function(data){
+	 ajax('navigation', 'generateNavigation', false, 'html').done(function(data){
 	 	console.log(data);
 	 })
 });
