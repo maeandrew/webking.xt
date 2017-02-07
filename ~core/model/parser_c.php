@@ -282,21 +282,27 @@ class Parser {
 
 
 		// Получаем изображение товара
-		$filename = $GLOBALS['PATH_product_img'].'custom_upload'.DIRECTORY_SEPARATOR.$data[0].'.jpg';
-		var_dump(getimagesize($filename));
+		$images = glob($GLOBALS['PATH_product_img'].'custom_upload/mastertool'.DIRECTORY_SEPARATOR.$data[0].'.jpg');
+		$images2 = glob($GLOBALS['PATH_product_img'].'custom_upload/mastertool'.DIRECTORY_SEPARATOR.$data[0].'_u.jpg');
+		$images = array_merge($images, $images2);
 
-die();
-		if(!@getimagesize($filename)){
-
+		if(empty($images)){
 			return false;
 		}
-		$img_info = array_merge(getimagesize($filename), pathinfo($filename));
-		$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-		$Images->checkStructure($path);
-		copy($filename, $path.$img_info['basename']);
-		$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
-		$product['images_visible'][] = 1;
-
+		foreach ($images as $img) {
+			if(!@getimagesize($img)){
+				continue;
+			}
+			$img_info = array_merge(getimagesize($img), pathinfo($img));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			copy($img, $path.$img_info['basename']);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+			$product['images_visible'][] = 1;
+		}
+		if(!isset($product['images'])){
+			return false;
+		}
 		return $product;
 
 	}
