@@ -707,7 +707,7 @@ function removeLoadAnimation(obj) {
 	componentHandler.upgradeDom();
 }
 //Добавление товара в избранное
-function AddFavorite(id_product, targetEl, is_prod = false){
+function AddFavorite(id_product, targetEl, is_prod){
 	console.log(is_prod);
 	console.log(targetEl);
 
@@ -743,7 +743,7 @@ function AddFavorite(id_product, targetEl, is_prod = false){
 	return false;
 }
 //Удаление товара из избранных
-function RemoveFavorite(id_product, targetEl, is_prod = false){
+function RemoveFavorite(id_product, targetEl, is_prod){
 	ajax('product', 'del_favorite', {id_product: id_product}).done(function(data){
 		var res = {};
 		if(data.answer == 'login'){

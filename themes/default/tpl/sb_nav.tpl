@@ -1,6 +1,15 @@
 <div class="catalog">
 	<div class="label"><?=$sbheader?></div>
 	<div class="navbar_js navigation_container"><div>
+	<?if($GLOBALS['CurrentController'] != 'main' && in_array($GLOBALS['CurrentController'], array('main', 'products'))){?>
+			<li data-nav="filter" class="activeFilters_js">
+				<i class="material-icons">filter_list</i>
+				<span>
+					<span class="title">Фильтры</span>
+					<span class="included_filters"><? if(isset($cnt) && $cnt > 0) echo "($cnt)";?></span>
+				</span>
+			</li>
+		<?}?>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
 	<div id="allCategotyCont"></div>
