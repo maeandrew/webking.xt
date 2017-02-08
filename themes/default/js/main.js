@@ -2260,7 +2260,7 @@ $(function(){
 $(document).ready(function(){
 	 $('#subCategory_grid').masonry();
 	 ajax('navigation', 'generateNavigation', false, 'html').done(function(data){
-	 	console.log(data);
+	 	$('.navbar_js').html(data);
 	 })
 });
 
