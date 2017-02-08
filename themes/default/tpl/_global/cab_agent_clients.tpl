@@ -7,8 +7,8 @@
 		<div class="header_item activation_date">Активация</div>
 		<div class="header_item status">Статус</div>
 		<div class="header_item profit">Доход</div>
-	</div>
-	<? $i=1; foreach ($agent_users as $client) {?>
+	</div><? if(empty($agent_users)){?><h2>У вас на данный момент нет клиентов</h2><?}else{
+	 $i=1;  foreach ($agent_users as $client) {?>
 		<div class="agents_client <?=$client['countable'] == 1?null:'disabled'?>">
 			<div class="client_info order_number"><?=$i++?>.</div>
 			<div class="client_info client"><?=$client['last_name'] && $client['first_name'] && $client['middle_name'] != ''? $client['last_name'].' '.$client['first_name'].' '.$client['middle_name']:$client['name']?></div>
@@ -18,5 +18,6 @@
 			<div class="mdl-tooltip" for="processing_order_<?=$client['id_user']?>">Не выполнены условия договора</div>
 			<div class="client_info profit"><span class="agent_mobile_label">Доход:</span> Н/Д</div>
 		</div>
-	<?}?>
+	<?}
+	}?>
 </div>
