@@ -12,23 +12,27 @@ $page = $Page->PagesListByType('main');
 	$tpl->Assign('data', !empty($page)?$page[0]:false);
 // }
 unset($Page, $page);
-$products = $Products->GetRandomList();
-if(isset($products) && !empty($products)){
-	foreach($products as &$p){
-		$p['images'] = $Products->GetPhotoById($p['id_product']);
-	}
-	$tpl->Assign('list', $products);
-}
-unset($products);
 
 $header = 'Главная';
 $ii = count($GLOBALS['IERA_LINKS']);
 $GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 $GLOBALS['IERA_LINKS'][$ii++]['url'] = _base_url;
 
-$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
-$tpl->Assign('products_list', $products_list);
+$mainproducts = microtime(true);
 
+// $products = $Products->GetRandomList();
+// if(isset($products) && !empty($products)){
+// 	foreach($products as &$p){
+// 		$p['images'] = $Products->GetPhotoById($p['id_product']);
+// 	}
+// 	$tpl->Assign('list', $products);
+// }
+// unset($products);
+
+
+
+// $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
+// $tpl->Assign('products_list', $products_list);
 $parsed_res = array(
 	'issuccess'	=> true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_page.tpl')
