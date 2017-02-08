@@ -9,11 +9,10 @@
 		<?}?>
 	<?}else{?>
 		<div class="content_page">
-            <?=$data['new_content']?>
+			<?=$data['new_content']?>
 		</div>
 	<?}?>
 	<?if(isset($sdescr)){
 		echo $sdescr;
 	}?>
 </div><!--id="content"-->
-
