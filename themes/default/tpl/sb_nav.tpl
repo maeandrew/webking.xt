@@ -10,7 +10,7 @@
 $(function(){
 	if ($('.second_nav li').hasClass('active')) {
 		$('.second_nav').find('li.active > .link_wrapp > .more_cat i').html('remove');
-	};
+	}
 
 	$("#organization").click(function() {
 		if (!$(this).hasClass('activeSegment')) {
@@ -27,7 +27,7 @@ $(function(){
 				$("#segmentNavOrg").append(data);
 			});
 		}
-	})
+	});
 
 	$("#store").click(function() {
 		if (!$(this).hasClass('activeSegment')) {
@@ -44,7 +44,7 @@ $(function(){
 				$("#segmentNavStore").append(data);
 			});
 		}
-	})
+	});
 
 	$("#allSection").click(function() {
 		if (!$(this).hasClass('activeSegment')) {
@@ -52,7 +52,7 @@ $(function(){
 			$('.filters').fadeOut();
 			$('.filters').fadeOut();
 		}
-		if ($.cookie('Segmentation') != 0){
+		if ($.cookie('Segmentation') !== 0){
 			$(".main_nav li").removeClass('activeSegment');
 			$("#allSection").addClass('activeSegment');
 			addLoadAnimation('.catalog');
