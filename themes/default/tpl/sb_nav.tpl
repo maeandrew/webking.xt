@@ -1,5 +1,5 @@
 <div class="catalog">
-	<div class="label">Каталог товаров</div>
+	<div class="label"><?=$sbheader?></div>
 	<div class="navbar_js"></div>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
