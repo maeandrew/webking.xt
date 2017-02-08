@@ -1,6 +1,6 @@
 <div class="catalog">
 	<div class="label"><?=$sbheader?></div>
-	<div class="navbar_js"></div>
+	<div class="navbar_js navigation_container"><div>
 	<div id="segmentNavOrg"></div>
 	<div id="segmentNavStore"></div>
 	<div id="allCategotyCont"></div>

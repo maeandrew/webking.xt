@@ -40,7 +40,7 @@ G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
 G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/func.js');
-G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js');
+G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js?v123');
 if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js');
 }else{

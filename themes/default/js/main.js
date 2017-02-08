@@ -477,17 +477,6 @@ $(function(){
 			}
 		}
 	});
-	//Меню
-	$('aside').on('click','.more_cat', function() {
-		var lvl = $(this).closest('ul').data('lvl'),
-			parent = $(this).closest('li'),
-			parent_active = parent.hasClass('active');
-		$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
-
-		if(!parent_active){
-			parent.addClass('active').find('> ul').stop(true, true).slideDown();
-		}
-	});
 
 	//Кабинет
 	//$('a.cabinet_btn').find('ul').css('dispaly','block');
@@ -2256,11 +2245,23 @@ $(function(){
 	$('body').on('focusout', '.input_validator_js', function(event){
 		userInfoValidator($(this));
 	});
+	// Развертывание каталога товаров
+	// $('aside').on('click','.more_cat', function() {
+	// 	var lvl = $(this).closest('ul').data('lvl'),
+	// 		parent = $(this).closest('li'),
+	// 		parent_active = parent.hasClass('active');
+	// 	$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp();
+
+	// 	if(!parent_active){
+	// 		parent.addClass('active').find('> ul').stop(true, true).slideDown();
+	// 	}
+	// });
+	addLoadAnimation('.navigation_container');
 });
 $(document).ready(function(){
-	 $('#subCategory_grid').masonry();
-	 ajax('navigation', 'generateNavigation', false, 'html').done(function(data){
-	 	$('.navbar_js').html(data);
-	 })
+	$('#subCategory_grid').masonry();
+	ajax('navigation', 'generateNavigation', false, 'html').done(function(data){
+		$('.navbar_js').html(data);
+	});
 });
 

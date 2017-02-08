@@ -4412,18 +4412,17 @@ class Products {
 		if(isset($_POST['idsegment'])){
 			$arr['segment'] = $_POST['idsegment'];
 		}
-		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
+		$ul = '<ul '.($lvl == 1?'class="navigation allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
-			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'>';
-			$ul .= '<span class="link_wrapp">';
-			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?'':' rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
+			$ul .= '<li class="link_wrapp'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' active':null).'">';
+			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'];
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
-				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></a>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null);
-				$ul .= '</li>';
 			}else{
-				$ul .= '</span></li>';
+				$ul .= '</a>';
 			}
+			$ul .= '</li>';
 		}
 		$ul .= '</ul>';
 		return $ul;
