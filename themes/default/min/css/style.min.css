@@ -240,7 +240,7 @@ aside .catalog .main_nav .info_key{font-weight:400;line-height:1.45em;display:no
 aside .catalog .main_nav .info_description,aside .catalog .main_nav .info_key{text-transform:lowercase}
 aside .catalog .main_nav li:hover .info_key{display:inline-block}
 aside .catalog .main_nav .included_filters{font-size:14px;text-transform:lowercase;font-weight:400;color:#EF5350;display:inline-block}
-aside{z-index:10}
+aside{z-index:100}
 aside .catalog .navigation_container{position:relative;min-height:100px;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
 aside .catalog .navigation{z-index:10000}
 aside .catalog .navigation .link_wrapp{font-size:16px;border-bottom:1px solid #e0e0e0;background:#fff}
@@ -254,12 +254,13 @@ aside .catalog .navigation .link_wrapp ul[data-lvl="3"]{left:100%;visibility:hid
 aside .catalog .navigation .link_wrapp:hover{background:#fafafa}
 aside .catalog .navigation .link_wrapp:hover>ul[data-lvl="2"]{opacity:1;left:100%;transition:all .4s .2s cubic-bezier(.4,0,.2,1);z-index:-1}
 aside .catalog .navigation .link_wrapp:hover>ul[data-lvl="3"]{opacity:1;width:100%;visibility:visible}
-aside .filters{display:none}
-aside .filters .filters_container{overflow:auto}
-aside .filters .filter_block{padding:4px 0;border-bottom:1px solid #e5e5e5;position:relative}
+aside .filters{margin-top:20px}
+aside .filters .label{text-align:center;padding:5px 15px;background:#fff;color:#444;font-weight:400;line-height:2em;font-size:1.3em;border-radius:3px 3px 0 0}
+aside .filters .filters_container{background:#fff;padding:15px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
+aside .filters .filter_block{border-bottom:1px solid #e5e5e5;position:relative}
 aside .filters .filter_block .more{text-align:right;cursor:pointer;padding-right:5px;position:absolute;top:0;right:0}
-aside .filters .filter_block .more i{vertical-align:middle}
-aside .filters .filter_block p{text-align:left;font-weight:700}
+aside .filters .filter_block .more i{vertical-align:middle;padding:6px 0}
+aside .filters .filter_block p{text-align:left;padding:10px 0}
 aside .filters .filter_block ul{padding-bottom:0}
 aside .filters .filter_block:last-of-type ul{border:none}
 aside .filters .filter_block ul li{display:none}

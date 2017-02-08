@@ -795,11 +795,15 @@ class G {
 			}
 			$url = str_replace('/image/', $size, $url);
 		}
-		// Если файла по данному $url не существует, получим изображение nofoto.png
-		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
-			$url = '/images/nofoto.png';
+		if(SETT == 2){
+			// Если файла по данному $url не существует, получим изображение nofoto.png
+			if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
+				$url = '/images/nofoto.png';
+			}
+			return htmlspecialchars(_base_url.$url);
+		}else{
+			return htmlspecialchars('https://xt.ua'.$url);
 		}
-		return htmlspecialchars(_base_url.$url);
 	}
 
 	/**

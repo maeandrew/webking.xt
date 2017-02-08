@@ -2256,7 +2256,7 @@ $(function(){
 	// 		parent.addClass('active').find('> ul').stop(true, true).slideDown();
 	// 	}
 	// });
-	addLoadAnimation('.navigation_container');
+	addLoadAnimation('.navbar_js');
 });
 $(document).ready(function(){
 	$('#subCategory_grid').masonry();

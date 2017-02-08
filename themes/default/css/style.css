@@ -1344,7 +1344,7 @@ section.center {
 
 
 	aside {
-		z-index: 10;
+		z-index: 100;
 	}
 	aside .catalog .navigation_container {
 		position: relative;
@@ -1424,13 +1424,24 @@ section.center {
 
 
 	aside .filters {
-		display: none;
+		margin-top: 20px;
+	}
+	aside .filters .label {
+		text-align: center;
+		padding: 5px 15px;
+		background: #fff;
+		color: #444;
+		font-weight: normal;
+		line-height: 2em;
+		font-size: 1.3em;
+		border-radius: 3px 3px 0 0;
 	}
 	aside .filters .filters_container {
-		overflow: auto;
+		background: #fff;
+		padding: 15px;
+		box-shadow: 0 2px 3px -1px rgba(0, 0, 0, .1);
 	}
 	aside .filters .filter_block {
-		padding: 4px 0;
 		border-bottom: 1px solid #e5e5e5;
 		position: relative;
 	}
@@ -1442,12 +1453,13 @@ section.center {
 		top: 0;
 		right: 0;
 	}
-	aside .filters .filter_block .more i{
+	aside .filters .filter_block .more i {
 		vertical-align: middle;
+		padding: 6px 0;
 	}
 	aside .filters .filter_block p {
 		text-align: left;
-		font-weight: bold;
+		padding: 10px 0;
 	}
 	aside .filters .filter_block ul {
 		padding-bottom: 0;

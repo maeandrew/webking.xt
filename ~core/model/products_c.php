@@ -4230,7 +4230,7 @@ class Products {
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category IN (".implode(', ', $id_category).")
+			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			AND p.visible > 0 AND (p.price_opt >0 OR p.price_mopt>0)
@@ -4277,14 +4277,14 @@ class Products {
 	 * [GetCntFilterNow description]
 	 * @param [type] $id_categorys [description]
 	 */
-	public function GetCntFilterNow($id_categorys){
+	public function GetCntFilterNow($id_category){
 		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
+			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
 			-- AND sp.id_prod IN ()
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
