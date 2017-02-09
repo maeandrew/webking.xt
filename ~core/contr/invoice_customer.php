@@ -107,23 +107,28 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 	}
 	$ord = $Orders->fields;
 	$tpl->Assign("order", $ord);
-	// Получаем адреc доставки
-	$address = $Address->GetAddressById($ord['id_address']);
-	$tpl->Assign('address', $address);
-	// Получить данные покупателя
 	$id_customer = $ord['id_customer'];
-	$Customers->SetFieldsById($id_customer, 1, true);
-	$tpl->Assign('customer', $Customers->fields);
+	// Получить адрес доставки
+	$address = $Address->GetAddressById($ord['id_address']);
+	// Получить данные пользователя
+	$Users->SetFieldsById($id_customer);
+	// Получить данные покупателя
+	$Customers->SetFieldsById($id_customer);
 	// Получить данные контрагента
 	$id_contragent = $ord['id_contragent'];
+	$Contragents->SetFieldsById($id_contragent);
+	// Получить данные отправителя
 	if(isset($ord['id_remitter'])){
 		$remitter = $Contragents->GetRemitterById($ord['id_remitter'], true);
-		$tpl->Assign('remitter', $remitter);
+		$tpl->Assign("remitter", $remitter);
 	}
-	$Contragents->SetFieldsById($id_contragent);
-	$tpl->Assign('contragent', $Contragents->fields);
-	$tpl->Assign('date', date('d.m.Y',$ord['target_date']));
-	$tpl->Assign('id_order', $ord['id_order']);
+	// вывод данных в  .tpl
+	$tpl->Assign('address', $address);
+	$tpl->Assign("user", $Users->fields);
+	$tpl->Assign("customer", $Customers->fields);
+	$tpl->Assign("contragent", $Contragents->fields);
+	$tpl->Assign("date", date("d.m.Y",$ord['target_date']));
+	$tpl->Assign("id_order", $ord['id_order']);
 	$city = $Citys->SetFieldsById($ord['id_city']);
 	if($ord['id_delivery'] == 1){ // самовывоз
 		$addr_deliv = "Самовывоз<br>".$ord['descr'];
