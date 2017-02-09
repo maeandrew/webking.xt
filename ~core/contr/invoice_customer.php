@@ -13,34 +13,35 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 	unset($parsed_res);
 	require($GLOBALS['PATH_model'].'invoice_c.php');
 	foreach($orders as $id_order){
-		$Order = new Orders();
-		$Order->SetFieldsById($id_order);
-		$ord = $Order->fields;
-		$tpl->Assign("order", $ord);
-		$Invoice = new Invoice();
-		$User = new Users();
+		$Orders = new Orders();
 		$Address = new Address();
+		$Invoice = new Invoice();
+		$Users = new Users();
+		$Citys = new Citys();
+		$Customers = new Customers();
+		$Contragents = new Contragents();
+
+		$Orders->SetFieldsById($id_order);
+		$ord = $Orders->fields;
+		$tpl->Assign("order", $ord);
 		// Получаем адреc доставки
 		$addr = $Address->GetAddressById($ord['id_address']);
 		// Получить данные покупателя
 		$id_customer = $ord['id_customer'];
-		$Customer = new Customers();
-		$Customer->SetFieldsById($id_customer);
+		$Customers->SetFieldsById($id_customer);
 		// Получить данные контрагента
 		$id_contragent = $ord['id_contragent'];
-		$Contragent = new Contragents();
 		if(isset($ord['id_remitter'])){
-			$remitter = $Contragent->GetRemitterById($ord['id_remitter'], true);
+			$remitter = $Contragents->GetRemitterById($ord['id_remitter'], true);
 			$tpl->Assign("remitter", $remitter);
 		}
-		$Contragent->SetFieldsById($id_contragent);
+		$Contragents->SetFieldsById($id_contragent);
 		$tpl->Assign("address", $addr);
-		$tpl->Assign("Customer", $Customer->fields);
-		$tpl->Assign("Contragent", $Contragent->fields);
+		$tpl->Assign("customer", $Customers->fields);
+		$tpl->Assign("contragent", $Contragents->fields);
 		$tpl->Assign("date", date("d.m.Y",$ord['target_date']));
 		$tpl->Assign("id_order", $ord['id_order']);
-		$Citys = new Citys();
-		$city = $Citys->SetFieldsById($ord['id_city']);
+			$city = $Citys->SetFieldsById($ord['id_city']);
 		if($ord['id_delivery'] == 1){ // самовывоз
 			$addr_deliv = "Самовывоз<br>".$ord['descr'];
 		}elseif($ord['id_delivery'] == 2){ // Передать автобусом
@@ -55,15 +56,15 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$arr = $Invoice->GetOrderData($id_order);
 		$positions = array();
 		$Sertificates = array();
-		if($Order->GetSuppliers($id_order)){
-			$suppliers = $Order->list;
+		if($Orders->GetSuppliers($id_order)){
+			$suppliers = $Orders->list;
 			$arr2 = array();
 			foreach($suppliers as $k=>&$s){
 				if($s['id_supplier'] == 0) $s['name'] = "Прогноз";
-				$Order->SetListBySupplier($s['id_supplier'], $id_order);
+				$Orders->SetListBySupplier($s['id_supplier'], $id_order);
 				$sum = 0;
 				$sum_mopt = 0;
-				foreach($Order->list as $product){
+				foreach($Orders->list as $product){
 					if($product['opt_qty']>0 && $product['id_supplier']==$s['id_supplier'])
 						$sum = round(($sum + $product['opt_sum']),2);
 					if($product['mopt_qty']>0 && $product['id_supplier_mopt']==$s['id_supplier'])
@@ -97,40 +98,32 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 }else{
 	$id_order = $GLOBALS['Rewrite'];
 	unset($parsed_res);
-	require($GLOBALS['PATH_model'].'invoice_c.php');
-	$Order = new Orders();
-	$Order->SetFieldsById($id_order);
+	$Orders->SetFieldsById($id_order);
 	if(!isset($_POST['orders'])){
-		if($Order->fields['skey'] != $GLOBALS['REQAR'][2]){
+		if($Orders->fields['skey'] != $GLOBALS['REQAR'][2]){
 			echo "Доступ запрещен.";
 			exit();
 		}
 	}
-	$ord = $Order->fields;
+	$ord = $Orders->fields;
 	$tpl->Assign("order", $ord);
-	$Invoice = new Invoice();
-	$User = new Users();
-	$Address = new Address();
 	// Получаем адреc доставки
 	$address = $Address->GetAddressById($ord['id_address']);
 	$tpl->Assign('address', $address);
 	// Получить данные покупателя
 	$id_customer = $ord['id_customer'];
-	$Customer = new Customers();
-	$Customer->SetFieldsById($id_customer, 1, true);
-	$tpl->Assign('Customer', $Customer->fields);
+	$Customers->SetFieldsById($id_customer, 1, true);
+	$tpl->Assign('customer', $Customers->fields);
 	// Получить данные контрагента
 	$id_contragent = $ord['id_contragent'];
-	$Contragent = new Contragents();
 	if(isset($ord['id_remitter'])){
-		$remitter = $Contragent->GetRemitterById($ord['id_remitter'], true);
+		$remitter = $Contragents->GetRemitterById($ord['id_remitter'], true);
 		$tpl->Assign('remitter', $remitter);
 	}
-	$Contragent->SetFieldsById($id_contragent);
-	$tpl->Assign('Contragent', $Contragent->fields);
+	$Contragents->SetFieldsById($id_contragent);
+	$tpl->Assign('contragent', $Contragents->fields);
 	$tpl->Assign('date', date('d.m.Y',$ord['target_date']));
 	$tpl->Assign('id_order', $ord['id_order']);
-	$Citys = new Citys();
 	$city = $Citys->SetFieldsById($ord['id_city']);
 	if($ord['id_delivery'] == 1){ // самовывоз
 		$addr_deliv = "Самовывоз<br>".$ord['descr'];
@@ -145,15 +138,15 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 	$tpl->Assign("addr_deliv", $addr_deliv);
 	$arr = $Invoice->GetOrderData($id_order, isset($filial)?$filial:null);
 	$Sertificates = array();
-	if($Order->GetSuppliers($id_order)){
-		$suppliers = $Order->list;
+	if($Orders->GetSuppliers($id_order)){
+		$suppliers = $Orders->list;
 		$arr2 = array();
 		foreach($suppliers as $k=>&$s){
 			if($s['id_supplier'] == 0) $s['name'] = "Прогноз";
-			$Order->SetListBySupplier($s['id_supplier'], $id_order);
+			$Orders->SetListBySupplier($s['id_supplier'], $id_order);
 			$sum = 0;
 			$sum_mopt = 0;
-			foreach($Order->list as $product){
+			foreach($Orders->list as $product){
 				if($product['opt_qty']>0 && $product['id_supplier']==$s['id_supplier'])
 					$sum = round(($sum + $product['opt_sum']),2);
 				if($product['mopt_qty']>0 && $product['id_supplier_mopt']==$s['id_supplier'])
