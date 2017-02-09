@@ -4,6 +4,7 @@ if(!isset($GLOBALS['REQAR'][1]) && !is_numeric($GLOBALS['REQAR'][1]) && !isset($
 	exit();
 }
 isset($_GET['filial'])? $filial = $_GET['filial']:null;
+require($GLOBALS['PATH_model'].'invoice_c.php');
 $Suppliers = new Suppliers();
 $Orders = new Orders();
 $Invoice = new Invoice();
@@ -23,7 +24,6 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$orders = $_GET['orders'];
 	}
 	unset($parsed_res);
-	require($GLOBALS['PATH_model'].'invoice_c.php');
 	foreach($orders as $id_order){
 		$Orders->SetFieldsById($id_order);
 		$ord = $Orders->fields;
@@ -106,7 +106,6 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 }else{
 	$id_order = $GLOBALS['REQAR'][1];
 	unset($parsed_res);
-	require($GLOBALS['PATH_model'].'invoice_c.php');
 
 	$Orders->SetFieldsById($id_order);
 	if(!isset($_POST['orders'])){
