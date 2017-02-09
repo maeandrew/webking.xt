@@ -104,7 +104,7 @@ $GLOBALS['MainTemplate']		= 'main.tpl';
 $GLOBALS['MainEmptyTemplate']	= 'main_empty.tpl';
 // страницы с левым сайдбаром
 $GLOBALS['LeftSideBar']			= array(
-	'main',
+	// 'main',
 	'products',
 	'page',
 	'newslist',
