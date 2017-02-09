@@ -9,6 +9,7 @@ $Suppliers = new Suppliers();
 $Orders = new Orders();
 $Invoice = new Invoice();
 $Users = new Users();
+$Address = new Address();
 $Customers = new Customers();
 $Contragents = new Contragents();
 $Citys = new Citys();
@@ -111,6 +112,9 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 	}
 	$ord = $Orders->fields;
 	$tpl->Assign("order", $ord);
+
+	$address = $Address->GetAddressById($ord['id_address']);
+	$tpl->Assign('address', $address);
 	// Получить данные покупателя
 	$id_customer = $ord['id_customer'];
 	$Customers->SetFieldsById($id_customer);
