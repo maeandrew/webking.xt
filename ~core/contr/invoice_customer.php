@@ -3,6 +3,14 @@ if((!isset($GLOBALS['Rewrite']) || !is_numeric($GLOBALS['Rewrite'])) && !isset($
 	header('Location: '.Link::Custom('404'));
 	exit();
 }
+require($GLOBALS['PATH_model'].'invoice_c.php');
+$Orders = new Orders();
+$Address = new Address();
+$Invoice = new Invoice();
+$Users = new Users();
+$Citys = new Citys();
+$Customers = new Customers();
+$Contragents = new Contragents();
 if(isset($_POST['orders']) || isset($_GET['orders'])){
 	if(isset($_GET['orders'])){
 		$orders = $_GET['orders']; // Получаем id контрагента
@@ -11,16 +19,8 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$orders = $_POST['orders']; //Сюда приходит список всех задействованых заказов
 	}
 	unset($parsed_res);
-	require($GLOBALS['PATH_model'].'invoice_c.php');
-	foreach($orders as $id_order){
-		$Orders = new Orders();
-		$Address = new Address();
-		$Invoice = new Invoice();
-		$Users = new Users();
-		$Citys = new Citys();
-		$Customers = new Customers();
-		$Contragents = new Contragents();
 
+	foreach($orders as $id_order){
 		$Orders->SetFieldsById($id_order);
 		$ord = $Orders->fields;
 		$tpl->Assign("order", $ord);
