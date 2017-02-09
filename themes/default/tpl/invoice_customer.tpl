@@ -77,7 +77,7 @@
 			<tr>
 				<td>Получатель:</td>
 				<td style="font-weight: bold;">
-					<?=trim($Customer['last_name'].$Customer['first_name'].$Customer['middle_name']) == ''?$Customer['cont_person']:trim($Customer['last_name']).' '.trim($Customer['first_name']).' '.trim($Customer['middle_name'])?>, <?=$Customer['phone']?>
+					<?=trim($Customer['last_name'].$Customer['first_name'].$Customer['middle_name']) == ''?$Customer['cont_person']:trim($Customer['last_name']).' '.trim($Customer['first_name']).' '.trim($Customer['middle_name'])?>, тел. <?=$Customer['phone']?>
 				</td>
 			</tr>
 			<tr>

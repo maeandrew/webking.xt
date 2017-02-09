@@ -12,11 +12,11 @@ body { font-family: "Trebuchet MS", Helvetica, sans-serif; font-size: 12px; colo
 .logo { font-size: 28px; color: #00F; font-weight: bold;}
 .undln { text-decoration: underline;}
 .lb { border-left: 1px dashed #000; padding-left: 5px;}
-.table_header { margin-left: 3px; width: 800px;}
+.table_header { width: 800px;  padding: 10px;  padding-bottom: 0px;}
 .table_header .top td { padding: 10px 0 15px 0; font-size: 14px;}
 .table_header .first_col { width: 90px;}
 .table_header .second_col { width: 325px;}
-.table_header .top span.invoice { margin-left:20px;font-size:18px;text-decoration:underline;}
+.table_header .top span.invoice {font-size:18px;font-weight: bold;}
 .bl { border-left: 1px solid #000;}
 .bln { border-left: 0 !important;}
 .br { border-right: 1px solid #000;}
@@ -28,7 +28,7 @@ body { font-family: "Trebuchet MS", Helvetica, sans-serif; font-size: 12px; colo
 .blf { border-left: 1px solid #FFF;}
 .brf { border-right: 1px solid #FFF;}
 .bn { border: 0 !important; }
-.table_main{margin: 10px 0 0 1px;page-break-after: always;}
+.table_main{ width: 800px;  padding: 10px;  padding-bottom: 0px;}
 .table_main:last-of-type{page-break-after: avoid;}
 .table_main td{padding:1px 1px 0;font-size:12px; text-align:center; border-right:1px #000 solid;border-bottom:1px #000 solid;vertical-align: middle;}
 .table_main td.name{padding:1px;font-size:12px; text-align:left; border-right:1px #000 solid;border-bottom:1px #000 solid;}
@@ -52,35 +52,101 @@ h1.filial { display: none; }
 	</head>
 <body>
 <h1 class="filial"><?=empty($filial) == false?"Филиал - ".$filial['title']:null;?></h1>
-<table border="0" cellpadding="0" cellspacing="0" class="table_header">
+<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
 	<tbody>
+		<tr>
+	        <td colspan="4"  valign="top" style="padding: 0 18px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
+	            <img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
+	        </td>
+		</tr>
 		<tr class="top">
-			<td colspan="4">
-				<span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span> <span class="invoice">Расходная накладная от <?=date("d.m.Y",$order['creation_date'])?> <?=str_repeat("&nbsp;", 3)?> № &nbsp; <b><?=$id_order?><?=!empty($filial)?' - '.$filial['title']:null;?></b></span>
+			<td align="center" colspan="4">
+				<span class="invoice">Расходная накладная № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
 				<br><span class="adate">Ориентировочная дата отгрузки: <?=$date?></span></td>
 		</tr>
 		<tr>
-			<td class="first_col undln">
-				<u><strong>отправитель</strong></u></td>
-			<td class="second_col" rowspan=2>
-				<?if(isset($remitter)){?>
-					<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
+				<td>Получатель:</td>
+				<td style="font-weight: bold;">
+					<?=$order['cont_person']?>&nbsp;&nbsp;&nbsp; тел. <?=$order['phones']?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<span class="undln"></span>
+					<td class="undln lb"></td>
+					<td><?=$addr_deliv?></td>
+				</td>
+				<td colspan="2" class="lb">
+				</td>
+			</tr>
+			<?if(!empty($address)){?>
+				<tr>
+					<td>Транспортная компания:</td>
+					<td style="font-weight: bold;">
+						<?=$address['shipping_company_title']?>
+					</td>
+				</tr>
+				<tr>
+					<td>Область:</td>
+					<td style="font-weight: bold;">
+						<?=$address['region_title']?>
+					</td>
+				</tr>
+				<tr>
+					<td>Город:</td>
+					<td style="font-weight: bold;">
+						<?=$address['city_title']?>
+					</td>
+				</tr>
+				<tr>
+					<td>Тип доставки:</td>
+					<td style="font-weight: bold;">
+						<?=$address['delivery_type_title']?>
+					</td>
+				</tr>
+				<?if($address['delivery_department'] !=''){?>
+					<tr>
+						<td>Отделение:</td>
+						<td style="font-weight: bold;">
+							<?=$address['delivery_department']?>
+						</td>
+					</tr>
 				<?}?>
-				<?$Contragent['name']?><p><?=$Contragent['phones']?></p></td>
-			<td class="first_col undln lb">
-				<u><strong>получатель</strong></u></td>
-			<td class="second_col">
-				<?=$order['cont_person']?>&nbsp;&nbsp;&nbsp;<?=$order['phones']?></td>
-		</tr>
-		<tr>
-			<td class="undln"></td>
-			<td class="undln lb"></td>
-			<td><?=$addr_deliv?></td>
-		</tr>
-		<tr>
-			<td colspan="2"><span class="undln"></span></td>
-			<td colspan="2" class="lb"></td>
-		</tr>
+				<?if($address['address'] !=''){?>
+					<tr>
+						<td>Адрес:</td>
+						<td style="font-weight: bold;">
+							<?=$address['address']?>
+						</td>
+					</tr>
+				<?}?>
+			<?}else{?>
+				<tr>
+					<td>Адрес доставки:</td>
+					<td style="font-weight: bold;">
+						Не указан
+					</td>
+				</tr>
+			<?}?>
+			<tr>
+				<td colspan="4" class="spacer"></td>
+			</tr>
+			<tr>
+				<td>Отправитель:</td>
+				<td style="font-weight: bold;">
+					<?if(isset($remitter)){?>
+						<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
+					<?}else{?>
+						Не указан
+					<?}?>
+				</td>
+			</tr>
+			<tr>
+				<td>Менеджер:</td>
+				<td style="font-weight: bold;">
+					<?=$Contragent['name']?>
+				</td>
+			</tr>
 	</tbody>
 </table>
 <?
@@ -96,7 +162,7 @@ $c9 = 60;
 $c10 = 60;
 $c11 = 65;
 ?>
-<table border="0" cellpadding="0" cellspacing="0" class="table_main">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="table_main">
 	<col width="<?=$c1?>"/>
 	<col width="<?=$c2?>"/>
 	<col width="<?=$c3?>"/>
