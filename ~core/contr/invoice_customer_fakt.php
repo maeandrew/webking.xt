@@ -193,6 +193,20 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$tpl->Assign('Sertificates', $Sertificates);
 	}
 	echo $tpl->Parse($GLOBALS['PATH_tpl'].'invoice_customer_fakt.tpl');
+	$gifts = $Products->GetGiftsList('AG'.$Users->fields['id_user']);
+	echo '<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">';
+	echo '<link rel="stylesheet" href="/themes/default/min/css/page_styles/promo_certificate.min.css">';
+	echo '<div class="main">';
+	if(isset($gifts) && !empty($gifts)){
+		foreach($gifts as $gift){
+			$gift['images'] = $Products->GetPhotoById($gift['id_product']);
+			$tpl->Assign('gift', $gift);
+			echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_promo_certificate.tpl');
+		}
+	}else{
+		echo $tpl->Parse($GLOBALS['PATH_tpl'].'cp_promo_certificate.tpl');
+	}
+	echo '</div>';
 	exit(0);
 }
 ?>
