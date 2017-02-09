@@ -40,7 +40,7 @@ label:hover+.info_description{opacity:1;top:100%;z-index:110}
 .clear_cart{position:absolute;top:20px;line-height:32px;right:50px}
 .clear_cart a{color:#ff5722}
 .fright{float:right}
-.background_panel{background-color:transparent;position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;visibility:hidden}
+.background_panel{background-color:transparent;position:fixed;top:0;right:0;bottom:0;left:0;z-index:100;visibility:hidden}
 @media (max-width:728px){[data-type=panel],[data-type=modal]{-webkit-transition:all .4s cubic-bezier(.4,0,.2,1);-o-transition:all .4s cubic-bezier(.4,0,.2,1);transition:all .4s cubic-bezier(.4,0,.2,1)}
 }
 [class*=" active_"] .advantages,[class*=" active_"] .center,[class*=" active_"] footer,[class^=active_] .advantages,[class^=active_] .center,[class^=active_] footer,_:-ms-lang(x){filter:none}
