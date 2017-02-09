@@ -552,7 +552,6 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .info_item:hover .action_icon i{cursor:pointer;color:#FF5722}
 .action_icon button{border:none;background:0 0}
 .agents_clients_list,.orders_history{width:calc(100% - 15px);background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);line-height:24px;padding:10px;margin-top:20px}
-.orders_history h2{margin:10px}
 .agents_client,.agents_client_header,.agents_client_order,.orders_history_header{display:flex}
 .agents_client_order{width:100%;margin-left:130px;border-top:1px solid #DCDCDC}
 .agents_client_order{height:50px}

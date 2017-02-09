@@ -351,9 +351,9 @@ if(empty($category['subcats'])){
 	// Фильтр на странице списка товаров=================================
 	$cnt = $i = 0;
 	$group_arr = $for_sql = $id_spec = [];
-	$filter_cat = $Products->GetFilterFromCategory($res);
+	$filter_cat = $Products->GetFilterFromCategory($id_category);
 	$tpl->Assign('cnt', $cnt); //количество активных фильтров
-	$cntF = $Products->GetCntFilterNow($res);//$id_category
+	$cntF = $Products->GetCntFilterNow($id_category);
 	if($GLOBALS['Filters']){
 		foreach($GLOBALS['Filters'] as $id_fil => $val){
 			$id_filter[] = $id_fil;

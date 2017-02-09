@@ -4230,7 +4230,7 @@ class Products {
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category IN (".implode(', ', $id_category).")
+			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
 			AND p.visible > 0 AND (p.price_opt >0 OR p.price_mopt>0)
@@ -4277,14 +4277,14 @@ class Products {
 	 * [GetCntFilterNow description]
 	 * @param [type] $id_categorys [description]
 	 */
-	public function GetCntFilterNow($id_categorys){
+	public function GetCntFilterNow($id_category){
 		$sql = "SELECT sp.id as id_val, sp.value, COUNT(sp.id_prod) as cnt, s.caption
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
-			WHERE cp.id_category IN (".implode(', ', $id_categorys).")
+			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
 			-- AND sp.id_prod IN ()
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
@@ -4410,25 +4410,19 @@ class Products {
 		$lvl++;
 		$arr['clear']='true';
 		if(isset($_POST['idsegment'])){
-			$arr['segment']=$_POST['idsegment'];
+			$arr['segment'] = $_POST['idsegment'];
 		}
-		$ul = '<ul '.($lvl == 1?'class="second_nav allSections" ':'').'data-lvl="'.$lvl.'">';
+		$ul = '<ul '.($lvl == 1?'class="navigation allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
-			$ul .= '<li'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' class="active"':'').'><span class="link_wrapp">
-			<a '.($no_rel || (!isset($GLOBALS['current_categories'])&& $GLOBALS['CurrentController'] != 'product')?'':'rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'].'</a>';
-
+			$ul .= '<li class="link_wrapp'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' active':null).'">';
+			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'];
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
-				/*if($l['pid'] != 0 && $l['category_level'] != 1) {
-					$ul .= '<span class="more_cat"><i class="material-icons rotate">&#xE315;</i></span></span>';
-				}else{
-					$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></span>';
-				}*/
-				$ul .= '<span class="more_cat"><i class="material-icons">add</i></span></span>';
+				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></a>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null);
-				$ul .= '</li>';
 			}else{
-				$ul .= '</span></li>';
+				$ul .= '</a>';
 			}
+			$ul .= '</li>';
 		}
 		$ul .= '</ul>';
 		return $ul;

@@ -246,5 +246,7 @@ node_modules/*
 
 images/categories/*
 images/delivery/*
+images/avatars/*
+efiles/pickers/*
 
 xt.sublime-workspace

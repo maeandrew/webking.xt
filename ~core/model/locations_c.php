@@ -168,9 +168,8 @@ class Address {
 				$sql .= " WHERE lc.id_region = ".$region;
 			}else{
 				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
-				WHERE lc.title = ".$this->db->Quote($region);
+				WHERE lr.title = ".$this->db->Quote($region);
 			}
-
 		}
 		if($limit){
 			$sql .= ' LIMIT '.$limit;

@@ -20,7 +20,9 @@ G::Start();
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/reset.css', 0);
 G::AddCSS('../plugins/mdl-select.min.css', 1);
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
-G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/fonts.css', 0);
+if(SETT == 2){
+	G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/fonts.css', 0);
+}
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/colors.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/style.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/header.css', 0);
@@ -38,7 +40,7 @@ G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
 G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/func.js');
-G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js');
+G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js?v123');
 if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js');
 }else{
