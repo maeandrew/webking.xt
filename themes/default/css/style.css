@@ -656,7 +656,7 @@ section.center {
 	padding: 0 10px;
 }
 .no-sidebar .page_content {
-	padding: 0;
+	padding: 0 20px;
 }
 /* Modal from end_order ======================================================== */
 /* Auth modal ===============================================================*/
@@ -1344,7 +1344,7 @@ section.center {
 
 
 	aside {
-		z-index: 100;
+		z-index: 99;
 	}
 	aside .catalog .navigation_container {
 		position: relative;
@@ -1358,7 +1358,6 @@ section.center {
 	aside .catalog .navigation .link_wrapp {
 		font-size: 16px;
 		border-bottom: 1px solid #e0e0e0;
-		background: #fff;
 	}
 	aside .catalog .navigation .link_wrapp:last-of-type {
 		border-bottom: 0;
@@ -1397,10 +1396,11 @@ section.center {
 		box-shadow: 0 2px 3px -1px rgba(0, 0, 0, .1);
 		transition: all .4s cubic-bezier(.4,0,.2,1);
 		opacity: 0;
+		visibility: hidden;
+		border-left: 1px solid #e0e0e0;
 	}
 	aside .catalog .navigation .link_wrapp ul[data-lvl="3"] {
 		left: 100%;
-		visibility: hidden;
 		transition: none;
 	}
 	aside .catalog .navigation .link_wrapp:hover {
@@ -1411,6 +1411,7 @@ section.center {
 		left: 100%;
 		transition: all .4s .2s cubic-bezier(.4,0,.2,1);
 		z-index: -1;
+		visibility: visible;
 	}
 	aside .catalog .navigation .link_wrapp:hover > ul[data-lvl="3"] {
 		opacity: 1;
@@ -3601,7 +3602,7 @@ div.modalEditOrder .applyBtn {
 }
 .subCategories .subCategory {
 	position: relative;
-	width: calc(20% - 20px);
+	width: calc(100%/5 - 20px);
 	margin: 0 10px 20px;
 	border: 1px solid #d9d9d9;
 	border-radius: .2em;
@@ -3609,6 +3610,9 @@ div.modalEditOrder .applyBtn {
 	vertical-align: top;
 	display: block;
     float: left;
+}
+.no-sidebar .subCategories .subCategory {
+	width: calc(100%/6 - 20px);
 }
 .subCategory__link {
 	display: block;
@@ -3687,20 +3691,34 @@ div.modalEditOrder .applyBtn {
 }
 @media (max-width: 1440px){
 	.subCategories .subCategory{
-		width: calc(25% - 20px);
+		width: calc(100%/4 - 20px);
+	}
+	.no-sidebar .subCategories .subCategory{
+		width: calc(100%/5 - 20px);
 	}
 }
 @media (max-width: 1280px){
 	.subCategories .subCategory{
 		width: calc(100%/3 - 20px);
 	}
+	.no-sidebar .subCategories .subCategory{
+		width: calc(100%/4 - 20px);
+	}
 }
 @media (max-width: 950px){
 	.subCategories .subCategory{
-		width: calc(50% - 20px);
+		width: calc(100%/2 - 20px);
 	}
-	.subCategory .subCategoryTitle{
-		max-width: 150px;
+	.no-sidebar .subCategories .subCategory{
+		width: calc(100%/3 - 20px);
+	}
+}
+@media (max-width: 768px){
+	.subCategories .subCategory{
+		width: calc(100% - 20px);
+	}
+	.no-sidebar .subCategories .subCategory{
+		width: calc(100%/2 - 20px);
 	}
 }
 @media (max-width: 480px){
