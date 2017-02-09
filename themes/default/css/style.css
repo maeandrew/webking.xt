@@ -1438,7 +1438,6 @@ section.center {
 	}
 	aside .filters .filters_container {
 		background: #fff;
-		padding: 15px;
 		box-shadow: 0 2px 3px -1px rgba(0, 0, 0, .1);
 	}
 	aside .filters .filter_block {
@@ -1446,12 +1445,12 @@ section.center {
 		position: relative;
 	}
 	aside .filters .filter_block .more {
-		text-align: right;
 		cursor: pointer;
-		padding-right: 5px;
 		position: absolute;
 		top: 0;
 		right: 0;
+		width: 30px;
+		text-align: center;
 	}
 	aside .filters .filter_block .more i {
 		vertical-align: middle;
@@ -1459,16 +1458,19 @@ section.center {
 	}
 	aside .filters .filter_block p {
 		text-align: left;
-		padding: 10px 0;
+		padding: 10px 30px 10px 15px;
 	}
 	aside .filters .filter_block ul {
-		padding-bottom: 0;
+		padding: 0 15px;
 	}
 	aside .filters .filter_block:last-of-type ul {
 		border: none;
 	}
 	aside .filters .filter_block ul li/* :nth-child(n+6) */ {
 		display: none;
+	}
+	aside .filters .filter_block ul li:last-of-type {
+		margin-bottom: 15px;
 	}
 	aside .filters .filter_block label {
 		color: #444;
@@ -1487,6 +1489,13 @@ section.center {
 	aside .filters .filterButtons {
 		display: flex;
 		justify-content: space-around;
+		padding: 0 15px;
+	}
+	aside .filters .price_range_block {
+		padding: 10px 15px;
+	}
+	aside .filters .price_range_block p {
+		padding: 10px 0;
 	}
 	aside .filters .mdl-textfield {
 		width: 30%;
@@ -1516,7 +1525,6 @@ section.center {
 	aside .filters #priceFields {
 		display: flex;
 		justify-content: center;
-		padding: 5px 0;
 	}
 	aside .catalog_close {
 		display: none;
