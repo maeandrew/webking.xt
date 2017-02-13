@@ -5,7 +5,7 @@
 //     $segm = '<ul class="second_nav">';
 //     foreach($segments as &$v){
 //         $segm .= '<li data-id="'.$v['id'].'"'.(isset($GLOBALS['Segment']) && $GLOBALS['Segment'] == $v['id']?' class="active"':null).' onclick="segmentOpen('.$v['id'].')">
-//             <span class="link_wrapp">
+//             <span class="link_wrap">
 //                 <a href="#">'.$v['name'].'</a>
 //                 <span><i class="material-icons">&#xE315;</i></span>
 //             </span>';

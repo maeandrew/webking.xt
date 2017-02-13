@@ -14,7 +14,7 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
                     $segments = $dbtree->Getsegments($_POST['type']);
                     $segm = '<ul class="second_nav">';
                     foreach ($segments as &$v) {
-                        $segm .= '<li data-id="' . $v['id'] . '" onclick="segmentOpen(' . $v['id'] . ')"> <span class="link_wrapp"><a href="#">' . $v['name'] . '</a><span><i class="material-icons">&#xE315;</i></span></span> </li>';
+                        $segm .= '<li data-id="' . $v['id'] . '" onclick="segmentOpen(' . $v['id'] . ')"> <span class="link_wrap"><a href="#">' . $v['name'] . '</a><span><i class="material-icons">&#xE315;</i></span></span> </li>';
                     }
                     $segm .= '</ul>';
                     echo $segm;

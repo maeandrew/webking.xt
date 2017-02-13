@@ -1355,14 +1355,14 @@ section.center {
 	aside .catalog .navigation {
 		z-index: 10000;
 	}
-	aside .catalog .navigation .link_wrapp {
+	aside .catalog .navigation .link_wrap {
 		font-size: 16px;
 		border-bottom: 1px solid #e0e0e0;
 	}
-	aside .catalog .navigation .link_wrapp:last-of-type {
-		border-bottom: 0;
+	aside .catalog .navigation .link_wrap:last-of-type {
+		border-bottom-color: transparent;
 	}
-	aside .catalog .navigation .link_wrapp a {
+	aside .catalog .navigation .link_wrap a {
 		font-weight: normal;
 		padding: 10px 30px 10px 15px;
 		line-height: 1em;
@@ -1371,7 +1371,7 @@ section.center {
 		color: #444;
 		position: relative;
 	}
-	aside .catalog .navigation .link_wrapp .more_cat {
+	aside .catalog .navigation .link_wrap .more_cat {
 		width: 30px;
 		position: absolute;
 		top: 0;
@@ -1379,13 +1379,13 @@ section.center {
 		bottom: 0;
 		padding: 6px 0;
 	}
-	aside .catalog .navigation .link_wrapp .more_cat i {
+	aside .catalog .navigation .link_wrap .more_cat i {
 		color: #777777;
 	}
-	aside .catalog .navigation [data-lvl="2"] .link_wrapp {
-		border: 0;
+	aside .catalog .navigation [data-lvl="2"] .link_wrap {
+		border-bottom-color: transparent;
 	}
-	aside .catalog .navigation .link_wrapp ul {
+	aside .catalog .navigation .link_wrap ul {
 		z-index: -1;
 		position: absolute;
 		top: 0;
@@ -1399,26 +1399,28 @@ section.center {
 		visibility: hidden;
 		border-left: 1px solid #e0e0e0;
 	}
-	aside .catalog .navigation .link_wrapp ul[data-lvl="3"] {
+	aside .catalog .navigation .link_wrap ul[data-lvl="3"] {
 		left: 100%;
 		transition: none;
 	}
-	aside .catalog .navigation .link_wrapp:hover {
+	aside .catalog .navigation .link_wrap:hover {
 		background: #fafafa;
+		border-bottom-color: #aaa;
+		box-shadow: -1px -1px 0 #aaa;
 	}
-	aside .catalog .navigation .link_wrapp:hover > ul[data-lvl="2"] {
+	aside .catalog .navigation .link_wrap:hover > [data-lvl="2"] {
 		opacity: 1;
 		left: 100%;
 		transition: all .4s .2s cubic-bezier(.4,0,.2,1);
 		z-index: -1;
 		visibility: visible;
 	}
-	aside .catalog .navigation .link_wrapp:hover > ul[data-lvl="3"] {
+	aside .catalog .navigation .link_wrap:hover > [data-lvl="3"] {
 		opacity: 1;
 		width: 100%;
 		visibility: visible;
 	}
-	/*aside .catalog .navigation .link_wrapp ul {*/
+	/*aside .catalog .navigation .link_wrap ul {*/
 
 
 
