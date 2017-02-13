@@ -2264,4 +2264,3 @@ $(document).ready(function(){
 		$('.navbar_js').html(data);
 	});
 });
-
