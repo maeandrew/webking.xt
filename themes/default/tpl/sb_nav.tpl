@@ -1,5 +1,5 @@
-<div class="catalog">
-	<div class="label"><?=$sbheader?><i class="material-icons hidden">&#xE313;</i></div>
+<div class="catalog<?=!in_array($GLOBALS['CurrentController'], array('search'))?' expanded':null;?>">
+	<div class="label"><?=$sbheader?><i class="material-icons">&#xE315;</i></div>
 	<div class="navbar_js navigation_container"></div>
 </div>
 
