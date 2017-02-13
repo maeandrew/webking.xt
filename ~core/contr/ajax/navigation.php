@@ -2,5 +2,7 @@
     if(isset($_POST['action'])){
         $nav = $Products->generateNavigation($navigation);
         echo $nav;
+        $nav_searh = $Products->generateSearhNavigation($navigation);
+        echo $nav_searh;
     }
 }
