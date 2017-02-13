@@ -589,7 +589,7 @@ class Products {
 	 * Выбор категрий в которых находится искомый товар
 	 */
 	public function SetCategories4Search($and = false){
-		$sql = 'SELECT c.id_category, c.name, c.translit, COUNT(p.id_product) AS count
+		$sql = 'SELECT c.id_category, c.category_level, c.name, c.pid, c.translit, COUNT(p.id_product) AS count
 			FROM '._DB_PREFIX_.'cat_prod cp
 				LEFT JOIN '._DB_PREFIX_.'category AS c
 					ON c.id_category = cp.id_category
@@ -600,7 +600,8 @@ class Products {
 				AND c.visible = 1
 				AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND p.visible = 1
-			GROUP BY c.translit';
+			GROUP BY c.id_category';
+			// print_r($sql); echo "<br>";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
