@@ -589,25 +589,46 @@ class Products {
 	 * Выбор категрий в которых находится искомый товар
 	 */
 	public function SetCategories4Search($and = false){
-		$sql = 'SELECT c.id_category, c.name, c.translit, COUNT(p.id_product) AS count
+		$sql = 'SELECT cap.id_cart, c.id_category, c.name, c.translit, COUNT(p.id_product) AS count
 			FROM '._DB_PREFIX_.'cat_prod cp
 				LEFT JOIN '._DB_PREFIX_.'category AS c
 					ON c.id_category = cp.id_category
 				LEFT JOIN '._DB_PREFIX_.'product AS p
-					ON p.id_product = cp.id_product'.
+					ON p.id_product = cp.id_product
+				LEFT JOIN '._DB_PREFIX_.'cart_product AS cap
+					ON cap.id_product = cp.id_product	'.
 			$this->db->GetWhere($and).'
 				AND c.sid = 1
 				AND c.visible = 1
 				AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND p.visible = 1
 			GROUP BY c.translit';
+
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
 		}
 		return $res;
 	}
+	/*
+	 * Выбор количества товаров из категрий
+	 */
 
+	public function SetCountCategoriesProducts($and = false){
+		$sql = 'SELECT COUNT(p.id_product) AS count
+			FROM '._DB_PREFIX_.'cat_prod cp
+				LEFT JOIN '._DB_PREFIX_.'category AS c
+					ON c.id_category = cp.id_category
+				LEFT JOIN '._DB_PREFIX_.'product AS p
+					ON p.id_product = cp.id_product'.
+			$this->db->GetWhere($and).'
+				GROUP BY c.translit';
+		$res = $this->db->GetArray($sql);
+		if(!$res){
+			return false;
+		}
+		return $res;
+	}
 	/**
 	 * [SetProductsList4csv description]
 	 */
@@ -1469,6 +1490,70 @@ class Products {
 		}
 		return $res['cnt'];
 	}
+
+
+/**
+	 * [GetProductsCnt description]
+	 * @param boolean $and    [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
+	public function GetProductsCatCnt($and = false, $gid = 0, $params = array()){
+		if($this->filter === false) return false;
+		$where2 = $this->filter;
+
+		// if (isset($GLOBALS['Segment'])){
+		// 	$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
+		// 			WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
+		// } else $selectsegm= '';
+		$sql = 'SELECT COUNT(DISTINCT p.id_product) AS cnt
+			FROM '._DB_PREFIX_.'cat_prod AS cp
+				INNER JOIN '._DB_PREFIX_.'product AS p
+					ON cp.id_product = p.id_product
+				ORDER BY cp.id_category'.
+			$this->db->GetWhere($and)
+			.$where2;
+		$res = $this->db->GetOneRowArray($sql);
+		if(!$res){
+			return 0;
+		}
+		return $res['cnt'];
+	}
+
+
+
+
+
+
+
+	/**
+	 * [GetProductsCategoryCnt description]
+	 * @param boolean $and    [description]
+	 * @param integer $gid    [description]
+	 * @param array   $params [description]
+	 */
+	public function GetProductsCategoryCnt($and = false, $gid = 0, $params = array()){
+		if($this->filter === false) return false;
+		$where2 = $this->filter;
+
+		// if (isset($GLOBALS['Segment'])){
+		// 	$selectsegm= ' AND p.id_product IN (SELECT id_product FROM xt_segment_prods
+		// 			WHERE id_segment IN  (SELECT id FROM xt_segmentation WHERE id='.$GLOBALS['Segment'].'))';
+		// } else $selectsegm= '';
+		$sql = 'SELECT COUNT(DISTINCT p.id_product) AS cnt
+			FROM '._DB_PREFIX_.'cat_prod AS cp
+				INNER JOIN '._DB_PREFIX_.'product AS p
+					ON cp.id_product = p.id_product'.
+			$this->db->GetWhere($and)
+			.$where2;
+		$res = $this->db->GetOneRowArray($sql);
+		if(!$res){
+			return 0;
+		}
+		return $res['cnt'];
+	}
+
+
 	/**
 	 * [SetProductsListSupCab description]
 	 * @param boolean $and     [description]
