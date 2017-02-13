@@ -3,23 +3,32 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		// uglify: {
-		// 	options: {
-		// 		banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-		// 	},
-		// 	build: {
-		// 		src: 'src/<%= pkg.name %>.js',
-		// 		dest: 'build/<%= pkg.name %>.min.js'
-		// 	}
-		// },
+		uglify: {
+			options: {
+				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+			},
+			build: {
+			    files: [{
+			        expand: true,
+			        cwd: 'themes/default/js/',
+			        src: ['*.js', '!*.min.js'],
+			        dest: 'themes/default/js/',
+					ext: '.min.js'
+			    }]
+		    }
+		},
 		watch: {
 			css: {
-				files: ['themes/default/css/*.css'],
+				files: ['themes/default/css/*.css', '!themes/default/css/colors.css', '!themes/default/css/jquery-ui.css', '!themes/default/css/reset.css'],
 				tasks: ['cssmin:target_css'],
 			},
 			css_ps: {
 				files: ['themes/default/css/page_styles/*.css'],
 				tasks: ['cssmin:target_css_ps'],
+			},
+			uglify: {
+				files: ['themes/default/js/*.js', '!themes/default/js/*.min.js'],
+				tasks: ['uglify:build'],
 			},
 			options: {
 				spawn: true
@@ -35,7 +44,7 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: 'themes/default/css',
-						src: ['*.css', '!*.min.css'],
+						src: ['*.css', '!*.min.css', '!themes/default/css/colors.css', '!themes/default/css/jquery-ui.css', '!themes/default/css/reset.css'],
 						dest: 'themes/default/min/css',
 						ext: '.min.css'
 					}
@@ -56,10 +65,10 @@ module.exports = function(grunt) {
 	});
 
 	// Load the plugin that provides the task.
-	// grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', [/*'uglify', */'cssmin', 'watch']);
+	grunt.registerTask('default', ['uglify', 'cssmin', 'watch']);
 };
