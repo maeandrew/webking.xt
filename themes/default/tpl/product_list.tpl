@@ -18,7 +18,6 @@
 					<a href="#" class="show_demand_chart_js two"><i class="material-icons">timeline</i></a>
 				<?}?>	 -->
 		</div>
-		product_list
 		<div class="productsListView">
 			<i id="changeToList" class="material-icons changeView_js <?=isset($_COOKIE['product_view']) && $_COOKIE['product_view'] == 'list' ? 'activeView' : NULL?>" data-view="list">view_list</i>
 			<span class="mdl-tooltip" for="changeToList">Вид списком</span>

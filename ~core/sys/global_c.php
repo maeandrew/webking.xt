@@ -243,9 +243,9 @@ class G {
 	 * @param boolean $pAsync
 	 */
 	public static function AddJS($pName, $pAsync = false){
-		// if(SETT != 0 && strpos($pName, 'themes') > 0){
-		//	$pName = str_replace('.js', '_min.js', $pName);
-		// }
+		if(SETT != 0 && strpos($pName, 'themes') > 0){
+			$pName = str_replace('.js', '.min.js', $pName);
+		}
 		if(!in_array($pName, $GLOBALS['__JS__'])){
 			$GLOBALS['__JS__'][] = array('name'=>$pName,'async'=>$pAsync);
 		}

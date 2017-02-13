@@ -15,70 +15,86 @@
 			vertical-align: baseline;
 			position: relative;
 		}
-		:focus {
-			outline: 0
-		}
-		html,
-		body {
-			height: 100%
-		}
-		body {
+		body.invoice {
 			font-family: "Roboto", Helvetica, sans-serif;
 			font-size: 12px;
 			color: #333;
 		}
-		.logo {
-			text-align: center;
+		.invoice .table {
+			margin: 0 auto;
 		}
-		.table_header {
+		.invoice .header * {
+			line-height: 30px;
+		}
+		.invoice .header .logo {
+			display: inline-block;
+			height: 30px;
+			width: auto;
+			vertical-align: top;
+			margin-right: 15px;
+		}
+		.invoice .header .title {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.invoice .header .site {
+			font-size: 36px;
+			text-align: right;
+			float: right;
+			font-weight: bold;
+		}
+		.invoice .undln {
+			text-decoration: underline;
+		}
+		.invoice .table_header {
 			width: 800px;
 			padding: 10px;
 			padding-bottom: 0px;
 		}
-		.table_header .top td {
-			padding: 10px 0 15px 0;
+		.invoice .table_header .top td {
+			padding-top: 15px;
 			font-size: 14px;
 		}
-		.table_header .first_col {
+		.invoice .table_header .first_col {
 			width: 90px;
 		}
-		.table_header .second_col {
+		.invoice .table_header .second_col {
 			width: 325px;
 			font-weight: bold;
 		}
 		/*.table_header .top span.invoice {margin-left:20px;font-size:18px;text-decoration:underline;}*/
 
-		.table_header .top span.invoice {
+		.invoice .table_header .top .title {
 			font-size: 18px;
 			font-weight: bold;
 		}
-		.bl {
+		.invoice .bl {
 			border-left: 1px solid #000;
 		}
-		.br {
+		.invoice .br {
 			border-right: 1px solid #000;
 		}
-		.bt {
+		.invoice .bt {
 			border-top: 1px solid #000;
 		}
-		.bb {
+		.invoice .bb {
 			border-bottom: 1px solid #000 !important;
 		}
-		.blf {
+		.invoice .blf {
 			border-left: 1px solid #FFF !important;
 		}
-		.brf {
+		.invoice .brf {
 			border-right: 1px solid #FFF !important;
 		}
-		.bbf {
+		.invoice .bbf {
 			border-bottom: 1px solid #FFF !important;
 		}
 		/*.table_main{margin:10px 0 0 1px;}*/
 
-		.table_main {
+		.invoice .table_main {
 			padding: 10px;
 		}
-		.table_main td {
+		.invoice .table_main td {
 			padding: 1px 1px 0;
 			font-size: 12px;
 			text-align: center;
@@ -86,7 +102,7 @@
 			border-bottom: 1px #000 solid;
 			vertical-align: middle;
 		}
-		.table_main td.name {
+		.invoice .table_main td.name {
 			padding: 1px;
 			padding-left: 5px;
 			padding-right: 5px;
@@ -95,47 +111,47 @@
 			border-right: 1px #000 solid;
 			border-bottom: 1px #000 solid;
 		}
-		.table_main .hdr td {
+		.invoice .table_main .hdr td {
 			font-weight: bold;
 			padding: 1px;
 		}
-		.table_main .main td {
+		.invoice .table_main .main td {
 			height: 50px;
 		}
-		.table_main .main td.img {
+		.invoice .table_main .main td.img {
 			width: 56px;
 		}
-		.table_sum {
+		.invoice .table_sum {
 			margin: 10px 0 0 1px;
 		}
-		.table_sum td {
+		.invoice .table_sum td {
 			padding: 1px 1px 0;
 			font-size: 12px;
 			text-align: center;
 			vertical-align: middle;
 		}
-		.table_sum td.name {
+		.invoice .table_sum td.name {
 			padding: 1px;
 			font-size: 12px;
 			text-align: left;
 		}
-		tr.min td {
+		.invoice tr.min td {
 			height: 1px;
 			font-size: 1px;
 			line-height: 1px;
 			margin: 0px;
 			padding: 0px;
 		}
-		.adate {
+		.invoice .adate {
 			font-size: 11px;
 			margin-left: 177px;
 		}
-		.note_red {
+		.invoice .note_red {
 			color: Red;
 			font-size: 11px;
 			font-weight: normal;
 		}
-		.stamp {
+		.invoice .stamp {
 			position: absolute;
 			width: 40%;
 			top: -50px;
@@ -145,15 +161,15 @@
 			-o-transform: rotate(-20deg);
 			transform: rotate(-20deg);
 		}
-		.spacer {
+		.invoice .spacer {
 			height: 1em;
 		}
-		.hidden {
+		.invoice .hidden {
 			display: none;
 		}
 	</style>
 </head>
-<body>
+<body class="invoice">
 	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
 		<colgroup>
 			<col width="50%" />
@@ -161,16 +177,13 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<td colspan="2" class="logo">
-					<img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
+				<td colspan="2" class="header">
+					<img src="https://xt.ua/themes/default/img/xt.png" class="logo">
+					<span class="title">Расходная накладная № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
+					<span class="site">xt.ua</span>
 				</td>
 			</tr>
 			<tr class="top">
-				<td colspan="2" align="center">
-					<span class="invoice">Счет № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
-				</td>
-			</tr>
-			<tr>
 				<td>
 					<span class="subtitle"><b>Отправитель:</b></span>
 					<p><?=!isset($remitter)?'Не указан':$remitter['name'].'<br>, '.$remitter['address'].', '.($remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ').'МФО '.$remitter['mfo'].', '.$remitter['bank'].', ЕГРПОУ '.$remitter['egrpou'];?></p>
