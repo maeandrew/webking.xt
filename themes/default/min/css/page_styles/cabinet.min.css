@@ -186,8 +186,8 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 #add_product_js .links{margin:10px 0;display:block;font-weight:700}
 .anonim_cab{clear:both}
 #cab_left_bar>ul>li{padding:.7em;cursor:pointer}
-#cab_left_bar>ul>li:hover>.link_wrapp>a{cursor:pointer;color:#FF5722}
-#cab_left_bar .link_wrapp{display:block;overflow:hidden;position:relative}
+#cab_left_bar>ul>li:hover>.link_wrap>a{cursor:pointer;color:#FF5722}
+#cab_left_bar .link_wrap{display:block;overflow:hidden;position:relative}
 #cab_left_bar a i.material-icons{margin-right:5px}
 #cab_left_bar .more_cat{height:40px;cursor:pointer;border-left:1px solid transparent;width:30px;float:right;position:absolute;top:0;right:0;bottom:0}
 #cab_left_bar .more_cat i{width:100%;text-align:center;top:calc(50% - 8px);transition:transform .3s;transform:rotate(0)}
@@ -202,7 +202,7 @@ table.kontrag.table{border-bottom:1px solid #b4b4b4}
 .order .avatar.img{margin-top:-6px;width:36px;height:36px}
 .customer_cab{position:relative;float:right;width:80%;margin-bottom:20px}
 #cab_left_bar{width:19%;float:left;position:relative;height:inherit;border-right-color:#DCDCDC;border-top:1px #DCDCDC;border-right-width:1px;border-style:solid;min-height:412px}
-#cab_left_bar .link_wrapp div[for^=icon_]{display:none}
+#cab_left_bar .link_wrap div[for^=icon_]{display:none}
 #cab_left_bar a[href="#"]{cursor:default}
 #my_order{position:absolute;margin-top:-30px;margin-left:42px}
 .child{width:100%;padding-left:0!important}
@@ -599,15 +599,15 @@ div[id^=items_panel_] .btnWrapFlex{display:flex;justify-content:flex-end}
 .gifts_info .msg_text{margin-top:10px}
 @media (max-width:1150px){#cab_left_bar{width:45px;z-index:1}
 #cab_left_bar .textInALink{display:none}
-#cab_left_bar .link_wrapp .more_cat{display:none}
+#cab_left_bar .link_wrap .more_cat{display:none}
 #cab_left_bar>ul{background-color:#fff}
 #cab_left_bar>ul>li>ul{margin-top:5px;width:190px;border:1px solid #DCDCDC}
 #cab_left_bar>ul>li>ul>li{margin-left:10px}
 #cab_left_bar .active_icon .active{color:#FF5722}
-#cab_left_bar li[id^=icon_].active .link_wrapp i.material-icons{color:#FF5722}
+#cab_left_bar li[id^=icon_].active .link_wrap i.material-icons{color:#FF5722}
 .customer_cab{width:calc(100vw - 62px)}
 }
-@media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrapp div[for^=icon_]{display:block}
+@media (max-width:1150px) and (not handheld){#cab_left_bar .link_wrap div[for^=icon_]{display:block}
 }
 @media (max-width:1060px){.nav li{margin-left:.5em}
 .posZIndex .cab_left_bar_js{z-index:1}

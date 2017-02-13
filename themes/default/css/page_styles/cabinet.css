@@ -897,11 +897,11 @@ table.kontrag.table{
 	padding: .7em;
 	cursor: pointer;
 }
-#cab_left_bar > ul > li:hover > .link_wrapp > a {
+#cab_left_bar > ul > li:hover > .link_wrap > a {
 	cursor: pointer;
 	color: #FF5722;
 }
-#cab_left_bar .link_wrapp {
+#cab_left_bar .link_wrap {
 	display: block;
 	overflow: hidden;
 	position: relative;
@@ -980,7 +980,7 @@ table.kontrag.table{
 	border-style: solid;
 	min-height: 412px;
 }
-#cab_left_bar .link_wrapp div[for^=icon_] {
+#cab_left_bar .link_wrap div[for^=icon_] {
 	display: none;
 }
 #cab_left_bar a[href="#"] {
@@ -2850,7 +2850,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#cab_left_bar .textInALink {
 		display: none;
 	}
-	#cab_left_bar .link_wrapp .more_cat {
+	#cab_left_bar .link_wrap .more_cat {
 		display: none;
 	}
 	#cab_left_bar > ul {
@@ -2867,7 +2867,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#cab_left_bar .active_icon .active {
 		color: #FF5722;
 	}
-	#cab_left_bar li[id^=icon_].active .link_wrapp i.material-icons {
+	#cab_left_bar li[id^=icon_].active .link_wrap i.material-icons {
 		color: #FF5722;
 	}
 
@@ -2876,7 +2876,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 }
 @media (max-width: 1150px) and (not handheld) {
-	#cab_left_bar .link_wrapp div[for^=icon_] {
+	#cab_left_bar .link_wrap div[for^=icon_] {
 		display: block;
 	}
 }

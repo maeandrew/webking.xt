@@ -2,7 +2,7 @@
 	<!-- <h5>Личный кабинет</h5> -->
 	<ul>
 		<li id="icon_face" class="<?=(isset($_GET['t']) && ($_GET['t']=='delivery' || $_GET['t']=='contacts' || $_GET['t']=='')) || (isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='')?'active':null;?>">
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">face</i><span class="textInALink">Личные данные</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 			</span>
@@ -16,7 +16,7 @@
 			</ul>
 		</li>
 		<li id="icon_shopping_cart" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='orders'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">shopping_cart</i><span class="textInALink">Мои заказы</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 			</span>
@@ -39,7 +39,7 @@
 			</ul>
 		</li>
 		<li id="icon_person_add" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">person_add</i><span class="textInALink">Совместные заказы</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 			</span>
@@ -56,12 +56,12 @@
 			 </ul>
 		</li>
 		<li id="icon_people" class="hidden">
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">people</i><span class="textInALink">Списки друзей</span></a>
 			</span>
 		</li>
 		<li id="icon_settings" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">settings</i><span class="textInALink">Настройки</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_settings">Настройки</div>
@@ -76,7 +76,7 @@
 			</ul>
 		</li>
 		<li id="icon_add_shopping_cart" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">add_shopping_cart</i><span class="textInALink">Бонусная программа</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 				<div class="mdl-tooltip" for="icon_add_shopping_cart">Бонусная программа</div>
@@ -94,17 +94,17 @@
 			</ul>
 		</li>
 		<li id="icon_flag" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'favorites'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="<?=Link::Custom('cabinet', 'favorites', array('clear' => true))?>"><i class="material-icons">flag</i><span class="textInALink">Избраное</span></a>
 			</span>
 		</li>
 		<li id="icon_timeline" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="<?=Link::Custom('cabinet', 'waitinglist', array('clear' => true))?>"><i class="material-icons">timeline</i><span class="textInALink">Лист ожидания</span></a>
 			</span>
 		</li>
 		<li id="icon_people" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'?'class="active"':null;?>>
-			<span class="link_wrapp">
+			<span class="link_wrap">
 				<a href="#"><i class="material-icons">people</i><span class="textInALink">Уголок агента</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
 			</span>
@@ -129,7 +129,7 @@
 </div>
 <script>
 	$(document).ready(function() {
-		$('.cab_left_bar_js').on('click','.link_wrapp', function(){
+		$('.cab_left_bar_js').on('click','.link_wrap', function(){
 			var parent = $(this).closest('li'),
 				parent_active = parent.hasClass('active');
 			$(this).closest('ul').find('li').removeClass('active').find('ul').stop(true, true).slideUp('slow').css('opacity', '0');

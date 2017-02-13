@@ -6,7 +6,7 @@
 <script>
 $(function(){
 	// if ($('.second_nav li').hasClass('active')) {
-	// 	$('.second_nav').find('li.active > .link_wrapp > .more_cat i').html('remove');
+	// 	$('.second_nav').find('li.active > .link_wrap > .more_cat i').html('remove');
 	// }
 
 	// $("#organization").click(function() {
