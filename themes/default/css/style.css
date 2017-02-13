@@ -1280,6 +1280,7 @@ section.center {
 	aside {
 		width: 300px;
 		float: left;
+		z-index: 99;
 	}
 	aside .panel_container {
 		padding-left: 20px;
@@ -1287,70 +1288,45 @@ section.center {
 	.advantages_hide aside {
 		box-shadow: none;
 	}
+	aside .catalog.expanded .label {
+		border-radius: 3px 3px 0 0;
+	}
 	aside .catalog .label {
-		text-align: center;
+		/*text-align: center;*/
 		padding: 5px 15px;
 		background: #018b06;
 		color: #ffffff;
 		font-weight: normal;
 		line-height: 2em;
 		font-size: 1.3em;
-		border-radius: 3px 3px 0 0;
-	}
-
-
-	aside .catalog .main_nav {
-		padding-bottom: 20px;
-	}
-	aside .catalog .main_nav li {
-		text-transform: uppercase;
-		color: #bdbdbd;
-		font-size: 16px;
-		font-size: 1em;
-		cursor: pointer;
-		font-weight: 500;
-		border-bottom: 1px solid #e0e0e0;
-		padding: 5px 10px;
+		border-radius: 3px;
 		position: relative;
-		background: #fff;
+		cursor: pointer;
 	}
-	aside .catalog .main_nav i {
-		vertical-align: top;
-		margin-right: 10px;
-		font-size: 22px;
+	aside .catalog .label i.material-icons {
+		position: absolute;
+		top: 0;
+		right: 10px;
+		padding: 11px 0;
+		transition: all .4s cubic-bezier(.4,0,.2,1);
+		transform-origin: center center;
 	}
-	aside .catalog .main_nav .info_key {
-		font-weight: normal;
-		line-height: 1.45em;
-		display: none;
-	}
-	aside .catalog .main_nav .info_key,
-	aside .catalog .main_nav .info_description {
-		text-transform: lowercase;
-	}
-	aside .catalog .main_nav li:hover .info_key {
-		display: inline-block;
-	}
-	aside .catalog .main_nav .included_filters {
-		font-size: 14px;
-		text-transform: lowercase;
-		font-weight: normal;
-		color: #EF5350;
-		display: inline-block;
-	}
-
-
-
-
-
-	aside {
-		z-index: 99;
+	aside .catalog.expanded .label i.material-icons {
+		transform: rotate(90deg);
 	}
 	aside .catalog .navigation_container {
+		opacity: 0;
 		position: relative;
-		min-height: 100px;
+		height: 0;
 		background: #fff;
+		overflow: hidden;
+		transition: opacity .4s cubic-bezier(.4,0,.2,1);
+	}
+	aside .catalog.expanded .navigation_container {
+		opacity: 1;
+		min-height: 100px;
 		box-shadow: 0 2px 3px -1px rgba(0, 0, 0, .1);
+		overflow: visible;
 	}
 	aside .catalog .navigation {
 		z-index: 10000;

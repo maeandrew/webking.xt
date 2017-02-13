@@ -130,9 +130,6 @@
 	// 		]
 	// });
 	$(function(){
-		<?if(isset($_COOKIE['product_view'])){?>
-			// ChangeView('<?=$_COOKIE['product_view']?>');
-		<?}?>
 		$("#view_block_js").removeClass('ajax_loading');
 
 		// var preview = $('.list_view .preview'),
@@ -155,3 +152,15 @@
 	});
 
 </script>
+<?if($GLOABLS['CurrentController'] == 'search'){?>
+	<script>
+		ajax('navigation', 'generateSearchNavigation', {list: '<?=json_encode($list_categories)?>'}, 'html').done(function(data){
+			console.log(data);
+			// $('.navbar_js').html(data);
+			// if($('.catalog').hasClass('expanded')){
+			// 	var first_lvl = $('.navbar_js').find('[data-lvl="1"] > .link_wrap');
+			// 	$('.navbar_js').height(first_lvl.length*first_lvl.first().outerHeight());
+			// }
+		});
+	</script>
+<?}?>
