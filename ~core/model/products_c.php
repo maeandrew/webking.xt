@@ -4403,7 +4403,7 @@ class Products {
 	 * @param  integer $lvl  [description]
 	 * @return [type]        [description]
 	 */
-	public function generateNavigation($list, $lvl = 0, $no_rel = false){
+	public function generateNavigation($list, $lvl = 0, $no_rel = false, $search = false){
 		if(isset($GLOBALS['CURRENT_ID_CATEGORY'])){
 			$id_cat = $GLOBALS['CURRENT_ID_CATEGORY'];
 		}

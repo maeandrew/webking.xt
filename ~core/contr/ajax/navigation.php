@@ -1,8 +1,16 @@
 <?if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
     if(isset($_POST['action'])){
-        $nav = $Products->generateNavigation($navigation);
-        echo $nav;
-        $nav_searh = $Products->generateSearhNavigation($navigation);
-        echo $nav_searh;
+    	switch ($_POST['action']) {
+    		case 'generateNavigation':
+	        	$echo = $Products->generateNavigation($navigation);
+    			break;
+    		case 'generateSearchNavigation':
+		        $echo = $Products->generateNavigation($navigation, 0, false, true);
+				break;
+    		default:
+    			break;
+    	}
+	    echo $echo;
     }
 }
+exit(0);

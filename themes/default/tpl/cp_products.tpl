@@ -152,7 +152,7 @@
 	});
 
 </script>
-<?if($GLOABLS['CurrentController'] == 'search'){?>
+<?if($GLOBALS['CurrentController'] == 'search'){?>
 	<script>
 		ajax('navigation', 'generateSearchNavigation', {list: '<?=json_encode($list_categories)?>'}, 'html').done(function(data){
 			console.log(data);
