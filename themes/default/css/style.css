@@ -1309,19 +1309,21 @@ section.center {
 		right: 10px;
 		padding: 11px 0;
 		transition: all .4s cubic-bezier(.4,0,.2,1);
-		/*transform: rotate(-90deg);*/
 		transform-origin: center center;
 	}
 	aside .catalog.expanded .label i.material-icons {
 		transform: rotate(90deg);
 	}
 	aside .catalog .navigation_container {
+		opacity: 0;
 		position: relative;
 		height: 0;
 		background: #fff;
 		overflow: hidden;
+		transition: opacity .4s cubic-bezier(.4,0,.2,1);
 	}
 	aside .catalog.expanded .navigation_container {
+		opacity: 1;
 		min-height: 100px;
 		box-shadow: 0 2px 3px -1px rgba(0, 0, 0, .1);
 		overflow: visible;
