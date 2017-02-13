@@ -41,6 +41,7 @@
 			text-align: right;
 			float: right;
 			font-weight: bold;
+			color: #0070ff;
 		}
 		.invoice .undln {
 			text-decoration: underline;
@@ -99,6 +100,7 @@
 		.invoice .table_main {
 			width: 190mm;
 			padding: 10px 0;
+			page-break-after: always;
 		}
 		.invoice .table_main:last-of-type {
 			page-break-after: avoid;
@@ -171,9 +173,8 @@
 			page-break-before: always;
 		}
 	</style>
-	</head>
+</head>
 <body class="invoice">
-	<?=empty($filial) == false?"<h1 class=\"filial\">Филиал - ".$filial['title']."</h1>":null;?>
 	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
 		<colgroup>
 			<col width="50%" />
@@ -188,17 +189,12 @@
 				</td>
 			</tr>
 			<tr class="top">
-				<td colspan="2">
-					<span class="">Ориентировочная дата отгрузки: <?=$date?></span>
-				</td>
-			</tr>
-			<tr class="top">
 				<td>
 					<span class="subtitle"><b>Отправитель:</b></span>
 					<p><?=!isset($remitter)?'Не указан':$remitter['name'].'<br>, '.$remitter['address'].', '.($remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ').'МФО '.$remitter['mfo'].', '.$remitter['bank'].', ЕГРПОУ '.$remitter['egrpou'];?></p>
 					<br>
-					<span class="subtitle"><b>Менеджер:</b></span>
-					<p><?=$contragent['name']?></p>
+					<span class="subtitle"><b>Агент:</b></span>
+					<p><?=$contragent['name'].', '.$contragent['phone']?></p>
 				</td>
 				<td>
 					<span class="subtitle"><b>Получатель:</b></span>
