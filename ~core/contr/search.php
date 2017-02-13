@@ -377,10 +377,10 @@ if(!empty($Products->list)){
 	}
 }
 $tpl->Assign('list', isset($Products->list)?$Products->list:false);
-if($cnt > 30){
-	$list_categories = $Products->SetCategories4Search($where_arr);
-	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());
-}
+
+$list_categories = $Products->SetCategories4Search($where_arr);
+$tpl->Assign('list_categories', $list_categories);
+
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Общий код ===============================================

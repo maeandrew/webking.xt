@@ -4428,28 +4428,32 @@ class Products {
 		return $ul;
 	}
 
-	public function navigation($idsegm){
+	/**
+	 * Построить иерархический массив по списку категорий
+	 * @param  [type] $categories Массив идентификаторов категорий
+	 * @return [type]         Иерархический массив
+	 */
+	public function navigation($categories){
 		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
 		//Достаем категории 1-го уровня
 		$navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
-		$needed = $dbtree->GetCatSegmentation($idsegm);
 		foreach ($navigation as $key1 => &$l1) {
 			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
 			foreach ($level2 as $key2 => &$l2) {
 				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
 				foreach ($level3 as $key3 => &$l3) {
-					if (!in_array($l3['id_category'], $needed)) {
+					if (!in_array($l3['id_category'], $categories)) {
 						unset($level3[$key3]);
 					}
 				}
-				if (in_array($l2['id_category'], $needed) || !empty($level3)) {
+				if (in_array($l2['id_category'], $categories) || !empty($level3)) {
 					$l2['subcats'] = $level3;
 				} else {
 					unset($level2[$key2]);
 				}
 			}
-			if (in_array($l1['id_category'], $needed) || !empty($level2)) {
+			if (in_array($l1['id_category'], $categories) || !empty($level2)) {
 				$l1['subcats'] = $level2;
 			} else {
 				unset($navigation[$key1]);
