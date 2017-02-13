@@ -14,89 +14,96 @@
 			font-size: 100%;
 			vertical-align: baseline
 		}
-		:focus {
-			outline: 0
-		}
-		html,
-		body {
-			height: 100%
-		}
-		body {
+		.invoice {
 			font-family: "Roboto", Helvetica, sans-serif;
 			font-size: 12px;
-			color: #333;
+			color: #444;
 		}
-		.logo {
-			text-align: center;
+		.invoice .table {
+			margin: 0 auto;
 		}
-		.undln {
-			text-decoration: underline;
+		.invoice .header * {
+			line-height: 30px;
 		}
-		.lb {
-			border-left: 1px dashed #000;
-			padding-left: 5px;
+		.invoice .header .logo {
+			display: inline-block;
+			height: 30px;
+			width: auto;
+			vertical-align: top;
+			margin-right: 15px;
 		}
-		.table_header {
-			width: 800px;
-			padding: 10px;
-			padding-bottom: 0px;
-		}
-		.table_header .top td {
-			padding: 10px 0 15px 0;
-			font-size: 14px;
-		}
-		.table_header .first_col {
-			width: 90px;
-		}
-		.table_header .second_col {
-			width: 325px;
-		}
-		.table_header .top span.invoice {
+		.invoice .header .title {
 			font-size: 18px;
 			font-weight: bold;
 		}
-		.bl {
+		.invoice .header .site {
+			font-size: 36px;
+			text-align: right;
+			float: right;
+			font-weight: bold;
+		}
+		.invoice .undln {
+			text-decoration: underline;
+		}
+		.invoice .lb {
+			border-left: 1px dashed #000;
+			padding-left: 5px;
+		}
+		.invoice .table_header {
+			width: 190mm;
+			padding: 10px 0;
+		}
+		.invoice .table_header .top td {
+			padding-top: 15px;
+			font-size: 14px;
+		}
+		.invoice .table_header .first_col {
+			width: 90px;
+		}
+		.invoice .table_header .second_col {
+			width: 325px;
+		}
+		.invoice .bl {
 			border-left: 1px solid #000;
 		}
-		.bln {
+		.invoice .bln {
 			border-left: 0 !important;
 		}
-		.br {
+		.invoice .br {
 			border-right: 1px solid #000;
 		}
-		.brn {
+		.invoice .brn {
 			border-right: 0 !important;
 		}
-		.bt {
+		.invoice .bt {
 			border-top: 1px solid #000;
 		}
-		.btn {
+		.invoice .btn {
 			border-top: 0 !important;
 		}
-		.bb {
+		.invoice .bb {
 			border-bottom: 1px solid #000;
 		}
-		.bbn {
+		.invoice .bbn {
 			border-bottom: 0 !important;
 		}
-		.blf {
+		.invoice .blf {
 			border-left: 1px solid #FFF;
 		}
-		.brf {
+		.invoice .brf {
 			border-right: 1px solid #FFF;
 		}
-		.bn {
+		.invoice .bn {
 			border: 0 !important;
 		}
-		.table_main {
-			width: 800px;
-			padding: 10px;
-			padding-bottom: 0px;
+		.invoice .table_main {
+			width: 190mm;
+			padding: 10px 0;
 		}
-		.table_main:last-of-type {
+		.invoice .table_main:last-of-type {
 			page-break-after: avoid;
 		}
-		.table_main td {
+		.invoice .table_main td {
 			padding: 1px 1px 0;
 			font-size: 12px;
 			text-align: center;
@@ -104,65 +111,68 @@
 			border-bottom: 1px #000 solid;
 			vertical-align: middle;
 		}
-		.table_main td.name {
+		.invoice .table_main td.name {
 			padding: 5px;
 			font-size: 12px;
 			text-align: left;
 			border-right: 1px #000 solid;
 			border-bottom: 1px #000 solid;
 		}
-		.table_main .hdr td {
+		.invoice .table_main .hdr td {
 			font-weight: bold;
 			padding: 1px;
 		}
-		.table_main .main td {
+		.invoice .table_main .main td {
 			height: 50px;
 		}
-		.table_main .main td.img {
+		.invoice .table_main .main td.img {
 			width: 56px;
 		}
-		.table_sum {
+		.invoice .table_sum {
 			margin: 10px 0 0 1px;
 		}
-		.table_sum td {
+		.invoice .table_sum td {
 			padding: 1px 1px 0;
 			font-size: 12px;
 			text-align: center;
 			vertical-align: middle;
 		}
-		.table_sum td.name {
+		.invoice .table_sum td.name {
 			padding: 1px;
 			font-size: 12px;
 			text-align: left;
 		}
-		tr.min td {
+		.invoice tr.min td {
 			height: 1px;
 			font-size: 1px;
 			line-height: 1px;
 			margin: 0px;
 			padding: 0px;
 		}
-		.adate {
+		.invoice .adate {
 			font-size: 11px;
 			margin-left: 177px;
 		}
-		.note_red {
+		.invoice .note_red {
 			color: Red;
 			font-size: 11px;
 			font-weight: normal;
 		}
-		h1.filial {
+		.invoice h1.filial {
 			text-align: center;
 			font-size: 27px;
 		}
 		@media print {
-			h1.filial {
+			.invoice h1.filial {
 				display: none;
 			}
 		}
+		.certificate {
+			page-break-before: always;
+		}
 	</style>
 	</head>
-<body>
+<body class="invoice">
 	<?=empty($filial) == false?"<h1 class=\"filial\">Филиал - ".$filial['title']."</h1>":null;?>
 	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
 		<colgroup>
@@ -171,18 +181,18 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<td colspan="2" class="logo">
-					<img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
+				<td colspan="2" class="header">
+					<img src="https://xt.ua/themes/default/img/xt.png" class="logo">
+					<span class="title">Расходная накладная № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
+					<span class="site">xt.ua</span>
 				</td>
 			</tr>
 			<tr class="top">
-				<td colspan="2" align="center">
-					<span class="invoice">Расходная накладная № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
-					<br>
-					<span class="adate">Ориентировочная дата отгрузки: <?=$date?></span>
+				<td colspan="2">
+					<span class="">Ориентировочная дата отгрузки: <?=$date?></span>
 				</td>
 			</tr>
-			<tr>
+			<tr class="top">
 				<td>
 					<span class="subtitle"><b>Отправитель:</b></span>
 					<p><?=!isset($remitter)?'Не указан':$remitter['name'].'<br>, '.$remitter['address'].', '.($remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ').'МФО '.$remitter['mfo'].', '.$remitter['bank'].', ЕГРПОУ '.$remitter['egrpou'];?></p>
@@ -348,17 +358,19 @@
 			<tr>
 				<td colspan="11" class="bn" style="text-align: left; font-size: 14px;"><?=$GLOBALS['CONFIG']['invoice_customer_phrase']?></td>
 			</tr>
-
 			<tr><td colspan="11" class="bn">&nbsp;<br/>&nbsp;</td></tr>
 			<tr>
 				<td colspan="5" class="bn">отпустил___________________</td>
 				<td colspan="5" class="bn">принял___________________</td>
 				<td class="bn">&nbsp;</td>
 			</tr>
+			<tr><td colspan="11" class="bn">&nbsp;<br/>&nbsp;</td></tr>
+			<tr>
+				<td colspan="11" class="bn" style="text-align: left; font-size: 14px;"><?=$GLOBALS['CONFIG']['invoice_customer_certificate_phrase']?></td>
+			</tr>
 		</tbody>
 	</table>
 	<?if(isset($Sertificates)){?>
-		<br/>
 		<?foreach($Sertificates as $s){?>
 			<br/><br/>
 			<img src="<?=file_exists($GLOBALS['PATH_root'].'/phpthumb/phpThumb.php?src='.$s.'&w=800')?_base_url.'/phpthumb/phpThumb.php?src='.$s.'&w=800':'/images/nofoto.png'?>" />
