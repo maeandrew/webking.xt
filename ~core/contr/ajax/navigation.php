@@ -5,8 +5,11 @@
 				$echo = $Products->generateNavigation($navigation);
 				break;
 			case 'generateSearchNavigation':
-
-				$echo = $Products->generateNavigation($Products->navigation(json_decode($_POST['list'])), 0, false, true);
+				foreach (json_decode($_POST['list']) as $cat) {
+					$categories[] = (int)$cat->id_category;
+					$count_cat[$cat->id_category] = (int)$cat->count;
+				}
+				$echo = $Products->generateNavigation($Products->navigation($categories, $count_cat), 0, false, true);
 				break;
 			default:
 				break;

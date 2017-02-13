@@ -4416,7 +4416,7 @@ class Products {
 		$ul = '<ul '.($lvl == 1?'class="navigation allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
 			$ul .= '<li class="link_wrap'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' active':null).'">';
-			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'];
+			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name']. (isset($l['count'])?'['.$l['count'].']':null);
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
 				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></a>';
 				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null);
@@ -4434,28 +4434,40 @@ class Products {
 	 * @param  [type] $categories Массив идентификаторов категорий
 	 * @return [type]         Иерархический массив
 	 */
-	public function navigation($categories){
+	public function navigation($categories, $count_cat=false){
 		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
 		//Достаем категории 1-го уровня
 		$navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
 		foreach ($navigation as $key1 => &$l1) {
+			$l1['count'] = 0;
 			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
 			foreach ($level2 as $key2 => &$l2) {
+				$l2['count'] = 0;
 				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
 				foreach ($level3 as $key3 => &$l3) {
 					if (!in_array($l3['id_category'], $categories)) {
 						unset($level3[$key3]);
+					} elseif ($count_cat){
+						$l3['count'] = $count_cat[$l3['id_category']];
+						$l2['count'] += $l3['count'];
 					}
 				}
 				if (in_array($l2['id_category'], $categories) || !empty($level3)) {
 					$l2['subcats'] = $level3;
+					if ($count_cat && isset($count_cat[$l2['id_category']])){
+						$l2['count'] += $count_cat[$l2['id_category']];
+					}
+					$l1['count'] += $l2['count'];
 				} else {
 					unset($level2[$key2]);
 				}
 			}
 			if (in_array($l1['id_category'], $categories) || !empty($level2)) {
 				$l1['subcats'] = $level2;
+				if ($count_cat && isset($count_cat[$l1['id_category']])){
+					$l1['count'] += $count_cat[$l1['id_category']];
+				}
 			} else {
 				unset($navigation[$key1]);
 			}
