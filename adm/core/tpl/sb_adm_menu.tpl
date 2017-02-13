@@ -244,6 +244,9 @@
 					<a href="/adm/configadd/" class="sb-menu__item__add animate" title="Добавить настройку"><i class="icon-add">a</i></a>
 				</li>
 			<?}?>
+			<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'orders_category'?' sb-menu__item_active':null;?>">
+				<a href="/adm/orders_category/">Перенос товаров в категорию</a>
+			</li>
 		</ul>
 		<div class="clear"></div>
 	</div>
