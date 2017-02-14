@@ -242,9 +242,10 @@ aside .catalog.expanded .navigation_container{opacity:1;overflow:visible}
 aside .navigation{z-index:10000}
 aside .navigation .link_wrap{font-size:16px;border-bottom:1px solid #e0e0e0}
 aside .navigation .link_wrap:last-of-type{border-bottom-color:transparent}
-aside .navigation .link_wrap a{font-weight:400;padding:10px 30px 10px 15px;line-height:1em;display:block;box-sizing:border-box;color:#444;position:relative}
-aside .navigation .link_wrap .more_cat{width:30px;position:absolute;top:0;right:0;bottom:0;padding:6px 0}
-aside .navigation .link_wrap .more_cat i{color:#777}
+aside .navigation .link_wrap a{font-weight:400;padding:10px 10px 10px 15px;line-height:16px;display:block;color:#444;position:relative}
+aside .navigation .link_wrap a>span{display:block}
+aside .navigation .link_wrap a .text{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+aside .navigation .link_wrap .more_cat{width:16px;float:right;line-height:16px;color:#777}
 aside .navigation [data-lvl="2"] .link_wrap{border-bottom-color:transparent}
 aside .navigation .link_wrap ul{z-index:-1;position:absolute;top:0;min-height:100%;left:0;width:100%;background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1);transition:all .4s cubic-bezier(.4,0,.2,1);opacity:0;visibility:hidden;border-left:1px solid #e0e0e0}
 aside .navigation .link_wrap ul[data-lvl="3"]{left:100%;transition:none}
@@ -252,6 +253,7 @@ aside .navigation .link_wrap:hover{background:#fafafa;border-bottom-color:#aaa;b
 aside .navigation .link_wrap:hover>[data-lvl="2"]{opacity:1;left:100%;transition:all .4s .2s cubic-bezier(.4,0,.2,1);z-index:-1;visibility:visible}
 aside .navigation .link_wrap:hover>[data-lvl="3"]{opacity:1;width:100%;visibility:visible}
 aside .navigation_container.search_navigation{margin-top:20px}
+aside .search_navigation .link_wrap a .count{float:right;font-size:12px;font-weight:500;color:#ff5722;border:1px solid #ff5722;padding:0 10px;max-width:4em;margin-left:10px;border-radius:8px;white-space:nowrap;direction:rtl;overflow:hidden;text-overflow:ellipsis}
 aside .filters{margin-top:20px}
 aside .filters .label{text-align:center;padding:5px 15px;background:#fff;color:#444;font-weight:400;line-height:2em;font-size:1.3em;border-radius:3px 3px 0 0}
 aside .filters .filters_container{background:#fff;box-shadow:0 2px 3px -1px rgba(0,0,0,.1)}
