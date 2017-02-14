@@ -7,40 +7,18 @@
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
 				<i class="material-icons mob_s_btn mob_search_btn_js">&#xE8B6;</i>
 				<label for="search" class="hidden">Поиск</label>
-				<div class="mdl-textfield mdl-js-textfield search">
-					<input class="mdl-textfield__input btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
-				</div>
-				<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label search_category mdl-cell--hide-phone">
-					<label for="search_category" class="hidden">Категория для поиска</label>
-					<select id="search_category" name="search_category" class="mdl-selectfield__select">
-						<option value="" data-id-category="0">По всем категориям</option>
-						<?foreach($navigation as &$v){ ?>
-							<option value="<?=$v['id_category']?>" data-id-category="<?=$v['id_category']?>"><?=$v['name']?></option>
-						<?}?>
-					</select>
-				</div>
-				<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone search_btn">Найти</button>
-				<i class="material-icons header_search_close_js header_search_close">close</i>
+				<input class="btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
+				<label for="search_category" class="hidden">Категория для поиска</label>
+				<select id="search_category" name="search_category">
+					<option value="" data-id-category="0">По всем категориям</option>
+					<?foreach($navigation as &$v){ ?>
+						<option value="<?=$v['id_category']?>" data-id-category="<?=$v['id_category']?>"><?=$v['name']?></option>
+					<?}?>
+				</select>
+				<button type="submit" class="mdl-cell--hide-phone search_btn">Найти</button>
+				<i class="material-icons mdl-cell--hide-tablet mdl-cell--hide-desktop header_search_close_js header_search_close">close</i>
 			</form>
 		</div>
-		<!-- <input class="category2search" name="category2search" type="hidden" value=""> -->
-		<!-- <label class="mdl-textfield__label" for="search"><? if(!isset($_GET['query'])){ ?>Найти...<?} else { ?> <?}?></label> -->
-		<!-- <i class="material-icons search_close" title="Закрыть поиск">close</i>				 -->
-		<!-- <div class="select_category fright mdl-cell--hide-phone mdl-cell--hide-tablet imit_select">
-			<button id="category-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-				<?if(!G::isMobile()){?>
-					<span class="selected_cat select_field">По всем категориям</span>
-					<i class="material-icons">keyboard_arrow_down</i>
-				<?}?>
-			</button>
-			<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu  category_search" for="category-lower-right">
-				<li data-id-category="0" class="mdl-menu__item cat_li">По всем категориям</li>
-				<?foreach ($navigation as &$v){ ?>
-					<li data-id-category="<?=$v['id_category']?>" class="mdl-menu__item cat_li <?=(isset($_GET['category2search']) && $_GET['category2search'] == $v['id_category'])?'active':null?> "><?=$v['name']?></li>
-					<?if(isset($_GET['category2search']) && $_GET['category2search'] == $v['id_category']){ ?> <script> $('span.selected_cat').html("<?=$v['name']?>"); </script><?}?>
-				<?}?>
-			</ul>
-		</div> -->
 		<div class="cart_item ga-cart <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
 			<div class="currentCartSum hidden"><?=isset($_SESSION['cart']['products_sum'][3])?$_SESSION['cart']['products_sum'][3]:null?></div>
 			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js <?=$_SESSION['cart']['cart_sum'] == 0?'for_hidden_js':null;?>" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone"><span>Корзина</span><span>:</span><br><span class="total_cart_summ_js">
