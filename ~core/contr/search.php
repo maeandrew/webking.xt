@@ -58,8 +58,8 @@ if(!_acl::isAdmin()){
 	$where_arr['p.visible'] = 1;
 }
 // Категория для поиска ====================================
-if((isset($_POST['search_category']) && $_POST['search_category'] != 0) || (isset($_GET['search_category']) && $_GET['search_category'] != 0)){
-	$_SESSION['search']['search_category'] = isset($_POST['search_category'])?$_POST['search_category']:$_GET['search_category'];
+if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
+	$_SESSION['search']['search_category'] = (int) $_REQUEST['search_category'];
 	$where_arr['customs'][] = 'cp.id_category IN (
 		SELECT id_category
 		FROM '._DB_PREFIX_.'category c
