@@ -74,6 +74,9 @@ if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
 	$_SESSION['search']['search_category'] = 0;
 }
 
+	$dbtree->SetFieldsById($_SESSION['search']['search_category']);
+	$tpl->Assign('searchcat', $dbtree->fields);
+
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
 	$where_arr['s.available_today'] = 1;
 }
