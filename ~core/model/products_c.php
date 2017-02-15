@@ -596,9 +596,9 @@ class Products {
 				LEFT JOIN '._DB_PREFIX_.'product AS p
 					ON p.id_product = cp.id_product'.
 			$this->db->GetWhere($and).'
+				AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1
 				AND c.sid = 1
 				AND c.visible = 1
-				AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND p.visible = 1
 			GROUP BY c.id_category';
 			// print_r($sql); echo "<br>";
@@ -807,10 +807,13 @@ class Products {
 			.$where2
 			.$selectsegm
 			.$this->price_range
-			.' GROUP BY p.id_product
-			ORDER BY active DESC, p.visible DESC, '.
-			$order_by.' '.$limit;
+			.' GROUP BY p.id_product'.
+			(isset($params['active'])?' HAVING active = '.$params['active']:null)
+			.' ORDER BY active DESC, p.visible DESC, '.
+			$order_by.'
+			'.$limit;
 		}
+		// print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1463,8 +1466,10 @@ class Products {
 				INNER JOIN '._DB_PREFIX_.'product AS p
 					ON cp.id_product = p.id_product'.
 			$this->db->GetWhere($and)
-			.$where2;
+			.$where2.
+			' AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1';
 		$res = $this->db->GetOneRowArray($sql);
+		// print_r($sql);
 		if(!$res){
 			return 0;
 		}

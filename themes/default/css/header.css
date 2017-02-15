@@ -36,10 +36,50 @@ header .header_wrapp .header_right > div {
 }
 
 /* Search ====================================================================*/
-
-	#search:before {
-		content:'&#xE8B6;';
+	header .header_wrapp .header_right .search_wrap {
+		float: left;
+		width: 50%;
+		margin-left: 10%;
+	}
+	header .header_wrapp .header_right .search_wrap .search_btn {
+		color: #fff;
+		background-color: #018b06;
+		border-radius: 0 3px 3px 0;
+		border: 1px solid #018b06;
+		line-height: 30px;
+		padding: 0 1em;
+		cursor: pointer;
+		width: 80px;
+		float: right;
+	}
+	header .header_wrapp .header_right .search_wrap .search_btn:hover {
+		background-color: #019e07;
+	}
+	header .header_wrapp .header_right .search_query_input {
+		display: block;
+		position: relative;
+		width: calc(100% - 80px);
+		background: #eaeaea
+	}
+	header .header_wrapp .header_right .search_query_input:before {
+		content:'';
+		font-size: 24px;
+		line-height: 30px;
+		/*color: #ff5722;*/
+		width: 30px;
 		font-family: 'Material Icons';
+		position: absolute;
+		left: 0;
+		text-align: center;
+	}
+	header .header_wrapp .header_right .search_wrap #search {
+		border: 1px solid #018b06;
+		border-right: 0;
+		border-radius: 3px 0 0 3px;
+		display: block;
+		line-height: 30px;
+		padding: 0 1em 0 30px;
+		width: 100%;
 	}
 
 

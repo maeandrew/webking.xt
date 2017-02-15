@@ -10,7 +10,6 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'url' => Link::Custom('search')
 );
-
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting');
 $tpl->Assign('list_controls', $list_controls);
@@ -60,10 +59,11 @@ if(!_acl::isAdmin()){
 // Категория для поиска ====================================
 if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
 	$_SESSION['search']['search_category'] = (int) $_REQUEST['search_category'];
-	$where_arr['customs'][] = 'cp.id_category IN (
+	$where_arr['customs']['search_category'] = 'cp.id_category IN (
 		SELECT id_category
 		FROM '._DB_PREFIX_.'category c
-		WHERE c.pid = '.$_SESSION['search']['search_category'].'
+		WHERE c.id_category = '.$_SESSION['search']['search_category'].'
+		OR c.pid = '.$_SESSION['search']['search_category'].'
 		OR c.pid IN (
 			SELECT id_category
 			FROM '._DB_PREFIX_.'category c
@@ -75,19 +75,18 @@ if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
 }
 
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
-	$where_arr['customs'][] = "s.available_today = 1";
+	$where_arr['s.available_today'] = 1;
 }
+unset($where_arr['customs']['search_category']);
 
 // Диапазон цен ============================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN_){
 	if(isset($_POST['pricefrom']) && isset($_POST['priceto'])){
-		$where_arr['customs'][] = 'price_mopt >= '.number_format(($_POST['pricefrom']), 2, ".","");
-		$where_arr['customs'][] = 'price_mopt <= '.number_format(($_POST['priceto']), 2, ".","");
+		$where_arr['customs']['price_filter'] = 'price_mopt BETWEEN '.number_format(($_POST['pricefrom']), 2, ".","").' AND '.number_format(($_POST['priceto']), 2, ".","");
 		$_SESSION['filters']['pricefrom'] = $_POST['pricefrom'];
 		$_SESSION['filters']['priceto'] = $_POST['priceto'];
 	}elseif((!isset($_POST['pricefrom']) && !isset($_POST['priceto'])) && (isset($_SESSION['filters']['pricefrom']) && isset($_SESSION['filters']['priceto']))){
-		$where_arr['customs'][] = 'price_mopt >= '.number_format(($_SESSION['filters']['pricefrom']), 2, ".","");
-		$where_arr['customs'][] = 'price_mopt <= '.number_format(($_SESSION['filters']['priceto']), 2, ".","");
+		$where_arr['customs']['price_filter'] = 'price_mopt BETWEEN '.number_format(($_SESSION['filters']['pricefrom']), 2, ".","").' AND '.number_format(($_SESSION['filters']['priceto']), 2, ".","");
 	}
 }
 
@@ -127,33 +126,33 @@ if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby']
 // Отобрать ХИТЫ или НОВИНКИ ===============================
 if(isset($_POST['hit'])){
 	if($_POST['hit'] == 'enabled' && !isset($_SESSION['filters']['new'])){
-		$where_arr['customs'][] = 'prod_status = 2';
+		$where_arr['prod_status'] = 2;
 		$_SESSION['filters']['hit'] = 1;
 	}elseif($_POST['hit'] == 'enabled' && isset($_SESSION['filters']['new'])){
-		$where_arr['customs'][] = 'prod_status IN (2, 3)';
+		$where_arr['prod_status'] = [2, 3];
 		$_SESSION['filters']['hit'] = 1;
 	}elseif($_POST['hit'] == 'disabled'){
 		unset($_SESSION['filters']['hit']);
 	}
 }elseif(!isset($_POST['hit']) && isset($_SESSION['filters']['hit']) && !isset($_SESSION['filters']['new'])){
-	$where_arr['customs'][] = 'prod_status = 2';
+	$where_arr['prod_status'] = 2;
 }elseif(!isset($_POST['hit']) && isset($_SESSION['filters']['hit']) && isset($_SESSION['filters']['new'])){
-	$where_arr['customs'][] = 'prod_status IN (2, 3)';
+	$where_arr['prod_status'] = [2, 3];
 }
 if(isset($_POST['new'])){
 	if($_POST['new'] == 'enabled' && !isset($_SESSION['filters']['hit'])){
-		$where_arr['customs'][] = 'prod_status = 3';
+		$where_arr['prod_status'] = 3;
 		$_SESSION['filters']['new'] = 1;
 	}elseif($_POST['new'] == 'enabled' && isset($_SESSION['filters']['hit'])){
-		$where_arr['customs'][] = 'prod_status IN (2, 3)';
+		$where_arr['prod_status'] = [2, 3];
 		$_SESSION['filters']['new'] = 1;
 	}elseif($_POST['new'] == 'disabled'){
 		unset($_SESSION['filters']['new']);
 	}
 }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && !isset($_SESSION['filters']['hit'])){
-	$where_arr['customs'][] = 'prod_status = 3';
+	$where_arr['prod_status'] = 3;
 }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && isset($_SESSION['filters']['hit'])){
-	$where_arr['customs'][] = 'prod_status IN (2, 3)';
+	$where_arr['prod_status'] = [2, 3];
 }
 // Поиск MySQL =============================================
 $gid = 0;
@@ -181,7 +180,6 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 			$rel_order = ", MATCH (p.name, p.name_index, p.art) AGAINST ('".$combined_query."') AS rel";
 		}
 	}
-
 
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -345,9 +343,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('active' => 1, 'group_by'=>'a.id_product'));
 		}else{
-			$cnt = $Products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, 0, array('active' => 1, 'group_by'=>'a.id_product'));
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -362,7 +360,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
-	$Products->SetProductsList($where_arr, $limit, array('order_by' => isset($orderby)?$orderby:null));
+	$Products->SetProductsList($where_arr, $limit, array('active' => 1, 'order_by' => isset($orderby)?$orderby:null));
 	if(!empty($Products->list)){
 		foreach($Products->list AS $res){
 			if($res['price_mopt'] != 0){
@@ -377,7 +375,7 @@ if(!empty($Products->list)){
 	}
 }
 $tpl->Assign('list', isset($Products->list)?$Products->list:false);
-
+unset($where_arr['customs']['search_category']);
 $list_categories = $Products->SetCategories4Search($where_arr);
 $tpl->Assign('list_categories', $list_categories);
 

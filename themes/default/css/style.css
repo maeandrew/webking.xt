@@ -1404,6 +1404,7 @@ section.center {
 	}
 	aside .navigation_container.search_navigation {
 		margin-top: 20px;
+		min-height: 37px;
 	}
 
 	aside .search_navigation .link_wrap a .count {
