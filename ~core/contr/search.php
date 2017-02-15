@@ -77,7 +77,6 @@ if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
 	$where_arr['s.available_today'] = 1;
 }
-unset($where_arr['customs']['search_category']);
 
 // Диапазон цен ============================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN_){
