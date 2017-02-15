@@ -157,6 +157,18 @@ if(isset($_POST['parse'])){
 								}
 							}
 							break;
+						case 14:
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
+								// print_r('<pre>Supplier comment issue</pre>');
+								$skipped = true;
+								continue;
+							}else{
+								if(!$product = $Parser->elfa($row)){
+									continue;
+								}
+							}
+							break;
 						case 15:
 							$supcomments = $Products->GetSupComments($id_supplier);
 							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
@@ -172,7 +184,7 @@ if(isset($_POST['parse'])){
 						case 16: // Mastertool
 							$supcomments = $Products->GetSupComments($id_supplier);
 							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
-								print_r('<pre>Supplier comment issue</pre>');
+								// print_r('<pre>Supplier comment issue</pre>');
 								$skipped = true;
 								continue;
 							}else{
@@ -212,7 +224,7 @@ if(isset($_POST['parse'])){
 								$Specification->AddSpecToProd($specification, $id_product);
 							}
 						}
-						// Формирем массив записи ассортимента
+						// Формируем массив записи ассортимента
 						$assort = array(
 							'id_assortiment' => false,
 							'id_supplier' => $id_supplier,

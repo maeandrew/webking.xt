@@ -247,7 +247,7 @@ class Parser {
 		global $Products;
 		global $Specification;
 		global $Images;
-		$Unit = new Unit();;
+		$Unit = new Unit();
 		$data[0] = trim($data[0]);
 		$data[1] = trim($data[1]);
 		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
@@ -283,6 +283,82 @@ class Parser {
 		copy($filename, $path.$img_info['basename']);
 		$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 		$product['images_visible'][] = 1;
+		return $product;
+	}
+
+	public function elfa($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		function get_web_page($url) {
+		    $options = array(
+		        CURLOPT_RETURNTRANSFER => true,   // return web page
+		        CURLOPT_HEADER         => true,   // don't return headers
+		        CURLOPT_FOLLOWLOCATION => true,   // follow redirects
+		        CURLOPT_MAXREDIRS      => 10,     // stop after 10 redirects
+		        CURLOPT_ENCODING       => "",     // handle compressed
+		        CURLOPT_USERAGENT      => "test", // name of client
+		        CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
+		        CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
+		        CURLOPT_TIMEOUT        => 120,    // time-out on response
+		        CURLOPT_RETURNTRANSFER => true,
+		        CURLOPT_SSL_VERIFYPEER => false,  // Blindly accept the certificate
+		    );
+
+		    $ch = curl_init($url);
+		    curl_setopt_array($ch, $options);
+		    $content = curl_exec($ch);
+			$curlinfo_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+		    curl_close($ch);
+
+		    return $curlinfo_effective_url;
+		}
+		$base_url = 'https://repka.ua';
+		$url = sprintf($base_url.'/search/?q=%s', $data[0]);
+		var_dump($url);
+		$url = get_web_page($url);
+		var_dump($url);
+		if($pre_parsed_html = $this->parseUrl('http://repka.ua/sredstva-dlya-epilyatsii-i-depilyatsii/camomile-depilation-75ml-4823015936586-328508/')){
+			$name = $pre_parsed_html->find('[itemprop="name"]', 0)->plaintext;
+		}
+		var_dump($name);
+		die();
+		if($Products->SetFieldsByRewrite(G::StrToTrans($link[0]->plaintext))){
+			return false;
+		}
+		unset($pre_parsed_html);
+		if($parsed_html = $this->parseUrl($url)){
+			// Получаем артикул товара
+			$product['sup_comment'] = trim($data[0]);
+			// Получаем название товара
+			$product['name'] = $parsed_html->find('h1', 0)->plaintext;
+			// Получаем описание товара
+			// $product['descr'] = $parsed_html->find('[itemprop="description"]', 0)->plaintext;
+			// Получаем цену товара
+			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = $parsed_html->find('.productCard .price .price-wrapper', 0)->innertext;
+			// Получаем характеристики товара
+			foreach($parsed_html->find('.fullDescriptionConteiner table .product__feature tr') as $element){
+				$caption = str_replace(':', '', trim($element->children(0)->plaintext));
+				if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+					$value = trim($element->children(1)->plaintext);
+					$spec = $Specification->SpecExistsByCaption($caption);
+					$product['specs'][] = array(
+						'id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)),
+						'value' => $value
+					);
+				}
+			}
+			// Получаем изображения товара максимального размера
+			foreach($parsed_html->find('.PurchaseBody .image-wrap img') as $element){
+				$filename = $element->src;
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($filename, $path.$img_info['basename']);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+				$product['images_visible'][] = 1;
+			}
+		}
 		return $product;
 	}
 
@@ -343,9 +419,7 @@ class Parser {
 			return false;
 		}
 		return $product;
-
 	}
-
 
 	public function zona($data){
 		global $Products;
