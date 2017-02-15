@@ -1,4 +1,10 @@
 <h1><?=$header?></h1>
+<?if($GLOBALS['CurrentController'] === 'search'){?>
+	<?if($_SESSION['search']['search_category'] != 0){?>
+		<h2>В категории <a href="<?=Link::Category($list_categories[$_SESSION['search']['search_category']]['translit'])?>"><?=$list_categories[$_SESSION['search']['search_category']]['name']?></a></h2>
+	<?}?>
+	<h2>Найдено товаров: <b><?=$cnt?></b></h2>
+<?}?>
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if(!empty($category['subcats'])){?>
