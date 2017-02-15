@@ -34,7 +34,7 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = trim($query);
 }
 G::metaTags(array('page_title' => $header.' по запросу "'.isset($query).'"'));
-$tpl->Assign('header', $header.(isset($query)?' по запросу "<b>'.$query.'</b>"':null));
+$tpl->Assign('header', (isset($query)?'"<b>'.$query.'</b>"':null));
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;
@@ -91,7 +91,7 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 
 // Сортировка ==============================================
 if(!isset($sorting)){
-	$sorting = array('value' => 'popularity DESC');
+	$sorting = array('value' => 'name ASC');
 	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
 }else{
 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
