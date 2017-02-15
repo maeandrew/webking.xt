@@ -1,4 +1,5 @@
 <h1><?=$header?></h1>
+<? print_r($searchcat); ?>
 <?if($GLOBALS['CurrentController'] === 'search'){?>
 	<?if($_SESSION['search']['search_category'] != 0){?>
 		<h2>В категории <a href="<?=Link::Category($list_categories[$_SESSION['search']['search_category']]['translit'])?>"><?=$list_categories[$_SESSION['search']['search_category']]['name']?></a></h2>
