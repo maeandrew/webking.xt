@@ -152,25 +152,27 @@
 					</li>
 				</ul>
 			</div>
-			<?foreach($filter_cat as $spec){?>
-				<div class="filter_block">
-					<p><?=$spec['caption']?></p>
-					<ul>
-						<?foreach($spec['values'] as $value){
-							$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
-							<li>
-								<label class="mdl-checkbox mdl-js-checkbox <?=$value['checked']?>">
-									<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
-									<span>
-										<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
-									</span>
-								</label>
-							</li>
-						<?}?>
-						<div class="more hid"><i class="material-icons">expand_more</i><!-- <span>Развернуть</span> --></div>
-					</ul>
-				</div>
-			<?}?>
+			<?if(empty($filter_cat)){
+				foreach($filter_cat as $spec){?>
+					<div class="filter_block">
+						<p><?=$spec['caption']?></p>
+						<ul>
+							<?foreach($spec['values'] as $value){
+								$present = (isset($visible_fil) && !in_array($value['value'], $visible_fil))?false:true;?>
+								<li>
+									<label class="mdl-checkbox mdl-js-checkbox <?=$value['checked']?>">
+										<input <?= ($present || in_array($value['id'][0], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$value['id'][0]?>" data-value="<?=$value['id'][1]?>" <?=$value['checked']?>>
+										<span>
+											<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
+										</span>
+									</label>
+								</li>
+							<?}?>
+							<div class="more hid"><i class="material-icons">expand_more</i><!-- <span>Развернуть</span> --></div>
+						</ul>
+					</div>
+				<?}
+			}?>
 		</div>
 	</div>
 	<script>

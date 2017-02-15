@@ -34,7 +34,7 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = trim($query);
 }
 G::metaTags(array('page_title' => $header.' по запросу "'.isset($query).'"'));
-$tpl->Assign('header', $header.' по запросу "'.isset($query).'"');
+$tpl->Assign('header', $header.(isset($query)?' по запросу "<b>'.$query.'</b>"':null));
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;
@@ -397,7 +397,6 @@ if(((!isset($_POST['pricefrom']) && !isset($_POST['priceto']) && !isset($_SESSIO
 	$_SESSION['filters']['pricefrom'] = $_SESSION['filters']['minprice'];
 	$_SESSION['filters']['priceto'] = $_SESSION['filters']['maxprice'];
 }
-$tpl->Assign('header', $GLOBALS['IERA_LINKS'][1]['title']);
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array(
