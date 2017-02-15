@@ -180,7 +180,7 @@ if(empty($category['subcats'])){
 	// =========================================================
 	// Сортировка ==============================================
 		if(!isset($sorting)){
-			$sorting = array('value' => 'popularity desc');
+			$sorting = array('value' => 'name asc');
 			// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
 			setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
 		}else{
