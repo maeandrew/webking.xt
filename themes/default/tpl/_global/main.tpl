@@ -436,7 +436,6 @@
 		</div>
 		<div class="copyright">
 			<div class="copyright_wrap">
-				<a href="http://www.pdf995.com/samples/pdf.pdf" title="pdf" style="color:#fff;">File PDF</a>
 				<p>&copy; Служба снабжения XT.ua <?=date("Y")?></p>
 				<!-- <p class="created">Разработано в <a href="http://webking.link/" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>WebKingStudio</a></p> -->
 			</div>
