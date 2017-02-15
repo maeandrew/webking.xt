@@ -154,6 +154,9 @@
 </script>
 <?if($GLOBALS['CurrentController'] == 'search'){?>
 	<script>
+		$(function(){
+			addLoadAnimation('.searchnav_js');
+		});
 		ajax('navigation', 'generateSearchNavigation', {list: '<?=json_encode($list_categories)?>'}, 'html').done(function(data){
 			// console.log(data);
 			$('.searchnav_js').html(data);

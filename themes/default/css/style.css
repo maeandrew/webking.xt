@@ -1329,6 +1329,7 @@ section.center {
 	aside .catalog.expanded .navigation_container {
 		opacity: 1;
 		overflow: visible;
+		min-height: 100px;
 	}
 	aside .navigation {
 		z-index: 10000;
