@@ -51,9 +51,8 @@ a {
 	-o-transition: all .3s cubic-bezier(.4,0,.2,1);
 	transition: all .3s cubic-bezier(.4,0,.2,1);
 }
-a:hover:not([href="#"])*/
+/*a:hover:not([href="#"])*/
 a:hover {
-	color: #343030;*/
 	color: #ff5722;
 	-webkit-transition: none;
 	-o-transition: none;
