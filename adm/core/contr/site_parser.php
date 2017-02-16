@@ -272,7 +272,7 @@ if(isset($_POST['parse'])){
 								$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
 								imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
 								if($size[0] >= 300){
-									$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark.png');
+									$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
 									imagecopyresampled($res, $stamp, 10, 10, 0, 0, imagesx($stamp), imagesy($stamp), imagesx($stamp), imagesy($stamp));
 								}else{
 									// Позиционировать водяной знак в правом нижнем углу картинки
