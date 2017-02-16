@@ -58,8 +58,8 @@ header .header_wrapp .header_right > div {
 	header .header_wrapp .header_right .search_query_input {
 		display: block;
 		position: relative;
-		width: calc(100% - 80px);
-		background: #eaeaea
+		width: calc(100% - 300px);
+		float: left;
 	}
 	header .header_wrapp .header_right .search_query_input:before {
 		content:'';
@@ -78,8 +78,35 @@ header .header_wrapp .header_right > div {
 		border-radius: 3px 0 0 3px;
 		display: block;
 		line-height: 30px;
+		height: 32px;
 		padding: 0 1em 0 30px;
 		width: 100%;
+		box-sizing: border-box;
+	}
+	header .header_wrapp .header_right .search_category_input {
+		display: block;
+		float: left;
+		position: relative;
+		width: 220px;
+	}
+
+	header .header_wrapp .header_right .search_category_input:before {
+		content: '|';
+		position: absolute;
+		left: 0;
+		line-height: 32px;
+		color: #aaa;
+	}
+	#search_category {
+		border: 1px solid #018b06;
+		border-right: 0;
+		border-left: 0;
+		display: block;
+		line-height: 30px;
+		height: 32px;
+		padding: 0 .5em;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 
