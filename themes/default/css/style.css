@@ -1422,6 +1422,16 @@ section.center {
 		text-overflow: ellipsis;
 	}
 
+	aside .search_navigation .not-found{
+		display: block;
+		font-size: 16px;
+		font-weight: normal;
+		text-align: center;
+		color: #c1c1c1;
+	    line-height: 16px;
+	    padding: 0.6em;
+	}
+
 
 
 

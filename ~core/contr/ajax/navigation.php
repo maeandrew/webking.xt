@@ -6,7 +6,7 @@
 				break;
 			case 'generateSearchNavigation':
 			if(!isset($_POST['list'] )){
-				$echo = 'Поиск не дал результатов';
+				$echo = '<span class="not-found"> Поиск не дал результатов <span>';
 			} else {
 				foreach (json_decode($_POST['list']) as $cat) {
 						$categories[] = (int)$cat->id_category;
