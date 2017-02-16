@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div class="read_more mdl-cell--12-col mdl-cell--12-col-phone">
-					<a href="<?=Link::Custom('news', $i['translit']);?>">Читать новость</a>
+					<a href="<?=Link::Custom('news', $i['translit']);?>">НЕ Читать новость</a>
 				</div>
 			</li>
 		<?}
