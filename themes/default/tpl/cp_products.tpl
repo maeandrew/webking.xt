@@ -173,7 +173,7 @@
 		$(function(){
 			// addLoadAnimation('.searchnav_js');
 		});
-		ajax('navigation', 'generateSearchNavigation', <?=!empty($list_categories)?'{list: "'.json_encode($list_categories).'"}':'false'?>, 'html').done(function(data){
+		ajax('navigation', 'generateSearchNavigation', <?=!empty($list_categories)?'{list: \''.json_encode($list_categories).'\'}':'false'?>, 'html').done(function(data){
 			// console.log(data);
 			$('.searchnav_js').html(data);
 			// removeLoadAnimation('.searchnav_js');
