@@ -4494,7 +4494,6 @@ class Products {
 				return false;
 			}
 		}
-		var_dump($res['id_category']);
 		return $res['id_category'];
 	}
 

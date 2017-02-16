@@ -315,13 +315,10 @@ class Parser {
 		}
 		$base_url = 'https://repka.ua';
 		$url = sprintf($base_url.'/search/?q=%s', $data[0]);
-		var_dump($url);
 		$url = get_web_page($url);
-		var_dump($url);
 		if($pre_parsed_html = $this->parseUrl('http://repka.ua/sredstva-dlya-epilyatsii-i-depilyatsii/camomile-depilation-75ml-4823015936586-328508/')){
 			$name = $pre_parsed_html->find('[itemprop="name"]', 0)->plaintext;
 		}
-		var_dump($name);
 		die();
 		if($Products->SetFieldsByRewrite(G::StrToTrans($link[0]->plaintext))){
 			return false;
@@ -368,7 +365,6 @@ class Parser {
 		global $Images;
 		$Unit = new Unit();;
 		$data[0] = trim($data[0]);
-		// var_dump($data[0]);
 		$data[1] = trim($data[1]);
 
 		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
