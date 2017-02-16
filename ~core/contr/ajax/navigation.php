@@ -5,11 +5,14 @@
 				$echo = $Products->generateNavigation($navigation);
 				break;
 			case 'generateSearchNavigation':
-				foreach (json_decode($_POST['list']) as $cat) {
-					$categories[] = (int)$cat->id_category;
-					$count_cat[$cat->id_category] = (int)$cat->count;
+				$echo = 'Поиск не дал результатов';
+				if(is_array($_POST['list'])){
+					foreach (json_decode($_POST['list']) as $cat) {
+						$categories[] = (int)$cat->id_category;
+						$count_cat[$cat->id_category] = (int)$cat->count;
+					}
+					$echo = $Products->generateNavigation($Products->navigation($categories, $count_cat), 0, false, true);
 				}
-				$echo = $Products->generateNavigation($Products->navigation($categories, $count_cat), 0, false, true);
 				break;
 			default:
 				break;
