@@ -1,9 +1,19 @@
 <h1><?=$header?></h1>
 <?if($GLOBALS['CurrentController'] === 'search'){?>
-	<?if($_SESSION['search']['search_category'] != 0){?>
-		<h2>В категории <a href="<?=Link::Category($list_categories[$_SESSION['search']['search_category']]['translit'])?>"><?=$list_categories[$_SESSION['search']['search_category']]['name']?></a></h2>
-	<?}?>
-	<h2>Найдено товаров: <b><?=$cnt?></b></h2>
+	<h3>
+		<?if($_SESSION['search']['search_category'] != 0){?>
+			В категории <span class="active_search_category">"<a href="<?=Link::Category($searchcat['translit'])?>" title="Посмотреть все товары категории"><?=$searchcat['name']?></a>"</span>
+		<?}else{?>
+			Всего
+		<?}?>
+		<?if($cnt == 1 || (substr($cnt, -1) == 1 && substr($cnt, -2, 1) != 1)){?>
+			найден <b><?=$cnt?></b> товар.
+		<?}elseif(substr($cnt, -1) == 2 || substr($cnt, -1) == 3 || substr($cnt, -1) == 4 && substr($cnt, -2, 1) != 1){?>
+			найдено <b><?=$cnt?></b> товара.
+		<?}else{?>
+			найдено <b><?=$cnt?></b> товаров.
+		<?}?>
+	</h3>
 <?}?>
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
@@ -161,11 +171,12 @@
 <?if($GLOBALS['CurrentController'] == 'search'){?>
 	<script>
 		$(function(){
-			addLoadAnimation('.searchnav_js');
+			// addLoadAnimation('.searchnav_js');
 		});
 		ajax('navigation', 'generateSearchNavigation', {list: '<?=json_encode($list_categories)?>'}, 'html').done(function(data){
 			// console.log(data);
 			$('.searchnav_js').html(data);
+			// removeLoadAnimation('.searchnav_js');
 		});
 	</script>
 <?}?>
