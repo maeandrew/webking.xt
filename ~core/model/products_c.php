@@ -4421,7 +4421,7 @@ class Products {
 		$ul = '<ul '.($lvl == 1?'class="navigation allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
 			$ul .= '<li class="link_wrap'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' active':null).'">';
-			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"') .($search?' href="search?query='.$_SESSION['search']['query'].'&search_category='.$l['id_category'].'':' href="'.Link::Category($l['translit'],$arr)).'">';
+			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"') .($search?' href="/search?query='.$_SESSION['search']['query'].'&search_category='.$l['id_category'].'':' href="'.Link::Category($l['translit'],$arr)).'">';
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
 				$ul .= '<span class="more_cat material-icons">&#xE315;</span>';
 			}
