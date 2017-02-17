@@ -5360,8 +5360,6 @@ class PHPExcel_Calculation {
 
 //			echo '$isOperandOrFunction is '.(($isOperandOrFunction) ? 'True' : 'False').'<br>';
 
-//			var_dump($match);
-
 
 
 			if ($opCharacter == '-' && !$expectingOperator) {				//	Is it a negation instead of a minus?
@@ -7353,8 +7351,6 @@ class PHPExcel_Calculation {
 			// Extract range
 
 			$aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
-
-//			var_dump($aReferences);
 
 			if (!isset($aReferences[1])) {
 

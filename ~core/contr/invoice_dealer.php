@@ -19,7 +19,6 @@ if(isset($_REQUEST['orders'])){
 			$dealers[0]['orders'][$id_order]['agent_total'] = 0;
 			// получаем данные об адресе доставки
 			$dealers[0]['orders'][$id_order]['address'] = $Address->GetAddressById($Orders->fields['id_address']);
-			var_dump($dealers[0]['orders'][$id_order]['address']);
 
 			// получаем список товаров каждого заказа
 			$dealers[0]['orders'][$id_order]['products'] = $Invoice->GetOrderData($id_order);

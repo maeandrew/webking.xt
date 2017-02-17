@@ -287,10 +287,11 @@
 			<?if(!empty($seotext)){?>
 				<div class="mdl-grid">
 					<div id="seoTextBlock" class="mdl-grid mdl-cell--12-col">
-						<!-- <a href="/adm/seotextedit/<?=$seotext['id']?>">Редактировать</a> -->
 						<?if(isset($_SESSION['member']) && in_array($_SESSION['member']['gid'], array(1, 2, 9, 14))){?>
 							<!-- Ссылка на редактирование товара для администратором -->
-							<a id="seotext_editing" class="seotext_editing mdl-button mdl-js-button" href="<?=Link::Custom('adm', 'seotextedit');?>/<?=$seotext['id']?>" target="_blank"><i class="seotext_editing_icon material-icons">mode_edit</i> Редактировать</a>
+							<a id="seotext_editing" class="seotext_editing" href="<?=Link::Custom('adm', 'seotextedit');?>/<?=$seotext['id']?>" target="_blank">
+								<i class="prod_editing_icon material-icons">mode_edit</i>
+							</a>
 							<div class="mdl-tooltip" for="seotext_editing">Редактировать SEO текст</div>
 						<?}?>
 						<?=$seotext['text']?>
@@ -436,7 +437,6 @@
 		</div>
 		<div class="copyright">
 			<div class="copyright_wrap">
-				<a href="http://www.pdf995.com/samples/pdf.pdf" title="pdf" style="color:#fff;">File PDF</a>
 				<p>&copy; Служба снабжения XT.ua <?=date("Y")?></p>
 				<!-- <p class="created">Разработано в <a href="http://webking.link/" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>WebKingStudio</a></p> -->
 			</div>

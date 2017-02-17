@@ -589,18 +589,19 @@ class Products {
 	 * Выбор категрий в которых находится искомый товар
 	 */
 	public function SetCategories4Search($and = false){
-		$sql = 'SELECT c.id_category, c.name, c.translit, COUNT(p.id_product) AS count
+		$sql = 'SELECT c.id_category, c.category_level, c.name, c.pid, c.translit, COUNT(p.id_product) AS count
 			FROM '._DB_PREFIX_.'cat_prod cp
 				LEFT JOIN '._DB_PREFIX_.'category AS c
 					ON c.id_category = cp.id_category
 				LEFT JOIN '._DB_PREFIX_.'product AS p
 					ON p.id_product = cp.id_product'.
 			$this->db->GetWhere($and).'
+				AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1
 				AND c.sid = 1
 				AND c.visible = 1
-				AND (p.price_opt > 0 OR p.price_mopt > 0)
 				AND p.visible = 1
-			GROUP BY c.translit';
+			GROUP BY c.id_category';
+			// print_r($sql); echo "<br>";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -806,10 +807,13 @@ class Products {
 			.$where2
 			.$selectsegm
 			.$this->price_range
-			.' GROUP BY p.id_product
-			ORDER BY active DESC, p.visible DESC, '.
-			$order_by.' '.$limit;
+			.' GROUP BY p.id_product'.
+			(isset($params['active'])?' HAVING active = '.$params['active']:null)
+			.' ORDER BY active DESC, p.visible DESC, '.
+			$order_by.'
+			'.$limit;
 		}
+		// print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1462,8 +1466,10 @@ class Products {
 				INNER JOIN '._DB_PREFIX_.'product AS p
 					ON cp.id_product = p.id_product'.
 			$this->db->GetWhere($and)
-			.$where2;
+			.$where2.
+			' AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1';
 		$res = $this->db->GetOneRowArray($sql);
+		// print_r($sql);
 		if(!$res){
 			return 0;
 		}
@@ -4403,7 +4409,7 @@ class Products {
 	 * @param  integer $lvl  [description]
 	 * @return [type]        [description]
 	 */
-	public function generateNavigation($list, $lvl = 0, $no_rel = false){
+	public function generateNavigation($list, $lvl = 0, $no_rel = false, $search = false){
 		if(isset($GLOBALS['CURRENT_ID_CATEGORY'])){
 			$id_cat = $GLOBALS['CURRENT_ID_CATEGORY'];
 		}
@@ -4415,12 +4421,13 @@ class Products {
 		$ul = '<ul '.($lvl == 1?'class="navigation allSections" ':'').'data-lvl="'.$lvl.'">';
 		foreach($list as $l){
 			$ul .= '<li class="link_wrap'.(isset($GLOBALS['current_categories']) && in_array($l['id_category'], $GLOBALS['current_categories'])?' active':null).'">';
-			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"').' href="'.Link::Category($l['translit'],$arr).'">'.$l['name'];
+			$ul .= '<a'.($no_rel || (!isset($GLOBALS['current_categories']) && $GLOBALS['CurrentController'] != 'product')?null:' rel="nofollow"') .($search?' href="/search?query='.$_SESSION['search']['query'].'&search_category='.$l['id_category'].'':' href="'.Link::Category($l['translit'],$arr)).'">';
 			if(!empty($l['subcats']) && !isset($_GET['debug'])){
-				$ul .= '<span class="more_cat"><i class="material-icons">&#xE315;</i></span></a>';
-				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null);
-			}else{
-				$ul .= '</a>';
+				$ul .= '<span class="more_cat material-icons">&#xE315;</span>';
+			}
+			$ul .= (isset($l['count'])?'<span class="count">'.$l['count'].'</span>':null).'<span class="text">'.$l['name'].'</span></a>';
+			if(!empty($l['subcats']) && !isset($_GET['debug'])){
+				$ul .= $this->generateNavigation($l['subcats'], $lvl, ((isset($id_cat) && $id_cat == $l['id_category']) || $no_rel)?true:null, $search);
 			}
 			$ul .= '</li>';
 		}
@@ -4428,29 +4435,45 @@ class Products {
 		return $ul;
 	}
 
-	public function navigation($idsegm){
+	/**
+	 * Построить иерархический массив по списку категорий
+	 * @param  [type] $categories Массив идентификаторов категорий
+	 * @return [type]         Иерархический массив
+	 */
+	public function navigation($categories, $count_cat=false){
 		$dbtree = new dbtree(_DB_PREFIX_ . 'category', 'category', $this->db);
 		//Достаем категории 1-го уровня
 		$navigation = $dbtree->GetCategories(array('id_category', 'category_level', 'name', 'translit', 'pid'), 1);
 		//Перебираем категории 2-го и 3-го уровня, отсекая ненужные
-		$needed = $dbtree->GetCatSegmentation($idsegm);
 		foreach ($navigation as $key1 => &$l1) {
+			$l1['count'] = 0;
 			$level2 = $dbtree->GetSubCats($l1['id_category'], 'all');
 			foreach ($level2 as $key2 => &$l2) {
+				$l2['count'] = 0;
 				$level3 = $dbtree->GetSubCats($l2['id_category'], 'all');
 				foreach ($level3 as $key3 => &$l3) {
-					if (!in_array($l3['id_category'], $needed)) {
+					if (!in_array($l3['id_category'], $categories)) {
 						unset($level3[$key3]);
+					} elseif ($count_cat){
+						$l3['count'] = $count_cat[$l3['id_category']];
+						$l2['count'] += $l3['count'];
 					}
 				}
-				if (in_array($l2['id_category'], $needed) || !empty($level3)) {
+				if (in_array($l2['id_category'], $categories) || !empty($level3)) {
 					$l2['subcats'] = $level3;
+					if ($count_cat && isset($count_cat[$l2['id_category']])){
+						$l2['count'] += $count_cat[$l2['id_category']];
+					}
+					$l1['count'] += $l2['count'];
 				} else {
 					unset($level2[$key2]);
 				}
 			}
-			if (in_array($l1['id_category'], $needed) || !empty($level2)) {
+			if (in_array($l1['id_category'], $categories) || !empty($level2)) {
 				$l1['subcats'] = $level2;
+				if ($count_cat && isset($count_cat[$l1['id_category']])){
+					$l1['count'] += $count_cat[$l1['id_category']];
+				}
 			} else {
 				unset($navigation[$key1]);
 			}

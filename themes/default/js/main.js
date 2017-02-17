@@ -497,6 +497,15 @@ $(function(){
 
 
 	$('.second_nav li.active > ul').show();
+	$('.catalog .label').on('click', function(){
+		var height = 0;
+		$(this).closest('.catalog').toggleClass('expanded');
+		if($(this).closest('.catalog').hasClass('expanded')){
+			var first_lvl = $('.navbar_js').find('[data-lvl="1"] > .link_wrap');
+			height = first_lvl.length*first_lvl.first().outerHeight();
+		}
+		$('.navbar_js').height(height);
+	});
 	//Переключение вкладок главного меню
 	$('.catalog').on('click', '.main_nav li', function() {
 		var section = $(this).data('nav');
@@ -2262,5 +2271,9 @@ $(document).ready(function(){
 	$('#subCategory_grid').masonry();
 	ajax('navigation', 'generateNavigation', false, 'html').done(function(data){
 		$('.navbar_js').html(data);
+		if($('.catalog').hasClass('expanded')){
+			var first_lvl = $('.navbar_js').find('[data-lvl="1"] > .link_wrap');
+			$('.navbar_js').height(first_lvl.length*first_lvl.first().outerHeight());
+		}
 	});
 });

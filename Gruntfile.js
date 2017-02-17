@@ -5,21 +5,23 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
 			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+				// banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			build: {
-			    files: [{
-			        expand: true,
-			        cwd: 'themes/default/js/',
-			        src: ['*.js', '!*.min.js'],
-			        dest: 'themes/default/js/',
-					ext: '.min.js'
-			    }]
-		    }
+				files: [
+					{
+						expand: true,
+						cwd: 'themes/default/js/',
+						src: ['*.js', '!*.min.js'],
+						dest: 'themes/default/js/',
+						ext: '.min.js'
+					}
+				],
+			}
 		},
 		watch: {
 			css: {
-				files: ['themes/default/css/*.css', '!themes/default/css/colors.css', '!themes/default/css/jquery-ui.css', '!themes/default/css/reset.css'],
+				files: ['themes/default/css/*.css', '!colors.css', '!jquery-ui.css', '!reset.css'],
 				tasks: ['cssmin:target_css'],
 			},
 			css_ps: {
@@ -29,22 +31,19 @@ module.exports = function(grunt) {
 			uglify: {
 				files: ['themes/default/js/*.js', '!themes/default/js/*.min.js'],
 				tasks: ['uglify:build'],
-			},
-			options: {
-				spawn: true
 			}
 		},
 		cssmin: {
 			options: {
 				keepBreaks: true,
-				advanced: false
+				advanced: false,
 			},
 			target_css: {
 				files: [
 					{
 						expand: true,
 						cwd: 'themes/default/css',
-						src: ['*.css', '!*.min.css', '!themes/default/css/colors.css', '!themes/default/css/jquery-ui.css', '!themes/default/css/reset.css'],
+						src: ['*.css', '!themes/default/min/css/*.min.css', '!themes/default/min/css/colors.css', '!themes/default/min/css/jquery-ui.css', '!reset.css'],
 						dest: 'themes/default/min/css',
 						ext: '.min.css'
 					}

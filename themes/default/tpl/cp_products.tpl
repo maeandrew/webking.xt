@@ -1,4 +1,20 @@
 <h1><?=$header?></h1>
+<?if($GLOBALS['CurrentController'] === 'search'){?>
+	<h3>
+		<?if($_SESSION['search']['search_category'] != 0){?>
+			В категории <span class="active_search_category">"<a href="<?=Link::Category($searchcat['translit'])?>" title="Посмотреть все товары категории"><?=$searchcat['name']?></a>"</span>
+		<?}else{?>
+			Всего
+		<?}?>
+		<?if($cnt == 1 || (substr($cnt, -1) == 1 && substr($cnt, -2, 1) != 1)){?>
+			найден <b><?=$cnt?></b> товар.
+		<?}elseif(substr($cnt, -1) == 2 || substr($cnt, -1) == 3 || substr($cnt, -1) == 4 && substr($cnt, -2, 1) != 1){?>
+			найдено <b><?=$cnt?></b> товара.
+		<?}else{?>
+			найдено <b><?=$cnt?></b> товаров.
+		<?}?>
+	</h3>
+<?}?>
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if(!empty($category['subcats'])){?>
@@ -130,9 +146,6 @@
 	// 		]
 	// });
 	$(function(){
-		<?if(isset($_COOKIE['product_view'])){?>
-			// ChangeView('<?=$_COOKIE['product_view']?>');
-		<?}?>
 		$("#view_block_js").removeClass('ajax_loading');
 
 		// var preview = $('.list_view .preview'),
@@ -155,3 +168,15 @@
 	});
 
 </script>
+<?if($GLOBALS['CurrentController'] == 'search'){?>
+	<script>
+		$(function(){
+			// addLoadAnimation('.searchnav_js');
+		});
+		ajax('navigation', 'generateSearchNavigation', <?=!empty($list_categories)?'{list: \''.json_encode($list_categories).'\'}':'false'?>, 'html').done(function(data){
+			// console.log(data);
+			$('.searchnav_js').html(data);
+			// removeLoadAnimation('.searchnav_js');
+		});
+	</script>
+<?}?>
