@@ -21,22 +21,25 @@
 		<div class="subCategories" id="subCategory_grid">
 			<?php foreach ($category['subcats'] as $value) {?>
 				<div class="subCategory">
-                    <a class="subCategory__link" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
-                        <span class="subCategoryImageWrap">
-                            <img src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>" alt="<?=htmlspecialchars($value['name']);?>">
-                        </span>
-					    <span class="subCategoryTitleWrap">
-						    <span class="subCategoryTitle"><?=$value['name']?></span>
-					    </span>
-				    </a>
-                    <?if(!empty($value['subcats'])){?>
-                        <ul class="subCategory__list">
-                            <?php foreach ($value['subcats'] as $subcat){?>
-                                <li><a href="<?=Link::Category($subcat['translit'], array('clear' => true))?>"><?=$subcat['name']?></a></li>
-                            <?}?>
-                        </ul>
-                    <?}?>
-                </div>
+					<a class="subCategory__link" href="<?=Link::Category($value['translit'], array('clear' => true))?>">
+						<span class="subCategoryImageWrap">
+							<img alt="<?=htmlspecialchars($value['name']);?>" class="lazy" data-name="preview" src="/images/nofoto.png" data-original="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>"/>
+							<noscript>
+								<img alt="<?=htmlspecialchars($value['name']);?>" src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>""/>
+							</noscript>
+						</span>
+						<span class="subCategoryTitleWrap">
+							<span class="subCategoryTitle"><?=$value['name']?></span>
+						</span>
+					</a>
+					<?if(!empty($value['subcats'])){?>
+						<ul class="subCategory__list">
+							<?php foreach ($value['subcats'] as $subcat){?>
+								<li><a href="<?=Link::Category($subcat['translit'], array('clear' => true))?>"><?=$subcat['name']?></a></li>
+							<?}?>
+						</ul>
+					<?}?>
+				</div>
 			<?}?>
 		</div>
 	<?}else{?>
