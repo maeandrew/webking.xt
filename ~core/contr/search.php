@@ -93,32 +93,18 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 }
 
 // Сортировка ==============================================
-if(!isset($sorting)){
-	$sorting = array('value' => 'name ASC');
-	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
-}else{
-	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
+if(isset($GLOBALS['Sort'])){
+	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
 }
-if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-	$available_sorting_values = array(
-		'popularity desc' => 'популярные',
-		'create_date desc' => 'новые сверху',
-		'price_opt asc' => 'от дешевых к дорогим',
-		'price_opt desc' => 'от дорогих к дешевым',
-		'name asc' => 'по названию от А до Я',
-		'name desc' => 'по названию от Я до А',
-	);
-}else{
-	$available_sorting_values = array(
-		'popularity desc' => 'популярные',
-		'create_date desc' => 'новые сверху',
-		'price_opt asc' => 'от дешевых к дорогим',
-		'price_opt desc' => 'от дорогих к дешевым',
-		'name asc' => 'по названию от А до Я',
-		'name desc' => 'по названию от Я до А',
-	);
-}
-$tpl->Assign('sorting', $sorting);
+$available_sorting_values = array(
+	'popularity desc' => 'популярные',
+	'create_date desc' => 'новые сверху',
+	'price_opt asc' => 'от дешевых к дорогим',
+	'price_opt desc' => 'от дорогих к дешевым',
+	'name asc' => 'по названию от А до Я',
+	'name desc' => 'по названию от Я до А',
+);
+$tpl->Assign('sorting', $GLOBALS['Sort']);
 $tpl->Assign('available_sorting_values', $available_sorting_values);
 if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 	$orderby = $_SESSION['filters']['orderby'];
@@ -345,9 +331,9 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 			$_GET['page_id'] = $_POST['page_nbr'];
 		}
 		if(isset($_SESSION['member']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('active' => 1, 'group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, $_SESSION['member']['gid'], array('group_by'=>'a.id_product'));
 		}else{
-			$cnt = $Products->GetProductsCnt($where_arr, 0, array('active' => 1, 'group_by'=>'a.id_product'));
+			$cnt = $Products->GetProductsCnt($where_arr, 0, array('group_by'=>'a.id_product'));
 		}
 		$tpl->Assign('cnt', $cnt);
 		$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
@@ -362,7 +348,7 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 	if(isset($_GET['limit'])){
 		$GET_limit = "limit".$_GET['limit'].'/';
 	}
-	$Products->SetProductsList($where_arr, $limit, array('active' => 1, 'order_by' => isset($orderby)?$orderby:null));
+	$Products->SetProductsList($where_arr, $limit, array('order_by' => isset($orderby)?$orderby:null));
 	if(!empty($Products->list)){
 		foreach($Products->list AS $res){
 			if($res['price_mopt'] != 0){

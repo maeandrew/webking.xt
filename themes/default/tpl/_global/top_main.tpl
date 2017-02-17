@@ -7,7 +7,7 @@
 			<form name="search" action="<?=Link::Custom('search');?>" method="get">
 				<button type="submit" class="mdl-cell--hide-phone search_btn">Найти</button>
 				<label class="search_query_input" for="search">
-					<input class="btn_js" name="query" id="search" type="search" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
+					<input class="btn_js" name="query" id="search" type="search" required="required" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
 				</label>
 				<label class="search_category_input" for="search_category">
 					<select id="search_category" name="search_category">

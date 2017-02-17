@@ -3496,10 +3496,10 @@ canvas[id^=chart_]{
 	border-top: 1px solid #e0e0e0;
 	padding: 0.8em 0;
 }
-#seoTextBlock * {
-	font-weight: normal !important;
-	color: #9E9E9E !important;
-	text-align: left !important;
+#seoTextBlock *:not(.seotext_editing) {
+	font-weight: normal;
+	color: #9E9E9E;
+	text-align: left;
 }
 #seoTextBlock p {
 	width: 100%;
@@ -3516,16 +3516,23 @@ canvas[id^=chart_]{
 }
 
 #seoTextBlock .seotext_editing {
+	vertical-align: text-bottom;
 	background: #fff;
-	border-bottom: 1px solid #e0e0e0;
-	font-weight: 500 !important;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 10px;
+	border-radius: 50%;
+	padding: 0;
+    line-height: 2.2em;
+    height: 1.8em;
+    width: 1.8em;
+    text-align: center;
+    margin: auto 0.5em auto 0;
+    font-size: 20px;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
-#seoTextBlock .seotext_editing,
 #seoTextBlock .seotext_editing i {
-	color: #000 !important;
+	color: #444;
+}
+#seoTextBlock .seotext_editing:hover i {
+	color: #FF5722;
 }
 
 
