@@ -41,8 +41,9 @@ module.exports = function(grunt) {
 			target_css: {
 				files: [
 					{
+						expand: true,
 						cwd: 'themes/default/css',
-						src: ['*.css', '!*.min.css', '!colors.css', '!jquery-ui.css', '!reset.css'],
+						src: ['*.css', '!themes/default/min/css/*.min.css', '!themes/default/min/css/colors.css', '!themes/default/min/css/jquery-ui.css', '!reset.css'],
 						dest: 'themes/default/min/css',
 						ext: '.min.css'
 					}
@@ -51,6 +52,7 @@ module.exports = function(grunt) {
 			target_css_ps: {
 				files: [
 					{
+						expand: true,
 						cwd: 'themes/default/css/page_styles',
 						src: ['*.css', '!*.min.css'],
 						dest: 'themes/default/min/css/page_styles',
