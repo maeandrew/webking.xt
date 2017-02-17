@@ -1114,7 +1114,7 @@
 			<div class="close cookie_msg_close mdl-button mdl-js-button mdl-button--raised mdl-button--accent">ОК</div>
 		</div>
 	</div>
-	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone">Наверх</div>
+	<div class="go_up go_up_js mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-cell--hide-phone"><i class="material-icons">&#xE5D8;</i></div>
 
 	<?if(SETT == 2 && (!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_CONTRAGENT_, _ACL_ADMIN_, _ACL_SEO_)))){
 		echo $GLOBALS['CONFIG']['jivosite'];
