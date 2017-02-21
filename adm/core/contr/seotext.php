@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '512M');
 if(!_acl::isAllow('seotext')){
 	die("Access denied");
 }
@@ -35,7 +36,7 @@ if($Seo->SeoTextList($limit)){
 
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_seotext.tpl');
 
-
+ini_set('memory_limit', '128M');
 function cropStr($str, $size){
 	return mb_substr($str,0,mb_strrpos(mb_substr($str,0,$size,'utf-8'),' ',utf-8),'utf-8');
 }
