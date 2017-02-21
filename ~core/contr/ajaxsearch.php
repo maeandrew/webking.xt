@@ -56,7 +56,6 @@
 							if($wo != ''){
 								$result = $sphinx->Query($wo, 'name'.$GLOBALS['CONFIG']['search_index_prefix']);
 							}
-							var_dump($result);
 						}
 						$words = explode(' ', $query);
 						if(!isset($result['total']) || $result['total'] == 0){

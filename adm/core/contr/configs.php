@@ -2,8 +2,7 @@
 	if (!_acl::isAllow('configs'))
 		die("Access denied");
 
-	$ObjName = "Config";
-	$$ObjName = new Config();
+	$Config = new Config();
 
 	// ---- center ----
 	unset($parsed_res);
@@ -13,12 +12,12 @@
 	$tpl->Assign('h1', $GLOBALS['IERA_LINKS'][$ii]['title']);
 
 	if(isset($_POST['smb']) && isset($_POST['ord'])){
-		$$ObjName->Reorder($_POST);
+		$Config->Reorder($_POST);
 		$tpl->Assign('msg', 'Сортировка выполнена успешно.');
 	}
 
-	if($$ObjName->SetList()){
-		$tpl->Assign('list', $$ObjName->list);
+	if($Config->SetList()){
+		$tpl->Assign('list', $Config->list);
 	}
 
 	$parsed_res = array('issuccess' => TRUE,

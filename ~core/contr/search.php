@@ -10,7 +10,6 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'url' => Link::Custom('search')
 );
-
 // Настройка панели действий ===============================
 $list_controls = array('layout', 'sorting');
 $tpl->Assign('list_controls', $list_controls);
@@ -35,7 +34,7 @@ if(isset($_POST['query']) && !isset($_GET['query']) && $_POST['query'] != ''){
 	$query = trim($query);
 }
 G::metaTags(array('page_title' => $header.' по запросу "'.isset($query).'"'));
-$tpl->Assign('header', $header.' по запросу "'.isset($query).'"');
+$tpl->Assign('header', (isset($query)?'&laquo;<b>'.$query.'</b>&raquo;':null));
 if(isset($_SESSION['search']['query']) && isset($query) && $query != '' && $query != $_SESSION['search']['query']){
 	$_SESSION['search']['newsearch'] = 1;
 	$_POST['dropfilters'] = 1;
@@ -58,12 +57,13 @@ if(!_acl::isAdmin()){
 	$where_arr['p.visible'] = 1;
 }
 // Категория для поиска ====================================
-if((isset($_POST['search_category']) && $_POST['search_category'] != 0) || (isset($_GET['search_category']) && $_GET['search_category'] != 0)){
-	$_SESSION['search']['search_category'] = isset($_POST['search_category'])?$_POST['search_category']:$_GET['search_category'];
-	$where_arr['customs'][] = 'cp.id_category IN (
+if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
+	$_SESSION['search']['search_category'] = (int) $_REQUEST['search_category'];
+	$where_arr['customs']['search_category'] = 'cp.id_category IN (
 		SELECT id_category
 		FROM '._DB_PREFIX_.'category c
-		WHERE c.pid = '.$_SESSION['search']['search_category'].'
+		WHERE c.id_category = '.$_SESSION['search']['search_category'].'
+		OR c.pid = '.$_SESSION['search']['search_category'].'
 		OR c.pid IN (
 			SELECT id_category
 			FROM '._DB_PREFIX_.'category c
@@ -74,50 +74,37 @@ if((isset($_POST['search_category']) && $_POST['search_category'] != 0) || (isse
 	$_SESSION['search']['search_category'] = 0;
 }
 
+	$dbtree->SetFieldsById($_SESSION['search']['search_category']);
+	$tpl->Assign('searchcat', $dbtree->fields);
+
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
-	$where_arr['customs'][] = "s.available_today = 1";
+	$where_arr['s.available_today'] = 1;
 }
 
 // Диапазон цен ============================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN_){
 	if(isset($_POST['pricefrom']) && isset($_POST['priceto'])){
-		$where_arr['customs'][] = 'price_mopt >= '.number_format(($_POST['pricefrom']), 2, ".","");
-		$where_arr['customs'][] = 'price_mopt <= '.number_format(($_POST['priceto']), 2, ".","");
+		$where_arr['customs']['price_filter'] = 'price_mopt BETWEEN '.number_format(($_POST['pricefrom']), 2, ".","").' AND '.number_format(($_POST['priceto']), 2, ".","");
 		$_SESSION['filters']['pricefrom'] = $_POST['pricefrom'];
 		$_SESSION['filters']['priceto'] = $_POST['priceto'];
 	}elseif((!isset($_POST['pricefrom']) && !isset($_POST['priceto'])) && (isset($_SESSION['filters']['pricefrom']) && isset($_SESSION['filters']['priceto']))){
-		$where_arr['customs'][] = 'price_mopt >= '.number_format(($_SESSION['filters']['pricefrom']), 2, ".","");
-		$where_arr['customs'][] = 'price_mopt <= '.number_format(($_SESSION['filters']['priceto']), 2, ".","");
+		$where_arr['customs']['price_filter'] = 'price_mopt BETWEEN '.number_format(($_SESSION['filters']['pricefrom']), 2, ".","").' AND '.number_format(($_SESSION['filters']['priceto']), 2, ".","");
 	}
 }
 
 // Сортировка ==============================================
-if(!isset($sorting)){
-	$sorting = array('value' => 'popularity DESC');
-	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
-}else{
-	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
+if(isset($GLOBALS['Sort'])){
+	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
 }
-if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-	$available_sorting_values = array(
-		'popularity desc' => 'популярные',
-		'create_date desc' => 'новые сверху',
-		'price_opt asc' => 'от дешевых к дорогим',
-		'price_opt desc' => 'от дорогих к дешевым',
-		'name asc' => 'по названию от А до Я',
-		'name desc' => 'по названию от Я до А',
-	);
-}else{
-	$available_sorting_values = array(
-		'popularity desc' => 'популярные',
-		'create_date desc' => 'новые сверху',
-		'price_opt asc' => 'от дешевых к дорогим',
-		'price_opt desc' => 'от дорогих к дешевым',
-		'name asc' => 'по названию от А до Я',
-		'name desc' => 'по названию от Я до А',
-	);
-}
-$tpl->Assign('sorting', $sorting);
+$available_sorting_values = array(
+	'popularity desc' => 'популярные',
+	'create_date desc' => 'новые сверху',
+	'price_opt asc' => 'от дешевых к дорогим',
+	'price_opt desc' => 'от дорогих к дешевым',
+	'name asc' => 'по названию от А до Я',
+	'name desc' => 'по названию от Я до А',
+);
+$tpl->Assign('sorting', $GLOBALS['Sort']);
 $tpl->Assign('available_sorting_values', $available_sorting_values);
 if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 	$orderby = $_SESSION['filters']['orderby'];
@@ -127,33 +114,33 @@ if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby']
 // Отобрать ХИТЫ или НОВИНКИ ===============================
 if(isset($_POST['hit'])){
 	if($_POST['hit'] == 'enabled' && !isset($_SESSION['filters']['new'])){
-		$where_arr['customs'][] = 'prod_status = 2';
+		$where_arr['prod_status'] = 2;
 		$_SESSION['filters']['hit'] = 1;
 	}elseif($_POST['hit'] == 'enabled' && isset($_SESSION['filters']['new'])){
-		$where_arr['customs'][] = 'prod_status IN (2, 3)';
+		$where_arr['prod_status'] = [2, 3];
 		$_SESSION['filters']['hit'] = 1;
 	}elseif($_POST['hit'] == 'disabled'){
 		unset($_SESSION['filters']['hit']);
 	}
 }elseif(!isset($_POST['hit']) && isset($_SESSION['filters']['hit']) && !isset($_SESSION['filters']['new'])){
-	$where_arr['customs'][] = 'prod_status = 2';
+	$where_arr['prod_status'] = 2;
 }elseif(!isset($_POST['hit']) && isset($_SESSION['filters']['hit']) && isset($_SESSION['filters']['new'])){
-	$where_arr['customs'][] = 'prod_status IN (2, 3)';
+	$where_arr['prod_status'] = [2, 3];
 }
 if(isset($_POST['new'])){
 	if($_POST['new'] == 'enabled' && !isset($_SESSION['filters']['hit'])){
-		$where_arr['customs'][] = 'prod_status = 3';
+		$where_arr['prod_status'] = 3;
 		$_SESSION['filters']['new'] = 1;
 	}elseif($_POST['new'] == 'enabled' && isset($_SESSION['filters']['hit'])){
-		$where_arr['customs'][] = 'prod_status IN (2, 3)';
+		$where_arr['prod_status'] = [2, 3];
 		$_SESSION['filters']['new'] = 1;
 	}elseif($_POST['new'] == 'disabled'){
 		unset($_SESSION['filters']['new']);
 	}
 }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && !isset($_SESSION['filters']['hit'])){
-	$where_arr['customs'][] = 'prod_status = 3';
+	$where_arr['prod_status'] = 3;
 }elseif(!isset($_POST['new']) && isset($_SESSION['filters']['new']) && isset($_SESSION['filters']['hit'])){
-	$where_arr['customs'][] = 'prod_status IN (2, 3)';
+	$where_arr['prod_status'] = [2, 3];
 }
 // Поиск MySQL =============================================
 $gid = 0;
@@ -181,7 +168,6 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 			$rel_order = ", MATCH (p.name, p.name_index, p.art) AGAINST ('".$combined_query."') AS rel";
 		}
 	}
-
 
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
@@ -377,10 +363,10 @@ if(!empty($Products->list)){
 	}
 }
 $tpl->Assign('list', isset($Products->list)?$Products->list:false);
-if($cnt > 30){
-	$list_categories = $Products->SetCategories4Search($where_arr);
-	$tpl->Assign('list_categories', isset($list_categories)?$list_categories:array());
-}
+unset($where_arr['customs']['search_category']);
+$list_categories = $Products->SetCategories4Search($where_arr);
+$tpl->Assign('list_categories', $list_categories);
+
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Общий код ===============================================
@@ -400,7 +386,6 @@ if(((!isset($_POST['pricefrom']) && !isset($_POST['priceto']) && !isset($_SESSIO
 	$_SESSION['filters']['pricefrom'] = $_SESSION['filters']['minprice'];
 	$_SESSION['filters']['priceto'] = $_SESSION['filters']['maxprice'];
 }
-$tpl->Assign('header', $GLOBALS['IERA_LINKS'][1]['title']);
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 	$_SESSION['price_mode'] = 3;
 	$parsed_res = array(

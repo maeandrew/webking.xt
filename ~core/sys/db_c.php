@@ -324,9 +324,13 @@ class mysqlPDO {
 		if(is_array($and) && !empty($and)){
 			$where = ' WHERE ';
 			foreach($and as $k=>$v){
-				if(is_array($v)){
+				if($k === 'customs'){
+					if(!empty($v)){
+						$where_a[] = implode(' AND ', $v);
+					}
+				}elseif(is_array($v)){
 					$where_a[] = $k.' IN ('.implode(', ', $v).') ';
-				}elseif(FALSE !== stripos($v, '*')){
+				}elseif(stripos($v, '*') !== false){
 					$where_a[] = $k.' LIKE (\''.str_replace('*', '%', $v).'\')';
 				}else{
 					$where_a[] = $k.' = '.(gettype($v) == 'string'?$this->Quote($v):(gettype($v) == 'NULL'?'NULL':$v));

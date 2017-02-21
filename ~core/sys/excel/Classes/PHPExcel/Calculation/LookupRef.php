@@ -952,8 +952,6 @@ class PHPExcel_Calculation_LookupRef {
 
 		// loop on the cells
 
-//		var_dump($lookup_array);
-
 //		echo '<br>';
 
 		foreach($lookup_array as $i => $lookupArrayValue) {
@@ -968,13 +966,9 @@ class PHPExcel_Calculation_LookupRef {
 
 //				echo '$i = '.$i.' => ';
 
-//				var_dump($lookupArrayValue);
-
 //				echo '<br>';
 
 //				echo 'Keyset = ';
-
-//				var_dump($keySet);
 
 //				echo '<br>';
 
@@ -1002,13 +996,9 @@ class PHPExcel_Calculation_LookupRef {
 
 //				echo '$i = '.$i.' => ';
 
-//				var_dump($lookupArrayValue);
-
 //				echo '<br>';
 
 //				echo 'Keyset = ';
-
-//				var_dump($keySet);
 
 //				echo '<br>';
 

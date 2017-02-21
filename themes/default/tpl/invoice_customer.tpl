@@ -3,156 +3,200 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>Накладная покупателя</title>
-<style>
-	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,label,fieldset,img,input,textarea,p,blockquote,th,td {
-	margin:0; padding:0;border: 0;outline: 0;font-size: 100%;vertical-align: baseline;position: relative;}
-	:focus {outline:0}
-	html,body {height:100%}
-	body {font-family: "Trebuchet MS", Helvetica, sans-serif; font-size: 12px; color: #333;}
-	.logo{font-size: 28px; color: #00F; font-weight: bold;}
-	/*.undln{text-decoration:underline;}*/
-	/*.lb{border-left:1px dashed #000;padding-left:5px;}*/
-	.table_header {width:800px;padding: 10px;padding-bottom: 0px;}
-	.table_header .top td {padding-top: 10px;font-size:14px;}
-	.table_header .first_col {width: 90px;}
-	.table_header .second_col {width: 325px;font-weight: bold;}
-	/*.table_header .top span.invoice {margin-left:20px;font-size:18px;text-decoration:underline;}*/
-	.table_header .top span.invoice {font-size:18px;font-weight: bold;}
-	.bl{border-left:1px solid #000;}
-	.br{border-right:1px solid #000;}
-	.bt{border-top:1px solid #000;}
-	.bb{border-bottom:1px solid #000 !important;}
-	.blf{border-left:1px solid #FFF !important;}
-	.brf{border-right:1px solid #FFF !important;}
-	.bbf{border-bottom:1px solid #FFF !important;}
-	/*.table_main{margin:10px 0 0 1px;}*/
-	.table_main{padding: 10px;}
-	.table_main td{padding:1px 1px 0;font-size:12px; text-align:center; border-right:1px #000 solid;border-bottom:1px #000 solid;vertical-align: middle;}
-	.table_main td.name{padding:1px;padding-left: 5px;padding-right: 5px;font-size:12px; text-align:left; border-right:1px #000 solid;border-bottom:1px #000 solid;}
-	.table_main .hdr td{font-weight: bold;padding: 1px;}
-	.table_main .main td{height:50px;}
-	.table_main .main td.img{width:56px;}
-	.table_sum{margin:10px 0 0 1px;}
-	.table_sum td{padding:1px 1px 0;font-size:12px; text-align:center; vertical-align: middle;}
-	.table_sum td.name{padding:1px;font-size:12px; text-align:left;}
-	tr.min td{height: 1px; font-size: 1px;line-height: 1px;margin: 0px;padding: 0px;}
-	.adate{font-size: 11px;margin-left: 177px;}
-	.note_red{color:Red;font-size: 11px; font-weight:normal;}
-	.stamp {
-		position: absolute;
-		width: 40%;
-		top: -50px;
-		right: 40%;
-		-webkit-transform: rotate(-20deg);
-		-ms-transform: rotate(-20deg);
-		-o-transform: rotate(-20deg);
-		transform: rotate(-20deg);
-	}
-	.spacer {
-		height: 1em;
-	}
-	.hidden {
-		display: none;
-	}
-</style>
+	<style>
+		body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6,
+		pre, form, label, fieldset, img, input, textarea, p,
+		blockquote, th, td {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			outline: 0;
+			font-size: 100%;
+			vertical-align: baseline;
+			position: relative;
+		}
+		body.invoice {
+			font-family: "Roboto", Helvetica, sans-serif;
+			font-size: 12px;
+			color: #333;
+		}
+		.invoice .table {
+			margin: 0 auto;
+		}
+		.invoice .header * {
+			line-height: 30px;
+		}
+		.invoice .header .logo {
+			display: inline-block;
+			height: 30px;
+			width: auto;
+			vertical-align: top;
+			margin-right: 15px;
+		}
+		.invoice .header .title {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.invoice .header .site {
+			font-size: 36px;
+			text-align: right;
+			float: right;
+			font-weight: bold;
+		}
+		.invoice .undln {
+			text-decoration: underline;
+		}
+		.invoice .table_header {
+			width: 800px;
+			padding: 10px;
+			padding-bottom: 0px;
+		}
+		.invoice .table_header .top td {
+			padding-top: 15px;
+			font-size: 14px;
+		}
+		.invoice .table_header .first_col {
+			width: 90px;
+		}
+		.invoice .table_header .second_col {
+			width: 325px;
+			font-weight: bold;
+		}
+		/*.table_header .top span.invoice {margin-left:20px;font-size:18px;text-decoration:underline;}*/
+
+		.invoice .table_header .top .title {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.invoice .bl {
+			border-left: 1px solid #000;
+		}
+		.invoice .br {
+			border-right: 1px solid #000;
+		}
+		.invoice .bt {
+			border-top: 1px solid #000;
+		}
+		.invoice .bb {
+			border-bottom: 1px solid #000 !important;
+		}
+		.invoice .blf {
+			border-left: 1px solid #FFF !important;
+		}
+		.invoice .brf {
+			border-right: 1px solid #FFF !important;
+		}
+		.invoice .bbf {
+			border-bottom: 1px solid #FFF !important;
+		}
+		/*.table_main{margin:10px 0 0 1px;}*/
+
+		.invoice .table_main {
+			padding: 10px;
+		}
+		.invoice .table_main td {
+			padding: 1px 1px 0;
+			font-size: 12px;
+			text-align: center;
+			border-right: 1px #000 solid;
+			border-bottom: 1px #000 solid;
+			vertical-align: middle;
+		}
+		.invoice .table_main td.name {
+			padding: 1px;
+			padding-left: 5px;
+			padding-right: 5px;
+			font-size: 12px;
+			text-align: left;
+			border-right: 1px #000 solid;
+			border-bottom: 1px #000 solid;
+		}
+		.invoice .table_main .hdr td {
+			font-weight: bold;
+			padding: 1px;
+		}
+		.invoice .table_main .main td {
+			height: 50px;
+		}
+		.invoice .table_main .main td.img {
+			width: 56px;
+		}
+		.invoice .table_sum {
+			margin: 10px 0 0 1px;
+		}
+		.invoice .table_sum td {
+			padding: 1px 1px 0;
+			font-size: 12px;
+			text-align: center;
+			vertical-align: middle;
+		}
+		.invoice .table_sum td.name {
+			padding: 1px;
+			font-size: 12px;
+			text-align: left;
+		}
+		.invoice tr.min td {
+			height: 1px;
+			font-size: 1px;
+			line-height: 1px;
+			margin: 0px;
+			padding: 0px;
+		}
+		.invoice .adate {
+			font-size: 11px;
+			margin-left: 177px;
+		}
+		.invoice .note_red {
+			color: Red;
+			font-size: 11px;
+			font-weight: normal;
+		}
+		.invoice .stamp {
+			position: absolute;
+			width: 40%;
+			top: -50px;
+			right: 40%;
+			-webkit-transform: rotate(-20deg);
+			-ms-transform: rotate(-20deg);
+			-o-transform: rotate(-20deg);
+			transform: rotate(-20deg);
+		}
+		.invoice .spacer {
+			height: 1em;
+		}
+		.invoice .hidden {
+			display: none;
+		}
+	</style>
 </head>
-<body>
+<body class="invoice">
 	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" class="table_header">
+		<colgroup>
+			<col width="50%" />
+			<col width="50%" />
+		</colgroup>
 		<tbody>
 			<tr>
-	            <td colspan="4"  valign="top" style="padding: 0 18px; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 24px; font-weight: bold; text-align: center;">
-	                <img align="none" height="52" src="https://xt.ua/themes/default/img/xt.png" style="width: 175px; height: 52px; margin: 0px;" width="175">
-	            </td>
+				<td colspan="2" class="header">
+					<img src="https://xt.ua/themes/default/img/xt.png" class="logo">
+					<span class="title">Расходная накладная № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
+					<span class="site">xt.ua</span>
+				</td>
 			</tr>
 			<tr class="top">
-				<td align="center" colspan="4">
-					<!-- <span class="logo"><?=$GLOBALS['CONFIG']['invoice_logo_text']?></span> -->
-					<span class="invoice">Счет № <?=$id_order?> от <?=date("d.m.Y",$order['creation_date'])?></span>
+				<td>
+					<span class="subtitle"><b>Отправитель:</b></span>
+					<p><?=!isset($remitter)?'Не указан':$remitter['name'].'<br>, '.$remitter['address'].', '.($remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ').'МФО '.$remitter['mfo'].', '.$remitter['bank'].', ЕГРПОУ '.$remitter['egrpou'];?></p>
+					<br>
+					<span class="subtitle"><b>Менеджер:</b></span>
+					<p><?=$contragent['name'].', '.$contragent['phone']?></p>
 				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table align="center" width="800" border="0" cellpadding="0" cellspacing="0" style="padding: 10px; ">
-		<tbody>
-			<tr>
-				<td>Получатель:</td>
-				<td style="font-weight: bold;">
-					<?=trim($Customer['last_name'].$Customer['first_name'].$Customer['middle_name']) == ''?$Customer['cont_person']:trim($Customer['last_name']).' '.trim($Customer['first_name']).' '.trim($Customer['middle_name'])?>, <?=$Customer['phone']?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<span class="undln"></span>
-				</td>
-				<td colspan="2" class="lb">
-				</td>
-			</tr>
-			<?if(!empty($address)){?>
-				<tr>
-					<td>Транспортная компания:</td>
-					<td style="font-weight: bold;">
-						<?=$address['shipping_company_title']?>
-					</td>
-				</tr>
-				<tr>
-					<td>Область:</td>
-					<td style="font-weight: bold;">
-						<?=$address['region_title']?>
-					</td>
-				</tr>
-				<tr>
-					<td>Город:</td>
-					<td style="font-weight: bold;">
-						<?=$address['city_title']?>
-					</td>
-				</tr>
-				<tr>
-					<td>Тип доставки:</td>
-					<td style="font-weight: bold;">
-						<?=$address['delivery_type_title']?>
-					</td>
-				</tr>
-				<?if($address['delivery_department'] !=''){?>
-					<tr>
-						<td>Отделение:</td>
-						<td style="font-weight: bold;">
-							<?=$address['delivery_department']?>
-						</td>
-					</tr>
-				<?}?>
-				<?if($address['address'] !=''){?>
-					<tr>
-						<td>Адрес:</td>
-						<td style="font-weight: bold;">
-							<?=$address['address']?>
-						</td>
-					</tr>
-				<?}?>
-			<?}else{?>
-				<tr>
-					<td>Адрес доставки:</td>
-					<td style="font-weight: bold;">
-						Не указан
-					</td>
-				</tr>
-			<?}?>
-			<tr>
-				<td colspan="4" class="spacer"></td>
-			</tr>
-			<tr>
-				<td>Отправитель:</td>
-				<td style="font-weight: bold;">
-					<?if(isset($remitter)){?>
-						<p><?=$remitter['name']?>, <?=$remitter['address'];?>, <?=$remitter['rs']==''?null:'Р/с '.$remitter['rs'].', ';?>МФО <?=$remitter['mfo'];?>, <?=$remitter['bank'];?>, ЕГРПОУ <?=$remitter['egrpou'];?></p>
-					<?}else{?>
-						Не указан
-					<?}?>
-				</td>
-			</tr>
-			<tr>
-				<td>Менеджер:</td>
-				<td style="font-weight: bold;">
-					<?=$Contragent['name']?>
+				<td>
+					<span class="subtitle"><b>Получатель:</b></span>
+					<p><?=$customer['last_name'].' '.$customer['first_name'].' '.$customer['middle_name'].', '.@$user['phone'];?>
+						<br>
+						<?=empty($address)?'Адрес доставки не указан':$address['region_title'].', '.$address['city_title'].', '.$address['delivery_type_title'].', '.$address['shipping_company_title'].', '.($address['id_delivery'] == 1?$address['delivery_department']:$address['address']);?>
+					</p>
 				</td>
 			</tr>
 		</tbody>

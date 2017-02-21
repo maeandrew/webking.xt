@@ -243,9 +243,9 @@ class G {
 	 * @param boolean $pAsync
 	 */
 	public static function AddJS($pName, $pAsync = false){
-		// if(SETT != 0 && strpos($pName, 'themes') > 0){
-		//	$pName = str_replace('.js', '_min.js', $pName);
-		// }
+		if(SETT != 0 && strpos($pName, 'themes') > 0){
+			$pName = str_replace('.js', '.min.js', $pName);
+		}
 		if(!in_array($pName, $GLOBALS['__JS__'])){
 			$GLOBALS['__JS__'][] = array('name'=>$pName,'async'=>$pAsync);
 		}
@@ -795,11 +795,15 @@ class G {
 			}
 			$url = str_replace('/image/', $size, $url);
 		}
-		// Если файла по данному $url не существует, получим изображение nofoto.png
-		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
-			$url = '/images/nofoto.png';
+		if(SETT == 2){
+			// Если файла по данному $url не существует, получим изображение nofoto.png
+			if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
+				$url = '/images/nofoto.png';
+			}
+			return htmlspecialchars(_base_url.$url);
+		}else{
+			return htmlspecialchars('https://xt.ua'.$url);
 		}
-		return htmlspecialchars(_base_url.$url);
 	}
 
 	/**

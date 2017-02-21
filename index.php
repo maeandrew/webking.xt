@@ -20,7 +20,9 @@ G::Start();
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/reset.css', 0);
 G::AddCSS('../plugins/mdl-select.min.css', 1);
 G::AddCSS('../plugins/owl-carousel/owl.carousel.css', 1);
-G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/fonts.css', 0);
+if(SETT == 2){
+	G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/fonts.css', 0);
+}
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/colors.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/style.css', 0);
 G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/header.css', 0);
@@ -38,7 +40,7 @@ G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
 G::AddJS('../plugins/owl-carousel/owl.carousel.min.js', false, 1);
 G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/func.js');
-G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js');
+G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/main.js?v123');
 if($GLOBALS['CurrentController'] == 'cart'){
 	G::AddJS('cart.js');
 }else{
@@ -102,15 +104,23 @@ if(isset($_COOKIE['view_products'])){
 // Обработка сортировок ====================================
 if(isset($_COOKIE['sorting'])){
 	$sort = (array)json_decode($_COOKIE['sorting'], true);
+	if(isset($sort[$GLOBALS['CurrentController']]) && $sort[$GLOBALS['CurrentController']] == 'Array'){
+		setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
+		$sort = (array)json_decode($_COOKIE['sorting'], true);
+	}
 }
 if(isset($GLOBALS['Sort'])){
-	$sort_value = $GLOBALS['Sort'];
-	$sorting    = array('value' => $sort_value);
-	setcookie('sorting', json_encode(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
+	if(is_array($GLOBALS['Sort'])){
+		$GLOBALS['Sort'] = $GLOBALS['Sort']['value'];
+	}
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $GLOBALS['Sort'])), time()+3600*24*30, '/');
 }elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
-	$sorting = $sort[$GLOBALS['CurrentController']];
+	$GLOBALS['Sort'] = $sort[$GLOBALS['CurrentController']];
+}else{
+	$GLOBALS['Sort'] = 'name asc';
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
 }
-unset($sort_value, $sort);
+unset($sort);
 // Получаем список новостей
 if($GLOBALS['CurrentController'] == 'news'){
 	if(isset($GLOBALS['Rewrite'])){
@@ -161,10 +171,11 @@ $e_time = G::getmicrotime();
 echo "<!--".date("d.m.Y H:i:s", time())." ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time-$s_time)." -->";
 unset($s_time, $e_time);
 
-// test string
-
-// вапвпа
-
+echo "<!--
+Design: Alexander Parkhomenko;
+Front-end: Alexander Riabukha, Nadezhda Kovalyova, Alexander Parkhomenko;
+Back-end: Alexander Parkhomenko;
+ -->";
 // echo memory_get_peak_usage()/pow(1000, 2);
 
 session_write_close();

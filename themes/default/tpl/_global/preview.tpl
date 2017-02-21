@@ -51,11 +51,11 @@
 				$in_cart = true;
 			}
 			$a = explode(';', $GLOBALS['CONFIG']['correction_set_'.$product['opt_correction_set']]);?>
+			<a class="product_name" href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
+			<p class="product_article">Арт: <?=$product['art']?></p>
 			<?if($product['active'] == 0){?>
 				<div class="notAval">Нет в наличии</div>
 			<?}else{?>
-				<a class="product_name" href="<?=Link::Product($product['translit']);?>"><?=G::CropString($product['name'])?></a>
-				<p class="product_article">Арт: <?=$product['art']?></p>
 				<div class="product_buy" data-idproduct="<?=$product['id_product']?>">
 					<div class="buy_block">
 						<div class="product_price">

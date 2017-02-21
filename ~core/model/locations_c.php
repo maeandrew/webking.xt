@@ -168,9 +168,8 @@ class Address {
 				$sql .= " WHERE lc.id_region = ".$region;
 			}else{
 				$sql .= " LEFT JOIN "._DB_PREFIX_."locations_regions AS lr ON lr.id = lc.id_region
-				WHERE lc.title = ".$this->db->Quote($region);
+				WHERE lr.title = ".$this->db->Quote($region);
 			}
-
 		}
 		if($limit){
 			$sql .= ' LIMIT '.$limit;
@@ -275,8 +274,6 @@ class Address {
 		$f['has_api'] = $data['has_api'];
 		$f['api_key'] = $data['api_key'];
 		$f['api_prefix'] = $data['api_prefix'];
-		// var_dump($data);
-		// die();
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'shipping_companies', $f)){
 			$this->db->FailTrans();

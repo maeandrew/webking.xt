@@ -10,7 +10,8 @@ $Products = new Products();
 ini_set('memory_limit', '400M');
 $plist = $Products->SetProductsList4csvProm();
 
-header("Content-type: application/csv; charset=utf-8");
+header('Content-Encoding: UTF-8');
+header("Content-type: application/csv; charset=UTF-8");
 header("Content-Disposition: attachment; filename=prom_ua.csv");
 header("Pragma: no-cache");
 header("Expires: 0");

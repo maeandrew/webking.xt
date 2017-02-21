@@ -1,13 +1,1 @@
-h1,h2{width:800px;margin:auto;text-align:center}
-table.table{width:800px;margin:auto}
-table.title{margin-top:15px;border-top:2px solid #8A8A8A}
-table.title:first-of-type{margin-top:0}
-table.table tr{line-height:2em}
-table.table .articul{width:50px}
-table.table .photo{width:90px;padding:5px 0}
-table.table .photo img{width:90px;vertical-align:middle}
-table.table .name{text-align:left;padding-left:20px}
-table.table .min_qty{width:60px}
-table.table .price{width:70px}
-@media print{table{page-break-inside:avoid}
-}
+h1,h2{width:800px;margin:auto;text-align:center}table.table{width:800px;margin:auto}table.title{margin-top:15px;border-top:2px solid #8a8a8a}table.title:first-of-type{margin-top:0}table.table tr{line-height:2em}table.table .articul{width:50px}table.table .photo{width:90px;padding:5px 0}table.table .photo img{width:90px;vertical-align:middle}table.table .name{text-align:left;padding-left:20px}table.table .min_qty{width:60px}table.table .price{width:70px}@media print{table{page-break-inside:avoid}}
