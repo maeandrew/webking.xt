@@ -28,7 +28,7 @@
 						<td>
 							<a href="<?=$GLOBALS['URL_base'].'adm/configedit/'.$i['id_config']?>"><?=$i['name']?></a>
 						</td>
-						<td><?=$i['caption'];?></td>
+						<td><?=htmlspecialchars($i['caption']);?></td>
 						<td class="left value"><div class="<?=strlen($i['value'])>150?'overflow':null;?>"><?=htmlspecialchars($i['value']);?></div></td>
 						<td class="center np">
 							<input type="text" name="ord[<?=$i['id_config']?>]" class="input-s" value="<?=$i['ord']?>"/>
