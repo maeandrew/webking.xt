@@ -11,15 +11,11 @@ class Seo {
 	// Проверка наличия такого url
 	//
 	public function SetFieldsByUrl($url, $all = 0){
-		$sql = '(SELECT '.implode(', ',$this->usual_fields).'
+		$sql = 'SELECT '.implode(', ',$this->usual_fields).'
 			FROM '._DB_PREFIX_.'seo_text
-			WHERE url = '.$this->db->Quote($url).')
-			UNION
-			(SELECT '.implode(', ',$this->usual_fields).'
-			FROM '._DB_PREFIX_.'seo_text
-			WHERE url LIKE '.$this->db->Quote($url.'%').')';
-		$this->list = $this->db->GetArray($sql);
-		if(!$this->list){
+			WHERE url = '.$this->db->Quote($url);
+		$this->fields = $this->db->GetOneRowArray($sql);
+		if(!$this->fields){
 			return false;
 		}
 		return true;

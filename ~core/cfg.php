@@ -184,8 +184,8 @@ require($GLOBALS['PATH_model'].'promo_c.php');
 // Получение SEO данных для адреса
 $Seo = new SEO();
 if($Seo->SetFieldsByUrl(_base_url.$_SERVER['REQUEST_URI'])){
-	if($Seo->list[0]['visible'] == 1){
-		$tpl->Assign('seotext', $Seo->list[0]);
+	if($Seo->fields['visible'] == 1){
+		$tpl->Assign('seotext', $Seo->fields);
 	}
 }
 // почтовая конфигурация
