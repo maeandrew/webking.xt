@@ -104,16 +104,23 @@ if(isset($_COOKIE['view_products'])){
 // Обработка сортировок ====================================
 if(isset($_COOKIE['sorting'])){
 	$sort = (array)json_decode($_COOKIE['sorting'], true);
+	if(isset($sort[$GLOBALS['CurrentController']]) && $sort[$GLOBALS['CurrentController']] == 'Array'){
+		setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
+		$sort = (array)json_decode($_COOKIE['sorting'], true);
 	}
-if(isset($GLOBALS['Sort'])){
-	$sort_value = $GLOBALS['Sort'];
-	$sorting    = array('value' => $sort_value);
-	setcookie('sorting', json_encode(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
-	}
-	elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
-	$sorting = $sort[$GLOBALS['CurrentController']];
 }
-unset($sort_value, $sort);
+if(isset($GLOBALS['Sort'])){
+	if(is_array($GLOBALS['Sort'])){
+		$GLOBALS['Sort'] = $GLOBALS['Sort']['value'];
+	}
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $GLOBALS['Sort'])), time()+3600*24*30, '/');
+}elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
+	$GLOBALS['Sort'] = $sort[$GLOBALS['CurrentController']];
+}else{
+	$GLOBALS['Sort'] = 'name asc';
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
+}
+unset($sort);
 // Получаем список новостей
 if($GLOBALS['CurrentController'] == 'news'){
 	if(isset($GLOBALS['Rewrite'])){
