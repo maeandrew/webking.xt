@@ -179,21 +179,40 @@ if(empty($category['subcats'])){
 		}
 	// =========================================================
 	// Сортировка ==============================================
-		if(isset($GLOBALS['Sort'])){
-			$_SESSION['filters']['orderby'] = $orderby =$GLOBALS['Sort'];
+	if(!isset($sorting)){
+			if(isset($GLOBALS['Sort'])){
+ 			$sorting = array('value' => 'popularity desc');
+ 			$_SESSION['filters']['orderby'] = $orderby =$GLOBALS['Sort'];
+ 			// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
+ 			setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
+ 		}else{
+ 			$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
 		}
-		$available_sorting_values = array(
-			'popularity desc' => 'популярные сверху',
-			'create_date desc' => 'новые сверху',
-			'price_opt asc' => 'от дешевых к дорогим',
-			'price_opt desc' => 'от дорогих к дешевым',
-			'name asc' => 'по названию от А до Я',
-			'name desc' => 'по названию от Я до А',
-		);
+		if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
+			$available_sorting_values = array(
+				'popularity desc' => 'популярные сверху',
+				'create_date desc' => 'новые сверху',
+				'price_opt asc' => 'от дешевых к дорогим',
+				'price_opt desc' => 'от дорогих к дешевым',
+				'name asc' => 'по названию от А до Я',
+				'name desc' => 'по названию от Я до А',
+			);
+		}else{
+			$available_sorting_values = array(
+				'popularity desc' => 'популярные сверху',
+				'create_date desc' => 'новые сверху',
+				'price_opt asc' => 'от дешевых к дорогим',
+				'price_opt desc' => 'от дорогих к дешевым',
+				'name asc' => 'по названию от А до Я',
+				'name desc' => 'по названию от Я до А',
+			);
+		}
+
+		$tpl->Assign('sorting', $sorting);
 		$tpl->Assign('available_sorting_values', $available_sorting_values);
 		if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 			$orderby = $_SESSION['filters']['orderby'];
-		}
+	}
 	// =========================================================
 	// Фильтры =================================================
 		//$Products->SetProductsListByFilter();
