@@ -180,7 +180,7 @@ if(empty($category['subcats'])){
 	// =========================================================
 	// Сортировка ==============================================
 	if(!isset($sorting)){
-			if(isset($GLOBALS['Sort'])){
+		if(isset($GLOBALS['Sort'])){
  			$sorting = array('value' => 'popularity desc');
  			$_SESSION['filters']['orderby'] = $orderby =$GLOBALS['Sort'];
  			// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
@@ -212,6 +212,7 @@ if(empty($category['subcats'])){
 		$tpl->Assign('available_sorting_values', $available_sorting_values);
 		if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 			$orderby = $_SESSION['filters']['orderby'];
+		}
 	}
 	// =========================================================
 	// Фильтры =================================================
