@@ -93,22 +93,43 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 }
 
 // Сортировка ==============================================
-if(isset($GLOBALS['Sort'])){
-	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
-}
-$available_sorting_values = array(
-	'popularity desc' => 'популярные',
-	'create_date desc' => 'новые сверху',
-	'price_opt asc' => 'от дешевых к дорогим',
-	'price_opt desc' => 'от дорогих к дешевым',
-	'name asc' => 'по названию от А до Я',
-	'name desc' => 'по названию от Я до А',
-);
-$tpl->Assign('sorting', $GLOBALS['Sort']);
-$tpl->Assign('available_sorting_values', $available_sorting_values);
-if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
-	$orderby = $_SESSION['filters']['orderby'];
-}
+if(!isset($sorting)){
+	if(isset($GLOBALS['Sort'])){
+ 	$sorting = array('value' => 'popularity DESC');
+ 	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
+ 	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
+ }else{
+ 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
+  }		  }
+if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
+	$available_sorting_values = array(
+ 	$available_sorting_values = array(
+ 		'popularity desc' => 'популярные',
+ 		'popularity desc' => 'популярные',
+ 		'create_date desc' => 'новые сверху',
+		'create_date desc' => 'новые сверху',
+		'price_opt asc' => 'от дешевых к дорогим',
+ 		'price_opt asc' => 'от дешевых к дорогим',
+ 		'price_opt desc' => 'от дорогих к дешевым',
+		'price_opt desc' => 'от дорогих к дешевым',
+		'name asc' => 'по названию от А до Я',
+		'name asc' => 'по названию от А до Я',
+		'name desc' => 'по названию от Я до А',
+ 		'name desc' => 'по названию от Я до А',)
+ 		);
+
+ 	$tpl->Assign('sorting', $GLOBALS['Sort']);
+ }else{
+ 	$available_sorting_values = array(
+ 		'popularity desc' => 'популярные',
+ 		'create_date desc' => 'новые сверху',
+	 	'price_opt asc' => 'от дешевых к дорогим',
+ 		'price_opt desc' => 'от дорогих к дешевым',
+ 		'name asc' => 'по названию от А до Я',
+ 		'name desc' => 'по названию от Я до А',
+ 	);
+ }
+ $tpl->Assign('sorting', $sorting);
 // =========================================================
 
 // Отобрать ХИТЫ или НОВИНКИ ===============================
