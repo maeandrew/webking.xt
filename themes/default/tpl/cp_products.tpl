@@ -1,20 +1,4 @@
 <h1><?=$header?></h1>
-<?if($GLOBALS['CurrentController'] === 'search'){?>
-	<h3>
-		<?if($_SESSION['search']['search_category'] != 0){?>
-			В категории <span class="active_search_category">"<a href="<?=Link::Category($searchcat['translit'])?>" title="Посмотреть все товары категории"><?=$searchcat['name']?></a>"</span>
-		<?}else{?>
-			Всего
-		<?}?>
-		<?if($cnt == 1 || (substr($cnt, -1) == 1 && substr($cnt, -2, 1) != 1)){?>
-			найден <b><?=$cnt?></b> товар.
-		<?}elseif(substr($cnt, -1) == 2 || substr($cnt, -1) == 3 || substr($cnt, -1) == 4 && substr($cnt, -2, 1) != 1){?>
-			найдено <b><?=$cnt?></b> товара.
-		<?}else{?>
-			найдено <b><?=$cnt?></b> товаров.
-		<?}?>
-	</h3>
-<?}?>
 <div class="products_page">
 	<!-- Отображение подкатегорий в топе списка продуктов -->
 	<?if(!empty($category['subcats'])){?>
@@ -135,8 +119,8 @@
 		</div>
 	<?}?>
 </div><!--class="products"-->
-<script>
-	// $('#owl-subcategories_slide_js').owlCarousel({
+
+	<!-- // $('#owl-subcategories_slide_js').owlCarousel({
 	// 		center:			true,
 	// 		dots:			true,
 	// 		items:			1,
@@ -147,7 +131,11 @@
 	// 			'<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 	// 			'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>'
 	// 		]
-	// });
+	// }); -->
+	<?if(isset($_COOKIE['product_view'])){?>
+			<!-- // ChangeView('<?=$_COOKIE['product_view']?>'); -->
+		<?}?>
+<script>
 	$(function(){
 		$("#view_block_js").removeClass('ajax_loading');
 
@@ -171,7 +159,7 @@
 	});
 
 </script>
-<?if($GLOBALS['CurrentController'] == 'search'){?>
+<!-- <?if($GLOBALS['CurrentController'] == 'search'){?>
 	<script>
 		$(function(){
 			// addLoadAnimation('.searchnav_js');
@@ -181,5 +169,5 @@
 			$('.searchnav_js').html(data);
 			// removeLoadAnimation('.searchnav_js');
 		});
-	</script>
-<?}?>
+	</script> -->
+<!-- <?}?> -->
