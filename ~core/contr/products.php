@@ -186,7 +186,7 @@ if(empty($category['subcats'])){
  			// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
  			setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
  		}else{
- 			$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
+ 			$_SESSION['filters']['orderby'] = $orderby = @$sorting['value'];
 		}
 		if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 			$available_sorting_values = array(
@@ -208,7 +208,7 @@ if(empty($category['subcats'])){
 			);
 		}
 
-		$tpl->Assign('sorting', $sorting);
+		$tpl->Assign('sorting', @$sorting);
 		$tpl->Assign('available_sorting_values', $available_sorting_values);
 		if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 			$orderby = $_SESSION['filters']['orderby'];

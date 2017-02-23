@@ -99,7 +99,7 @@ if(!isset($sorting)){
  	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
  	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
  }else{
- 	$_SESSION['filters']['orderby'] = $orderby = $sorting['value'];
+ 	$_SESSION['filters']['orderby'] = $orderby = @$sorting['value'];
   }		  }
 if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
 	$available_sorting_values = array(
@@ -129,7 +129,7 @@ if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPP
  		'name desc' => 'по названию от Я до А',
  	);
  }
- $tpl->Assign('sorting', $sorting);
+ $tpl->Assign('sorting', @$sorting);
 // =========================================================
 
 // Отобрать ХИТЫ или НОВИНКИ ===============================
