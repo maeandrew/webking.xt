@@ -163,7 +163,6 @@ if(empty($category['subcats'])){
 				}
 			}
 		}
-
 	// =========================================================
 	// Диапазон цен ============================================
 		if(isset($_SESSION['filters']['minprice']) && isset($_SESSION['filters']['maxprice'])){
@@ -179,41 +178,21 @@ if(empty($category['subcats'])){
 		}
 	// =========================================================
 	// Сортировка ==============================================
-	if(!isset($sorting)){
 		if(isset($GLOBALS['Sort'])){
- 			$sorting = array('value' => 'popularity desc');
- 			$_SESSION['filters']['orderby'] = $orderby =$GLOBALS['Sort'];
- 			// $mc->set('sorting', array($GLOBALS['CurrentController'] => $sorting));
- 			setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $sorting)), time()+3600*24*30, '/');
- 		}else{
- 			$_SESSION['filters']['orderby'] = $orderby = @$sorting['value'];
+			$_SESSION['filters']['orderby'] = $orderby =$GLOBALS['Sort'];
 		}
-		if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-			$available_sorting_values = array(
-				'popularity desc' => 'популярные сверху',
-				'create_date desc' => 'новые сверху',
-				'price_opt asc' => 'от дешевых к дорогим',
-				'price_opt desc' => 'от дорогих к дешевым',
-				'name asc' => 'по названию от А до Я',
-				'name desc' => 'по названию от Я до А',
-			);
-		}else{
-			$available_sorting_values = array(
-				'popularity desc' => 'популярные сверху',
-				'create_date desc' => 'новые сверху',
-				'price_opt asc' => 'от дешевых к дорогим',
-				'price_opt desc' => 'от дорогих к дешевым',
-				'name asc' => 'по названию от А до Я',
-				'name desc' => 'по названию от Я до А',
-			);
-		}
-
-		$tpl->Assign('sorting', @$sorting);
+		$available_sorting_values = array(
+			'popularity desc' => 'популярные сверху',
+			'create_date desc' => 'новые сверху',
+			'price_opt asc' => 'от дешевых к дорогим',
+			'price_opt desc' => 'от дорогих к дешевым',
+			'name asc' => 'по названию от А до Я',
+			'name desc' => 'по названию от Я до А',
+		);
 		$tpl->Assign('available_sorting_values', $available_sorting_values);
 		if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
 			$orderby = $_SESSION['filters']['orderby'];
 		}
-	}
 	// =========================================================
 	// Фильтры =================================================
 		//$Products->SetProductsListByFilter();
@@ -299,7 +278,6 @@ if(empty($category['subcats'])){
 				}
 				$tpl->Assign('cnt', $cnt);
 				$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
-
 				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 				// Редирект, если выбранная страница превышает количество товаров
 				if(($cnt<=$GLOBALS['Start'] && $GLOBALS['Page_id']>1)||($cnt<=$GLOBALS['Limit_db'] && $GLOBALS['Page_id']>1)){
@@ -344,13 +322,11 @@ if(empty($category['subcats'])){
 		$tpl->Assign('list', isset($list_prod_search)?$list_prod_search:$Products->list);
 	// =========================================================
 	$tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl'));
-
 	// Вывод графика по категории
 	// $chart = $Products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
 	// $tpl->Assign('chart', $chart);
 	// $tpl->Assign('chart_html', $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl'));
 	// $tpl->Assign('chart_details', ($chart[0]['count'] < 2 || $chart[1]['count'] < 2));
-
 	// Фильтр на странице списка товаров=================================
 	$cnt = $i = 0;
 	$group_arr = $for_sql = $id_spec = [];

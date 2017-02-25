@@ -53,7 +53,6 @@ G::AddJS('../plugins/jquery.cookie.js', false, 1);
 G::AddJS('../plugins/maskedinput.min.js', false);
 G::AddJS('../js/html2canvas.js', true);
 G::AddJS('../plugins/masonry.pkgd.min.js', false);
-
 if($GLOBALS['CurrentController'] == 'page'){
 	G::AddJS('../themes/'.$GLOBALS['Theme'].'/js/page.js', true);
 }
@@ -104,16 +103,24 @@ if(isset($_COOKIE['view_products'])){
 // Обработка сортировок ====================================
 if(isset($_COOKIE['sorting'])){
 	$sort = (array)json_decode($_COOKIE['sorting'], true);
+	if(isset($sort[$GLOBALS['CurrentController']]) && $sort[$GLOBALS['CurrentController']] == 'Array'){
+		setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
+		$sort = (array)json_decode($_COOKIE['sorting'], true);
+	}
 }
 if(isset($GLOBALS['Sort'])){
-	$sort_value = $GLOBALS['Sort'];
-	$sorting    = array('value' => $sort_value);
-	setcookie('sorting', json_encode(array($GLOBALS['CurrentController']=> $sorting)), time()+3600*24*30, '/');
+	if(is_array($GLOBALS['Sort'])){
+		$GLOBALS['Sort'] = $GLOBALS['Sort']['value'];
+	}
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $GLOBALS['Sort'])), time()+3600*24*30, '/');
 }elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
-	$sorting = $sort[$GLOBALS['CurrentController']];
+	$GLOBALS['Sort'] = $sort[$GLOBALS['CurrentController']];
+}else{
+	$GLOBALS['Sort'] = 'name asc';
+	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
 }
-unset($sort_value, $sort);
-// Получаем список новостей
+unset($sort);
+// Получаем список новостей=================================
 if($GLOBALS['CurrentController'] == 'news'){
 	if(isset($GLOBALS['Rewrite'])){
 		$tpl->Assign('news', $News->GetNews(4, true));
@@ -121,7 +128,7 @@ if($GLOBALS['CurrentController'] == 'news'){
 }else{
 	$tpl->Assign('news', $News->GetNews(4));
 }
-// Создание базового массива корзины
+// Создание базового массива корзины=======================
 if(G::IsLogged() && !_acl::isAdmin()){
 	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();
 	$Users->SetUserAdditionalInfo($_SESSION['member']['id_user']);
@@ -147,7 +154,6 @@ $tpl->Assign('__nav', $GLOBALS['__nav']);
 $tpl->Assign('__header', $GLOBALS['__header']);
 $tpl->Assign('__breadcrumbs', $GLOBALS['__breadcrumbs']);
 $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);
-
 if(isset($GLOBALS['__graph'])){
 	$tpl->Assign('__graph',  $GLOBALS['__graph']);
 }
@@ -162,12 +168,10 @@ echo $tpl->Parse($GLOBALS['PATH_tpl_global'].$GLOBALS['MainTemplate']);
 $e_time = G::getmicrotime();
 echo "<!--".date("d.m.Y H:i:s", time())." ".$_SERVER['REMOTE_ADDR']." gentime = ".($e_time-$s_time)." -->";
 unset($s_time, $e_time);
-
 echo "<!--
 Design: Alexander Parkhomenko;
 Front-end: Alexander Riabukha, Nadezhda Kovalyova, Alexander Parkhomenko;
 Back-end: Alexander Parkhomenko;
  -->";
 // echo memory_get_peak_usage()/pow(1000, 2);
-
 session_write_close();

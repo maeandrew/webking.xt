@@ -14,7 +14,6 @@ $GLOBALS['IERA_LINKS'][] = array(
 $list_controls = array('layout', 'sorting');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
-
 if(isset($_SERVER['HTTP_REFERER'])){
 	$referer = explode('/',str_replace('http://', '', $_SERVER['HTTP_REFERER']));
 	if($referer[1] != 'search'){
@@ -73,14 +72,11 @@ if(isset($_REQUEST['search_category']) && $_REQUEST['search_category'] != 0){
 }else{
 	$_SESSION['search']['search_category'] = 0;
 }
-
 	$dbtree->SetFieldsById($_SESSION['search']['search_category']);
 	$tpl->Assign('searchcat', $dbtree->fields);
-
 if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_TERMINAL_ && isset($_COOKIE['available_today']) && $_COOKIE['available_today'] == 1){
 	$where_arr['s.available_today'] = 1;
 }
-
 // Диапазон цен ============================================
 if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN_){
 	if(isset($_POST['pricefrom']) && isset($_POST['priceto'])){
@@ -91,47 +87,24 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 		$where_arr['customs']['price_filter'] = 'price_mopt BETWEEN '.number_format(($_SESSION['filters']['pricefrom']), 2, ".","").' AND '.number_format(($_SESSION['filters']['priceto']), 2, ".","");
 	}
 }
-
 // Сортировка ==============================================
-if(!isset($sorting)){
-	if(isset($GLOBALS['Sort'])){
- 	$sorting = array('value' => 'popularity DESC');
- 	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
- 	setcookie('sorting', json_encode(array('products' => $sorting)), time()+3600*24*30, '/');
- }else{
- 	$_SESSION['filters']['orderby'] = $orderby = @$sorting['value'];
-  }		  }
-if(isset($_SESSION['member']['gid']) && ($_SESSION['member']['gid'] == _ACL_SUPPLIER_ || $_SESSION['member']['gid'] == _ACL_ADMIN_)){
-	$available_sorting_values = array(
- 	$available_sorting_values = array(
- 		'popularity desc' => 'популярные',
- 		'popularity desc' => 'популярные',
- 		'create_date desc' => 'новые сверху',
-		'create_date desc' => 'новые сверху',
-		'price_opt asc' => 'от дешевых к дорогим',
- 		'price_opt asc' => 'от дешевых к дорогим',
- 		'price_opt desc' => 'от дорогих к дешевым',
-		'price_opt desc' => 'от дорогих к дешевым',
-		'name asc' => 'по названию от А до Я',
-		'name asc' => 'по названию от А до Я',
-		'name desc' => 'по названию от Я до А',
- 		'name desc' => 'по названию от Я до А',)
- 		);
-
- 	$tpl->Assign('sorting', $GLOBALS['Sort']);
- }else{
- 	$available_sorting_values = array(
- 		'popularity desc' => 'популярные',
- 		'create_date desc' => 'новые сверху',
-	 	'price_opt asc' => 'от дешевых к дорогим',
- 		'price_opt desc' => 'от дорогих к дешевым',
- 		'name asc' => 'по названию от А до Я',
- 		'name desc' => 'по названию от Я до А',
- 	);
- }
- $tpl->Assign('sorting', @$sorting);
+if(isset($GLOBALS['Sort'])){
+	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
+}
+$available_sorting_values = array(
+	'popularity desc' => 'популярные',
+	'create_date desc' => 'новые сверху',
+	'price_opt asc' => 'от дешевых к дорогим',
+	'price_opt desc' => 'от дорогих к дешевым',
+	'name asc' => 'по названию от А до Я',
+	'name desc' => 'по названию от Я до А',
+);
+$tpl->Assign('sorting', $GLOBALS['Sort']);
+$tpl->Assign('available_sorting_values', $available_sorting_values);
+if((!isset($orderby) || $orderby == '') && isset($_SESSION['filters']['orderby'])){
+	$orderby = $_SESSION['filters']['orderby'];
+}
 // =========================================================
-
 // Отобрать ХИТЫ или НОВИНКИ ===============================
 if(isset($_POST['hit'])){
 	if($_POST['hit'] == 'enabled' && !isset($_SESSION['filters']['new'])){
@@ -189,7 +162,6 @@ if($GLOBALS['CONFIG']['search_engine'] == 'mysql'){
 			$rel_order = ", MATCH (p.name, p.name_index, p.art) AGAINST ('".$combined_query."') AS rel";
 		}
 	}
-
 	// Пагинатор ===============================================
 	if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 		$GLOBALS['Limit_db'] = $_GET['limit'];
@@ -387,7 +359,6 @@ $tpl->Assign('list', isset($Products->list)?$Products->list:false);
 unset($where_arr['customs']['search_category']);
 $list_categories = $Products->SetCategories4Search($where_arr);
 $tpl->Assign('list_categories', $list_categories);
-
 $products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 $tpl->Assign('products_list', $products_list);
 // Общий код ===============================================
@@ -439,7 +410,6 @@ if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 		}
 	}
 	$tpl->Assign('warehouse', $prods);
-
 	$parsed_res = array(
 		'issuccess'	=> true,
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
@@ -451,11 +421,9 @@ if(isset($_SESSION['member']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_){
 		'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_products.tpl')
 	);
 }
-
 if($parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
-
 function Transliterate($word){
 	$transliterationTableRuEng = array(' ' => '', 'й' => 'q', 'ц' => 'w', 'у' => 'e', 'к' => 'r', 'е' => 't', 'н' => 'y', 'г' => 'u', 'ш' => 'i', 'щ' => 'o', 'з' => 'p', 'х' => '[', 'ъ' => ']', 'ф' => 'a', 'ы' => 's', 'в' => 'd', 'а' => 'f', 'п' => 'g', 'р' => 'h', 'о' => 'j', 'л' => 'k', 'д' => 'l', 'ж' => ';', 'э' => '', 'я' => 'z', 'ч' => 'x', 'с' => 'c', 'м' => 'v', 'и' => 'b', 'т' => 'n', 'ь' => 'm', 'б' => ',', 'ю' => '.', 'Й' => 'Q', 'Ц' => 'W', 'У' => 'E', 'К' => 'R', 'Е' => 'T', 'Н' => 'Y', 'Г' => 'U', 'Ш' => 'I', 'Щ' => 'O', 'З' => 'P', 'Х' => '{', 'Ъ' => '}', 'Ф' => 'A', 'Ы' => 'S', 'В' => 'D', 'А' => 'F', 'П' => 'G', 'Р' => 'H', 'О' => 'J', 'Л' => 'K', 'Д' => 'L', 'Ж' => ':', 'Э' => '"', 'Я' => 'Z', 'Ч' => 'X', 'С' => 'C', 'М' => 'V', 'И' => 'B', 'Т' => 'N', 'Ь' => 'M', 'Б' => '<', 'Ю' => '>');
 	$transliterationTableEngRu = array(' ' => '', 'q' => 'й', 'w' => 'ц', 'e' => 'у', 'r' => 'к', 't' => 'е', 'y' => 'н', 'u' => 'г', 'i' => 'ш', 'o' => 'щ', 'p' => 'з', '[' => 'х', ']' => 'ъ', 'a' => 'ф', 's' => 'ы', 'd' => 'в', 'f' => 'а', 'g' => 'п', 'h' => 'р', 'j' => 'о', 'k' => 'л', 'l' => 'д', ';' => 'ж', '' => 'э', 'z' => 'я', 'x' => 'ч', 'c' => 'с', 'v' => 'м', 'b' => 'и', 'n' => 'т', 'm' => 'ь', ',' => 'б', '.' => 'ю', 'Q' => 'Й', 'W' => 'Ц', 'E' => 'У', 'R' => 'К', 'T' => 'Е', 'Y' => 'Н', 'U' => 'Г', 'I' => 'Ш', 'O' => 'Щ', 'P' => 'З', '{' => 'Х', '}' => 'Ъ', 'A' => 'Ф', 'S' => 'Ы', 'D' => 'В', 'F' => 'А', 'G' => 'П', 'H' => 'Р', 'J' => 'О', 'K' => 'Л', 'L' => 'Д', ':' => 'Ж', '"' => 'Э', 'Z' => 'Я', 'X' => 'Ч', 'C' => 'С', 'V' => 'М', 'B' => 'И', 'N' => 'Т', 'M' => 'Ь', '<' => 'Б', '>' => 'Ю');
@@ -467,7 +435,6 @@ function Transliterate($word){
 	trim($transword, " ");
 	return $transword;
 }
-
 function Words2AllForms($text){
 	require_once($GLOBALS['PATH_sys'].'phpmorphy/src/common.php');
 	// set some options
@@ -502,7 +469,6 @@ function Words2AllForms($text){
 	}
 	return $morphy->getAllForms($bulk_words);
 }
-
 function Words2BaseForm($text){
 	require_once(dirname(__FILE__).'/../sys/phpmorphy/src/common.php');
 	// set some options
@@ -541,7 +507,6 @@ function Words2BaseForm($text){
 	$words = join(' ', array_keys($fullList));
 	return $words;
 }
-
 function r_implode( $glue, $pieces ){
 	foreach( $pieces as $r_pieces ){
 		if( is_array( $r_pieces ) ){
