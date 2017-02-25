@@ -6,23 +6,24 @@
 	if(isset($cart['id_order'])){
 		if($_GET['type'] == 'order'){?>
 			<script>
-				dataLayer = [{
-    				'transactionId': '<?=$cart['id_order']?>',  // Transaction ID. Required.
-    				'transactionAffiliation': '<?=$GLOBALS["CONFIG"]["invoice_logo_text"]?>', // Affiliation or store name.
-    				'transactionProducts': [
-						    				<?foreach($cart['products'] as $p){?>
-												{
-													'name': '<?=str_replace("'", '"', $p['name'])?>',			// Product name. Required.
-													'sku': '<?=$p['art']?>',									// SKU/code.
-													'category': '<?=$p['id_category']?>',						// Category or variation.
-													'price': '<?=$p['site_price_opt']?>',						// Unit price.
-													'quantity': '<?=$p['order_opt_qty']+$p['order_mopt_qty']?>'	// Quantity.
-												};
-											<?}?>
-						    				]
-				}];
+				ga('ecommerce:addTransaction', {
+					id: '<?=$cart['id_order'];?>',									// Transaction ID. Required.
+					affiliation: '<?=$GLOBALS['CONFIG']['invoice_logo_text']?>',	// Affiliation or store name.
+					revenue: '<?=$cart['sum_discount']?>'							// Grand Total.
+				});
 			</script>
-
+			<?foreach($cart['products'] as $p){?>
+				<script>
+					ga('ecommerce:addItem', {
+						'id': '<?=$cart['id_order']?>',								// Transaction ID. Required.
+						'name': '<?=str_replace("'", '"', $p['name'])?>',			// Product name. Required.
+						'sku': '<?=$p['art']?>',									// SKU/code.
+						'category': '<?=$p['id_category']?>',						// Category or variation.
+						'price': '<?=$p['site_price_opt']?>',						// Unit price.
+						'quantity': '<?=$p['order_opt_qty']+$p['order_mopt_qty']?>'	// Quantity.
+					});
+				</script>
+			<?}?>
 			<?if($p['order_opt_qty'] > 0){?>
 				<!-- <script>
 					ga('ecommerce:addItem', {
@@ -47,7 +48,7 @@
 					});
 				</script> -->
 			<?}?>
-			<script>ga('ecommerce:send');</script> -->
+			<!-- <script>ga('ecommerce:send');</script> -->
 		<?}?>
 		<div class="success_order">
 			<?if($_GET['type'] == 'draft'){?>
