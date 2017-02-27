@@ -13,6 +13,7 @@ class Seo {
 		$sql = 'SELECT '.implode(', ',$this->usual_fields).'
 			FROM '._DB_PREFIX_.'seo_text
 			WHERE url = '.$this->db->Quote($url);
+				$sql=substr_replace($sql, "'", strpos($sql, "/sort"));
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
