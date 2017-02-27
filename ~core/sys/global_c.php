@@ -642,7 +642,7 @@ class G {
 				$sql = "SELECT CONCAT('<url><loc>"._base_url."/page/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."page WHERE indexation = 1 AND visible = 1 AND sid = 1;";
 				break;
 			case 'categories':
-				$sql = "SELECT CONCAT('<url><loc>"._base_url."/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
+				$sql = "SELECT CONCAT('<url><loc>"._base_url."/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '</loc></url>') AS url FROM "._DB_PREFIX_."category WHERE indexation = 1 AND visible = 1 AND sid = 1";
 				break;
 			case 'news':
 				$sql = "SELECT CONCAT('<url><loc>"._base_url."/news/', REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(translit, '&', '&amp;'), '\'', '&apos;'), '\"', '&quot;'), '<', '&gt;'), '>', '&lt;'), '/</loc></url>') AS url FROM "._DB_PREFIX_."news WHERE indexation = 1 AND visible = 1 AND sid = 1";
