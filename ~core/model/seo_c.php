@@ -13,6 +13,7 @@ class Seo {
 		$sql = 'SELECT '.implode(', ',$this->usual_fields).'
 			FROM '._DB_PREFIX_.'seo_text
 			WHERE url = '.$this->db->Quote($url);
+		if(strpos($sql, "/sort") == true){
 			$sql=substr_replace($sql, "'", strpos($sql, "/sort"));
 			}
 		if(substr($url, -1) == '/'){
