@@ -88,17 +88,27 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					<?}else{?>
 						<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 							<div class="buy_block">
-								<div class="base_price <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-									<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
-										<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
-									<?}else{?>
-										<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+								<div class="price_wrap">
+									<div class="price_cont price_flex">
+										<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+											<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
+										</div>
+										<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
+									</div>
+									<?if (isset($product_mark) && $product_mark === 'action') {?>
+										<div class="base_price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null;?>">
+											<div class="base_price">
+												<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
+													<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+												<?}else{?>
+													<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+												<?}?>
+											</div>
+										</div>
 									<?}?>
-								</div>
-								<div class="product_price">
-									<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
+									<!-- <span> грн.</span> -->
 									<i id="price_help_<?=$item['id_product'];?>" class="material-icons price_help price_help_js btn_js" data-name="price_details">&#xE8FD;</i>
-								<div class="mdl-tooltip" for="price_help_<?=$item['id_product'];?>">Подробнее о цене</div>
+									<div class="mdl-tooltip" for="price_help_<?=$item['id_product'];?>">Подробнее о цене</div>
 								</div>
 								<div class="prodBasePrices hidden">
 									<?for($i = 0; $i < 4; $i++){?>
@@ -406,15 +416,24 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 				<?}else{?>
 					<div class="product_buy" data-idproduct="<?=$item['id_product']?>">
 						<div class="buy_block">
-							<div class="base_price <?=isset($product_mark) && $product_mark === 'action'?null:'hidden'?> <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-								<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])) {?>
-									<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
-								<?}else{?>
-									<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+							<div class="price_wrap">
+								<div class="price_cont price_flex">
+									<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+										<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
+									</div>
+									<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
+								</div>
+								<?if (isset($product_mark) && $product_mark === 'action') {?>
+									<div class="base_price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null;?>">
+										<div class="base_price">
+											<?if (!isset($_SESSION['cart']['products'][$item['id_product']]['quantity']) || ($_SESSION['cart']['products'][$item['id_product']]['quantity'] >= $item['inbox_qty'])){?>
+												<?=number_format($item['base_prices_opt'][$_COOKIE['sum_range']], 2, ",", "")?>
+											<?}else{?>
+												<?=number_format($item['base_prices_mopt'][$_COOKIE['sum_range']], 2, ",", "")?>
+											<?}?>
+										</div>
+									</div>
 								<?}?>
-							</div>
-							<div class="product_price">
-								<div class="price"><?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", "");?></div><span>грн.</span>
 								<i id="price_help_<?=$item['id_product'];?>" class="material-icons price_help price_help_js btn_js" data-name="price_details">&#xE8FD;</i>
 								<div class="mdl-tooltip" for="price_help_<?=$item['id_product'];?>">Подробнее о цене</div>
 							</div>

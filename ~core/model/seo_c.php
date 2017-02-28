@@ -9,6 +9,7 @@ class Seo {
 		$this->usual_fields = array('id', 'url', 'text', 'id_author', 'creation_date', 'visible');
 	}
 	// Проверка наличия такого url
+	//
 	public function SetFieldsByUrl($url, $all = 0){
 		$sql = 'SELECT '.implode(', ',$this->usual_fields).'
 			FROM '._DB_PREFIX_.'seo_text
