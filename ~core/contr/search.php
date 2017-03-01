@@ -90,6 +90,8 @@ if(isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_ADMIN
 // Сортировка ==============================================
 if(isset($GLOBALS['Sort'])){
 	$_SESSION['filters']['orderby'] = $orderby = $GLOBALS['Sort'];
+}else{
+	$GLOBALS['Sort'] = 'name asc';
 }
 $available_sorting_values = array(
 	'popularity desc' => 'популярные',

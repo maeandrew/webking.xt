@@ -115,10 +115,11 @@ if(isset($GLOBALS['Sort'])){
 	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => $GLOBALS['Sort'])), time()+3600*24*30, '/');
 }elseif(!empty($sort) && isset($sort[$GLOBALS['CurrentController']])){
 	$GLOBALS['Sort'] = $sort[$GLOBALS['CurrentController']];
-}else{
-	$GLOBALS['Sort'] = 'name asc';
-	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
 }
+// else{
+// 	$GLOBALS['Sort'] = 'name asc';
+// 	setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
+// }
 unset($sort);
 // Получаем список новостей=================================
 if($GLOBALS['CurrentController'] == 'news'){
