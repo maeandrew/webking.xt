@@ -195,10 +195,10 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity_fact">'.$o['contragent_qty'].'</td>
 					<td class="price">'.number_format($o['site_price_opt']*$settings['margin'],2,",","").'</td>
-					<td class="sum_fact">'.number_format(round($o['site_price_opt']*$settings['margin'],2)*$o['contragent_qty'],2,",","").'</td>
+					<td class="sum_fact">'.number_format($o['site_price_opt']*$settings['margin']*$o['contragent_qty'],2,",","").'</td>
 				</tr>
 			';
-			$total_sum_fact += round($o['site_price_opt']*$settings['margin'],2)*$o['contragent_qty'];
+			$total_sum_fact += number_format($o['site_price_opt']*$settings['margin']*$o['contragent_qty'],2,",","");
 			$counter++;
 		}elseif($o['contragent_qty'] <= 0 && $o['contragent_mqty'] > 0){
 			$fact_rows .= '
@@ -209,10 +209,10 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity_fact">'.$o['contragent_mqty'].'</td>
 					<td class="price">'.number_format($o['site_price_mopt']*$settings['margin'],2,",","").'</td>
-					<td class="sum_fact">'.number_format(round($o['site_price_mopt']*$settings['margin'],2)*$o['contragent_mqty'],2,",","").'</td>
+					<td class="sum_fact">'.number_format($o['site_price_mopt']*$settings['margin']*$o['contragent_mqty'],2,",","").'</td>
 				</tr>
 			';
-			$total_sum_fact += round($o['site_price_mopt']*$settings['margin'],2)*$o['contragent_mqty'];
+			$total_sum_fact += number_format(['site_price_mopt']*$settings['margin']*$o['contragent_mqty'],2,",","");
 			$counter++;
 		}elseif($o['contragent_qty'] > 0 && $o['contragent_mqty'] > 0){
 			$fact_rows .= '
@@ -224,7 +224,7 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity_fact">'.$o['contragent_qty'].'</td>
 					<td class="price">'.number_format($o['site_price_opt']*$settings['margin'],2,",","").'</td>
-					<td class="sum_fact">'.number_format(round($o['site_price_opt']*$settings['margin'],2)*$o['contragent_qty'],2,",","").'</td>
+					<td class="sum_fact">'.number_format($o['site_price_opt']*$settings['margin']*$o['contragent_qty'],2,",","").'</td>
 				</tr>
 			';
 			$counter++;
@@ -236,11 +236,11 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity_fact">'.$o['contragent_mqty'].'</td>
 					<td class="price">'.number_format($o['site_price_mopt']*$settings['margin'],2,",","").'</td>
-					<td class="sum_fact">'.number_format(round($o['site_price_mopt']*$settings['margin'],2)*$o['contragent_mqty'],2,",","").'</td>
+					<td class="sum_fact">'.number_format($o['site_price_mopt']*$settings['margin'])*$o['contragent_mqty'],2,",","").'</td>
 				</tr>
 			';
-			$total_sum_fact += round($o['site_price_opt']*$settings['margin'],2)*$o['contragent_qty'];
-			$total_sum_fact += round($o['site_price_mopt']*$settings['margin'],2)*$o['contragent_mqty'];
+			$total_sum_fact += number_format($o['site_price_opt']*$settings['margin']*$o['contragent_qty'],2,",","");
+			$total_sum_fact += number_format($o['site_price_mopt']*$settings['margin']*$o['contragent_mqty'],2,",","");
 			$counter++;
 		}
 	}else{
@@ -253,10 +253,10 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity">'.$o['opt_qty'].'</td>
 					<td class="price">'.number_format($o['site_price_opt']*$settings['margin'],2,",","").'</td>
-					<td class="sum">'.number_format(round($o['site_price_opt']*$settings['margin'],2)*$o['opt_qty'],2,",","").'</td>
+					<td class="sum">'.number_format($o['site_price_opt']*$settings['margin']*$o['opt_qty'],2,",","").'</td>
 				</tr>
 			';
-			$total_sum += $o['site_price_opt']*$settings['margin']*$o['opt_qty'];
+			$total_sum += number_format($o['site_price_opt']*$settings['margin']*$o['opt_qty'],2,",","");
 			$counter++;
 		}elseif($o['opt_qty'] <= 0 && $o['mopt_qty'] > 0){
 			$rows .= '
@@ -267,10 +267,10 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity">'.$o['mopt_qty'].'</td>
 					<td class="price">'.number_format($o['site_price_mopt']*$settings['margin'],2,",","").'</td>
-					<td class="sum">'.number_format(round($o['site_price_mopt']*$settings['margin'],2)*$o['mopt_qty'],2,",","").'</td>
+					<td class="sum">'.number_format($o['site_price_mopt']*$settings['margin']*$o['mopt_qty'],2,",","").'</td>
 				</tr>
 			';
-			$total_sum += $o['site_price_mopt']*$settings['margin']*$o['mopt_qty'];
+			$total_sum += number_format($o['site_price_mopt']*$settings['margin']*$o['mopt_qty'],2,",","");
 			$counter++;
 		}elseif($o['opt_qty'] > 0 && $o['mopt_qty'] > 0){
 			$rows .= '
@@ -281,7 +281,7 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity">'.$o['opt_qty'].'</td>
 					<td class="price">'.number_format($o['site_price_opt']*$settings['margin'],2,",","").'</td>
-					<td class="sum">'.number_format(round($o['site_price_opt']*$settings['margin'],2)*$o['opt_qty'],2,",","").'</td>
+					<td class="sum">'.number_format($o['site_price_opt']*$settings['margin']*$o['opt_qty'],2,",","").'</td>
 				</tr>
 			';
 			$counter++;
@@ -293,11 +293,11 @@ foreach($order as $o){
 					<td class="unit">'.$o['units'].'</td>
 					<td class="quantity">'.$o['mopt_qty'].'</td>
 					<td class="price">'.number_format($o['site_price_mopt']*$settings['margin'],2,",","").'</td>
-					<td class="sum">'.number_format(round($o['site_price_mopt']*$settings['margin'],2)*$o['mopt_qty'],2,",","").'</td>
+					<td class="sum">'.number_format($o['site_price_mopt']*$settings['margin']*$o['mopt_qty'],2,",","").'</td>
 				</tr>
 			';
-			$total_sum += round($o['site_price_opt']*$settings['margin'],2)*$o['opt_qty'];
-			$total_sum += round($o['site_price_mopt']*$settings['margin'],2)*$o['mopt_qty'];
+			$total_sum += number_format($o['site_price_opt']*$settings['margin']*$o['opt_qty'],2,",","");
+			$total_sum += number_format($o['site_price_mopt']*$settings['margin']*$o['mopt_qty'],2,",","");
 			$counter++;
 		}
 	}
