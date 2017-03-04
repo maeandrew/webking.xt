@@ -5,6 +5,13 @@
 	<meta name="google-site-verification" content="3TtJwZYHqpBeSk9JqH1-4dl7gu8ZQSJeIVWRHl80Pxw" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title><?=$__page_title?$__page_title:null;?></title>
+<!-- Google Tag Manager -->
+			<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-K3K894F');</script>
+<!-- End Google Tag Manager -->
 	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
 	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
@@ -150,14 +157,25 @@
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?> <?=$GLOBALS['CurrentController'] == 'product'?' for_product_page':null?>">
 	<!-- Google Tag Manager -->
+	<script>   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	       ga('create', 'UA-73885939-1', 'xt.ua');
+	       ga('require', 'displayfeatures');
+	       ga('send', 'pageview');
+	       ga('require', 'ecommerce', 'ecommerce.js');
+	</script>
 	<?if(SETT != 0){?>
-		<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K9CXG3"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K3K894F"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Google Tag Manager -->
+	<!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-K9CXG3');</script>
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-K3K894F');</script> -->
+<!-- End Google Tag Manager -->
+<!-- End Google Tag Manager (noscript) -->
 	<?}?>
 	<!-- End Google Tag Manager -->
 	<!-- Yandex.Metrika counter -->
