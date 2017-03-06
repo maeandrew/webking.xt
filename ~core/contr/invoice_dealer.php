@@ -3,7 +3,6 @@ unset($parsed_res);
 require($GLOBALS['PATH_model'].'invoice_c.php');
 $GLOBALS['__page_title'] = $GLOBALS['__page_description'] = $GLOBALS['__page_keywords'] = 'Накладная';
 
-$Customers = new Customers();
 $Invoice = new Invoice();
 $Orders = new Orders();
 $Address = new Address();
