@@ -3,10 +3,12 @@ unset($parsed_res);
 require($GLOBALS['PATH_model'].'invoice_c.php');
 $GLOBALS['__page_title'] = $GLOBALS['__page_description'] = $GLOBALS['__page_keywords'] = 'Накладная';
 
+$Customers = new Customers();
 $Invoice = new Invoice();
 $Orders = new Orders();
 $Address = new Address();
 $percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
+
 if(isset($_REQUEST['orders'])){
 	$orders = array();
 	foreach($_REQUEST['orders'] as $id_order){
