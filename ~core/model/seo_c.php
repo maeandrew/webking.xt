@@ -14,6 +14,12 @@ class Seo {
 		$sql = 'SELECT '.implode(', ',$this->usual_fields).'
 			FROM '._DB_PREFIX_.'seo_text
 			WHERE url = '.$this->db->Quote($url);
+		// if(strpos($sql, "/sort") == true){
+		// 	$sql=substr_replace($sql, "'", strpos($sql, "/sort"));
+		// 	}
+		// if(substr($url, -1) == '/'){
+		// 	$sql=substr_replace($sql, substr($url, 0, strlen($url)-1)."'", strpos($sql, $url));
+		// 	}
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;

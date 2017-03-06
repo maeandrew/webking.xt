@@ -130,23 +130,25 @@
 					<h2>Накладная №<?=$id_order?> от <?=date('d.m.Y');?></h2>
 					<div class="details">
 						<div class="left">
-							<p>Получатель:</p>
-							<dl>
-								<dt>ФИО</dt>
-								<dd><?=$order['customer']['last_name']?> <?=$order['customer']['first_name']?> <?=$order['customer']['middle_name']?></dd>
-								<dt>Телефон</dt>
-								<dd><?=$order['customer']['phones']?></dd>
+                            <p>Получатель:</p>
+                            <dl>
+                                <dt>ФИО</dt>
+                                <dd><?=$order['customer']['last_name']?> <?=$order['customer']['first_name']?> <?=$order['customer']['middle_name']?></dd>
+                                <dt>Телефон</dt>
+                                <dd><?=$order['customer']['phones']?></dd>
 
-								<dt>Адрес доставки</dt>
-								<dd><?=$order['address']['region_title']?>, <?=$order['address']['city_title']?>, <?=$order['address']['delivery_type_title']?>, <?=$order['address']['shipping_company_title']?>, <?=$order['address']['delivery_department']?></dd>
-							</dl>
+                                <dt>Адрес доставки</dt>
+                                <dd><?=$order['address']['region_title']?>, <?=$order['address']['city_title']?>, <?=$order['address']['delivery_type_title']?>, <?=$order['address']['shipping_company_title']?>, <?=$order['address']['delivery_department']?></dd>
+                            </dl>
 						</div>
 						<div class="right">
-							<p>Отправитель:</p>
-							<dl>
-								<dt>Дилер</dt>
-								<dd class="lorem">Данные о дилере</dd>
-							</dl>
+                            <p>Отправитель:</p>
+                            <dl>
+                                <dt>Имя</dt>
+                                <dd class="lorem"><?=$dealer_info['cont_person']; ?></dd>
+                                <dt>Телефон</dt>
+                                <dd><?=$dealer_info['phones']; ?></dd>
+                            </dl>
 						</div>
 					</div>
 					<table>

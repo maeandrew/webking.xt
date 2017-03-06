@@ -163,7 +163,6 @@ if(empty($category['subcats'])){
 				}
 			}
 		}
-
 	// =========================================================
 	// Диапазон цен ============================================
 		if(isset($_SESSION['filters']['minprice']) && isset($_SESSION['filters']['maxprice'])){
@@ -279,7 +278,6 @@ if(empty($category['subcats'])){
 				}
 				$tpl->Assign('cnt', $cnt);
 				$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
-
 				$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 				// Редирект, если выбранная страница превышает количество товаров
 				if(($cnt<=$GLOBALS['Start'] && $GLOBALS['Page_id']>1)||($cnt<=$GLOBALS['Limit_db'] && $GLOBALS['Page_id']>1)){
@@ -324,13 +322,11 @@ if(empty($category['subcats'])){
 		$tpl->Assign('list', isset($list_prod_search)?$list_prod_search:$Products->list);
 	// =========================================================
 	$tpl->Assign('products_list', $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl'));
-
 	// Вывод графика по категории
 	// $chart = $Products->AvgDemandChartCategory($GLOBALS['CURRENT_ID_CATEGORY']);
 	// $tpl->Assign('chart', $chart);
 	// $tpl->Assign('chart_html', $tpl->Parse($GLOBALS['PATH_tpl_global'].'charts.tpl'));
 	// $tpl->Assign('chart_details', ($chart[0]['count'] < 2 || $chart[1]['count'] < 2));
-
 	// Фильтр на странице списка товаров=================================
 	$cnt = $i = 0;
 	$group_arr = $for_sql = $id_spec = [];

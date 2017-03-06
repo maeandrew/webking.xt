@@ -198,7 +198,7 @@
 				</td>
 				<td>
 					<span class="subtitle"><b>Получатель:</b></span>
-					<p><?=$customer['last_name'].' '.$customer['first_name'].' '.$customer['middle_name'].', '.$user['phone'];?>
+					<p><?=(($customer['last_name'] && $customer['first_name'] && $customer['middle_name']) != false)? ($customer['last_name'].' '.$customer['first_name'].' '.$customer['middle_name'].' , тел. '.@$user['phone']):$customer['cont_person'].' , тел. '.@$user['phone'];?>
 						<br>
 						<?=empty($address)?'Адрес доставки не указан':$address['region_title'].', '.$address['city_title'].', '.$address['delivery_type_title'].', '.$address['shipping_company_title'].', '.($address['id_delivery'] == 1?$address['delivery_department']:$address['address']);?>
 					</p>

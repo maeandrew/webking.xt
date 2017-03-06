@@ -42,11 +42,11 @@ require($GLOBALS['PATH_sys'].'images_c.php');
 // including configuration file
 require(_root.'config.php');
 // connection to mysql server
-if(phpversion() >= 5.6){
+//if(phpversion() >= 5.6){ // not use class mysqldb
 	$db = new mysqlPDO($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
-}else{
-	$db = new mysqlDb($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
-}
+//}else{
+//	$db = new mysqlDb($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
+//}
 $GLOBALS['db'] =& $db;
 $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);

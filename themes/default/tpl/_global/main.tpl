@@ -222,7 +222,7 @@
 										<span class="subCategoryImageWrap">
 											<img alt="<?=htmlspecialchars($value['name']);?>" class="lazy" data-name="preview" src="/images/nofoto.png" data-original="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>"/>
 											<noscript>
-												<img alt="<?=htmlspecialchars($value['name']);?>" src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>""/>
+												<img alt="<?=htmlspecialchars($value['name']);?>" src="<?=_base_url?><?=!empty($value['category_img'])?$value['category_img']:'/images/nofoto.png'?>"/>
 											</noscript>
 										</span>
 										<span class="subCategoryTitleWrap">

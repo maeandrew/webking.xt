@@ -223,6 +223,7 @@ robots.txt
 sitemap.xml
 config.php
 *.log
+*.conf
 
 product_images/*
 !product_images/original/
