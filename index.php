@@ -101,13 +101,13 @@ if(isset($_COOKIE['view_products'])){
 	unset($result, $product, $value);
 }
 // Обработка сортировок ====================================
-if(isset($_COOKIE['sorting'])){
-	$sort = (array)json_decode($_COOKIE['sorting'], true);
-	if(isset($sort[$GLOBALS['CurrentController']]) && $sort[$GLOBALS['CurrentController']] == 'Array'){
-		setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
-		$sort = (array)json_decode($_COOKIE['sorting'], true);
-	}
-}
+// if(isset($_COOKIE['sorting'])){
+// 	$sort = (array)json_decode($_COOKIE['sorting'], true);
+// 	if(isset($sort[$GLOBALS['CurrentController']]) && $sort[$GLOBALS['CurrentController']] == 'Array'){
+// 		setcookie('sorting', json_encode(array($GLOBALS['CurrentController'] => 'name asc')), time()+3600*24*30, '/');
+// 		$sort = (array)json_decode($_COOKIE['sorting'], true);
+// 	}
+// }
 if(isset($GLOBALS['Sort'])){
 	if(is_array($GLOBALS['Sort'])){
 		$GLOBALS['Sort'] = $GLOBALS['Sort']['value'];
