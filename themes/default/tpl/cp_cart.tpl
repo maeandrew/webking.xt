@@ -166,7 +166,7 @@
 	<!-- End Недоступные товары -->
 
 	<!-- NEW Товары в корзине -->
-	<?if(promo::HasGift()){
+	<?if(promo::IsActivePromo()){
 		if(isset($gift)){?>
 			<div class="card gift_card">
 				<div class="card_wrapper">

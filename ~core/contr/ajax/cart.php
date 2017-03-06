@@ -528,7 +528,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($echo);
 				break;
 			case 'giftSelect':
-				if($gifts = $Products->GetGiftsList($_SESSION['cart']['promo'])){
+				if($gifts = $Products->GetGiftsList(promo::HasGift($_SESSION['cart']['promo'])?$_SESSION['cart']['promo']:false)){
 					foreach($gifts as &$gift){
 						$gift['images'] = $Products->GetPhotoById($gift['id_product']);
 					}
