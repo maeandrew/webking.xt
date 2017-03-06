@@ -17,6 +17,8 @@ if(isset($_REQUEST['orders'])){
 			$Customers->SetFieldsById($Orders->fields['id_customer']);
 			$dealers[0]['orders'][$id_order]['customer'] = $Customers->fields;
 			$dealers[0]['orders'][$id_order]['agent_total'] = 0;
+			$Customers->SetFieldsById($_REQUEST['dealer'], 1, true);
+			$tpl->Assign('dealer_info', $Customers->fields);
 			// получаем данные об адресе доставки
 			$dealers[0]['orders'][$id_order]['address'] = $Address->GetAddressById($Orders->fields['id_address']);
 

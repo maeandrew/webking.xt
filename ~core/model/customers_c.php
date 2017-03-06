@@ -13,7 +13,7 @@ class Customers extends Users {
 		$user_fields = $this->fields;
 		$sql = 'SELECT *
 			FROM  '._DB_PREFIX_.'customer
-			WHERE id_user = '.$id;
+			WHERE id_user = '.$this->db->Quote($id);
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
