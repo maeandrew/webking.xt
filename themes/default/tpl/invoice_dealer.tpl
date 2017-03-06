@@ -143,16 +143,13 @@
 						</div>
 						<div class="right">
 							<p>Отправитель:</p>
-							<dl>
-								<dt>Email</dt>
-								<dd><?=$dealer_info['email']; ?></dd>
-								<dt>Email</dt>
-								<dd class="lorem"><?=$dealer_info['email']; ?></dd>
-
-								<dt>Имя</dt>
+							<dl>	<dt>Имя</dt>
 								<dd class="lorem"><?=$dealer_info['cont_person']; ?></dd>
+								<dt>Телефон</dt>
+								<dd><?=$dealer_info['phones']; ?></dd>
+								<dt>E-mail</dt>
+								<dd class="lorem"><?=$dealer_info['email']; ?></dd>
 							</dl>
-							<? print_r($dealer_info); ?>
 						</div>
 					</div>
 					<table>
