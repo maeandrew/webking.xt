@@ -574,6 +574,7 @@
 		}
 		#content .ac-container label:hover {
 			background: #fff;
+			color: #FF5722;
 			text-decoration: underline;
 		}
 		#content .ac-container input {
@@ -593,8 +594,23 @@
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
+		#content .ac-container input:checked ~ label{
+			color: #FF5722;
+			text-decoration: underline;
+		}
 		#content .ac-container input:checked ~ article {
 			height: auto;
+		}
+		#content .ac-container input:checked ~ article:before{
+			content: "";
+			position: absolute;
+			width: 3px;
+			left: 15px;
+			top: 13px;
+			bottom: 13px;
+			background-color: #FF5722;
+			/*background-color: #018b06;
+			background-color: #307bc4;*/
 		}
 
 /* Страница "Оплата" / class="page_payment" */
