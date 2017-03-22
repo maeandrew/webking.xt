@@ -115,7 +115,7 @@
 			h1.checked { padding: 20px 0; float: left; }
 			h1.data_time { padding: 20px 270px 0; float: right; }
 
-</style>
+		</style>
 </head>
 <body>
 <?if($document == 'invoice'){?>
