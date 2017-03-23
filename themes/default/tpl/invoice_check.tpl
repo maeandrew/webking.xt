@@ -185,7 +185,7 @@
 						<tbody>
 							<?foreach($a as &$i){
 								if($i['opt_qty'] > 0){?>
-									<tr class="main">
+									<tr  >
 										<td class="c1 bl tal abbrs" rowspan="3">
 											<?=$i['art']?><br><span><?=$ii++?><br><?=$i['article']?></span>
 										</td>
@@ -211,22 +211,22 @@
 										</td>
 										<!-- Заказано -->
 										<td class="c5 ordered">
-											<span class="subvalue"><?=$i['opt_qty']?><?if($i['warehouse_quantity'] > 0){?> <!-- <?=$i['units']?>--> <?}?></span>
+											<span class="subvalue"><?=$i['opt_qty']?> <!--<?if($i['warehouse_quantity'] > 0){?>  <?=$i['units']?> <?}?> --> </span>
 										</td>
 										<!-- Возврат(Факт) -->
 										<td class="c6
-	<!-- ?вынести вывод из класса?--> 	  <?=$i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0? 'red_bold':null;?>"
+									 	  <?=$i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0? 'red_bold':null;?>"
 										  rowspan="3">
 											<?=$i['contragent_qty'] >= 0?$i['contragent_qty']:null;?>
 										</td>
 										<!-- Недостача(Возврат) -->
 										<td rowspan="3"></td>
 									</tr>
-									<tr class="main">
+									<tr >
 										<!-- Проведено -->
-										<td class="delivered"><?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?></td>
+										<td class="delivered"><?=$i['contragent_qty'] < 0?0:$i['contragent_qty'];?></td>
 									</tr>
-									<tr class="main">
+									<tr >
 										<!-- Склад -->
 										<td class="warehouse"><span class="subvalue"><?=$i['warehouse_quantity'] > 0?$i['warehouse_quantity']:null?></span></td>
 									</tr>
@@ -268,11 +268,12 @@
 										<!-- Недостача(Возврат) -->
 										<td rowspan="3"></td>
 									</tr>
-									<tr class="main">
+									<tr >
 										<!-- Проведено -->
-										<td class="delivered"><?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?></td>
+										<!-- <td class="delivered"> <?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?>  </td> -->
+										<td class="delivered"> <?=$i['contragent_mqty'] > 0?$i['contragent_mqty']:0;?>  </td>
 									</tr>
-									<tr class="main">
+									<tr >
 										<!-- Склад -->
 										<td class="warehouse"><span class="subvalue"><?=$i['warehouse_quantity'] > 0?$i['warehouse_quantity']:null?></span></td>
 									</tr>
