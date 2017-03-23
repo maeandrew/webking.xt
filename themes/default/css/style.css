@@ -2785,6 +2785,17 @@ section .stat_year {
 .mdl-button--accent.mdl-button--accent.mdl-button--fab {
 	background-color: #FF5722;
 }
+.more__information.mdl-button--accent.mdl-button--accent.mdl-button--raised{
+	left: 10%;
+	font-size: 1em;
+	background-color: #018b06;
+	/*background-color: #307bc4;*/
+}
+/*@media (max-width: 727px) {
+	.more__information.mdl-button--accent.mdl-button--accent.mdl-button--raised{
+	left:20%;
+	}
+}*/
 .mdl-textfield__label:after {
 	background-color: #757575;
 }

@@ -106,8 +106,8 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 								$order2[$ord['id_order']]['note2'] = $v['note2'];
 							}
 							$pos['opened'][$k][$i] = $order2[$ord['id_order']]['invoice_data'] = $v;
-							$pos['opened'][$k][$i]['contragent_mqty'] = -1;
-							$pos['opened'][$k][$i]['contragent_qty'] = -1;
+						//	$pos['opened'][$k][$i]['contragent_mqty'] = -1;
+						//	$pos['opened'][$k][$i]['contragent_qty'] = -1;
 						// }
 						$i++;
 					}
@@ -242,8 +242,8 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 						$order2[$ord['id_order']]['note2'] = $v['note2'];
 					}
 					$pos['opened'][$k][$i] = $order2[$ord['id_order']]['invoice_data'] = $v;
-					$pos['opened'][$k][$i]['contragent_mqty'] = -1;
-					$pos['opened'][$k][$i]['contragent_qty'] = -1;
+				//	$pos['opened'][$k][$i]['contragent_mqty'] = -1;
+				//	$pos['opened'][$k][$i]['contragent_qty'] = -1;
 				// }
 				$i++;
 			}

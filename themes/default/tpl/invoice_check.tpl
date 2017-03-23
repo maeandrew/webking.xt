@@ -184,7 +184,7 @@
 					foreach($array as &$a){?>
 						<tbody>
 							<?foreach($a as &$i){
-								if($i['opt_qty'] > 0){?>
+								if($i['opt_qty'] > 0) {?>
 									<tr  >
 										<td class="c1 bl tal abbrs" rowspan="3">
 											<?=$i['art']?><br><span><?=$ii++?><br><?=$i['article']?></span>
@@ -224,7 +224,7 @@
 									</tr>
 									<tr >
 										<!-- Проведено -->
-										<td class="delivered"><?=$i['contragent_qty'] < 0?0:$i['contragent_qty'];?></td>
+										<td class="delivered"><?=($i['contragent_qty'] < 0)?0:$i['contragent_qty'];?></td>
 									</tr>
 									<tr >
 										<!-- Склад -->
@@ -258,7 +258,7 @@
 										</td>
 										<!-- Заказано -->
 										<td class="c5 ordered">
-											<span class="subvalue"><?=$i['mopt_qty']?><?if($i['warehouse_quantity'] > 0){?> <!-- <?=$i['units']?>--> <?}?></span>
+											<span class="subvalue"><?=$i['mopt_qty']?> <!--<?if($i['warehouse_quantity'] > 0){?>  <?=$i['units']?> <?}?>--></span>
 
 										</td>
 										<!-- Возврат(Факт) -->
@@ -270,8 +270,7 @@
 									</tr>
 									<tr >
 										<!-- Проведено -->
-										<!-- <td class="delivered"> <?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?>  </td> -->
-										<td class="delivered"> <?=$i['contragent_mqty'] > 0?$i['contragent_mqty']:0;?>  </td>
+										<td class="delivered"><?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?></td>
 									</tr>
 									<tr >
 										<!-- Склад -->
