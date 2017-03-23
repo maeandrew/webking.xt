@@ -136,9 +136,9 @@ class Cart {
 			}
 
 			// определение колонки цен по сумме заказа
-			$retail_margin = $GLOBALS['CONFIG']['retail_order_margin']; // 500
-			$wholesale_margin = $GLOBALS['CONFIG']['wholesale_order_margin']; // 3000
-			$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // 10000
+			$retail_margin = $GLOBALS['CONFIG']['retail_order_margin']; // Опт
+			$wholesale_margin = $GLOBALS['CONFIG']['wholesale_order_margin']; // Дилер
+			$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // Партнер
 			if($products_sum[3] >= $full_wholesale_margin){
 				$cart_column = 0;
 			}elseif($products_sum[3] >= $wholesale_margin){
@@ -572,9 +572,9 @@ class Cart {
 				$v['prices_mopt'][$i] = round($v['price']* $coef_price_mopt[$i], 2);
 			}
 		}
-		$retail_margin = $GLOBALS['CONFIG']['retail_order_margin']; // 500
-		$wholesale_margin = $GLOBALS['CONFIG']['wholesale_order_margin']; // 3000
-		$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // 10000
+		$retail_margin = $GLOBALS['CONFIG']['retail_order_margin']; // Опт
+		$wholesale_margin = $GLOBALS['CONFIG']['wholesale_order_margin']; // Дилер
+		$full_wholesale_margin = $GLOBALS['CONFIG']['full_wholesale_order_margin']; // Партнер
 		if($res['total_sum'] >= $full_wholesale_margin){
 			$cart_column = 0;
 			$discount = 21;

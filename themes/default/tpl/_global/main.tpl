@@ -462,10 +462,10 @@
 	                    <li>0.5% с партнерских</li>
 	                </ul>
 	                <ul>
-	                    <li>(0 - 1000 грн) заказов;</li>
-	                    <li>(1000 - 5000 грн) заказов;</li>
-	                    <li>(5000 - 10000 грн) заказов;</li>
-	                    <li>(10000 - 100000 грн) заказов;</li>
+	                    <li>(0 - <?php echo $GLOBALS['CONFIG']['retail_order_margin'] ?> грн) заказов;</li>
+	                    <li>(<?php echo $GLOBALS['CONFIG']['retail_order_margin'] ?> - <?php echo $GLOBALS['CONFIG']['wholesale_order_margin'] ?> грн) заказов;</li>
+	                    <li>(<?php echo $GLOBALS['CONFIG']['wholesale_order_margin'] ?> - <?php echo $GLOBALS['CONFIG']['full_wholesale_order_margin'] ?> грн) заказов;</li>
+	                    <li>(<?php echo $GLOBALS['CONFIG']['full_wholesale_order_margin'] ?> - 100000 грн) заказов;</li>
 	                </ul>
 	                <p>При оформлении заказа в корзине клиент должен ввести ваш промокод. После выполнения заказа вам будут начислены % в зависимости от суммы заказа.
 	                    На некоторые акционные позиции (скидка более 25%) процент не  начисляется.</p>

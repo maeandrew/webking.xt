@@ -44,11 +44,11 @@ if(isset($_REQUEST['orders'])){
 					$dealers[0]['products'][$p['id_product']] = $p;
 				}
 			}
-			if($dealers[0]['orders'][$id_order]['agent_total'] < 1000){
+			if($dealers[0]['orders'][$id_order]['agent_total'] < $GLOBALS['CONFIG']['retail_order_margin']){
 				$coeff = $percents[0]*0.01;
-			}elseif($dealers[0]['orders'][$id_order]['agent_total'] < 5000){
+			}elseif($dealers[0]['orders'][$id_order]['agent_total'] < $GLOBALS['CONFIG']['wholesale_order_margin']){
 				$coeff = $percents[1]*0.01;
-			}elseif($dealers[0]['orders'][$id_order]['agent_total'] < 10000){
+			}elseif($dealers[0]['orders'][$id_order]['agent_total'] < $GLOBALS['CONFIG']['full_wholesale_order_margin']){
 				$coeff = $percents[2]*0.01;
 			}else{
 				$coeff = $percents[3]*0.01;
