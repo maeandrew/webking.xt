@@ -217,14 +217,14 @@
 										<td class="c6
 									 	  <?=$i['opt_qty'] != $i['contragent_qty'] && $i['contragent_qty'] >= 0? 'red_bold':null;?>"
 										  rowspan="3">
-											<?=$i['contragent_qty'] >= 0?$i['contragent_qty']:null;?>
+											<!-- <?=$i['contragent_qty'] >= 0?$i['contragent_qty']:null;?> -->
 										</td>
 										<!-- Недостача(Возврат) -->
 										<td rowspan="3"></td>
 									</tr>
 									<tr >
 										<!-- Проведено -->
-										<td class="delivered"><?=($i['contragent_qty'] < 0)?0:$i['contragent_qty'];?></td>
+										<td class="delivered"><?=($i['contragent_qty'] < 0)?'-':$i['contragent_qty'];?></td>
 									</tr>
 									<tr >
 										<!-- Склад -->
@@ -263,14 +263,14 @@
 										</td>
 										<!-- Возврат(Факт) -->
 										<td class="c6 <?=$i['mopt_qty'] != $i['contragent_mqty'] && $i['contragent_mqty'] >= 0?'red_bold':null;?>" rowspan="3">
-											<?=$i['contragent_mqty'] >= 0?$i['contragent_mqty']:null;?>
+											<!-- <?=$i['contragent_mqty'] >= 0?$i['contragent_mqty']:null;?> -->
 										</td>
 										<!-- Недостача(Возврат) -->
 										<td rowspan="3"></td>
 									</tr>
 									<tr >
 										<!-- Проведено -->
-										<td class="delivered"><?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?></td>
+										<td class="delivered"><?=($i['contragent_mqty'] < 0)?'-':$i['contragent_mqty'];?></td>
 									</tr>
 									<tr >
 										<!-- Склад -->
