@@ -401,10 +401,11 @@ class Contragents extends Users{
 			LEFT JOIN "._DB_PREFIX_."contragent AS c
 				ON c.id_user = o.id_contragent
 			WHERE o.id_order_status <> 7
-			AND (o.id_contragent = '".$id_contragent."' OR o.id_customer = '".$id_contragent."')
+			
 			AND o.creation_date > '".$date2."'".($order_number?$order_number:null)."
 			GROUP BY id_order
 			ORDER BY ".$order_by.
+			// AND (o.id_contragent = '".$id_contragent."' OR o.id_customer = '".$id_contragent."')
 			($limit?$limit:null);
         $arr = $this->db->GetArray($sql);
         return $arr;
