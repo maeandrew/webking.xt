@@ -13,6 +13,7 @@
 		<input type="hidden" name="discount" id="discount" value="<?=isset($current_customer['discount'])?htmlspecialchars(1-$current_customer['discount']/100):null?>"/>
 		<button type="submit" name="change_margin" id="change-margin" class="btn-m-green">Сохранить</button>
 	</form>
+
 	<div class="history">
 		<div class="order_number_filter">
 			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">

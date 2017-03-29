@@ -22,6 +22,17 @@
 				$s = array();
 			break;
 		}?></h1>
+
+
+		<div class="order_number_filter">
+			<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+				<input type="text" name="order_number" placeholder="Введите номер заказа">
+				<button class="mdl-button mdl-js-button mdl-button--raised" name="show_order">Показать</button>
+				<button class="mdl-button mdl-js-button mdl-button--raised" name="cancel_order_filter">Сбросить</button>
+			</form>
+		</div>
+
+
 	<div id="orders_history">
 		<?if(isset($msg)){?>
 			<div class="msg-<?=$msg['type']?>">
@@ -65,7 +76,9 @@
 									<div class="title">
 										<div class="container">
 											<span class="number">
-												<span class="numb">Заказ № <?=$i['id_order']?></span>
+												<span style="margin-right: 30px"><?=$i['contragent']?></span>
+												<a href="<?=_base_url?>/customer_order/<?=$i['id_order']?>"><span class="numb">Заказ № <?=$i['id_order']?></span></a>
+												<span><?=$i['cont_person']?></span>
 												<span class="date">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
 												<?php
 													$str = count($i['products']). ' товар';
@@ -187,13 +200,13 @@
 											</div> -->
 											<div class="additional">
 												<div class="manager <?=$i['mark'] != null?'voted':null?>" data-id="<?=$i['contragent_info']['id_user']?>">
-													<div class="label">Ваш менеджер</div>
+													<div class="label">Клиент</div>
 													<div class="avatar">
 														<img src="/images/noavatar.png" alt="avatar" />
 													</div>
 													<div class="details">
-														<div class="line_1"><?=$i['contragent']?></div>
-														<div class="line_2"><?=$i['contragent_info']['phones']?></div>
+														<div class="line_1"><?=$i['cont_person']?></div>
+														<div class="line_2"><?=$i['phones']?></div>
 														<div class="line_3">
 															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '1'?'active':null?> chosen_rait_js" data-name="rait_comment">
 																<svg class="icon"><use xlink:href="#like"></use></svg>

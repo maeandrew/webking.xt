@@ -60,7 +60,35 @@ switch($Users->fields['gid']){
 		if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'info'){
 			require($GLOBALS['PATH_block'].'cp_cab_inf_contragent.php');
 		}else{
-			require($GLOBALS['PATH_block'].'cp_cab_contragent.php');
+			if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'){
+				$header = 'Мои заказы';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'){
+				$header = 'Настройки';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'feedback'){
+				$header = 'Обратная связь';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'){
+				$header = 'Бонусная программа';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'favorites'){
+				$header = 'Избранные товары';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'){
+				$header = 'Лист ожидания';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'){
+				$header = 'Совместные заказы';
+				$rewrite = $GLOBALS['Rewrite'];
+			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'){
+				$header = 'Уголок агента';
+				$rewrite = $GLOBALS['Rewrite'];
+			}else{
+				$header = 'Личные данные';
+				$rewrite = 'personal';
+			}
+			require($GLOBALS['PATH_block'].'cp_cab_'.$rewrite.'_contragent.php');
 		}
 		break;
 	case _ACL_MANAGER_:
