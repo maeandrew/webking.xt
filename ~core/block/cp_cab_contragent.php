@@ -5,8 +5,26 @@ $GLOBALS['IERA_LINKS'][0]['url'] =  _base_url.'/cabinet/';
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])){
 	$id_order = intval($_POST['id_order']);
 }
+$Contragent = new Contragents();
+$GET_limit = "";
+if(isset($_GET['limit']))
+	$GET_limit = "limit".$_GET['limit'].'/';
+if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
+
+$Order = new Orders();
+if(isset($_POST['change_client'])){
+	$Order->SetNote_diler($_POST['order'], $_POST['client']);
+}
+if(isset($_POST['change_status'])){
+	$Order->UpdateStatus($_POST['order'], $_POST['status'], isset($_POST['target_date'])?$_POST['target_date']:null);
+}
+if(isset($_POST['target'])){
+	$target = $_POST['target'];
+}else{
+	$target = 100;
+}
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 $SavedCity = new Citys();
 $SavedCity->GetSavedFields($Customer->fields['id_city']);
 $SavedContragent = new Contragents();
@@ -44,6 +62,14 @@ if(isset($SavedCity->fields)){
 		$tpl->Assign('delivery', $Deliverys->list);
 	}
 }
+
+$tpl->Assign('current_customer', $Customer->fields);
+$klients = $Customer->SetList($Users->fields['email']);
+$tpl->Assign('klient', $klients);
+$Contragent->SetFieldsById($Users->fields['id_user']);
+$tpl->Assign("contragent", $Contragent->fields);
+
+
 if(isset($_POST['apply'])){
 	$Customer -> updateContPerson($_POST['cont_person']);
 	$Customer -> updatePhones($_POST['phones']);
@@ -103,6 +129,27 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], false, $order_number);
 }
 
+// Пагинатор ===============================================
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$GLOBALS['Limit_db'] = $_GET['limit'];
+}
+if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !isset($_GET['limit'])){
+	if(isset($GLOBALS['Page_id']) && is_numeric($GLOBALS['Page_id'])){
+		$_GET['page_id'] = $GLOBALS['Page_id'];
+	}
+	$cnt = count($orders);
+	$tpl->Assign('cnt', $cnt);
+	$tpl->Assign('pages_cnt', ceil($cnt/$GLOBALS['Limit_db']));
+
+	$GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
+	unset($cnt);
+	$limit = ' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db'];
+}else{
+	$GLOBALS['Limit_db'] = 0;
+	$limit = '';
+}
+// =========================================================
+
 
 // Список заказов
 
@@ -112,9 +159,16 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }else{
 	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], $limit, $order_number);
 }
+$Contragent->SetFieldsById($Users->fields['id_user']);
+$tpl->Assign('contragent', $Contragent->fields);
 
 $orders = $Customer->GetOrders($orderby);
 $tpl->Assign('orders', $orders);
+
+$tpl->Assign('current', $Users->fields);
+$customers = $Customer->GetCustomersByContragent($Users->fields['id_user']);
+$tpl->Assign('customers', $customers);
+
 $order_statuses = $Order->GetStatuses();
 $User->SetUser($_SESSION['member']);
 $tpl->Assign('User', $User->fields);
@@ -124,13 +178,17 @@ $tpl->Assign('SavedContragent', $SavedContragent->fields);
 $tpl->Assign('DeliveryMethod', $DeliveryMethod->list);
 $tpl->Assign('SavedDeliveryMethod', $SavedDeliveryMethod->fields);
 $tpl->Assign('order_statuses', $order_statuses);
+
+$remitters = $Contragent->GetRemitterById($id);
+$tpl->Assign('remitters', $remitters);
+
 if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
 	$parsed_res = array('issuccess' => TRUE,
 						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_promo_cab.tpl'));
 }else{
 	$parsed_res = array(
 		'issuccess' => true,
-		'html' => $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_cab.tpl')
+		'html' => $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_cab_orders.tpl')
 	);
 }
 ?>
