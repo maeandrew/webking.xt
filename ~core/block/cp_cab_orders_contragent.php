@@ -9,11 +9,30 @@ $list_controls = array('layout', 'sorting', 'filtering');
 $tpl->Assign('list_controls', $list_controls);
 // =========================================================
 
+$Contragent = new Contragents();
+$GET_limit = "";
+if(isset($_GET['limit']))
+	$GET_limit = "limit".$_GET['limit'].'/';
+
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
 
 if(isset($_SERVER['HTTP_REFERER'])){
 	$referer = explode('/',str_replace('http://', '', $_SERVER['HTTP_REFERER']));
 	$tpl->Assign('referer', $referer);
+}
+
+
+$Order = new Orders();
+if(isset($_POST['change_client'])){
+	$Order->SetNote_diler($_POST['order'], $_POST['client']);
+}
+if(isset($_POST['change_status'])){
+	$Order->UpdateStatus($_POST['order'], $_POST['status'], isset($_POST['target_date'])?$_POST['target_date']:null);
+}
+if(isset($_POST['target'])){
+	$target = $_POST['target'];
+}else{
+	$target = 100;
 }
 
 $Customer = new Customers();
@@ -98,6 +117,7 @@ if (isset($_GET['t']) && !empty($_GET['t']) ){
 	}
 }
 
+
 $fields = array('creation_date', 'target_date', 'id_order', 'status', 'pretense', 'pretense_status', 'return', 'return_status');
 $f_assoc = array(
 	'creation_date'		=>'o.creation_date',
@@ -125,12 +145,19 @@ $f_assoc = array(
 // Список заказов
 //
 
-if(isset($_POST['show_order']))
-{	$order_number = ' AND o.id_order = '.$_POST['order_number'];
-	print($order_number);
-} else {
-	$order_number = '';
-}
+if(isset($_POST['show_order'])){
+	$order_number = ' AND o.id_order = '.$_POST['order_number'];
+ } else {
+ 	$order_number = '';
+ }
+
+// if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
+// 	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $Users->fields['id_user'], $GLOBALS['REQAR'][1]);
+// }else{
+// 	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], false, $order_number);
+// }
+
+
 
 
 $GLOBALS['Limit_db'] = 10; // кол-во заказов на одной странице
