@@ -38,10 +38,10 @@ if(isset($_POST['target'])){
 $Customer = new Customers();
 $Customer->SetFieldsById($Users->fields['id_user']);
 
-$Order = new Orders();
-if(isset($id_order)){
-	$Order->SetFieldsById($id_order);
-}
+// $Order = new Orders();
+// if(isset($id_order)){
+// 	$Order->SetFieldsById($id_order);
+// }
 
 if(isset($_POST['smb_cancel'])){
 	if($Order->CancelCustomerOrder($id_order)){
@@ -142,25 +142,44 @@ $f_assoc = array(
 // 		$mc->set("filters", array($_GET['q']=>'all'));
 // 	}
 // }
+//
+//
 // Список заказов
 //
 
+$sort_links = array();
+$ii = count($GLOBALS['IERA_LINKS'])-1;
+foreach($fields as $f){
+	$sort_links[$f] = $GLOBALS['IERA_LINKS'][$ii]['url']."{$GET_limit}ord/$f/desc";
+	if(in_array("ord", $GLOBALS['REQAR']) && in_array($f, $GLOBALS['REQAR'])){
+		if(in_array("asc", $GLOBALS['REQAR'])){
+			$sort_links[$f] = $GLOBALS['IERA_LINKS'][$ii]['url']."{$GET_limit}ord/$f/desc";
+			$orderby = "{$f_assoc[$f]} asc";
+		}else{
+			$sort_links[$f] = $GLOBALS['IERA_LINKS'][$ii]['url']."{$GET_limit}ord/$f/asc";
+			$orderby = "{$f_assoc[$f]} desc";
+		}
+	}
+}
+
+
+$tpl->Assign('sort_links', $sort_links);
 if(isset($_POST['show_order'])){
 	$order_number = ' AND o.id_order = '.$_POST['order_number'];
  } else {
  	$order_number = '';
  }
 
-// if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
-// 	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $Users->fields['id_user'], $GLOBALS['REQAR'][1]);
-// }else{
-// 	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], false, $order_number);
-// }
+if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
+	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $Users->fields['id_user'], $GLOBALS['REQAR'][1]);
+}else{
+	$orders = $Contragent->GetContragentOrders($orderby, $target, $Users->fields['id_user'], false, $order_number);
+}
 
 
 
 
-$GLOBALS['Limit_db'] = 10; // кол-во заказов на одной странице
+$GLOBALS['Limit_db'] = 150; // кол-во заказов на одной странице
 $cnt = count($Customer->GetOrders( false, false, $status));
 $GLOBALS['paginator_html'] = G::NeedfulPages($cnt);
 // print_r(' '.$GLOBALS['Start'].', '.$GLOBALS['Limit_db']);
@@ -170,6 +189,7 @@ $limit = isset($GLOBALS['Start'])?(' LIMIT '.$GLOBALS['Start'].', '.$GLOBALS['Li
 $orders = $Customer->GetOrders($orderby, $limit, $status);
 // die();
 $order_statuses = $Order->GetStatuses();
+
 
 $Contragent = new Contragents();
 $Address = new Address();
