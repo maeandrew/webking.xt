@@ -9,6 +9,11 @@ if(isset($GLOBALS['Rewrite'])){
 		exit();
 	}
 	$page = $Page->fields;
+	if($page['sid'] == 0){
+		header("HTTP/1.1 301 Moved Permanently");
+		header('Location: '._base_url);
+		exit();
+	}
 	G::metaTags($page);
 	$header = $page['title'];
 	$tpl->Assign('header', $header);
