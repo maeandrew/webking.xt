@@ -1,8 +1,10 @@
 <?php
-$GLOBALS['IERA_LINKS'][] = array(
-	'title' => "Кабинет контрагента",
-	'url' => _base_url.'/cabinet/'
-);
+$GLOBALS['IERA_LINKS'] = array();
+$GLOBALS['IERA_LINKS'][0]['title'] = "Кабинет";
+$GLOBALS['IERA_LINKS'][0]['url'] =  _base_url.'/cabinet/';
+if(isset($_POST['id_order']) && !empty($_POST['id_order'])){
+	$id_order = intval($_POST['id_order']);
+}
 $Contragent = new Contragents();
 $GET_limit = "";
 if(isset($_GET['limit']))
@@ -21,72 +23,85 @@ if(isset($_POST['target'])){
 }else{
 	$target = 100;
 }
-
 $Customer = new Customers();
 $Customer->SetFieldsById($Users->fields['id_user']);
+$SavedCity = new Citys();
+$SavedCity->GetSavedFields($Customer->fields['id_city']);
+$SavedContragent = new Contragents();
+$SavedContragent->GetSavedFields($Customer->fields['id_contragent']);
+$DeliveryMethod = new Delivery();
+$DeliveryMethod->SetDeliveryList();
+$SavedDeliveryMethod = new Delivery();
+$SavedDeliveryMethod->GetSavedFields($Customer->fields['id_delivery']);
+$Region = new Regions();
+if($Region->SetList()){
+	$tpl->Assign('regions', $Region->list);
+}
+$City = new Citys();
+if($City->SetList()){
+	$tpl->Assign('citys', $City->list);
+}
+$Contragent = new Contragents();
+if($Contragent->GetContragentList()){
+	$tpl->Assign('manager', $Contragent->GetContragentList());
+}
+$DeliveryService = new DeliveryService();
+$Deliverys = new Delivery();
+if(isset($SavedCity->fields)){
+	if($DeliveryService->SetListByRegion($SavedCity->fields['names_regions'])){
+		$tpl->Assign('delivery_services', $DeliveryService->list);
+	}
+	if($Deliverys->SetFieldsByInput($SavedCity->fields['shipping_comp'], $SavedCity->fields['names_regions'])){
+		$tpl->Assign('delivery', $Deliverys->list);
+	}
+}else{
+	if($DeliveryService->SetList()){
+		$tpl->Assign('delivery_services', $DeliveryService->list);
+	}
+	if($Deliverys->SetList()){
+		$tpl->Assign('delivery', $Deliverys->list);
+	}
+}
+
 $tpl->Assign('current_customer', $Customer->fields);
 $klients = $Customer->SetList($Users->fields['email']);
 $tpl->Assign('klient', $klients);
 $Contragent->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign("contragent", $Contragent->fields);
-$contrdates = $Contragent->SetCurrentWeek();
-$DaysOfWeek = array("Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб");
-$ts = time();
-for($ii=0; $ii<=($GLOBALS['CONFIG']['order_day_end']+7); $ii++){
-	$ts_tmp = $ts+86400*$ii;
-	$arr = getdate($ts_tmp);
-	$dates[date("d.m.Y", $ts_tmp)] = array('d_word' => $DaysOfWeek[$arr['wday']], 'd' => date("Y_m_d", $ts_tmp));
-	if($arr['wday'] == 0 || $arr['wday'] == 6){
-		$dates[date("d.m.Y", $ts_tmp)]['red'] = true;
-		}
-	if(isset($contrdates[date("Y-m-d", $ts_tmp)])){
-		$dates[date("d.m.Y", $ts_tmp)]['work_day'] = $contrdates[date("Y-m-d", $ts_tmp)]['work_day']!=0?1:0;
-		$dates[date("d.m.Y", $ts_tmp)]['work_night'] = $contrdates[date("Y-m-d", $ts_tmp)]['work_night']!=0?1:0;
-		$dates[date("d.m.Y", $ts_tmp)]['limit_sum_day'] = $contrdates[date("Y-m-d", $ts_tmp)]['limit_sum_day']!=0?$contrdates[date("Y-m-d", $ts_tmp)]['limit_sum_day']:'0';
-		$dates[date("d.m.Y", $ts_tmp)]['limit_sum_night'] = $contrdates[date("Y-m-d", $ts_tmp)]['limit_sum_night']!=0?$contrdates[date("Y-m-d", $ts_tmp)]['limit_sum_night']:'0';
-	}else{
-		$dates[date("d.m.Y", $ts_tmp)]['work_day'] = 0;
-		$dates[date("d.m.Y", $ts_tmp)]['work_night'] = 0;
-		$dates[date("d.m.Y", $ts_tmp)]['limit_sum_day'] = 0;
-		$dates[date("d.m.Y", $ts_tmp)]['limit_sum_night'] = 0;
-	}
+
+
+if(isset($_POST['apply'])){
+	$Customer -> updateContPerson($_POST['cont_person']);
+	$Customer -> updatePhones($_POST['phones']);
+	$Customer -> updateContragent($_POST['id_manager']);
+	$Customer -> updateCity($_POST['id_delivery_department']);
+	$Customer -> updateDelivery($_POST['id_delivery']);
+	$Customer -> updateBonus($_POST['bonus_card'], $_POST['sex'], $_POST['learned_from'], $_POST['birthday'], $_POST['buy_volume']);
+	header("Location: ".$_SERVER['HTTP_REFERER']);
 }
-$tpl->Assign('dates', $dates);
-$fields = array('creation_date', 'target_date', 'id_order', 'status',
-	'pretense', 'pretense_status', 'return', 'return_status', 'note');
-$f_assoc = array('creation_date'=>'o.creation_date', 'target_date'=>'o.target_date',
-	'id_order'=>'o.id_order', 'status'=>'o.id_order_status', 'pretense'=>'o.id_pretense_status',
-	'pretense_status'=>'o.id_pretense_status', 'return'=>'o.id_return_status',
-	'return_status'=>'o.id_return_status', 'customer'=>'u.id_user');
-$orderby = "o.creation_date desc, o.id_order desc";
-$sort_links = array();
-$ii = count($GLOBALS['IERA_LINKS'])-1;
-if(isset($_POST['change_margin'])){
-	$_POST['discount'] = str_replace(",",".",$_POST['discount']);
-	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	$nocheck[] = 'keystring';
-	if(!$err){
-		if($id = $Customer->UpdateCustomer($_POST)){
-			$tpl->Assign('msg', 'Информация обновлена.');
-			$success = true;
-			unset($_POST);
-			header("Location: /cabinet");
-			exit();
-		}else{
-			$tpl->Assign('msg', 'Информация не обновлена.');
-			if(mysql_errno() == 1062){
-				$errm['email'] = "Такой email уже есть в базе.";
-				ini_set('display_errors',1);
-				error_reporting(E_ALL);
-				$tpl->Assign('errm', $errm);
-			}
-		}
+$Order = new Orders();
+if(isset($id_order)){
+	$Order->SetFieldsById($id_order);
+}
+if(isset($_POST['smb_off'])){
+	if($Order->OffUserOrder($id_order)){
+		$tpl->Assign('msg', 'Заказ отменен контрагентом.');
+		unset($_POST);
 	}else{
-		// показываем все заново но с сообщениями об ошибках
 		$tpl->Assign('msg', 'Информация не обновлена.');
-		$tpl->Assign('errm', $errm);
 	}
 }
+$fields = array('creation_date', 'target_date', 'id_order', 'status', 'pretense', 'pretense_status', 'return', 'return_status');
+$f_assoc = array('creation_date'=>'o.creation_date', 'target_date'=>'o.target_date', 'id_order'=>'o.id_order', 'status'=>'o.id_order_status',
+	'pretense'=>'o.id_pretense_status', 'pretense_status'=>'o.id_pretense_status',
+	'return'=>'o.id_return_status', 'return_status'=>'o.id_return_status');
+$orderby = "o.id_order desc";
+$sort_links = array();
+$GET_limit = "";
+if(isset($_GET['limit'])){
+	$GET_limit = "limit".$_GET['limit'].'/';
+}
+$ii = count($GLOBALS['IERA_LINKS'])-1;
 foreach($fields as $f){
 	$sort_links[$f] = $GLOBALS['IERA_LINKS'][$ii]['url']."{$GET_limit}ord/$f/desc";
 	if(in_array("ord", $GLOBALS['REQAR']) && in_array($f, $GLOBALS['REQAR'])){
@@ -100,6 +115,7 @@ foreach($fields as $f){
 	}
 }
 $tpl->Assign('sort_links', $sort_links);
+
 
 if(isset($_POST['show_order'])){
 	$order_number = ' AND o.id_order = '.$_POST['order_number'];
@@ -134,7 +150,9 @@ if((isset($_GET['limit']) && $_GET['limit'] != 'all' && !is_array($mass)) || !is
 }
 // =========================================================
 
+
 // Список заказов
+
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$orders = $Contragent->GetContragentOrdersByClient($orderby, $target, $Users->fields['id_user'], $GLOBALS['REQAR'][1], $limit);
 	$tpl->Assign('filtered_client', $GLOBALS['REQAR'][1]);
@@ -143,19 +161,34 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }
 $Contragent->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign('contragent', $Contragent->fields);
+
+$orders = $Customer->GetOrders($orderby);
 $tpl->Assign('orders', $orders);
+
 $tpl->Assign('current', $Users->fields);
 $customers = $Customer->GetCustomersByContragent($Users->fields['id_user']);
 $tpl->Assign('customers', $customers);
+
 $order_statuses = $Order->GetStatuses();
+$User->SetUser($_SESSION['member']);
+$tpl->Assign('User', $User->fields);
+$tpl->Assign('Customer', $Customer->fields);
+$tpl->Assign('SavedCity', $SavedCity->fields);
+$tpl->Assign('SavedContragent', $SavedContragent->fields);
+$tpl->Assign('DeliveryMethod', $DeliveryMethod->list);
+$tpl->Assign('SavedDeliveryMethod', $SavedDeliveryMethod->fields);
 $tpl->Assign('order_statuses', $order_statuses);
-$id = explode(';', $Contragent->fields['details']);
-if(empty($id[0]) || strlen($Contragent->fields['details']) == 0){
-	$id = 0;
-}
+
 $remitters = $Contragent->GetRemitterById($id);
 $tpl->Assign('remitters', $remitters);
-$parsed_res = array(
-	'issuccess' => true,
-	'html' => $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_cab.tpl')
-);
+
+if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
+	$parsed_res = array('issuccess' => TRUE,
+						'html' 		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_promo_cab.tpl'));
+}else{
+	$parsed_res = array(
+		'issuccess' => true,
+		'html' => $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_cab_orders.tpl')
+	);
+}
+?>

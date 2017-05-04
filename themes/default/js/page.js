@@ -21,9 +21,9 @@ $(document).ready(function () {
 				target.slideDown();
 				$(this).addClass('active');
 		  		$('html, body').stop().animate({
-					'scrollTop': target.offset().top - ($('header').outerHeight() + $('.blockline').innerHeight() - 130)
+					'scrollTop': target.offset().top - ($('header').outerHeight() + $('.blockline').innerHeight() - 60)
 				}, 900);
-			contentCenter = $(".blockline").width()/2 - $(this).width()/2;
+			contentCenter = $(this).width();
 		}
 		// центрирует btn_plus по середине blockline
 			if($(this).hasClass('pos-right')){

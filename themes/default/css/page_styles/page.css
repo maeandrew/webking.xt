@@ -100,6 +100,7 @@
 }
 .more__information  {
 	font-size: 1.3em;
+	background-color: #018b06;
 }
 #agent_license h4,
 #agent_license span  {
@@ -288,14 +289,14 @@
 				transition: all .4s ease-in-out;
 			}
 			.btn_plus.active {
-				top: 140% !important;
+				/*top: 140% !important;*/
 			}
 			/*.btn_plus--beta.active {
 				top: 160% !important;
 			}*/
 			#content .page_information .btn_plus.active,
 			#content .page_payment .btn_plus.active {
-				top: 130% !important;
+				/*top: 130% !important;*/
 			}
 			.btn_plus.active .btn_plus_sign/*,
 			.btn_plus--beta.active .btn_plus_sign */{
@@ -574,6 +575,7 @@
 		}
 		#content .ac-container label:hover {
 			background: #fff;
+			color: #FF5722;
 			text-decoration: underline;
 		}
 		#content .ac-container input {
@@ -593,8 +595,23 @@
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
+		#content .ac-container input:checked ~ label{
+			color: #FF5722;
+			text-decoration: underline;
+		}
 		#content .ac-container input:checked ~ article {
 			height: auto;
+		}
+		#content .ac-container input:checked ~ article:before{
+			content: "";
+			position: absolute;
+			width: 3px;
+			left: 15px;
+			top: 13px;
+			bottom: 13px;
+			background-color: #FF5722;
+			/*background-color: #018b06;
+			background-color: #307bc4;*/
 		}
 
 /* Страница "Оплата" / class="page_payment" */
@@ -609,7 +626,7 @@
 		padding-right: 4%;
 	}
 	#content .page_payment .invisibleblock div div {
-		height: 80px;
+		height: auto;
 	}
 	#content .page_payment ul {
 		list-style: disc;
@@ -782,6 +799,7 @@
 	}
 	#content .page_dealer .full_text p.text_center{
 		text-align: center;
+		font-weight: 700;
 	}
 	#content .page_agent .blockline:nth-child(2) .forflex {
 		order: 2;
@@ -941,7 +959,7 @@
 		}
 		#content .blockOfText {
 			text-align: center;
-			margin-bottom: 20px;
+			margin-bottom: 40px;
 		}
 		#content .page_dealer .container .blockOfText h4 {
 			text-align: center;
