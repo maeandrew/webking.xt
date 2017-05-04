@@ -14,7 +14,8 @@
 			<div class="mdl-cell mdl-cell--6-col">
 				<div class="customer">
 					<div><b>Покупатель</b></div>
-					<div>Имя: <?=$customer['first_name']?> <?=$customer['middle_name']?> <?=$customer['last_name']?></div>
+					<!-- <div>Имя: <?=$customer['first_name']?> <?=$customer['middle_name']?> <?=$customer['last_name']?></div> -->
+					<div>Имя: <?=$customer['cont_person']?></div>
 					<div>тел.: <?=$customer['phone']?></div>
 					<div>email: <?=$customer['email']?></div>
 				</div>

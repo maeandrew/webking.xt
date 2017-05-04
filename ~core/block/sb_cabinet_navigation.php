@@ -3,7 +3,7 @@ if(isset($GLOBALS['Rewrite'])){
 	$tpl->Assign('cabinet_page', $GLOBALS['Rewrite']);
 }
 foreach($Users->GetGroups() as $group){
-	if($group['gid'] == $_SESSION['member']['gid']){
+	if($group['gid'] == $_SESSION['member']['gid'] || $group['gid'] == 5	){
 		$profile = $group['name'];
 	}
 }
