@@ -306,7 +306,7 @@ function ChangePriceRange(column, manual){
 			}
 			$('.order_balance').text(text);
 		}
-	}else if ($.cookie('manual') != 1){
+	}else if($.cookie('manual') != 1){
 		$.cookie('sum_range', column, {path: '/'});
 		$('li.sum_range').removeClass('active');
 		$('li.sum_range_'+column).addClass('active');
@@ -341,7 +341,6 @@ function ChangePriceRange(column, manual){
 			}
 			$('.order_balance').text(text);
 		}
-
 		// if(newSum < 0){
 		// 	text = 'Заказано достаточно!';
 		// }else{
@@ -351,12 +350,12 @@ function ChangePriceRange(column, manual){
 		// 		text = 'До следующей скидки '+newSum.toFixed(2).toString().replace('.',',')+' грн.';
 		// 	}
 		// }
-		$('.product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
+		$(':not(#cart) .product_buy').each(function(){ // отображение оптовой или малооптовой (розничной) цены товара в каталоге
 			var minQty = parseInt($(this).find('.minQty').val()),
-				curentQty =	parseInt($(this).find('.qty_js').val()),
-				price = parseFloat($(this).find('.price'+(curentQty >= minQty?'Opt':'Mopt')+$.cookie('sum_range')).val()).toFixed(2).toString().replace('.',','),
-				base_price = $(this).find('.basePrice'+(curentQty >= minQty?'Opt':'Mopt')+$.cookie('sum_range')).val();
-			if(curentQty >= minQty){
+				currentQty = parseInt($(this).find('.qty_js').val()),
+				price = parseFloat($(this).find('.price'+(currentQty >= minQty?'Opt':'Mopt')+column).val()).toFixed(2).toString().replace('.',','),
+				base_price = $(this).find('.basePrice'+(currentQty >= minQty?'Opt':'Mopt')+column).val();
+			if(currentQty >= minQty){
 				$(this).find('.priceMoptInf').addClass('hidden');
 			}else{
 				$(this).find('.priceMoptInf').removeClass('hidden');

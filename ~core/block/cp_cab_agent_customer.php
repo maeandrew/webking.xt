@@ -29,11 +29,11 @@ if(!empty($orders)){
 				}
 			}
 		}
-		if($order['agent_total'] < 1000){
+		if($order['agent_total'] < $GLOBALS['CONFIG']['retail_order_margin']){
 			$coeff = $percents[0]*0.01;
-		}elseif($order['agent_total'] < 5000){
+		}elseif($order['agent_total'] < $GLOBALS['CONFIG']['wholesale_order_margin']){
 			$coeff = $percents[1]*0.01;
-		}elseif($order['agent_total'] < 10000){
+		}elseif($order['agent_total'] < $GLOBALS['CONFIG']['full_wholesale_order_margin']){
 			$coeff = $percents[2]*0.01;
 		}else{
 			$coeff = $percents[3]*0.01;
