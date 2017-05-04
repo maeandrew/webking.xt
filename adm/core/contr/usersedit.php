@@ -39,15 +39,9 @@ if(isset($_POST['smb'])){
 	}
 }
 if($success){
-	$User->SetFieldsById($id_user);
+	$User->SetFieldsById($id_user, 1);
 	foreach($User->fields as $key => $value){
 		$_POST[$key] = $value;
 	}
 }
-$parsed_res = array(
-	'issuccess'	=> true,
-	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_user_ae.tpl')
-);
-if(true == $parsed_res['issuccess']){
-	$tpl_center .= $parsed_res['html'];
-}
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_user_ae.tpl');
