@@ -322,7 +322,9 @@
 								<p>Ред-ние товара: <b><?=$item['edit_date']?date('d.m.Y', strtotime($item['edit_date'])).' в '.date('H:i', strtotime($item['edit_date'])):'Н/д'?></b></p>
 								<p>Редактор: <b><?=$item['edit_username']?$item['edit_username']:'Н/д'?></b></p>
 							</td>
-							<td class="center"><input type="checkbox" class="active" <?=$item['active']>0?'checked':null;?>></td>
+							<td class="center">
+								<input type="checkbox" class="active" <?=$item['active'] == 1?'checked':null;?>>
+							</td>
 							<td class="center"><?=$item['min_mopt_qty'];?><?=$item['units'];?></td>
 							<td class="center price_1">
 								<input type="number" id="price_opt_otpusk_<?=$item['id_product']?>" step="0.01" min="0" class="input-m price" data-mode="mopt" value="<?=$item['inusd'] == 1?$item['price_mopt_otpusk_usd']:$item['price_mopt_otpusk'];?>">

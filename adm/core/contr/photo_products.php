@@ -1,9 +1,9 @@
 <?php
 ini_set("display_errors",1);
 error_reporting(E_ALL);
-// if(!_acl::isAllow('product')){
-// 	die("Access denied");
-// }
+if(!_acl::isAllow('photo_products')){
+	die("Access denied");
+}
 $users = new Users();
 $Products = new Products();
 $suppliers = new Suppliers();

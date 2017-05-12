@@ -1,5 +1,5 @@
 <?if(G::IsLogged()){?>
-	<div class="block">
+	<div class="block"<?if($self_edit == '1'){?> style="display: none;"<?}?> >
 		<!-- <h2>Меню</h2> -->
 		<ul class="sb-menu">
 			<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'main'?' sb-menu__item_active':null;?>">
@@ -23,7 +23,7 @@
 					<a href="/adm/graphics/" <?=$GraphCount>0?'class="color-red"':null;?>>Графики на модерации (<?=$GraphCount;?>)</a>
 				</li>
 			<?}?>
-			<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
+			<?if(_acl::isAllow('photo_products') && $_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
 				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'photo_products'?' sb-menu__item_active':null;?>">
 					<a href="/adm/photo_products/">Товары фотографа</a>
 				</li>
@@ -160,25 +160,27 @@
 					<a href="/adm/remitteradd/" class="sb-menu__item__add animate" title="Добавить отправителя"><i class="icon-add">a</i></a>
 				</li>
 			<?}?>
-                <li class="sb-menu__item">Доставка</li>
-                <ul class="sb-menu__sub-menu">
-                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'regions'?' sb-menu__item_active':null;?>">
-                        <a href="/adm/regions">Области</a>
-                        <a href="/adm/regionsadd" class="sb-menu__item__add animate" title="Добавить область"><i class="icon-add">a</i></a>
-                    </li>
-                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'cities'?' sb-menu__item_active':null;?>">
-                        <a href="/adm/cities">Города</a>
-                        <a href="/adm/citiesadd" class="sb-menu__item__add animate" title="Добавить город"><i class="icon-add">a</i></a>
-                    </li>
-                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'warehouses'?' sb-menu__item_active':null;?>">
-                        <a href="/adm/warehouses/">Пункты выдачи</a>
-                        <a href="/adm/warehousesadd " class="sb-menu__item__add animate" title="Добавить пункт выдачи"><i class="icon-add">a</i></a>
-                    </li>
-                    <li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'shipping_companies'?' sb-menu__item_active':null;?>">
-                        <a href="/adm/shipping_companies/">Транспортные компании</a>
-                        <a href="/adm/shipping_companiesadd" class="sb-menu__item__add animate" title="Добавить траспортную компанию"><i class="icon-add">a</i></a>
-                    </li>
-                </ul>
+			<?if(_acl::isAllow('locations')){?>
+				<li class="sb-menu__item">Доставка</li>
+				<ul class="sb-menu__sub-menu">
+					<li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'regions'?' sb-menu__item_active':null;?>">
+						<a href="/adm/regions">Области</a>
+						<a href="/adm/regionsadd" class="sb-menu__item__add animate" title="Добавить область"><i class="icon-add">a</i></a>
+					</li>
+					<li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'cities'?' sb-menu__item_active':null;?>">
+						<a href="/adm/cities">Города</a>
+						<a href="/adm/citiesadd" class="sb-menu__item__add animate" title="Добавить город"><i class="icon-add">a</i></a>
+					</li>
+					<li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'warehouses'?' sb-menu__item_active':null;?>">
+						<a href="/adm/warehouses/">Пункты выдачи</a>
+						<a href="/adm/warehousesadd " class="sb-menu__item__add animate" title="Добавить пункт выдачи"><i class="icon-add">a</i></a>
+					</li>
+					<li class="sb-menu__sub-menu__item<?=$GLOBALS['CurrentController'] == 'shipping_companies'?' sb-menu__item_active':null;?>">
+						<a href="/adm/shipping_companies/">Транспортные компании</a>
+						<a href="/adm/shipping_companiesadd" class="sb-menu__item__add animate" title="Добавить траспортную компанию"><i class="icon-add">a</i></a>
+					</li>
+				</ul>
+			<?}?>
 			<?if(_acl::isAllow('monitoring')){?>
 				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'monitoring' && !isset($GLOBALS['REQAR'][1])?' sb-menu__item_active':null;?>">
 					<a href="/adm/monitoring/">Мониторинг</a>
@@ -244,9 +246,11 @@
 					<a href="/adm/configadd/" class="sb-menu__item__add animate" title="Добавить настройку"><i class="icon-add">a</i></a>
 				</li>
 			<?}?>
-			<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'orders_category'?' sb-menu__item_active':null;?>">
-				<a href="/adm/orders_category/">Перенос товаров в категорию</a>
-			</li>
+			<?if (_acl::isAllow('orders_category')){?>
+				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'orders_category'?' sb-menu__item_active':null;?>">
+					<a href="/adm/orders_category/">Перенос товаров в категорию</a>
+				</li>
+			<?}?>
 		</ul>
 		<div class="clear"></div>
 	</div>

@@ -1,7 +1,12 @@
 <div class="topline">
 	Перейти на <a href="<?=$GLOBALS['URL_base']?>">сайт</a><?if(isset($_SESSION['member'])){?> | Вы вошли как <a href="<?=$GLOBALS['URL_base']?>adm/login/"><?=$_SESSION['member']['email']?></a> | <a href="/adm/logout/">Выход</a><?}?>
 </div>
-<div class="subline">
+<?if(isset($self_edit) && ($self_edit == '1')){?>
+	<div class="subline">
+		<a class="menuUserInfBtn btn-m-red" href="<?=$GLOBALS['URL_base'];?>cabinet" style="line-height: 20px; margin: 2px; right: 1%; position: absolute;">Вернуться в мой кабинет</a>
+	</div>
+<?}?>
+<div class="subline"<?if(isset($self_edit) && ($self_edit == '1')){?> style="display: none;" <?}?>>
 	<div class="breadcrumps">
 		<?if(count($GLOBALS['IERA_LINKS']) > 1){
 			for($ii = 0; isset($GLOBALS['IERA_LINKS'][$ii]); $ii++){

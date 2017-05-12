@@ -1,521 +1,572 @@
-<div class="customer_cab">
-	<h1>Мои заказы<?switch ($_GET['t']){
-			case 'working':
-				$s[] = 1;
-				$s[] = 6;
-				?>. Выполняются<?
-			break;
-			case 'completed':
-				$s[] = 2;
-				?>. Выполненные<?
-			break;
-			case 'canceled':
-				$s[] = 4;
-				$s[] = 5;
-				?>. Отмененные<?
-			break;
-			case 'drafts':
-				$s[] = 3;
-				?>. Черновики<?
-			break;
-			default:
-				$s = array();
-			break;
-		}?></h1>
-	<div id="orders_history">
-		<?if(isset($msg)){?>
-			<div class="msg-<?=$msg['type']?>">
-				<div class="msg_icon">
-					<i class="material-icons"></i>
-				</div>
-			    <p class="msg_title">!</p>
-			    <p class="msg_text"><?=$msg['text']?></p>
-			</div>
-		<?}?>
-		<?!isset($_GET['t'])?$_GET['t']='all':null;?>
-		<div class="<?switch ($_GET['t']){
-			case 'working':
-				$s[] = 1;
-				$s[] = 6;
-				?>working<?
-			break;
-			case 'completed':
-				$s[] = 2;
-				?>completed<?
-			break;
-			case 'canceled':
-				$s[] = 4;
-				$s[] = 5;
-				?>canceled<?
-			break;
-			case 'drafts':
-				$s[] = 3;
-				?>drafts<?
-			break;
-			default:
-				$s = array();
-			break;
-		}?> editing">
-			<?if($orders){ ?>
-				<ul class="orders_list">
-					<?foreach($orders as $i){
-						if(in_array($i['id_order_status'], $s) || (isset($_GET['t']) && $_GET['t'] == 'all') || !isset($_GET['t'])){?>
-							<li>
-								<section class="order mdl-tabs mdl-js-tabs">
-									<div class="title">
-										<div class="container">
-											<span class="number">
-												<span class="numb">Заказ № <?=$i['id_order']?></span>
-												<span class="date">Дата: <?=date("d.m.Y",$i['creation_date'])?></span>
-												<?php
-													$str = count($i['products']). ' товар';
-													$count = count($i['products']);
-													if(substr($count,-1) == 1 && substr($count,-2) != 11)
-														$str .= '';
-													else if(substr($count,-1) >= 2 && substr($count,-2,1) != 1 && substr($count,-1) <= 4)
-														$str .= 'а';
-													else
-														$str .= 'ов';
-												?>
-												<span class="my_item"><?=$str?> на <?=number_format($i['sum_discount'],2,',','')?> грн.</span>
-												<div class="status"><?=$order_statuses[$i['id_order_status']]['name']?></div>
-												<!-- <div class="mobileBtns">
-													<i class="material-icons">add_circle_outline</i>
-													<span> заказ</span>
-												</div> -->
-											</span>
-											<div class="print">
-												<div class="icon mdl-button mdl-js-button mdl-button--icon" id="menu-lower_<?=$i['id_order']?>">
-													<img src="<?=_base_url?>/themes/default/img/print1.png">
-												</div>
-												<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu print_menu" for="menu-lower_<?=$i['id_order']?>">
-													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank">
-															<svg class="icon" id="tt1"><use xlink:href="#XLS"></use></svg><span>Распечатать в XSL</span>
-														</a>
-													</li>
-													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank"><svg class="icon" id="tt2"><use xlink:href="#txt"></use></svg>Для реализатора</a>
-													</li>
-													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>" target="_blank"><svg class="icon" id="tt3"><use xlink:href="#img"></use></svg>С картинками</a>
-													</li>
-													<li class="mdl-menu__item">
-														<a href="/invoice_customer/<?=$i['id_order']?>/<?=$i['skey']?>/?nophoto=true" target="_blank"><svg class="icon" id="tt4"><use xlink:href="#paper"></use></svg>Документом</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="tabs mdl-tabs__tab-bar">
-										<div class="orderBntsMob">
-												<h5>Заказ:</h5>
-												<a class="newOrderLink" href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
-												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
-												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
-												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
-													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn" data-name="confirmDelOrder">Удалить</button>
-												<?}else if ($i['id_order_status'] == 6){?>
-													<button class="hidden"></button>
-												<?}else{?>
-													<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить</button>
-													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn hidden" data-name="confirmDelOrder">Удалить</button>
-													<!-- ВОТ ЭТО ПОТОМ ЗАМЕНИТЬ -->
-												<?}?>
-											</div>
-											<a href="#details-panel-<?=$i['id_order']?>" class="mdl-tabs__tab is-active tabLink">Детали</a>
-											<a href="#products-panel-<?=$i['id_order']?>" class="mdl-tabs__tab tabLink prod_load_js" data-cartid="<?=$i['id_order']?>" data-rewrite="<?=isset($GLOBALS['Rewrite'])?$GLOBALS['Rewrite']:'';?>">Список товаров</a>
-											<div class="orderBnts">
+<style>
 
-												<h5>Заказ:</h5>
-												<a href="<?=Link::Custom('main', null, array('clear' => true));?>"><button class="mdl-button mdl-js-button mdl-button--raised">Новый</button></a>
-												<button class="mdl-button mdl-js-button mdl-button--raised btn_js replaceOrderBtn" data-name="cloneOrder">Создать</button>
+.errmsg{color: #f00;font-size: 12px;}
 
-												<div class="odrerIdAct hidden" data-id-order='<?=$i['id_order']?>'></div>
+.run_order {
 
-												<?if($i['id_order_status'] == 2 || $i['id_order_status'] == 3 || $i['id_order_status'] == 4 || $i['id_order_status'] == 5){?>
-													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn" data-name="confirmDelOrder">Удалить</button>
-												<?}else if ($i['id_order_status'] == 6){?>
-													<button class="hidden"></button>
-												<?}else{?>
-													<button class="mdl-button mdl-js-button mdl-button--raised btn_js cnslOrderBtn" data-name="confirmCnclOrder">Отменить</button>
-													<button class="mdl-button mdl-js-button mdl-button--raised btn_js delOrderBtn hidden" data-name="confirmDelOrder">Удалить</button>
-													<!-- ВОТ ЭТО ПОТОМ ЗАМЕНИТЬ -->
+background-image: linear-gradient(bottom, rgb(46,179,219) 0%, rgb(177,230,245) 100%);
 
-												<?}?>
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="mdl-tabs__panel is-active" id="details-panel-<?=$i['id_order']?>">
-											<!-- <div class="info">
-												<div class="date">
-													<span class="icon">
-														<svg class="icon">
-														  <use xlink:href="#date"></use>
-														</svg>
-													</span>
-													<span class="label">Дата заказа</span>
-													<span class="value"><?=date("d.m.Y",$i['creation_date'])?></span>
-												</div>
-												<div class="count">
-													<span class="icon">
-														<svg class="icon">
-														  <use xlink:href="#shipping"></use>
-														</svg>
-													</span>
-													<span class="label">Товаров</span>
-													<span class="value"><?=count($i['products'])?> шт.</span>
-												</div>
-												<div class="sum">
-													<span class="icon">
-														<svg class="icon">
-														  <use xlink:href="#money"></use>
-														</svg>
-													</span>
-													<span class="label">Сумма к оплате</span>
-													<span class="value"><?=number_format($i['sum_discount'],2,',','')?> грн.</span>
-												</div>
-												<div class="discount">
-													<span class="icon">
-														<svg class="icon">
-														  <use xlink:href="#shuffle"></use>
-														</svg>
-													</span>
-													<span class="label">Скидка</span>
-													<span class="value"><?=(1 - $i['discount']) * 100?>%</span>
-												</div>
-											</div> -->
-											<div class="additional">
-												<div class="manager <?=$i['mark'] != null?'voted':null?>" data-id="<?=$i['contragent_info']['id_user']?>">
-													<div class="label">Ваш менеджер</div>
-													<div class="avatar">
-														<img src="/images/noavatar.png" alt="avatar" />
-													</div>
-													<div class="details">
-														<div class="line_1"><?=$i['contragent']?></div>
-														<div class="line_2"><?=$i['contragent_info']['phones']?></div>
-														<div class="line_3">
-															<a href="#" class="like btn_js like_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '1'?'active':null?> chosen_rait_js" data-name="rait_comment">
-																<svg class="icon"><use xlink:href="#like"></use></svg>
-															</a>
-															<a href="#" class="dislike btn_js dislike_manager_<?=$i['contragent_info']['id_user']?> <?=$i['mark'] == '0'?'active':null?> chosen_rait_js" data-name="rait_comment">
-																<svg class="icon"><use xlink:href="#dislike"></use></svg>
-															</a>
-															<!-- <span class="votes_cnt"><?=$i['contragent_info']['like_cnt']?><?//=count($rating)?></span> -->
-														</div>
-													</div>
-												</div>
-												<!-- <div class="delivery">
-													<div class="label">Способ доставки</div>
-													<div class="avatar">
-														<img src="/images/nofoto.png" alt="avatar" />
-													</div>
-													<div class="details">
-														<div class="line_1">
-															<span class="label">ТТН:</span>
-															<span class="value"> - </span>
-														</div>
-														<div class="line_2">
-															<span class="label">Город:</span>
-															<span class="value"><?=$i['city_info']['name']?></span>
-														</div>
-														<div class="line_3">
-															<span class="label">Отделение:</span>
-															<span class="value"><?=$i['city_info']['address']?></span>
-														</div>
-													</div>
-												</div> -->
-												<div class="newdelivery">
-													<div class="label">Информация о доставке</div>
-													<div class="details">
-														<?if ($i['address_info'] !== false){?>
-																<div class="servise_logo">
-																	<img src="/images/noavatar.png" alt="avatar" />
-																</div>
-																<div class="delivery_details">
-																	<div class="line hidden">
-																		<span class="label">ТТН:</span>
-																		<span class="value"> - </span>
-																	</div>
-																	<div class="line">
-																		<span class="label">Название:</span>
-																		<span class="value"><?=$i['address_info']['title']?></span>
-																	</div>
-																	<div class="line">
-																		<span class="label">Компания доставки:</span>
-																		<span class="value"><?=$i['address_info']['shipping_company']?></span>
-																	</div>
-																	<div class="line">
-																		<span class="label">Область:</span>
-																		<span class="value"><?=$i['address_info']['region']?></span>
-																	</div>
-																	<div class="line">
-																		<span class="label">Город:</span>
-																		<span class="value"><?=$i['address_info']['city']?></span>
-																	</div>
-																	<div class="line">
-																		<span class="label">Тип доставки:</span>
-																		<span class="value"><?=$i['address_info']['delivery']?></span>
-																	</div>
-																	<div class="line <?=empty($i['address_info']['delivery_department'])?'hidden':null?>">
-																		<span class="label">Отделение:</span>
-																		<span class="value"><?=$i['address_info']['delivery_department']?></span>
-																	</div>
-																	<div class="line <?=empty($i['address_info']['address'])?'hidden':null?>">
-																		<span class="label">Адрес:</span>
-																		<span class="value"><?=$i['address_info']['address']?></span>
-																	</div>
-																</div>
-																<!-- <div class="line">
-																	<span class="label">Получатель:</span>
-																	<span class="value">
-																		<?=$i['address_info']['last_name']?>
-																		<?=$i['address_info']['first_name']?>
-																		<?=$i['address_info']['middle_name']?>
-																	</span>
-																</div>
-																<div class="line">
-																	<span class="label">Номер телефона:</span>
-																	<span class="value"><?=$i['phone']['address']?></span>
-																</div> -->
-														<?}else{?>
-															<div class="change_delivery">
-																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
-																		<option value=""></option>
-																		<?foreach ($address_list as $item) {?>
-																			<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
-																		<?}?>
-																	</select>
-																	<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
-																</div>
-																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
-																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
-															</div>
-															<?if(isset($msg_address)){?>
-																<div class="msg-<?=$msg['type']?>">
-																	<div class="msg_icon">
-																		<i class="material-icons"></i>
-																	</div>
-																    <p class="msg_title">!</p>
-																    <p class="msg_text"><?=$msg_address['text']?></p>
-																</div>
-															<?}?>
-															<!-- <div class="change_delivery">
-																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-																	<select id="delivery_list" name="change_delivery" class="mdl-selectfield__select change_delivery_js">
-																		<option value=""></option>
-																		<?foreach ($address_list as $item) {?>
-																			<option value="<?=$item['title']?>" data-id="<?=$item['id']?>"><?=$item['title']?></option>
-																		<?}?>
-																	</select>
-																	<label class="mdl-selectfield__label" for="delivery_list">Выбрать адрес</label>
-																</div>
-																<button class="mdl-button mdl-js-button mdl-button--raised change_delivery_btn_js">Выбрать</button>
-																<a href="<?=Link::Custom('cabinet', null, array('clear' => true))?>?t=delivery">Добавить новый</a>
-															</div> -->
-														<?}?>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mdl-tabs__panel" id="members-panel-<?=$i['id_order']?>">
-											<table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp" id="list_coop">
-												<thead>
-													<tr>
-														<th class="mdl-data-table__cell--non-numeric"></th>
-														<th class="mdl-data-table__cell--non-numeric">Статус</th>
-														<th>Сумма</th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-													<?if (isset($infoCarts) && is_array($infoCarts)) : foreach($infoCarts as $infoCart) :?>
-														<tr>
-															<td class="mdl-data-table__cell--non-numeric">
-																<div class="avatar img"><img src="/images/nofoto.png" alt="avatar" /></div>
-															</td>
-															<td class="mdl-data-table__cell--non-numeric stat_user_cab"><?=$infoCart['title_status']?></td>
-															<td><?=$infoCart['sum_cart']?></td>
-															<td class="del_x"><i class="material-icons">close</i></td>
-														</tr>
-													<?endforeach; endif;?>
-												</tbody>
-											</table>
-											<div id="block_promo">
-												<div class="label">Промо-кода для совместной корзины: 5577321</div>
-												<div class="label">Вы можете передать его любым удобным для Вас способом:</div>
-												<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-													<thead>
-														<tr>
-															<th class="mdl-data-table__cell--non-numeric">Пригласить участника
-																<label class="mdl-button mdl-js-button mdl-button--primary">Отправить</label>
-															</th>
-														</tr>
-													</thead>
-													<form action="<?=$_SERVER['REQUEST_URI']?>">
-														<tbody>
-															<tr>
-																<td>
-																	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-																		<input class="mdl-textfield__input" type="text" id="sample1">
-																		<label class="mdl-textfield__label" for="sample1">Отправить на Email</label>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-																		<input class="mdl-textfield__input" type="text" id="sample2">
-																		<label class="mdl-textfield__label" for="sample2">Отправить SMS на номер</label>
-																	</div>
-																</td>
-															</tr>
-														</tbody>
-													</form>
-												</table>
-											</div>
-										</div>
-										<div class="mdl-tabs__panel" id="products-panel-<?=$i['id_order']?>">
-											<div id="products"></div>
-											<!-- <div class="over_sum">Итого: <?=number_format($i['sum_discount'],2,',','')?> грн.</div> -->
-										</div>
-										<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-									</div>
-								</section>
-							</li>
-						<?}?>
-					<?}?>
-				</ul>
-			<?}else{?>
-				<p class="no_orders">У Вас нет ни одного заказа</p>
-			<?}?>
-		</div>
-		<?=isset($GLOBALS['paginator_html'])?$GLOBALS['paginator_html']:null?>
-	</div><!--class="history"-->
-</div><!--class="cabinet"-->
+background-image: -o-linear-gradient(bottom, rgb(46,179,219) 0%, rgb(177,230,245) 100%);
 
-<div id="rait_comment" data-type="modal" class="rait_comment rait_comment_js">
-	<form action="">
-		<input type="hidden" name="id_manager">
-		<input type="hidden" name="voted">
-		<input type="hidden" name="like">
-		<p class="mesage_text">Вы можете оставить свой комментарий</p>
-		<textarea name="comment" cols="30" rows="10"></textarea>
-		<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent raiting_js">Продолжить</button>
-	</form>
-</div>
-<script>
+background-image: -moz-linear-gradient(bottom, rgb(46,179,219) 0%, rgb(177,230,245) 100%);
 
-/*ПОТОМ ВСЕ ВЫНЕСТИ В МЭЙН Ж ЭС (НАВЕРНО)*/
-var statuses = {
-	<?for($status = 1; isset($order_statuses[$status]); $status++){
-		echo $status.": '".$order_statuses[$status]['name']."',";
-	}?>
-}
+background-image: -webkit-linear-gradient(bottom, rgb(46,179,219) 0%, rgb(177,230,245) 100%);
 
-//Удаление заказа в кабинете
-$(function(){
-	var id_order = <?=$i['id_order']?>;
-	/*Определение текущего ID заказа и Отмена*/
-	$('.cnslOrderBtn').on('click', function(e){
-		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		$('.editing').find('li').removeClass('canceledOrder');
-		$(this).closest('li').addClass('canceledOrder');
-	});
+background-image: -ms-linear-gradient(bottom, rgb(46,179,219) 0%, rgb(177,230,245) 100%);
 
-	/* "Черная метка" - удаление заказа*/
-	$('.delOrderBtn').on('click', function(e){
-		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-		$('.editing').find('li').removeClass('deletedOrder');
-		$(this).closest('li').addClass('deletedOrder');
-	});
+background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(46,179,219)), color-stop(1, rgb(177,230,245)));}
 
-	$('.replaceOrderBtn').on('click', function(e){
-		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');
-	});
+.fakt {
 
-	// Новый заказ на основе
-	$('#replaceCartMod').on('click', function(e){
-		ajax('cart', 'duplicate', {id_order: id_order}).done(function(data){
-			ajax('cart', 'GetCart').done(function(data){
-				$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
-			});
-		});
-	});
+background-image: linear-gradient(bottom, rgb(217,117,50) 0%, rgb(255,192,125) 100%);
 
-	$('#addtoCartMod').on('click', function(e){
-		ajax('cart', 'duplicate', {id_order: id_order, add: 1}).done(function(data){
-			ajax('cart', 'GetCart').done(function(data){
-				$('header .cart_item a.cart i').attr('data-badge', countOfObject(data.products));
-			});
-		});
-	});
+background-image: -o-linear-gradient(bottom, rgb(217,117,50) 0%, rgb(255,192,125) 100%);
 
-	$('.checkout').on('click', function(e){
-		$('#cart').find('no_items').addClass('hidden');
-	});
+background-image: -moz-linear-gradient(bottom, rgb(217,117,50) 0%, rgb(255,192,125) 100%);
 
-	/*Отмена заказа*/
-	$('#cnclOrderBtnMod').on('click', function(e){
-		ajax('order', 'CancelOrder', {id_order: id_order}).done(function(data){
-			if(data === true){
-				closeObject('confirmCnclOrder');
-				$('.canceledOrder').find('.status').html(statuses[5]);
-				$('.editing').find('li.canceledOrder').find('.cnslOrderBtn').addClass('hidden');
-				$('.editing').find('li.canceledOrder').find('.delOrderBtn').removeClass('hidden');
-			}
-		});
-	});
+background-image: -webkit-linear-gradient(bottom, rgb(217,117,50) 0%, rgb(255,192,125) 100%);
 
-	$('#delOrderBtnMod').on('click', function(e){
-		ajax('order', 'DeleteOrder', {id_order: id_order}).done(function(data){
-			if(data === true){
-				closeObject('confirmDelOrder');
-				$('.orders_list').find('.deletedOrder').remove();
-			};
-		});
-	});
+background-image: -ms-linear-gradient(bottom, rgb(217,117,50) 0%, rgb(255,192,125) 100%);
 
-	$('.prod_load_js').click(function(event) {
-		var cart_id = $(this).data('cartid'),
-			rewrite = $(this).data('rewrite');
-		GetCabProdAjax(cart_id, rewrite);
-	});
+background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(217,117,50)),color-stop(1, rgb(255,192,125)));}
 
-	$('.chosen_rait_js').on('click', function(e){
-		var modal = $('#'+$(this).data('name'));
-		modal.find('[name="id_manager"]').val($(this).closest('.manager').data('id'));
-		modal.find('[name="voted"]').val($(this).closest('.manager').is('.voted')?1:0);
-		modal.find('[name="like"]').val($(this).is('.like')?1:0);
-	});
+.fakt, .run_order {
 
-	$('.raiting_js').on('click', function(e){
-		e.preventDefault();
-		var form = $(this).closest('form');
-		var rait = form.find('[name="like"]').val();
-		var manager = form.find('[name="id_manager"]').val();
-		ajax('cabinet', 'GetRating', new FormData($(form)[0]), 'json', true).done(function(response){
-			closeObject('rait_comment');
-			$('.details').find('.like_manager_' + manager, '.dislike_manager_' + manager).removeClass('active');
-			if(rait == 1){
-				$('.details').find('.like_manager_' + manager).addClass('active');
-			}else{
-				$('.details').find('.dislike_manager_' + manager).addClass('active');
-			}
-		});
-	});
-	$('.change_delivery_btn_js').on('click', function(){
-		var id_addres =	$(this).closest('.change_delivery').find('.change_delivery_js').find('[value="'+ $(this).closest('.change_delivery').find('.change_delivery_js').val() +'"]').data('id');
-		var id_order = $(this).closest('.order').find('.odrerIdAct').data('id-order');
-		var current_order = $(this).closest('.newdelivery');
-		if (id_addres !== undefined){
-			addLoadAnimation(current_order);
-			ajax('order', 'addAddress', {id_order:id_order, id_address:id_addres}, 'html').done(function(data){
-				removeLoadAnimation(current_order);
-				current_order.find('.details').html(data);
-			});
-		}
-	});
-});
-</script>
+border-radius: 3px;
+
+color: #fff;
+
+cursor: pointer;
+
+display: block;
+
+font-family: "Trebuchet MS", Helvetica, sans-serif;
+
+font-size: 14px;
+
+margin: 10px 0;
+
+max-width: 200px;
+
+padding: 5px 15px;
+
+text-align: center;
+
+text-decoration: none;
+
+text-shadow: 0px 1px 20px rgba(0,0,0,.8);}
+
+</style>
+
+
+
+<div class="cabinet">
+
+<?if (isset($errm) && isset($msg)){?><br><span class="errmsg">Ошибка! <?=$msg?></span><br><?}?>
+
+<?=isset($errm['products'])?"<span class=\"errmsg\">".$errm['products']."</span>":null?>
+
+
+
+<?if(isset($_SESSION['errm'])){
+
+	foreach ($_SESSION['errm'] as $msg){if (!is_array($msg)){?>
+
+		<span class="errmsg"><?=$msg?></span><br>
+
+<?}}}unset($_SESSION['errm'])?>
+
+
+
+
+
+                <rh3>Заказ № <?=$order['id_order']?>   <span><?=date("d.m.Y",$order['target_date'])?></span>
+
+
+
+                    <?php if($order['id_order_status']==4): ?>
+
+                    (Отменено контрагентом)
+
+                    <?php endif ?>
+
+
+
+                    <?php if($order['id_order_status']==5): ?>
+
+                    (Отменено клиентом)
+
+                    <?php endif ?>
+
+
+
+                </rh3>
+
+<?php if($order['id_order_status']==1): ?>
+
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+
+    <input type="submit" name="smb_run" class="run_order" value="На выполнение">
+
+</form>
+
+<?php endif ?>
+
+<?php if($order['id_order_status']==2): ?>
+
+	<a target="_blank" class="fakt" href="<?=_base_url?>/invoice_customer_fakt/<?=$order['id_order']?>/<?=$order['skey']?>">Накладная покупателя ФАКТ</a>
+
+<?php endif ?>
+
+
+
+<b><?php echo $order['note'] ?> </b>
+
+                <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+
+<script>p_ids = new Array();ii=0;</script>
+
+                <table border="0" cellpadding="0" cellspacing="0" class="returns_table" width="100%">
+
+					<col width="70">
+
+                    <tr>
+
+                        <th class="code_cell">Код</th>
+
+                        <th class="name_cell">Название</th>
+
+                        <th class="price_cell">Цена за 1 шт. <br>от ящика, грн.</th>
+
+                        <th class="count_cell">Кол-во <br>в ящике</th>
+
+
+
+                        <th class="count_cell">Заказано <br>штук</th>
+
+                        <th class="count_cell">Сумма <br>заказано</th>
+
+
+
+                        <th class="price_cell">Кол-во <br>по контр-<br>агенту</th>
+
+                        <th class="price_cell">Сумма <br>по контр-<br>агенту</th>
+
+
+
+						<th class="price_cell">Кол-во <br>факт.</th>
+
+						<th class="price_cell">Сумма <br>факт.</th>
+
+                    </tr>
+
+                    <?
+
+                    	$t['opt_sum']=0;
+
+                    	$t['contragent_qty']=0;
+
+                    	$t['contragent_sum']=0;
+
+                    	$t['fact_qty']=0;
+
+                    	$t['fact_sum']=0;
+
+
+
+                    	$t['mopt_sum']=0;
+
+                    	$t['contragent_mqty']=0;
+
+                    	$t['contragent_msum']=0;
+
+                    	$t['fact_mqty']=0;
+
+                    	$t['fact_msum']=0;
+
+                    ?>
+
+
+
+                    <?$Contragent = new Contragents();?>
+
+					<?foreach($data as $i){?>
+
+                    <?if($i['opt_qty']!=0){// строка по опту?>
+
+
+
+                    <tr>
+
+                         <td class="code_cell" style="padding: 2px 1px 6px;">
+
+                         	<?if($order['id_order_status']!=2){?>
+
+                         	<select<?if($order['id_order_status']==2){?>disabled="disabled"<?}?> name="article[<?=$i['id_product']?>]" style="width: 60px;">
+
+	                         	<?$art_arr = $Contragent->GetSupplierArticlesByOrder($order['id_order'], $i['id_product'], true)?>
+
+								<?foreach ($art_arr as $art){?>
+
+	                         		<option<?if($i['article']==$art['article']){?> selected="selected"<?}?> value="<?=$art['article']?>"><?=$art['article']?></option>
+
+	                         	<?}?>
+
+                         	</select>
+
+                         	<?}else{?>
+
+                         		<div style="margin-left: 20px;"><?=$i['article']?></div>
+
+                         	<?}?>
+
+                         </td>
+
+
+
+                         <td class="name_cell">
+
+                             <a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
+
+                             <a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
+
+                                <div>&nbsp;
+
+                                </div>
+
+                                <div style="padding: 0px">
+
+                                <!--noindex-->Арт.<!--/noindex--><?=$i['art']?></div>
+
+                         </td>
+
+                         <td class="price_cell"><p id="pprice_opt_<?=$i['id_product']?>"><?=round($i['site_price_opt'],2)?></p></td>
+
+                         <td class="count_cell"><p><?=$i['inbox_qty']?> шт.</p></td>
+
+                         <td class="price_cell"><p><?=$i['opt_qty']?> шт.</p></td>
+
+                         <td class="price_cell"><p><?=round($i['opt_sum'],2)?></p></td>
+
+                         <?$t['opt_sum']+=round($i['opt_sum'],2);?>
+
+
+
+						 <?$i['contragent_qty'] = ($i['contragent_qty']>=0)?$i['contragent_qty']:$i['opt_qty'];?>
+
+                         <td class="count_cell"><div class="unit"><input <?if($i['id_order_status']==2){?>disabled="disabled"<?}?> name="contr_qty[<?=$i['id_product']?>]" id="contr_qty_<?=$i['id_product']?>" type="text" value="<?=$i['contragent_qty']?>" onchange="ContrRecalcSum(this,<?=$i['id_product']?>,true)" class="input_table" /></div></td>
+
+                         <?$t['contragent_qty']+=$i['contragent_qty'];?>
+
+
+
+                         <?$i['contragent_sum'] = ($i['contragent_sum']!=0 || $i['contragent_qty']>=0)?$i['contragent_sum']:round($i['site_price_opt']*$i['opt_qty'],2);?>
+
+                         <td class="price_cell"><p id="pcontr_sum_<?=$i['id_product']?>"><?=$i['contragent_sum']?></p></td>
+
+                         <?$t['contragent_sum']+=$i['contragent_sum'];?>
+
+
+
+                         <?$i['fact_qty'] = ($i['fact_qty']>=0)?$i['fact_qty']:0;?>
+
+                         <td class="price_cell"><p><?=$i['fact_qty']?></p></td>
+
+                         <?$t['fact_qty']+=$i['fact_qty'];?>
+
+
+
+                         <?$i['fact_sum'] = ($i['fact_sum']!=0)?$i['fact_sum']:0;?>
+
+                         <td class="price_cell"><p><?=$i['fact_sum']?></p></td>
+
+                         <?$t['fact_sum']+=$i['fact_sum'];?>
+
+
+
+                    </tr>
+
+                    <?} if($i['mopt_qty']!=0){// строка по мелкому опту?>
+
+                    <tr>
+
+                         <td class="code_cell" style="padding: 2px 1px 6px;">
+
+	                        <?if($order['id_order_status']!=2){?>
+
+	                        <select name="article_mopt[<?=$i['id_product']?>]" style="width: 60px;">
+
+	                         	<?$art_arr = $Contragent->GetSupplierArticlesByOrder($order['id_order'], $i['id_product'], false)?>
+
+								<?foreach ($art_arr as $art){?>
+
+	                         		<option<?if($i['article_mopt']==$art['article']){?> selected="selected"<?}?> value="<?=$art['article']?>"><?=$art['article']?></option>
+
+	                         	<?}?>
+
+                         	</select>
+
+                         	<?}else{?>
+
+                         		<div style="margin-left: 20px;"><?=$i['article_mopt']?></div>
+
+                         	<?}?>
+
+						</td>
+
+                         <td class="name_cell">
+                             <a href="<?=_base_url.G::GetImageUrl($i['img_1'])?>" onclick="return hs.expand(this)" class="highslide"><img alt="<?=htmlspecialchars($i['name'])?>" src="<?=_base_url.G::GetImageUrl($i['img_1'], 'thumb')?>" title="Нажмите для увеличения"></a>
+
+                             <a href="<?=_base_url?>/product/<?=$i['id_product']?>/"><?=$i['name']?></a>
+
+                                <div>&nbsp;
+
+                                </div>
+
+                                <div style="padding: 0px">
+
+                                <!--noindex-->Арт.<!--/noindex--><?=$i['art']?></div>
+
+                         </td>
+
+                         <td class="price_cell"><p id="pprice_mopt_<?=$i['id_product']?>"><?=round($i['site_price_mopt'],2)?></p></td>
+
+                         <td class="count_cell"><p><?=$i['inbox_qty']?> шт.</p></td>
+
+                         <td class="price_cell"><p><?=$i['mopt_qty']?> шт.</p></td>
+
+                         <td class="price_cell"><p><?=round($i['mopt_sum'],2)?></p></td>
+
+                         <?$t['mopt_sum']+=round($i['mopt_sum'],2);?>
+
+
+
+						 <?$i['contragent_mqty'] = ($i['contragent_mqty']>=0)?$i['contragent_mqty']:$i['mopt_qty'];?>
+
+                         <td class="count_cell"><div class="unit"><input <?if($i['id_order_status']==2){?>disabled="disabled"<?}?> name="contr_mqty[<?=$i['id_product']?>]" id="contr_mqty_<?=$i['id_product']?>" type="text" value="<?=$i['contragent_mqty']?>" onchange="ContrRecalcSum(this,<?=$i['id_product']?>, false)" class="input_table" /></div></td>
+
+                         <?$t['contragent_mqty']+=$i['contragent_mqty'];?>
+
+
+
+                         <?$i['contragent_msum'] = ($i['contragent_msum']!=0 || $i['contragent_mqty']>=0)?$i['contragent_msum']:round($i['site_price_mopt']*$i['mopt_qty'],2);?>
+
+                         <td class="price_cell"><p id="pcontr_msum_<?=$i['id_product']?>"><?=$i['contragent_msum']?></p></td>
+
+                         <?$t['contragent_msum']+=$i['contragent_msum'];?>
+
+
+
+                         <?$i['fact_mqty'] = ($i['fact_mqty']>=0)?$i['fact_mqty']:0;?>
+
+                         <td class="price_cell"><p><?=$i['fact_mqty']?></p></td>
+
+                         <?$t['fact_mqty']+=$i['fact_mqty'];?>
+
+
+
+                         <?$i['fact_msum'] = ($i['fact_msum']!=0)?$i['fact_msum']:0;?>
+
+                         <td class="price_cell"><p><?=$i['fact_msum']?></p></td>
+
+                         <?$t['fact_msum']+=$i['fact_msum'];?>
+
+
+
+
+
+
+
+                    </tr>
+
+                    <?}?>
+
+<script>p_ids[ii++] = <?=$i['id_product']?>;</script>
+
+                    <?}?>
+
+
+
+                    <tr class="itogo">
+
+                         <td colspan="5"><p>Итого с учетом скидок и наценок:</p></td>
+
+
+
+                         <td class="count_cell"><p><?=$i['sum_discount']?></p></td>
+
+                         <td class="price_cell"><p id="pcontragent_qty"><?=$t['contragent_qty']+$t['contragent_mqty']?></p></td>
+
+                         <td class="price_cell"><p id="pcontragent_sum"><?=$t['contragent_sum']+$t['contragent_msum']?></p></td>
+
+                         <td class="price_cell"><p><?=$t['fact_qty']+$t['fact_mqty']?></p></td>
+
+                         <td class="price_cell"><p><?=$t['fact_sum']+$t['fact_msum']?></p></td>
+
+                    </tr>
+
+
+
+                    <?if ($i['id_pretense_status']!=0){?>
+
+                    <?foreach ($pretarr as $p){?>
+
+						<tr>
+
+	                        <td class="code_cell" style="padding: 2px 1px 6px;"><div class="unit"><input type="text" disabled="disabled" value="<?=$p['article']?>" class="input_table" /></div></td>
+
+	                        <td class="name_cell">
+
+	                            <div class="unit4"><input type="text" value="<?=$p['name']?>" disabled="disabled" class="input_table" /></div>
+
+	                        </td>
+
+	                        <td class="price_cell"><div class="unit2"><input type="text" disabled="disabled" value="<?=$p['price']?>" class="input_table" /></div></td>
+
+	                        <td colspan="5" class="count_cell">&nbsp;</td>
+
+	                        <td class="count_cell"><div class="unit"><input type="text" disabled="disabled" value="<?=$p['qty']?>" class="input_table" /></div></td>
+
+	                        <td class="price_cell">&nbsp;</td>
+
+                    	</tr>
+
+					<?}}?>
+
+                </table>
+
+
+
+                <script type="text/javascript">
+
+                	function ContrRecalcSum(obj, id, opt){
+
+						if (opt)
+
+							$("#pcontr_sum_"+id).text((obj.value * $("#pprice_opt_"+id).text()).toFixed(2) );
+
+						else{
+
+							$("#pcontr_msum_"+id).text((obj.value * $("#pprice_mopt_"+id).text()).toFixed(2) );
+
+						}
+
+						contr_qty = 0;
+
+						for(jj=0;jj<ii;jj++){
+
+							if ($("#contr_qty_"+p_ids[jj]).length)
+
+								contr_qty += parseFloat($("#contr_qty_"+p_ids[jj]).val());
+
+
+
+							if ($("#contr_mqty_"+p_ids[jj]).length)
+
+								contr_qty += parseFloat($("#contr_mqty_"+p_ids[jj]).val());
+
+						}
+
+						$("#pcontragent_qty").text(contr_qty);
+
+
+
+						contr_sum = 0;
+
+						for(jj=0;jj<ii;jj++){
+
+							if ($("#contr_qty_"+p_ids[jj]).length)
+
+								contr_sum += parseFloat($("#pcontr_sum_"+p_ids[jj]).text());
+
+							if ($("#contr_mqty_"+p_ids[jj]).length)
+
+								contr_sum += parseFloat($("#pcontr_msum_"+p_ids[jj]).text());
+
+						}
+
+						$("#pcontragent_sum").text(contr_sum.toFixed(2));
+
+                	}
+
+                </script>
+
+                	<?if($i['id_order_status']==6){?>
+
+                	<input type="submit" name="smb" class="exec_order" value="">
+
+                	<?}?>
+
+
+
+                	<?if($i['id_pretense_status']==1){?>
+
+                		<input type="submit" name="smb_pretense" class="exec_pret" value="">
+
+                	<?}?>
+
+                </form>
+
+
+
+<!--<?php if($i['id_order_status']==1): ?>
+
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+
+    <input type="submit" name="smb_run" class="run_order" value="На выполнение">
+
+</form>
+
+<?php endif ?>-->
+
+
+
+<?php if($i['id_order_status']==1 || $i['id_order_status']==6): ?>
+
+<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+
+    <input type="submit" name="smb_cancel" class="cancel_order" value="">
+
+</form>
+
+<?php endif ?>
+
+
+
+<br>
+
+<a target="_blank" href="<?=_base_url?>/invoice_contragent/<?=$order['id_order']?>/<?=$order['skey']?>">Накладная контрагента</a>
+
+<?if ($i['id_pretense_status']!=0){?>
+
+<br>
+
+<a target="_blank" href="<?=_base_url?>/invoice_contragent_pret/<?=$order['id_order']?>/<?=$order['skey']?>">Претензия на накладную контрагента</a>
+
+<br>
+
+<a target="_blank" href="<?=_base_url?>/invoice_customer_pret/<?=$order['id_order']?>/<?=$order['skey']?>">Претензия на накладную покупателя</a>
+
+<?}?>
+
+<?if ($i['id_return_status']!=0){?>
+
+<br>
+
+<a target="_blank" href="<?=_base_url?>/invoice_contragent_ret/<?=$order['id_order']?>/<?=$order['skey']?>">Накладная по возврату контрагента</a>
+
+<br>
+
+<a target="_blank" href="<?=_base_url?>/invoice_customer_ret/<?=$order['id_order']?>/<?=$order['skey']?>">Накладная по возврату покупателя</a>
+
+<?}?>
+
+<br>
+
+<a target="_blank" href="<?=_base_url?>/invoice_customer/<?=$order['id_order']?>/<?=$order['skey']?>">Накладная покупателя</a>
+
+<br>
+
+<!--<a target="_blank" href="<?=$GLOBALS['URL_base']?>invoice_customer_fakt/<?=$order['id_order']?>/<?=$order['skey']?>">Накладная покупателя ФАКТ</a>-->
+
+            </div><!--class="cabinet"-->

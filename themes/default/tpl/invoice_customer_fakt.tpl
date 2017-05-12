@@ -303,7 +303,7 @@
 										<span class="note_red"><?=preg_replace('/\<i\>.*\<\/\i\>/', '', $i['note_mopt'])?></span>
 									<?}?>
 								</td>
-								<td class="c7"> <?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?> </td>
+								<td class="c7"><?=$i['contragent_mqty'] < 0?0:$i['contragent_mqty'];?></td>
 								<td class="c9">&nbsp;</td>
 								<td class="c10">&nbsp;</td>
 								<td class="c6"><?=number_format($i['site_price_mopt'], 2, ",", "");?></td>

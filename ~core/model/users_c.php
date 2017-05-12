@@ -49,6 +49,7 @@ class Users {
 		$this->SetUserAdditionalInfo($this->fields['id_user']);
 		return true;
 	}
+
 	public function CheckUserNoPass($data){
 		$data = trim($data);
 		$sql = "SELECT u.id_user, u.email, u.gid, u.promo_code, u.active
@@ -650,6 +651,16 @@ class Users {
 		}
 		if(!$res = $this->db->GetArray($sql, 'id_user')){
 			return false;
+		}
+		return $res;
+	}
+
+	public function GetUserBySelfEdit($id_user){
+		$sql = "SELECT self_edit FROM "._DB_PREFIX_."supplier AS s
+			WHERE s.id_user = ".$id_user."
+			AND s.self_edit = '1'";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return $res;
 		}
 		return $res;
 	}

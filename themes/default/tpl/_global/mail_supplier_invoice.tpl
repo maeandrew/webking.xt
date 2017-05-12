@@ -241,38 +241,234 @@
 								<tr>
 								<td align="center" valign="top" width="600" style="width:600px;">
 								<![endif]-->
-								<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
-								    <tbody>
-								        <tr>
-								            <td valign="top">
-								              	<!--[if mso]>
-												<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse; width:100%;">
-												<tr>
-												<![endif]-->
-												<!--[if mso]>
-												<td valign="top" width="600" style="width:600px;">
-												<![endif]-->
-								                <table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100%; min-width:100%;" width="100%">
-								                    <tbody>
-								                    	<tr>
-									                        <td valign="top" style="padding-top:9px; padding-right:18px; padding-bottom:9px; padding-left:18px; color:#bbbbbb;	font-family:Helvetica; font-size:12px; line-height:150%; text-align:center;">
-																Хотите изменить настройки уведомлений?
-																<br>
-																Можете это сделать в&nbsp;<a href="https://<?=$GLOBALS['CONFIG']['invoice_logo_sms']?>/cabinet/settings?t=basic" style="color:#bbbbbb; font-weight:normal; text-decoration:underline;" target="_blank">личном кабинете</a>.
-									                        </td>
-								                    	</tr>
-								                	</tbody>
-								                </table>
-												<!--[if mso]>
-												</td>
-												<![endif]-->
-												<!--[if mso]>
-												</tr>
-												</table>
-												<![endif]-->
-								            </td>
-								        </tr>
-								    </tbody>
+								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; max-width:600px !important; width: 95% !important; background-color:#f3f3f3;margin-bottom: 18px;">
+									<tr>
+										<td valign="top">
+											<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%; background-color: #ffffff">
+												<tbody>
+													<tr>
+														<td align="center" valign="top" style="padding:9px">
+															<hr style="border: 1px solid #e7e7e7;">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
+																<tbody>
+																	<tr>
+																		<td valign="top" align="center" style=" padding-bottom: 9px; padding-top: 5px; font-size: 14px; line-height: 150%; text-align: center; white-space: nowrap; color:#bbbbbb; font-weight: normal; font-family: Helvetica;">
+																			Наши контакты:
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:100% !important; width:100% !important;" width="100%">
+																<tbody>
+																	<tr align="center">
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380675741013">(067) 574-10-13</a>
+																		</td>
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380577803861">(057) 780-38-61</a>
+																		</td>
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380995632817">(099) 563-28-17</a>
+																		</td>
+																		<td valign="top" align="center" style="width: 100px; padding-bottom: 9px; padding-top: 5px; white-space: nowrap; margin-right: 10px; font-size: 12px; display: inline-block; color: #2BAADF !important;font-weight: normal;text-decoration: underline; font-family: Helvetica;">
+																			<a href="tel:+380634259183">(063) 425-91-83</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
+																<tbody>
+																	<tr>
+																		<td align="center" >
+																			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse; min-width:100%;">
+																				<tbody>
+																					<tr>
+																						<td align="center" valign="top" >
+																							<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																								<tbody>
+																									<tr>
+																										<td align="center" valign="top">
+																											<!--[if mso]>
+																											<table align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+																											<tr>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://www.facebook.com/KharkovTorg" target="_blank"><img src="https://xt.ua/images/mail/fb.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://twitter.com/we_xt_ua" target="_blank"><img src="https://xt.ua/images/mail/tw.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://vk.com/xt_ua" target="_blank"><img src="https://xt.ua/images/mail/vk.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:10px; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://www.youtube.com/channel/UCUSXO-seq23KfMwbn4q9VVw" target="_blank"><img src="https://xt.ua/images/mail/yt.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											<td align="center" valign="top">
+																											<![endif]-->
+																											<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; display:inline;">
+																												<tbody>
+																													<tr>
+																														<td valign="top" style="padding-right:0; padding-bottom:9px;">
+																															<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
+																																			<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+																																				<tbody>
+																																					<tr>
+																																						<td align="center" valign="middle" width="24">
+																																							<a href="https://plus.google.com/+X-torg/" target="_blank"><img src="https://xt.ua/images/mail/gp.png" style="display:block;" height="24" width="24"></a>
+																																						</td>
+																																					</tr>
+																																				</tbody>
+																																			</table>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																											<!--[if mso]>
+																											</td>
+																											<![endif]-->
+																											<!--[if mso]>
+																											</tr>
+																											</table>
+																											<![endif]-->
+																										</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
 								</table>
 								<!--[if gte mso 9]>
 								</td>
@@ -441,5 +637,6 @@
 		</tbody>
 	</table>
 <?}?> -->
+
 </body>
 </html>

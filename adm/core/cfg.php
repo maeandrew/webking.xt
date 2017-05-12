@@ -99,6 +99,7 @@ G::ToGlobals(array(
 			'pages',
 			'posts',
 			'pricelist',
+			'photo_products',
 			'product',
 			'product_moderation',
 			'product_report',
@@ -160,14 +161,16 @@ G::ToGlobals(array(
 					'guestbook',
 					'graphics',
 					'suppliers',
-					'parser'
+					'parser',
+					'photo_products'
 				)
 			),
 			3 => array(
 				'name' => 'supplier',
 				'caption' => 'Поставщик',
 				'permissions' => array(
-					'supplier_cab'
+					'supplier_cab',
+					'product'
 				)
 			),
 			4 => array(
@@ -273,7 +276,8 @@ G::ToGlobals(array(
 					'wishes',
 					'segmentations',
 					'pricelist',
-					'supplier_prov'
+					'supplier_prov',
+					'photo_products'
 				)
 			),
 			14 => array(

@@ -11,6 +11,7 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $Unit = new Unit();
+$Users = new Users();
 $Products = new Products();
 $News = new News();
 $Images = new Images();
@@ -28,6 +29,8 @@ $specification->SetList();
 $tpl->Assign('specs', $specification->list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
 $tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());
+$self_edit = $Users->GetUserBySelfEdit($_SESSION['member']["id_user"]);
+$tpl->Assign('self_edit', $self_edit['self_edit']);
 
 if(isset($_GET['upload']) == true){
 	$res = $Images->upload($_FILES, $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/');
@@ -46,6 +49,7 @@ if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
 	$Products->UpdateProduct(array('id_product'=>$id_product));
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
+
 if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	if(isset($_POST['images_visible'])){
 		$_POST['images_visible'][0] = 1;
@@ -193,7 +197,7 @@ if(isset($_POST['smb_duplicate'])){
 	if($id = $Products->DuplicateProduct($_POST)){
 		header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id);
 	}else{
-		$tpl->Assign('msg', 'Товар не добавлен.');
+		$tpl->Assign('msg', 'Товар не удалось дублировать.');
 		$tpl->Assign('errm', $errm);
 	}
 }
@@ -213,6 +217,7 @@ foreach($prod_fields as $k=>$v){
 	}
 }
 $tpl->Assign('h1', $_POST['name']);
+$tpl->Assign('art', $_POST['art']);
 $parsed_res = array(
 	'issuccess' => true,
 	'html'		=> $tpl->Parse($GLOBALS['PATH_tpl'].'cp_product_ae.tpl')

@@ -901,11 +901,6 @@ table.kontrag.table{
 	cursor: pointer;
 	color: #FF5722;
 }
-#cab_left_bar .active li:hover{
-		background: #fafafa;
-		border-bottom-color: #aaa;
-		box-shadow: 1px 1px 1px 1px #aaa;
-}
 #cab_left_bar .link_wrap {
 	display: block;
 	overflow: hidden;
@@ -948,8 +943,7 @@ table.kontrag.table{
 	line-height: 2em;
 }
 .nav li {
-	/*margin-left: 1.2em;*/
-	padding-left: 1.2em;
+	margin-left: 1.2em;
 }
 .material-icons {
 	vertical-align: top;

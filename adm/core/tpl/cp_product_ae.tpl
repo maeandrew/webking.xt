@@ -15,7 +15,7 @@
 					<button name="smb_duplicate" type="submit" class="btn-m-lblue duplicate_btn_js">Дублировать</button>
 					<span class="product_view"><a href="<?=$GLOBALS['URL_base'].$_POST['translit']?>.html" target="_blank">Просмотр товара</a></span>
 					<input type="hidden" name="id_product" id="id_product" value="<?=isset($_POST['id_product'])?$_POST['id_product']:0?>">
-					<button name="smb_new" type="submit" class="btn-m-default">Сохранить и создать новый</button>
+					<button name="smb_new" type="submit" class="btn-m-default" <?if($self_edit == '1'){?> style="display: none;" <?}?>>Сохранить и создать новый</button>
 					<button name="smb" type="submit" class="btn-m-default fr">Сохранить</button>
 				</div>
 			<?}else{?>
@@ -35,9 +35,9 @@
 					<li><a href="#nav_delivery">Доставка</a></li>
 					<li><a href="#nav_connection">Категория и связь</a></li>
 					<li><a href="#nav_information">Информация</a></li>
-					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li><a href="#nav_visible">Видимость и индексация</a></li><?}?>
+					<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><li><a href="#nav_visible"  <?if($self_edit == '1'){?> style="display: none;" <?}?> >Видимость и индексация</a></li><?}?>
 					<?if($GLOBALS['CurrentController'] == 'productedit' && $_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
-						<li><a href="#nav_delete">Удаление товара</a></li>
+						<li><a href="#nav_delete"  <?if($self_edit == '1'){?> style="display: none;" <?}?> >Удаление товара</a></li>
 					<?}?>
 					<li class="main_photo">
 						<img src="<?if(isset($_POST['images'])){
@@ -103,18 +103,18 @@
 							<label for="name">Название:</label><?=isset($errm['name'])?"<span class=\"errmsg\">".$errm['name']."</span><br>":null?>
 							<input required type="text" name="name" id="name" class="input-m" value="<?=isset($_POST['name'])?htmlspecialchars($_POST['name']):null?>">
 						</div>
-
 						<div class="col-md-12">
 							<?if(isset($_POST['translit'])){?>
 								<div id="translit">
-									<label>URL сраницы:</label>
-									<p><?=$GLOBALS['URL_base'].$_POST['translit']?>.html</p>
-									<a href="#" id="updtrans" class="refresh_btn icon-font" title="Нажимать, только при полной замене товара" onclick="updateTranslit();">f</a>
+									<label>URL сраницы: </label>
+									<p><?=$GLOBALS['URL_base'].$_POST['translit'];?>.html</p>
 								</div>
+								<button name="smb" type="submit" class="btn-s-default" id="updtrans" onclick="updateTranslit();" style=" margin:0 20px;">Обновить</button>
+
 							<?}?>
 						</div>
 					</div>
-					<label>Изображения товара на x-torg.com:</label>
+					<label>Изображения товара на xt.ua:</label>
 					<div class="row" id="preview1">
 						<div class="col-md-2">
 							<img class="pic_block" id="i1" src="<?=G::GetImageUrl($_POST['img_1'], 'thumb')?>">
@@ -375,8 +375,10 @@
 							</div>
 						<?}?>
 						<div class="col-md-12">
-							<label for="descr">Описание x-torg.com:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
-							<textarea name="descr" id="descr" class="input-m" rows="5" cols="50"><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
+							<label for="descr" <?if($self_edit == '1'){?> style="display: none;" <?}?> >Описание x-torg.com:</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
+							<?if(!$self_edit == '1'){?>
+							<textarea name="descr" id="descr" class="input-m" rows="5" cols="50" ><?=isset($_POST['descr'])?htmlspecialchars($_POST['descr']):null?></textarea>
+							<?}?>
 							<label for="descr">Описание xt.ua(краткое):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
 							<textarea name="descr_xt_short" id="descr_xt_short" class="input-m" rows="5" cols="50"><?=isset($_POST['descr_xt_short'])?htmlspecialchars($_POST['descr_xt_short']):null?></textarea>
 							<label for="descr">Описание xt.ua(полное):</label><?=isset($errm['descr'])?"<span class=\"errmsg\">".$errm['descr']."</span><br>":null?>
@@ -391,7 +393,7 @@
 				</div>
 				<div id="nav_params">
 					<h2>Параметры товара</h2>
-					<label for="id_unit_xt">Единицы измерения для x-torg.com</label>
+					<label for="id_unit_xt">Единицы измерения для xt.ua</label>
 					<select class="input-m" name="id_unit" id="id_unit_xt" style="width:150px;">
 						<?foreach($unitslist as $value){?>
 							<option value="<?=$value['id']?>"<?=(isset($_POST['id_unit']) && $_POST['id_unit'] == $value['id'])?'selected="true"':null?>><?=$value['unit_xt']?></option>
@@ -520,8 +522,8 @@
 					<?}?>
 					<div class="">
 						<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?>
-							<label>Данные поставщика:</label>
-							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier">
+							<label <?if($self_edit == '1'){?> style="display: none;" <?}?> >Данные поставщика:</label>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1 supplier" <?if($self_edit == '1'){?> style="display: none;" <?}?> >
 								<colgroup>
 									<col width="10%">
 									<col width="20%">
@@ -725,9 +727,10 @@
 					<label for="notation_price">Примечание: </label>
 					<textarea name="notation_price" id="notation_price" cols="30" rows="10"><?=isset($_POST['notation_price'])?htmlspecialchars($_POST['notation_price']):null?></textarea>
 				</div>
-				<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><div id="nav_visible">
+				<?if($_SESSION['member']['gid'] != _ACL_REMOTE_CONTENT_){?><div id="nav_visible" <?if($self_edit == '1'){?> style="display: none;" <?}?> >
 					<h2>Видимость и индексация</h2>
-					<label for="visible"><b>Скрыть товар &nbsp;</b>
+					<label for="visible" <?if($self_edit == '1'){?> style="display: none;" <?}?> >
+					<b>Скрыть товар &nbsp;</b>
 						<input type="checkbox" name="visible" id="visible" class="input-m" <?=isset($_POST['visible'])&&(!$_POST['visible'])?'checked="checked" value="on"':null?>>
 					</label>
 					<label for="indexation"><b>Индексация &nbsp;</b>
@@ -737,7 +740,7 @@
 						<input type="checkbox" name="access_assort" id="access_assort" class="input-m" <?=(isset($_POST['access_assort']) && $_POST['access_assort'] != 1) || !isset($_POST['access_assort'])?null:'checked="checked" value="on"'?>>
 					</label>
 				</div>
-				<div id="nav_delete">
+				<div id="nav_delete" <?if($self_edit == '1'){?> style="display: none;" <?}?> >
 					<h2>Удаление товара</h2>
 					<label>Внимание! При удалении товара, он удалится из таблицы спецификаций, карзины, сопутствующих товаров, сегментации,
 							ассортимента поставщика, избранных товаров, посещаемых товаров, листа ожидания.
@@ -1167,20 +1170,23 @@
 		// href += link.closest('tr').find('[name="value"]').val();
 		// window.location.replace(href);
 	}
+
 	function updateTranslit(){
 		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
 		ajax('products', 'updateTranslit', {id_product: id_product}).done(function(data){
 			$('#translit p').text(data);
-			$('#updtrans').animate({  borderSpacing: 360 }, {
-				step: function(now,fx) {
-					$(this).css('-webkit-transform','rotate('+now+'deg)');
-					$(this).css('-moz-transform','rotate('+now+'deg)');
-					$(this).css('transform','rotate('+now+'deg)');
-				},
-				duration:'slow'
-			},'linear');
+			// $('#updtrans').animate({  borderSpacing: 360 }, {
+			// 	step: function(now,fx) {
+			// 		$(this).css('-webkit-transform','rotate('+now+'deg)');
+			// 		$(this).css('-moz-transform','rotate('+now+'deg)');
+			// 		$(this).css('transform','rotate('+now+'deg)');
+			// 	},
+			// 	duration:'slow'
+			// },'linear');
 		});
+		location.reload();
 	}
+
 	function insertSpecToProd(link) {
 		var value = link.prev().val(),
 			id_spec = link.prev().prev().val();

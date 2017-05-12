@@ -194,6 +194,14 @@ if(!is_array($msg)){?>
 								<!-- </form> -->
 								<div class="mdl-tooltip" for="dollar_info_<?=$i['id_product']?>">Перевести в $</div>
 							</div>
+							<div class="prod_name_block">
+								<?if($self_edit == '1'){?>
+									<p><a id="prod_editing" class="prod_editing" href="<?=Link::Custom('adm', 'productedit');?>/<?=$i['id_product']?>" target="_blank"><i class="prod_editing_icon material-icons" style="vertical-align: text-top; padding: .3em;  margin-right: 10px; font-size: 100%; font-family: "Roboto", "Helvetica", "Arial", sans-serif;">Редактрировать товар mode_edit</i></a></p>
+								<?}?>
+								<?if($self_edit == null){?>
+									<p><a id="prod_editing" class="prod_editing" href="#" target="_blank"><i class="prod_editing_icon material-icons" style="vertical-align: text-top; padding: .3em;  margin-right: 10px; font-size: 100%; font-family: "Roboto", "Helvetica", "Arial", sans-serif;">Редактрировать товар mode_edit</i></a></p>
+								<?}?>
+							</div>
 						</div>
 					<?}
 				}?>

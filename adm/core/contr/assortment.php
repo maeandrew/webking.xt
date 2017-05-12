@@ -55,7 +55,7 @@ if(isset($_POST['suppliers_activity'])){
 	$update_supplier['active'] = $_POST['supplier_active'];
 	$update_supplier['id_user'] = $id_supplier;
 	$Supplier->UpdateSupplier($update_supplier, true);
-	// if($_POST['supplier_active'] == 1){
+	// if($_POST['supplier_active'] == 'on'){
 	// 	$Products->UpdateActivityProducttSupplier($update_supplier['id_user']);
 	// }
 }
@@ -63,12 +63,16 @@ $Supplier->SetFieldsById($id_supplier, 1);
 
 //экспорт в exel
 if(isset($_GET['export'])){
+	ini_set('memory_limit', '1024M');
 	$Products->SetProductsList1($id_supplier, $order, '', $arr);
 	$Products->GenExcelAssortFile($Products->GetExportAssortRows($Products->list, $id_supplier), $Supplier->fields['article'].' '.date('d.m'));
+	ini_set('memory_limit', '192M');
 	exit(0);
 }elseif(isset($_GET['export_usd'])){
+	ini_set('memory_limit', '1024M');
 	$Products->SetProductsList1($id_supplier, $order, '', $arr);
 	$Products->GenExcelAssortFile($Products->GetExportAssortRowsUSD($Products->list, $id_supplier), $Supplier->fields['article'].' '.date('d.m').' usd');
+	ini_set('memory_limit', '192M');
 	exit(0);
 }
 // Импорт
