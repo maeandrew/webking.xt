@@ -5146,3 +5146,57 @@
 01:41:56 06.11.2015  SQL error - INSERT INTO xt_assortiment (`id_product`, `id_supplier`, `product_limit`, `inusd`, `price_opt_otpusk`, `price_mopt_otpusk`, `price_opt_otpusk_usd`, `price_mopt_otpusk_usd`, `price_opt_recommend`, `price_mopt_recommend`) VALUES ("29434", "11531", "1000000", "0", "34", "34", "0.97", "0.97", "45.9", "49.3")
 01:45:41 06.11.2015  SQL error - INSERT INTO xt_assortiment (`id_product`, `id_supplier`, `product_limit`, `inusd`, `price_opt_otpusk`, `price_mopt_otpusk`, `price_opt_otpusk_usd`, `price_mopt_otpusk_usd`, `price_opt_recommend`, `price_mopt_recommend`) VALUES ("29434", "11531", "1000000", "0", "34", "34", "0.97", "0.97", "45.9", "49.3")
 02:02:26 06.11.2015  SQL error - INSERT INTO xt_segment_prods (`id_product`, `id_segment`) VALUES ("", "1")
+12:06:12 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 66446
+12:06:28 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 102043
+12:06:42 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 102045
+12:06:53 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 102045
+12:07:02 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 102043
+12:08:52 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 31830
+12:12:19 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 66446
+12:12:20 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 66446
+12:12:22 11.06.2016  <b>SQL Error - </b>SELECT cp.id_category
+			FROM xt_cat_prod AS cp
+			LEFT JOIN xt_category AS c
+				ON c.id_category = cp.id_category
+			WHERE c.sid = 1
+			AND cp.id_product = 66446
