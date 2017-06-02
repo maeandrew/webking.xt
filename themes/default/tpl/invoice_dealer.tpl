@@ -8,9 +8,10 @@
 			<div class="separator">Накладные дилера</div>
 			<?foreach($dealer['orders'] as $id_order => $order){
 				$total = array(
-					'customer' => 0,
-					'dealer' => 0,
-					'agent' => 0,
+					'client_sum' => 0,
+					'dealer_sum' => 0,
+					'agent_profit' => 0,
+					'dealer_profit' => 0
 				)?>
 				<h2>Заказ №<?=$id_order?></h2>
 				<dl class="hidden">
@@ -55,26 +56,34 @@
 							$qty = $product[$qty_mode]>0?$product[$qty_mode]:0;
 							?>
 							<tr>
-								<?$total['customer'] += $qty*$product['site_price_'.$mode];?>
-								<?$total['dealer'] += $qty*$product['dealer_price'];?>
-								<?$total['agent'] += $qty*$product['dealer_price'];?>
+								<?
+								$client_sum = number_format($qty*$product['site_price_'.$mode], 2, ".", ",");
+								$agent_sum;
+								$dealer_sum = number_format($qty*$product['dealer_price'], 2, ".", ",");
+								$agent_profit = number_format($product['agent_total']*$order['coeff'], 2, ".", ",");
+								$dealer_profit = number_format($qty*($product['site_price_'.$mode] - ($product['dealer_price'] > 0?$product['dealer_price']:$product['site_price_'.$mode])), 2, ".", ",") - $agent_profit;
+								$total['client_sum'] += $client_sum;
+								$total['agent_profit'] += $agent_profit;
+								$total['dealer_sum'] += $dealer_sum;
+								$total['dealer_profit'] += $dealer_profit;
+								?>
 								<td class="text"><?=$product['art']?></td>
 								<td class="text name"><?=$product['name']?></td>
 								<td class="number"><?=$qty?> <?=$product['unit']?></td>
 								<td class="number"><?=number_format($product['site_price_'.$mode], 2, ".", ",");?> </td>
 								<td class="number"><?=number_format($product['dealer_price'], 2, ".", ",");?></td>
-								<td class="number"><?=number_format($qty*$product['site_price_'.$mode], 2, ".", ",");?></td>
-								<td class="number"><?=number_format($qty*$product['dealer_price'], 2, ".", ",");?></td>
-								<td class="number"><?=number_format($product['agent_total']*$order['coeff'], 2, ".", ",");?></td>
-								<td class="number"><?=number_format($qty*($product['site_price_'.$mode] - ($product['dealer_price'] > 0?$product['dealer_price']:$product['site_price_'.$mode])), 2, ".", ",");?></td>
+								<td class="number"><?=$client_sum;?></td>
+								<td class="number"><?=$dealer_sum;?></td>
+								<td class="number"><?=$agent_profit;?></td>
+								<td class="number"><?=$dealer_profit;?></td>
 							</tr>
 						<?}?>
 						<tr class="total">
 							<td class="number" colspan="5">Итого:</td>
-							<td class="number"><?=number_format($total['customer'], 2, ".", ",");?></td>
-							<td class="number"><?=number_format($total['dealer'], 2, ".", ",");?></td>
-							<td class="number"><?=number_format($order['agent_counted'], 2, ".", ",");?></td>
-							<td class="number"><?=number_format($total['dealer'] - $total['agent'], 2, ".", ",");?></td>
+							<td class="number"><?=$total['client_sum'];?></td>
+							<td class="number"><?=$total['dealer_sum'];?></td>
+							<td class="number"><?=$total['agent_profit'];?></td>
+							<td class="number"><?=$total['dealer_profit'];?></td>
 						</tr>
 					</tbody>
 				</table>
