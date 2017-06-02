@@ -2265,7 +2265,7 @@ class Products {
 		if(isset($arr['name']) && $arr['name'] !== ''){
 			$f['art'] = trim($arr['art']);
 			$f['name'] = trim($arr['name']);
-			//$f['translit'] = G::StrToTrans($arr['name']);
+			$f['translit'] = G::StrToTrans($arr['name']);
 			$f['descr'] = trim($arr['descr']);
 			$f['descr_xt_short'] = trim($arr['descr_xt_short']);
 			$f['descr_xt_full'] = trim($arr['descr_xt_full']);
@@ -4229,6 +4229,70 @@ class Products {
 	 * @param [type] $id_category id категории
 	 */
 	public function GetFilterFromCategory($id_category){
+		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, sc.id_spec
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."product AS p
+				ON cp.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			LEFT JOIN "._DB_PREFIX_."specs_cats AS sc
+				ON sp.id_spec = sc.id_spec
+			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
+			AND sc.visible IS NOT NULL
+			GROUP BY s.id, sp.value";
+		$arr = $this->db->GetArray($sql);
+		// echo"<br>";
+		// print_r($sql);
+		// echo"<br>";
+		if(!$arr){
+			return false;
+		}
+		return $arr;
+	}
+
+	/**
+	 * Вернуть выключенные фильтры для заданной категории
+	 * @param [type] $id_category id категории
+	 */
+	public function GetNoFilterFromCategory($id_category){
+		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, sp.id_prod, sc.id_spec
+			FROM "._DB_PREFIX_."cat_prod AS cp
+			LEFT JOIN "._DB_PREFIX_."product AS p
+				ON cp.id_product = p.id_product
+			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
+				ON cp.id_product = sp.id_prod
+			LEFT JOIN "._DB_PREFIX_."specs AS s
+				ON sp.id_spec = s.id
+			JOIN "._DB_PREFIX_."specs_cats AS sc ON sp.id_spec = sc.id_spec
+			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
+			AND sp.value <> ''
+
+			AND p.visible > 0 AND (p.price_opt >0 OR p.price_mopt>0)
+			GROUP BY s.id";
+		$arr = $this->db->GetArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr;
+	}
+
+	public function UpdateFilterFromCategory($id_category){
+		$sql = "UPDATE "._DB_PREFIX_."specs_cats
+		SET 'visible' = 0 WHERE 'id_spec' = '.$id_spec.' AND 'id_cat' =  '.$id_cat.'";
+		$this->db->StartTrans();
+		$res = $this->db->Execute($sql);
+
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	/**
+	 * Вернуть выключенные фильтры для заданной категории
+	 * @param [type] $id_category id категории
+	 */
+	public function GetChangeFilterFromCategory($id_category){
 		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value
 			FROM "._DB_PREFIX_."cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."product AS p ON cp.id_product = p.id_product
@@ -4236,9 +4300,11 @@ class Products {
 				ON cp.id_product = sp.id_prod
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
+			LEFT JOIN "._DB_PREFIX_."specs_cats AS sc ON sp.id_spec = sc.id_spec
 			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
 			AND s.id IS NOT NULL
 			AND sp.value <> ''
+			AND sc.visible <> '1'
 			AND p.visible > 0 AND (p.price_opt >0 OR p.price_mopt>0)
 			GROUP BY s.id, sp.value";
 		$arr = $this->db->GetArray($sql);
@@ -4313,7 +4379,7 @@ class Products {
 		$old_product_info = $this->fields;
 		$old_product_info['art'] = $art;
 		// $old_product_info['dupl_idproduct'] = $data['id_product'];
-		$old_product_info['name'] .= ' '.$art;
+		$old_product_info['name'] .= ' '.$art.' - Измените название!!!!';
 		if(!$id_product = $this->AddProduct($old_product_info)){
 			return false;
 		}

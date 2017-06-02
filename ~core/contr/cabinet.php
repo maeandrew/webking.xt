@@ -7,8 +7,12 @@ if(!G::IsLogged()){
 G::metaTags();
 $Page = new Page();
 $Page->PagesList();
+$User = new Users();
 $tpl->Assign('list_menu', $Page->list);
 unset($parsed_res);
+$self_edit = $User->GetUserBySelfEdit($_SESSION['member']["id_user"]);
+
+$tpl->Assign('self_edit', $self_edit['self_edit']);
 // Блок навигации в кабинете
 require($GLOBALS['PATH_block'].'sb_cabinet_navigation.php');
 if(isset($parsed_res) && $parsed_res['issuccess'] == true){
@@ -60,35 +64,7 @@ switch($Users->fields['gid']){
 		if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'info'){
 			require($GLOBALS['PATH_block'].'cp_cab_inf_contragent.php');
 		}else{
-			if(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'orders'){
-				$header = 'Мои заказы';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'){
-				$header = 'Настройки';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'feedback'){
-				$header = 'Обратная связь';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'bonus'){
-				$header = 'Бонусная программа';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'favorites'){
-				$header = 'Избранные товары';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'waitinglist'){
-				$header = 'Лист ожидания';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'cooperative'){
-				$header = 'Совместные заказы';
-				$rewrite = $GLOBALS['Rewrite'];
-			}elseif(isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'agent'){
-				$header = 'Уголок агента';
-				$rewrite = $GLOBALS['Rewrite'];
-			}else{
-				$header = 'Личные данные';
-				$rewrite = 'personal';
-			}
-			require($GLOBALS['PATH_block'].'cp_cab_'.$rewrite.'_contragent.php');
+			require($GLOBALS['PATH_block'].'cp_cab_contragent.php');
 		}
 		break;
 	case _ACL_MANAGER_:
