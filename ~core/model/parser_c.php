@@ -465,4 +465,54 @@ class Parser {
 		}
 		return $product;
 	}
+
+	public function nl($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		$base_url = 'https://nl.ua';
+		$url = sprintf($base_url.'/ru/find/?q=%s', $data[0]);
+		if($pre_parsed_html = $this->parseUrl($url)){
+			$link = $pre_parsed_html->find('.items-wrapper .item-good .title a');
+			$url = $base_url.$link[0]->attr['href'];
+		}
+		if($Products->SetFieldsByRewrite(G::StrToTrans($link[0]->plaintext))){
+			return false;
+		}
+		unset($pre_parsed_html);
+		if($parsed_html = $this->parseUrl($url)){
+			// Получаем артикул товара
+			$product['sup_comment'] = trim($data[0]);
+			// Получаем название товара
+			$product['name'] = $parsed_html->find('main h1', 0)->plaintext;
+			// Получаем описание товара
+			$product['descr'] = $parsed_html->find('.detail_text .text_content', 0)->plaintext;
+			// Получаем цену товара
+			preg_match_all('/^\d+.\d+/', trim($parsed_html->find('.item_current_price', 0)->innertext), $price);
+			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = floatval($price[0][0]);
+			// Получаем характеристики товара
+			foreach($parsed_html->find('.item_properties dl') as $element){
+				$caption = str_replace(':', '', trim($element->children(0)->plaintext));
+				if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+					$value = trim($element->children(1)->plaintext);
+					$spec = $Specification->SpecExistsByCaption($caption);
+					$product['specs'][] = array(
+						'id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)),
+						'value' => $value
+					);
+				}
+			}
+			// Получаем изображения товара максимального размера
+			foreach($parsed_html->find('.thumbs-wrapper .thumbs img') as $element){
+				$filename = str_replace('/71_70_1/', '/', str_replace('/resize_cache/', '/', $base_url.$element->src));
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($filename, $path.$img_info['basename']);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+				$product['images_visible'][] = 1;
+			}
+		}
+		return $product;
+	}
 }
