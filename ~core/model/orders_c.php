@@ -646,10 +646,16 @@ class Orders {
 				}
 				$p[$ii]['dealer_price'] = $item['actual_prices'][1];
 				$p[$ii]['partner_price'] = $item['actual_prices'][0];
-				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
+				// Если товар имеет акционный корректировочный сет, ставим отметку об этом в поле promo в таблице xt_osp
+				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])){
 					$p[$ii]['promo'] = 1;
 				}else{
 					$p[$ii]['promo'] = 0;
+					$agent_percents = [0.05, 0.02, 0.015, 0.005];
+					foreach($agent_percents as $k => $percent){
+						$agent_profits[$k] = $p[$ii][$item['mode'].'_sum']*$percent;
+					}
+					$p[$ii]['agent_profits'] = implode(';', $agent_profits);
 				}
 				$p[$ii]['gift'] = 0;
 			}
@@ -680,11 +686,7 @@ class Orders {
 			$p[$ii]['dealer_price'] = 0;
 			$p[$ii]['partner_price'] = 0;
 			$p[$ii]['site_price_opt'] = 0;
-			if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])) {
-				$p[$ii]['promo'] = 1;
-			}else{
-				$p[$ii]['promo'] = 0;
-			}
+			$p[$ii]['promo'] = 0;
 			$p[$ii]['gift'] = 1;
 		}
 		// Если ни у одного товара нет поставщика
