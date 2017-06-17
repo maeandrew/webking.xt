@@ -5,6 +5,7 @@ class Orders {
 	private $usual_fields;
 	private $usual_fields2;
 	public $list;
+
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
 		$this->usual_fields = array("o.id_order", "o.id_order_status", "o.phones",
@@ -436,11 +437,15 @@ class Orders {
 		$OrderCart = ($arr === null)?$_SESSION['cart']['products']:$OrderCart;
 		// Если список товаров в корзине пуст
 		if(empty($OrderCart)){
+			// Завершаем работу скрипта
 			print_r('products error');
 			return false;
 		}
+		// Если введен промо-код в корзине и его ключевое слово - AG
 		if(isset($_SESSION['cart']['promo']) && substr($_SESSION['cart']['promo'], 0, 2) == 'AG'){
+			// Подписываем покупателя на агента и если подписать не удалось
 			if(!$Users->SubscribeAgentUser($_SESSION['member']['id_user'], substr($_SESSION['cart']['promo'], 2))){
+				// Завершаем работу скрипта
 				print_r('agent subscription error');
 				return false;
 			}
@@ -469,22 +474,25 @@ class Orders {
 		// isset($_SESSION['member']['id_user']) ? $_SESSION['member']['id_user'] : $_SESSION['member']['id_user'] = $_POST['id_user'];
 		// isset($arr['discount']) ? $arr['discount']  : $arr['discount'] = 0;
 
-		// Определяем статус будущего заказа
-		$order_status = 0;
-		// Если у клиента есть промо-код - 11
+		// Определяем статус будущего заказа, по-умолчанию установив 1 - обычный заказ
+		$order_status = 1;
+		// Если у клиента есть промо-код
 		if(isset($_SESSION['cart']['promo_code']) && $_SESSION['cart']['promo_code'] != ''){
-			// Написать проверку промо-кода
-			$f['id_order_status'] = $order_status = 11; // Промо-заказ
-		}else{
-			$f['id_order_status'] = $order_status = 1; // Обычный заказ
+			/** Написать проверку промо-кода */
+			$order_status = 11; // Промо-заказ
 		}
+		$f['id_order_status'] = $order_status;
 		// Сохраняем номер заказа, на основании которого был создан текущщий
 		if(isset($_SESSION['cart']['base_order'])){
 			$f['base_order'] = $_SESSION['cart']['base_order'];
 		}
-		$f['target_date'] = $target_date = strtotime('+2 day', time());
+		// Вычисляем ориентировочную дату отгрузки
+		$f['target_date'] = strtotime('+2 day', time());
+		// Фиксируем дату создания заказа
 		$f['creation_date'] = time();
+		// Определяем покупателя для заказа. В случае когда менеджер оформляет заказ на клиента, получаем id покупателя из $_SESSION['cart']['id_customer'] во всех остальных случаях - из $_SESSION['member']['id_user']
 		$f['id_customer'] = isset($_SESSION['cart']['id_customer'])?$_SESSION['cart']['id_customer']:$_SESSION['member']['id_user'];
+		// Получаем дополнительную информацию о покупателе
 		$Customers = new Customers();
 		$Customers->SetFieldsById($f['id_customer']);
 		$customer = $Customers->fields;
@@ -493,7 +501,6 @@ class Orders {
 		if($customer_address = $Address->GetPrimaryAddress($f['id_customer'])){
 			$_SESSION['member']['id_address'] = $f['id_addrress'] = $customer_address['id'];
 		}
-
 		// Обновляем контрагента у покупателя
 		if(isset($_SESSION['cart']['id_contragent'])){
 			$array['id_contragent'] = $_SESSION['cart']['id_contragent'];
@@ -510,7 +517,6 @@ class Orders {
 		if(isset($array['id_user'])){
 			$Customers->updateCustomer($array);
 		}
-
 		// Определяем контрагента
 		if(isset($_SESSION['cart']['id_contragent'])){
 			$id_contragent = $_SESSION['cart']['id_contragent'];
@@ -525,31 +531,42 @@ class Orders {
 				$res = $this->db->GetOneRowArray($sql);
 				if($res['work_day'] != 1){
 					//рандомный выбор контрагента
-					$contragents = new Contragents();
-					$contragents->SetList();
-					$id_contragent = 6481;//$contragents->list[array_rand($contragents->list)]['id_user'];
+					$Contragents = new Contragents();
+					$Contragents->SetList();
+					$id_contragent = 6481;//$Contragents->list[array_rand($Contragents->list)]['id_user'];
 				}else{
 					$id_contragent = $customer['id_contragent'];
 				}
 			}
 		}
+		$f['id_contragent'] = $id_contragent;
+		// Фиксируем в заказе примененный промо-код
 		if(isset($_SESSION['cart']['promo']) && $_SESSION['cart']['promo'] != ''){
 			$f['promo_code'] = $_SESSION['cart']['promo'];
 		}
-		$f['id_contragent'] = $id_contragent;
+		// Фиксируем в заказе бонусную карту покупателя, если у него она есть
 		if(isset($customer['bonus_card']) && $customer['bonus_card'] != ''){
 			$f['bonus_card'] = $customer['bonus_card'];
 		}
+		// Определяем колонку цен корзины
+		// Если колонка изменена менеджером вручную ($_SESSION['cart']['manual_price_change']) - берем ее, иначе берем $_SESSION['cart']['cart_column']
 		$cart_column = isset($_SESSION['cart']['manual_price_change'])?$_SESSION['cart']['manual_price_change']:$_SESSION['cart']['cart_column'];
+		// Если заказ не совместный берем сумму из $_SESSION['cart']['products_sum'] по колонке
 		$f['sum_opt'] = $f['sum_mopt'] = $f['sum'] = $f['sum_discount'] = !isset($jo_order)?$_SESSION['cart']['products_sum'][$cart_column]:$GetCartForPromo['total_sum'];
+		// Фиксируем в заказе номер телефона покупателя
 		$f['phones'] = $customer['phones'];
+		// Фиксируем в заказе ФИО покупателя
 		$f['cont_person'] = isset($arr['cont_person'])?trim($arr['cont_person']):$customer['cont_person'];
+		// Записываем уникальный ключ доступа к заказу
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
+		// Фиксируем в заказе примечание клиента
 		$f['note'] = isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null;
+		// Фиксируем в закзае факт ручного изменения колонки менеджером с указанием комментария
 		if(isset($_SESSION['cart']['manual_price_change']) && isset($_SESSION['cart']['manual_price_change_note'])){
 			$f['manual_price_change'] = $_SESSION['cart']['manual_price_change'].' - '.$_SESSION['cart']['manual_price_change_note'];
 		}
+		// Записываем информацию о заказе в таблицу xt_order
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'order', $f)){
 			$this->db->FailTrans();
@@ -561,8 +578,10 @@ class Orders {
 		if(isset($jo_order)){
 			$GetCartForPromo['id_order'] =  $id_order;
 		}else{
+			// Фиксируем в сессии номер нового заказа (нужно для заполнения красной формы)
 			$_SESSION['cart']['id_order'] = $id_order;
 		}
+		// Записываем номер нового заказа в соответствующую строку в таблицу xt_cart для перевода корзины в статус закрытой
 		if(isset($_SESSION['cart']['id'])){
 			$sql = "UPDATE "._DB_PREFIX_."cart
 				SET id_order = ".$id_order."
@@ -572,13 +591,21 @@ class Orders {
 				return false;
 			}
 		}
+		// Очищаем массив заказа
 		unset($f);
 		// Заполнение связки заказ-товары
 		$Suppliers = new Suppliers();
+		/**
+		 * $order_otpusk_prices_sum - общая сумма заказа по отпускным ценам
+		 * $ii - счетчик товаров
+		 * $sup_nb - счетчик товаров, имеющих поставщика
+		 */
 		$order_otpusk_prices_sum = $ii = $sup_nb = 0;
+		// Перебираем каждый товар в корзине
 		foreach($OrderCart as $id_product=>$item){
 			// Определяем поставщика для товара
 			if($id_supplier = $this->GetSupplierForProduct($id_product, $item['mode'])){
+				// Если поставщик есть - начинаем наполнять массив товара
 				$p[$ii]['id_order'] = $id_order;
 				$p[$ii]['id_product'] = $id_product;
 				if($item['mode'] == 'opt'){
@@ -628,6 +655,7 @@ class Orders {
 			}
 			$ii++;
 		}
+		// Если в корзине есть подарки, ищем для них поставщиков и добавляем их в массив товаров с указанием цены 0.01грн
 		if(isset($_SESSION['cart']['id_gift']) && $id_supplier = $this->GetSupplierForProduct($_SESSION['cart']['id_gift'], 'mopt')){
 			$p[$ii]['id_order'] = $id_order;
 			$p[$ii]['id_product'] = $_SESSION['cart']['id_gift'];
@@ -660,17 +688,18 @@ class Orders {
 			$p[$ii]['gift'] = 1;
 		}
 		// Если ни у одного товара нет поставщика
-		if($sup_nb == 0){
+		if($sup_nb === 0){
 			$_SESSION['errm']['limit'] = "Невозможно сформировать заказ. Недостаточное количество одного или нескольких товаров на складе. Остаток недостающего товара отображен в поле названия товара.";
 			print_r('sup_nb error');
 			return false;
 		}
+		// Если в результате массив товаров не пустой, записываем информацию в таблицу xt_osp
 		if(empty($p) || !$this->db->InsertArr(_DB_PREFIX_.'osp', $p)){
 			$this->db->FailTrans();
 			print_r('osp insert error');
 			return false;
 		}
-		// Сохранить сумму заказа по отпускным ценам
+		// Сохраняем сумму заказа по отпускным ценам
 		$sql = "UPDATE "._DB_PREFIX_."order
 			SET otpusk_prices_sum = ".round($order_otpusk_prices_sum, 2)."
 			WHERE id_order = ".$id_order;
@@ -680,15 +709,19 @@ class Orders {
 			return false;
 		}
 		$this->db->CompleteTrans();
+		// Очищаем массив товаров
 		unset($p);
+		// Если статус заказа - обычный и его оформил сам покупатель
 		if($order_status == 1 && $_SESSION['member']['gid'] == _ACL_CUSTOMER_){
+			// Отправляем на его эл. почту письмо с уведомлением об успешном оформлении заказа
 			$Mailer = new Mailer();
 			$Mailer->SendOrderInvoicesToCustomers($id_order);
-			$Users->SetFieldsById($_SESSION['member']['id_user']);
-			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-			$Contragents = new Contragents();
-			$string = $Contragents->GetSavedFields($id_contragent);
-			$manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
+			// Отправляем на его телефон SMS с уведомлением об успешном оформлении заказа
+			// $Users->SetFieldsById($_SESSION['member']['id_user']);
+			// $Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+			// $Contragents = new Contragents();
+			// $string = $Contragents->GetSavedFields($id_contragent);
+			// $manager2send = $string['name_c'].' '.preg_replace("/[,]/i",", ",preg_replace("/[a-z\\(\\)\\-\\040]/i","",$string['phones']));
 			// if($Users->fields['phone'] != '' ){
 				// $Gateway->execCommad(
 				// 	'sendSMS',
@@ -806,6 +839,7 @@ class Orders {
 		}
 		return true;
 	}
+
 	// Проверка на доступность поставщика в этот день */*
 	public function IsAvailableSupplierInDate($id_supplier, $target_date){
 		$target_date = date("Y-m-d",$target_date);
@@ -837,6 +871,7 @@ class Orders {
 			return false;
 		}
 	}
+
 	public function CorrectProductLimit($id_product, $id_supplier, $limit){
 		$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit=product_limit-$limit
 				WHERE id_product=$id_product
@@ -847,6 +882,7 @@ class Orders {
 		}
 		return true;
 	}
+
 	public function SupplierWasOrder($id_supplier){
 		$sql = "UPDATE "._DB_PREFIX_."supplier SET was_order=1
 				WHERE id_user=$id_supplier";
@@ -872,6 +908,7 @@ class Orders {
 			return false;
 		}
 	}
+
 	public function CorrectContragentLimitSum($id_contragent, $limit_sum, $target_date){
 		$sql = "SELECT limit_sum_day, limit_sum_night
 			FROM "._DB_PREFIX_."calendar_contragent
@@ -1574,7 +1611,7 @@ class Orders {
 	}
 
 	// Добавляем адрес к заказу клиента
-	public  function addAddress($id_order, $id_address){
+	public function addAddress($id_order, $id_address){
 		$sql = "UPDATE "._DB_PREFIX_."order
 			SET id_address = ".$id_address."
 			WHERE id_order = ".$id_order;
@@ -1674,6 +1711,7 @@ class Orders {
 		}
 		return $res['name_c'];
 	}
+
 	public function SetOrderAddress($id_order, $id_address){
 		$f['id_address'] = $id_address;
 		$this->db->StartTrans();
