@@ -651,9 +651,9 @@ class Orders {
 					$p[$ii]['promo'] = 1;
 				}else{
 					$p[$ii]['promo'] = 0;
-					$agent_percents = [0.05, 0.02, 0.015, 0.005];
+					$agent_percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
 					foreach($agent_percents as $k => $percent){
-						$agent_profits[$k] = $p[$ii][$item['mode'].'_sum']*$percent;
+						$agent_profits[$k] = $p[$ii][$item['mode'].'_sum']*($percent/100);
 					}
 					$p[$ii]['agent_profits'] = implode(';', $agent_profits);
 				}
