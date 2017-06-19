@@ -627,6 +627,17 @@ class Users {
 		}
 		return $res;
 	}
+
+	public function GetAgentWithdrawals($id_agent){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."agent_withdrawal AS aw
+			WHERE aw.id_agent = ".$id_agent;
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+
 	public function GetUsersByAgent($id_agent){
 		$sql = "SELECT u.*, c.*, ua.* FROM "._DB_PREFIX_."user_agent AS ua
 			LEFT JOIN "._DB_PREFIX_."user AS u
