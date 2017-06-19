@@ -905,14 +905,14 @@ table.kontrag.table{
 	display: block;
 	overflow: hidden;
 	position: relative;
-	padding: 5px 10px;
+	padding: 10px;
 }
 #cab_left_bar a i.material-icons {
 	margin-right: 10px;
 	color: #666;
 	-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
-    -o-transition: all .3s cubic-bezier(.4,0,.2,1);
-    transition: all .3s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+	transition: all .3s cubic-bezier(.4,0,.2,1);
 }
 #cab_left_bar .more_cat {
 	height: 40px;
@@ -942,7 +942,7 @@ table.kontrag.table{
 }
 #cab_left_bar li.active .link_wrap {
 	border-left: 2px solid #ff5722;
-    background: rgba(255, 87, 34, 0.1);
+	background: rgba(255, 87, 34, 0.1);
 }
 #cab_left_bar li ul {
 	display: none;
@@ -954,6 +954,8 @@ table.kontrag.table{
 #cab_left_bar li a {
 	line-height: 2em;
 	font-weight: 400;
+	display: inline-block;
+	width: 100%;
 }
 .nav li {
 	padding: 5px 10px;
@@ -988,10 +990,11 @@ table.kontrag.table{
 	position: relative;
 	height: inherit;
 	border-right-color: #DCDCDC;
-	border-top: 1px #DCDCDC;
-	border-right-width: 1px;
+	/*border-top: 1px #DCDCDC;*/
+	/*border-right-width: 1px;*/
 	border-style: solid;
 	min-height: 412px;
+	padding: 5px 0;
 }
 #cab_left_bar .link_wrap div[for^=icon_] {
 	display: none;
