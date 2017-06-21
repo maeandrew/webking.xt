@@ -639,7 +639,8 @@ class Users {
 	}
 
 	public function GetUsersByAgent($id_agent){
-		$sql = "SELECT u.*, c.*, ua.* FROM "._DB_PREFIX_."user_agent AS ua
+		$sql = "SELECT u.*, c.*, ua.*
+			FROM "._DB_PREFIX_."user_agent AS ua
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = ua.id_user
 			LEFT JOIN "._DB_PREFIX_."customer AS c
@@ -651,6 +652,26 @@ class Users {
 		}
 		return $res;
 	}
+
+	public function DisableAgentClient($id){
+		$f['countable'] = 0;
+		if(!$this->db->Update(_DB_PREFIX_.'user_agent', $f, 'id = '.$id)){
+			return false;
+		}
+		return true;
+	}
+
+	public function GetActiveAgentsList(){
+		$sql = 'SELECT ua.*
+			FROM '._DB_PREFIX_.'user_agent AS ua
+			GROUP BY ua.id_agent
+			HAVING MAX(ua.activation_date)';
+		if(!$res = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+
 	public function GetDealersList($limit = false){
 		$sql = "SELECT u.*, c.*
 			FROM "._DB_PREFIX_."user AS u

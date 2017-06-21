@@ -19,9 +19,7 @@ if(!$Cron->SetFieldsById($id)){
 	$tpl->Assign('msg', 'Невозможно выполнить задачу. ID '.$id.' не существует');
 }else{
 	$task = $Cron->fields;
-	include(_root.'cron'.DIRSEP.$task['alias'].'.php');
-	$task['alias']();
-	$Cron->RegisterLastRun($task['id']);
+	$Cron->Run($task);
 	$tpl->Assign('msg', 'Ручное выполнение задачи завершено успешно.');
 }
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_message.tpl');
