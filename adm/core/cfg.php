@@ -57,6 +57,7 @@ require($GLOBALS['PATH_sys'].'status_c.php');
 require($GLOBALS['PATH_sys'].'images_c.php');
 require($GLOBALS['PATH_sys'].'sfYaml.php');
 require($GLOBALS['PATH_sys'].'sfYamlParser.php');
+require($GLOBALS['PATH_sys'].'cron_c.php');
 // including configuration file
 // require(_root.'config.php');
 // connection to mysql server

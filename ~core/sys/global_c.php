@@ -76,7 +76,7 @@ class G {
 	 * Defining _root global
 	 */
 	public static function DefineRootDirectory(){
-		define('_root', $_SERVER['DOCUMENT_ROOT']?$_SERVER['DOCUMENT_ROOT'].DIRSEP:dirname(__FILE__).DIRSEP.'..'.DIRSEP);
+		define('_root', $_SERVER['DOCUMENT_ROOT']?$_SERVER['DOCUMENT_ROOT'].DIRSEP:dirname(dirname(dirname(dirname(__FILE__).DIRSEP.'..'.DIRSEP))).DIRSEP);
 	}
 
 	public static function isMobile(){

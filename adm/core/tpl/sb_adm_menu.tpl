@@ -251,6 +251,12 @@
 					<a href="/adm/orders_category/">Перенос товаров в категорию</a>
 				</li>
 			<?}?>
+			<?if (_acl::isAllow('cron')){?>
+				<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'cron'?' sb-menu__item_active':null;?>">
+					<a href="/adm/cron/">Задачи CRON</a>
+					<a href="/adm/cronadd/" class="sb-menu__item__add animate" title="Добавить задачу CRON"><i class="icon-add">a</i></a>
+				</li>
+			<?}?>
 		</ul>
 		<div class="clear"></div>
 	</div>
