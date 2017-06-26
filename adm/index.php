@@ -1,5 +1,6 @@
 <?php
 define('EXECUTE', 1);
+define('CMD', false);
 define('DIRSEP', DIRECTORY_SEPARATOR);
 date_default_timezone_set('Europe/Kiev');
 // phpinfo();

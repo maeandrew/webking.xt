@@ -1,7 +1,7 @@
 
 /*FOOTER*/
 footer {
-	color: #9e9e9e;
+	color: #8f97a3;
 }
 footer .footer_wrap {
 	margin: 0 auto;
@@ -19,19 +19,19 @@ footer a:hover {
 	color: #fff;
 }
 footer ul li {
-	line-height: normal;
-	color: #9e9e9e;
-	line-height: 24px;
+	line-height: 2.2em;
+	color: #8f97a3;
 }
 footer ul li a {
 	font-weight: normal;
 	display: block;
-	color: #9e9e9e;
+	color: #8f97a3;
 }
 footer.mdl-mega-footer {
 	padding: 0;
 	color: #fff;
 	margin-top: 20px;
+	background: #2A3039;
 }
 footer .mdl-mega-footer__left-section {
 	width: calc(100% - 320px);
@@ -51,7 +51,7 @@ footer .questions ul {
 	columns: 2;
 }
 footer .questions ul li a {
-	/*line-height: 24px;*/
+	line-height: 2.2em;
 }
 footer .contacts {
 	width: 46%;
@@ -112,7 +112,7 @@ footer .copyright {
 	clear: both;
 	padding: 15px 10px;
 	overflow: hidden;
-	background: #383838;
+	background: #222831;
 	color: #fff;
 }
 footer .copyright .copyright_wrap {

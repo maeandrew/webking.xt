@@ -10,10 +10,12 @@ G::Start();
 $Cron = new Cron();
 $Cron->SetList();
 $tasks = $Cron->list;
-foreach($tasks as $task){
-	if($task['active'] == 0){
-		break;
+if(!empty($tasks)){
+	foreach($tasks as $task){
+		if($task['active'] == 0){
+			break;
+		}
+		$Cron->CheckTiming($task);
 	}
-	$Cron->CheckTiming($task);
 }
 session_write_close();
