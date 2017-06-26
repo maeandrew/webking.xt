@@ -10,10 +10,11 @@ $User->SetUser($_SESSION['member']) or exit('Ошибка пользовател
 // ---- center ----
 unset($parsed_res);
 
-$tpl->Assign('h1', 'Пользователи');
+$header = 'Пользователи';
+$tpl->Assign('h1', $header);
 
 $ii = count($GLOBALS['IERA_LINKS']);
-$GLOBALS['IERA_LINKS'][$ii]['title'] = "Пользователи";
+$GLOBALS['IERA_LINKS'][$ii]['title'] = $header;
 
 $arr = false;
 $order = false;

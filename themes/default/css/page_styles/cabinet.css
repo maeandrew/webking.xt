@@ -894,10 +894,10 @@ table.kontrag.table{
 
 /* Customer cab ============================================================= */
 #cab_left_bar > ul > li {
-	padding: .7em;
 	cursor: pointer;
 }
-#cab_left_bar > ul > li:hover > .link_wrap > a {
+#cab_left_bar > ul > li:hover > .link_wrap > a,
+#cab_left_bar > ul > li:hover > .link_wrap > a i {
 	cursor: pointer;
 	color: #FF5722;
 }
@@ -905,9 +905,14 @@ table.kontrag.table{
 	display: block;
 	overflow: hidden;
 	position: relative;
+	padding: 10px;
 }
 #cab_left_bar a i.material-icons {
-	margin-right: 5px;
+	margin-right: 10px;
+	color: #666;
+	-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+	transition: all .3s cubic-bezier(.4,0,.2,1);
 }
 #cab_left_bar .more_cat {
 	height: 40px;
@@ -923,9 +928,11 @@ table.kontrag.table{
 #cab_left_bar .more_cat i {
 	width: 100%;
 	text-align: center;
-	top: calc(50% - 8px);
+	top: calc(50% - 12px);
+	right: 10px;
 	transition: transform 0.3s;
 	transform: rotate(0deg);
+	position: absolute;
 }
 #cab_left_bar li.active > span > .more_cat i {
 	transform: rotate(90deg);
@@ -933,17 +940,25 @@ table.kontrag.table{
 #cab_left_bar li.active ul a.active {
 	color: #FF5722;
 }
+#cab_left_bar li.active .link_wrap {
+	border-left: 2px solid #ff5722;
+	background: rgba(255, 87, 34, 0.1);
+}
 #cab_left_bar li ul {
 	display: none;
-	margin-left: 15px;
+	margin-left: 10px;
 	border-left: 1px solid #e0e0e0;
 	background-color: #fff;
+	padding: 5px 0;
 }
 #cab_left_bar li a {
 	line-height: 2em;
+	font-weight: 400;
+	display: inline-block;
+	width: 100%;
 }
 .nav li {
-	margin-left: 1.2em;
+	padding: 5px 10px;
 }
 .material-icons {
 	vertical-align: top;
@@ -975,10 +990,11 @@ table.kontrag.table{
 	position: relative;
 	height: inherit;
 	border-right-color: #DCDCDC;
-	border-top: 1px #DCDCDC;
-	border-right-width: 1px;
+	/*border-top: 1px #DCDCDC;*/
+	/*border-right-width: 1px;*/
 	border-style: solid;
 	min-height: 412px;
+	padding: 5px 0;
 }
 #cab_left_bar .link_wrap div[for^=icon_] {
 	display: none;
@@ -988,12 +1004,11 @@ table.kontrag.table{
 }
 #my_order {
 	position: absolute;
-		margin-top: -30px;
+	margin-top: -30px;
 	margin-left: 42px;
 }
 .child {
 	width: 100%;
-	padding-left: 0 !important;
 }
 #cab_left_bar form {
 	width: 97%;
@@ -1431,8 +1446,8 @@ table.kontrag.table{
 		text-align: left;
 	}
 	.customer_cab #edit_personal .user_avatar > label{
-		color: #4CAF50;
 		font-size: 12px;
+		color: #757575;
 	}
 
 	/*Стили для "только что" загруженной аватарки пользователя - некликабельное поле */
@@ -2531,14 +2546,14 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .license_agreement_descr {
 	height: calc(75vh - 155px);
-    overflow: auto;
-    padding-right: 10px;
-    text-align: justify;
+	overflow: auto;
+	padding-right: 10px;
+	text-align: justify;
 }
 .license_agreement_descr p,
 .license_agreement_main p {
 	margin-bottom: 10px;
-    line-height: 20px;
+	line-height: 20px;
 }
 .license_agreement_descr .underline,
 .license_agreement_main .underline {
@@ -2563,32 +2578,32 @@ div[id^="items_panel_"] .btnWrapFlex {
 	margin-top: 10px;
 }
 .info_item {
-    width: calc(100% / 3);
-    background: #fff;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
-    line-height: 24px;
-    padding: 10px;
-    position: relative;
+	width: calc(100% / 3);
+	background: #fff;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	line-height: 24px;
+	padding: 10px;
+	position: relative;
 }
 .clients {
 	margin-right: 20px;
 	margin-left: 20px;
 }
 .info_icon {
-    float: left;
-    margin-right: 10px;
+	float: left;
+	margin-right: 10px;
 }
 .info_icon i {
 /*	background: #018b06;
-    color: #fff;*/
-    color: #018b06;
-    display: block;
-    height: 60px;
-    width: 40px;
-    border-radius: 50%;
-    font-size: 3em;
-    text-align: center;
-    line-height: 60px;
+	color: #fff;*/
+	color: #018b06;
+	display: block;
+	height: 60px;
+	width: 40px;
+	border-radius: 50%;
+	font-size: 3em;
+	text-align: center;
+	line-height: 60px;
 }
 .info_descr {
 	padding: 5px;
@@ -2597,7 +2612,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 .info_descr p {
 	font-size: 16px;
 	margin-bottom: 5px;
-    margin-top: 5px;
+	margin-top: 5px;
 }
 .info_descr_text {
 	font-weight: bold;
@@ -2609,21 +2624,21 @@ div[id^="items_panel_"] .btnWrapFlex {
 .promocode .action_icon {
 	border-left: 1px dashed #bdbdbd;
 	padding-left: 10px;
-    padding-right: 5px;
-    text-align: center;
-    float: right;
+	padding-right: 5px;
+	text-align: center;
+	float: right;
 }
 .promocode .action_icon button:hover {
 	cursor: pointer;
 }
 .promocode .action_icon i {
 	font-size: 40px;
-    line-height: 40px;
+	line-height: 40px;
 }
 .action_icon i {
 	color: #cacccb;
 	font-size: 50px;
-    line-height: 60px;
+	line-height: 60px;
 }
 .info_item:hover .action_icon i {
 	cursor: pointer;
@@ -2649,12 +2664,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 	display: flex;
 }
 .agents_client_order {
+	position: relative;
 	width: 100%;
+	height: 50px;
 	margin-left: 130px;
 	border-top: 1px solid #DCDCDC;
-}
-.agents_client_order {
-	height: 50px;
 }
 .agents_client_order.processing {
 	color: #bdbdbd;
@@ -2669,8 +2683,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .orders_history_header,
 .agents_client_header {
-    border-bottom: 2px solid #FF5722;
-    background: #f4f6f5;
+	border-bottom: 2px solid #FF5722;
+	background: #f4f6f5;
 }
 .orders_history_header .header_item,
 .agents_client_order .order_info,
@@ -2681,6 +2695,11 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .orders_history_header .date {
 	width: 130px;
+}
+.agents_client_order .time {
+	width: 85px;
+	position: absolute;
+	right: 100%;
 }
 .agents_client_order .date {
 	width: calc(100% - 140px);
@@ -2694,25 +2713,30 @@ div[id^="items_panel_"] .btnWrapFlex {
 .agents_client_order .phone {
 	width: 120px;
 }
-
 .agents_client_order .profit {
 	width: 140px;
 }
-
 .agents_client_order .client,
 .orders_history_header .header_item.client {
 	width: calc(100% - 510px);
 }
+.agents_client_order .time i {
+	font-size: 18px;
+	line-height: 24px;
+}
 .agents_client_order .client i,
 .agents_client_order .profit i,
 .agents_client .status i {
-	color:#FF5722;
+	color: #FF5722;
 	font-size: 18px;
-    line-height: 24px;
+	line-height: 24px;
 }
-.agents_client_order .order_sum,
-.agents_client_order .profit {
+.agents_client_order .order_sum:not(.withdrawal),
+.agents_client_order .profit:not(.withdrawal) {
 	color: #018b06;
+}
+.agents_client_order .profit.negative {
+	color: #FF5722;
 }
 .agents_client_order.processing .order_sum,
 .agents_client_order.processing .profit{
@@ -2771,41 +2795,41 @@ div[id^="items_panel_"] .btnWrapFlex {
 
 .gifts_container {
 	display: flex;
-    flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 .gift {
 	padding: 10px;
-    background: #fff;
-    width: calc(20% - 10px);
-    margin: 5px 10px 5px 0px;
-    position: relative;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+	background: #fff;
+	width: calc(20% - 10px);
+	margin: 5px 10px 5px 0px;
+	position: relative;
+	box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
 }
 .gift.selected {
 	box-shadow: 0px 0px 0px 2px #018b06;
 }
 .gift:hover {
-    cursor: pointer;
-    box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
+	cursor: pointer;
+	box-shadow: 0 2px 10px -1px rgba(0,0,0,.2);
 }
 .gift.selected:hover {
 	box-shadow: 0px 0px 2px 2px #018b06;
 }
 .gift img {
 	max-width: 100%;
-    max-height: 170px;
-    margin: 10px auto;
-    display: block;
+	max-height: 170px;
+	margin: 10px auto;
+	display: block;
 }
 .gift_title {
 	height: 34px;
-    overflow: hidden;
+	overflow: hidden;
 }
 .gift_art {
 	font-size: 0.929em;
-    color: #818181;
-    white-space: nowrap;
-    margin-top: 10px;
+	color: #818181;
+	white-space: nowrap;
+	margin-top: 10px;
 }
 .gift_selected {
 	text-align: center;
@@ -2822,7 +2846,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .gift button {
 	margin: 0 auto;
-    display: block;
+	display: block;
 }
 .gift .del_gift_btn {
 	display: none;
@@ -2905,7 +2929,6 @@ div[id^="items_panel_"] .btnWrapFlex {
 	#products .ordersProdList .ordersProdListContent .priceWrap {
 		flex: 1 0 40%;
 	}
-
 	.customer_cab #waiting_list .table_tbody .tableRowHeader {
 		display: none;
 	}
@@ -2971,8 +2994,12 @@ div[id^="items_panel_"] .btnWrapFlex {
 	.agents_client_order {
 		margin: 0;
 	}
+	.agents_client_order .time {
+		position: relative;
+		right: auto;
+	}
 	.agents_client_order .client {
-		width: calc(100% - 350px)
+		width: calc(100% - 465px);
 	}
 	.gift {
 		width: calc(25% - 10px);
@@ -3200,8 +3227,8 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.agents_client_order {
 		flex-wrap: wrap;
-    	height: auto;
-    	position: relative;
+		height: auto;
+		position: relative;
 	}
 	.agents_client_order .order_info {
 		white-space: normal;
@@ -3222,7 +3249,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	/*.client_info.order_number {
 		width: 50px;
-    	text-align: left;
+		text-align: left;
 	}*/
 	.agent_mobile_label {
 		display: inline;
@@ -3235,15 +3262,15 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.agents_client {
 		flex-wrap: wrap;
-    	height: auto;
+		height: auto;
 	}
 	.agents_client .client_info {
 		width: 50%;
 	}
 	.agents_client .client_info.order_number {
 		width: 40px;
-    	text-align: left;
-    	padding-right: 0;
+		text-align: left;
+		padding-right: 0;
 	}
 	.agents_client .client_info.client {
 		width: calc(100% - 40px);
@@ -3300,7 +3327,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 	}
 	.confirm_block .confirm_text {
 		white-space: nowrap;
-    	font-size: 14px;
+		font-size: 14px;
 	}
 	.confirm_block form {
 		width: 100%;
@@ -3320,30 +3347,30 @@ div[id^="items_panel_"] .btnWrapFlex {
 		margin: 0;
 	}
 	.info_icon {
-    	float: left;
-    	margin-right: 10px;
+		float: left;
+		margin-right: 10px;
 	}
 	.agents_client_order .order_info {
 		padding: 10px;
 	}
 	.agents_client_order .order_info.client {
 		white-space: nowrap;
-    	text-overflow: ellipsis;
-    	overflow: hidden;
-    	position: relative;
-    	padding-right: 25px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		position: relative;
+		padding-right: 25px;
 	}
 	.agents_client_order .client i {
 		position: absolute;
 		top: 8px;
-   		right: 5px;
+		right: 5px;
 	}
 	.gift {
 		width: calc(50% - 10px);
 	}
 	.add_gift_btn {
 		padding-left: 15px;
-    	padding-right: 15px;
+		padding-right: 15px;
 	}
 }
 @media (max-width: 470px) {

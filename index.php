@@ -6,6 +6,7 @@ header('Server: nginx');
 header('X-Powered-By: PHP');
 date_default_timezone_set('Europe/Kiev');
 define('EXECUTE', 1);
+define('CMD', false);
 define('DIRSEP', DIRECTORY_SEPARATOR);
 ini_set('session.gc_maxlifetime', 43200);
 ini_set('session.cookie_lifetime', 43200);

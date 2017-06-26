@@ -655,7 +655,7 @@ section.center {
 	padding: 0 10px;
 }
 .no-sidebar .page_content {
-	padding: 0 20px;
+	padding: 0;
 }
 /* Modal from end_order ======================================================== */
 /* Auth modal ===============================================================*/
