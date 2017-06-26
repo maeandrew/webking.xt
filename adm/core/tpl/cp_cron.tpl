@@ -37,7 +37,7 @@
 				<?}
 			}else{?>
 				<tr>
-					<td colspan="5">Нет ни одного сайта, но его все-еще можно добавить <a href="/adm/parser_siteadd/">здесь</a></td>
+					<td colspan="10">Нет ни одной задачи.</td>
 				</tr>
 			<?}?>
 		</tbody>
