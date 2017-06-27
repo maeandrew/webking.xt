@@ -649,6 +649,7 @@ class Orders {
 				// Если товар имеет акционный корректировочный сет, ставим отметку об этом в поле promo в таблице xt_osp
 				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])){
 					$p[$ii]['promo'] = 1;
+					$p[$ii]['agent_profits'] = null;
 				}else{
 					$p[$ii]['promo'] = 0;
 					$agent_percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
@@ -687,6 +688,7 @@ class Orders {
 			$p[$ii]['partner_price'] = 0;
 			$p[$ii]['site_price_opt'] = 0;
 			$p[$ii]['promo'] = 0;
+			$p[$ii]['agent_profits'] = null;
 			$p[$ii]['gift'] = 1;
 		}
 		// Если ни у одного товара нет поставщика
