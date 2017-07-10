@@ -3,10 +3,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Products = new Products();
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
-			case "getFilterLink":
+			case 'getFilterLink':
 				echo json_encode(Link::Category($_POST['rewrite'], $_POST['params'], $_POST['segment']));
 				break;
-			case "getmoreproducts":
+			case 'getmoreproducts':
 				$id_category = isset($_POST['id_category'])?$_POST['id_category']:null;
 				$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 				function selectAll($dbtree, $id_category = null, $str = array()){
@@ -16,7 +16,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 					if(!empty($subcats)){
 						foreach($subcats as $val){
-							$str = selectAll($dbtree, $val["id_category"], $str);
+							$str = selectAll($dbtree, $val['id_category'], $str);
 						}
 					}
 					return $str;
@@ -46,7 +46,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$products_list = $tpl->Parse($GLOBALS['PATH_tpl_global'].'products_list.tpl');
 				echo $products_list;
 				break;
-			case "getproductscount":
+			case 'getproductscount':
 				$id_category = isset($_POST['id_category'])?$_POST['id_category']:null;
 				$dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 				function selectAll($dbtree, $id_category = null, $str = array()){
@@ -56,7 +56,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 					if(!empty($subcats)){
 						foreach($subcats as $val){
-							$str = selectAll($dbtree, $val["id_category"], $str);
+							$str = selectAll($dbtree, $val['id_category'], $str);
 						}
 					}
 					return $str;
@@ -140,7 +140,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'specificationUpdate':
 				$Specification = new Specification();
 				$Products->UpdateProduct(array('id_product' => $_POST['id_product']));
-				if($_POST['id_spec_prod'] == ''){
+				if(!$_POST['id_spec_prod']){
 					if($Specification->AddSpecToProd($_POST, $_POST['id_product'])){
 						echo json_encode('ok');
 					}
@@ -148,6 +148,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					if($Specification->UpdateSpecsInProducts($_POST)){
 						echo json_encode('ok');
 					}
+				}
+				break;
+			case 'specificationDelete':
+				$Specification = new Specification();
+				if($Specification->DelSpecFromProd($_POST['id_spec_prod'])){
+					echo json_encode('ok');
+					$Products->UpdateProduct(array('id_product' => $_POST['id_product']));
 				}
 				break;
 			case 'updateTranslit':
@@ -235,9 +242,21 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					}
 				break;
 			case 'getValuesOfTypes':
-				$valitem = $Products->getValuesItem($_POST['id'], $_POST['idcat']);
-				foreach ($valitem as &$v){
-					echo '<option value="'.$v['value'].'">';
+				$valitem = $Products->getValuesItem($_POST['id_specification'], $_POST['id_category']);
+				if(!empty($valitem)){
+					foreach($valitem as &$v){
+						echo '<option value="'.$v['value'].'">';
+					}
+				}
+				break;
+			case 'getPredefinedValues':
+				$Specification = new Specification();
+				$values_list = $Specification->GetValuesList($_POST['id_specification']);
+				echo '<option disabled selected value>-- выберите значение --</option>';
+				if(!empty($values_list)){
+					foreach($values_list as &$v){
+						echo '<option value="'.$v['id'].'">'.$v['value'].'</option>';
+					}
 				}
 				break;
 			case 'getProductBatch':

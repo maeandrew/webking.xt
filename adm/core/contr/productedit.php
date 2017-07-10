@@ -15,21 +15,25 @@ $Users = new Users();
 $Products = new Products();
 $News = new News();
 $Images = new Images();
-$specification = new Specification();
-$segmentation = new Segmentation();
+$Specification = new Specification();
+$Segmentation = new Segmentation();
 if($News->GetCommentListById($id_product)){
 	$tpl->Assign('list_comment', $News->list);
 }
 $pops1 = $News->GetComent();
 $tpl->Assign('pops1', $pops1);
 $tpl->Assign('related_prods_list', $Products->GetArrayRelatedProducts($id_product));
-$specification->SetListByProdId($id_product);
-$tpl->Assign('product_specs', $specification->list);
-$specification->SetList();
-$tpl->Assign('specs', $specification->list);
+$Specification->SetListByProdId($id_product);
+$product_specifications = $Specification->list;
+foreach($product_specifications as &$specification){
+	$specification['values_list'] = $Specification->GetValuesList($specification['id_spec']);
+}
+$tpl->Assign('product_specifications', $product_specifications);
+$Specification->SetList();
+$tpl->Assign('specifications_list', $Specification->list);
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
-$tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());
-$self_edit = $Users->GetUserBySelfEdit($_SESSION['member']["id_user"]);
+$tpl->Assign('list_segment_types', $Segmentation->GetSegmentationType());
+$self_edit = $Users->GetUserBySelfEdit($_SESSION['member']['id_user']);
 $tpl->Assign('self_edit', $self_edit['self_edit']);
 
 if(isset($_GET['upload']) == true){
@@ -37,16 +41,12 @@ if(isset($_GET['upload']) == true){
 	echo str_replace($GLOBALS['PATH_root'], '/', $res);
 	exit(0);
 }
-if(isset($_GET['action']) && $_GET['action'] == "update_spec"){
+if(isset($_GET['action']) && $_GET['action'] == 'update_spec'){
 	if($_GET['id_spec_prod'] == ''){
-		$specification->AddSpecToProd($_GET, $id_product);
+		$Specification->AddSpecToProd($_GET, $id_product);
 	}else {
-		$specification->UpdateSpecsInProducts($_GET);
+		$Specification->UpdateSpecsInProducts($_GET);
 	}
-	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
-}elseif(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
-	$specification->DelSpecFromProd($_GET['id_spec_prod']);
-	$Products->UpdateProduct(array('id_product'=>$id_product));
 	header('Location: '.$GLOBALS['URL_base'].'adm/productedit/'.$id_product);
 }
 
@@ -153,7 +153,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			//Привязываем сегментяцию к продукту
 			if(isset($_POST['id_segment'])){
 				foreach ($_POST['id_segment'] as &$id_segment){
-					if(!$segmentation->AddSegmentInProduct($id_product, $id_segment)){
+					if(!$Segmentation->AddSegmentInProduct($id_product, $id_segment)){
 						$err_mes = '<script>alert("Ошибка при добавлении сегмента!\nСегмент уже закреплен за данным товаром!");</script>';
 					}
 				}
@@ -161,7 +161,7 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 			//Удаляем сегментяцию с товара
 			if(isset($_POST['del_segment_prod']) && !empty($_POST['del_segment_prod'])){
 				foreach($_POST['del_segment_prod'] as $id_segment){
-					$segmentation->DelSegmentInProduct($id_product, $id_segment);
+					$Segmentation->DelSegmentInProduct($id_product, $id_segment);
 				}
 			}
 			$tpl->Assign('msg', 'Товар обновлен.'.$err_mes);
@@ -203,7 +203,7 @@ if(isset($_POST['smb_duplicate'])){
 }
 $tpl->Assign('suppliers_info', $Products->GetSuppliersInfoForProduct($id_product));
 //Получение списка сегментаций прикрепленных к тоавру
-$tpl->Assign('segmentations', $segmentation->GetSegmentationsForProduct($id_product));
+$tpl->Assign('Segmentations', $Segmentation->GetSegmentationsForProduct($id_product));
 //Заполнение массива POST
 $video = $Products->GetVideoById($id_product);
 $photo = $Products->GetPhotoById($id_product, 'all');

@@ -204,7 +204,12 @@ header .header_wrapp .header_right > div {
 		justify-content: space-around;
 		border-bottom: 1px solid #e0e0e0;
 	}
-	.userContainer .UserInfBlock .avatar img {
+	.userContainer .UserInfBlock .avatar .image {
+		display: inline-block;
+		text-align: center;
+		color: #fff;
+		font-size: 40px;
+		line-height: 80px;
 		width: 80px;
 		height: 80px;
 		border-radius: 50%;

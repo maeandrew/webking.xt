@@ -104,6 +104,8 @@ class Users {
 		foreach($this->fields['ordered_prod'] as $key => $value){
 			$this->fields['ordered_prod'][$key] = $value['id_product'];
 		}
+		$md = md5($this->fields['id_user']);
+		$this->fields['personal_color'] = substr($md, strlen($md)-6);
 		return true;
 	}
 

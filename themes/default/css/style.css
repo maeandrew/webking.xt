@@ -41,6 +41,7 @@ body {
 	position: relative;
 	background: #F3F3F3;
 	background: #f4f6f5;
+	background: #edf2f5;
 }
 a {
 	text-decoration: none;
@@ -1456,30 +1457,71 @@ section.center {
 		border-bottom: 1px solid #e5e5e5;
 		position: relative;
 	}
-	aside .filters .filter_block .more {
-		cursor: pointer;
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 30px;
+	aside .filters .filter_block .filter_separator {
 		text-align: center;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	aside .filters .filter_group {
+		position: relative;
+		min-height: 37px;
+	}
+	aside .filters .filter_group .filter_block {
+		background: #fff;
+	}
+	aside .filters .filter_group.disabled .filter_block {
+		background-color: #f5f5f5;
+		text-decoration: line-through;
+	}
+	aside .filters .filter_block .filter_title {
+		cursor: pointer;
+	}
+	aside .filters .filter_block .visibility {
+		cursor: move;
+	}
+	aside .filters .filter_block .visibility,
+	aside .filters .filter_block .edit_link {
+		float: left;
+		padding: 10px;
+		max-height: 37px;
+	}
+	aside .filters .filter_block .edit_link {
+		float: right;
+		padding-left: 0;
+	}
+	aside .filters .filter_block .visibility i,
+	aside .filters .filter_block .edit_link i {
+		font-size: 16px;
+	}
+	aside .filters .filter_block.disabled .visibility i {
+		color: red;
+	}
+	aside .filters .filter_block .more {
+		float: right;
+		padding: 10px;
+		max-height: 37px;
 	}
 	aside .filters .filter_block .more i {
-		vertical-align: middle;
-		padding: 6px 0;
+		line-height: 16px;
+	}
+	aside .filters .filter_block.expanded .more i {
+		transform: rotate(180deg);
 	}
 	aside .filters .filter_block p {
 		text-align: left;
-		padding: 10px 30px 10px 15px;
+		padding: 10px;
 	}
 	aside .filters .filter_block ul {
-		padding: 0 15px;
+		padding: 0 10px;
 	}
 	aside .filters .filter_block:last-of-type ul {
 		border: none;
 	}
 	aside .filters .filter_block ul li/* :nth-child(n+6) */ {
 		display: none;
+	}
+	aside .filters .filter_block.expanded ul li {
+		display: block;
 	}
 	aside .filters .filter_block ul li:last-of-type {
 		margin-bottom: 15px;
@@ -1501,7 +1543,7 @@ section.center {
 	aside .filters .filterButtons {
 		display: flex;
 		justify-content: space-around;
-		padding: 0 15px;
+		padding: 15px 15px 0;
 	}
 	aside .filters .price_range_block {
 		padding: 10px 15px;
@@ -3384,6 +3426,7 @@ canvas[id^=chart_]{
 	left: 0;
 	right: 0;
 	z-index: 10;
+	background: rgba(255,255,255,.5);
 }
 .loadBlock .loadAnimation {
 	top: calc(50% - 14px);
@@ -3508,8 +3551,9 @@ canvas[id^=chart_]{
 }
 #seoTextBlock *:not(.seotext_editing) {
 	font-weight: normal;
-	color: #9E9E9E;
+	color: #9E9E9E !important;
 	text-align: left;
+	background: transparent !important
 }
 #seoTextBlock p {
 	width: 100%;

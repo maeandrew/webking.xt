@@ -206,20 +206,22 @@ class mysqlPDO {
 	public function Insert($table, $fields){
 		$keys = array_keys($fields);
 		$values = array_values($fields);
-		$sql = "INSERT INTO $table (`";
-		$sql .= implode("`, `", $keys);
-		$sql .="`) VALUES (";
+		$sql = "INSERT INTO $table (";
+		$sql .= implode(", ", $keys);
+		$sql .=") VALUES (";
 		foreach($values as $key => $value){
 			if(gettype($value) == 'string'){
 				$sql .= $this->Quote($value);
+			}elseif(gettype($value) == 'NULL'){
+				$sql .= 'NULL';
 			}else{
-				$sql .= "'".$value."'";
+				$sql .= "'$value'";
 			}
 			if($key < count($values)-1){
 				$sql .= ', ';
 			}
 		}
-		$sql .=")";
+		$sql .= ')';
 		// if(G::IsLogged() && $_SESSION['member']['id_user'] == 25143){
 		// 	print_r($sql);
 		// }

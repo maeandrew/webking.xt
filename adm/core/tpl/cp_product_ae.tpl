@@ -195,66 +195,6 @@
 										<img src="https://xt.ua/product_images/medium/2016/02/09/37263-1.jpg">
 										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
 									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/efiles/image/500/47742.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/05/07/37052-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2015/12/14/75532-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/09/37263-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/efiles/image/500/47742.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/05/07/37052-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2015/12/14/75532-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/09/37263-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/efiles/image/500/47742.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/05/07/37052-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
-									<div class="image_item">
-										<img src="https://xt.ua/product_images/medium/2016/02/08/37201-1.jpg">
-										<input type="checkbox" name="[images]"><span>Выбрать фото</span>
-									</div>
 								</div>
 								<button class="btn-m-default confirm_upload_photo_btn">ОК</button>
 							</form>
@@ -297,7 +237,8 @@
 								<label>Привязанные характеристики:</label>
 								<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list paper_shadow_1">
 									<colgroup>
-										<col width="30%">
+										<col width="20%">
+										<col width="10%">
 										<col width="30%">
 										<col width="30%">
 										<col width="10%">
@@ -306,38 +247,40 @@
 										<tr>
 											<td class="left">Описание характеристики</td>
 											<td class="left">Единицы измерения</td>
-											<td class="left">Значение</td>
+											<td class="left">Ручное значение</td>
+											<td class="left">Значение из списка</td>
 											<td class="left">Управление</td>
 										</tr>
 									</thead>
 									<tbody>
 										<?$ids = array();
-										if(!empty($product_specs)){
-											foreach($product_specs as $i){
+										if(!empty($product_specifications)){
+											foreach($product_specifications as $i){
 												$ids[] = $i['id_spec'];?>
-												<tr id="spec<?=$i['id_spec']?>" class="animate">
+												<tr id="spec<?=$i['id_spec']?>" class="animate specifications">
+													<input type="hidden" name="id_spec_prod" value="<?=$i['id']?>">
+													<input type="hidden" name="id_spec" value="<?=$i['id_spec']?>">
+													<td><?=$i['caption']?></td>
+													<td><?=$i['units']?></td>
 													<td>
-														<?=$i['caption']?>
+														<input list="features_<?=$i['id_spec']?>" data-id_specification="<?=$i['id_spec']?>" class="input-m itemvalue" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
+														<datalist id="features_<?=$i['id_spec']?>" class="features_js"></datalist>
 													</td>
 													<td>
-														<?=$i['units']?>
-													</td>
-													<td>
-														<input  data-id-type="<?=$i['id_spec']?>" list="features_<?=$i['id_spec']?>" class="input-m itemvalue" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
-														<input type="hidden" name="id_spec_prod" value="<?=$i['id']?>">
-														<input type="hidden" name="id_spec" value="<?=$i['id_spec']?>">
-														<datalist id="features_<?=$i['id_spec']?>" class="features_js">
-															<option value="Firefox">
-															<option value="Chrome">
-															<option value="Opera">
-															<option value="Safari">
-														</datalist>
+														<select name="id_value" id="id_value" class="input-m" <?=empty($i['values_list'])?'disabled':null;?> onchange="insertValueLink($(this));">
+															<option value="" disabled selected>-- выберите значение --</option>
+															<?foreach($i['values_list'] as $value){?>
+																<option value="<?=$value['id']?>" <?=$i['list_value'] == $value['value']?'selected':null;?>><?=$value['value']?></option>
+															<?}?>
+														</select>
 													</td>
 													<td class="left actions">
 														<nobr>
 															<?if(isset($i['id']) && $i['id'] > 0){?>
-																<a class="btn-m-green-inv" href="/adm/productedit/<?=$_POST['id_product']?>/?action=update_spec&id_spec_prod=<?=$i['id']?>&id_spec=<?=$i['id_spec']?>&value=" onclick="insertValueLink($(this)); return false;">Обновить</a>
-																<a class="btn-m-red-inv" href="/adm/productedit/<?=$_POST['id_product']?>/?action=delete_spec&id_spec_prod=<?=$i['id']?>" onclick="return confirm('Точно удалить?');">Удалить</a>
+																<button class="btn-m-green-inv update_specification">Обновить</button>
+																<button class="btn-m-red-inv delete_specification">Удалить</button>
+																<!-- <a class="btn-m-green-inv" href="/adm/productedit/<?=$_POST['id_product']?>/?action=update_spec&id_spec_prod=<?=$i['id']?>&id_spec=<?=$i['id_spec']?>&value=" onclick="insertValueLink($(this)); return false;">Обновить</a> -->
+																<!-- <a class="btn-m-red-inv" href="/adm/productedit/<?=$_POST['id_product']?>/?action=delete_spec&id_spec_prod=<?=$i['id']?>">Удалить</a> -->
 															<?}?>
 														</nobr>
 													</td>
@@ -348,30 +291,41 @@
 												<td colspan="4">Не привязано ни одной характеристики</td>
 											</tr>
 										<?}?>
+										<tr class="add_new_specification">
+											<td colspan="2">
+												<select name="id_spec" id="id_spec" class="input-m">
+													<option disabled selected value>-- выберите характеристику --</option>
+													<?foreach($specifications_list as $specification){?>
+														<option value="<?=$specification['id']?>"><?=$specification['caption']?><?=$specification['units']?', '.$specification['units']:null;?></option>
+													<?}?>
+												</select>
+											</td>
+											<td>
+												<input type="text" name="value" id="value" class="input-m" list="values">
+												<datalist id="values" class="values_js"></datalist>
+											</td>
+											<td>
+												<select name="id_value" id="id_value" class="input-m">
+													<option disabled selected value>-- выберите значение --</option>
+												</select>
+											</td>
+											<td>
+												<button class="btn-m-default add_specification">Добавить</button>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
-							<div class="col-md-12">
+							<div class="col-md-12 hidden">
 								<label for="sid">Добавление характеристики:</label>
 								<?=isset($errm['sid'])?"<span class=\"errmsg\">".$errm['sid']."</span><br>":null?>
 								<select name="sid" id="sid" class="select_unit input-m">
-									<?$i = 0;
-									foreach($specs as $s){
-										if(!in_array($s['id'], $ids)){
-											$i++;?>
-											<option value="<?=$s['id']?>"><?=$s['caption']?>
-											<?if($s['units'] !== ''){
-												echo('('.$s['units'].')');
-											}?>
-											</option>
-										<?}
-									}
-									if($i == 0){?>
-										 <option disabled="disabled" selected="selected">Все характеристики добавлены</option>
+									<?foreach($specifications_list as $specification){?>
+										<option value="<?=$specification['id']?>"><?=$specification['caption']?><?=$specification['units']?', '.$specification['units']:null;?></option>
 									<?}?>
 								</select>
 								<input type="text" class="units_input input-m" <?=$i == 0?'disabled="disabled"':null;?>>
-								<button class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?> onclick="insertSpecToProd($(this));">Добавить</button>
+								<button class="btn-m-default addspec" <?=$i == 0?'disabled="disabled"':null;?> onclick="insertSpecToProd($(this));return false;">Добавить</button>
 							</div>
 						<?}?>
 						<div class="col-md-12">
@@ -786,13 +740,14 @@
 	// AjexFileManager.init({
 	// 	returnTo: 'function'
 	// });
-	var url = URL_base+'productadd/';
+	var url = URL_base+'productadd/',
+		id_product = <?=$_POST['id_product'];?>;
 
 	$(function(){
 		$('.supp_js').on('change', 'input, select', function(){
 			var parent = $(this).closest('tr'),
 			data = {};
-			data.id_product = $(this).closest('.product_js').data('id-product');
+			data.id_product = id_product;
 			data.id_supplier = parent.find('[name="id_supplier"]').val();
 			data.active = parent.find('[name="supplier_product_available"]:checked').length > 0?1:0;
 			data.inusd = parent.find('[name="inusd"]').val();
@@ -812,17 +767,17 @@
 			}
 			ajax('supplier', 'updateAssort', data);
 		});
-		//Заполнение списка артикулов поставщиков
+		// Заполнение списка артикулов поставщиков
 		$('[name="supplier_article"]').keyup(function(){
 			var inputvalue = $(this).val();
 			dataListSupplier(inputvalue);
 		});
-		//Привязка поставщика к товару
+		// Привязка поставщика к товару
 		$('.add_sup_js').on('click', function(e){
 			e.preventDefault();
 			var parent = $(this).closest('tr'),
 				data = {};
-			data.id_product = $(this).closest('.product_js').data('id-product');
+			data.id_product = id_product;
 			data.article = parent.find('[name="supplier_article"]').val().split(' - ')[0];
 			data.inusd = parent.find('[name="inusd"]').val();
 			data.price_opt_otpusk = parent.find('[name="supplier_price_opt"]').val();
@@ -864,7 +819,7 @@
 			}
 		});
 
-		//Выбрать загруженные ранее фото
+		// Выбрать загруженные ранее фото
 		$('.upload_loaded_photo_js').on('click', function(){
 			var create_date = $(this).closest('.upload_loaded_photo_block').find('.create_date_js').val();
 			if (create_date != '') {
@@ -888,8 +843,8 @@
 			}
 		});
 
-		//Удаляем div выбора дополнительной категории
-		$("body").on('click', '.delcat', function(){
+		// Удаляем div выбора дополнительной категории
+		$('body').on('click', '.delcat', function(){
 			$(this).closest(".catblock").remove();
 			if($('.catblock:not(.hidden)').length > 1){
 				$('.delcat').show();
@@ -898,32 +853,32 @@
 			}
 			AddValueMainCategory();
 		});
-		//Подтягиваем значения типов характеристик из БД
+		// Подтягиваем значения типов характеристик из БД
 		$('.itemvalue').focus(function(){
-			var idcat='';
-			var cat = $('#nav_connection select[name="categories_ids[]"]');
+			var id_category = '',
+				cat = $('#nav_connection select[name="categories_ids[]"]');
 			cat.each(function(){
-				idcat += $(this).val() + ',';
+				id_category += $(this).val() + ',';
 			});
-			idcat = idcat.substring(0, idcat.length - 1);
+			id_category = id_category.substring(0, id_category.length - 1);
 			$('#features').html('');
-			var id = $(this).data('idType');
+			var id_specification = $(this).data('id_specification');
 			var datalist = $(this).closest('.animate').find('.features_js');
-			ajax('products', 'getValuesOfTypes', {id: id, idcat: idcat}, 'html').done(function (data) {
+			ajax('products', 'getValuesOfTypes', {id_specification: id_specification, id_category: id_category}, 'html').done(function (data) {
 				datalist.html(data);
 			});
 		});
 
-		//Заполнение списка артикулов
-		$("#article").keyup(function() {
+		// Заполнение списка артикулов
+		$('#article').keyup(function() {
 			var inputvalue = $(this).val();
 			dataList(inputvalue);
 		});
-		//$("#second_navigation").tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-		//$("#second_navigation li").removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+		// $("#second_navigation").tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+		// $("#second_navigation li").removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-		//Пересчет обьема при вводе
-		$("#height, #width, #length").keyup(function( event ) {
+		// Пересчет обьема при вводе
+		$('#height, #width, #length').keyup(function( event ) {
 			var height = $("#height").val(),
 				width = $("#width").val(),
 				length = $("#length").val(),
@@ -932,20 +887,20 @@
 			$(".weight span").html(((volume*0.000001).toFixed(6))+" м3");
 		});
 
-		//Добавление видео
-		$(".add_video").on('click', function() {
+		// Добавление видео
+		$('.add_video').on('click', function() {
 			$(".video_block").append('<li><input type="text" name="video[]" class="input-m"><span class="icon-font remove_video">t</span></li>');
 		});
 
-		//Удаление видео
-		$("body").on('click', '.remove_video', function() {
+		// Удаление видео
+		$('body').on('click', '.remove_video', function() {
 			if(confirm('Вы точно хотите удалить видео?')){
 				$(this).parent().remove();
 			}
 		});
 
 		//Загрузка Фото на сайт
-		var dropzone = new Dropzone(".drop_zone", {
+		var dropzone = new Dropzone('.drop_zone', {
 			method: 'POST',
 			url: URL_base_global+'ajax?target=image&action=upload',
 			clickable: true,
@@ -966,19 +921,18 @@
 		});
 		dropzone.on('dragend', function(event) {
 			event.preventDefault();
-			/* Act on the event */
 		});
 
-		//Сортировка фото
+		// Сортировка фото
 		$('.previews').sortable({
-			items: ".image_block",
-			handle: ".sort_handle",
-			connectWith: ".previews",
-			containment: ".previews",
-			placeholder: "ui-sortable-placeholder",
-			axis: "y",
+			items: '.image_block',
+			handle: '.sort_handle',
+			connectWith: '.previews',
+			containment: '.previews',
+			placeholder: 'ui-sortable-placeholder',
+			axis: 'y',
 			scroll: false,
-			tolerance: "pointer",
+			tolerance: 'pointer',
 			out: function(){
 				if ($('.previews .image_block:first-of-type').hasClass('implicit')) {
 					$('.previews .image_block:first-of-type').removeClass('implicit');
@@ -989,8 +943,8 @@
 			}
 		});
 
-		//Удаление фото
-		$("body").on('click', '.del_photo_js', function(e) {
+		// Удаление фото
+		$('body').on('click', '.del_photo_js', function(e) {
 			//e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
 				var path = $(this).closest('.image_block'),
@@ -999,8 +953,8 @@
 			}
 		});
 
-		//Удаление только что загруженных фото
-		$("body").on('click', '.del_u_photo_js', function(e) {
+		// Удаление только что загруженных фото
+		$('body').on('click', '.del_u_photo_js', function(e) {
 			e.stopPropagation();
 			if(confirm('Изобрежение будет удалено.')){
 				var path = $(this).closest('.image_block'),
@@ -1033,7 +987,7 @@
 			}
 		});
 
-		//Прокрустка страницы
+		// Прокрустка страницы
 		$('a[href^=#nav_]').on('click', function(e) {
 			e.preventDefault();
 			var href = $(this).attr('href');
@@ -1047,7 +1001,7 @@
 			}, 300);
 		});
 
-		//Отвязка постащика от товара
+		// Отвязка постащика от товара
 		$('body').on('click', '.del_supp_js',function() {
 			var parent_path = $(this).closest('.supp_js'),
 				supp_name = parent_path.find('.supp_name_js').text();
@@ -1061,7 +1015,7 @@
 			};
 		});
 
-		//Подгрузка доступных сегментаций
+		// Подгрузка доступных сегментаций
 		var segment_info = '';
 		$('#segment_type').on('change', function(){
 			var type = $(this).val();
@@ -1079,7 +1033,7 @@
 			}
 		});
 
-		//Добавление сегментаций
+		// Добавление сегментаций
 		$('.add_segment').on('click', function(event) {
 			event.preventDefault();
 			var segment = $('#segment_list').val();
@@ -1110,7 +1064,7 @@
 			}
 		});
 
-		//Отвязка сегментации от продукта
+		// Отвязка сегментации от продукта
 		$('body').on('click', '.del_segment',function() {
 			var parent_path = $(this).closest('.segment_js'),
 				type_name = parent_path.find('.type_name').text(),
@@ -1125,7 +1079,7 @@
 		});
 	});
 
-	//Присваиваем value для input[name="main_category"]
+	// Присваиваем value для input[name="main_category"]
 	function AddValueMainCategory(){
 		var i = 0;
 		$('input[name="main_category"]').each(function (index) {
@@ -1133,13 +1087,14 @@
 		});
 	}
 
-	//Скрываем информационное окно через 3сек
-	if($("div").is(".notification")){
+	// Скрываем информационное окно через 3сек
+	if($('div').is('.notification')){
 		setTimeout(function(){
-			$("div.content > .notification").slideUp();
+			$('div.content > .notification').slideUp();
 		},3000);
 	}
-	//Инициализация перехода по меню при скролле
+
+	// Инициализация перехода по меню при скролле
 	$('body').scrollspy({
 		target: '.second_nav_menu'
 	});
@@ -1159,20 +1114,18 @@
 		path.closest('.previews').append('<input type="hidden" name="removed_images[]" value="'+removed_file+'">');
 		path.remove();
 	}
-
-	function insertValueLink(link) {
-		var id_spec_prod = link.closest('tr').find('[name="id_spec_prod"]').val(),
-			id_spec = link.closest('tr').find('[name="id_spec"]').val(),
-			value = link.closest('tr').find('[name="value"]').val();
-		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
-		ajax('products', 'specificationUpdate', {id_spec_prod: id_spec_prod, id_spec: id_spec, value: value, id_product: id_product});
+	function insertValueLink(obj){
+		var id_spec = obj.closest('tr').find('[name="id_spec"]').val(),
+			id_spec_prod = obj.closest('tr').find('[name="id_spec_prod"]').val(),
+			value = obj.closest('tr').find('[name="value"]').val(),
+			id_value = obj.closest('tr').find('[name="id_value"]').val();
+		ajax('products', 'specificationUpdate', {id_product: id_product, id_spec_prod: id_spec_prod, id_spec: id_spec, value: value, id_value: id_value});
 		// var href = link.attr('href');
 		// href += link.closest('tr').find('[name="value"]').val();
-		// window.location.replace(href);
+			// window.location.replace(href);
 	}
 
 	function updateTranslit(){
-		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
 		ajax('products', 'updateTranslit', {id_product: id_product}).done(function(data){
 			$('#translit p').text(data);
 			// $('#updtrans').animate({  borderSpacing: 360 }, {
@@ -1187,16 +1140,7 @@
 		location.reload();
 	}
 
-	function insertSpecToProd(link) {
-		var value = link.prev().val(),
-			id_spec = link.prev().prev().val();
-		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
-		ajax('products', 'specificationUpdate', {id_spec_prod: null, id_spec: id_spec, value: value, id_product: id_product});
-	}
-
 	function dataList(article) {
-		var id_product = <?=isset($_POST['id_product'])?$_POST['id_product']:'null'?>;
-
 		ajax('products', 'dataList', {article: article, id_product: id_product}).done(function(data){
 			var optionlist = '';
 			$.each(data, function(k, v){
@@ -1204,9 +1148,8 @@
 			});
 			$('#character').html(optionlist);
 		});
-
 	}
-	//Формирование Списка Поставщиков
+	// Формирование Списка Поставщиков
 	function dataListSupplier(article) {
 		ajax('products', 'datalistSupplier', {article: article}).done(function(data){
 			var optionlist = '';
@@ -1228,7 +1171,7 @@
 			location.reload();
 		});
 	}
-	//Удаление товара
+	// Удаление товара
 	function DelProds(id, action) {
 		url = '/adm/productdel/'+id;
 		$(location).attr('href',url);
@@ -1258,6 +1201,56 @@
 	// function insertValueSertificate(filePath){
 	// 	document.getElementById('sertificate').value = filePath;
 	// }
+
+	// Добавление характеристики к товару
+	$('.add_new_specification').on('change', '#id_spec', function(){
+		var parent = $(this).closest('tr'),
+			id_specification = $(this).val(),
+			values_list = parent.find('#id_value');
+		ajax('products', 'getPredefinedValues', {id_specification: id_specification}, 'html').done(function(data){
+			values_list.html(data);
+		});
+	}).on('focus', '#value', function(e){
+		e.preventDefault();
+		var obj = $(this),
+			parent = obj.closest('tr'),
+			id_specification = parent.find('#id_spec').val(),
+			datalist = parent.find('.values_js'),
+			id_category = '',
+			cat = $('#nav_connection select[name="categories_ids[]"]');
+		datalist.html('');
+		if(id_specification){
+			cat.each(function(){
+				id_category += $(this).val() + ',';
+			});
+			id_category = id_category.substring(0, id_category.length - 1);
+			ajax('products', 'getValuesOfTypes', {id_specification: id_specification, id_category: id_category}, 'html').done(function(data) {
+				datalist.html(data);
+			});
+		}
+	}).on('click', '.add_specification', function(e){
+		e.preventDefault();
+		var parent = $(this).closest('tr'),
+			id_spec = parent.find('#id_spec').val(),
+			value = parent.find('#value').val(),
+			id_value = parent.find('#id_value').val();
+		if(id_spec){
+			ajax('products', 'specificationUpdate', {id_product: id_product, id_spec_prod: null, id_spec: id_spec, value: value, id_value: id_value}).done(function(){
+				location.reload();
+			});
+		}
+		// parent.before('<tr><td colspan="5">test</td></tr>');
+	});
+	// Удаление характеристики
+	$('.specifications').on('click', '.delete_specification', function(e){
+		e.preventDefault();
+		var parent = $(this).closest('tr'),
+			id_spec_prod = parent.find('[name="id_spec_prod"]').val();
+		ajax('products', 'specificationDelete', {id_spec_prod: id_spec_prod, id_product: id_product}).done(function(){
+			parent.remove();
+		});
+	});
+
 	function AddCat(){
 		$('#templates .catblock').clone().insertBefore('#addlink').removeClass('hidden');
 		if($('.catblock:not(.hidden)').length > 1){
@@ -1269,7 +1262,7 @@
 	}
 
 	$(window).scroll(function(){
-		//Фиксация Заголовка продукта
+		// Фиксация Заголовка продукта
 		if($(this).scrollTop() >= 100){
 			if(!$('.prod_head').hasClass('fixed_head')){
 				var width = $('#productae').width();
@@ -1287,9 +1280,9 @@
 		var params = $('#second_navigation ul');
 		var start = 100;
 		if($(this).scrollTop() >= start){
-			params.css("top", $(this).scrollTop()-start);
+			params.css('top', $(this).scrollTop()-start);
 		}else{
-			params.css("top", '0');
+			params.css('top', '0');
 		}
 	});
 </script>

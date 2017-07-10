@@ -9,7 +9,7 @@ class Specification{
 	 	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array("id", "caption", "units");
+		$this->usual_fields = array('id', 'caption', 'service_caption', 'units');
 	}
 
 	public function SpecExistsByCaption($caption){
@@ -24,9 +24,9 @@ class Specification{
 
 	// по id
 	public function SetFieldsById($id){
-		$sql = "SELECT ".implode(", ",$this->usual_fields)."
-				FROM "._DB_PREFIX_."specs
-				WHERE id = ".$id;
+		$sql = "SELECT ".implode(', ', $this->usual_fields)."
+			FROM "._DB_PREFIX_."specs
+			WHERE id = $id";
 		$this->fields = $this->db->GetOneRowArray($sql);
 		if(!$this->fields){
 			return false;
@@ -35,8 +35,8 @@ class Specification{
 	}
 
 	// Список
-	public function SetList($param=0, $limit=""){
-		if($limit != ""){
+	public function SetList($param = 0, $limit = ''){
+		if($limit != ''){
 			$limit = " limit $limit";
 		}
 		$sql = "SELECT *
@@ -51,12 +51,12 @@ class Specification{
 	}
 
 	public function SetListByCatId($id_cat){
-		$sql = "SELECT id_cat, caption, units, sc.id, id_spec
-			FROM "._DB_PREFIX_."specs_cats AS sc
-			LEFT JOIN "._DB_PREFIX_."specs AS s
+		$sql = 'SELECT id_cat, caption, units, sc.id, id_spec
+			FROM '._DB_PREFIX_.'specs_cats AS sc
+			LEFT JOIN '._DB_PREFIX_.'specs AS s
 				ON s.id = sc.id_spec
-			WHERE id_cat = ".$id_cat;
-
+			WHERE id_cat = '.$id_cat.'
+			ORDER BY sc.id_spec';
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -65,18 +65,28 @@ class Specification{
 	}
 	//Выбрать характеристики у каждого продукта
 	public function SetListByProdId($id_product){
-		$sql = "SELECT value, s.caption, s.units, sp.id, s.id AS id_spec
+		$sql = "SELECT s.id AS id_spec, s.caption, sp.id, sp.value, svl.value AS list_value, s.units
 			FROM "._DB_PREFIX_."specs_prods AS sp
-				LEFT JOIN "._DB_PREFIX_."specs AS s
-					ON s.id = sp.id_spec
-			WHERE id_prod = ".$id_product."
+				LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
+				LEFT JOIN "._DB_PREFIX_."specs_values_list AS svl ON svl.id = sp.id_value
+			WHERE id_prod = $id_product
 			UNION
-			SELECT '' AS value, caption, units, '' AS id, s.id AS id_spec
+			SELECT s.id, caption, NULL, NULL, NULL, units
 			FROM "._DB_PREFIX_."specs_cats AS sc
-				LEFT JOIN "._DB_PREFIX_."specs AS s
-					ON s.id = sc.id_spec
-			WHERE sc.id_cat = (SELECT MAX(id_category) FROM "._DB_PREFIX_."cat_prod WHERE id_product = $id_product && id_category <> 469 GROUP BY id_product)
-			AND s.id NOT IN (SELECT id_spec FROM "._DB_PREFIX_."specs_prods WHERE id_prod = ".$id_product.")";
+				LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sc.id_spec
+			WHERE sc.id_cat = (
+				SELECT MAX(id_category)
+			    FROM "._DB_PREFIX_."cat_prod
+			    WHERE id_product = $id_product
+					AND id_category <> 469
+			    GROUP BY id_product
+			)
+			AND s.id NOT IN (
+				SELECT id_spec
+				FROM "._DB_PREFIX_."specs_prods
+				WHERE id_prod = $id_product
+			)
+			ORDER BY id_spec";
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -84,6 +94,36 @@ class Specification{
 		return true;
 	}
 
+	public function AddValue($data){
+		$f['id_spec'] = $data['id_specification'];
+		$f['value'] = $data['value'];
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'specs_values_list', $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id;
+	}
+	public function DeleteValue($id){
+		$this->db->StartTrans();
+		if(!$this->db->DeleteRowsFrom(_DB_PREFIX_.'specs_values_list', array("id = $id"))){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+	public function GetValuesList($id){
+		$sql = "SELECT *
+			FROM "._DB_PREFIX_."specs_values_list AS svl
+			WHERE svl.id_spec = $id";
+		if(!$arr = $this->db->GetArray($sql)){
+			return false;
+		}
+		return $arr;
+	}
 	// Добавление
 	public function Add($arr){
 		// $f['id'] = trim($arr['id']);
@@ -117,7 +157,8 @@ class Specification{
 	public function AddSpecToProd($arr, $id_product){
 		$f['id_spec'] = trim($arr['id_spec']);
 		$f['id_prod'] = $id_product;
-		$f['value'] = trim($arr['value']);
+		$f['value'] = trim($arr['value']) == ''?NULL:trim($arr['value']);
+		$f['id_value'] = trim($arr['id_value']) == ''?NULL:trim($arr['id_value']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'specs_prods', $f)){
 			$this->db->FailTrans();
@@ -144,7 +185,8 @@ class Specification{
 	// Обновление характеристик у продукта
 	public function UpdateSpecsInProducts($arr){
 		$f['id'] = trim($arr['id_spec_prod']);
-		$f['value'] = trim($arr['value']);
+		$f['value'] = trim($arr['value']) == ''?NULL:trim($arr['value']);
+		$f['id_value'] = trim($arr['id_value']) == ''?NULL:trim($arr['id_value']);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."specs_prods", $f, "id = {$f['id']}")){
 			$this->db->FailTrans();
@@ -159,7 +201,7 @@ class Specification{
 			SET value = '".$arr['value']."'
 			WHERE id_spec = ".$arr['id_spec']."
 			AND value = '".$arr['oldValue']."'
-			AND id_prod IN (SELECT id_product FROM xt_cat_prod WHERE id_category = ".$arr['id_category'].")";
+			AND id_prod IN (SELECT id_product FROM "._DB_PREFIX_."cat_prod WHERE id_category = ".$arr['id_category'].")";
 		$this->db->StartTrans();
 		if(!$this->db->Query($sql)){
 			$this->db->FailTrans();
@@ -182,21 +224,24 @@ class Specification{
 
 	// Удаление
 	public function Del($id){
-		$sql = "DELETE FROM "._DB_PREFIX_."specs WHERE `id` =  $id";
+		$sql = "DELETE FROM "._DB_PREFIX_."specs WHERE id =  $id";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		return true;
 	}
 
 	//Удаление характеристик из категорий
-	public function DelSpecFromCat($id){
-		$sql = "DELETE FROM "._DB_PREFIX_."specs_cats WHERE `id` = ".$id;
+	public function DelSpecFromCat($arr){
+		$sql = "DELETE FROM "._DB_PREFIX_."specs_cats
+			WHERE id_spec = ".$this->db->Quote($arr['id_specification'])."
+			AND id_cat = ".$this->db->Quote($arr['id_category']);
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
 		return true;
 	}
-	public function DelSpecFromProd($id_spec_prod){
-		$sql = "DELETE FROM "._DB_PREFIX_."specs_prods WHERE `id` = ".$id_spec_prod;
+	
+	public function DelSpecFromProd($id){
+		$sql = "DELETE FROM "._DB_PREFIX_."specs_prods WHERE id = ".$id;
 		$this->db->StartTrans();
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
@@ -210,6 +255,17 @@ class Specification{
 					WHERE id = $id";
 			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		}
+	}
+	public function ReorderInCategory($arr, $id_category){
+		$this->db->StartTrans();
+		foreach($arr as $position => $id_spec){
+			$sql = "UPDATE "._DB_PREFIX_."specs_cats
+				SET position = $position
+				WHERE id_spec = $id_spec
+				AND id_cat = $id_category";
+			$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
+		}
+		$this->db->CompleteTrans();
 	}
 
 	public function GetSpecsForCats(){
@@ -242,7 +298,6 @@ class Specification{
 		if(!$categories){
 			return false;
 		}
-		// print_r($categories);die();
 
 		$sql = "SELECT cp.id_category, sp.id_spec AS id_caption, sp.value, count(*) AS count
 			FROM "._DB_PREFIX_."specs_prods AS sp

@@ -117,7 +117,7 @@
 									</td>
 									<td class="left actions">
 										<nobr>
-											<a href="/adm/catedit/<?=$i['id_cat']?>/?action=delete_spec&id_spec_cat=<?=$i['id']?>" class="btn-m-red-inv" onclick="return confirm('Точно удалить?');">удалить</a>
+											<a href="/adm/catedit/<?=$i['id_cat']?>/?action=delete_spec&id_specification=<?=$i['id_spec']?>" class="btn-m-red-inv" onclick="return confirm('Точно удалить?');">удалить</a>
 										</nobr>
 									</td>
 								</tr>
