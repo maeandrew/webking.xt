@@ -35,7 +35,7 @@ G::AddCSS('../themes/'.$GLOBALS['Theme'].'/css/page_styles/'.$GLOBALS['CurrentCo
 /* Объявление JS файлов */
 G::AddJS('jquery-2.1.4.min.js', false, 1);
 // G::AddJS('jquery-3.1.0.min.js');
-G::AddJS('jquery-ui.min.js', true, 1);
+G::AddJS('jquery-ui.min.js', false, 1);
 G::AddJS('../plugins/Chart.min.js', true);
 G::AddJS('../plugins/material/material.min.js', false, 1);
 G::AddJS('../plugins/mdl-select.min.js', true, 1);
@@ -152,7 +152,6 @@ $tpl->Assign('__page_title', $GLOBALS['__page_title']);
 $tpl->Assign('__page_keywords', $GLOBALS['__page_keywords']);
 $tpl->Assign('__page_h1', $GLOBALS['__page_h1']);
 $tpl->Assign('__center', $GLOBALS['__center']);
-$tpl->Assign('__nav', $GLOBALS['__nav']);
 $tpl->Assign('__header', $GLOBALS['__header']);
 $tpl->Assign('__breadcrumbs', $GLOBALS['__breadcrumbs']);
 $tpl->Assign('__sidebar_l', $GLOBALS['__sidebar_l']);

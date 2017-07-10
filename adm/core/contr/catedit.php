@@ -3,10 +3,10 @@ if(!_acl::isAllow('catalog')){
 	die("Access denied");
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
-$specification = new Specification();
+$Specification = new Specification();
 $user = new Users();
-$specification->Setlist();
-$tpl->Assign('spec_list', $specification->list);
+$Specification->Setlist();
+$tpl->Assign('spec_list', $Specification->list);
 unset($parsed_res);
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$id_category = $GLOBALS['REQAR'][1];
@@ -36,11 +36,11 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 //	}
 //	exit();
 //}
-$specification->SetListByCatId($id_category);
-$tpl->Assign('cat_spec_list', $specification->list);
+$Specification->SetListByCatId($id_category);
+$tpl->Assign('cat_spec_list', $Specification->list);
 if(isset($_GET['action']) && $_GET['action'] == "delete_spec"){
 	$dbtree->UpdateEditUserDate($id_category);
-	$specification->DelSpecFromCat($_GET['id_spec_cat']);
+	$Specification->DelSpecFromCat(array('id_specification' => $_GET['id_specification'], 'id_category' => $id_category));
 	header('Location: '.$GLOBALS['URL_base'].'adm/catedit/'.$id_category);
 }
 $dbtree->SetFieldsByID($id_category);

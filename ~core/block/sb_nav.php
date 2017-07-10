@@ -23,7 +23,4 @@
 // }
 $tpl->Assign('sbheader', 'Каталог товаров');
 
-$parsed_res = array(
-    'issuccess' => true,
-    'html' => $tpl->Parse($GLOBALS['PATH_tpl'].'sb_nav.tpl')
-);
+$tpl_sidebar_l .= $tpl->Parse($GLOBALS['PATH_tpl'].'sb_nav.tpl');

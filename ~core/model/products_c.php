@@ -232,17 +232,27 @@ class Products {
 	 * @param integer $id_product id товара
 	 */
 	public function GetSpecificationList($id_product){
-		$sql = "SELECT s.caption, s.units, sp.value
+		$sql = "SELECT s.id, s.caption, s.units, (CASE WHEN sp.value IS NOT NULL THEN sp.value ELSE svl.value END) AS value
 			FROM "._DB_PREFIX_."specs_prods AS sp
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON s.id = sp.id_spec
+			LEFT JOIN "._DB_PREFIX_."specs_values_list AS svl
+				ON sp.id_value = svl.id
 			WHERE sp.id_prod = ".$id_product."
 			ORDER BY s.id";
 		$arr = $this->db->GetArray($sql);
 		if(!$arr){
 			return false;
 		}
-		return $arr;
+		$new_arr = [];
+		foreach($arr as $value){
+			if(!isset($new_arr[$value['id']])){
+				$new_arr[$value['id']] = $value;
+			}
+			$new_arr[$value['id']]['values'][] = $value['value'];
+			unset($new_arr[$value['id']]['value']);
+		}
+		return $new_arr;
 	}
 
 	/**
@@ -601,7 +611,6 @@ class Products {
 				AND c.visible = 1
 				AND p.visible = 1
 			GROUP BY c.id_category';
-			// print_r($sql); echo "<br>";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;
@@ -813,7 +822,6 @@ class Products {
 			$order_by.'
 			'.$limit;
 		}
-		// print_r($sql);
 		$this->list = $this->db->GetArray($sql);
 		if(!$this->list){
 			return false;
@@ -1136,11 +1144,19 @@ class Products {
 	public function SetProductsListByFilter(){
 		if(isset($GLOBALS['Filters']) && is_array($GLOBALS['Filters'])) {
 			$time_start = G::getmicrotime(true);
-			$fl_v='';
+			$fl_v = '';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {
 				if ($fl_v != '') $fl_v .= ' AND ';
-				$fl_v .= 'sp.id_prod IN (SELECT  sp1.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp1 WHERE sp1.id_spec = '.$key.'
-				AND sp1.value IN (SELECT sp2.value FROM '._DB_PREFIX_.'specs_prods AS sp2  WHERE sp2.id IN ('.implode(', ',$filter).')))';
+				$fl_v .= 'sp.id_prod IN (SELECT sp1.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp1 WHERE sp1.id_spec = '.$key.'
+				AND (sp1.value IN (SELECT (CASE WHEN sp2.value IS NOT NULL THEN sp2.value ELSE svl.value END) as value
+						FROM xt_specs_prods AS sp2
+							LEFT JOIN '._DB_PREFIX_.'specs_values_list AS svl ON sp2.id_value = svl.id
+						WHERE sp2.id IN ('.implode(', ',$filter).')
+					) OR sp1.id_value IN (SELECT sp1.id_value
+						FROM '._DB_PREFIX_.'specs_prods AS sp2
+						WHERE sp2.id IN ('.implode(', ',$filter).'))
+					)
+				)';
 			}
 
 			$sql = "SELECT DISTINCT sp.id_prod
@@ -1148,13 +1164,13 @@ class Products {
 					HAVING " . $fl_v;
 			$result = $this->db->GetArray($sql);
 			if($result){
-				foreach ($result as $res) {
+				foreach($result as $res){
 					$resul[] = $res['id_prod'];
 				}
-				if (is_array($resul)) {
+				if(is_array($resul)){
 					$this->filter = ' AND p.id_product IN (' . implode(',', $resul) . ')';
 				}
-			}else {
+			}else{
 				$this->filter = false;
 			}
 		}
@@ -1469,7 +1485,6 @@ class Products {
 			.$where2.
 			' AND (CASE WHEN (SELECT COUNT(*) FROM '._DB_PREFIX_.'assortiment AS a LEFT JOIN '._DB_PREFIX_.'user AS u ON u.id_user = a.id_supplier WHERE a.id_product = p.id_product AND a.active = 1 AND u.active = 1) > 0 THEN 1 ELSE 0 END) = 1';
 		$res = $this->db->GetOneRowArray($sql);
-		// print_r($sql);
 		if(!$res){
 			return 0;
 		}
@@ -2171,7 +2186,6 @@ class Products {
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
 		$f['create_user'] = isset($arr['create_user'])?$arr['create_user']:$_SESSION['member']['id_user'];
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
-		// print_r($f);die();
 		// Добавляем товар в бд
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
@@ -2322,7 +2336,7 @@ class Products {
 			$f['access_assort'] = (isset($arr['access_assort']) && $arr['access_assort'] == "on")?1:0;
 		}
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_."product", $f, "id_product = ".$id_product)){
+		if(!$this->db->Update(_DB_PREFIX_.'product', $f, "id_product = $id_product")){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -3504,7 +3518,6 @@ class Products {
 			AND c.category_level > 0
 			GROUP BY c.id_category
 			ORDER BY c.category_level, c.position DESC';
-			// print_r($sql);
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -3654,7 +3667,6 @@ class Products {
 				AND cp.main = 1
 			GROUP BY p.id_product
 			ORDER BY osp.sort ASC";
-			// print_r($sql);
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -4229,8 +4241,12 @@ class Products {
 	 * @param [type] $id_category id категории
 	 */
 	public function GetFilterFromCategory($id_category){
-		$sql = "SELECT s.id, s.caption, s.units, sp.id as id_val, sp.value, sc.id_spec
-			FROM "._DB_PREFIX_."cat_prod AS cp
+		$sql = "SELECT s.id, s.caption, s.units,
+			sp.id AS id_val,
+			(CASE WHEN sp.value IS NOT NULL THEN sp.value ELSE svl.value END) AS value,
+			sc.id AS id_specs_cats, sc.position
+		FROM
+			xt_cat_prod AS cp
 			LEFT JOIN "._DB_PREFIX_."product AS p
 				ON cp.id_product = p.id_product
 			LEFT JOIN "._DB_PREFIX_."specs_prods AS sp
@@ -4238,14 +4254,13 @@ class Products {
 			LEFT JOIN "._DB_PREFIX_."specs AS s
 				ON sp.id_spec = s.id
 			LEFT JOIN "._DB_PREFIX_."specs_cats AS sc
-				ON sp.id_spec = sc.id_spec
-			WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
-			AND sc.visible IS NOT NULL
-			GROUP BY s.id, sp.value";
+				ON s.id = sc.id_spec AND sc.id_cat = cp.id_category
+			LEFT JOIN "._DB_PREFIX_."specs_values_list AS svl
+				ON sp.id_value = svl.id
+		WHERE cp.id_category ".(is_array($id_category)?'IN ('.implode(', ', $id_category).')':'= '.$id_category)."
+			AND s.id IS NOT NULL
+		GROUP BY s.id, value";
 		$arr = $this->db->GetArray($sql);
-		// echo"<br>";
-		// print_r($sql);
-		// echo"<br>";
 		if(!$arr){
 			return false;
 		}
@@ -4439,17 +4454,18 @@ class Products {
 	}
 	/**
 	 * Находим все значения, которые привязаны к типу товара
-	 * @param  [type] $id    [description]
-	 * @param  [type] $idcat [description]
+	 * @param  [type] $id_spec    [description]
+	 * @param  [type] $id_category [description]
 	 * @return [type]        [description]
 	 */
-	public function getValuesItem($id, $idcat){
-		$sql = "SELECT DISTINCT v.`value`
-				FROM  "._DB_PREFIX_."specs_prods v INNER JOIN  "._DB_PREFIX_."cat_prod p
-				ON v.id_prod = p.id_product
-				WHERE v.id_spec = ". $id ." AND
-				p.id_category IN(". $idcat .")
-				AND v.`value` !=''";
+	public function getValuesItem($id_spec, $id_category){
+		$sql = "SELECT DISTINCT sp.value
+			FROM "._DB_PREFIX_."specs_prods AS sp
+				INNER JOIN "._DB_PREFIX_."cat_prod AS cp
+					ON sp.id_prod = cp.id_product
+			WHERE sp.id_spec = $id_spec
+			AND cp.id_category IN ($id_category)
+			AND sp.value IS NOT NULL";
 		$res = $this->db->GetArray($sql);
 		if (!$res){
 			return false;
