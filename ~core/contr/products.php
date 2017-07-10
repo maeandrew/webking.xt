@@ -347,7 +347,7 @@ if(empty($category['subcats'])){
 	}
 	if($category_filters){
 		foreach($category_filters as $value){
-			if((!G::IsLogged() || $_SESSION['member']['gid'] != _ACL_MODERATOR_) && !$value['id_specs_cats']){
+			if((!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_MODERATOR_, _ACL_ADMIN_))) && !$value['id_specs_cats']){
 				continue;
 			}
 			$key = 'enabled';
@@ -358,6 +358,7 @@ if(empty($category['subcats'])){
 				$filters[$key][$value['id']] = array(
 					'id' => $value['id'],
 					'caption' => $value['caption'],
+					'units' => $value['units'],
 					'visible' => $value['id_specs_cats']?true:false,
 					'position' => (int) $value['position'],
 					'expanded' => (!empty($enabled_specs) && in_array($value['id'], $enabled_specs)?true:false)

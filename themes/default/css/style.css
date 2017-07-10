@@ -1464,7 +1464,7 @@ section.center {
 	}
 	aside .filters .filter_group {
 		position: relative;
-		min-height: 37px;
+		min-height: 36px;
 	}
 	aside .filters .filter_group .filter_block {
 		background: #fff;
@@ -1483,7 +1483,7 @@ section.center {
 	aside .filters .filter_block .edit_link {
 		float: left;
 		padding: 10px;
-		max-height: 37px;
+		max-height: 36px;
 	}
 	aside .filters .filter_block .edit_link {
 		float: right;
@@ -1499,7 +1499,7 @@ section.center {
 	aside .filters .filter_block .more {
 		float: right;
 		padding: 10px;
-		max-height: 37px;
+		max-height: 36px;
 	}
 	aside .filters .filter_block .more i {
 		line-height: 16px;

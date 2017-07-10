@@ -153,21 +153,21 @@
 			</div>
 			<?if(!empty($filters)){
 				foreach($filters as $key => $group){?>
-					<?if(G::IsLogged() && $_SESSION['member']['gid'] == _ACL_MODERATOR_){?>
+					<?if(G::IsLogged() && in_array($_SESSION['member']['gid'], array(_ACL_MODERATOR_, _ACL_ADMIN_))){?>
 						<div class="filter_block"><p class="filter_separator"><?=$key == 'enabled'?'Активные':'Неактивные';?></p></div>
 					<?}?>
-					<ul class="filter_group<?=G::IsLogged() && $_SESSION['member']['gid'] == _ACL_MODERATOR_?' '.$key:($key == 'disabled'?' hidden':null);?>">
+					<ul class="filter_group<?=G::IsLogged() && in_array($_SESSION['member']['gid'], array(_ACL_MODERATOR_, _ACL_ADMIN_))?' '.$key:($key == 'disabled'?' hidden':null);?>">
 						<?foreach($group as $filter){?>
 							<div class="filter_block<?=$filter['expanded']?' expanded':null;?>" id="filter_<?=$filter['id']?>" data-id_specification="<?=$filter['id']?>">
-								<?if(G::IsLogged() && $_SESSION['member']['gid'] == _ACL_MODERATOR_){?>
+								<?if(G::IsLogged() && in_array($_SESSION['member']['gid'], array(_ACL_MODERATOR_, _ACL_ADMIN_))){?>
 									<span class="visibility" title="Перетащите для изменения видимости или порядка"><i class="material-icons">drag_handle</i></span>
 								<?}?>
-								<?if(G::IsLogged() && $_SESSION['member']['gid'] == _ACL_MODERATOR_){?>
+								<?if(G::IsLogged() && in_array($_SESSION['member']['gid'], array(_ACL_MODERATOR_, _ACL_ADMIN_))){?>
 									<a href="<?=Link::Custom('adm/specificationedit', $filter['id']);?>" target="_blank" title="Редактировать характеристику" class="edit_link"><i class="material-icons">edit</i></a>
 								<?}?>
 								<div class="filter_title">
 									<div class="more"><i class="material-icons">expand_more</i></div>
-									<p><?=$filter['caption']?></p>
+									<p><?=$filter['caption']?><?=$filter['units']?', '.$filter['units']:null;?></p>
 								</div>
 								<ul>
 									<?foreach($filter['values'] as $value){
@@ -176,7 +176,7 @@
 											<label class="mdl-checkbox mdl-js-checkbox <?=$value['checked']?'checked':null;?>">
 												<input <?//=($present || in_array($filter['id'], $id_filter)) ? "" : "disabled";?> type="checkbox" class="mdl-checkbox__input" data-spec="<?=$filter['id']?>" data-value="<?=$value['id']?>" <?=$value['checked']?'checked':null;?>>
 												<span>
-													<span class="mdl-checkbox__label"><?=$value['value']?> <?=$value['units']?></span>
+													<span class="mdl-checkbox__label"><?=$value['value']?></span>
 												</span>
 											</label>
 										</li>

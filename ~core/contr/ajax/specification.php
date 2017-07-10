@@ -50,6 +50,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				echo json_encode($echo);
 				break;
+			case 'updateSpecValue':
+				$echo = false;
+				if($Specification->UpdateValue($_POST)){
+					$echo = true;
+				}
+				echo json_encode($echo);
+				break;
 			default:
 				break;
 		}

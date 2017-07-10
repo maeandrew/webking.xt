@@ -260,7 +260,7 @@
 												<tr id="spec<?=$i['id_spec']?>" class="animate specifications">
 													<input type="hidden" name="id_spec_prod" value="<?=$i['id']?>">
 													<input type="hidden" name="id_spec" value="<?=$i['id_spec']?>">
-													<td><?=$i['caption']?></td>
+													<td><?=$i['caption']?><p class="service_caption"><?=$i['service_caption']?></p></td>
 													<td><?=$i['units']?></td>
 													<td>
 														<input list="features_<?=$i['id_spec']?>" data-id_specification="<?=$i['id_spec']?>" class="input-m itemvalue" type="text" name="value" onchange="insertValueLink($(this));" value="<?=$i['value']?>">
@@ -288,7 +288,7 @@
 											<?}
 										}else{?>
 											<tr id="empty2" class="animate">
-												<td colspan="4">Не привязано ни одной характеристики</td>
+												<td colspan="5">Не привязано ни одной характеристики</td>
 											</tr>
 										<?}?>
 										<tr class="add_new_specification">

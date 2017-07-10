@@ -65,13 +65,13 @@ class Specification{
 	}
 	//Выбрать характеристики у каждого продукта
 	public function SetListByProdId($id_product){
-		$sql = "SELECT s.id AS id_spec, s.caption, sp.id, sp.value, svl.value AS list_value, s.units
+		$sql = "SELECT s.id AS id_spec, s.caption, s.service_caption, sp.id, sp.value, svl.value AS list_value, s.units
 			FROM "._DB_PREFIX_."specs_prods AS sp
 				LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sp.id_spec
 				LEFT JOIN "._DB_PREFIX_."specs_values_list AS svl ON svl.id = sp.id_value
 			WHERE id_prod = $id_product
 			UNION
-			SELECT s.id, caption, NULL, NULL, NULL, units
+			SELECT s.id, s.caption, s.service_caption, NULL, NULL, NULL, s.units
 			FROM "._DB_PREFIX_."specs_cats AS sc
 				LEFT JOIN "._DB_PREFIX_."specs AS s ON s.id = sc.id_spec
 			WHERE sc.id_cat = (
@@ -106,6 +106,7 @@ class Specification{
 		$this->db->CompleteTrans();
 		return $id;
 	}
+
 	public function DeleteValue($id){
 		$this->db->StartTrans();
 		if(!$this->db->DeleteRowsFrom(_DB_PREFIX_.'specs_values_list', array("id = $id"))){
@@ -115,6 +116,18 @@ class Specification{
 		$this->db->CompleteTrans();
 		return true;
 	}
+
+	public function UpdateValue($data){
+		$f['value'] = $data['value'];
+		$this->db->StartTrans();
+		if(!$this->db->Update(_DB_PREFIX_.'specs_values_list', $f, "id = {$data['id']}")){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
 	public function GetValuesList($id){
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."specs_values_list AS svl
@@ -128,6 +141,7 @@ class Specification{
 	public function Add($arr){
 		// $f['id'] = trim($arr['id']);
 		$f['caption'] = trim($arr['caption']);
+		$f['service_caption'] = trim($arr['service_caption'])?trim($arr['service_caption']):$f['caption'];
 		if(isset($arr['units'])){
 			$f['units'] = trim($arr['units']);
 		}
@@ -173,6 +187,7 @@ class Specification{
 	public function Update($arr){
 		$f['id'] = trim($arr['id']);
 		$f['caption'] = trim($arr['caption']);
+		$f['service_caption'] = trim($arr['service_caption'])?trim($arr['service_caption']):$f['caption'];
 		$f['units'] = trim($arr['units']);
 		$this->db->StartTrans();
 		if(!$this->db->Update(_DB_PREFIX_."specs", $f, "id = {$f['id']}")){

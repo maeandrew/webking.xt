@@ -550,3 +550,9 @@
 	float: right;
 	margin-top: 10px;
 }
+
+#productae .specifications .service_caption {
+	color: #b0bec5;
+	text-transform: uppercase;
+	font-size: .8em;
+}

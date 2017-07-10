@@ -14,10 +14,10 @@ if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){
 	<div class="UserInfBlock">
 		<div class="avatar">
 			<a href="<?=Link::Custom('cabinet')?>?t=contacts" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-				<span class="image" style="background: <? printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr($name, 0, 1); ?></span>
 				<?if($_SESSION['member']['gid'] == _ACL_CONTRAGENT_){?>
+					<span class="image" style="background: <? printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr($name, 0, 1); ?></span>
 				<?}else{?>
-					<!-- <img class="image" src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/> -->
+					<img class="image" src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
 				<?}?>
 			</a>
 		</div>

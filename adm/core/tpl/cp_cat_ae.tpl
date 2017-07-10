@@ -131,10 +131,10 @@
 				<?=isset($errm['sid'])?"<span class=\"errmsg\">".$errm['sid']."</span><br>":null?>
 				<select name="sid" id="sid" class="input-m">
 					<?$i = 0;
-					foreach ($spec_list as $sl){
+					foreach($spec_list as $sl){
 						if(!in_array($sl['id'], $ids)){
 							$i++;?>
-							<option value="<?=$sl['id']?>"><?=$sl['caption']?>
+							<option value="<?=$sl['id']?>"><?=$sl['caption']?>[<?=$sl['service_caption']?>]
 							<?if($sl['units'] !== ''){
 								echo('('.$sl['units'].')');
 							}?>

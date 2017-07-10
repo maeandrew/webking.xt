@@ -21,6 +21,7 @@
 					<tr class="values_list_item" data-id="<?=$i['id']?>">
 						<td class="value"><?=$i['value']?></td>
 						<td class="right actions">
+							<button class="btn-m-green-inv edit_value"><i class="icon-edit">e</i></button>
 							<button class="btn-m-red delete_value"><i class="icon-delete">t</i></button>
 						</td>
 					</tr>
@@ -44,6 +45,7 @@
 			<tr class="values_list_item template hidden">
 				<td class="value"><?=$i['value']?></td>
 				<td class="right actions">
+					<button class="btn-m-green-inv edit_value"><i class="icon-edit">e</i></button>
 					<button class="btn-m-red delete_value"><i class="icon-delete">t</i></button>
 				</td>
 			</tr>
@@ -74,6 +76,22 @@
 				id = parent.data('id');
 			ajax('specification', 'deleteSpecValue', {id: id}).done(function(){
 				parent.fadeOut();
+			});
+		}).on('click', '.edit_value', function(e){
+			e.preventDefault();
+			var parent = $(this).closest('tr'),
+				id = parent.data('id'),
+				current_value = parent.find('.value').html();
+			parent.find('.value').html('<input class="input-m new_value" value="'+parent.find('.value').html()+'">');
+			parent.find('.edit_value').attr('class', 'btn-m-green save_value').find('i').html('y');
+		}).on('click', '.save_value', function(e){
+			e.preventDefault();
+			var parent = $(this).closest('tr'),
+				id = parent.data('id'),
+				value = parent.find('.new_value').val();
+			ajax('specification', 'updateSpecValue', {id: id, value: value}).done(function(){
+				parent.find('.value').html(value);
+				parent.find('.save_value').attr('class', 'btn-m-green-inv edit_value').find('i').html('e');
 			});
 		});
 	});
