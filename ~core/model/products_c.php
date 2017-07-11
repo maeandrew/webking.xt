@@ -1147,28 +1147,25 @@ class Products {
 			$fl_v = '';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {
 				if ($fl_v != '') $fl_v .= ' AND ';
-				$fl_v .= 'sp.id_prod IN (SELECT sp1.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp1 WHERE sp1.id_spec = '.$key.'
-				AND (sp1.value IN (SELECT (CASE WHEN sp2.value IS NOT NULL THEN sp2.value ELSE svl.value END) as value
+				$fl_v .= 'SELECT DISTINCT sp.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp WHERE sp.id_spec = '.$key.'
+				AND (sp.value IN (SELECT (CASE WHEN sp2.value IS NOT NULL THEN sp2.value ELSE svl.value END) as value
 						FROM xt_specs_prods AS sp2
 							LEFT JOIN '._DB_PREFIX_.'specs_values_list AS svl ON sp2.id_value = svl.id
 						WHERE sp2.id IN ('.implode(', ',$filter).')
-					) OR sp1.id_value IN (SELECT sp1.id_value
+					) OR sp.id_value IN (SELECT sp2.id_value
 						FROM '._DB_PREFIX_.'specs_prods AS sp2
 						WHERE sp2.id IN ('.implode(', ',$filter).'))
-					)
-				)';
+					)';
 			}
 
-			$sql = "SELECT DISTINCT sp.id_prod
-					FROM "._DB_PREFIX_."specs_prods AS sp
-					HAVING " . $fl_v;
+			$sql = $fl_v;
 			$result = $this->db->GetArray($sql);
 			if($result){
-				foreach($result as $res){
-					$resul[] = $res['id_prod'];
+				foreach($result as &$res){
+					$res = $res['id_prod'];
 				}
-				if(is_array($resul)){
-					$this->filter = ' AND p.id_product IN (' . implode(',', $resul) . ')';
+				if(is_array($result)){
+					$this->filter = ' AND p.id_product IN (' . implode(',', $result) . ')';
 				}
 			}else{
 				$this->filter = false;
