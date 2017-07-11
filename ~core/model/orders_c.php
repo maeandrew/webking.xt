@@ -561,7 +561,7 @@ class Orders {
 		$f['skey'] = md5(time().'jWfUsd');
 		$f['sid'] = 1;
 		// Фиксируем в заказе примечание клиента
-		$f['note'] = isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:null;
+		$f['note'] = isset($_SESSION['cart']['note'])?$_SESSION['cart']['note']:'';
 		// Фиксируем в закзае факт ручного изменения колонки менеджером с указанием комментария
 		if(isset($_SESSION['cart']['manual_price_change']) && isset($_SESSION['cart']['manual_price_change_note'])){
 			$f['manual_price_change'] = $_SESSION['cart']['manual_price_change'].' - '.$_SESSION['cart']['manual_price_change_note'];
