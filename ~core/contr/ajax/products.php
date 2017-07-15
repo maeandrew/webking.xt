@@ -127,10 +127,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				break;
 			case 'deleteUploadedImage':
 				$Images = new Images();
+				$echo = false;
 				if($Images->remove($GLOBALS['PATH_root'].$_POST['src'])){
 					$echo = true;
-				}else{
-					$echo = false;
 				}
 				echo json_encode($echo);
 				break;
@@ -138,17 +137,19 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($Products->UpdateDemandChart($_POST, true));
 				break;
 			case 'specificationUpdate':
+				$echo = false;
 				$Specification = new Specification();
 				$Products->UpdateProduct(array('id_product' => $_POST['id_product']));
 				if(!$_POST['id_spec_prod']){
 					if($Specification->AddSpecToProd($_POST, $_POST['id_product'])){
-						echo json_encode('ok');
+						$echo = true;
 					}
 				}else{
 					if($Specification->UpdateSpecsInProducts($_POST)){
-						echo json_encode('ok');
+						$echo = true;
 					}
 				}
+				echo json_encode($echo);
 				break;
 			case 'specificationDelete':
 				$Specification = new Specification();

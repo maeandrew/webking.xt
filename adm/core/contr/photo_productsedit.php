@@ -140,11 +140,16 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 					$supp_arr[] = array(
 						"id_assortiment" => isset($_POST['id_assortiment'][$i])?$_POST['id_assortiment'][$i]:false,
 						"id_supplier" => $_POST['id_supplier'][$i],
-						"price_opt_otpusk" => $_POST['price_opt_otpusk'][$i],
-						"price_mopt_otpusk" => $_POST['price_mopt_otpusk'][$i],
 						"product_limit" => $_POST['product_limit'][$i],
 						"inusd" => $_POST['inusd'][$i]
 					);
+					if($_POST['inusd'][$i] == 1){
+						$supp_arr[$i]['price_opt_otpusk_usd'] = $_POST['price_opt_otpusk'][$i];
+						$supp_arr[$i]['price_mopt_otpusk_usd'] = $_POST['price_mopt_otpusk'][$i];
+					}else{
+						$supp_arr[$i]['price_opt_otpusk'] = $_POST['price_opt_otpusk'][$i];
+						$supp_arr[$i]['price_mopt_otpusk'] = $_POST['price_mopt_otpusk'][$i];
+					}
 				}
 				foreach($supp_arr as $k => $value){
 					$value['id_product'] = $id_product;

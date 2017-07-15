@@ -177,12 +177,12 @@ class Products {
 		return true;
 	}
 	public function GetSupComments($id_supplier){
-		$sql = "SELECT sup_comment FROM "._DB_PREFIX_."assortiment
+		$sql = "SELECT id_assortiment, sup_comment FROM "._DB_PREFIX_."assortiment
 			WHERE id_supplier = ".$id_supplier;
-		if(!$result = $this->db->GetArray($sql)){
+		if(!$result = $this->db->GetArray($sql, 'id_assortiment')){
 			return false;
 		}
-		foreach ($result as $key => &$value) {
+		foreach ($result as &$value) {
 			$value = $value['sup_comment'];
 		}
 		return $result;
@@ -1825,28 +1825,31 @@ class Products {
 			$suppliers = new Suppliers();
 			$suppliers->SetFieldsById($arr['id_supplier'], 1);
 			$supp_fields = $suppliers->fields;
-			$f['product_limit'] = trim($arr['product_limit']);
+			if(isset($arr['product_limit'])){
+				$f['product_limit'] = trim($arr['product_limit']);
+			}
 			$f['inusd'] = $arr['inusd'];
 			if($arr['inusd'] != 1){
 				$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
 				$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-				$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
-				$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
+				$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk']/$supp_fields['currency_rate'], 2);
+				$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk']/$supp_fields['currency_rate'], 2);
 			}else{
-				$f['price_opt_otpusk'] = round($arr['price_opt_otpusk'] * $supp_fields['currency_rate'], 2);
-				$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk'] * $supp_fields['currency_rate'], 2);
-				$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk']);
-				$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk']);
+				$f['price_opt_otpusk'] = round($arr['price_opt_otpusk_usd']*$supp_fields['currency_rate'], 2);
+				$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk_usd']*$supp_fields['currency_rate'], 2);
+				$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
+				$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
 			}
-			$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
-			$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
+			$f['price_opt_recommend'] = $f['price_opt_otpusk']*$supp_fields['koef_nazen_opt'];
+			$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$supp_fields['koef_nazen_mopt'];
 			$this->db->StartTrans();
-			if (!$this->db->Update(_DB_PREFIX_."assortiment", $f, "id_assortiment = " . $arr['id_assortiment'])) {
+			if (!$this->db->Update(_DB_PREFIX_.'assortiment', $f, "id_assortiment = {$arr['id_assortiment']}")) {
 				$this->db->FailTrans();
 				return false;
 			}
 			$this->db->CompleteTrans();
-			$this->RecalcSitePrices(array($arr['id_product']));
+			$this->RecalcSitePrices(array($res['id_product']));
+			unset($res);
 			return true;
 		}
 	}
@@ -1983,16 +1986,16 @@ class Products {
 		if($arr['inusd'] != 1){
 			$f['price_opt_otpusk'] = trim($arr['price_opt_otpusk']);
 			$f['price_mopt_otpusk'] = trim($arr['price_mopt_otpusk']);
-			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk'] / $supp_fields['currency_rate'], 2);
-			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk'] / $supp_fields['currency_rate'], 2);
+			$f['price_opt_otpusk_usd'] = round($arr['price_opt_otpusk']/$supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk_usd'] = round($arr['price_mopt_otpusk']/$supp_fields['currency_rate'], 2);
 		}else{
-			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk_usd'] * $supp_fields['currency_rate'], 2);
-			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk_usd'] * $supp_fields['currency_rate'], 2);
+			$f['price_opt_otpusk'] = round($arr['price_opt_otpusk_usd']*$supp_fields['currency_rate'], 2);
+			$f['price_mopt_otpusk'] = round($arr['price_mopt_otpusk_usd']*$supp_fields['currency_rate'], 2);
 			$f['price_opt_otpusk_usd'] = trim($arr['price_opt_otpusk_usd']);
 			$f['price_mopt_otpusk_usd'] = trim($arr['price_mopt_otpusk_usd']);
 		}
-		$f['price_opt_recommend'] = $f['price_opt_otpusk'] * $supp_fields['koef_nazen_opt'];
-		$f['price_mopt_recommend'] = $f['price_mopt_otpusk'] * $supp_fields['koef_nazen_mopt'];
+		$f['price_opt_recommend'] = $f['price_opt_otpusk']*$supp_fields['koef_nazen_opt'];
+		$f['price_mopt_recommend'] = $f['price_mopt_otpusk']*$supp_fields['koef_nazen_mopt'];
 		$f['edited'] = date('Y-m-d');
 		if(isset($arr['sup_comment']) && $arr['sup_comment'] !== ''){
 			$f['sup_comment'] = $arr['sup_comment'];
@@ -2184,6 +2187,7 @@ class Products {
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
 		$f['create_user'] = isset($arr['create_user'])?$arr['create_user']:$_SESSION['member']['id_user'];
 		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+
 		// Добавляем товар в бд
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'product', $f)){
