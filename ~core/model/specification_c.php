@@ -141,7 +141,7 @@ class Specification{
 	public function Add($arr){
 		// $f['id'] = trim($arr['id']);
 		$f['caption'] = trim($arr['caption']);
-		$f['service_caption'] = trim($arr['service_caption'])?trim($arr['service_caption']):$f['caption'];
+		$f['service_caption'] = isset($arr['service_caption']) && trim($arr['service_caption'])?trim($arr['service_caption']):$f['caption'];
 		if(isset($arr['units'])){
 			$f['units'] = trim($arr['units']);
 		}
@@ -171,8 +171,8 @@ class Specification{
 	public function AddSpecToProd($arr, $id_product){
 		$f['id_spec'] = trim($arr['id_spec']);
 		$f['id_prod'] = $id_product;
-		$f['value'] = trim($arr['value']) == ''?NULL:trim($arr['value']);
-		$f['id_value'] = trim($arr['id_value']) == ''?NULL:trim($arr['id_value']);
+		$f['value'] = !isset($arr['value']) || trim($arr['value']) == ''?NULL:trim($arr['value']);
+		$f['id_value'] = !isset($arr['id_value']) || trim($arr['id_value']) == ''?NULL:trim($arr['id_value']);
 		$this->db->StartTrans();
 		if(!$this->db->Insert(_DB_PREFIX_.'specs_prods', $f)){
 			$this->db->FailTrans();

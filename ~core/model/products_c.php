@@ -208,8 +208,7 @@ class Products {
 				LEFT JOIN '._DB_PREFIX_.'prod_views AS pv ON pv.id_product = p.id_product
 			WHERE p.translit = '.$this->db->Quote($rewrite).'
 			LIMIT 1';
-		$arr = $this->db->GetOneRowArray($sql);
-		if(!$arr){
+		if(!$arr = $this->db->GetOneRowArray($sql)){
 			return false;
 		}
 		$coef_price_opt = explode(';', $GLOBALS['CONFIG']['correction_set_'.$arr['opt_correction_set']]);
@@ -1147,7 +1146,7 @@ class Products {
 			$fl_v = '';
 			foreach ($GLOBALS['Filters'] as $key => $filter) {
 				if ($fl_v != '') $fl_v .= ' AND ';
-				$fl_v .= 'SELECT DISTINCT sp.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp WHERE sp.id_spec = '.$key.'
+				$fl_v .= 'sp.id_prod IN (SELECT DISTINCT sp.id_prod FROM '._DB_PREFIX_.'specs_prods AS sp WHERE sp.id_spec = '.$key.'
 				AND (sp.value IN (SELECT (CASE WHEN sp2.value IS NOT NULL THEN sp2.value ELSE svl.value END) as value
 						FROM xt_specs_prods AS sp2
 							LEFT JOIN '._DB_PREFIX_.'specs_values_list AS svl ON sp2.id_value = svl.id
@@ -1155,10 +1154,12 @@ class Products {
 					) OR sp.id_value IN (SELECT sp2.id_value
 						FROM '._DB_PREFIX_.'specs_prods AS sp2
 						WHERE sp2.id IN ('.implode(', ',$filter).'))
-					)';
+					)
+				)';
 			}
-
-			$sql = $fl_v;
+			$sql = "SELECT DISTINCT sp.id_prod
+				FROM "._DB_PREFIX_."specs_prods AS sp
+				HAVING ".$fl_v;
 			$result = $this->db->GetArray($sql);
 			if($result){
 				foreach($result as &$res){
@@ -1811,12 +1812,12 @@ class Products {
 	 * @param [type] $arr [description]
 	 */
 	public function UpdateAssortWithAdm($arr){
-		//Проверка перед update. Если изменений нет, то update не делать
+		// Проверка перед update. Если изменений нет, то update не делать
 		$sql = "SELECT * FROM "._DB_PREFIX_."assortiment WHERE id_assortiment = ".$arr['id_assortiment'];
 		$res = $this->db->GetOneRowArray($sql);
 		$i = 0;
 		foreach($arr as $k => &$v){
-			if(isset($res[$k]) && $res[$k] !== $v){
+			if(isset($res[$k]) && $res[$k] != $v){
 				$i++;
 			}
 		}
