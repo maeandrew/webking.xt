@@ -249,5 +249,6 @@ images/categories/*
 images/delivery/*
 images/avatars/*
 efiles/pickers/*
+cron/*
 
 xt.sublime-workspace
