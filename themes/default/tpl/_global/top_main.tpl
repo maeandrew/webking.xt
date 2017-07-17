@@ -23,21 +23,21 @@
 	</div>
 	<div class="header_right">
 		<div class="search_toggle_button">
-			<button class="mdl-button mdl-js-button mdl-button--icon header_search_input_toggle_js header_search_input_show">
+			<a href="#" class="header_search_input_toggle_js header_search_input_show">
 				<i class="material-icons">&#xE8B6;</i>
-			</button>
+			</a>
 		</div>
 		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone hidden">
 			<?$rand = rand(0, count($list_menu)-1);?>
 			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$list_menu[$rand]['title']?></a>
 		</div>
 		<div class="pages_list">
-			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-phone navigation">
+			<a href="#" id="menu-lower-right" class="mdl-cell--hide-phone navigation">
 				<i class="material-icons">&#xE5D2;</i>
-			</button>
-			<button class="mdl-button mdl-js-button mdl-button--icon mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
+			</a>
+			<a href="#" class="mdl-cell--hide-tablet mdl-cell--hide-desktop navigation btn_js" data-name="phone_menu">
 				<i class="material-icons">&#xE5D2;</i>
-			</button>
+			</a>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu  mdl-cell--hide-phone" for="menu-lower-right">
 				<?foreach($list_menu as $key => &$menu){?>
 					<a class="mdl-menu__item" href="<?=Link::Custom('page', $menu['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$menu['title']?></a>
@@ -53,17 +53,17 @@
 		</div>
 		<div class="profile mdl-cell--hide-phone">
 			<?if(G::IsLogged()){?>
-				<div id="user_profile" class="cabinet_btn">
+				<a href="#" id="user_profile" class="cabinet_btn">
 					<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
 					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"><?=isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name'].' '.$_SESSION['member']['last_name']:$_SESSION['member']['name']?></span>
 					<i class="material-icons">&#xE313;</i>
-				</div>
+				</a>
 			<?}else{?>
-				<div id="user_profile" class="cabinet_btn hidden">
+				<a href="#" id="user_profile" class="cabinet_btn hidden">
 					<img src="/images/noavatar.png"/>
 					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"></span>
 					<i class="material-icons">&#xE313;</i>
-				</div>
+				</a>
 				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored mdl-button--outline login_btn">Войти</a>
 			<?}?>
 			<div class="user_profile user_profile_js mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile">

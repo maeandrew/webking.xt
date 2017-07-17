@@ -250,6 +250,10 @@ label:hover + .info_description {
 	left: 0;
 	z-index: 100;
 	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+	-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+	transition: all .4s cubic-bezier(.4,0,.2,1);
 }
 [data-type="panel"]:not(aside),
 [data-type="modal"]{
@@ -282,6 +286,7 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 [class*=' active_'] .background_panel {
 	background-color: rgba(0,0,0,.4);
 	visibility: visible;
+	opacity: 1;
 }
 [data-type="modal"] .modal_container div.mdl-card__supporting-text {
 	margin: 0 auto;
@@ -389,7 +394,7 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 }
 /* Modal windows ============================================================ */
 [data-type="modal"] {
-	display: none;
+	/*display: none;*/
 	padding: 1em;
 	background: #fff;
 	border-radius: .4em;
@@ -400,9 +405,14 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 	max-height: calc(90vh - 60px);
 	max-width: 80vw;
 	overflow: hidden;
+	transition: opacity .4s cubic-bezier(.4, 0, .2, 1);
+	opacity: 0;
+	visibility: hidden;
 }
 [data-type="modal"].opened {
-	display: block;
+	opacity: 1;
+	visibility: visible;
+	/*display: block;*/
 	z-index: 100;
 }
 [data-type="modal"] .modal_container {
@@ -571,11 +581,16 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 		z-index: 1;
 		box-sizing: border-box;
 		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-moz-transition: all .3s cubic-bezier(.4,0,.2,1);
 		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
 		transition: all .3s cubic-bezier(.4,0,.2,1);
 	}
 	.breadcrumbs li a:hover:after {
 		border-left-color: transparent;
+		-webkit-transition: none;
+		-moz-transition: none;
+		-o-transition: none;
+		transition: none;
 	}
 	.breadcrumbs li:first-of-type a {
 		background: #018b06;

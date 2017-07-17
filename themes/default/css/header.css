@@ -36,6 +36,10 @@ header .header_wrapp .header_right > div {
 	position: relative;
 	display: inline-block;
 }
+header .header_wrapp .header_right > div i {
+	text-align: center;
+	vertical-align: middle;
+}
 header .header_wrapp .header_right > div:first-of-type {
 	margin-left: 0;
 }
@@ -43,13 +47,16 @@ header .header_wrapp .header_right > div:first-of-type {
 header .header_wrapp .header_right .search_toggle_button {
 	display: none;
 }
+header .header_wrapp .header_right .header_search_input_show {
+	display: block;
+}
 header .header_wrapp .header_right .login_btn {
 	height: 40px;
 	line-height: 40px;
 }
 header .header_wrapp .header_right .cabinet_btn {
-	cursor: pointer;
-	font-weight: 500;
+	height: 40px;
+	display: block;
 }
 header .header_wrapp .header_right .cabinet_btn img {
 	width: 40px;
@@ -58,10 +65,7 @@ header .header_wrapp .header_right .cabinet_btn img {
 }
 header .header_wrapp .header_right .cabinet_btn .name {
 	margin-left: 10px;
-}
-header .header_wrapp .header_right .cabinet_btn i {
-	line-height: 40px;
-	vertical-align: middle;
+	font-weight: 500;
 }
 /* Search ====================================================================*/
 	header .header_wrapp .search_wrap {
@@ -129,6 +133,7 @@ header .header_wrapp .header_right .cabinet_btn i {
 	}*/
 	header .header_wrapp .search_wrap #search_category {
 		border: 1px solid #e2e5ea;
+		background: #fff;
 		border-right: 0;
 		height: 40px;
 		padding: 0 15px;
@@ -144,14 +149,15 @@ header .header_wrapp .header_right .cabinet_btn i {
 
 
 	header .header_wrapp .header_right .cart_item {
-		/*display: none;*/
+	}
+	header .header_wrapp .header_right .cart_item .cart {
+		height: 40px;
+		display: block;
 	}
 	header .header_wrapp .header_right .cart_item i {
-		vertical-align: middle;
-		display: inline-block;
+		width: auto;
 	}
 	header .header_wrapp .header_right .cart_item a > span {
-		margin-left: .5em;
 		display: inline-block;
 		vertical-align: middle;
 		text-align: left;
@@ -167,14 +173,18 @@ header .header_wrapp .header_right .cabinet_btn i {
 	header .header_wrapp .header_right .cart_item a.for_hidden_js > span > span:last-of-type {
 		display: none;
 	}
-	header .header_wrapp .header_right .cart_item a span{
-		font-weight: 600;
+	header .header_wrapp .header_right .cart_item a span {
+		font-weight: 500;
 		line-height: 16px;
 	}
 	header .header_wrapp .header_right .random_page {
 		/*display: none;*/
 	}
 	header .header_wrapp .header_right .pages_list {
+	}
+	header .header_wrapp .header_right .pages_list .navigation {
+		height: 40px;
+		display: block;
 	}
 	header .header_wrapp .header_right .pages_list nav {
 		max-height: 80vh;
