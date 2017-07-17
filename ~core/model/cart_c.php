@@ -326,21 +326,23 @@ class Cart {
 				unset($f);
 				$_SESSION['cart']['id'] = $this->db->GetLastId();
 				$this->db->CompleteTrans();
-				foreach($_SESSION['cart']['products'] as $key => &$product){
-					$f['id_product'] = $key;
-					$f['quantity'] = $product['quantity'];
-					$f['price'] = $product['base_price'];
-					$f['id_cart'] = $_SESSION['cart']['id'];
-					$this->db->StartTrans();
-					if(!$this->db->Insert(_DB_PREFIX_."cart_product", $f)){
-						$this->db->FailTrans();
-						return false;
+				if(!empty($_SESSION['cart']['products'])){
+					foreach($_SESSION['cart']['products'] as $key => &$product){
+						$f['id_product'] = $key;
+						$f['quantity'] = $product['quantity'];
+						$f['price'] = $product['base_price'];
+						$f['id_cart'] = $_SESSION['cart']['id'];
+						$this->db->StartTrans();
+						if(!$this->db->Insert(_DB_PREFIX_."cart_product", $f)){
+							$this->db->FailTrans();
+							return false;
+						}
+						$product['id_cart_product'] = $this->db->GetLastId();
+						$this->db->CompleteTrans();
+						unset($f);
 					}
-					$product['id_cart_product'] = $this->db->GetLastId();
-					$this->db->CompleteTrans();
-					unset($f);
+					return $product['id_cart_product'];
 				}
-				return $product['id_cart_product'];
 			}
 			return false;
 		}

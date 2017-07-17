@@ -76,7 +76,7 @@
 }
 .product_page .product.active .product_aside .advantage_block,
 .product_page .product.active .product_aside .similar_products_mini{
-	background-color: #f4f6f5;
+	background-color: #edf2f5;
 }
 .product_page .product.notactive .product_aside .advantage_block,
 .product_page .product.notactive .product_aside .similar_products_mini{
@@ -132,10 +132,10 @@
 .product_page #price_details th {
 	font-weight: bold;
 	padding: .5em;
-	border: 1px solid #eeeeee;
+	border: 1px solid #dbe5eb;
 }
 .product_page #price_details td {
-	border: 1px solid #eee;
+	border: 1px solid #dbe5eb;
 	padding: 5px;
 }
 .product_page #price_details .prices_table td {

@@ -106,6 +106,14 @@ class Users {
 		}
 		$md = md5($this->fields['id_user']);
 		$this->fields['personal_color'] = substr($md, strlen($md)-6);
+		if($this->fields['gid'] == _ACL_CUSTOMER_){
+			$sql = "SELECT * FROM "._DB_PREFIX_."customer AS c
+				WHERE c.id_user = $id_user";
+				$res = $this->db->GetOneRowArray($sql);
+			$this->fields['first_name'] = $res['first_name'];
+			$this->fields['middle_name'] = $res['middle_name'];
+			$this->fields['last_name'] = $res['last_name'];
+		}
 		return true;
 	}
 

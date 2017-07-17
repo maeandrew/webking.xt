@@ -410,7 +410,7 @@
 			<div class="mdl-grid">
 				<div class="mdl-tabs mdl-js-tabs product_tabs mdl-cell mdl-cell--12-col">
 					<div class="fortabs">
-						<div class="tabs mdl-tabs__tab-bar mdl-color--grey-100">
+						<div class="tabs mdl-tabs__tab-bar">
 							<a href="#description" class="mdl-tabs__tab fortabs_tab">Описание</a>
 							<a href="#specifications" class="mdl-tabs__tab fortabs_tab is-active">Характеристики</a>
 							<a href="#comments" class="mdl-tabs__tab fortabs_tab">Отзывы / вопросы</a>

@@ -2,32 +2,32 @@
 	<div class="logo">
 		<a href="<?=Link::Custom('main', null, array('clear' => true));?>" rel="nofollow"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
+	<div class="search_wrap">
+		<form name="search" action="<?=Link::Custom('search');?>" method="get">
+			<label class="search_query_input" for="search">
+				<input class="btn_js" name="query" id="search" type="search" required="required" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
+			</label>
+			<label class="search_category_input mdl-cell--hide-tablet mdl-cell--hide-phone" for="search_category">
+				<select id="search_category" name="search_category">
+					<option value="" data-id-category="0">По всем категориям</option>
+					<?foreach($navigation as &$v){ ?>
+						<option value="<?=$v['id_category']?>" data-id-category="<?=$v['id_category']?>"><?=$v['name']?></option>
+					<?}?>
+				</select>
+			</label>
+			<button type="submit" class="search_btn">Найти</button>
+			<button class="mdl-button mdl-js-button mdl-button--icon header_search_input_toggle_js header_search_input_hide">
+				<i class="material-icons">&#xE5CD;</i>
+			</button>
+		</form>
+	</div>
 	<div class="header_right">
-		<div class="search_wrap">
-			<form name="search" action="<?=Link::Custom('search');?>" method="get">
-				<button type="submit" class="mdl-cell--hide-phone search_btn">Найти</button>
-				<label class="search_query_input" for="search">
-					<input class="btn_js" name="query" id="search" type="search" required="required" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
-				</label>
-				<label class="search_category_input" for="search_category">
-					<select id="search_category" name="search_category">
-						<option value="" data-id-category="0">По всем категориям</option>
-						<?foreach($navigation as &$v){ ?>
-							<option value="<?=$v['id_category']?>" data-id-category="<?=$v['id_category']?>"><?=$v['name']?></option>
-						<?}?>
-					</select>
-				</label>
-				<i class="material-icons mdl-cell--hide-tablet mdl-cell--hide-desktop header_search_close_js header_search_close">&#xE5CD;</i>
-				<i class="material-icons mdl-cell--hide-tablet mdl-cell--hide-desktop header_search_close_js header_search_close">&#xE8B6;</i>
-			</form>
+		<div class="search_toggle_button">
+			<button class="mdl-button mdl-js-button mdl-button--icon header_search_input_toggle_js header_search_input_show">
+				<i class="material-icons">&#xE8B6;</i>
+			</button>
 		</div>
-		<div class="cart_item ga-cart <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-			<div class="currentCartSum hidden"><?=isset($_SESSION['cart']['products_sum'][3])?$_SESSION['cart']['products_sum'][3]:null?></div>
-			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js <?=$_SESSION['cart']['cart_sum'] == 0?'for_hidden_js':null;?>" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone"><span>Корзина</span><span>:</span><br><span class="total_cart_summ_js">
-			<?print_r(number_format($_SESSION['cart']['cart_sum'], 2, ',', ''));?>
-			грн.</span></span></a>
-		</div>
-		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone">
+		<div class="random_page mdl-cell--hide-tablet mdl-cell--hide-phone hidden">
 			<?$rand = rand(0, count($list_menu)-1);?>
 			<a href="<?=Link::Custom('page', $list_menu[$rand]['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$list_menu[$rand]['title']?></a>
 		</div>
@@ -35,7 +35,7 @@
 			<button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-phone navigation">
 				<i class="material-icons">&#xE5D2;</i>
 			</button>
-			<button class="mdl-button mdl-js-button mdl-button--icon  mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
+			<button class="mdl-button mdl-js-button mdl-button--icon mdl-cell--hide-tablet mdl-cell--hide-desktop btn_js" data-name="phone_menu">
 				<i class="material-icons">&#xE5D2;</i>
 			</button>
 			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu  mdl-cell--hide-phone" for="menu-lower-right">
@@ -45,16 +45,26 @@
 				<a class="mdl-menu__item" href="<?=Link::Custom('price');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>Прайс-листы</a>
 			</nav>
 		</div>
+		<div class="cart_item ga-cart <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+			<div class="currentCartSum hidden"><?=isset($_SESSION['cart']['products_sum'][3])?$_SESSION['cart']['products_sum'][3]:null?></div>
+			<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-badge--overlap cart btn_js <?=$_SESSION['cart']['cart_sum'] == 0?'for_hidden_js':null;?>" data-name="cart"><i class="material-icons mdl-badge--overlap<?=!empty($_SESSION['cart']['products'])?' mdl-badge':null;?>" data-badge="<?=isset($_SESSION['cart']['products'])?count($_SESSION['cart']['products']):0;?>">&#xE8CC;</i><span class="mdl-cell--hide-tablet mdl-cell--hide-phone"><span>Корзина</span><span>:</span><br><span class="total_cart_summ_js">
+			<?print_r(number_format($_SESSION['cart']['cart_sum'], 2, ',', ''));?>
+			грн.</span></span></a>
+		</div>
 		<div class="profile mdl-cell--hide-phone">
 			<?if(G::IsLogged()){?>
-				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon ">
+				<div id="user_profile" class="cabinet_btn">
 					<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
-				</button>
+					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"><?=isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name'].' '.$_SESSION['member']['last_name']:$_SESSION['member']['name']?></span>
+					<i class="material-icons">&#xE313;</i>
+				</div>
 			<?}else{?>
-				<button id="user_profile" class="mdl-button mdl-js-button mdl-button--icon cabinet_btn hidden">
-                    <img src="/images/noavatar.png"/>
-				</button>
-				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored login_btn">Войти</a>
+				<div id="user_profile" class="cabinet_btn hidden">
+					<img src="/images/noavatar.png"/>
+					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"></span>
+					<i class="material-icons">&#xE313;</i>
+				</div>
+				<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button mdl-button--colored mdl-button--outline login_btn">Войти</a>
 			<?}?>
 			<div class="user_profile user_profile_js mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile">
 				<?php if(G::IsLogged()){
@@ -103,7 +113,7 @@
 </div>
 
 <script>
-	$(document).ready(function($) {
+	$(function(){
 		// if ($(document).width() < 900) {
 		// 	$('.login_btn_hum').addClass('mdl-button--icon').empty().append('<i class="material-icons">account_circle</i>');
 		// 	var select_category = $('.search_wrapp .select_category').detach();
@@ -116,14 +126,18 @@
 		// 	$('input[name="category2search"]').val(category);
 		// });
 
-		$('.search_wrapp .mob_s_btn').click(function(){
-			$('#header_js').addClass('opened').closest('.sidebar, .no-sidebar').addClass('active_bg').find('.search_wrapp input[type="search"]').focus();
-		});
-		$('.search_close').click(function(event) {
-			$('.sidebar, .no-sidebar').removeClass('active_bg');
-		});
+		// $('.search_wrapp .mob_s_btn').click(function(){
+		// 	$('#header_js').addClass('opened').closest('.sidebar, .no-sidebar').addClass('active_bg').find('.search_wrapp input[type="search"]').focus();
+		// });
+		// $('.search_close').click(function(event) {
+		// 	$('.sidebar, .no-sidebar').removeClass('active_bg');
+		// });
 		$('body > *:not(header)').click(function(event) {
 			$('.sidebar, .no-sidebar').removeClass('active_bg');
+		});
+		$('body').on('click', '.header_search_input_toggle_js', function(event){
+			event.preventDefault();
+			$(this).closest('.header_wrapp').toggleClass('active_search');
 		});
 	});
 </script>

@@ -1309,11 +1309,12 @@ $(function(){
 		ValidatePass(passwd.val(), passwd);
 		if(passwd.val().length >= 4 && confirm_passwd !== '' && !ValidatePassConfirm(passwd.val(), confirm_passwd)){
 			data = {id_user: id_user, passwd: confirm_passwd};
-			if(!parent.find('.mdl-textfield').hasClass('is-invalid')) {
+			if(!parent.find('.mdl-textfield').hasClass('is-invalid')){
 				addLoadAnimation('#access_recovery');
 				ajax('auth', 'accessConfirm', data).done(function(response){
+					console.log(response);
 					removeLoadAnimation('#access_recovery');
-					if (response.success) {
+					if(response.success){
 						$('.cabinet_btn').removeClass('hidden');
 						$('.login_btn').addClass('hidden');
 						ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
@@ -1336,7 +1337,7 @@ $(function(){
 	});
 
 //---
-	$('#regpasswd').keyup(function(event) {
+	$('#regpasswd').keyup(function(event){
 		event.preventDefault();
 		var passwd = $(this).val(),
 			passconfirm = $('#settings #passwdconfirm').val();
@@ -1393,9 +1394,8 @@ $(function(){
 		ajax('auth', 'sign_in', {email: email, passwd: passwd}).done(function(data){
 			var parent = $('.userContainer');
 			removeLoadAnimation('#sign_in');
-
 			if(data.err != 1){
-				if (over_scroll === true) {
+				if(over_scroll === true){
 					var page = $('.products_page'),
 						id_category = current_id_category,
 						start_page = parseInt(page.find('.paginator li.active').first().text()),
@@ -1423,18 +1423,16 @@ $(function(){
 					id_category = 478;*/ // временно
 				}
 				closeObject('auth');
-
-
-					 if (data.member.gid == 3) {
+				if(data.member.gid == 3){
 					$('#header_js .cart_item').addClass('hidden');
 					removeFromCart();
 				}
-
-					 $('.login_btn').addClass('hidden');
-					 $('.cabinet_btn').removeClass('hidden').find('img').attr('src',data.member.avatar);
-
-					 ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-						  $('.user_profile_js').html(data);
+				$('.login_btn').addClass('hidden');
+				console.log(data.member);
+				$('.cabinet_btn').removeClass('hidden').find('img').attr('src',data.member.avatar);
+				$('.cabinet_btn').find('.name').html(data.member.first_name?data.member.first_name+' '+data.member.last_name:data.member.name);
+				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
+					$('.user_profile_js').html(data);
 					$('#authorized').removeClass('hidden');
 					$('.userContainer').removeClass('hidden');
 					$('button[value="Неавторизован"]').addClass('hidden');
@@ -1447,9 +1445,9 @@ $(function(){
 				// parent.find('.userChoiceFav').text('( '+data.member.favorites.length+' )');
 				// parent.find('.userChoiceWait').text('( '+data.member.waiting_list.length+' )');parent.find('.user_name').text(data.member.name);
 				if($('#auth').data('from') !== undefined){
-					location.replace($('#auth').data('from'));
+					// location.replace($('#auth').data('from'));
 				}else if(current_controller === 'main'){
-					location.reload();
+					// location.reload();
 				}
 			}else{
 				form.find('.error').text(data.msg).fadeIn();

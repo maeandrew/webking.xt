@@ -21,7 +21,7 @@
 	width: 5px;
 }
 /*Перебиваем свойство will-change у класса mdl-tooltip из библиотеки colors.css для четких tooltip-ов*/
-.mdl-tooltip{
+.mdl-tooltip {
 	will-change: inherit !important;
 	background: #fff9ce !important;
 	font-size: 16px !important;
@@ -37,7 +37,7 @@ body {
 	font-weight: normal;
 	font-size: 14px;
 	color: #444;
-	padding-top: 52px;
+	padding-top: 60px;
 	position: relative;
 	background: #F3F3F3;
 	background: #f4f6f5;
@@ -397,7 +397,7 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 	position: fixed;
 	top: 0;
 	left: 0;
-	max-height: calc(90vh - 52px);
+	max-height: calc(90vh - 60px);
 	max-width: 80vw;
 	overflow: hidden;
 }
@@ -406,7 +406,7 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 	z-index: 100;
 }
 [data-type="modal"] .modal_container {
-	max-height: calc(90vh - 52px);
+	max-height: calc(90vh - 60px);
 	position: relative;
 	overflow-y: auto;
 }
@@ -453,12 +453,12 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 	background: #fff;
 	box-shadow: 0px 1px 3px rgba(0,0,0,.3);
 	position: fixed;
-	top: 52px;
+	top: 60px;
 	bottom: 0;
 	z-index: 100;
 }
 .no-sidebar [data-type="panel"] .panel_container {
-	height: calc(100vh - 52px);
+	height: calc(100vh - 60px);
 }
 [data-type="panel"] .panel_container {
 	overflow-y: auto;
@@ -486,8 +486,7 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 	}
 }
 .phone_menu .phone_nav {
-	margin-top: 4em;
-	padding: 1em;
+	padding: 0 10px;
 	border-top: 1px solid #e0e0e0;
 }
 .phone_menu li a {
@@ -817,7 +816,7 @@ section.center {
 		overflow: hidden;
 		overflow-y: auto;
 		min-width: 60vw;
-		max-height: calc(90vh - 52px - 60px - 64px);
+		max-height: calc(90vh - 60px - 60px - 64px);
 	}
 	#cart .title_cart {
 		width: 100%;
@@ -1640,7 +1639,7 @@ section.center {
 /* PAGE CONTENT */
 	.page_content {
 		padding: 0 20px;
-		/*min-height: calc(100vh - 52px);*/
+		/*min-height: calc(100vh - 60px);*/
 	}
 	.page_content h1 {
 		display: block;
@@ -1758,7 +1757,7 @@ section .stat_year {
 
 .content_header.fixed {
 	position: fixed;
-	top: 52px;
+	top: 60px;
 	/*color: #fff;*/
 	/*background-color: #ff784e;*/
 }
@@ -2802,8 +2801,14 @@ section .stat_year {
 		}
 	}
 /* MATERIAL UPGRADE */
+.mdl-button:not(.mdl-button--icon) {
+	border-radius: 3px;
+}
+.mdl-button--outline {
+	border: 1px solid #e2e5ea;
+}
 .mdl-checkbox__box-outline {
-	border: 1px solid #8f8f8f;
+	border: 1px solid #e2e5ea;
 }
 .mdl-checkbox.is-checked .mdl-checkbox__box-outline,
 .mdl-radio.is-checked .mdl-radio__outer-circle {
@@ -3678,11 +3683,12 @@ div.modalEditOrder .applyBtn {
 	width: calc(100%/5 - 20px);
 	margin: 0 10px 20px;
 	border: 1px solid #d9d9d9;
-	border-radius: .2em;
+	border-radius: 3px;
 	background-color: #fff;
 	vertical-align: top;
 	display: block;
     float: left;
+    overflow: hidden;
 }
 .no-sidebar .subCategories .subCategory {
 	width: calc(100%/6 - 20px);
@@ -4071,7 +4077,7 @@ div.modalEditOrder .applyBtn {
 	line-height: 28px;
 	position: fixed;
 	left: calc(50% - 160px);
-	top: -52px;
+	top: -60px;
 	background: rgb(255, 87, 34);
 	color: #fff;
 	width: 350px;
@@ -4227,11 +4233,11 @@ iframe[name="google_conversion_frame"] {
 		top: 100%;
 	}
 	.waiting_block_for_img_canvas {
-		height: 52px;
+		height: 60px;
 		line-height: 48px;
 		font-size: .9em;
 		position: fixed;
-		top: -52px;
+		top: -60px;
 		left: 0;
 		width: 100%;
 		border-radius: 0;
@@ -4854,7 +4860,7 @@ div[for="rating_block"] {
 	width: 80vw;
 }
 .gift_modal .modal_container {
-	max-height: calc(80vh - 52px);
+	max-height: calc(80vh - 60px);
 }
 .gift_modal .back_btn {
 	margin-top: 10px;
