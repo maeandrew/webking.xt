@@ -8,8 +8,8 @@
 			<div id="photobox">
 				<div class="previews">
 					<div class="image_block dz-preview dz-file-preview">
-						<div class="image old_image_js<?=strstr(G::GetUserAvatar($_SESSION['member']['id_user']), 'noavatar')?' old_image':null;?>">
-							<img data-dz-thumbnail src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>" />
+						<div class="image old_image_js<?=!G::GetUserAvatarUrl()?' old_image':null;?>">
+							<img data-dz-thumbnail src="<?=G::GetUserAvatarUrl()?G::GetUserAvatarUrl():'/images/noavatar.png'?>"/>
 						</div>
 						<div class="controls">
 							<p id="forDelU" class="del_photo_js del_avatar" data-dz-remove><i class="material-icons">delete</i></p>

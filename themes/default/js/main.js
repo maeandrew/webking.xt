@@ -1428,9 +1428,13 @@ $(function(){
 					removeFromCart();
 				}
 				$('.login_btn').addClass('hidden');
-				console.log(data.member);
-				$('.cabinet_btn').removeClass('hidden').find('img').attr('src',data.member.avatar);
-				$('.cabinet_btn').find('.name').html(data.member.first_name?data.member.first_name+' '+data.member.last_name:data.member.name);
+				// console.log(data.member);
+				if(!data.member.avatar){
+					location.reload();
+				}else{
+					$('.cabinet_btn').removeClass('hidden').find('img').attr('src', data.member.avatar);
+				}
+				$('.cabinet_btn').find('.name').html(data.member.first_name?data.member.first_name:data.member.name);
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
 					$('.user_profile_js').html(data);
 					$('#authorized').removeClass('hidden');
@@ -1502,10 +1506,9 @@ $(function(){
 		ajax('auth', 'register', data).done(function(data){
 			if(data.err === 0){
 				ajax('auth', 'GetUserProfile', false, 'html').done(function(data){
-					$('#user_profile').append('<img src="/images/noavatar.png"/>');
 					$('.user_profile_js').html(data);
-					$('.cabinet_btn').removeClass('hidden');
 					$('.login_btn').addClass('hidden');
+					$('.cabinet_btn').removeClass('hidden').find('img').attr('src', '/images/noavatar.png');
 				});
 				openObject('registerComplete');
 			}else{

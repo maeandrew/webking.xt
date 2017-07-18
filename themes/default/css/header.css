@@ -167,6 +167,7 @@ header .header_wrapp .header_right .cabinet_btn .name {
 
 	header .header_wrapp .header_right .cart_item a.for_hidden_js > span{
 		bottom: 0;
+		margin-left: 5px;
 	}
 	header .header_wrapp .header_right .cart_item a.for_hidden_js > span > br,
 	header .header_wrapp .header_right .cart_item a.for_hidden_js > span > span:nth-child(2),
@@ -190,8 +191,16 @@ header .header_wrapp .header_right .cabinet_btn .name {
 		max-height: 80vh;
 		overflow: auto;
 	}
-	header .header_wrapp .header_right .profile img {
-		max-height: 100%;
+	header .header_wrapp .header_right .cabinet_btn .image {
+		display: inline-block;
+		text-align: center;
+		color: #fff;
+		font-size: 20px;
+		line-height: 40px;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		overflow: hidden;
 		vertical-align: top;
 	}
 	/*header .header_wrapp .header_right .phone_menu {
@@ -218,92 +227,86 @@ header .header_wrapp .header_right .cabinet_btn .name {
 		/*overflow: auto;*/
 	}
 	header .userContainer {
-		width: 350px;
-	}
-	.userContainer > div {
-		padding: 10px;
-	}
-	header .userContainer > div {
-		padding: 10px;
+		width: 270px;
 	}
 	.userContainer i {
 		font-size: 1.2em;
 	}
 	.userContainer .listItems {
-		height: 30px;
-		line-height: 30px;
+		line-height: 1.5em;
 		text-align: center;
-		color: #9e9e9e;
 	}
 	.userContainer .listItems i {
 		line-height: 30px;
 		vertical-align: top;
 	}
+	.userContainer .listItems.up_email {
+		color: #9e9e9e;
+		font-style: italic;
+	}
 	.userContainer .UserInfBlock {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
+		padding: 30px 10px;
 		border-bottom: 1px solid #e0e0e0;
+		cursor: default;
+	}
+	.userContainer .UserInfBlock .edit_profile {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		line-height: 1;
 	}
 	.userContainer .UserInfBlock .avatar .image {
-		display: inline-block;
+		display: block;
 		text-align: center;
 		color: #fff;
-		font-size: 40px;
-		line-height: 80px;
-		width: 80px;
-		height: 80px;
+		font-size: 70px;
+		line-height: 150px;
+		width: 150px;
+		height: 150px;
 		border-radius: 50%;
 		margin: 0 auto;
 		overflow: hidden;
-	}
-	.userContainer .mainUserInf{
-		width: 100%;
 	}
 	.userContainer .userNameBlock {
 		display: flex;
 		justify-content: center;
 	}
 	.userContainer .userNameInf {
+		margin-top: 30px;
 		font-size: 1.2em;
 		font-weight: bold;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		max-width: calc(100% - 20px);
+		/*white-space: nowrap;*/
+		/*text-overflow: ellipsis;*/
 		overflow: hidden;
-		color: #444;
 	}
 	.userContainer .editUserProf {
 		font-size: 1.5em;
 		line-height: 30px;
 	}
 	.userChoice {
-		display: flex;
 	}
-	.userChoice p {
-		margin: 0;
-		text-align: left;
-		line-height: 1.5em;
+	.userChoice a {
+		/*text-align: center;*/
+		padding: 0 10px;
+		flex-basis: 100%;
+		width: 100%;
+		display: block;
+		border-bottom: 1px solid #e0e0e0;
 	}
-	.userFavoritesList,
-	.userWaitingList {
-		flex-basis: 50%;
-		display: flex;
-		justify-content: space-around;
+	.userChoice a:hover {
+		background: rgba(255, 87, 34, 0.05);
 	}
-	.userFavoritesList > *,
-	.userWaitingList > * {
-		align-self: center;
+	.userChoice a:last-of-type {
+		border: 0;
 	}
-	.userFavoritesList i,
-	.userWaitingList i {
+	.userChoice a i {
 		cursor: pointer;
-		font-size: 2em;
+		margin-right: 10px;
 	}
-	.userFavoritesList i {
+	.userChoice .userFavoritesList i {
 		color: red;
 	}
-	.userWaitingList i {
+	.userChoice .userWaitingList i {
 		color: orange;
 	}
 

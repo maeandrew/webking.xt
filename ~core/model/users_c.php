@@ -63,6 +63,10 @@ class Users {
 		return $this->fields;
 	}
 	public function SetUserAdditionalInfo($id_user){
+		$sql = "SELECT id_user, email, gid, promo_code, name, phone, agent
+			FROM "._DB_PREFIX_."user
+			WHERE id_user = $id_user";
+		$this->fields = $this->db->GetOneRowArray($sql);
 		// получаем список избранных товаров
 		$sql = "SELECT f.id_product
 			FROM "._DB_PREFIX_."favorites AS f
@@ -92,7 +96,7 @@ class Users {
 				WHERE c.id_user = ".$id_user;
 		}
 		$this->fields['contragent'] = $this->db->GetOneRowArray($sql);
-		$this->fields['avatar'] = G::GetUserAvatar($id_user);
+		$this->fields['avatar'] = G::GetUserAvatarUrl($id_user);
 		// получаем список товаров, которые уже были в заказе
 		$sql = "SELECT DISTINCT osp.id_product, osp.opt_qty+osp.mopt_qty AS count
 			FROM "._DB_PREFIX_."order AS o
@@ -113,6 +117,13 @@ class Users {
 			$this->fields['first_name'] = $res['first_name'];
 			$this->fields['middle_name'] = $res['middle_name'];
 			$this->fields['last_name'] = $res['last_name'];
+		}
+		if($this->fields['gid'] !== _ACL_CONTRAGENT_){
+			if(!empty($this->fields['last_name']) && !empty($this->fields['first_name']) && !empty($this->fields['middle_name'])){
+				$this->fields['name'] = $this->fields['last_name'].' '.$this->fields['first_name'].' '.$this->fields['middle_name'];
+			}elseif(!isset($this->fields['name'])){
+				$this->fields['name'] = isset($this->fields['email']) && !empty($this->fields['email'])?substr($this->fields['email'], 0, strpos($this->fields['email'], "@")):'';
+			}
 		}
 		return true;
 	}
@@ -302,6 +313,8 @@ class Users {
 			return false;
 		}
 		$this->db->CompleteTrans();
+		$this->SetUserAdditionalInfo($f['id_user']);
+		G::Login($this->fields);
 		return true;
 	}
 

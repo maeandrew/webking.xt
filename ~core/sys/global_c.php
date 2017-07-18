@@ -810,10 +810,14 @@ class G {
 	 * Метод для получения URL фото профиля пользователя
 	 * @param string $id - id пользователя и имя фото, что делает его уникальным.
 	 */
-	public static function GetUserAvatar($id){
-		$url = '/images/avatars/'.$id.'.jpeg';
+	public static function GetUserAvatarUrl($id = false){
+		if(!$id && G::IsLogged()){
+			$id = $_SESSION['member']['id_user'];
+		}
+		$url = "/images/avatars/$id.jpeg";
 		// Если файла по данному $url не существует, получим изображение nofoto.png
 		if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
+			return false;
 			$url = '/images/noavatar.png';
 		}
 		return htmlspecialchars(_base_url.$url);

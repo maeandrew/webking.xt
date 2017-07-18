@@ -645,6 +645,7 @@ _:-ms-lang(x), [class^="active_"] .advantages,
 	max-width: 1600px;
 	position: relative;
 	margin-top: 20px;
+	padding: 0 20px;
 }
 aside,
 .center {

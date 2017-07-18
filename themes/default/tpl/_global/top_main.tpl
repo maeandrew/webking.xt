@@ -54,13 +54,17 @@
 		<div class="profile mdl-cell--hide-phone">
 			<?if(G::IsLogged()){?>
 				<a href="#" id="user_profile" class="cabinet_btn">
-					<img src="<?=G::GetUserAvatar($_SESSION['member']['id_user'])?>"/>
-					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"><?=isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name'].' '.$_SESSION['member']['last_name']:$_SESSION['member']['name']?></span>
+					<?if($_SESSION['member']['avatar']){?>
+						<img class="image" src="<?=G::GetUserAvatarUrl()?>"/>
+					<?}else{?>
+						<span class="image" style="background: <?printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr($_SESSION['member']['name'], 0, 1); ?></span>
+					<?}?>
+					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"><?=isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:$_SESSION['member']['name'];?></span>
 					<i class="material-icons">&#xE313;</i>
 				</a>
 			<?}else{?>
 				<a href="#" id="user_profile" class="cabinet_btn hidden">
-					<img src="/images/noavatar.png"/>
+					<img class="image" src="/images/noavatar.png"/>
 					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"></span>
 					<i class="material-icons">&#xE313;</i>
 				</a>
@@ -71,6 +75,11 @@
 					echo $user_profile;
 				}?>
 			</div>
+			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile2">
+				<a href="<?=Link::Custom('cabinet', false, array('clear' => true));?>" class="mdl-menu__item"><i class="material-icons">&#xE7FD;</i>Личный кабинет</a>
+				<a href="<?=Link::Custom('cabinet', 'orders', array('clear' => true));?>" class="mdl-menu__item mdl-menu__item--full-bleed-divider"><i class="material-icons">&#xE889;</i>История заказов</a>
+				<a href="<?=Link::Custom('cabinet', false, array('clear' => true));?>" class="mdl-menu__item"><i class="material-icons">&#xE8AC;</i>Выйти</a>
+			</nav>
 		</div>
 	</div>
 	<div id="phone_menu" data-type="panel" data-position="right" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">
