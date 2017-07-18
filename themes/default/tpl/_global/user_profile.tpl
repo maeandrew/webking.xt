@@ -53,11 +53,14 @@
 		<a class="userWaitingList<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet','waitinglist', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<i class="material-icons">trending_down</i>Лист ожидания <span class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</span>
 		</a>
-		<a class="cabinet<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet', 'orders?t=all', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-			<i class="material-icons">&#xE889;</i>История заказов</span>
-		</a>
 		<a class="cabinet" href="<?=Link::Custom('cabinet', false, array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<i class="material-icons">&#xE7FD;</i>Личный кабинет</span>
+		</a>
+		<a class="orderes_history<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet', 'orders?t=all', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
+			<i class="material-icons">&#xE889;</i>История заказов</span>
+		</a>
+		<a class="agent<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
+			<i class="material-icons">&#xE227;</i>Уголок агента</span>
 		</a>
 		<a class="log_out" href="<?=Link::Custom('logout', false, array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<i class="material-icons">&#xE8AC;</i>Выйти</span>
