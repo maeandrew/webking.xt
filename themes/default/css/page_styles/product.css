@@ -401,6 +401,7 @@
 	border: 0;
 	color: #fff;
 	position: relative;
+	box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 }
 .product_page .product .product_buy .priceMoptInf{
 	display: none;
@@ -425,6 +426,7 @@
 	background: #ff5722;
 	color: #fff;
 	position: relative;
+	box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 }
 .product_page .product .similar_products_mini .more_items_link{
 	bottom: 0;
@@ -1221,6 +1223,7 @@
 	border: 1px solid #FF5722;
 	background-color: #FF5722;
 	color: #fff;
+	box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 }
 .product_page .slider_products .product_buy .out_of_stock{
 	margin-top: 0;
@@ -1254,6 +1257,7 @@
 		border: 1px solid #FF5722;
 		background-color: #FF5722;
 		color: #fff;
+		box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 	}
 	.product_page .product .apps_panel > ul > li{
 		background-color: #018b06;

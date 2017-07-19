@@ -349,27 +349,25 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?><?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?' hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
-								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Товар уже <br> в избранном</span>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Уже в избранном</span>
 							<?}else{?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="notfavorite favorite_icon material-icons">favorite_border</i>
-								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить товар <br> в избранное</span>
+								<span class="mdl-tooltip" for="forfavorite_<?=$item['id_product']?>">Добавить в избранное</span>
 							<?}?>
 						</div>
 						<div class="fortrending<?=isset($_SESSION['member']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?' hidden':null?>" data-id-product="<?=$item['id_product'];?>" <?=isset($_SESSION['member'])?'data-id-user="'.$_SESSION['member']['id_user'].'" data-email="'.$_SESSION['member']['email'].'"':'';?>>
-							<i id="fortrending_<?=$item['id_product']?>" class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'arrow':null;?>">trending_down</i>
-							<span class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Товар уже <br> в списке ожидания':'Следить за ценой';?></span>
+							<i id="fortrending_<?=$item['id_product']?>" class="waiting_list icon material-icons <?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'arrow':null;?>">&#xE01D;</i>
+							<span class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Уже в листе ожидания':'Следить за ценой';?></span>
 						</div>
-						<!-- <div class="preview_icon_block"><i class="material-icons preview_icon show_preview_js btn_js" data-name="preview">zoom_in</i></div> -->
-						<!-- <div class="preview_icon_block"><i class="material-icons preview_icon">zoom_in</i></div> -->
 					</div>
 				</div>
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>
 					<span class="product_article">арт: <?=$item['art'];?></span>
 					<?if(G::IsLogged() && in_array($_SESSION['member']['gid'], array(1, 2, 9))){?>
-						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="move_product_<?=$item['id_product']?>">
-							<input type="checkbox" name="move_product" data-idproduct="<?=$item['id_product']?>" id="move_product_<?=$item['id_product']?>" class="move_product_<?=$item['id_product']?>_js mdl-checkbox__input" <?=isset($_SESSION['fill_category']) && in_array($item['id_product'], $_SESSION['fill_category'])?'checked':null;?>>
-							<span class="mdl-checkbox__label title_move_product">Перенести в категорию</span>
+						<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="product_action_<?=$item['id_product']?>">
+							<input type="checkbox" name="product_action" data-idproduct="<?=$item['id_product']?>" id="product_action_<?=$item['id_product']?>" class="mdl-checkbox__input" <?=isset($_SESSION['product_action']) && in_array($item['id_product'], $_SESSION['product_action'])?'checked':null;?>>
+							<span class="mdl-checkbox__label check_for_action" title="Выбрать товар для действия">Выбрать</span>
 						</label>
 					<?}?>
 					<div class="rating_block" id="rating_block" <?=isset($item['c_mark']) && $item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
@@ -480,4 +478,4 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 			</div>
 		<?}
 		break;
-}?>
+}

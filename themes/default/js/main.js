@@ -2017,6 +2017,7 @@ $(function(){
 			$(this).closest('.feedback_item_js').append('<div class="reply_wrap"><form action="' + $(this).attr('data-action') + '" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><div class="user_data hidden"><div class="fild_wrapp"><label for="feedback_author">Ваше имя:</label><input type="text" name="feedback_author" id="feedback_author" required value="Петя"></div><div class="fild_wrapp"><label for="feedback_authors_email">Эл.почта:</label><input type="email" name="feedback_authors_email" id="feedback_authors_email" required value="petya@gmail.com"></div></div><button type="submit" name="sub_com" class="mdl-button mdl-js-button">Ответить</button></form></div>');
 		}
 	});
+
 	$('body').on('click', '.comment_reply_cancel_js', function(event){
 		event.preventDefault();
 		$(this).closest('.feedback_item_js').find('.reply_wrap').remove();
@@ -2024,15 +2025,26 @@ $(function(){
 	});
 
 	// Метка для переноса товара в категорию
-	$('body').on('change', 'input[class^="move_product_"]', function(event){
-		var data = {};
+	$('body').on('change', '[name="product_action"]', function(event){
+		var data = {},
+			product_action_chooser = $('.product-action-chooser_js');
 		data.id_product = $(this).attr('data-idproduct');
 		this.checked ? data.checked = 1 : data.checked = 0;
-		ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
-			console.log(data);
-		}).fail(function(data){
-			console.log('fail');
-			console.log(data);
+		ajax('products', 'ProductAction', data).done(function(data){
+			if(data.list.length > 0 && product_action_chooser.hasClass('invisible')){
+				product_action_chooser.addClass('opened').removeClass('invisible');
+			}else if(data.list.length == 0){
+				product_action_chooser.removeClass('opened').addClass('invisible');
+			}
+		});
+	}).on('click', '.action-chooser__close-js', function(){
+		var parent = $(this).closest('.product-action-chooser_js');
+		parent.toggleClass('opened');
+	}).on('click', '.action-chooser__clear-js', function(){
+		var product_action_chooser = $('.product-action-chooser_js');
+		ajax('products', 'ProductActionClear').done(function(data){
+			product_action_chooser.removeClass('opened').addClass('invisible');
+			location.reload();
 		});
 	});
 

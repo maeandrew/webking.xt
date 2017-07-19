@@ -312,6 +312,26 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					echo 'something wrong';
 				}
 				break;
+			case 'ProductAction':
+				if($_POST['checked'] == 1) {
+					$_SESSION['product_action'][] = $_POST['id_product'];
+					$echo['response'] = 'added to list';
+				}elseif($_POST['checked'] == 0){
+					unset($_SESSION['product_action'][array_search($_POST['id_product'], $_SESSION['product_action'])]);
+						$echo['response'] = 'removed from list';
+				}else{
+					$echo['response'] = 'something wrong';
+					
+				}
+				$echo['list'] = $_SESSION['product_action'];
+				echo json_encode($echo);
+				break;
+			case 'ProductActionClear':
+				$_SESSION['product_action'] = [];
+				$echo['response'] = 'list cleared';
+				$echo['list'] = $_SESSION['product_action'];
+				echo json_encode($echo);
+				break;
 			case 'fillCategory':
 				if(isset($_SESSION['fill_category']) && $_POST['id_category']){
 					if($Products->FillCategoryByIdProduct($_POST['id_category'], $_SESSION['fill_category'], $_POST['main'])){

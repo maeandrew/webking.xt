@@ -324,6 +324,18 @@
 			</div>
 		</aside>
 	</section>
+	<?if(G::IsLogged() && in_array($_SESSION['member']['gid'], array(_ACL_ADMIN_, _ACL_MODERATOR_))){?>
+		<div class="action-chooser product-action-chooser_js<?=!isset($_SESSION['product_action']) || empty($_SESSION['product_action'])?' invisible':null;?>">
+			<div class="action-chooser__title">Выбериете действие
+				<i class="material-icons action-chooser__close action-chooser__close-js">&#xE315;</i>
+				<i class="material-icons action-chooser__clear action-chooser__clear-js" title="Очистить список товаров">&#xE0B8;</i>
+			</div>
+			<nav class="action-chooser__list">
+				<a href="<?=Link::Custom('adm', 'orders_category');?>" target="_blank" class="action-chooser__list-item">Перенести в категорию</a>
+				<!-- <a href="<?=Link::Custom('adm', 'orders_category');?>" class="action-chooser__list-item">Добавить характеристику</a> -->
+			</nav>
+		</div>
+	<?}?>
 	<div class="phone_err_msg_js phone_err_msg err_msg_as_knob_js">
 		<div class="err_msg_descr_wrap">
 			<div class="err_msg_descr">Если у Вас возникли проблемы при работе с нашим сайтом</div>
@@ -659,75 +671,37 @@
 			<div id="sign_in" class="modal_container">
 				<h4>Вход</h4>
 				<span>Вы можете войти в личный кабинет как по email, так и по номеру вашего телефона.</span>
-				<form action="<?=$_SERVER['REQUEST_URI']?>">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="email" name="email">
-						<label class="mdl-textfield__label" for="email">Email или телефон</label>
-						<span class="mdl-textfield__error"></span>
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="password" id="passwd">
-						<label class="mdl-textfield__label" for="passwd">Пароль</label>
-						<span class="mdl-textfield__error"></span>
-					</div>
-					<div class="error"></div>
+				<form action="<?=$_SERVER['REQUEST_URI']?>" class="login_form">
+					<input placeholder="Логин" type="text" id="email" name="email">
+					<input placeholder="Пароль" type="password" id="passwd">
 					<a href="#" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="access_recovery btn_js" data-name="access_recovery">Забыли пароль?</a>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_in">Войти</button>
 					<button class="mdl-button mdl-js-button switch" data-name="sign_up">Регистрация</button>
+					<div class="error"></div>
 				</form>
 			</div>
 			<div id="sign_up" class="hidden modal_container">
 				<h4>Регистрация</h4>
 				<span></span>
 				<form action="<?=$_SERVER['REQUEST_URI']?>" class="forPassStrengthContainer_js">
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input input_validator_js" data-input-validate="name" type="text" id="sign_up_name" name="name">
-						<label class="mdl-textfield__label" for="sign_up_name">Имя</label>
-						<span class="mdl-textfield__error">Ошибка ввода имени!</span>
-					</div>
+					<input placeholder="Имя" type="text" id="sign_up_name" name="name">
+					<input placeholder="Телефон" type="text" id="sign_up_phone" name="phone">
+					<select  id="sign_up_contragent" name="id_contragent" class="mdl-selectfield__select">
+						<option value disabled selected>Менеджер</option>
+						<?foreach($managers_list as $manager){?>
+							<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
+						<?}?>
+					</select>
+					<input placeholder="Пароль" type="password" id="sign_up_passwd"	name="passwd">
 
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input phone input_validator_js" data-input-validate="phone" type="text" id="sign_up_phone" name="phone">
-						<label class="mdl-textfield__label" for="sign_up_phone">Телефон</label>
-						<span class="mdl-textfield__error">Ошибка ввода телефона!</span>
-					</div>
-					<div class="mdl-selectfield mdl-js-selectfield">
-						<select id="sign_up_contragent" name="id_contragent" class="mdl-selectfield__select">
-							<option value="" disabled selected></option>
-							<?foreach($managers_list as $manager){?>
-								<option value="<?=$manager['id_user']?>"><?=$manager['name_c']?></option>
-							<?}?>
-						</select>
-						<label class="mdl-selectfield__label" for="sign_up_contragent">Менеджер</label>
-					</div>
-						<!-- <p>Оставьте поле пустым, если не уверены</p> -->
-					<!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="sign_up_email" name="email">
-						<label class="mdl-textfield__label" for="sign_up_email">Email</label>
-						<span class="mdl-textfield__error">Ошибка ввода email!</span>
-					</div> -->
-
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input type="password" class="mdl-textfield__input" id="sign_up_passwd"	name="passwd">
-						<label class="mdl-textfield__label" for="sign_up_passwd">Пароль</label>
-						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-						<div class="password_error"></div>
-						<div class="error_description"></div>
-					</div>
-					<div class="passStrengthContainer_js">
+					<div class="passStrengthContainer passStrengthContainer_js">
 						<p class="ps_title">надежность пароля</p>
 						<div class="ps">
 							<div class="ps_lvl ps_lvl_js"></div>
 						</div>
 					</div>
-
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input type="password" class="mdl-textfield__input" id="sign_up_passwdconfirm" name="passwdconfirm">
-						<label class="mdl-textfield__label" for="sign_up_passwdconfirm">Подтверждение пароля</label>
-						<span class="mdl-textfield__error">Ошибка ввода пароля!</span>
-						<div class="password_error"></div>
-						<div class="error_description"></div>
-					</div>
+					
+					<input placeholder="Подтверждение пароля" type="password" id="sign_up_passwdconfirm" name="passwdconfirm">
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored sign_up">Продолжить</button>
 					<button class="mdl-button mdl-js-button switch" data-name="sign_in">Вход</button>
 				</form>

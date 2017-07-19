@@ -6,7 +6,7 @@
 				<?if(G::IsLogged() && $_SESSION['member']['avatar']){?>
 					<img class="image" src="<?=G::GetUserAvatarUrl()?>"/>
 				<?}elseif(G::IsLogged() && !$_SESSION['member']['avatar']){?>
-					<span class="image" style="background: <?printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr($_SESSION['member']['name'], 0, 1); ?></span>
+					<span class="image" style="background: <? printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr(isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:$_SESSION['member']['name'], 0, 1); ?></span>
 				<?}else{?>
 					<img class="image" src="/images/noavatar.png">
 				<?}?>
@@ -23,11 +23,6 @@
 				<i class="material-icons">phone</i>
 				<?=isset($_SESSION['member']['phone']) && $_SESSION['member']['phone'] != ''?$_SESSION['member']['phone']:"Регистрация без телефона"?>
 			</div>
-			<!-- <script>GetLocation();</script>
-			<div class="listItems">
-				<i class="material-icons">location_on</i>
-				<span class="userlocation"></span>
-			</div> -->
 		</div>
 	</div>
 	<div class="ContragentContacts hidden <?=!isset($_SESSION['member']['contragent']) || empty($_SESSION['member']['contragent'])?' hidden':null;?>">
@@ -47,17 +42,17 @@
 		</div>
 	</div>
 	<div class="userChoice">
-		<a class="userFavoritesList<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet','favorites', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-			<i class="material-icons">favorite</i>Избранное <span class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</span>
-		</a>
-		<a class="userWaitingList<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet','waitinglist', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-			<i class="material-icons">trending_down</i>Лист ожидания <span class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</span>
-		</a>
 		<a class="cabinet" href="<?=Link::Custom('cabinet', false, array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-			<i class="material-icons">&#xE7FD;</i>Личный кабинет</span>
+			<i class="material-icons">&#xE7FD;</i>Мой кабинет</span>
 		</a>
 		<a class="orderes_history<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet', 'orders?t=all', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
-			<i class="material-icons">&#xE889;</i>История заказов</span>
+			<i class="material-icons">&#xE8B0;</i>Мои заказы</span>
+		</a>
+		<a class="userFavoritesList<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet','favorites', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
+			<i class="material-icons">&#xE87D;</i>Избранное <span class="userChoiceFav">(<?=count($_SESSION['member']['favorites'])?>)</span>
+		</a>
+		<a class="userWaitingList<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet','waitinglist', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
+			<i class="material-icons">&#xE422;</i>Лист ожидания <span class="userChoiceWait">(<?=count($_SESSION['member']['waiting_list'])?>)</span>
 		</a>
 		<a class="agent<?=$_SESSION['member']['gid'] == _ACL_SUPPLIER_?' hidden':null;?>" href="<?=Link::Custom('cabinet', 'agent', array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<i class="material-icons">&#xE227;</i>Уголок агента</span>
@@ -66,7 +61,4 @@
 			<i class="material-icons">&#xE8AC;</i>Выйти</span>
 		</a>
 	</div>
-	<!-- <div class="hidden"><span class="user_promo"><?=$_SESSION['member']['promo_code']?></span></div>
-	<a class="menuUserInfBtn" href="<?=_base_url.'/cabinet'?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Мой кабинет</a>
-	<a class="menuUserInfBtn" href="<?=Link::Custom('logout')?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>Выйти</a> -->
 </div>

@@ -250,5 +250,6 @@ images/delivery/*
 images/avatars/*
 efiles/pickers/*
 cron/*
+temp/*
 
 xt.sublime-workspace

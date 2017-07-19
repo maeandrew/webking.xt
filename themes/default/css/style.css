@@ -97,22 +97,25 @@ textarea.mdl-textfield__input {
 	border-radius: 0;
 }
 input,
+select,
 textarea {
 	border: 1px solid #ddd;
 	outline: 0;
 }
 input:hover,
+select:hover,
 textarea:hover {
 	border-color: #bdbdbd;
+}
+input:focus,
+select:focus,
+textarea:focus {
+	border-color: #018b06;
 }
 input.mdl-textfield__input:hover,
 textarea.mdl-textfield__input:hover {
 	border: none;
 	border-bottom: 1px solid #bdbdbd;
-}
-input:focus,
-textarea:focus {
-	border: 1px solid #bdbdbd;
 }
 input.mdl-textfield__input:focus,
 textarea.mdl-textfield__input:focus {
@@ -676,7 +679,7 @@ section.center {
 /* Modal from end_order ======================================================== */
 /* Auth modal ===============================================================*/
 	#auth {
-		width: 400px;
+		width: 350px;
 		height: auto;
 		overflow-y: auto;
 	}
@@ -685,31 +688,46 @@ section.center {
 	}
 	#auth .mdl-button {
 		float: right;
-		margin-left: .5em;
+		margin-left: 20px;
 	}
 	#auth .error {
 		display: none;
 		color: #F44336;
-		padding-bottom: 1em;
-		padding-right: 1em;
-		text-align: right;
+		padding-top: 20px;
+		text-align: center;
+		clear: both;
 	}
 	#sign_in,
 	#sign_up {
 		max-height: 100%;
 		overflow: auto;
-		padding: 15%;
+		padding: 20px;
 	}
 	#sign_in > span,
 	#sign_up > span {
 		display: block;
-		padding: 1em 0;
+		margin: 20px 0;
+		text-align: center;
 	}
 	#sign_in.modal_container .access_recovery {
 		display: block;
 		margin-bottom: 10px;
 		cursor: pointer;
 		text-align: left;
+	}
+	#sign_in input,
+	#sign_up input,
+	#sign_up select {
+		width: 100%;
+		line-height: 40px;
+		font-size: 14px;
+		height: 40px;
+		border-radius: 3px;
+		margin-bottom: 20px;
+		padding: 0 20px;
+	}
+	#sign_up .passStrengthContainer {
+		margin-bottom: 20px;
 	}
 	#access_recovery,
 	#verification {
@@ -2124,10 +2142,6 @@ section .stat_year {
 	padding-top: 10px;
 	position: relative;
 }
-.products .card .product_name .title_move_product{
-	font-size: 1em;
-	line-height: 1.6em;
-}
 .products .card .ordered {
 	position: absolute;
 	color: #018b06;
@@ -2148,6 +2162,7 @@ section .stat_year {
 	.products .buy_block .btn_buy button {
 		background: #ff5722;
 		color: #fff;
+		box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 	}
 }
 /*@media only screen and (max-device-width : 1024px) {
@@ -2308,6 +2323,7 @@ section .stat_year {
 .card:hover .product_buy .buy_block .btn_buy button {
 	background: #ff5722;
 	border-color: #ff5722;
+	box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 	color: #fff;
 }
 .card:hover .product_photo .add_to_fav_trend_block {
@@ -2342,7 +2358,6 @@ section .stat_year {
 .pb_wrapper .product_buy:hover .buy_block .quantity button,
 .card .product_buy:hover .buy_block .quantity button {
 	display: block;
-	border-radius: .2em;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -2353,7 +2368,7 @@ section .stat_year {
 .product_buy .buy_block .quantity button.btn_add {
 	bottom: 95%;
 	border-bottom: 0 !important;
-	border-radius: .2em .2em 0 0;
+	border-radius: 3px 3px 0 0;
 }
 .product_buy .buy_block .quantity button.btn_add:hover,
 .product_buy .buy_block .quantity button.btn_remove:hover{
@@ -2373,8 +2388,8 @@ section .stat_year {
 .product_buy .buy_block .quantity .qty_js {
 	text-align: center;
 	width: 70px;
-	line-height: 34px;
-	height: 34px;
+	line-height: 36px;
+	height: 36px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -2727,6 +2742,7 @@ section .stat_year {
 		border: 0;
 		top: 0;
 		height: 36px;
+		box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
 	}
 	.products .card .product_buy .product_price span {
 		display: inline;
@@ -3456,10 +3472,9 @@ canvas[id^=chart_]{
 }
 .xt_news,
 .last_news_title {
-	padding: 0 20px;
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 	flex-wrap: wrap;
 }
 .min {
@@ -3549,12 +3564,11 @@ canvas[id^=chart_]{
 .last_news_title {
 	border-top: 1px solid #e0e0e0;
 	padding: 0;
-	margin-left: 20px;
-	margin-right: 20px;
-	padding-top: 10px;
+	padding-top: 20px;
 }
 .last_news_title h4 {
 	margin: 0px;
+	line-height: 36px;
 }
 /* Стиль активного сегмена и выделение при наведении */
 .catalog .main_nav .activeSegment {
@@ -3886,7 +3900,7 @@ div.modalEditOrder .applyBtn {
 /* Message about error on the site */
 .phone_err_msg {
 	width: 100%;
-	background-color: rgb(255, 134, 95);
+	background-color: #ff865f;
 	color: #444;
 	padding: .5em;
 	margin-bottom: -20px;
@@ -5003,4 +5017,55 @@ div[for="rating_block"] {
 	}
 	.modals .issue_result .modal_container .info_text .bold_text{
 		font-weight: 600;
+	}
+
+/* Выбор действия для выбраных товаров */
+	.action-chooser {
+		background: #fff;
+		position: fixed;
+		/*top: 50%;*/
+		bottom: 20px;
+		left: -256px;
+		width: 300px;
+		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+		transition: all .3s cubic-bezier(.4,0,.2,1);
+		box-shadow: 0 2px 3px -1px rgba(0,0,0,.1);
+		z-index: 10000;
+		border-radius: 3px;
+		overflow: hidden;
+	}
+	.action-chooser.opened {
+		left: 20px;
+	}
+	.action-chooser.invisible {
+		left: -300px;
+	}
+	.action-chooser__title {
+		background-color: #ff865f;
+		font-size: 14px;
+		line-height: 24px;
+		color: #fff;
+		padding: 10px 0 10px 10px;
+	}
+	.action-chooser .action-chooser__clear,
+	.action-chooser .action-chooser__close {
+		float: right;
+		cursor: pointer;
+		-webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .3s cubic-bezier(.4,0,.2,1);
+		transition: all .3s cubic-bezier(.4,0,.2,1);
+		padding: 0 10px;
+	}
+	.action-chooser.opened .action-chooser__close {
+		transform: rotate(180deg);
+	}
+	.action-chooser__list {
+		padding: 10px;
+	}
+	.action-chooser__list-item {
+		display: block;
+		line-height: 30px;
+		font-size: 14px;
+		font-weight: normal;
 	}

@@ -90,8 +90,8 @@ $(function(){
 
 	});
 
-	// Удалить
-	$('.tagrow a.delete').click(function(event){
+	$('.tagrow').on('click', 'a.delete', function(event){
+		// Удалить
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		var answer = confirm("Удалить выбраный фильтр?");
@@ -100,20 +100,16 @@ $(function(){
 				$('.tagrow.row'+rowid).slideUp('slow');
 			});
 		}
-	});
-
-	// Изменить
-	$('.tagrow a.edit').click(function(event){
+	}).on('click', 'a.edit', function(event){
+		// Изменить
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		$('.tagrow.row'+rowid+' p').hide();
 		$('.tagrow.row'+rowid+' input#tag_name, .tagrow.row'+rowid+' textarea#tag_keys, .tagrow.row'+rowid+' input#tag_level').show();
 		$('.tagrow.row'+rowid+' a.apply, .tagrow.row'+rowid+' a.discard').removeClass('hidden');
 		$('.tagrow.row'+rowid+' a.edit, .tagrow.row'+rowid+' a.delete').addClass('hidden');
-	});
-
-	// Применить изменения
-	$('.tagrow a.apply').click(function(event){
+	}).on('click', 'a.apply', function(event){
+		// Применить изменения
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		if(Validate(rowid)){
@@ -126,10 +122,8 @@ $(function(){
 				location.reload();
 			});
 		}
-	});
-
-	// Подтвердить добавление
-	$('.tagrow a.addapply').click(function(event){
+	}).on('click', 'a.addapply', function(event){
+		// Подтвердить добавление
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		if(Validate(rowid)){
@@ -142,10 +136,8 @@ $(function(){
 				location.reload();
 			});
 		}
-	});
-
-	// Отменить изменение или добавление
-	$('.tagrow a.discard').click(function(event){
+	}).on('click', 'a.discard', function(event){
+		// Отменить изменение или добавление
 		event.preventDefault();
 		var rowid = $(this).attr('class').replace( /^\D+/g, '');
 		$('.tagrow.row'+rowid+' p').show();
@@ -253,22 +245,16 @@ $(function(){
 				console.log(data);
 			});
 		}
-	});
-
-	// adm_feedback_comment_reply_js
-	$('body').on('click', '.adm_comment_reply_js', function(event){
+	}).on('click', '.adm_comment_reply_js', function(event){
 		event.preventDefault();
 		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_cancel_js').removeClass('hidden');
 		$(this).closest('thead').next().append('<tr class="new_comment"><td colspan="2"><div class="reply_wrap"><form action="/adm/coment/" method="post" onsubmit="onCommentSubmit()"><input type="hidden" name="pid_comment" value="'+$(this).attr('data-idComment')+'"><input type="hidden" name="url_coment" value="'+$(this).attr('data-idproduct')+'"><textarea name="feedback_text" id="feedback_comment_reply" cols="30" required></textarea><button type="submit" name="sub_com" class="btn-m-green">Ответить</button></form></div></td></tr>');
-	});
-	$('body').on('click', '.adm_comment_reply_cancel_js', function(event){
+	}).on('click', '.adm_comment_reply_cancel_js', function(event){
 		event.preventDefault();
 		$(this).closest('thead').next().find('.new_comment').remove();
 		$(this).addClass('hidden').closest('.btn_wrap').find('.adm_comment_reply_js').removeClass('hidden');
-	});
-
-	// Перенос выбранных товаров в категорию
-	$('body').on('click', '.btn_move_to_js', function(event){
+	}).on('click', '.btn_move_to_js', function(event){
+		// Перенос выбранных товаров в категорию
 		var parent = $(this).closest('.move_to'),
 			is_empty = parent.attr('data-isempty'),
 			data = {};
@@ -293,24 +279,18 @@ $(function(){
 		}else{
 			$('select[name="category"]').addClass('err_border');
 		}
-	});
-
-	// Удаление товара из списка для переноса в категорию
-	$('body').on('click', '.del_checked_product_js', function(event){
+	}).on('click', '.del_checked_product_js', function(event){
+		// Удаление товара из списка для переноса в категорию
 		if(confirm('Товар будет удален из списка. Продолжить?')){
 			var checked_product = $(this),
 				data = {};
 			data.id_product = $(this).attr('data-idproduct');
 			data.checked = 0;
-			ajax('products', 'sessionFillCategory', data, 'text').done(function(data){
-				console.log(data);
+			ajax('products', 'ProductAction', data).done(function(data){
 				checked_product.closest('.checked_product').remove();
 				if($('.checked_products').children().length == 0){
 					$('.no_checked_products_js').removeClass('hidden');
 				}
-			}).fail(function(data){
-				console.log('fail');
-				console.log(data);
 			});
 		}
 	});

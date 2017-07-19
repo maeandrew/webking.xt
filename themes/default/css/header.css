@@ -304,10 +304,10 @@ header .header_wrapp .header_right .cabinet_btn .name {
 		margin-right: 10px;
 	}
 	.userChoice .userFavoritesList i {
-		color: red;
+		/*color: red;*/
 	}
 	.userChoice .userWaitingList i {
-		color: orange;
+		/*color: orange;*/
 	}
 
 	.menuUserInfBtn {

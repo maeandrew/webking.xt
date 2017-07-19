@@ -57,7 +57,7 @@
 					<?if($_SESSION['member']['avatar']){?>
 						<img class="image" src="<?=G::GetUserAvatarUrl()?>"/>
 					<?}else{?>
-						<span class="image" style="background: <?printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr($_SESSION['member']['name'], 0, 1); ?></span>
+						<span class="image" style="background: <?printf( "#%s", $_SESSION['member']['personal_color']); ?>"><?=mb_substr(isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:$_SESSION['member']['name'], 0, 1); ?></span>
 					<?}?>
 					<span class="name mdl-cell--hide-tablet mdl-cell--hide-phone"><?=isset($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:$_SESSION['member']['name'];?></span>
 					<i class="material-icons">&#xE313;</i>
@@ -75,11 +75,6 @@
 					echo $user_profile;
 				}?>
 			</div>
-			<nav class="mdl-menu mdl-menu--bottom-right mdl-js-menu" for="user_profile2">
-				<a href="<?=Link::Custom('cabinet', false, array('clear' => true));?>" class="mdl-menu__item"><i class="material-icons">&#xE7FD;</i>Личный кабинет</a>
-				<a href="<?=Link::Custom('cabinet', 'orders', array('clear' => true));?>" class="mdl-menu__item mdl-menu__item--full-bleed-divider"><i class="material-icons">&#xE889;</i>История заказов</a>
-				<a href="<?=Link::Custom('cabinet', false, array('clear' => true));?>" class="mdl-menu__item"><i class="material-icons">&#xE8AC;</i>Выйти</a>
-			</nav>
 		</div>
 	</div>
 	<div id="phone_menu" data-type="panel" data-position="right" class="phone_menu mdl-cell--hide-tablet mdl-cell--hide-desktop">

@@ -12,11 +12,12 @@
 		</select>
 		<div><label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="move_product_<?=$item['id_product']?>">
 			<input type="checkbox" name="move_product" data-idproduct="<?=$item['id_product']?>" id="move_product_<?=$item['id_product']?>" class="move_product_<?=$item['id_product']?>_js mdl-checkbox__input">
-			<span class="mdl-checkbox__label title_move_product">Дополнительная категория</span>
+			<span class="mdl-checkbox__label secondary_category">Дополнительная категория</span>
 		</label></div>
-		<button name="submit" type="submit" title="Перенести товары из заказа в выбранную категорию" class="btn-m-green btn_move_to_js" value="Вперед">Вперед</button>
+		<button name="submit" type="submit" title="Перенести товары из списка в выбранную категорию" class="btn-m-green btn_move_to_js" value="Вперед">Вперед</button>
 	</div>
 	<div class="checked_products_wrap">
+		<h2>Список товаров:</h2>
 		<div class="no_checked_products_js no_checked_products<?=!empty($product_list)?' hidden':null;?>"><a href="<?=$GLOBALS['URL_base']?>">Выберите товары</a> для переноса в нужную категорию.</div>
 		<?if(!empty($product_list)){?>
 			<div class="checked_products">
