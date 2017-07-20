@@ -120,13 +120,13 @@ function resizeAsideScroll(event) {
 	var newMainWindow = $('.main').height();
 	var main_nav = $('.main_nav').outerHeight();
 	var scroll = $(this).scrollTop();
-	var pieceOfFooter = (scroll + viewPort) - newMainWindow - 52 + main_nav;
-	if((scroll + viewPort) > (CurentMainWindow + 52)){
-		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter)+'px');
-		$('aside .filters_container').css('max-height', 'calc(100vh - 52px - '+(pieceOfFooter + 43)+'px');
+	var pieceOfFooter = (scroll + viewPort) - newMainWindow - 60 + main_nav;
+	if((scroll + viewPort) > (CurentMainWindow + 60)){
+		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - 60px - '+(pieceOfFooter)+'px');
+		$('aside .filters_container').css('max-height', 'calc(100vh - 60px - '+(pieceOfFooter + 43)+'px');
 	}else{
-		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 52)+'px');
-		$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 52 + 43)+'px');
+		$('aside .catalog .second_nav').css('max-height', 'calc(100vh - '+(main_nav + 60)+'px');
+		$('aside .filters_container').css('max-height', 'calc(100vh - '+(main_nav + 60 + 43)+'px');
 	}
 	return true;
 }
@@ -958,7 +958,7 @@ function GetScreenshot(){
 		detachSnack = $('#snackbar').detach();
 	if($(document).outerWidth() < 450){
 		$('.waiting_block_for_img_canvas_js').css('top', '0');
-		$('#header_js').css('top', '52px');
+		$('#header_js').css('top', '60px');
 	}else{
 		$('.waiting_block_for_img_canvas_js').css('top', '15px');
 	}
@@ -977,12 +977,12 @@ function GetScreenshot(){
 			var imageContainer = document.getElementById("savedCopyContainer");
 			imageContainer.style.display = "block";
 			$('.err_msg_as_wrap_js').css('display', 'block');
-			$('.waiting_block_for_img_canvas_js').css('top', '-52px');
+			$('.waiting_block_for_img_canvas_js').css('top', '-60px');
 			if($(document).outerWidth() < 450){
 				$('#header_js').css('top', '0');
 				$('.err_msg_as_form_js .mdl-textfield').css('height', 'calc(100vh - 345px)');
 			}
-			$('.err_msg_as_js').addClass('shown').css('top', 'calc(100% - '+$('.err_msg_as_js').outerHeight()+'px)');
+			$('.err_msg_as_js').addClass('shown').css('top', '0');
 			$('.err_msg_as_form_js').find('textarea').focus();
 			$('#err_canvas').attr({'width':'20','height':'20'});
 			clear_canvas();

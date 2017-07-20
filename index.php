@@ -123,13 +123,7 @@ if(isset($GLOBALS['Sort'])){
 // }
 unset($sort);
 // Получаем список новостей=================================
-if($GLOBALS['CurrentController'] == 'news'){
-	if(isset($GLOBALS['Rewrite'])){
-		$tpl->Assign('news', $News->GetNews(4, true));
-	}
-}else{
-	$tpl->Assign('news', $News->GetNews(4));
-}
+$tpl->Assign('news', $News->GetNews(5, $GLOBALS['CurrentController'] == 'news' && isset($GLOBALS['Rewrite'])?true:null));
 // Создание базового массива корзины=======================
 if(G::IsLogged() && !_acl::isAdmin()){
 	if(!isset($_SESSION['cart']['id'])) $Cart->LastClientCart();

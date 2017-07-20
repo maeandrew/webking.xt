@@ -4,17 +4,13 @@
 	</div>
 	<div class="search_wrap">
 		<form name="search" action="<?=Link::Custom('search');?>" method="get">
-			<label class="search_query_input" for="search">
-				<input class="btn_js" name="query" id="search" type="search" required="required" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
-			</label>
-			<label class="search_category_input mdl-cell--hide-tablet mdl-cell--hide-phone" for="search_category">
-				<select id="search_category" name="search_category">
-					<option value="" data-id-category="0">По всем категориям</option>
-					<?foreach($navigation as &$v){ ?>
-						<option value="<?=$v['id_category']?>" data-id-category="<?=$v['id_category']?>"><?=$v['name']?></option>
-					<?}?>
-				</select>
-			</label>
+			<input class="btn_js search_query_input" name="query" id="search" type="search" required="required" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
+			<select class="search_category_input mdl-cell--hide-tablet mdl-cell--hide-phone" id="search_category" name="search_category">
+				<option value data-id-category="0">По всем категориям</option>
+				<?foreach($navigation as &$v){ ?>
+					<option value="<?=$v['id_category']?>" data-id-category="<?=$v['id_category']?>"><?=$v['name']?></option>
+				<?}?>
+			</select>
 			<button type="submit" class="search_btn">Найти</button>
 			<button class="mdl-button mdl-js-button mdl-button--icon header_search_input_toggle_js header_search_input_hide">
 				<i class="material-icons">&#xE5CD;</i>

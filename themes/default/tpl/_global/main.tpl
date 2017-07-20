@@ -244,40 +244,28 @@
 			</div>
 			<!-- Блок последних новостей -->
 			<?if(isset($news) && $GLOBALS['CurrentController'] !== 'cabinet'){?>
-				<div class="last_news">
-					<div class="last_news_title">
+				<div class="latest_news">
+					<div class="latest_news_title">
+						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button">Все новости</a>
 						<h4>Последние новости</h4>
-						<a href="<?=Link::Custom('news');?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="min news_more mdl-button mdl-js-button">Все новости</a>
 					</div>
-					<div class="xt_news">
+					<div class="news_list">
 						<?foreach($news as $item){?>
 							<div class="news_item">
-								<div class="news_image">
-									<?if(isset($item['thumbnail'])){?>
-										<img alt="<?=htmlspecialchars(G::CropString($item['title']))?>" class="lazy" src="/images/nofoto.png" data-original="<?=$item['thumbnail'];?>"/>
-										<noscript>
-											<img alt="<?=htmlspecialchars(G::CropString($item['title']))?>" src="<?=$item['thumbnail'];?>"/>
-										</noscript>
-									<?}?>
+								<?if(isset($item['thumbnail'])){?>
+									<img class="news_image lazy" alt="<?=htmlspecialchars(G::CropString($item['title']))?>" src="/images/nofoto.png" data-original="<?=$item['thumbnail'];?>"/>
+									<noscript>
+										<img class="news_image" alt="<?=htmlspecialchars(G::CropString($item['title']))?>" src="<?=$item['thumbnail'];?>"/>
+									</noscript>
+								<?}?>
+								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>><?=$item['title']?></a>
+								<div class="news_description"><?=$item['descr_short']?></div>
+								<div class="news_date">
+									Опубликовано
+									<?=date('d-m-Y') == date("d-m-Y", $item['date'])?'Сегодня':(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])?'Вчера':date("d.m.Y", $item['date']));?>
 								</div>
-								<a class="news_title" href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?>>
-									<h6 class="min news_title"><?=$item['title']?></h6>
-								</a>
-								<div class="min news_description"><?=$item['descr_short']?></div>
 								<div class="read_more">
-									<div class="min news_date">
-										<p>
-										<?if(date('d-m-Y') == date("d-m-Y", $item['date'])){?>
-											Опубликовано Сегодня
-										<?}elseif(date('d-m-Y', strtotime(date('d-m-Y').' -1 day')) == date('d-m-Y', $item['date'])){?>
-											Опубликовано Вчера
-										<?}else{?>
-											Опубликовано
-										<?  echo date("d.m.Y", $item['date']);
-										}?>
-										</p>
-									</div>
-									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-js-button">Читать далее</a>
+									<a href="<?=Link::Custom('news', $item['translit']);?>" <?=($GLOBALS['CurrentController'] == 'product' || $GLOBALS['CurrentController'] == 'products')?'rel="nofollow"':null;?> class="mdl-button mdl-button--outline mdl-js-button">Читать</a>
 								</div>
 							</div>
 						<?}?>
