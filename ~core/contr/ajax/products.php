@@ -333,9 +333,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($echo);
 				break;
 			case 'fillCategory':
-				if(isset($_SESSION['fill_category']) && $_POST['id_category']){
-					if($Products->FillCategoryByIdProduct($_POST['id_category'], $_SESSION['fill_category'], $_POST['main'])){
-						unset($_SESSION['fill_category']);
+				if(isset($_SESSION['product_action']) && $_POST['id_category']){
+					if($Products->FillCategoryByIdProduct($_POST['id_category'], $_SESSION['product_action'], $_POST['main'])){
+						unset($_SESSION['product_action']);
 						echo 'ok';
 					}else{
 						echo 'something wrong';
