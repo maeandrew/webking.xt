@@ -15,16 +15,18 @@ if(!CMD){
 	));
 }
 G::ToGlobals(array(
-	'PATH_root'			=> _root,
-	'PATH_global_root'	=> _root,
-	'PATH_core'			=> _root.'~core'.DIRSEP,
-	'PATH_sys'			=> _root.'~core'.DIRSEP.'sys'.DIRSEP,
-	'PATH_product_img'	=> _root.'product_images'.DIRSEP,
-	'PATH_block'		=> _root.'~core'.DIRSEP.'block'.DIRSEP,
-	'PATH_contr'		=> _root.'~core'.DIRSEP.'contr'.DIRSEP,
-	'PATH_model'		=> _root.'~core'.DIRSEP.'model'.DIRSEP,
-	'PATH_tpl'			=> _root.'~core'.DIRSEP.'tpl'.DIRSEP,
-	'PATH_tpl_global'	=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP
+	'PATH_root'				=> _root,
+	'PATH_global_root'		=> _root,
+	'PATH_core'				=> _root.'~core'.DIRSEP,
+	'PATH_sys'				=> _root.'~core'.DIRSEP.'sys'.DIRSEP,
+	'PATH_product_img'		=> _root.'product_images'.DIRSEP,
+	'PATH_block'			=> _root.'~core'.DIRSEP.'block'.DIRSEP,
+	'PATH_contr'			=> _root.'~core'.DIRSEP.'contr'.DIRSEP,
+	'PATH_model'			=> _root.'~core'.DIRSEP.'model'.DIRSEP,
+	'PATH_tpl'				=> _root.'~core'.DIRSEP.'tpl'.DIRSEP,
+	'PATH_tpl_global'		=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP,
+	'PATH_adm_tpl'			=> _root.'adm'.DIRSEP.'core'.DIRSEP.'tpl'.DIRSEP,
+	'PATH_adm_tpl_global'	=> _root.'adm'.DIRSEP.'core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP,
 ));
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 $GLOBALS['Theme'] = 'default';
@@ -36,22 +38,20 @@ if(!CMD){
 	$GLOBALS['URL_js_theme'] = _base_url.'/themes/'.$GLOBALS['Theme'].'/js/';
 }
 // // ***************************** Подключение и инициализация системных классов  *****************************
-require($GLOBALS['PATH_sys'].'link_c.php');
-require($GLOBALS['PATH_sys'].'tpl_c.php');
-require($GLOBALS['PATH_sys'].'db_c.php');
-require($GLOBALS['PATH_sys'].'dbtree_c.php');
-require($GLOBALS['PATH_sys'].'paginator_c.php');
-require($GLOBALS['PATH_sys'].'acl_c.php');
-require($GLOBALS['PATH_sys'].'mailer_c.php');
-require($GLOBALS['PATH_sys'].'sfYaml.php');
-require($GLOBALS['PATH_sys'].'sfYamlParser.php');
-require($GLOBALS['PATH_sys'].'status_c.php');
-require($GLOBALS['PATH_sys'].'images_c.php');
-require($GLOBALS['PATH_sys'].'cron_c.php');
+spl_autoload_register(function ($className){
+	$className = strtolower(str_replace('_', '', $className));
+	if(file_exists($GLOBALS['PATH_sys'].$className.'_c.php')){
+		@require_once($GLOBALS['PATH_sys'].$className.'_c.php');
+	}elseif(file_exists($GLOBALS['PATH_model'].$className.'_c.php')){
+		@require_once($GLOBALS['PATH_model'].$className.'_c.php');
+	}else{
+		die("Can't find class '$className'");
+	}
+});
 // including configuration file
 require(_root.'config.php');
 // connection to mysql server
-$db = new mysqlPDO($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
+$db = new db($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
 $GLOBALS['db'] =& $db;
 $admin_controllers = G::GetControllers(str_replace('~core', 'adm'.DIRSEP.'core', $GLOBALS['PATH_contr']));
 if(!CMD){
@@ -156,39 +156,39 @@ $GLOBALS['Limit_db'] = 30;
 $GLOBALS['Start'] = 0;
 $GLOBALS['Limits_db'] = array(30, 60, 100);
 
-$tpl = new Template();
+$tpl = new Tpl();
 $GLOBALS['tpl'] =& $tpl;
 // ********************************** Подключение и инициализация моделей  **********************************
-require($GLOBALS['PATH_model'].'users_c.php');
-require($GLOBALS['PATH_model'].'customers_c.php');
-require($GLOBALS['PATH_model'].'suppliers_c.php');
-require($GLOBALS['PATH_model'].'contragents_c.php');
-require($GLOBALS['PATH_model'].'managers_c.php');
-require($GLOBALS['PATH_model'].'page_c.php');
-require($GLOBALS['PATH_model'].'news_c.php');
-require($GLOBALS['PATH_model'].'wishes_c.php');
-require($GLOBALS['PATH_model'].'manufacturers_c.php');
-require($GLOBALS['PATH_model'].'products_c.php');
-require($GLOBALS['PATH_model'].'cart_c.php');
-require($GLOBALS['PATH_model'].'orders_c.php');
-require($GLOBALS['PATH_model'].'locations_c.php');
-require($GLOBALS['PATH_model'].'product_sdescr_c.php');
-require($GLOBALS['PATH_model'].'sphinxapi_c.php');
-require($GLOBALS['PATH_model'].'APISMS.php');
-require($GLOBALS['PATH_model'].'UploadHandler.php');
-require($GLOBALS['PATH_model'].'slides_c.php');
-require($GLOBALS['PATH_model'].'unit_c.php');
-require($GLOBALS['PATH_model'].'post_c.php');
-require($GLOBALS['PATH_model'].'seo_c.php');
-require($GLOBALS['PATH_model'].'NP2.php');
-require($GLOBALS['PATH_model'].'IntimeApi2.php');
-require($GLOBALS['PATH_model'].'specification_c.php');
-require($GLOBALS['PATH_model'].'segmentation_c.php');
-require($GLOBALS['PATH_model'].'config_c.php');
-require($GLOBALS['PATH_model'].'newsletter_c.php');
-require($GLOBALS['PATH_model'].'simple_html_dom_c.php');
-require($GLOBALS['PATH_model'].'parser_c.php');
-require($GLOBALS['PATH_model'].'promo_c.php');
+// require($GLOBALS['PATH_model'].'users_c.php');
+// require($GLOBALS['PATH_model'].'customers_c.php');
+// require($GLOBALS['PATH_model'].'suppliers_c.php');
+// require($GLOBALS['PATH_model'].'contragents_c.php');
+// require($GLOBALS['PATH_model'].'managers_c.php');
+// require($GLOBALS['PATH_model'].'page_c.php');
+// require($GLOBALS['PATH_model'].'news_c.php');
+// require($GLOBALS['PATH_model'].'wishes_c.php');
+// require($GLOBALS['PATH_model'].'manufacturers_c.php');
+// require($GLOBALS['PATH_model'].'products_c.php');
+// require($GLOBALS['PATH_model'].'cart_c.php');
+// require($GLOBALS['PATH_model'].'orders_c.php');
+// require($GLOBALS['PATH_model'].'locations_c.php');
+// require($GLOBALS['PATH_model'].'product_sdescr_c.php');
+// require($GLOBALS['PATH_model'].'sphinxapi_c.php');
+// require($GLOBALS['PATH_model'].'APISMS.php');
+// require($GLOBALS['PATH_model'].'UploadHandler.php');
+// require($GLOBALS['PATH_model'].'slides_c.php');
+// require($GLOBALS['PATH_model'].'unit_c.php');
+// require($GLOBALS['PATH_model'].'post_c.php');
+// require($GLOBALS['PATH_model'].'seo_c.php');
+// require($GLOBALS['PATH_model'].'NP2.php');
+// require($GLOBALS['PATH_model'].'IntimeApi2.php');
+// require($GLOBALS['PATH_model'].'specification_c.php');
+// require($GLOBALS['PATH_model'].'segmentation_c.php');
+// require($GLOBALS['PATH_model'].'config_c.php');
+// require($GLOBALS['PATH_model'].'newsletter_c.php');
+// require($GLOBALS['PATH_model'].'simple_html_dom_c.php');
+// require($GLOBALS['PATH_model'].'parser_c.php');
+// require($GLOBALS['PATH_model'].'promo_c.php');
 
 
 if(!CMD){

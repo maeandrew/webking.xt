@@ -1,5 +1,5 @@
 <?php
-class mysqlPDO {
+class db {
 	public $response;
 	public $connection; // connect ID (для совместимости с dbtree)
 	public $sql;
@@ -146,9 +146,9 @@ class mysqlPDO {
 	* Получение последнего id после выполнения INSERT
 	* @return int Id
 	*/
-//	public function GetInsId(){
-//		return mysql_insert_id($this->connection);
-//	}
+	//	public function GetInsId(){
+	//		return mysql_insert_id($this->connection);
+	//	}
 
 	/**
 	* Количество строк в последнем результате
@@ -223,7 +223,7 @@ class mysqlPDO {
 		}
 		$sql .= ')';
 		// if(G::IsLogged() && $_SESSION['member']['id_user'] == 25143){
-		// 	print_r($sql);
+			print_r($sql);
 		// }
 		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
 	}

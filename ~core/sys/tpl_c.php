@@ -1,5 +1,5 @@
 <?php
-class Template {
+class Tpl {
 	protected $data = null;
 	protected $global = null;
 	/**
