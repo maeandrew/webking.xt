@@ -95,15 +95,16 @@ switch($Users->fields['gid']){
 		$header = 'Кабинет менеджера поставщиков';
 		require($GLOBALS['PATH_block'].'cp_cab_supplier_manager.php');
 		break;
-	case _ACL_DEPARTMENT_:
-		$header = 'Кабинет пункта выдачи';
-		require($GLOBALS['PATH_block'].'cp_cab_department.php');
-		break;
+	// case _ACL_DEPARTMENT_:
+	// 	$header = 'Кабинет пункта выдачи';
+	// 	require($GLOBALS['PATH_block'].'cp_cab_department.php');
+	// 	break;
 	default:
 		header('Location: /adm/');
+		exit(0);
 		break;
 }
-if(true == $parsed_res['issuccess']){
+if(isset($parsed_res) && $parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
 $tpl->Assign('header', $header);

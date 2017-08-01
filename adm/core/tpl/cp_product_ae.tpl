@@ -269,9 +269,11 @@
 													<td>
 														<select name="id_value" id="id_value" class="input-m" <?=empty($i['values_list'])?'disabled':null;?> onchange="insertValueLink($(this));">
 															<option value="" disabled selected>-- выберите значение --</option>
-															<?foreach($i['values_list'] as $value){?>
-																<option value="<?=$value['id']?>" <?=$i['list_value'] == $value['value']?'selected':null;?>><?=$value['value']?></option>
-															<?}?>
+															<?if(!empty($i['values_list'])){
+																foreach($i['values_list'] as $value){?>
+																	<option value="<?=$value['id']?>" <?=$i['list_value'] == $value['value']?'selected':null;?>><?=$value['value']?></option>
+																<?}
+															}?>
 														</select>
 													</td>
 													<td class="left actions">

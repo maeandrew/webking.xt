@@ -12,8 +12,10 @@ $dbtree->SetFieldsById($id_category);
 $category = $dbtree->fields;
 G::metaTags($category);
 $category['subcats'] = $Products->GetSubCatsTop($id_category);
-foreach($category['subcats'] as &$subcategory){
-	$subcategory['subcats'] = $Products->GetSubCatsTop($subcategory['id_category']);
+if(!empty($category['subcats'])){
+	foreach($category['subcats'] as &$subcategory){
+		$subcategory['subcats'] = $Products->GetSubCatsTop($subcategory['id_category']);
+	}
 }
 $tpl->Assign('category', $category);
 $tpl->Assign('indexation', $category['indexation']);

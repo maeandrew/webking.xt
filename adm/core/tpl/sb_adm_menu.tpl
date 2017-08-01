@@ -1,5 +1,5 @@
 <?if(G::IsLogged()){?>
-	<div class="block"<?if($self_edit == '1'){?> style="display: none;"<?}?> >
+	<div class="block"<?=isset($self_edi) && $self_edit == 1?' style="display: none;"':null?>>
 		<!-- <h2>Меню</h2> -->
 		<ul class="sb-menu">
 			<li class="sb-menu__item<?=$GLOBALS['CurrentController'] == 'main'?' sb-menu__item_active':null;?>">
