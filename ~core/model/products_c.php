@@ -176,6 +176,7 @@ class Products {
 		$this->fields = $arr;
 		return true;
 	}
+
 	public function GetSupComments($id_supplier){
 		$sql = "SELECT id_assortiment, sup_comment FROM "._DB_PREFIX_."assortiment
 			WHERE id_supplier = ".$id_supplier;
@@ -4937,28 +4938,27 @@ class Products {
 	}
 
 	// Добавление/обновление категории у товара
-	public function FillCategoryByIdProduct($id_category, $id_products, $main)
-	{
-		if ($main == 1) {
+	public function FillCategoryByIdProduct($id_category, $id_products, $main){
+		if($main == 1){
 			$sql = "DELETE FROM " . _DB_PREFIX_ . "cat_prod
 				WHERE id_product IN (" . implode(', ', $id_products) . ")";
 			$this->db->StartTrans();
-			if (!$this->db->Query($sql)) {
+			if(!$this->db->Query($sql)){
 				$this->db->FailTrans();
 				return false;
 			}
 			$this->db->CompleteTrans();
 		}
-		foreach ($id_products as $v) {
+		foreach($id_products as $v){
 			$sql = "INSERT INTO "._DB_PREFIX_."cat_prod
 			(id_category, id_product, main) VALUES
 			(".$id_category.", ".$v.", ".$main.")";
 			$sql2 = "UPDATE "._DB_PREFIX_."product
 			SET edit_user = ".$_SESSION['member']['id_user']." , edit_date = '".date('Y-m-d H:m:i')."'  WHERE id_product = ".$v;
 			$this->db->StartTrans();
-			if (!$this->db->Query($sql) || !$this->db->Query($sql2)) {
-			$this->db->FailTrans();
-			return false;
+			if(!$this->db->Query($sql) || !$this->db->Query($sql2)){
+				$this->db->FailTrans();
+				return false;
 			}
 			$this->db->CompleteTrans();
 		}
