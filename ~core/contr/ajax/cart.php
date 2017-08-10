@@ -35,7 +35,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$_SESSION['price_mode'] = 3;
 				}
 				// Подключаем необходимые классы
-				$Cities = new Citys();
+				$Cities = new Cities();
 				$Contragents = new Contragents();
 				$Delivery = new Delivery();
 				$Deliveryservice = new DeliveryService();
@@ -44,92 +44,92 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				// выборка базовых данных
 
-				// о покупателе
-				$Customers->SetFieldsById($Users->fields['id_user']);
-				$customer = $Customers->fields;
-				$cont_person = explode(' ', $customer['cont_person']);
-				$customer['last_name'] = $cont_person[0];
-				$customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
-				$customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
-				$customer['phone'] = isset($phones)?$phones:'';
-
 				// список всех менеджеров
 				$Contragents->SetList();
 				$managers_list = $Contragents->list;
 
-				// список всех областей
-				$Regions->SetList();
-				$regions_list = $Regions->list;
+				// // список всех областей
+				// $Regions->SetList();
+				// $regions_list = $Regions->list;
 
-				// список всех способов доставки
-				$Delivery->SetDeliveryList();
-				$deliverymethods_list = $Delivery->list;
+				// // список всех способов доставки
+				// $Delivery->SetDeliveryList();
+				// $deliverymethods_list = $Delivery->list;
 
-				// выборка сохраненной информации
+				// // о покупателе
+				// $Customers->SetFieldsById($Users->fields['id_user']);
+				// $customer = $Customers->fields;
+				// $cont_person = explode(' ', $customer['cont_person']);
+				// $customer['last_name'] = $cont_person[0];
+				// $customer['first_name'] = isset($cont_person[1])?$cont_person[1]:'';
+				// $customer['middle_name'] = isset($cont_person[2])?$cont_person[2]:'';
+				// $customer['phone'] = isset($phones)?$phones:'';
 
-				// сохраненный город
-				if(isset($customer['id_city']) && $customer['id_city'] > 0){
-					$Cities->GetSavedFields($customer['id_city']);
-					$saved['city'] = $Cities->fields;
-				}else{
-					$saved['city'] = false;
-				}
+				// // выборка сохраненной информации
 
-				// способы доставки
-				if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
-					$Delivery->GetSavedFields($customer['id_delivery']);
-					$saved['deliverymethod'] = $Delivery->fields;
-				}else{
-					$saved['deliverymethod'] = false;
-				}
+				// // сохраненный город
+				// if(isset($customer['id_city']) && $customer['id_city'] > 0){
+				// 	$Cities->GetSavedFields($customer['id_city']);
+				// 	$saved['city'] = $Cities->fields;
+				// }else{
+				// 	$saved['city'] = false;
+				// }
 
-				// сохраненный менеджер
-				if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
-					$Contragents->GetSavedFields($customer['id_contragent']);
-					$saved['manager'] = $Contragents->fields;
-				}else{
-					$saved['manager'] = false;
-				}
+				// // способы доставки
+				// if(isset($customer['id_delivery']) && $customer['id_delivery'] > 0){
+				// 	$Delivery->GetSavedFields($customer['id_delivery']);
+				// 	$saved['deliverymethod'] = $Delivery->fields;
+				// }else{
+				// 	$saved['deliverymethod'] = false;
+				// }
 
-				// временнный менеджер
-				$tempmanager = false;
-				$_POST['tempmanager'] = 1;
-				if($managers_list){
-					foreach($managers_list as $am){
-						if(!$saved['manager'] || $saved['manager']['id_user'] == $am['id_user']){
-							$_POST['tempmanager'] = 0;
-						}
-					}
-					if($_POST['tempmanager'] == 1){
-						$tempmanager = $managers_list[array_rand($managers_list)];
-					}
-				}
+				// // сохраненный менеджер
+				// if(isset($customer['id_contragent']) && $customer['id_contragent'] > 0){
+				// 	$Contragents->GetSavedFields($customer['id_contragent']);
+				// 	$saved['manager'] = $Contragents->fields;
+				// }else{
+				// 	$saved['manager'] = false;
+				// }
 
-				// Выбор доступных городов, если у пользователя была сохранена область
-				if(isset($saved['city'])){
-					$cities_list = $Cities->SetFieldsByInput($saved['city']['region']);
-					if(!$Deliveryservice->SetFieldsByInput($saved['city']['name'], $saved['city']['region'])){
-						unset($deliverymethods_list[3]);
-					}
-					$Deliveryservice->SetListByRegion($saved['city']['names_regions']);
-					$deliveryservices_list = $Deliveryservice->list;
-					$Delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['name'], $saved['city']['region']);
-					$deliverydepartments_list = $Delivery->list;
-				}
-				if(isset($_SESSION['cart']['id_gift'])){
-					$Products->SetFieldsById($_SESSION['cart']['id_gift']);
-					$Products->fields['images'] = $Products->GetPhotoById($Products->fields['id_product']);
-					$tpl->Assign('gift', $Products->fields);
-				}
-				/* output data */
-				$tpl->Assign('customer', $customer);
-				$tpl->Assign('regions_list', $regions_list);
-				$tpl->Assign('deliverymethods_list', $deliverymethods_list);
-				$tpl->Assign('cities_list', $cities_list);
-				$tpl->Assign('deliveryservices_list', $deliveryservices_list);
-				$tpl->Assign('deliverydepartments_list', $deliverydepartments_list);
+				// // временнный менеджер
+				// $tempmanager = false;
+				// $_POST['tempmanager'] = 1;
+				// if($managers_list){
+				// 	foreach($managers_list as $am){
+				// 		if(!$saved['manager'] || $saved['manager']['id_user'] == $am['id_user']){
+				// 			$_POST['tempmanager'] = 0;
+				// 		}
+				// 	}
+				// 	if($_POST['tempmanager'] == 1){
+				// 		$tempmanager = $managers_list[array_rand($managers_list)];
+				// 	}
+				// }
+
+				// // Выбор доступных городов, если у пользователя была сохранена область
+				// if(isset($saved['city'])){
+				// 	$cities_list = $Cities->SetFieldsByInput($saved['city']['region']);
+				// 	if(!$Deliveryservice->SetFieldsByInput($saved['city']['name'], $saved['city']['region'])){
+				// 		unset($deliverymethods_list[3]);
+				// 	}
+				// 	$Deliveryservice->SetListByRegion($saved['city']['names_regions']);
+				// 	$deliveryservices_list = $Deliveryservice->list;
+				// 	$Delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['name'], $saved['city']['region']);
+				// 	$deliverydepartments_list = $Delivery->list;
+				// }
+				// if(isset($_SESSION['cart']['id_gift'])){
+				// 	$Products->SetFieldsById($_SESSION['cart']['id_gift']);
+				// 	$Products->fields['images'] = $Products->GetPhotoById($Products->fields['id_product']);
+				// 	$tpl->Assign('gift', $Products->fields);
+				// }
+				// /* output data */
+				// $tpl->Assign('customer', $customer);
+				// $tpl->Assign('saved', $saved);
+				// $tpl->Assign('regions_list', $regions_list);
+				// $tpl->Assign('deliverymethods_list', $deliverymethods_list);
+				// $tpl->Assign('cities_list', $cities_list);
+				// $tpl->Assign('deliveryservices_list', $deliveryservices_list);
+				// $tpl->Assign('deliverydepartments_list', $deliverydepartments_list);
 				$tpl->Assign('managers_list', $managers_list);
-				$tpl->Assign('saved', $saved);
 				$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
 
 				/* Действия */

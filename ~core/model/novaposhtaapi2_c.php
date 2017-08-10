@@ -1,7 +1,7 @@
 <?php
 /**
  * Nova Poshta API Class
- * 
+ *
  * @author lis-dev
  * @see https://my.novaposhta.ua/data/API2-200215-1622-28.pdf
  * @see https://github.com/lis-dev
@@ -10,7 +10,7 @@
 class NovaPoshtaApi2 {
 	/**
 	 * Key for API NovaPoshta
-	 * 
+	 *
 	 * @var string $key
 	 * @see https://my.novaposhta.ua/settings/index#apikeys
 	 */
@@ -58,16 +58,16 @@ class NovaPoshtaApi2 {
 
 	/**
 	 * Default constructor
-	 * 
+	 *
 	 * @param string $key NovaPoshta API key
 	 * @param string $language Default Language
 	 * @param bool $throwErrors Throw request errors as Exceptions
 	 * @param bool $connectionType Connection type (curl | file_get_contents)
-	 * @return NovaPoshtaApi2 
+	 * @return NovaPoshtaApi2
 	 */
 	function __construct($key, $language = 'ru', $throwErrors = FALSE, $connectionType = 'curl') {
 		$this->throwErrors = $throwErrors;
-		return $this	
+		return $this
 			->setKey($key)
 			->setLanguage($language)
 			->setConnectionType($connectionType)
@@ -76,7 +76,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Setter for key property
-	 * 
+	 *
 	 * @param string $key NovaPoshta API key
 	 * @return NovaPoshtaApi2
 	 */
@@ -87,7 +87,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Getter for key property
-	 * 
+	 *
 	 * @return string
 	 */
 	function getKey() {
@@ -96,7 +96,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Setter for $connectionType property
-	 * 
+	 *
 	 * @param string $connectionType Connection type (curl | file_get_contents)
 	 * @return this
 	 */
@@ -107,7 +107,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Getter for $connectionType property
-	 * 
+	 *
 	 * @return string
 	 */
 	function getConnectionType() {
@@ -116,7 +116,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Setter for language property
-	 * 
+	 *
 	 * @param string $language
 	 * @return NovaPoshtaApi2
 	 */
@@ -127,7 +127,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Getter for language property
-	 * 
+	 *
 	 * @return string
 	 */
 	function getLanguage() {
@@ -136,9 +136,9 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Setter for format property
-	 * 
+	 *
 	 * @param string $format Format of returned data by methods (json, xml, array)
-	 * @return NovaPoshtaApi2 
+	 * @return NovaPoshtaApi2
 	 */
 	function setFormat($format) {
 		$this->format = $format;
@@ -147,7 +147,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Getter for format property
-	 * 
+	 *
 	 * @return string
 	 */
 	function getFormat() {
@@ -156,7 +156,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Prepare data before return it
-	 * 
+	 *
 	 * @param json $data
 	 * @return mixed
 	 */
@@ -177,8 +177,8 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Converts array to xml
-	 * 
-	 * @param array 
+	 *
+	 * @param array
 	 */
 	private function array2xml(array $array, $xml = false){
 		($xml === false) AND $xml = new \SimpleXMLElement('<root/>');
@@ -194,7 +194,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Make request to NovaPoshta API
-	 * 
+	 *
 	 * @param string $model Model name
 	 * @param string $method Method name
 	 * @param array $params Required params
@@ -242,12 +242,12 @@ class NovaPoshtaApi2 {
 
 	/**
 	 * Set current model and empties method and params properties
-	 * 
+	 *
 	 * @param string $model
 	 * @return mixed
 	 */
 	function model($model = '') {
-		if ( ! $model) 
+		if ( ! $model)
 			return $this->model;
 
 		$this->model = $model;
@@ -257,12 +257,12 @@ class NovaPoshtaApi2 {
 	}
 	/**
 	 * Set method of current model property and empties params properties
-	 * 
+	 *
 	 * @param string $method
 	 * @return mixed
 	 */
 	function method($method = '') {
-		if ( ! $method) 
+		if ( ! $method)
 			return $this->method;
 
 		$this->method = $method;
@@ -272,7 +272,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Set params of current method/property property
-	 * 
+	 *
 	 * @param array $params
 	 * @return mixed
 	 */
@@ -283,7 +283,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Execute request to NovaPoshta API
-	 * 
+	 *
 	 * @return mixed
 	 */
 	function execute() {
@@ -292,7 +292,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get tracking information by track number
-	 * 
+	 *
 	 * @param string $track Track number
 	 * @return mixed
 	 */
@@ -302,7 +302,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get cities of company NovaPoshta
-	 * 
+	 *
 	 * @param int $page Num of page
 	 * @param string $findByString Find city by russian or ukrainian word
 	 * @param string $ref ID of city
@@ -318,7 +318,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get warehouses by city
-	 * 
+	 *
 	 * @param string $cityRef ID of city
 	 * @param int $page
 	 * @return mixed
@@ -332,7 +332,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get 5 nearest warehouses by array of strings
-	 * 
+	 *
 	 * @param array $searchStringArray
 	 * @return mixed
 	 */
@@ -345,7 +345,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get warehouse by city name and warehouse's description
-	 * 
+	 *
 	 * @param string $cityRef ID of city
 	 * @param string $description Description like in getted by getWarehouses()
 	 * @return mixed
@@ -376,12 +376,12 @@ class NovaPoshtaApi2 {
 				'errors' => (array) $error,
 				'warnings' => array(),
 				'info' => array(),
-		)); 
+		));
 	}
 	
 	/**
 	 * Get streets list by city and/or search string
-	 * 
+	 *
 	 * @param string $cityRef ID of city
 	 * @param string $findByString
 	 * @param int $page
@@ -397,7 +397,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Find current area in list of areas
-	 * 
+	 *
 	 * @param array $areas List of arias, getted from file
 	 * @param string $findByString Area name
 	 * @param string $ref Area Ref ID
@@ -410,8 +410,8 @@ class NovaPoshtaApi2 {
 		// Try to find current region
 		foreach ($areas as $key => $area) {
 			// Is current area found by string or by key
-			$found = $findByString 
-				? ((mb_stripos($area['Description'], $findByString) !== FALSE) 
+			$found = $findByString
+				? ((mb_stripos($area['Description'], $findByString) !== FALSE)
 					OR (mb_stripos($area['DescriptionRu'], $findByString) !== FALSE)
 					OR (mb_stripos($area['Area'], $findByString) !== FALSE)
 					OR (mb_stripos($area['AreaRu'], $findByString) !== FALSE))
@@ -427,14 +427,14 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get area by name or by ID
-	 * 
+	 *
 	 * @param string $findByString Find area by russian or ukrainian word
 	 * @param string $ref Get area by ID
 	 * @return array
 	 */
 	function getArea($findByString = '', $ref = '') {
 		// Load areas list from file
-		empty($this->areas) AND $this->areas = include dirname(__FILE__).'/NP2A.php';
+		empty($this->areas) AND $this->areas = include dirname(__FILE__).'/NP2Areas.php';
 		$data = $this->findArea($this->areas, $findByString, $ref);
 		// Error
 		empty($data) AND $error = 'Area was not found';
@@ -465,10 +465,10 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Find city from list by name of region
-	 * 
-	 * @param array $cities Array from query getCities to NovaPoshta 
+	 *
+	 * @param array $cities Array from query getCities to NovaPoshta
 	 * @param string $areaName
-	 * @return array 
+	 * @return array
 	 */
 	protected function findCityByRegion($cities, $areaName) {
 		$data = array();
@@ -488,7 +488,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get city by name and region (if it needs)
-	 * 
+	 *
 	 * @param string $cityName City's name
 	 * @param string $areaName Region's name
 	 * @return array City's data
@@ -499,7 +499,7 @@ class NovaPoshtaApi2 {
 		$data = array();
 		if (is_array($cities['data']) && !empty($cities['data'])) {
 			// If cities more then one, calculate current by area name
-			$data = (count($cities['data']) > 1) 
+			$data = (count($cities['data']) > 1)
 				? $this->findCityByRegion($cities, $areaName)
 				: $cities['data'][0];
 		}
@@ -518,7 +518,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Magic method of calling functions (uses for calling Common Model of NovaPoshta API)
-	 * 
+	 *
 	 * @param string $method Called method of Common Model
 	 * @param array $arguments Array of params
 	 */
@@ -552,7 +552,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Delete method of current model
-	 * 
+	 *
 	 * @param array $params
 	 * @return mixed
 	 */
@@ -562,11 +562,11 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Update method of current model
-	 * Required params: 
+	 * Required params:
 	 * For ContactPerson model: Ref, CounterpartyRef, FirstName (ukr), MiddleName, LastName, Phone (format 0xxxxxxxxx)
-	 * For Counterparty model: Ref, CounterpartyProperty (Recipient|Sender), CityRef, CounterpartyType (Organization, PrivatePerson), 
+	 * For Counterparty model: Ref, CounterpartyProperty (Recipient|Sender), CityRef, CounterpartyType (Organization, PrivatePerson),
 	 * FirstName (or name of organization), MiddleName, LastName, Phone (0xxxxxxxxx), OwnershipForm (if Organization)
-	 * 
+	 *
 	 * @param array $params
 	 * @return mixed
 	 */
@@ -576,13 +576,13 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Save method of current model
-	 * Required params: 
-	 * For ContactPerson model (only for Organization API key, for PrivatePerson error will be returned): 
+	 * Required params:
+	 * For ContactPerson model (only for Organization API key, for PrivatePerson error will be returned):
 	 *	 CounterpartyRef, FirstName (ukr), MiddleName, LastName, Phone (format 0xxxxxxxxx)
 	 * For Counterparty model:
-	 *	 CounterpartyProperty (Recipient|Sender), CityRef, CounterpartyType (Organization, PrivatePerson), 
+	 *	 CounterpartyProperty (Recipient|Sender), CityRef, CounterpartyType (Organization, PrivatePerson),
 	 *	 FirstName (or name of organization), MiddleName, LastName, Phone (0xxxxxxxxx), OwnershipForm (if Organization)
-	 * 
+	 *
 	 * @param array $params
 	 * @return mixed
 	 */
@@ -592,7 +592,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * getCounterparties() function of model Counterparty
-	 * 
+	 *
 	 * @param string $counterpartyProperty Type of Counterparty (Sender|Recipient)
 	 * @param int $page Page number
 	 * @param string $findByString String to search
@@ -612,7 +612,7 @@ class NovaPoshtaApi2 {
 	/**
 	 * cloneLoyaltyCounterpartySender() function of model Counterparty
 	 * The counterparty will be not created immediately, you can wait a long time
-	 * 
+	 *
 	 * @param string $cityRef City ID
 	 * @return mixed
 	 */
@@ -622,7 +622,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * getCounterpartyContactPersons() function of model Counterparty
-	 * 
+	 *
 	 * @param string $ref Counterparty ref
 	 * @return mixed
 	 */
@@ -632,7 +632,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * getCounterpartyAddresses() function of model Counterparty
-	 * 
+	 *
 	 * @param string $ref Counterparty ref
 	 * @param int $page
 	 * @return mixed
@@ -643,7 +643,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * getCounterpartyOptions() function of model Counterparty
-	 * 
+	 *
 	 * @param string $ref Counterparty ref
 	 * @return mixed
 	 */
@@ -653,7 +653,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * getCounterpartyByEDRPOU() function of model Counterparty
-	 * 
+	 *
 	 * @param string $edrpou EDRPOU code
 	 * @param string $cityRef City ID
 	 * @return mixed
@@ -664,7 +664,7 @@ class NovaPoshtaApi2 {
 
 	/**
 	 * Get price of delivery between two cities
-	 * 
+	 *
 	 * @param string $citySender City ID
 	 * @param string $cityRecipient City ID
 	 * @param string $serviceType (DoorsDoors|DoorsWarehouse|WarehouseWarehouse|WarehouseDoors)
@@ -684,7 +684,7 @@ class NovaPoshtaApi2 {
 
 	/**
 	 * Get approximately date of delivery between two cities
-	 * 
+	 *
 	 * @param string $citySender City ID
 	 * @param string $cityRecipient City ID
 	 * @param string $serviceType (DoorsDoors|DoorsWarehouse|WarehouseWarehouse|WarehouseDoors)
@@ -709,9 +709,9 @@ class NovaPoshtaApi2 {
 	 * 'CreateTime', 'SenderRef', 'RecipientRef', 'WeightFrom', 'WeightTo',
 	 * 'CostFrom', 'CostTo', 'SeatsAmountFrom', 'SeatsAmountTo', 'CostOnSiteFrom',
 	 * 'CostOnSiteTo', 'StateIds', 'ScanSheetRef', 'DateTime', 'DateTimeFrom',
-	 * 'RecipientDateTime', 'isAfterpayment', 'Page', 'OrderField => 
+	 * 'RecipientDateTime', 'isAfterpayment', 'Page', 'OrderField =>
 	 *   [
-	 *    IntDocNumber, DateTime, Weight, Cost, SeatsAmount, CostOnSite, 
+	 *    IntDocNumber, DateTime, Weight, Cost, SeatsAmount, CostOnSite,
 	 *    CreateTime, EstimatedDeliveryDate, StateId, InfoRegClientBarcodes, RecipientDateTime
 	 *   ],
 	 * 'OrderDirection' => [DESC, ASC], 'ScanSheetRef'
@@ -723,7 +723,7 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Get document info by ID
-	 * 
+	 *
 	 * @param string $ref Document ID
 	 * @return mixed
 	 */
@@ -735,8 +735,8 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Generetes report by Document refs
-	 * 
-	 * @param array $params Params like getDocumentList with requiered keys 
+	 *
+	 * @param array $params Params like getDocumentList with requiered keys
 	 *  'Type' => [xls, csv], 'DocumentRefs' => []
 	 * @return mixed
 	 */
@@ -746,7 +746,7 @@ class NovaPoshtaApi2 {
 
 	/**
 	 * Check required fields for new InternetDocument and set defaults
-	 * 
+	 *
 	 * @param array & $counterparty Recipient info array
 	 * @return void
 	 */
@@ -754,7 +754,7 @@ class NovaPoshtaApi2 {
 		// Check required fields
 		if ( ! $counterparty['FirstName'])
 			throw new \Exception('FirstName is required filed for recipient');
-		// MiddleName realy is not required field, but manual says otherwise 
+		// MiddleName realy is not required field, but manual says otherwise
 		// if ( ! $counterparty['MiddleName'])
 			// throw new \Exception('MiddleName is required filed for sender and recipient');
 		if ( ! $counterparty['LastName'])
@@ -774,8 +774,8 @@ class NovaPoshtaApi2 {
 	
 	/**
 	 * Check required params for new InternetDocument and set defaults
-	 * 
-	 * @param array & $params 
+	 *
+	 * @param array & $params
 	 * @return void
 	 */
 	protected function checkInternetDocumentParams(array & $params) {
@@ -795,15 +795,15 @@ class NovaPoshtaApi2 {
 	}
 	
 	/**
-	 * Create Internet Document by 
-	 * 
-	 * @param array $sender Sender info. 
+	 * Create Internet Document by
+	 *
+	 * @param array $sender Sender info.
 	 * 	Required:
 	 *  For existing sender:
 	 *	  'Description' => String (Full name i.e.), 'City' => String (City name)
-	 *  For creating: 
+	 *  For creating:
 	 * 		'FirstName' => String, 'MiddleName' => String,
-	 * 		'LastName' => String, 'Phone' => '000xxxxxxx', 'City' => String (City name), 'Region' => String (Region name), 
+	 * 		'LastName' => String, 'Phone' => '000xxxxxxx', 'City' => String (City name), 'Region' => String (Region name),
 	 * 		'Warehouse' => String (Description from getWarehouses))
 	 * @param array $recipient Recipient info, same like $sender param
 	 * @param array $params Additional params of Internet Document
@@ -812,7 +812,7 @@ class NovaPoshtaApi2 {
 	 *  Recommended:
 	 * 		'VolumeGeneral' => Float (default = 0.004), 'SeatsAmount' => Int (default = 1),
 	 * 		'PayerType' => (Sender|Recipient - default), 'PaymentMethod' => (NonCash|Cash - default)
-	 * 		'ServiceType' => (DoorsDoors|DoorsWarehouse|WarehouseDoors|WarehouseWarehouse - default) 
+	 * 		'ServiceType' => (DoorsDoors|DoorsWarehouse|WarehouseDoors|WarehouseWarehouse - default)
 	 * 		'CargoType' => String
 	 * @param mixed
 	 */
@@ -872,7 +872,7 @@ class NovaPoshtaApi2 {
 
 	/**
 	 * Get only link on internet document for printing
-	 * 
+	 *
 	 * @param string $method Called method of NovaPoshta API
 	 * @param array|string $documentRefs Array of Documents IDs
 	 * @param string $type (html_link|pdf_link)
@@ -894,8 +894,8 @@ class NovaPoshtaApi2 {
 	}
 
 	/**
-	 * printDocument method of InternetDocument model 
-	 * 
+	 * printDocument method of InternetDocument model
+	 *
 	 * @param array|string $documentRefs Array of Documents IDs
 	 * @param string $type (pdf|html|html_link|pdf_link)
 	 * @return mixed
@@ -910,8 +910,8 @@ class NovaPoshtaApi2 {
 	}
 
 	/**
-	 * printMarkings method of InternetDocument model 
-	 * 
+	 * printMarkings method of InternetDocument model
+	 *
 	 * @param array|string $documentRefs Array of Documents IDs
 	 * @param string $type (pdf|new_pdf|new_html|old_html|html_link|pdf_link)
 	 * @return mixed

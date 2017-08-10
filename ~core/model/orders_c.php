@@ -492,6 +492,7 @@ class Orders {
 		$f['creation_date'] = time();
 		// Определяем покупателя для заказа. В случае когда менеджер оформляет заказ на клиента, получаем id покупателя из $_SESSION['cart']['id_customer'] во всех остальных случаях - из $_SESSION['member']['id_user']
 		$f['id_customer'] = isset($_SESSION['cart']['id_customer'])?$_SESSION['cart']['id_customer']:$_SESSION['member']['id_user'];
+
 		// Получаем дополнительную информацию о покупателе
 		$Customers = new Customers();
 		$Customers->SetFieldsById($f['id_customer']);
@@ -1525,7 +1526,6 @@ class Orders {
 
 	// Генерация и выдача для скачивания файла excel "Заказы по поставщикам"
 	public function GenExcelOrdersSupFile($rows){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Generator xtorg")
 			->setLastModifiedBy("Generator xtorg")

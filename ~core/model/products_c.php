@@ -2474,7 +2474,6 @@ class Products {
 	 * @param [type] $rows   [description]
 	 */
 	public function GenExcelFileFullPrice($header, $rows){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()
 					->setCreator("Generator xtorg")
@@ -2535,7 +2534,6 @@ class Products {
 	 * @param [type] $cats_cols [description]
 	 */
 	public function GenExcelFile($header, $rows, $cats_cols){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()
 					->setCreator("Generator xtorg")
@@ -2666,7 +2664,6 @@ class Products {
 	 * @param [type] $filename [description]
 	 */
 	public function CheckProductsFile($filename){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel1 = PHPExcel_IOFactory::load($filename);
 		$objPHPExcel1->setActiveSheetIndex(0);
 		$aSheet = $objPHPExcel1->getActiveSheet();
@@ -2710,7 +2707,6 @@ class Products {
 	 * @param [type] $filename [description]
 	 */
 	public function ProcessProductsFile($filename){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($filename);
 		$objPHPExcel->setActiveSheetIndex(0);
 		$aSheet = $objPHPExcel->getActiveSheet();
@@ -2874,7 +2870,6 @@ class Products {
 	 */
 	public function GenExcelAssortFile($rows, $filename = false){
 		ini_set('memory_limit', '512M');
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()
 					->setCreator("Generator xtorg")
@@ -2933,7 +2928,6 @@ class Products {
 	 * @param [type] $file [description]
 	 */
 	public function ProcessAssortimentFile($file, $usd){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($file);
 		$objPHPExcel->setActiveSheetIndex(0);
 		$aSheet = $objPHPExcel->getActiveSheet();
@@ -3256,7 +3250,6 @@ class Products {
 	 * @param [type] $rows [description]
 	 */
 	public function GenExcelStatFile($rows){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Generator xtorg")
 									 ->setLastModifiedBy("Generator xtorg")
@@ -3417,7 +3410,6 @@ class Products {
 	 * @param [type] $suppliers_qty [description]
 	 */
 	public function GenExcelSupPricesFile($rows,$suppliers_qty){
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = new PHPExcel();
 		$objPHPExcel->getProperties()->setCreator("Generator xtorg")
 									 ->setLastModifiedBy("Generator xtorg")

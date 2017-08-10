@@ -24,7 +24,7 @@ if($User->fields['gid'] == _ACL_CUSTOMER_
 	|| $User->fields['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();
 	$Customer->SetFieldsById($User->fields['id_user']);
-	$SavedCity = new Citys();
+	$SavedCity = new Cities();
 	$SavedCity->GetSavedFields($Customer->fields['id_city']);
 	$SavedContragent = new Contragents();
 	$SavedContragent->GetSavedFields($Customer->fields['id_contragent']);

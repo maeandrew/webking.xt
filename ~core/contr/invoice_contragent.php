@@ -47,8 +47,8 @@
 	$tpl->Assign("date", date("d.m.Y",$ord['target_date']));
 	$tpl->Assign("id_order", $ord['id_order']);
 
-	$Citys = new Citys();
-	$city = $Citys->SetFieldsById($ord['id_city']);
+	$Cities = new Cities();
+	$city = $Cities->SetFieldsById($ord['id_city']);
 
 	if ($ord['id_delivery'] == 1){ // самовывоз
 		$addr_deliv = "Самовывоз<br>".$ord['descr'];

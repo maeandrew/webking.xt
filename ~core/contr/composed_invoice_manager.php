@@ -38,8 +38,8 @@ foreach($orders as $order_id){
 	$orders_data[$order_id]['contragent_data'] = $contragent_data;
 	//Форматируем дату
 	$orders_data[$order_id]['date'] = date('d.m.Y', $orders_data[$order_id]['target_date']);
-	$Citys = new Citys();
-	$city = $Citys->SetFieldsById($orders_data[$order_id]['id_city']);
+	$Cities = new Cities();
+	$city = $Cities->SetFieldsById($orders_data[$order_id]['id_city']);
 	// Варианты доставки
 	if($orders_data[$order_id]['id_delivery'] == 1){ // самовывоз
 		$orders_data[$order_id]['addr_deliv'] = 'Самовывоз';
@@ -310,9 +310,9 @@ foreach($suppliers_data as $id_supplier=>$s){
 		}
 	}
 }
-$City = new Citys();
-$City->SetList();
-$city = $City->list;
+$Cities = new Cities();
+$Cities->SetList();
+$city = $Cities->list;
 aasort($suppliers_data, 'icq');
 $tpl->Assign('suppliers', $suppliers_data);
 $suppliers_altern = array();

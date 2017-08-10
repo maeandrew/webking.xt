@@ -74,8 +74,8 @@ if(isset($_SESSION['member'])){
 	if(isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != 'anonymous'){
 		$GLOBALS['user'] = $Users->fields;
 	}
+	$Customers->SetFieldsById($Users->fields['id_user']);
 }
-$Customers->SetFieldsById($Users->fields['id_user']);
 // список всех менеджеров
 $Contragents->SetList();
 $tpl->Assign('managers_list', $Contragents->list);

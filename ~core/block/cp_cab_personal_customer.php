@@ -6,7 +6,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 );
 // Подключаем необходимые классы
 $Customers = new Customers();
-$cities = new Citys();
+$Cities = new Cities();
 $contragents = new Contragents();
 $delivery = new Delivery();
 $deliveryservice = new DeliveryService();
@@ -33,8 +33,8 @@ $alldeliverymethods = $delivery->list;
 /* selecting saved data */
 // city
 if($Customer['id_city'] > 0){
-	$cities->GetSavedFields($Customer['id_city']);
-	$savedcity = $cities->fields;
+	$Cities->GetSavedFields($Customer['id_city']);
+	$savedcity = $Cities->fields;
 }else{
 	$savedcity = false;
 }
@@ -67,7 +67,7 @@ if($availablemanagers){
 }
 // Select array of available cities if customer's region was saved.
 if(isset($savedcity)){
-	$availablecities = $cities->SetFieldsByInput($savedcity['region']);
+	$availablecities = $Cities->SetFieldsByInput($savedcity['region']);
 	if(!$deliveryservice->SetFieldsByInput($savedcity['name'], $savedcity['region'])){
 		unset($alldeliverymethods[3]);
 	}

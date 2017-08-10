@@ -7,7 +7,7 @@ if(isset($_POST['id_order']) && !empty($_POST['id_order'])){
 }
 $Customer = new Customers();
 $Customer->SetFieldsById($User->fields['id_user']);
-$SavedCity = new Citys();
+$SavedCity = new Cities();
 $SavedCity->GetSavedFields($Customer->fields['id_city']);
 $SavedContragent = new Contragents();
 $SavedContragent->GetSavedFields($Customer->fields['id_contragent']);
@@ -19,9 +19,9 @@ $Region = new Regions();
 if($Region->SetList()){
 	$tpl->Assign('regions', $Region->list);
 }
-$City = new Citys();
-if($City->SetList()){
-	$tpl->Assign('citys', $City->list);
+$Cities = new Cities();
+if($Cities->SetList()){
+	$tpl->Assign('cities', $Cities->list);
 }
 $Contragent = new Contragents();
 if($Contragent->GetContragentList()){

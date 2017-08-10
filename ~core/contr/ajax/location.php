@@ -1,7 +1,7 @@
 <?if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Cart = new Cart();
 	$Region = new Regions();
-	$City = new Citys();
+	$Cities = new Cities();
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();
@@ -18,7 +18,7 @@
 				}
 				break;
 			case "GetCitiesList":
-				$res = $City->SetFieldsByInput($_POST['input']);
+				$res = $Cities->SetFieldsByInput($_POST['input']);
 				foreach($res as $city){
 					if($city['name'] != ''){?>
 						<li class="mdl-menu__item" data-value="<?=$city['id_city']?>"><?=$city['name']?></li>

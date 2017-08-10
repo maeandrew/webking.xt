@@ -47,13 +47,17 @@ $GLOBALS['Limits_db'] = array(30, 60, 100);
 
 // ********************************** Подключение и инициализация классов  **********************************
 spl_autoload_register(function ($className){
-	$className = strtolower(str_replace('_', '', $className));
-	if(file_exists($GLOBALS['PATH_sys'].$className.'_c.php')){
-		@require_once($GLOBALS['PATH_sys'].$className.'_c.php');
-	}elseif(file_exists($GLOBALS['PATH_model'].$className.'_c.php')){
-		@require_once($GLOBALS['PATH_model'].$className.'_c.php');
+	if(strpos($className, 'PHPExcel_') === 0){
+		$filename = str_replace('_', DIRECTORY_SEPARATOR, str_replace('PHPExcel', '', $className)).'.php';
+		$path = $GLOBALS['PATH_sys'].'PHPExcel';
 	}else{
-		die("Can't find '$className'");
+		$filename = strtolower(str_replace('_', '', $className)).'_c.php';
+		$path = file_exists($GLOBALS['PATH_sys'].$filename)?$GLOBALS['PATH_sys']:$GLOBALS['PATH_model'];
+	}
+	if(file_exists($path.$filename)){
+		@require_once($path.$filename);
+	}else{
+		die("<br>Can't find file '$filename' with class '$className' in '$path'");
 	}
 });
 // require($GLOBALS['PATH_sys'].'tpl_c.php');

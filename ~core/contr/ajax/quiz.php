@@ -2,7 +2,7 @@
 //    $Cart = new Cart();
 	$Customers = new Customers();
 	$Regions = new Regions();
-	$City = new Citys();
+	$Cities = new Cities();
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();

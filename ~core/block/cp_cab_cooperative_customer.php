@@ -148,12 +148,12 @@ foreach ($orders as &$order) {
 	$Contragent->SetFieldsById($Order->fields['id_contragent']);
 	$order['contragent_info'] = $Contragent->fields;
 }
-$Citys = new Citys();
+$Cities = new Cities();
 foreach ($orders as &$order) {
 	$Order->SetFieldsById($order['id_order']);
 
-	$Citys->SetFieldsById($Order->fields['id_city']);
-	$order['city_info'] = $Citys->fields;
+	$Cities->SetFieldsById($Order->fields['id_city']);
+	$order['city_info'] = $Cities->fields;
 
 	$order['products'] = $Order->GetOrderForCustomer(array("o.id_order" => $order['id_order']));
 }

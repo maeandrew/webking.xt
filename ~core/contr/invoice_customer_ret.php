@@ -104,9 +104,9 @@
 
 
 
-	$Citys = new Citys();
+	$Cities = new Cities();
 
-	$city = $Citys->SetFieldsById($ord['id_city']);
+	$city = $Cities->SetFieldsById($ord['id_city']);
 
 
 

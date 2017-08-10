@@ -108,7 +108,6 @@ class Invoice{
 		if(!file_exists("invoice_customer1.xls")){
 			exit("No template file.\n");
 		}
-		require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel.php');
 		$objPHPExcel = PHPExcel_IOFactory::load($GLOBALS['PATH_root']."invoice_customer1.xls");
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');
 		$objWriter->save($GLOBALS['PATH_root']."1234.htm");

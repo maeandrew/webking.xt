@@ -13,6 +13,7 @@ session_start();
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
+$Users = new Users();
 require($GLOBALS['PATH_core'].'controller.php');
 G::AddCSS('reset.css');
 G::AddCSS('bootstrap-grid-3.3.2.min.css');

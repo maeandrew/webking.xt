@@ -88,7 +88,7 @@
 					<label for="id_city">Город</label>
 					<div class="select">
 						<select required name="id_city" id="id_city" onBlur="citySelect(id_city.value);" onChange="citySelect(id_city.value);">
-							<?foreach ($citys as $item){
+							<?foreach ($cities as $item){
 								if($item['region']==$SavedCity['region']){
 									if($item['name']==$SavedCity['name']){?>
 										<option selected value="<?=$SavedCity['names_regions']?>"><?=$SavedCity['name']?></option>

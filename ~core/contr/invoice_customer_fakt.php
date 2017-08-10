@@ -12,7 +12,7 @@ $Users = new Users();
 $Address = new Address();
 $Customers = new Customers();
 $Contragents = new Contragents();
-$Citys = new Citys();
+$Cities = new Cities();
 
 if(isset($filial) == true){
 	$tpl->Assign('filial', $Suppliers->GetFilialById($filial));
@@ -48,7 +48,7 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$tpl->Assign("date", date("d.m.Y",$ord['target_date']));
 		$tpl->Assign("id_order", $ord['id_order']);
 
-		$city = $Citys->SetFieldsById($ord['id_city']);
+		$city = $Cities->SetFieldsById($ord['id_city']);
 		if($ord['id_delivery'] == 1){ // самовывоз
 			$addr_deliv = "Самовывоз<br>".$ord['descr'];
 		}elseif($ord['id_delivery'] == 2){ // Передать автобусом
@@ -139,7 +139,7 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 	$tpl->Assign("contragent", $Contragents->fields);
 	$tpl->Assign("date", date("d.m.Y",$ord['target_date']));
 	$tpl->Assign("id_order", $ord['id_order']);
-	$city = $Citys->SetFieldsById($ord['id_city']);
+	$city = $Cities->SetFieldsById($ord['id_city']);
 	if($ord['id_delivery'] == 1){ // самовывоз
 		$addr_deliv = "Самовывоз<br>".$ord['descr'];
 	}elseif($ord['id_delivery'] == 2){ // Передать автобусом

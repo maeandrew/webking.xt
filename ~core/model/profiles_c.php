@@ -3,17 +3,17 @@ class Profiles {
 	public	$db;
 	public	$fields;
 	public	$list;
-	private	$table;
+	private	$db_table;
 
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
-		$this->table = strtolower(__CLASS__);
+		$this->db_table = strtolower(__CLASS__);
 	}
 	/**
 	 * [SetList description]
 	 */
 	public function SetList(){
-		$sql = 'SELECT * FROM '._DB_PREFIX_.$this->table;
+		$sql = 'SELECT * FROM '._DB_PREFIX_.$this->db_table;
 		if(!$this->list = $this->db->GetArray($sql)){
 			return false;
 		}
@@ -28,7 +28,7 @@ class Profiles {
 	 */
 	public function SetFieldsById($id){
 		$sql = 'SELECT *
-			FROM '._DB_PREFIX_.$this->table.'
+			FROM '._DB_PREFIX_.$this->db_table.'
 			WHERE id_profile = '.$id;
 		if(!$this->fields = $this->db->GetOneRowArray($sql)){
 			return false;
@@ -57,7 +57,7 @@ class Profiles {
 		$f['name'] = trim($data['name']);
 		$f['caption'] = trim($data['caption']);
 		$this->db->StartTrans();
-		if(!$this->db->Update(_DB_PREFIX_.$this->table, $f, 'id_profile = '.$data['id_profile'])){
+		if(!$this->db->Update(_DB_PREFIX_.$this->db_table, $f, 'id_profile = '.$data['id_profile'])){
 			$this->db->FailTrans();
 			return false;
 		}
@@ -72,7 +72,7 @@ class Profiles {
 		$f['name'] = trim($data['name']);
 		$f['caption'] = trim($data['caption']);
 		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.$this->table, $f)){
+		if(!$this->db->Insert(_DB_PREFIX_.$this->db_table, $f)){
 			$this->db->FailTrans();
 			return false;
 		}

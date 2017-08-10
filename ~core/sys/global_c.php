@@ -451,7 +451,7 @@ class G {
 					}
 				break;
 				case 'PM_tel':
-					if(!(preg_match("/^( +)?(38)?(\(\d{3}\)|0\d{2})?(\d{3}\d{2}\d{2})( +)?$/i", $var))){
+					if(!(preg_match("/^(380\d{9})$/i", trim($var)))){
 						$errm = 'Недопустимый формат (пример: 38012345678)';
 						return array(FALSE, $errm);
 					}

@@ -44,8 +44,8 @@ foreach($orders as $order_id)
     //Форматируем дату
         $orders_data[$order_id]['date']=date("d.m.Y", $orders_data[$order_id]['target_date']);
 
-	$Citys = new Citys();
-    	$city = $Citys->SetFieldsById($orders_data[$order_id]['id_city']);
+	$Cities = new Cities();
+    	$city = $Cities->SetFieldsById($orders_data[$order_id]['id_city']);
 
     	// Варианты доставки
         if ($orders_data[$order_id]['id_delivery'] == 1){ // самовывоз

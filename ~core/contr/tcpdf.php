@@ -42,9 +42,9 @@ if($_POST['personal_client']){
 	$cstmr = $Customers->fields;
 	if($cstmr){
 		$tpl->Assign('cstmr', $cstmr);
-		$Citys = new Citys();
-		$Citys->SetFieldsById($cstmr['id_city']);
-		$order_details['address'] = $Citys->fields;
+		$Cities = new Cities();
+		$Cities->SetFieldsById($cstmr['id_city']);
+		$order_details['address'] = $Cities->fields;
 	}
 }
 $Invoice = new Invoice();

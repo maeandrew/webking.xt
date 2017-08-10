@@ -1,7 +1,7 @@
 <?if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	$Cart = new Cart();
 	$Region = new Regions();
-	$City = new Citys();
+	$Cities = new Cities();
 	$DeliveryService = new DeliveryService();
 	$Delivery = new Delivery();
 	$Orders = new Orders();
@@ -21,7 +21,7 @@
 			break;
 
 			case "regionSelect":
-				$res = $City->SetFieldsByInput($_POST['region']);?>
+				$res = $Cities->SetFieldsByInput($_POST['region']);?>
 				<option selected="selected" disabled="disabled" class="color-sgrey">Город</option>
 				<?foreach($res as $r){?>
 					<option value="<?=$r['names_regions']?>"><?=$r['name']?></option>
