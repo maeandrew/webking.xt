@@ -7,9 +7,17 @@ foreach($Users->GetGroups() as $group){
 		$profile = $group['name'];
 	}
 }
-$classname = $profile.'s';
-if(class_exists($classname)){
-	$class = new $classname();
+switch($profile){
+	case 'admin':
+		$className = 'users';
+		$profile = 'customer';
+		break;
+	default:
+		$className = $profile.'s';
+		break;
+}
+if(class_exists($className)){
+	$class = new $className();
 	$class->SetFieldsById($_SESSION['member']['id_user']);
 	$data = $class->fields;
 	if($profile == 'supplier'){

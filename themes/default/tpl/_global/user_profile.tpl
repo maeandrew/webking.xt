@@ -42,6 +42,11 @@
 		</div>
 	</div>
 	<div class="userChoice">
+		<?if(_acl::isAdmin()){?>
+			<a class="adm" href="<?=Link::Custom('adm', false, array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
+				<i class="material-icons">&#xE869;</i>Админ-панель</span>
+			</a>
+		<?}?>
 		<a class="cabinet" href="<?=Link::Custom('cabinet', false, array('clear' => true))?>" <?=$GLOBALS['CurrentController'] == 'product'?'rel="nofollow"':null;?>>
 			<i class="material-icons">&#xE7FD;</i>Мой кабинет</span>
 		</a>

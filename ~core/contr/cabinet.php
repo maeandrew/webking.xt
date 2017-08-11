@@ -18,6 +18,14 @@ if(isset($parsed_res) && $parsed_res['issuccess'] == true){
 	$tpl_center .= $parsed_res['html'];
 }
 switch($Users->fields['gid']){
+	case _ACL_ADMIN_:
+		$gid = _ACL_CUSTOMER_;
+		break;
+	default:
+		$gid = $Users->fields['gid'];
+		break;
+}
+switch($gid){
 	case _ACL_CUSTOMER_:
 		$header = 'Кабинет клиента';
 		if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
