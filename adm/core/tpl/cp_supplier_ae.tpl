@@ -24,12 +24,12 @@
 					<input type="text" name="article" id="article" class="input-l" value="<?=isset($_POST['article'])?htmlspecialchars($_POST['article']):null?>">
 				</div>
 				<div class="col-md-12">
-					<label for="phone">Адрес:<!-- Телефоны --></label><?=isset($errm['phone'])?"<span class=\"errmsg\">".$errm['phone']."</span><br>":null?>
-					<textarea name="phone" id="phone" class="input-l" rows="3" cols="80"><?=isset($_POST['phone'])?htmlspecialchars($_POST['phone']):null?></textarea>
+					<label for="place">Адрес:<!-- Телефоны --></label><?=isset($errm['place'])?"<span class=\"errmsg\">".$errm['place']."</span><br>":null?>
+					<textarea name="place" id="place" class="input-l" rows="3" cols="80"><?=isset($_POST['place'])?htmlspecialchars($_POST['place']):null?></textarea>
 				</div>
 				<div class="col-md-12">
-					<label for="place">Телефоны:<!-- Место --></label><?=isset($errm['place'])?"<span class=\"errmsg\">".$errm['place']."</span><br>":null?>
-					<input type="text" name="place" id="place" class="input-l" value="<?=isset($_POST['place'])?htmlspecialchars($_POST['place']):null?>">
+					<label for="phones">Телефоны:<!-- Место --></label><?=isset($errm['phones'])?"<span class=\"errmsg\">".$errm['phones']."</span><br>":null?>
+					<input type="text" name="phones" id="phones" class="input-l" value="<?=isset($_POST['phones'])?htmlspecialchars($_POST['phones']):null?>">
 				</div>
 				<div class="col-md-12">
 					<label for="currency_rate">Курс $:</label><?=isset($errm['currency_rate'])?"<span class=\"errmsg\">".$errm['currency_rate']."</span><br>":null?>
