@@ -16,9 +16,9 @@ if(isset($_POST['id_klient'])){
 
 $Customer = new Customers();
 
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 
-$klients=$Customer->SetList($User->fields['email']);
+$klients=$Customer->SetList($Users->fields['email']);
 
 $tpl->Assign('klient', $klients);
 

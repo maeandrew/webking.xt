@@ -9,11 +9,11 @@
 
 	$success = false;
 
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 
-	$User->SetUser($_SESSION['member']);
+	$Users->SetUser($_SESSION['member']);
 
-	$tpl->Assign('User', $User->fields);
+	$tpl->Assign('User', $Users->fields);
 	$tpl->Assign('Customer', $Customer->fields);
 
 	$parsed_res = array('issuccess' => TRUE,

@@ -170,12 +170,8 @@ class Customers extends Users {
 	public function updateContragent($contragent){
 		if(!empty($contragent)){
 			$f['id_contragent'] = trim($contragent);
-			$User = new Users();
-			$User->SetUser($_SESSION['member']);
-			$user_id = $User->fields['id_user'];
-			$f['id_user'] = trim($user_id);
 			$this->db->StartTrans();
-			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$f['id_user'])){
+			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_SESSION['member']['id_user'])){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
 				return false; //Если не удалось записать в базу
@@ -241,12 +237,8 @@ class Customers extends Users {
 	public function updateCity($city){
 		if(!empty($city)){
 			$f['id_city'] = trim($city);
-			$User = new Users();
-			$User->SetUser($_SESSION['member']);
-			$user_id = $User->fields['id_user'];
-			$f['id_user'] = trim($user_id);
 			$this->db->StartTrans();
-			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user ={$f['id_user']}")){
+			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_SESSION['member']['id_user'])){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
 				return false; //Если не удалось записать в базу
@@ -261,12 +253,8 @@ class Customers extends Users {
 	public function updateDelivery($delivery){
 		if(!empty($delivery)){
 			$f['id_delivery'] = trim($delivery);
-			$User = new Users();
-			$User->SetUser($_SESSION['member']);
-			$user_id = $User->fields['id_user'];
-			$f['id_user'] = trim($user_id);
 			$this->db->StartTrans();
-			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user ={$f['id_user']}")){
+			if(!$this->db->Update(_DB_PREFIX_.'customer', $f, "id_user = ".$_SESSION['member']['id_user'])){
 				echo $this->db->ErrorMsg();
 				$this->db->FailTrans();
 				return false; //Если не удалось записать в базу
@@ -293,9 +281,9 @@ class Customers extends Users {
 	 *
 	 */
 	public function AddCustomer($arr){
-		$User = new Users();
+		global $Users;
 		$arr['gid'] = _ACL_CUSTOMER_;
-		if(!$id_user = $User->AddUser($arr)){
+		if(!$id_user = $Users->AddUser($arr)){
 			return false;
 		}
 		$f['id_user'] = $id_user;
@@ -327,9 +315,9 @@ class Customers extends Users {
 
 	public function AddContragentCustomer($arr){
 		$and['email'] = $arr['email'];
-		$User = new Users();
-		$User->UsersList(1,$and);
-		$id_user = $User->list[0]['id_user'];
+		global $Users;
+		$Users->UsersList(1, $and);
+		$id_user = $Users->list[0]['id_user'];
 		$arr['cont_person'] = $arr['phones'] = "";
 		$arr['id_contragent'] = $arr['id_city'] = $arr['id_delivery'] = 0;
 		$f['id_user'] = $id_user;
@@ -357,10 +345,10 @@ class Customers extends Users {
 	 */
 	public function UpdateCustomer($arr){
 		// global $Users;
-		// $arr['gid'] = $User->fields['gid'];
+		// $arr['gid'] = $Users->fields['gid'];
 		// $arr['name'] = $arr['cont_person'];
 		// $arr['phones'] = $arr['phone'];
-		// if(!$User->UpdateUser($arr)){
+		// if(!$Users->UpdateUser($arr)){
 		// 	$this->db->FailTrans();
 		// 	return false;
 		// }

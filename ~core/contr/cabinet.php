@@ -7,10 +7,9 @@ if(!G::IsLogged()){
 G::metaTags();
 $Page = new Page();
 $Page->PagesList();
-$User = new Users();
 $tpl->Assign('list_menu', $Page->list);
 unset($parsed_res);
-$self_edit = $User->GetUserBySelfEdit($_SESSION['member']["id_user"]);
+$self_edit = $Users->GetUserBySelfEdit($_SESSION['member']["id_user"]);
 
 $tpl->Assign('self_edit', $self_edit['self_edit']);
 // Блок навигации в кабинете
@@ -96,9 +95,9 @@ switch($Users->fields['gid']){
 		require($GLOBALS['PATH_block'].'cp_cab_supplier_manager.php');
 		break;
 	// case _ACL_DEPARTMENT_:
-	// 	$header = 'Кабинет пункта выдачи';
-	// 	require($GLOBALS['PATH_block'].'cp_cab_department.php');
-	// 	break;
+		// $header = 'Кабинет пункта выдачи';
+		// require($GLOBALS['PATH_block'].'cp_cab_department.php');
+		// break;
 	default:
 		header('Location: /adm/');
 		exit(0);

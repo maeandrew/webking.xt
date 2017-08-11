@@ -24,7 +24,6 @@ if($Order->fields['skey'] != $GLOBALS['REQAR'][3]){
 $ord = $Order->fields;
 $tpl->Assign("order", $ord);
 $Invoice = new Invoice();
-$User = new Users();
 // Получить данные покупателя
 $id_customer = $ord['id_customer'];
 // Получить данные контрагента

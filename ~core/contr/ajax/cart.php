@@ -4,7 +4,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		$_SESSION['Cart']['products'] = array();
 		$_SESSION['Cart']['sum'] = (float) 0;
 	}
-	$Users = new Users();
 	$Cart = new Cart();
 	$Customers = new Customers();
 	$Products = new Products();
@@ -310,7 +309,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$customer_data = $Customers->SetFieldsById($id_user, 1, true);
 						$customer_data['last_order'] = $Orders->GetLastOrder($id_user);
 						$res = '<div class="customer_main_info">
-									<input type="hidden" value="' .$id_user. '">
+									<input type="hidden" value="'.$id_user.'">
 									<p><span>ФИО:</span> ' .(!empty($customer_data['first_name']) || !empty($customer_data['last_name']) || !empty($customer_data['middle_name']) ?$customer_data['last_name'].' '.$customer_data['first_name'].' '.$customer_data['middle_name']:(!empty($customer_data['name'])?$customer_data['name']:null)). '</p>
 									<p><span>email:</span> ' .($customer_data['email']?$customer_data['email']:' --'). '</p>
 									<p><span>Баланс:</span> ' .($customer_data['balance']?$customer_data['balance']:' 0,00'). ' грн.</p>

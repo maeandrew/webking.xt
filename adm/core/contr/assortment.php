@@ -15,7 +15,6 @@ $order = 'p.id_product ASC';
 if(isset($_GET['sort']) && $_GET['sort'] !='' && isset($_GET['order']) && $_GET['order'] !=''){
 	$order = $_GET['sort'].' '.$_GET['order'];
 }
-$Users = new Users();
 $Products = new Products();
 $Supplier = new Suppliers();
 
@@ -78,10 +77,21 @@ if(isset($_GET['export'])){
 // Импорт
 if(isset($_FILES['import_file'])){
 	// Проверяем загружен ли файл
+	switch ($_FILES['import_file']['error']) {
+        case UPLOAD_ERR_OK:
+            break;
+        case UPLOAD_ERR_NO_FILE:
+            throw new RuntimeException('No file sent.');
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            throw new RuntimeException('Exceeded filesize limit.');
+        default:
+            throw new RuntimeException('Unknown errors.');
+    }
 	if(is_uploaded_file($_FILES['import_file']['tmp_name'])){
 		// Проверяе объем файла
 		if($_FILES['import_file']['size'] > 1024*3*1024){
-			$tpl->Assign('msg', "Размер файла превышает три мегабайта");
+			$tpl->Assign('msg', "Размер файла не должен превышать 3Мб");
 			$tpl->Assign('errm', 1);
 			exit;
 		}

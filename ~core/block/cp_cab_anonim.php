@@ -6,7 +6,7 @@ $GLOBALS['IERA_LINKS'][] = array(
 $tpl->Assign('header', $header);
 $no_tpl = '';
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 
 // Список заказов
 $orders = $Customer->GetOrders_demo();

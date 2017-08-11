@@ -2,7 +2,6 @@
 	if (!_acl::isAllow('users'))
 		die("Access denied");
 
-	$User = new Users();
 	$Customer = new Customers();
 
 	// ---- center ----
@@ -30,7 +29,7 @@
 
 		require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 
-		list($err, $errm) = Customer_form_validate(array('passwd'));
+		list($err, $errm) = Customers_form_validate(array('passwd'));
         if (!$err){
         	if ($id = $Customer->UpdateCustomer($_POST)){
 				$tpl->Assign('msg', 'Информация обновлена.');

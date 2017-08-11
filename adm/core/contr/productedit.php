@@ -11,7 +11,6 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $Unit = new Unit();
-$Users = new Users();
 $Products = new Products();
 $News = new News();
 $Images = new Images();

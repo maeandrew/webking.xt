@@ -11,5 +11,4 @@
  */
 
 error_reporting(E_ALL | E_STRICT);
-require($GLOBALS['PATH_model'].'UploadHandler.php');
-$upload_handler = new UploadHandler();
+$UploadHandler = new UploadHandler();

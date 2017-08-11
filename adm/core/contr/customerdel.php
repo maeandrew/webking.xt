@@ -3,7 +3,6 @@
 	if (!_acl::isAllow('users'))
 		die("Access denied");
 
-	$User = new Users();
 	$Customer = new Customers();
 
 	// ---- center ----

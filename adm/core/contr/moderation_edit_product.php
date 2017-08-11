@@ -12,7 +12,6 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 $Unit = new Unit();
 $Products = new Products();
 $Images = new Images();
-$Users = new Users();
 $header = "Редактирование товара на модерации";
 array_push($GLOBALS['IERA_LINKS'], array('url' => '/adm/product_moderation', 'title' => 'Товары на модерации'));
 array_push($GLOBALS['IERA_LINKS'], array('url' => '/adm/moderation_edit_product', 'title' => $header));

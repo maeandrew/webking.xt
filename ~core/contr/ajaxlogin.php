@@ -24,16 +24,15 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						unset($_SESSION['SLGN']);
 					}
 					if(isset($_POST['email']) && isset($_POST['passwd'])){
-						$User = new Users();
 						if((isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_MANAGER_) || isset($_COOKIE['sm_login'])){
-							if($User->CheckUserNoPass($_POST)){
+							if($Users->CheckUserNoPass($_POST)){
 								if(isset($_COOKIE['sm_login'])){
 									setcookie('sm_login', '', time() - 30, "/");
 								}else{
 									setcookie('sm_login', true, time() + (86400 * 30), "/");
 								}
-								$User->LastLoginRemember($User->fields['id_user']);
-								G::Login($User->fields);
+								$Users->LastLoginRemember($Users->fields['id_user']);
+								G::Login($Users->fields);
 								$echo['errm'] = 0;
 							}else{
 								$echo['msg'] = 'Неверный email или пароль.';
@@ -41,9 +40,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 							}
 							unset($_POST);
 						}else{
-							if($User->CheckUser($_POST)){
-								$User->LastLoginRemember($User->fields['id_user']);
-								G::Login($User->fields);
+							if($Users->CheckUser($_POST)){
+								$Users->LastLoginRemember($Users->fields['id_user']);
+								G::Login($Users->fields);
 								$echo['errm'] = 0;
 							}else{
 								$echo['msg'] = 'Неверный email или пароль.';

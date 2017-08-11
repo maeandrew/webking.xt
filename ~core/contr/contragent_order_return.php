@@ -17,9 +17,8 @@ $tpl->Assign('list_menu', $Page->list);
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][0]['title'] = "Возврат";
 $GLOBALS['IERA_LINKS'][0]['url'] = _base_url.'/contragent_order_return/';
-$User = new Users();
-$User->SetUser($_SESSION['member']);
-if($User->fields['gid'] == _ACL_CONTRAGENT_){
+$Users->SetUser($_SESSION['member']);
+if($Users->fields['gid'] == _ACL_CONTRAGENT_){
 	$Order = new Orders();
 	if(isset($_POST['smb_return'])){
 		if ($Order->ExecuteContragentReturn($id_order)){
@@ -34,7 +33,7 @@ if($User->fields['gid'] == _ACL_CONTRAGENT_){
 	$Order->SetFieldsById($id_order);
 	$ord = $Order->fields;
 	$tpl->Assign("order", $ord);
-	$arr = $Order->GetOrderForContragent(array("o.id_contragent"=>$User->fields['id_user'], "o.id_order"=>$id_order));
+	$arr = $Order->GetOrderForContragent(array("o.id_contragent"=>$Users->fields['id_user'], "o.id_order"=>$id_order));
 	$tpl->Assign("data", $arr);
 
 	$parsed_res = array(

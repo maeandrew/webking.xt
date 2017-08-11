@@ -13,6 +13,13 @@ ini_set('session.cookie_lifetime', 43200);
 // ini_set('max_execution_time', 30);
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'sys'.DIRSEP.'global_c.php');
 require(dirname(__FILE__).DIRSEP.'~core'.DIRSEP.'cfg.php');
+// Создание экземпляров базовых классов
+$Users = new Users();
+$Customers = new Customers();
+$Contragents = new Contragents();
+$Products = new Products();
+$News = new News();
+$Cart = new Cart();
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
 require($GLOBALS['PATH_core'].'routes.php');
@@ -63,12 +70,6 @@ if(in_array($GLOBALS['CurrentController'], array('promo_cart', 'promo'))){
 $_SESSION['ActiveTab'] = isset($_SESSION['ActiveTab']) && $_SESSION['ActiveTab'] == '0'?0:1;
 $_SESSION['layout'] = isset($_POST['layout']) && $_POST['layout'] != $_SESSION['layout']?$_POST['layout']:'block';
 $GLOBALS['__page_h1'] = '&nbsp;';
-$Users = new Users();
-$Customers = new Customers();
-$Contragents = new Contragents();
-$Products = new Products();
-$News = new News();
-$Cart = new Cart();
 if(isset($_SESSION['member'])){
 	$Users->SetUser($_SESSION['member']);
 	if(isset($_SESSION['member']['email']) && $_SESSION['member']['email'] != 'anonymous'){

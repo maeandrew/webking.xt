@@ -24,7 +24,7 @@ if(isset($_POST['smb'])){
 		}
 	}
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = Contragent_form_validate();
+	list($err, $errm) = Contragents_form_validate();
 	if(!$err){
 		if($id = $Contragents->AddContragent($_POST)){
 			$Customers->AddContragentCustomer($_POST);
@@ -47,9 +47,9 @@ $Parking = new Parkings();
 if($Parking->SetList()){
 	$tpl->Assign('parkings', $Parking->list);
 }
-$City = new Citys();
-if($City->SetList()){
-	$tpl->Assign('citys', $City->list);
+$Cities = new Cities();
+if($Cities->SetList()){
+	$tpl->Assign('cities', $Cities->list);
 }
 $DeliveryService = new DeliveryService();
 if($DeliveryService->SetList()){
@@ -58,7 +58,7 @@ if($DeliveryService->SetList()){
 if(!isset($_POST['smb'])){
 	$_POST['id_user'] = 0;
 	$_POST['parkings_ids'][] = 0;
-	$_POST['citys_ids'][] = 0;
+	$_POST['cities_ids'][] = 0;
 	$_POST['delivery_services_ids'][] = 0;
 }
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_contragent_ae.tpl');

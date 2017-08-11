@@ -13,7 +13,6 @@ $Order->SetFieldsById($id_order);
 $ord = $Order->fields;
 $tpl->Assign("order", $ord);
 $Invoice = new Invoice();
-$User = new Users();
 // Получить данные покупателя
 $id_customer = $ord['id_customer'];
 $Customer = new Customers();

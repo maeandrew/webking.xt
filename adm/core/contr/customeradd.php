@@ -11,7 +11,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/users/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление покупателя";
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = Customer_form_validate();
+	list($err, $errm) = Customers_form_validate();
     if(!$err){
     	if($id = $Customer->AddCustomer($_POST)){
 			$tpl->Assign('msg', 'Покупатель добавлен.');

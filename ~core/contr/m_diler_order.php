@@ -66,13 +66,12 @@
 
 
 
-	$User = new Users();
 
-	$User->SetUser($_SESSION['member']);
-
+	$Users->SetUser($_SESSION['member']);
 
 
- if ($User->fields['gid'] == _ACL_M_DILER_){
+
+ if ($Users->fields['gid'] == _ACL_M_DILER_){
 
 
 
@@ -102,7 +101,7 @@
 
 	$Customer = new Customers();
 
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 
 	$tpl->Assign("Customer", $Customer->fields);
 

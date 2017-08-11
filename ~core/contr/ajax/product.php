@@ -3,8 +3,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 	header('Content-Type: text/javascript; charset=utf-8');
 	$Products = new Products();
 	$Customer = new Customers();
-	$User = new Users();
-	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
+	$Users->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
 	if(isset($_POST['action'])){
 		switch($_POST['action']){
 			case 'AddToAssort':
@@ -31,9 +30,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$Products->SetFieldsById($id_product);
 				unset($parsed_res);
 				if(isset($_SESSION['member'])){
-					$User->SetUser($_SESSION['member']);
+					$Users->SetUser($_SESSION['member']);
 				}
-				$tpl->Assign('User', $User->fields['name']);
+				$tpl->Assign('User', $Users->fields['name']);
 
 				$product = $Products->fields;
 				$product['specifications'] = $Products->GetSpecificationList($id_product);
@@ -50,7 +49,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$data['answer'] = 'already';
 				}else{
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
-						$Customer->AddFavorite($User->fields['id_user'], $_POST['id_product']);
+						$Customer->AddFavorite($Users->fields['id_user'], $_POST['id_product']);
 						$_SESSION['member']['favorites'][] = $_POST['id_product'];
 						$data['fav_count'] = count($_SESSION['member']['favorites']);
 						$data['answer'] = 'ok';
@@ -63,7 +62,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'del_favorite':
 				// Удаление Избранного товара (Старая версия)
 					// if(isset($_POST['id_product'])){
-					// 	$Customer->DelFavorite($User->fields['id_user'], $_POST['id_product']);
+					// 	$Customer->DelFavorite($Users->fields['id_user'], $_POST['id_product']);
 					// 	foreach($_SESSION['member']['favorites'] as $key => $value){
 					// 		if($value == $_POST['id_product']){
 					// 			unset($_SESSION['member']['favorites'][$key]);
@@ -76,7 +75,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$data['answer'] = 'login';
 				}else{
 					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_){
-						$Customer->DelFavorite($User->fields['id_user'], $_POST['id_product']);
+						$Customer->DelFavorite($Users->fields['id_user'], $_POST['id_product']);
 						foreach($_SESSION['member']['favorites'] as $key => $value){
 							if($value == $_POST['id_product']){
 								unset($_SESSION['member']['favorites'][$key]);
@@ -104,8 +103,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// 	if(!$Customer->RegisterCustomer($arr)){
 					// 		$data['answer'] = 'registered';
 					// 	}
-					// 	$User->CheckUserNoPass($arr);
-					// 	$_POST['id_user'] = $User->fields['id_user'];
+					// 	$Users->CheckUserNoPass($arr);
+					// 	$_POST['id_user'] = $Users->fields['id_user'];
 					// }else{
 					// 	$data['answer'] = _ACL_CUSTOMER_;
 					// 	//$data['answer'] = 'error';
@@ -116,8 +115,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}elseif(isset($_SESSION['member']['waiting_list']) && in_array($_POST['id_product'], $_SESSION['member']['waiting_list'])){
 					$data['answer'] = 'already';
 				} else {
-					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_CUSTOMER_){
-						if($Customer->AddInWaitingList($_POST['id_user'], $_POST['id_product']))
+					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $Users->fields['gid'] == _ACL_CUSTOMER_){
+						if($Customer->AddInWaitingList($Users->fields['id_user'], $_POST['id_product']))
 						{
 							if (isset($_SESSION['member'])) {
 								$_SESSION['member']['waiting_list'][] = $_POST['id_product'];
@@ -134,7 +133,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'del_from_waitinglist':
 				// Удаление Из списка ожидания (старая версия)
 					// if(isset($_POST['id_product'])){
-					// 	$Customer->DelFromWaitingList($User->fields['id_user'], $_POST['id_product']);
+					// 	$Customer->DelFromWaitingList($Users->fields['id_user'], $_POST['id_product']);
 					// 	if (isset($_SESSION['member'])) {
 					// 		foreach($_SESSION['member']['waiting_list'] as $key => $value){
 					// 			if($value == $_POST['id_product']){
@@ -148,11 +147,10 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				if(!G::IsLogged()){
 					$data['answer'] = 'login';
-				}else {
-					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $User->fields['gid'] == _ACL_CUSTOMER_){
-						if($Customer->DelFromWaitingList($User->fields['id_user'], $_POST['id_product']))
-						{
-							if (isset($_SESSION['member'])) {
+				}else{
+					if($_SESSION['member']['gid'] == _ACL_CUSTOMER_ || $Users->fields['gid'] == _ACL_CUSTOMER_){
+						if($Customer->DelFromWaitingList($Users->fields['id_user'], $_POST['id_product'])){
+							if(isset($_SESSION['member'])){
 								foreach($_SESSION['member']['waiting_list'] as $key => $value){
 									if($value == $_POST['id_product']){
 										unset($_SESSION['member']['waiting_list'][$key]);
@@ -220,7 +218,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'AddEstimate':
 				//Проверка данных пользователя
 				if(!G::IsLogged()){
-					$Users = new Users();
 					$Customers = new Customers();
 					require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 					list($err, $errm) = Change_Info_validate();

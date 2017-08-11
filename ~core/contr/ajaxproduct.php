@@ -2,8 +2,7 @@
 	header('Content-Type: text/javascript; charset=utf-8');
 	$Products = new Products();
 	$Customer = new Customers();
-	$User = new Users();
-	$User->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
+	$Users->SetUser(isset($_SESSION['member'])?$_SESSION['member']:null);
 	if(isset($_POST['action']))
 		switch($_POST['action']){
 			case "get_array_product":
@@ -119,12 +118,12 @@
 					if(!$Customer->RegisterCustomer($arr)){
 						$data['answer'] = 'registered';
 					}
-					$User->CheckUserNoPass($arr);
-					$_POST['id_user'] = $User->fields['id_user'];
+					$Users->CheckUserNoPass($arr);
+					$_POST['id_user'] = $Users->fields['id_user'];
 				}else{
 					$data['answer'] = 'error';
 				}
-				if($_POST['id_user'] != '' && (($_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_) || $User->fields['gid'] == _ACL_CUSTOMER_)){
+				if($_POST['id_user'] != '' && (($_POST['email'] == '' && $_SESSION['member']['gid'] == _ACL_CUSTOMER_) || $Users->fields['gid'] == _ACL_CUSTOMER_)){
 					if($Customer->AddInWaitingList($_POST['id_user'], $_POST['id_product'])){
 						if (isset($_SESSION['member'])) {
 							$_SESSION['member']['waiting_list'][] = $_POST['id_product'];

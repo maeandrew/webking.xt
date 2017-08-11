@@ -89,9 +89,8 @@ if(isset($GLOBALS['REQAR'][1])){
 			$list = $GLOBALS['db']->GetArray($sql);
 			foreach($list as &$v){
 				if($v['id_user'] !== null){
-					$User = new Users();
-					$User->SetFieldsById($v['id_user']);
-					$v['email'] = $User->fields['email'];
+					$Users->SetFieldsById($v['id_user']);
+					$v['email'] = $Users->fields['email'];
 				}
 			}
 			$tpl->Assign('list', $list);

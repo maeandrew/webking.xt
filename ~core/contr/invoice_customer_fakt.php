@@ -8,7 +8,6 @@ require($GLOBALS['PATH_model'].'invoice_c.php');
 $Suppliers = new Suppliers();
 $Orders = new Orders();
 $Invoice = new Invoice();
-$Users = new Users();
 $Address = new Address();
 $Customers = new Customers();
 $Contragents = new Contragents();

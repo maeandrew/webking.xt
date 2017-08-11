@@ -25,9 +25,8 @@ if(!G::IsLogged()){
 	$GLOBALS['CurrentController'] = 'login';
 	$GLOBALS['REQAR'] = array();
 }else{
-	$User = new Users();
-	$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.1');
-	_acl::load($User->fields['gid']);
+	$Users->SetUser($_SESSION['member']) or exit('Ошибка пользователя.1');
+	_acl::load($Users->fields['gid']);
 }
 /**
  * Для удобства некоторые переменные из REQUEST_URI объявляются в массиве $_GET

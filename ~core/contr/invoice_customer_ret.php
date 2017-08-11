@@ -68,7 +68,6 @@
 
 	//print_r($arr);
 
-	$User = new Users();
 
 
 

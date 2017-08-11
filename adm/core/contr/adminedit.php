@@ -2,7 +2,6 @@
 if(!_acl::isAllow('users')){
 	die("Access denied");
 }
-$User = new Users();
 unset($parsed_res);
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$id_user = $GLOBALS['REQAR'][1];
@@ -10,16 +9,16 @@ if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	header('Location: '.$GLOBALS['URL_base'].'404/');
 	exit();
 }
-if(!$User->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
+if(!$Users->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
 $tpl->Assign('h1', 'Редактирование пользователя');
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = User_form_validate(array('passwd', 'phone'));
+	list($err, $errm) = Users_form_validate(array('passwd', 'phone'));
 	if(!$err){
-		if($id = $User->UpdateUser($_POST)){
+		if($id = $Users->UpdateUser($_POST)){
 			$tpl->Assign('msg', 'Информация обновлена.');
 			unset($_POST);
-			if(!$User->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
+			if(!$Users->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
 		}else{
 			$tpl->Assign('msg', 'Ошибка! Информация не обновлена.');
 			if(mysql_errno() == 1062){
@@ -33,11 +32,11 @@ if(isset($_POST['smb'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
-if(!$User->UsersList(1)) die('Ошибка при обновлении пользователя.');
-$tpl->Assign('list', $User->list);
-$tpl->Assign('groups', $User->GetGroups());
+if(!$Users->UsersList(1)) die('Ошибка при обновлении пользователя.');
+$tpl->Assign('list', $Users->list);
+$tpl->Assign('groups', $Users->GetGroups());
 if(!isset($_POST['smb'])){
-	foreach ($User->fields as $k=>$v){
+	foreach ($Users->fields as $k=>$v){
 		$_POST[$k] = $v;
 	}
 }

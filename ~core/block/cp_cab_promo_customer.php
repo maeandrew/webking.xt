@@ -5,7 +5,7 @@ if(isset($_POST['id_order']) && !empty($_POST['id_order'])){
 	$id_order = intval($_POST['id_order']);
 }
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 $Order = new Orders();
 if(isset($id_order)){
 	$Order->SetFieldsById($id_order);
@@ -32,8 +32,8 @@ $tpl->Assign('sort_links', $sort_links);
 $orders = $Customer->GetPromoOrders();
 $tpl->Assign('orders', $orders);
 $order_statuses = $Order->GetStatuses();
-$User->SetUser($_SESSION['member']);
-$tpl->Assign('User', $User->fields);
+$Users->SetUser($_SESSION['member']);
+$tpl->Assign('User', $Users->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('order_statuses', $order_statuses);
 $parsed_res = array(

@@ -3,8 +3,7 @@
 	if (!_acl::isAllow('users'))
 		die("Access denied");
 
-	$User = new Users();
-	$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
+	$Users->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
 
 	// ---- center ----
 	unset($parsed_res);
@@ -23,7 +22,7 @@
 	$GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/users/';
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Удаление пользователя";
 
-	if (!$User->DelUser($id_user)) die('Ошибка при удалении пользователя.');
+	if (!$Users->DelUser($id_user)) die('Ошибка при удалении пользователя.');
 
 	$tpl->Assign('msg', 'Пользователь удален.');
 

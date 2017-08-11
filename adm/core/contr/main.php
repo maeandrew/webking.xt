@@ -168,7 +168,6 @@ if(isset($GLOBALS['REQAR'][1]) && $GLOBALS['REQAR'][1] == 'new_resize_product_im
 
 // Dashboard statistics
 $News = new News();
-$Users = new Users();
 $Orders = new Orders();
 
 // dates

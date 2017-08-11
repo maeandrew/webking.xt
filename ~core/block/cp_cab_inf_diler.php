@@ -1,7 +1,7 @@
 <?php
 $err = "";
 $Customer = new Customers();
-$id_user = $User->fields['id_user'];
+$id_user = $Users->fields['id_user'];
 $success = false;
 
 if(isset($_POST['smb'])){
@@ -15,7 +15,7 @@ if(isset($_POST['smb'])){
 		}else{
 			$tpl->Assign('msg', 'Информация не обновлена.');
 			if(mysql_errno() == 1062){
-				$errm['email'] = "Такой email уже есть в базе."; 
+				$errm['email'] = "Такой email уже есть в базе.";
 				ini_set('display_errors',1);
 				error_reporting(E_ALL);
 				$tpl->Assign('errm', $errm);
@@ -27,9 +27,9 @@ if(isset($_POST['smb'])){
         $tpl->Assign('errm', $errm);
     }
 }
-$User->SetFieldsById($id_user);
+$Users->SetFieldsById($id_user);
 $Customer->SetFieldsById($id_user);
-$_POST = $User->fields;
+$_POST = $Users->fields;
 if(!isset($_POST['smb'])){
 	foreach ($Customer->fields as $k=>$v){
 		$_POST[$k] = $v;

@@ -1,7 +1,6 @@
 <?php
 	if (!_acl::isAllow('users'))
 		die("Access denied");
-	$User = new Users();
 	$Supplier = new Suppliers();
 	// ---- center ----
 	unset($parsed_res);

@@ -8,12 +8,12 @@
 $Manager = new Managers();
 
 
-$Manager->SetFieldsById($User->fields['id_user']);
+$Manager->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign("manager", $Manager->fields);
 
 //*********************************
 
- if ($User->fields['gid'] == _ACL_MANAGER_){
+ if ($Users->fields['gid'] == _ACL_MANAGER_){
 
      $Order = new Orders();
 

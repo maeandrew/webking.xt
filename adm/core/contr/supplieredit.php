@@ -2,7 +2,6 @@
 if(!_acl::isAllow('users')){
 	die("Access denied");
 }
-$User = new Users();
 $Supplier = new Suppliers();
 unset($parsed_res);
 if(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
@@ -63,7 +62,7 @@ for($ii=0; $ii<$days_qty; $ii++){
 	$ts = (time()+$ii*3600*24);
 	$date = date("Y-m-d", $ts);
 	list($cal[$date]['y'], $cal[$date]['m'], $cal[$date]['d']) = explode("-", $date);
-	$cal[$date]['date_dot'] = $cal[$date]['d'].'.'.$cal[$date]['m'].'.'.$cal[$date]['y']; 
+	$cal[$date]['date_dot'] = $cal[$date]['d'].'.'.$cal[$date]['m'].'.'.$cal[$date]['y'];
 	$cal[$date]['date_'] = $cal[$date]['d'].'_'.$cal[$date]['m'].'_'.$cal[$date]['y'];
 	$arr = getdate($ts);
 	if($ts>$date_block){

@@ -7,7 +7,6 @@ foreach($orders as $order_id){
     $Order = new Orders();
     $Order->SetFieldsById($order_id);
     $orders_data[$order_id] = $Order->fields;
-    $User = new Users();
     //Получаем клиента
     $id_customer = $orders_data[$order_id]['id_customer'];
     $Customer = new Customers();

@@ -30,7 +30,6 @@
  	$Invoice = new Invoice();
 
 	//print_r($arr);
-	$User = new Users();
 
 	// Получить данные покупателя
 	$id_customer = $ord['id_customer'];

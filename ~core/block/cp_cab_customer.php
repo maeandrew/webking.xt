@@ -6,7 +6,7 @@ if(isset($_POST['id_order']) && !empty($_POST['id_order'])){
 	$id_order = intval($_POST['id_order']);
 }
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 $SavedCity = new Cities();
 $SavedCity->GetSavedFields($Customer->fields['id_city']);
 $SavedContragent = new Contragents();
@@ -93,8 +93,8 @@ $tpl->Assign('sort_links', $sort_links);
 $orders = $Customer->GetOrders($orderby);
 $tpl->Assign('orders', $orders);
 $order_statuses = $Order->GetStatuses();
-$User->SetUser($_SESSION['member']);
-$tpl->Assign('User', $User->fields);
+$Users->SetUser($_SESSION['member']);
+$tpl->Assign('User', $Users->fields);
 $tpl->Assign('Customer', $Customer->fields);
 $tpl->Assign('SavedCity', $SavedCity->fields);
 $tpl->Assign('SavedContragent', $SavedContragent->fields);

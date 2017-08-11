@@ -1,6 +1,5 @@
 <?php
 $Address = new Address();
-$Users = new Users();
 
 // ---- center ----
 unset($parsed_res);

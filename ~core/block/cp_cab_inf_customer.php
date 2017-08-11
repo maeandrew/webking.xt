@@ -4,7 +4,7 @@
 
 	$success = false;
 
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 
 	$SavedCity = new Cities();
 	$SavedCity->GetSavedFields($Customer->fields['id_city']);
@@ -45,9 +45,9 @@
 			$tpl->Assign('delivery', $Deliverys->list);
 	}
 
-	$User->SetUser($_SESSION['member']);
+	$Users->SetUser($_SESSION['member']);
 
-	$tpl->Assign('User', $User->fields);
+	$tpl->Assign('User', $Users->fields);
 	$tpl->Assign('Customer', $Customer->fields);
 	$tpl->Assign('SavedCity', $SavedCity->fields);
 	$tpl->Assign('SavedContragent', $SavedContragent->fields);
@@ -64,7 +64,7 @@
 		list($err, $errm) = Register_form_validate($nocheck);
         if(!$err){
 			$tpl->Assign('msg', 'Информация обновлена.');
-			$User->updateUser($_POST);
+			$Users->updateUser($_POST);
 			$Customer->updateCustomer($_POST);
 			$Customer->updateContPerson($_POST['cont_person']);
 			$Customer->updatePhones($_POST['phones']);

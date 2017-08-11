@@ -15,8 +15,8 @@ if(isset($_GET['toggle_supplier'])){
 		"id_user" => $_GET['id'],
 		"active" => $active
 	);
-	if(!$User->UpdateUser($arr)){
-		$this->db->errno = $User->db->errno;
+	if(!$Users->UpdateUser($arr)){
+		$this->db->errno = $Users->db->errno;
 		$this->db->FailTrans();
 		return false;
 	}

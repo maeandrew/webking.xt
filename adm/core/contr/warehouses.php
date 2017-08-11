@@ -1,6 +1,5 @@
 <?php
 $Address = new Address();
-$Users = new Users();
 
 $header = 'Пункты выдачи';
 $ii = count($GLOBALS['IERA_LINKS']);

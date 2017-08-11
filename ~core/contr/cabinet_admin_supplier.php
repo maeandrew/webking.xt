@@ -7,9 +7,8 @@ $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 unset($parsed_res);
-$User = new Users();
-$User->SetUser($_SESSION['member']);
-if($User->fields['gid'] != _ACL_ADMIN_){
+$Users->SetUser($_SESSION['member']);
+if($Users->fields['gid'] != _ACL_ADMIN_){
 	echo "Доступ запрещен.";
 	exit(0);
 }

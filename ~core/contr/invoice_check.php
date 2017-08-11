@@ -23,7 +23,6 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$ord = $Orders->fields;
 		$tpl->Assign("order", $ord);
 		$Invoice = new Invoice();
-		$User = new Users();
 		// Получить данные покупателя
 		$id_customer = $ord['id_customer'];
 		$Customer = new Customers();
@@ -162,7 +161,6 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 	$ord = $Orders->fields;
 	$tpl->Assign("order", $ord);
 	$Invoice = new Invoice();
-	$User = new Users();
 	// Получить данные покупателя
 	$id_customer = $ord['id_customer'];
 	$Customer = new Customers();

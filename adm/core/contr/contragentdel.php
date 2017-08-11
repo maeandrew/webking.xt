@@ -3,7 +3,6 @@
 	if (!_acl::isAllow('users'))
 		die("Access denied");
 
-	$User = new Users();
 	$Contragent = new Contragents();
 
 	// ---- center ----

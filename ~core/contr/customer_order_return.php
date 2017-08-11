@@ -16,9 +16,8 @@ $tpl->Assign('list_menu', $Page->list);
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][0]['title'] = "Возврат";
 $GLOBALS['IERA_LINKS'][0]['url'] =  _base_url.'/customer_order_return/';
-$User = new Users();
-$User->SetUser($_SESSION['member']);
-if($User->fields['gid'] == _ACL_CUSTOMER_){
+$Users->SetUser($_SESSION['member']);
+if($Users->fields['gid'] == _ACL_CUSTOMER_){
 	$Order = new Orders();
 	if(isset($_POST['smb_return'])){
 		if($Order->CreateReturn($_POST, $id_order)){
@@ -33,9 +32,9 @@ if($User->fields['gid'] == _ACL_CUSTOMER_){
 		}
 	}
 	$Customer = new Customers();
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 	$tpl->Assign("Customer", $Customer->fields);
-	$arr = $Order->GetOrderForCustomer(array("o.id_customer"=>$User->fields['id_user'], "o.id_order"=>$id_order));
+	$arr = $Order->GetOrderForCustomer(array("o.id_customer"=>$Users->fields['id_user'], "o.id_order"=>$id_order));
 	$tpl->Assign("data", $arr);
 	if(isset($_POST['smb_return']) && !($arr[0]['target_date'] > (time()-3600*24*$GLOBALS['CONFIG']['return_enable_days']))){
 		$tpl->Assign('msg_type', 'error');

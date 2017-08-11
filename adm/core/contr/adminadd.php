@@ -1,8 +1,6 @@
 <?php
 	if (!_acl::isAllow('users'))
 		die("Access denied");
- 
-	$User = new Users();
 
 	// ---- center ----
 	unset($parsed_res);
@@ -18,15 +16,15 @@
 
 		require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 
-		list($err, $errm) = User_form_validate();
+		list($err, $errm) = Users_form_validate();
         if (!$err){
-        	if ($id = $User->AddUser($_POST)){
+        	if ($id = $Users->AddUser($_POST)){
 				$tpl->Assign('msg', 'Пользователь добавлен.');
 				unset($_POST);
 			}else{
 				$tpl->Assign('msg', 'Пользователь не добавлен.');
 				if (mysql_errno() == 1062){
-					$errm['email'] = "Такой email уже есть в базе."; 
+					$errm['email'] = "Такой email уже есть в базе.";
 					$tpl->Assign('errm', $errm);
 				}
 			}
@@ -37,9 +35,9 @@
         }
 	}
 
-	if (!$User->UsersList(1)) die('Ошибка при добавлении администратора.');
-	$tpl->Assign('list', $User->list);
-	$tpl->Assign('groups', $User->GetGroups());
+	if (!$Users->UsersList(1)) die('Ошибка при добавлении администратора.');
+	$tpl->Assign('list', $Users->list);
+	$tpl->Assign('groups', $Users->GetGroups());
 
 	if (!isset($_POST['smb'])){
 		$_POST['id_user'] = 0;

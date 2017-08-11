@@ -9,7 +9,6 @@ $key = $_GET['key'];
 require($GLOBALS['PATH_model'].'invoice_c.php');
 $Invoice = new Invoice();
 $Order = new Orders();
-$User = new Users();
 $Customer = new Customers();
 $Contragent = new Contragents();
 

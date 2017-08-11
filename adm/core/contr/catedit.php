@@ -4,7 +4,6 @@ if(!_acl::isAllow('catalog')){
 }
 $dbtree = new dbtree(_DB_PREFIX_.'category', 'category', $db);
 $Specification = new Specification();
-$user = new Users();
 $Specification->Setlist();
 $tpl->Assign('spec_list', $Specification->list);
 unset($parsed_res);
@@ -129,8 +128,8 @@ if(isset($_POST['smb'])){
 		$tpl->Assign('errm', $errm);
 	}
 }
-$user->SetFieldsById($category['edit_user']);
-$category['username'] = $user->fields['name'];
+$Users->SetFieldsById($category['edit_user']);
+$category['username'] = $Users->fields['name'];
 $list = $dbtree->Full(array('id_category', 'category_level', 'name', 'prom_id'));
 $tpl->Assign('list', $list);
 if(!isset($_POST['smb'])){

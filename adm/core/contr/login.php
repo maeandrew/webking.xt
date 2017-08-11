@@ -8,11 +8,10 @@ $GLOBALS['MainTemplate'] = 'login.tpl';
 $Page = new Page();
 unset($parsed_res);
 if(isset($_POST['email']) && isset($_POST['passwd']) && $_POST['email'] && $_POST['passwd']){
-	$User = new Users();
-	if($User->CheckUser($_POST)){
-		_acl::load($User->fields['gid']);
+	if($Users->CheckUser($_POST)){
+		_acl::load($Users->fields['gid']);
 		if(_acl::isAllow('admin_panel')){
-			G::Login($User->fields);
+			G::Login($Users->fields);
 			header('Location: '.$GLOBALS['URL_base'].'adm/');
 			//$GLOBALS['URL_request']
 			exit();

@@ -17,9 +17,8 @@ $tpl->Assign('list_menu', $Page->list);
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][0]['title'] = "Заказ";
 $GLOBALS['IERA_LINKS'][0]['url'] = _base_url.'/contragent_order/';
-$User = new Users();
-$User->SetUser($_SESSION['member']);
-if($User->fields['gid'] == _ACL_CONTRAGENT_){
+$Users->SetUser($_SESSION['member']);
+if($Users->fields['gid'] == _ACL_CONTRAGENT_){
 	$Order = new Orders();
 	if(isset($_POST['smb'])){
 		if($Order->ExecuteContragentOrder($_POST, $id_order)){

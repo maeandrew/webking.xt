@@ -1,12 +1,11 @@
 <?php
 if(!isset($GLOBALS['REQAR'][1]) && !is_numeric($GLOBALS['REQAR'][1])){
-	header('Location: /404/');
+	header('Location: /adm/404/');
 	exit();
 }
 $id_supplier = $GLOBALS['REQAR'][1];
 unset($parsed_res);
-$User = new Users();
-$User->SetFieldsById($id_supplier);
+$Users->SetFieldsById($id_supplier);
 $Supplier = new Suppliers();
 $Supplier->SetFieldsById($id_supplier, 1);
 $supplier = $Supplier->fields;

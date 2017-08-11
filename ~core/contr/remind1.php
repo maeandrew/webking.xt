@@ -36,13 +36,12 @@
 
 
 
-	$User = new Users();
 
 
 
 if (isset($GLOBALS['REQAR'][1])){
 
-    	if ($id_user1 = $User->CheckPwdChangeKey1($GLOBALS['REQAR'][1])){
+    	if ($id_user1 = $Users->CheckPwdChangeKey1($GLOBALS['REQAR'][1])){
 
 
 

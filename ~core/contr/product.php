@@ -7,11 +7,10 @@ $Page = new Page();
 $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 unset($parsed_res);
-$User = new Users();
 if(isset($_SESSION['member'])){
-	$User->SetUser($_SESSION['member']);
+	$Users->SetUser($_SESSION['member']);
 }
-$tpl->Assign('User', $User->fields['name']);
+$tpl->Assign('User', $Users->fields['name']);
 $product = $Products->fields;
 G::metaTags($product);
 $id_product = $product['id_product'];

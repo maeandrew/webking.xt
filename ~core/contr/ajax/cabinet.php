@@ -1,6 +1,5 @@
 <?php
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
-	$Users = new Users();
 	$Cart = new Cart();
 	$Orders = new Orders();
 	if(isset($_POST['action'])){
@@ -77,7 +76,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($Contragents->GetRating($_POST));
 				break;
 			case 'ChangeInfoUser':
-				$Users = new Users();
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 				list($err, $errm) = Change_Info_validate();
 				$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone'], $_POST['id_user']);
@@ -115,8 +113,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 
 				break;
 			case 'AccessCode';
-				$Users = new Users();
-				if(!$User->SetVerificationCode($_POST['id_user'], $_POST['method'], $_POST['phone'])){
+				if(!$Users->SetVerificationCode($_POST['id_user'], $_POST['method'], $_POST['phone'])){
 					$res['success'] = false;
 					$res['msg'] = 'Извините. Возникли временные неполадки. Повторите попытку позже.';
 				}else{
@@ -129,7 +126,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				if((isset($_POST['id_user']) && $_POST['id_user'] !='') && (isset($_POST['new_passwd']) && $_POST['new_passwd'] !='')){
 					$pas['id_user'] = $_POST['id_user'];
 					$pas['passwd'] = $_POST['new_passwd'];
-					$Users = new Users();
 					switch ($_POST['method']){
 						case 'current_pass':
 							if(!$Users->CheckCurrentPasswd($_POST['curr_pass'], $_POST['id_user'])){

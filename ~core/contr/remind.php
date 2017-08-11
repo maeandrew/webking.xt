@@ -11,14 +11,13 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'url' => _base_url.'/remind/'
 );
 $tpl->Assign('header', $header);
-$User = new Users();
 if(isset($_POST['smb']) && isset($_POST['email'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 	list($err, $errm) = Remind_form_validate();
 	if(!$err){
 		$email = $_POST['email'];
-		if($User->IsUserEmail($email)){
-			$key = $User->SetPwdChangeKey($email);
+		if($Users->IsUserEmail($email)){
+			$key = $Users->SetPwdChangeKey($email);
 			$success = 'prechange';
 			$to = $email;
 			$title = "Восстановление доступа на ".$_SERVER['SERVER_NAME'];
@@ -42,8 +41,8 @@ if(isset($_POST['smb']) && isset($_POST['email'])){
 		$tpl->Assign('errm', 1);
 	}
 }elseif(isset($GLOBALS['REQAR'][1])){
-	if($email = $User->CheckPwdChangeKey($GLOBALS['REQAR'][1])){
-		$newpwd = $User->ChangePwd($email);
+	if($email = $Users->CheckPwdChangeKey($GLOBALS['REQAR'][1])){
+		$newpwd = $Users->ChangePwd($email);
 		$success = 'changed';
 		$to = $email;
 		$title = "Новый пароль для вашего аккаунта на ".$_SERVER['SERVER_NAME'];

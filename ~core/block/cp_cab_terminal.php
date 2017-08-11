@@ -6,7 +6,7 @@ $GLOBALS['IERA_LINKS'][1]['title'] = $title;
 $GLOBALS['IERA_LINKS'][1]['url'] =  _base_url.'/cabinet/';
 $no_tpl = '';
 $Customer = new Customers();
-$Customer->SetFieldsById($User->fields['id_user']);
+$Customer->SetFieldsById($Users->fields['id_user']);
 $fields = array('date', 'id_order', 'status');
 $f_assoc = array('date'=>'o.creation_date', 'id_order'=>'o.id_order', 'status'=>'o.id_order_status');
 $orderby = "o.id_order desc";

@@ -30,15 +30,14 @@ $GLOBALS['IERA_LINKS'][] = array(
 	'title' => $header,
 	'url' => _base_url.'/customer_order/'.$id_order
 );
-$User = new Users();
-$User->SetUser($_SESSION['member']);
-if($User->fields['gid'] == _ACL_CUSTOMER_ OR $User->fields['gid'] == _ACL_DILER_ OR $User->fields['gid'] == _ACL_CONTRAGENT_){
-	$tpl->Assign('gid', $User->fields['gid']);
+$Users->SetUser($_SESSION['member']);
+if($Users->fields['gid'] == _ACL_CUSTOMER_ OR $Users->fields['gid'] == _ACL_DILER_ OR $Users->fields['gid'] == _ACL_CONTRAGENT_){
+	$tpl->Assign('gid', $Users->fields['gid']);
 	$Order = new Orders();
 	$Order->SetFieldsById($id_order);
 	$tpl->Assign('order', $Order->fields);
 	$header .= ' № '.$Order->fields['id_order'].' <p class="subtext"> от '.date('d.m.Y', $Order->fields['creation_date']);
-	if($User->fields['gid'] == _ACL_CONTRAGENT_ && $Order->fields['target_date'] != NULL){
+	if($Users->fields['gid'] == _ACL_CONTRAGENT_ && $Order->fields['target_date'] != NULL){
 		$header .= ' на '.date('d.m.Y', $Order->fields['target_date']);
 	}
 	$header .='</p>';
@@ -75,10 +74,10 @@ if($User->fields['gid'] == _ACL_CUSTOMER_ OR $User->fields['gid'] == _ACL_DILER_
 	$Customer->SetFieldsById($Order->fields['id_customer'], 0, true);
 	$tpl->Assign('customer', $Customer->fields);
 
-	if($User->fields['gid'] == _ACL_CONTRAGENT_){
+	if($Users->fields['gid'] == _ACL_CONTRAGENT_){
 		$arr = $Order->GetOrderForCustomer(array("o.id_order" => $id_order));
 	}else{
-		$arr = $Order->GetOrderForCustomer(array("o.id_customer" => $User->fields['id_user'], "o.id_order" => $id_order));
+		$arr = $Order->GetOrderForCustomer(array("o.id_customer" => $Users->fields['id_user'], "o.id_order" => $id_order));
 	}
 	if($arr){
 		$Products = new Products();

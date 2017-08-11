@@ -6,6 +6,8 @@ date_default_timezone_set('Europe/Kiev');
 // phpinfo();
 require(dirname(__FILE__).'/../~core/sys/global_c.php');
 require(dirname(__FILE__).'/core/cfg.php');
+// Создание экземпляров базовых классов
+$Users = new Users();
 ini_set('display_errors', '1');
 error_reporting(E_ALL & ~E_NOTICE);
 $s_time = G::getmicrotime();
@@ -13,7 +15,6 @@ session_start();
 $GLOBALS['Controllers'] = G::GetControllers($GLOBALS['PATH_contr']);
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
-$Users = new Users();
 require($GLOBALS['PATH_core'].'controller.php');
 G::AddCSS('reset.css');
 G::AddCSS('bootstrap-grid-3.3.2.min.css');

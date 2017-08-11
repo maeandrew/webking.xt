@@ -3,7 +3,6 @@ if(!_acl::isAllow('users')){
 	die("Access denied");
 }
 
-$User = new Users();
 $Customer = new Customers();
 
 // ---- center ----
@@ -24,7 +23,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/users/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Редактирование покупателя";
 
 if(!$Customer->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
-if(!$User->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
+if(!$Users->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
 
 $tpl->Assign('h1', 'Редактирование покупателя');
 
@@ -32,7 +31,7 @@ if(isset($_POST['smb'])){
 
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 
-	list($err, $errm) = Customer_form_validate(array('passwd'));
+	list($err, $errm) = Customers_form_validate(array('passwd'));
     if(!$err){
     	if ($id = $Customer->UpdateCustomer($_POST)){
 			$tpl->Assign('msg', 'Информация обновлена.');
@@ -55,7 +54,7 @@ if(!isset($_POST['smb'])){
 	foreach($Customer->fields as $k=>$v){
 		$_POST[$k] = $v;
 	}
-	foreach($User->fields as $k=>$v){
+	foreach($Users->fields as $k=>$v){
 		$_POST[$k] = $v;
 	}
 }

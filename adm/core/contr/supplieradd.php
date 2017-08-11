@@ -2,7 +2,6 @@
 if(!_acl::isAllow('users')){
 	die('Access denied');
 }
-$User = new Users();
 $Supplier = new Suppliers();
 unset($parsed_res);
 $tpl->Assign('h1', 'Добавление поставщика');
@@ -12,7 +11,7 @@ $GLOBALS['IERA_LINKS'][$ii++]['url'] = $GLOBALS['URL_base'].'adm/users/';
 $GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление поставщика";
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = Supplier_form_validate();
+	list($err, $errm) = Suppliers_form_validate();
     if(!$err){
     	if($id = $Supplier->AddSupplier($_POST)){
 			$tpl->Assign('msg', 'Поставщик добавлен.');

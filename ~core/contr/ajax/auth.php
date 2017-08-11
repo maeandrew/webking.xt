@@ -9,7 +9,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						$echo['err'] = 1;
 					}else{
 						if(isset($_POST['email']) && isset($_POST['passwd'])){
-							$Users = new Users();
 							if((isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] == _ACL_SUPPLIER_MANAGER_) || isset($_COOKIE['sm_login'])){
 								if($Users->CheckUserNoPass($_POST)){
 									if(isset($_COOKIE['sm_login'])){
@@ -59,7 +58,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				list($err, $echo['errm']) = Register_form_validate();
 				// Если все ок с валидацией
 				if(!$err){
-					$Users = new Users();
 					// проверяем уникальность введенного e-mail и телефона
 					$unique_email = true;
 					if(isset($_POST['email'])){
@@ -108,7 +106,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo $tpl->Parse($GLOBALS['PATH_tpl_global'].'user_profile.tpl');
 				break;
 			case 'accessRecovery':
-				$Users = new Users();
 				switch($_POST['method']){
 					case 'email':
 						$id_user = $Users->CheckEmailUniqueness($_POST['value']);
@@ -180,7 +177,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				echo json_encode($res);
 				break;
 			case 'recoverPhone':
-				$Users = new Users();
 				if(!$Users->SetVerificationCode($_SESSION['member']['id_user'], 'sms', $_POST['phone'])){
 					$res['success'] = false;
 					$res['msg'] = 'Извините. Возникли неполадки. Повторите попытку позже.';

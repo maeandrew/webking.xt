@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 if(!_acl::isAllow('photo_products')){
 	die("Access denied");
 }
-$users = new Users();
 $Products = new Products();
 $suppliers = new Suppliers();
 $header = 'Товары фотографа';
@@ -20,8 +19,8 @@ if($_SESSION['member']['gid'] == _ACL_PHOTOGRAPHER_){
 }elseif(isset($GLOBALS['REQAR'][1]) && is_numeric($GLOBALS['REQAR'][1])){
 	$id_photographer = $GLOBALS['REQAR'][1];
 }
-$users->UsersList(1, array('gid' => _ACL_PHOTOGRAPHER_));
-$tpl->Assign('users_list', $users->list);
+$Users->UsersList(1, array('gid' => _ACL_PHOTOGRAPHER_));
+$tpl->Assign('users_list', $Users->list);
 $suppliers->SuppliersList();
 $tpl->Assign('suppliers_list', $suppliers->list);
 if(isset($id_photographer)){

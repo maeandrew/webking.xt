@@ -1,7 +1,6 @@
 <?php
 	if (!_acl::isAllow('users'))
 		die("Access denied");
-	$User = new Users();
 	unset($parsed_res);
 	$tpl->Assign('h1', 'Добавление СЕО-оптимизатора');
 	$ii = count($GLOBALS['IERA_LINKS']);
@@ -10,9 +9,9 @@
 	$GLOBALS['IERA_LINKS'][$ii]['title'] = "Добавление СЕО-оптимизатора";
 	if(isset($_POST['smb'])){
 		require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-		list($err, $errm) = User_form_validate();
+		list($err, $errm) = Users_form_validate();
         if (!$err){
-        	if ($id = $User->AddUser($_POST)){
+        	if ($id = $Users->AddUser($_POST)){
 				$tpl->Assign('msg', 'Пользователь добавлен.');
 				unset($_POST);
 			}else{
@@ -29,9 +28,9 @@
         }
 	}
 
-	if (!$User->UsersList(1)) die('Ошибка при добавлении СЕО-оптимизатора.');
-	$tpl->Assign('list', $User->list);
-	$tpl->Assign('groups', $User->GetGroups());
+	if (!$Users->UsersList(1)) die('Ошибка при добавлении СЕО-оптимизатора.');
+	$tpl->Assign('list', $Users->list);
+	$tpl->Assign('groups', $Users->GetGroups());
 	if(!isset($_POST['smb'])){
 		$_POST['id_user'] = 0;
 	}

@@ -7,10 +7,9 @@ if(!G::IsLogged()){
 	header('Location: '. _base_url.'/login/');
 	exit();
 }else{
-	$User = new Users();
-	$User->SetUser($_SESSION['member']);
-	$current_user = $User->fields;
-	$tpl->Assign('User', $User->fields);
+	$Users->SetUser($_SESSION['member']);
+	$current_user = $Users->fields;
+	$tpl->Assign('User', $Users->fields);
 }
 unset($parsed_res);
 $Page = new Page();
@@ -18,12 +17,12 @@ $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 $GLOBALS['IERA_LINKS'] = array();
 $GLOBALS['IERA_LINKS'][1]['title'] = "Корзина";
-if($User->fields['gid'] == _ACL_CUSTOMER_
-	|| $User->fields['gid'] == _ACL_ANONYMOUS_
-	|| $User->fields['gid'] == _ACL_DILER_
-	|| $User->fields['gid'] == _ACL_CONTRAGENT_){
+if($Users->fields['gid'] == _ACL_CUSTOMER_
+	|| $Users->fields['gid'] == _ACL_ANONYMOUS_
+	|| $Users->fields['gid'] == _ACL_DILER_
+	|| $Users->fields['gid'] == _ACL_CONTRAGENT_){
 	$Customer = new Customers();
-	$Customer->SetFieldsById($User->fields['id_user']);
+	$Customer->SetFieldsById($Users->fields['id_user']);
 	$SavedCity = new Cities();
 	$SavedCity->GetSavedFields($Customer->fields['id_city']);
 	$SavedContragent = new Contragents();

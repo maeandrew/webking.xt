@@ -4,10 +4,10 @@ $GLOBALS['IERA_LINKS'][0]['title'] = "Кабинет";
 $GLOBALS['IERA_LINKS'][0]['url'] =  _base_url.'/cabinet/';
 if(isset($_POST['id_order']) && !empty($_POST['id_order'])) $id_order = intval($_POST['id_order']);
 $Manager = new Managers();
-$Manager->SetFieldsById($User->fields['id_user']);
+$Manager->SetFieldsById($Users->fields['id_user']);
 $tpl->Assign("manager", $Manager->fields);
 //*********************************
-if($User->fields['gid'] == _ACL_MANAGER_){
+if($Users->fields['gid'] == _ACL_MANAGER_){
 	$Order = new Orders();
 	if(isset($_POST['smb_cancel'])){
 		if($Order->CancelContragentOrder($id_order)){

@@ -2,8 +2,7 @@
 	if (!_acl::isAllow('users'))
 		die("Access denied");
 
-	$User = new Users();
-	//$User->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
+	//$Users->SetUser($_SESSION['member']) or exit('Ошибка пользователя.');
 
 	// ---- center ----
 	unset($parsed_res);
@@ -15,7 +14,7 @@
 		exit();
 	}
 
-	if (!$User->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
+	if (!$Users->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
 
 	$tpl->Assign('h1', 'Редактирование пользователя');
 
@@ -23,12 +22,12 @@
 
 		require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 
-		list($err, $errm) = User_form_validate(array('passwd'));
+		list($err, $errm) = Users_form_validate(array('passwd'));
         if (!$err){
-        	if ($id = $User->UpdateUser($_POST)){
+        	if ($id = $Users->UpdateUser($_POST)){
 				$tpl->Assign('msg', 'Информация обновлена.');
 				unset($_POST);
-				if (!$User->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
+				if (!$Users->SetFieldsById($id_user, 1)) die('Ошибка при выборе пользователя.');
 			}else{
 				$tpl->Assign('msg', 'Ошибка! Информация не обновлена.');
 				if (mysql_errno() == 1062){
@@ -43,14 +42,14 @@
         }
 	}
 
-	if (!$User->UsersList(1)) die('Ошибка при обновлении пользователя.');
-	$tpl->Assign('list', $User->list);
+	if (!$Users->UsersList(1)) die('Ошибка при обновлении пользователя.');
+	$tpl->Assign('list', $Users->list);
 
-	$tpl->Assign('groups', $User->GetGroups());
+	$tpl->Assign('groups', $Users->GetGroups());
 
 
 	if (!isset($_POST['smb'])){
-		foreach ($User->fields as $k=>$v){
+		foreach ($Users->fields as $k=>$v){
 			$_POST[$k] = $v;
 		}
 	}
