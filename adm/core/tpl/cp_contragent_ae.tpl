@@ -94,12 +94,12 @@
 				<?}?>
 			<div id="addlinkparking" style="margin-top:10px"><a class="dashed" href="javascript://" onclick="AddParking(this)">Добавить стоянку</a></div>
 			<div style="margin-top: 20px;"></div>
-				<?foreach ($_POST['citys_ids'] as $cid){?>
+				<?foreach ($_POST['cities_ids'] as $cid){?>
 					<div id="cityblock">
-						<p>Город:</p><?=isset($errm['citys_ids'])?"<span class=\"errmsg\">".$errm['citys_ids']."</span><br>":null?>
-						<select name="citys_ids[]">
+						<p>Город:</p><?=isset($errm['cities_ids'])?"<span class=\"errmsg\">".$errm['cities_ids']."</span><br>":null?>
+						<select name="cities_ids[]">
 								<option value="0">нет</option>
-							<?foreach ($citys as $item){?>
+							<?foreach ($cities as $item){?>
 								<option <?=($item['id_city']==$cid)?'selected="true"':null?> value="<?=$item['id_city']?>"><?=$item['name']?></option>
 							<?}?>
 						</select>
@@ -145,9 +145,9 @@
 	</div>
 	<div id="cityblock">
 		<p>Город:</p>
-		<select name="citys_ids[]">
+		<select name="cities_ids[]">
 		<option value="0">нет</option>
-			 <?foreach ($citys as $item){?>
+			 <?foreach ($cities as $item){?>
 				<option  value="<?=$item['id_city']?>"><?=$item['name']?></option>
 			 <?}?>
 		</select>
