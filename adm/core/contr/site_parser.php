@@ -34,7 +34,6 @@ if(isset($_POST['parse'])){
 	$id_category = $site['id_category'];
 	// $format_example = $Parser->GetSiteFormatFile($_POST['site']);
 	// $format_example['format'] = '/parser_formats_examples/articles_only.xlsx';
-	require($GLOBALS['PATH_sys'].'excel/Classes/PHPExcel/IOFactory.php');
 	// if($format_example['format']){
 		// $objPHPExcel = PHPExcel_IOFactory::load($GLOBALS['PATH_global_root'].$format_example['format']);
 		// $objPHPExcel->setActiveSheetIndex(0);
