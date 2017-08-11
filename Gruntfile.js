@@ -4,9 +4,6 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
-			options: {
-				// banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-			},
 			build: {
 				files: [
 					{
@@ -69,5 +66,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', ['uglify', 'cssmin', 'watch']);
+	grunt.registerTask('0-default', ['uglify', 'cssmin', 'watch']);
 };
