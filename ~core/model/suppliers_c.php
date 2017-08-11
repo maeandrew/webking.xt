@@ -2,16 +2,203 @@
 class Suppliers extends Users {
 
 	private $usual_fields;
+	private $db_table = _DB_PREFIX_.'supplier';
+	private $db_fields;
 
 	public function __construct(){
 		parent::__construct();
-		$this->usual_fields = array('id_user', 'article', 'phones', 'place',
-			'currency_rate', 'is_partner', 'next_update_date', 'koef_nazen_mopt',
-			'koef_nazen_opt', 'make_csv', 'send_mail_order', 'real_email', 'icq',
-			'real_phone', 'filial', 'balance', 'available_today', 'personal_message',
-			'example_sum', 'warehouse', 'area', 'single_price', 'self_edit');
+		$this->usual_fields = [
+			'id_user',
+			'article',
+			'phones',
+			'place',
+			'currency_rate',
+			'is_partner',
+			'next_update_date',
+			'koef_nazen_mopt',
+			'koef_nazen_opt',
+			'make_csv',
+			'send_mail_order',
+			'real_email',
+			'icq',
+			'real_phone',
+			'filial',
+			'balance',
+			'available_today',
+			'personal_message',
+			'example_sum',
+			'warehouse',
+			'area',
+			'single_price',
+			'self_edit'
+		];
+		$this->db_fields = [
+			'id_user',
+			'article',
+			'phones',
+			'place',
+			'currency_rate',
+			'is_partner',
+			'next_update_date',
+			'koef_nazen_mopt',
+			'koef_nazen_opt',
+			'make_csv',
+			'send_mail_order',
+			'real_email',
+			'icq',
+			'real_phone',
+			'filial',
+			'balance',
+			'available_today',
+			'personal_message',
+			'example_sum',
+			'warehouse',
+			'area',
+			'single_price',
+			'self_edit',
+		];
 	}
-	//*******************************Заполнение рабочих дней поставщика
+
+	// Создание нового поставщика
+	public function Create($data){
+		if(!isset($data['id_user'])){
+			if(!$id_user = parent::Create($data)){
+				return false;
+			}
+			$data['id_user'] = $id_user;
+		}
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'currency_rate':
+					$f[$field] = (float) (isset($data[$field]) && $data[$field] !== ''?$data[$field]:$GLOBALS['CONFIG']['currency_rate']);
+					break;
+				case 'is_partner':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				case 'make_csv':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				case 'send_mail_order':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert($this->db_table, $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return $id_user;
+	}
+
+	// Получаем данные о поставщике
+	public function Read($id_user){
+		if(!$res = parent::Read($id_user)){
+			return false;
+		}
+		$sql = 'SELECT *
+			FROM '.$this->db_table.'
+			WHERE id_user = '.$id_user;
+		return array_merge($res, (array) $this->db->GetOneRowArray($sql));
+	}
+
+	// Изменение данных поставщика
+	public function Update($data){
+		if(!parent::Update($data)){
+			return false;
+		}
+		if(!$this->Read($data['id_user'])){
+			if(!$this->Create($data)){
+				return false;
+			}
+			return true;
+		}
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'currency_rate':
+					$f[$field] = (float) (isset($data[$field]) && $data[$field] !== ''?$data[$field]:$GLOBALS['CONFIG']['currency_rate']);
+					break;
+				case 'is_partner':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				case 'make_csv':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				case 'send_mail_order':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Update($this->db_table, $f, "id_user = ".$f['id_user'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Удаление поставщика
+	public function Delete($id_user){
+		if(!parent::Delete($id_user)){
+			return false;
+		}
+		/*
+			Дополнительные процедуры очистки,например - очистка ассортимента
+		*/
+		return true;
+	}
+
+	public function CheckArticleUniqueness($article, $id_user = false){
+		$sql = "SELECT id_user, COUNT(*) AS count
+			FROM $this->db_table
+			WHERE article = '$article'";
+		if($id_user) $sql .= " AND id_user <> $id_user";
+		$res = $this->db->GetOneRowArray($sql);
+		if($res['count'] > 0){
+			return false;
+		}
+		return true;
+	}
+	/**
+	 * [AddSupplier description]
+	 * @param [type] $arr [description]
+	 */
+	public function AddSupplier($arr){
+		$f['id_user'] = $arr['id_user'];
+		$f['article'] = $arr['article'];
+		$f['phones'] = $arr['phones'];
+		$f['place'] = $arr['place'];
+		$f['currency_rate'] = (float) ($arr['currency_rate'] !== ''?$arr['currency_rate']:$GLOBALS['CONFIG']['currency_rate']);
+		if($arr['koef_nazen_mopt'] !== ''){
+			$f['koef_nazen_mopt'] = $arr['koef_nazen_mopt'];
+		}
+		if($arr['koef_nazen_opt'] !== ''){
+			$f['koef_nazen_opt'] = $arr['koef_nazen_opt'];
+		}
+		$f['is_partner'] = isset($arr['is_partner']) && $arr['is_partner'] == "on"?1:0;
+		$f['make_csv'] = isset($arr['make_csv']) && $arr['make_csv'] == "on"?1:0;
+		$f['send_mail_order'] = isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on"?1:0;
+		$this->db->StartTrans();
+		if(!$this->db->Insert(_DB_PREFIX_.'supplier', $f)){
+			echo $this->db->ErrorMsg();
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
 
 	// Поля по id
 	public function SetFieldsById($id, $all=0){
@@ -29,6 +216,67 @@ class Suppliers extends Users {
 		$this->fields = is_array($this->fields)?array_merge($res, $this->fields):$res;
 		return $this->fields;
 	}
+	/* Обновление
+	 *
+	 */
+	public function UpdateSupplier($arr, $only_activity = false){
+		global $Users;
+		$Users->SetFieldsById($arr['id_user'], 1);
+		$arr['gid'] = $Users->fields['gid'];
+		if(!$Users->UpdateUser($arr)){
+			return false;
+		}
+		unset($f);
+		$f['id_user'] = $arr['id_user'];
+		if($only_activity == false){
+			$f['article'] = trim($arr['article']);
+			$f['phones'] = trim($arr['phones']);
+			$f['place'] = trim($arr['place']);
+			$f['currency_rate'] = trim($arr['currency_rate']);
+			$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
+			$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
+			$f['filial'] = trim($arr['filial']);
+			$f['is_partner'] = 0;
+			if(isset($arr['is_partner']) && $arr['is_partner'] == "on"){
+				$f['is_partner'] = 1;
+			}
+			$f['warehouse'] = 0;
+			if(isset($arr['warehouse']) && $arr['warehouse'] == "on"){
+				$f['warehouse'] = 1;
+			}
+			$f['make_csv'] = 0;
+			if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
+				$f['make_csv'] = 1;
+			}
+			$f['real_email'] = trim($arr['real_email']);
+			$f['real_phone'] = trim($arr['real_phone']);
+			$f['send_mail_order'] = 0;
+			if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on" && $f['real_email'] != ''){
+				$f['send_mail_order'] = 1;
+			}
+			$this->db->StartTrans();
+			if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = {$f['id_user']}")){
+				$this->db->FailTrans();
+				return false;
+			}
+			$this->db->CompleteTrans();
+		}
+		$sql = "SELECT a.id_product
+			FROM "._DB_PREFIX_."assortiment a
+			WHERE id_supplier = ".$f['id_user'];
+		$arr = $this->db->GetArray($sql);
+		foreach($arr as &$p){
+			$p = $p['id_product'];
+		}
+		global $Products;
+		$Products->RecalcSitePrices($arr);
+		// if(isset($arr['active']) && $arr['active'] == "on"){
+		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);
+		// }else{
+		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 1);
+		// }
+		return true;
+	}
 	/**
 	 * Список поставщиков (0 - только видимые. 1 - все, и видимые и невидимые)
 	 * @param integer $param    [description]
@@ -42,7 +290,7 @@ class Suppliers extends Users {
 			$limit = " limit $limit";
 		}
 		if($param == 0){
-			$arr['active'] = "1";
+			$arr['active'] = 1;
 		}
 		$sql = "SELECT *
 			FROM "._DB_PREFIX_."user AS u
@@ -135,8 +383,7 @@ class Suppliers extends Users {
 			LEFT JOIN "._DB_PREFIX_."user AS u
 				ON u.id_user = s.id_user";
 		if(!empty($and)){
-			$users = new Users();
-			$sql .= $users->db->GetWhere($and);
+			$sql .= $this->db->GetWhere($and);
 		}
 		if(isset($sort)){
 			$sql .= " ORDER BY ".$sort;
@@ -146,47 +393,6 @@ class Suppliers extends Users {
 			return 'null';
 		}
 		return $arr;
-	}
-	/**
-	 * [AddSupplier description]
-	 * @param [type] $arr [description]
-	 */
-	public function AddSupplier($arr){
-		// user
-		$arr['gid'] = _ACL_SUPPLIER_;
-		if(!$id_user = parent::AddUser($arr)){
-			return false;
-		}
-		// Supplier
-		$f['id_user'] = $id_user;
-		$f['article'] = trim($arr['article']);
-		$f['phones'] = trim($arr['phones']);
-		$f['place'] = trim($arr['place']);
-		$f['currency_rate'] = (float)trim(isset($arr['currency_rate']) && $arr['currency_rate'] !== ''?$arr['currency_rate']:$GLOBALS['CONFIG']['currency_rate']);
-		if($arr['koef_nazen_mopt'] !== ''){
-			$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
-		}
-		if($arr['koef_nazen_opt'] !== ''){
-			$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
-		}
-		$f['filial'] = trim($arr['filial']);
-		$f['is_partner'] = 0; if (isset($arr['is_partner']) && $arr['is_partner'] == "on") $f['is_partner'] = 1;
-		$f['make_csv'] = 0;
-		if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
-			$f['make_csv'] = 1;
-		}
-		$f['send_mail_order'] = 0;
-		if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on"){
-			$f['send_mail_order'] = 1;
-		}
-		$this->db->StartTrans();
-		if(!$this->db->Insert(_DB_PREFIX_.'supplier', $f)){
-			echo $this->db->ErrorMsg();
-			$this->db->FailTrans();
-			return false;
-		}
-		$this->db->CompleteTrans();
-		return true;
 	}
 	/**
 	 * [GetWarehouses description]
@@ -237,67 +443,6 @@ class Suppliers extends Users {
 		$sql = "DELETE FROM "._DB_PREFIX_."warehouse_supplier WHERE `id_supplier` =  $id";
 		$this->db->Query($sql) or G::DieLoger("<b>SQL Error - </b>$sql");
 		$this->db->CompleteTrans();
-		return true;
-	}
-	/* Обновление
-	 *
-	 */
-	public function UpdateSupplier($arr, $only_activity = false){
-		global $Users;
-		$Users->SetFieldsById($arr['id_user'], 1);
-		$arr['gid'] = $Users->fields['gid'];
-		if(!$Users->UpdateUser($arr)){
-			return false;
-		}
-		unset($f);
-		$f['id_user'] = $arr['id_user'];
-		if($only_activity == false){
-			$f['article'] = trim($arr['article']);
-			$f['phones'] = trim($arr['phones']);
-			$f['place'] = trim($arr['place']);
-			$f['currency_rate'] = trim($arr['currency_rate']);
-			$f['koef_nazen_mopt'] = trim($arr['koef_nazen_mopt']);
-			$f['koef_nazen_opt'] = trim($arr['koef_nazen_opt']);
-			$f['filial'] = trim($arr['filial']);
-			$f['is_partner'] = 0;
-			if(isset($arr['is_partner']) && $arr['is_partner'] == "on"){
-				$f['is_partner'] = 1;
-			}
-			$f['warehouse'] = 0;
-			if(isset($arr['warehouse']) && $arr['warehouse'] == "on"){
-				$f['warehouse'] = 1;
-			}
-			$f['make_csv'] = 0;
-			if(isset($arr['make_csv']) && $arr['make_csv'] == "on"){
-				$f['make_csv'] = 1;
-			}
-			$f['real_email'] = trim($arr['real_email']);
-			$f['real_phone'] = trim($arr['real_phone']);
-			$f['send_mail_order'] = 0;
-			if(isset($arr['send_mail_order']) && $arr['send_mail_order'] == "on" && $f['real_email'] != ''){
-				$f['send_mail_order'] = 1;
-			}
-			$this->db->StartTrans();
-			if(!$this->db->Update(_DB_PREFIX_.'supplier', $f, "id_user = {$f['id_user']}")){
-				$this->db->FailTrans();
-				return false;
-			}
-			$this->db->CompleteTrans();
-		}
-		$sql = "SELECT a.id_product
-			FROM "._DB_PREFIX_."assortiment a
-			WHERE id_supplier = ".$f['id_user'];
-		$arr = $this->db->GetArray($sql);
-		foreach($arr as &$p){
-			$p = $p['id_product'];
-		}
-		global $Products;
-		$Products->RecalcSitePrices($arr);
-		// if(isset($arr['active']) && $arr['active'] == "on"){
-		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 0);
-		// }else{
-		// 	$this->SwitchEnableDisableProductsInAssort($f['id_user'], 1);
-		// }
 		return true;
 	}
 	/**

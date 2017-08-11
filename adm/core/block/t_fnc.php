@@ -43,7 +43,7 @@ function Page_form_validate(){
 	return array($err, $errm);
 }
 
-function User_form_validate($nocheck=array()){
+function Users_form_validate($nocheck=array()){
 	$errm = array();
 	$err=0;
 	$varname = 'id_user';
@@ -74,7 +74,7 @@ function User_form_validate($nocheck=array()){
 	if (!in_array($varname, $nocheck))
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>10, 'Lmax'=>12, 'PM_glob'=>1);
+		$carr = array('PM_tel'=>1);
 		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
@@ -109,52 +109,19 @@ function User_form_validate($nocheck=array()){
 	return array($err, $errm);
 }
 
-function Contragent_form_validate($nocheck=array()){
+function Contragents_form_validate($nocheck=array()){
 	$errm = array();
 	$err=0;
+	list($err, $errm) = Users_form_validate($nocheck);
 
-	$varname = 'id_user';
-	if (isset($_POST[$varname])){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>1, 'IsInt'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Пользователь не выбран.";
-		$err=1;
-	}
-
-	$varname = 'email';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_email'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'passwd';
-	if (!in_array($varname, $nocheck))
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>4, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Пользователю должен быть назначен пароль.";
-		$err=1;
-	}
-
-	$varname = 'name';
+	$varname = 'name_c';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>0, 'PM_glob'=>1);
 		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
-		$errm[$varname] = "Пользователь должен иметь имя.";
+		$errm[$varname] = "Контрагент должен иметь имя.";
 		$err=1;
 	}
 
@@ -169,64 +136,21 @@ function Contragent_form_validate($nocheck=array()){
 	return array($err, $errm);
 }
 
-function Supplier_form_validate($nocheck=array()){
+function Suppliers_form_validate($nocheck=array()){
 	$errm = array();
 	$err=0;
+	list($err, $errm) = Users_form_validate($nocheck);
 
-	$varname = 'id_user';
-	if (isset($_POST[$varname])){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>1, 'IsInt'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Пользователь не выбран.";
-		$err=1;
-	}
-
-	$varname = 'email';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_email'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'passwd';
-	if (!in_array($varname, $nocheck))
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>4, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Пользователю должен быть назначен пароль.";
-		$err=1;
-	}
-
-	$varname = 'name';
+	$varname = 'article';
 	if (isset($_POST[$varname]) && $_POST[$varname]){
 		$_POST[$varname] = trim($_POST[$varname]);
 		$carr = array('Lmin'=>0, 'PM_glob'=>1);
 		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
 		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
 	}else{
-		$errm[$varname] = "Пользователь должен иметь имя.";
+		$errm[$varname] = "Поле обязательно для заполнения";
 		$err=1;
 	}
-
-	$varname = 'currency_rate';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'IsFloat'=>1);
-		$_POST[$varname] = str_ireplace(",", ".", $_POST[$varname]);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}
-
 	return array($err, $errm);
 }
 
@@ -947,87 +871,11 @@ function Config_form_validate(){
 	return array($err, $errm);
 }
 
-function Customer_form_validate($nocheck=array()){
+function Customers_form_validate($nocheck=array()){
 	$errm = array();
 	$err=0;
 
-	$varname = 'email';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>1, 'Lmax'=>255, 'PM_email'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'passwd';
-	if (!in_array($varname, $nocheck))
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>4, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Пользователю должен быть назначен пароль.";
-		$err=1;
-	}
-
-	$varname = 'name';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'Lmax'=>255, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'descr';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'address_ur';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'cont_person';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'Lmax'=>255, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
-
-	$varname = 'phones';
-	if (isset($_POST[$varname]) && $_POST[$varname]){
-		$_POST[$varname] = trim($_POST[$varname]);
-		$carr = array('Lmin'=>0, 'PM_glob'=>1);
-		list($errf, $errmsg) = G::CheckV($_POST[$varname], $carr);
-		if (!$errf){ $errm[$varname] = $errmsg; $err=1;}
-	}else{
-		$errm[$varname] = "Поле обязательно для заполнения.";
-		$err=1;
-	}
+	list($err, $errm) = Users_form_validate($nocheck);
 
 	return array($err, $errm);
 }

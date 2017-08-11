@@ -1,12 +1,154 @@
 <?php
 class Customers extends Users {
+
 	private $usual_fields;
+	private $db_table = _DB_PREFIX_.'customer';
+	private $db_fields;
+
 	public function __construct(){
 		parent::__construct();
-		$this->usual_fields = array('id_user', 'cont_person', 'phones', 'discount', 'id_contragent', 'id_city',
-			'id_delivery', 'bonus_card', 'bonus_balance', 'bonus_discount', 'balance',
-			'sex', 'birthday', 'address_ur', 'b_year', 'b_month', 'b_day', 'first_name', 'middle_name', 'last_name');
+		$this->usual_fields = [
+			'id_user',
+			'cont_person',
+			'phones',
+			'discount',
+			'id_contragent',
+			'id_city',
+			'id_delivery',
+			'bonus_card',
+			'bonus_balance',
+			'bonus_discount',
+			'balance',
+			'sex',
+			'birthday',
+			'address_ur',
+			'b_year',
+			'b_month',
+			'b_day',
+			'first_name',
+			'middle_name',
+			'last_name'
+		];
+		$this->db_fields = [
+			'id_user',
+			'address_ur',
+			'last_name',
+			'first_name',
+			'middle_name',
+			'cont_person',
+			'phones',
+			'discount',
+			'id_contragent',
+			'id_region',
+			'id_city',
+			'id_delivery',
+			'bonus_card',
+			'sex',
+			'learned_from',
+			'birthday',
+			'buy_volume',
+			'bonus_discount',
+			'bonus_balance',
+			'balance',
+			'b_day',
+			'b_month',
+			'b_year',
+		];
 	}
+
+	// Создание нового клиента
+	public function Create($data){
+		if(!isset($data['id_user'])){
+			
+			if(!$id_user = parent::Create($data)){
+				return false;
+			}
+			$data['id_user'] = $id_user;
+		}
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'id_contragent':
+					//рандомный выбор контрагента если он не был выбран
+					if(!isset($data[$field]) || empty($data[$field])){
+						global $Contragents;
+						$Contragents->SetList();
+						$f[$field] = $Contragents->list[array_rand($Contragents->list)]['id_user'];
+					}else{
+						$f[$field] = $data[$field];
+					}
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert($this->db_table, $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return $id_user;
+	}
+
+	// Получаем данные о клиенте
+	public function Read($id_user){
+		if(!$res = parent::Read($id_user)){
+			return false;
+		}
+		$sql = 'SELECT *
+			FROM '.$this->db_table.'
+			WHERE id_user = '.$id_user;
+		return array_merge($res, (array) $this->db->GetOneRowArray($sql));
+	}
+
+	// Изменение данных клиента
+	public function Update($data){
+		if(!parent::Update($data)){
+			return false;
+		}
+		var_dump('test');
+		if(!$this->Read($data['id_user'])){
+			var_dump('test2');
+			if(!$this->Create($data)){
+				var_dump('test3');
+				return false;
+			}
+			var_dump('test4');
+			return true;
+		}
+		var_dump('test5');
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Update($this->db_table, $f, "id_user = ".$f['id_user'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Удаление клиента
+	public function Delete($id_user){
+		if(!parent::Delete($id_user)){
+			return false;
+		}
+		/*
+			Дополнительные процедуры очистки,например - очистка ассортимента
+		*/
+		return true;
+	}
+
 	// Покупатель по id
 	public function SetFieldsById($id, $all = 0, $all_data = false){
 		parent::SetFieldsById($id, $all);

@@ -27,7 +27,7 @@ if(isset($_POST['clear-assort'])){
 }
 if(isset($_POST['smb'])){
 	require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
-	list($err, $errm) = Supplier_form_validate(array('passwd'));
+	list($err, $errm) = Suppliers_form_validate(array('passwd'));
     if(!$err){
     	if($id = $Supplier->UpdateSupplier($_POST)){
 			$tpl->Assign('msg', 'Информация обновлена.');

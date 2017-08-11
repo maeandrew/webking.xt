@@ -3,15 +3,188 @@ class Users {
 	public $db;
 	public $fields;
 	private $usual_fields;
+	private $db_table = _DB_PREFIX_.'user';
+	private $db_fields;
 	public $list;
 	/** Конструктор
 	 * @return
 	 */
 	public function __construct (){
 		$this->db =& $GLOBALS['db'];
-		$this->usual_fields = array('id_user', 'name', 'email', 'descr', 'gid', 'active', 'news', 'promo_code', 'phone', 'agent', 'agent_acception_date');
+		$this->usual_fields = [
+			'id_user',
+			'name',
+			'passwd',
+			'email',
+			'phone',
+			'phones',
+			'descr',
+			'gid',
+			'active',
+			'date_add',
+			'last_login_date',
+			'pwdchkey',
+			'news',
+			'promo_code',
+			'promo_mail',
+			'agent',
+			'agent_acception_date',
+			'dealer'
+		];
+		$this->db_fields = [
+			'name',
+			'passwd',
+			'email',
+			'phone',
+			'descr',
+			'gid',
+			'active',
+			'date_add',
+			'last_login_date',
+			'pwdchkey',
+			'news',
+			'promo_code',
+			'promo_mail',
+			'agent',
+			'agent_acception_date',
+			'dealer',
+		];
 	}
 
+	// Создание нового пользователя
+	public function Create($data){
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'passwd':
+					$f[$field] = md5($data[$field]);
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert_user($this->db_table, $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$id_user = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		return $id_user;
+	}
+
+	// Получаем данные о пользователе
+	public function Read($id_user){
+		$sql = 'SELECT *
+			FROM '.$this->db_table.'
+			WHERE id_user = '.$id_user;
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res;
+	}
+
+	// Изменение данных пользователя
+	public function Update($data){
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'passwd':
+					if($data[$field]){
+						$f[$field] = md5($data[$field]);
+					}
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Update($this->db_table, $f, "id_user = ".$data['id_user'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Удаление пользователя
+	public function Delete($id_user){
+		$this->db->StartTrans();
+		if(!$this->db->DeleteRowFrom($this->db_table, 'id_user', $id_user)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Добавить пользователя
+	public function AddUser($arr){
+		if(isset($arr['name'])){
+			$f['name'] = trim($arr['name']);
+		}
+		if(isset($arr['email'])){
+			$f['email'] = trim($arr['email']);
+		}
+		if(isset($arr['passwd'])){
+			$f['passwd'] = md5(trim($arr['passwd']));
+		}
+		if(isset($arr['gid'])){
+			$f['gid'] = trim($arr['gid']);
+		}
+		if(isset($arr['descr'])){
+			$f['descr'] = trim($arr['descr']);
+		}
+		if(isset($arr['phone'])){
+			$f['phone'] = trim($arr['phone']);
+		}
+		// Функционал промо-кода поставщика для ограничения вывода товаров для клиента (клиент поставщика)
+		//  if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
+		// 	$arr['promo_code'] = trim($arr['promo_code']);
+		// 	$Suppliers = new Suppliers();
+		// 	if($Suppliers->CheckCodeUniqueness($arr['promo_code']) === false){
+		// 		$f['promo_code'] = $arr['promo_code'];
+		// 	}
+		// }
+        if(isset($arr['news'])){
+        	$f['news'] = trim($arr['news']);
+        }
+		$f['active'] = 1;
+		if(isset($arr['active']) && $arr['active'] == "on"){
+			$f['active'] = 0;
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert_user(_DB_PREFIX_.'user', $f)){
+			$this->db->errno = $this->db->ErrorMsg('Не удалось создать нового пользователя в таб. user.');
+			$this->db->FailTrans();
+			return false;
+		}
+		$id_user = $this->db->GetLastId();
+		$this->db->CompleteTrans();
+		if($f['gid'] == _ACL_CUSTOMER_){
+			if(isset($arr['email'])){
+				$mailer = new Mailer();
+				$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
+			}elseif($arr['phone'] && $arr['email'] = null){
+				$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
+				$res = $Gateway->execCommad(
+					'sendSMS',
+					array(
+						'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
+						'text' => trim($_GET['text']),
+						'phone' => $_GET['reciever'],
+						'datetime' => null,
+						'sms_lifetime' => 0
+					)
+				);
+			}
+		}
+		return $id_user;
+	}
 	// public function CheckUser($arr){
 	// 	$f['email'] = trim($arr['email']);
 	// 	$f['passwd'] = trim($arr['passwd']);
@@ -203,68 +376,6 @@ class Users {
 		return $groups;
 	}
 
-	// Добавить пользователя
-	public function AddUser($arr){
-		if(isset($arr['name'])){
-			$f['name'] = trim($arr['name']);
-		}
-		if(isset($arr['email'])){
-			$f['email'] = trim($arr['email']);
-		}
-		if(isset($arr['passwd'])){
-			$f['passwd'] = md5(trim($arr['passwd']));
-		}
-		if(isset($arr['gid'])){
-			$f['gid'] = trim($arr['gid']);
-		}
-		if(isset($arr['descr'])){
-			$f['descr'] = trim($arr['descr']);
-		}
-		if(isset($arr['phone'])){
-			$f['phone'] = trim($arr['phone']);
-		}
-		if(isset($arr['promo_code']) && $arr['promo_code'] != ''){
-			$arr['promo_code'] = trim($arr['promo_code']);
-			$supplier = new Suppliers();
-			if($supplier->CheckCodeUniqueness($arr['promo_code']) === false){
-				$f['promo_code'] = $arr['promo_code'];
-			}
-		}
-        if(isset($arr['news'])){
-        	$f['news'] = trim($arr['news']);
-        }
-		$f['active'] = 1;
-		if(isset($arr['active']) && $arr['active'] == "on"){
-			$f['active'] = 0;
-		}
-		$f['date_add'] = time();
-		$this->db->StartTrans();
-		if(!$this->db->Insert_user(_DB_PREFIX_.'user', $f)){
-			$this->db->errno = $this->db->ErrorMsg('Не удалось создать нового пользователя в таб. user.');
-			$this->db->FailTrans();
-			return false;
-		}
-		$id_user = $this->db->GetLastId();
-		$this->db->CompleteTrans();
-		if(isset($arr['email'])){
-			$mailer = new Mailer();
-			$mailer->SendRegisterToCustomers(array('email' => trim($arr['email']), 'name' => trim($arr['name']), 'passwd' => trim($arr['passwd'])));
-		}elseif($arr['phone'] && $arr['email'] = null){
-			$Gateway = new APISMS($GLOBALS['CONFIG']['sms_key_private'], $GLOBALS['CONFIG']['sms_key_public'], 'http://atompark.com/api/sms/', false);
-			$res = $Gateway->execCommad(
-				'sendSMS',
-				array(
-					'sender' => $GLOBALS['CONFIG']['invoice_logo_text'],
-					'text' => trim($_GET['text']),
-					'phone' => $_GET['reciever'],
-					'datetime' => null,
-					'sms_lifetime' => 0
-				)
-			);
-		};
-		return $id_user;
-	}
-
 	// Обновление пользователя
 	public function UpdateUser($arr){
 		$f['id_user'] = trim($arr['id_user']);
@@ -276,7 +387,7 @@ class Users {
 		}
 		if(isset($arr['phone']) && $arr['phone'] != '') {
 			//Проверяем, существует ли такой телефон в таблице User
-			if($this->CheckPhoneUniqueness($arr['phone'], $arr['id_user']) === true) {
+			if($this->CheckPhoneUniqueness($arr['phone'], $arr['id_user'])){
 				$f['phone'] = trim($arr['phone']);
 			}
 		}
@@ -492,7 +603,7 @@ class Users {
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			return $res['id_user'];
+			return false;
 		}
 		return true;
 	}
@@ -508,7 +619,7 @@ class Users {
 		if($id_user !== false) $sql .= " AND id_user <> ".$id_user;
 		$res = $this->db->GetOneRowArray($sql);
 		if($res['count'] > 0){
-			return $res['id_user'];
+			return false;
 		}
 		return true;
 	}
@@ -718,5 +829,24 @@ class Users {
 			return $res;
 		}
 		return $res;
+	}
+
+	public function GetUserIDByPhone($phone){
+		$sql = "SELECT id_user
+			FROM "._DB_PREFIX_."user
+			WHERE phone = '$phone'";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['id_user'];
+	}
+	public function GetUserIDByEmail($email){
+		$sql = "SELECT id_user
+			FROM "._DB_PREFIX_."user
+			WHERE email = '$email'";
+		if(!$res = $this->db->GetOneRowArray($sql)){
+			return false;
+		}
+		return $res['id_user'];
 	}
 }

@@ -1379,14 +1379,14 @@ ul.sb_menusub, ul.ex_menu { margin-left: 10px; padding: 0; list-style: none; col
 
 .additional_fields {
 	clear: both;
-	margin: 15px 0;
+	padding: 1em 0;
 	background: #f7f7f7;
 	box-shadow: inset 0 2px 4px rgba(0, 0, 0, .1);
 	overflow: auto;
 	border-radius: .2em;
 }
-.additional_fields > div:last-child {
-	padding-bottom: 15px;
+.additional_fields > div:first-child label {
+	padding-top: 0;
 }
 .additional_fields input:not([type="checkbox"]),
 .additional_fields textarea,

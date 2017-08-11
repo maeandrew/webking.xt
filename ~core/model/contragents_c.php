@@ -4,14 +4,146 @@ class Contragents extends Users{
 	public $fields;
 	public $list;
 	private $usual_fields;
+	private $db_table = _DB_PREFIX_.'contragent';
+	private $db_fields;
 	/** Конструктор
 	 * @return
 	 */
 	public function __construct(){
 		$this->db =& $GLOBALS['db'];
 		parent::__construct();
-		$this->usual_fields = array("c.id_user", "c.phones", "c.site", "c.name_c", "c.photo", "c.remote", "c.details");
-		$this->remitters_fields = array("id", "name", "egrpou", "mfo", "bank", "rs", "address");
+		$this->usual_fields = [
+			'c.id_user',
+			'c.phones',
+			'c.site',
+			'c.name_c',
+			'c.photo',
+			'c.remote',
+			'c.details'
+		];
+		$this->remitters_fields = [
+			'id',
+			'name',
+			'egrpou',
+			'mfo',
+			'bank',
+			'rs',
+			'address'
+		];
+		$this->db_fields = [
+			'id_user',
+			'phones',
+			'site',
+			'name_c',
+			'photo',
+			'details',
+			'remote',
+		];
+	}
+
+	// Создание нового контрагента
+	public function Create($data){
+		if(!isset($data['id_user'])){
+			if(!$id_user = parent::Create($data)){
+				return false;
+			}
+			$data['id_user'] = $id_user;
+		}
+		$data['id_contragent'] = $data['id_user'];
+		$Customers = new Customers();
+		if(!$Customers->Read($data['id_user'])){
+			if(!$Customers->Create($data)){
+				return false;
+			}
+		}else{
+			if(!$Customers->Update($data)){
+				return false;
+			}
+		}
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'remote':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Insert($this->db_table, $f)){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return $id_user;
+	}
+
+	// Получаем данные о контрагенте
+	public function Read($id_user){
+		$Customers = new Customers();
+		if(!$res = $Customers->Read($id_user)){
+			return false;
+		}
+		$sql = 'SELECT *
+			FROM '.$this->db_table.'
+			WHERE id_user = '.$id_user;
+		return array_merge($res, (array) $this->db->GetOneRowArray($sql));
+	}
+
+	// Изменение данных контрагента
+	public function Update($data){
+		if(!parent::Update($data)){
+			return false;
+		}
+		if(!$this->Read($data['id_user'])){
+			if(!$this->Create($data)){
+				return false;
+			}
+			return true;
+		}
+		$Customers = new Customers();
+		if(!$Customers->Read($data['id_user'])){
+			if(!$Customers->Create($data)){
+				return false;
+			}
+		}else{
+			if(!$Customers->Update($data)){
+				return false;
+			}
+		}
+		foreach($this->db_fields as $field){
+			switch ($field) {
+				case 'remote':
+					$f[$field] = isset($data[$field])?1:0;
+					break;
+				default:
+					if(isset($data[$field]) && $data[$field]){
+						$f[$field] = $data[$field];
+					}
+					break;
+			}
+		}
+		$this->db->StartTrans();
+		if(!$this->db->Update($this->db_table, $f, "id_user = ".$f['id_user'])){
+			$this->db->FailTrans();
+			return false;
+		}
+		$this->db->CompleteTrans();
+		return true;
+	}
+
+	// Удаление контрагента
+	public function Delete($id_user){
+		if(!parent::Delete($id_user)){
+			return false;
+		}
+		/*
+			Дополнительные процедуры очистки
+		*/
+		return true;
 	}
 
 	// Поля по id
@@ -59,9 +191,9 @@ class Contragents extends Users{
 	}
 
 	public function SetList(){
-		$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
 		$where = '';
 		if(SETT !== 0){
+			$date = date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")+2, date("Y")));
 			$where = (isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] != _ACL_CONTRAGENT_) || !isset($_SESSION['member']['gid'])?' WHERE cc.work_day = 1 AND cc.date = "'.$date.'" AND c.remote = 0 AND c.site NOT LIKE "%diler%"':'';
 		}
 		$sql = "SELECT DISTINCT c.id_user, c.name_c
@@ -70,8 +202,7 @@ class Contragents extends Users{
 			ON c.id_user = cc.id_contragent
 		LEFT JOIN "._DB_PREFIX_."user AS u
 			ON c.id_user = u.id_user".$where;
-		$this->list = $this->db->GetArray($sql);
-		if(!$this->list){
+		if(!$this->list = $this->db->GetArray($sql)){
 			return false;
 		}
 		return true;
