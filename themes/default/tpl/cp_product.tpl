@@ -510,9 +510,6 @@
 												<span class="feedback_author" itemprop="author"><?=isset($i['name'])?$i['name']:'Аноним'?></span>
 												<span id="isBought_<?=$i['Id_coment']?>" class="isBought <?=$i['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
 												<div class="mdl-tooltip" for="isBought_<?=$i['Id_coment']?>">Клиент купил<br>данный товар</div>
-											<!-- 	<span class="isAdmin <?=$i['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$i['Id_coment']?>" class="material-icons">vpn_key</i></span>
-												<div class="mdl-tooltip" for="is_admin_<?=$i['Id_coment']?>">Администратор</div> -->
-
 												<span class="feedback_date"><i class="material-icons">query_builder</i>
 													<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($i['date_comment']))?>">
 													<?if(date("d") == date("d", strtotime($i['date_comment']))){?>
@@ -555,8 +552,6 @@
 															<span class="feedback_author" itemprop="author"><?=isset($a['name'])?$a['name']:'Аноним'?></span>
 															<span id="isBought_<?=$a['Id_coment']?>" class="isBought <?=$a['purchase'] == 0?'hidden':null;?>"><i class="material-icons shopping_cart">shopping_cart</i> <i class="material-icons check_circle">check_circle</i></span>
 															<div class="mdl-tooltip" for="isBought_<?=$a['Id_coment']?>">Клиент купил<br>данный товар</div>
-															<!-- 	<span class="isAdmin <?=$a['adm'] == 0?'hidden':null;?>"><i id="is_admin_<?=$a['Id_coment']?>" class="material-icons">vpn_key</i></span>
-															<div class="mdl-tooltip" for="is_admin_<?=$a['Id_coment']?>">Администратор</div> -->
 															<span class="feedback_date"><i class="material-icons">query_builder</i>
 																<meta itemprop="datePublished" content="<?=date("d.m.Y", strtotime($a['date_comment']))?>">
 																<?if(date("d") == date("d", strtotime($a['date_comment']))){?>
@@ -877,10 +872,12 @@
 		<!--  старый вариант регулярки которая работает "/^[^\s]+\s[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+|[^\s]+/"
 			новый вариант регулярки которая работает но не до конца /^.*?\s.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?\s.*?$|^.*?\s.*?\s.*?\s|^.*?\s.*?\s.*?$|^.*?\s|^.*?$/" -->
 		<p class="products_links_block_title">Другие товары</p>
-		<?foreach ($link_prods as $item) {
-			preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $name);?>
-			<a href="<?=Link::Product($item['translit']);?>" class="product_link"><?=$name[0]?></a>
-		<?}?>
+		<?if(!empty($link_prods)){
+			foreach($link_prods as $item){
+				preg_match("/^[^\s]+\s[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+\s[^\s]+|^[^\s]+\s[^\s]+\s|^[^\s]+\s[^\s]+|[^\s]+/", $item['name'], $name);?>
+				<a href="<?=Link::Product($item['translit']);?>" class="product_link"><?=$name[0]?></a>
+			<?}
+		}?>
 	</div>
 </section>
 

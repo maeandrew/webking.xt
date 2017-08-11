@@ -345,7 +345,7 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 						<noscript><img alt="<?=htmlspecialchars(G::CropString($item['id_product']))?>" src="<?=G::GetImageUrl($item['img_1'], 'medium')?>"/></noscript>
 					<?}?>
 					<!-- <div class="add_to_fav_trend_block mdl-cell--hide-phone"> -->
-					<div class="add_to_fav_trend_block">
+					<div class="add_to_fav_trend_block hidden">
 						<div class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added':null;?><?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?' hidden':null?>" data-id-product="<?=$item['id_product'];?>">
 							<?if(isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])) {?>
 								<i id="forfavorite_<?=$item['id_product']?>" class="isfavorite favorite_icon material-icons">favorite</i>
@@ -360,6 +360,11 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 							<span class="mdl-tooltip" for="fortrending_<?=$item['id_product']?>"><?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?'Уже в листе ожидания':'Следить за ценой';?></span>
 						</div>
 					</div>
+				</div>
+				<div class="product_actions">
+					<a href="#" class="quick_view show_preview_js btn_js" data-name="preview" title="Быстрый просмотр"><i class="material-icons">&#xE8FF;</i></a>
+					<a href="#" class="favorite<?=isset($_SESSION['member']['favorites']) && in_array($item['id_product'], $_SESSION['member']['favorites'])?' added" title="Убрать из избранного':'" title="В избранное';?>" ><i class="material-icons">favorite<?=isset($_SESSION['member']['favorites']) && !in_array($item['id_product'], $_SESSION['member']['favorites'])?'_border':null;?></i></a>
+					<a href="#" class="fortrending<?=isset($_SESSION['member']['waiting_list']) && in_array($item['id_product'], $_SESSION['member']['waiting_list'])?' added" title="Не следить за ценой':'" title="Следить за ценой';?>"><i class="material-icons">&#xE01D;</i></a>
 				</div>
 				<div class="product_name">
 					<a href="<?=Link::Product($item['translit']);?>"><?=G::CropString($item['name'])?></a>

@@ -3,7 +3,7 @@ function GetLocation(){
 	var loc;
 	navigator.geolocation.getCurrentPosition(function(position){
 		var geocoder = new google.maps.Geocoder,
-			latlng = {
+		latlng = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude
 			};
@@ -705,6 +705,11 @@ function removeLoadAnimation(obj) {
 	}
 	componentHandler.upgradeDom();
 }
+
+// Добавление/Удаление товара в избранное
+function toggleFavorite(id_product, targetEl, is_prod){
+
+}
 //Добавление товара в избранное
 function AddFavorite(id_product, targetEl, is_prod){
 	console.log(is_prod);
@@ -721,13 +726,14 @@ function AddFavorite(id_product, targetEl, is_prod){
 			if(data.answer == 'ok'){
 				$('.userChoiceFav').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в избранное'};
-				if(is_prod){
-					targetEl.find('.favorite_js').empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
-					targetEl.find('span').empty().text('В избранном');
-				}else{
-					targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
-					targetEl.next().empty().html('Товар уже <br> в избранном');
-				}
+				// if(is_prod){
+				// 	targetEl.find('.favorite_js').empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
+				// 	targetEl.find('span').empty().text('В избранном');
+				// }else{
+					targetEl.attr('title', 'Убрать из избранного').find('i').html('favorite');
+					// targetEl.empty().text('favorite').removeClass('notfavorite').addClass('isfavorite');
+				// 	targetEl.next().empty().html('Товар уже <br> в избранном');
+				// }
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -752,13 +758,13 @@ function RemoveFavorite(id_product, targetEl, is_prod){
 			if(data.answer == 'ok'){
 				$('.userChoiceFav').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из избранного'};
-				if(is_prod){
-					targetEl.find('.favorite_js').empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
-					targetEl.find('span').empty().text('В избранное');
-				}else{
-					targetEl.empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
-					targetEl.next().empty().html('Добавить товар <br> в избранное');
-				}
+				// if(is_prod){
+					// targetEl.find('.favorite_js').empty().text('favorite_border').addClass('notfavorite').removeClass('isfavorite');
+					// targetEl.find('span').empty().text('В избранное');
+				// }else{
+					targetEl.attr('title', 'В избранное').find('i').html('favorite_border');//.addClass('notfavorite').removeClass('isfavorite');
+					// targetEl.next().empty().html('Добавить товар <br> в избранное');
+				// }
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -786,10 +792,10 @@ function AddInWaitingList(id_product, id_user, email, targetClass){
 			if(data.answer == 'ok'){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар добавлен в список ожидания'};
-				targetClass.addClass('arrow');
+				targetClass.attr('title', 'Не следить за ценой');
 				// targetClass.closest('.fortrending').next().empty().html('Товар в <br> списке ожидания');
-				targetClass.closest('.fortrending').find('.mdl-tooltip').html('Товар в <br> списке ожидания');
-				$('#specCont').find('.fortrending_info_tooltip').html('Товар в <br> списке ожидания');
+				// targetClass.closest('.fortrending').find('.mdl-tooltip').html('Товар в <br> списке ожидания');
+				// $('#specCont').find('.fortrending_info_tooltip').html('Товар в <br> списке ожидания');
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};
@@ -817,10 +823,10 @@ function RemoveFromWaitingList(id_product, id_user, email, targetClass){
 			if(data.answer == 'ok'){
 				$('.userChoiceWait').text('('+data.fav_count+')');
 				res = {message: 'Товар удален из списка ожидания'};
-				targetClass.removeClass('arrow');
+				targetClass.attr('title', 'Следить за ценой');
 				// targetClass.closest('.fortrending').next().empty().html('Следить за ценой');
-				targetClass.closest('.fortrending').find('.mdl-tooltip').html('Следить за ценой');
-				$('#specCont').find('.fortrending_info_tooltip').html('Следить за ценой');
+				// targetClass.closest('.fortrending').find('.mdl-tooltip').html('Следить за ценой');
+				// $('#specCont').find('.fortrending_info_tooltip').html('Следить за ценой');
 			}else{
 				if(data.answer == 'wrong user group'){
 					res = {message: 'Данный функционал доступен только для клиентов'};

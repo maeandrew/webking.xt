@@ -2168,33 +2168,30 @@ $(function(){
 		$(this).contents().find('head').append('<link type="text/css" rel="Stylesheet" href="https://xt.ua/themes/default/css/page_styles/product.css" />');
 	});
 
-	// Инициализация добавления товара в избранное в списке товаров
-	$('body').on('click', '.card .favorite i', function(e){
+	$('body').on('click', '.card .favorite', function(e){
+		// Инициализация добавления товара в избранное в списке товаров
 		e.preventDefault();
-		var parent = $(this).closest('.favorite');
-		if(parent.hasClass('added')){
-			parent.removeClass('added');
-			RemoveFavorite(parent.data('id-product'), $(this));
+		var parent = $(this).closest('.card');
+		if($(this).hasClass('added')){
+			$(this).removeClass('added');
+			RemoveFavorite(parent.data('idproduct'), $(this));
 		}else{
-			parent.addClass('added');
-			AddFavorite(parent.data('id-product'), $(this));
+			$(this).addClass('added');
+			AddFavorite(parent.data('idproduct'), $(this));
 		}
-	});
-
-	// Инициализация добавления товара в список ожидания в списке товаров
-	$('body').on('click', '.card .waiting_list', function(e){
+	}).on('click', '.card .fortrending', function(e){
+		// Инициализация добавления товара в список ожидания в списке товаров
 		e.preventDefault(e);
-		var parent = $(this).closest('.fortrending');
-		if($(this).hasClass('arrow')){
-			$(this).removeClass('arrow');
-			RemoveFromWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+		var parent = $(this).closest('.card');
+		if($(this).hasClass('added')){
+			$(this).removeClass('added');
+			RemoveFromWaitingList(parent.data('idproduct'), parent.data('id-user'), parent.data('email'), $(this));
 		}else{
-			$(this).addClass('arrow');
-			AddInWaitingList(parent.data('id-product'), parent.data('id-user'), parent.data('email'), $(this));
+			$(this).addClass('added');
+			AddInWaitingList(parent.data('idproduct'), parent.data('id-user'), parent.data('email'), $(this));
 		}
-	});
-	// Страница товара - Инициализация добавления товара в избранное
-	$('body').on('click', '.apps_panel .favorite', function(e){
+	}).on('click', '.apps_panel .favorite', function(e){
+		// Страница товара - Инициализация добавления товара в избранное
 		e.preventDefault();
 		var parent = $(this);
 		if(parent.hasClass('added')){
@@ -2204,10 +2201,8 @@ $(function(){
 			parent.addClass('added');
 			AddFavorite(parent.data('id-product'), $(this), true);
 		}
-	});
-
-	// Страница товара - Инициализация добавления товара в список ожидания
-	$('body').on('click', '.apps_panel .fortrending', function(e){
+	}).on('click', '.apps_panel .fortrending', function(e){
+		// Страница товара - Инициализация добавления товара в список ожидания
 		e.preventDefault(e);
 		if($(this).find('.waiting_list').hasClass('arrow')){
 			$(this).find('.waiting_list').removeClass('arrow');
