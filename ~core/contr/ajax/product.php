@@ -221,8 +221,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					$Customers = new Customers();
 					require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 					list($err, $errm) = Change_Info_validate();
-					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
-					if($unique_phone === true){
+					if($Users->CheckPhoneUniqueness($_POST['phone'])){
 						$string_phone = preg_replace('~[^0-9]+~','', $_POST['phone']);
 						if(strlen($string_phone) == 10){
 							$phone_num = 38 + $string_phone;

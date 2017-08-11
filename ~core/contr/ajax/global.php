@@ -3,7 +3,7 @@
 		switch($_POST['action']){
 			case "SaveGuestComment":
 				if(isset($_POST['id_user']) && $_POST['id_user'] == ''){
-					if($User->CheckEmailUniqueness($_POST['email']) !== true){
+					if(!$Users->CheckEmailUniqueness($_POST['email'])){
 						$res['err'] = 1;
 						$res['msg'] = 'Пользователь с таким email уже зарегистрирован. Авторизуйтесь!';
 						echo json_encode($res);

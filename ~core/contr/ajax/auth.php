@@ -61,18 +61,16 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// проверяем уникальность введенного e-mail и телефона
 					$unique_email = true;
 					if(isset($_POST['email'])){
-						$unique_email = $Users->CheckEmailUniqueness($_POST['email']);
-						if($unique_email !== true) {
+						if(!$Users->CheckEmailUniqueness($_POST['email'])){
 							$err = 1;
 							$echo['errm']['email'] = 'Пользователь с таким email уже зарегистрирован!';
 						}
 					}
-					$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
-					if($unique_phone !== true){
+					if(!$Users->CheckPhoneUniqueness($_POST['phone'])){
 						$err = 1;
 						$echo['errm']['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 					}
-					if($unique_email === true && $unique_phone  === true){
+					if(!$err){
 						$_POST['address_ur'] = "";
 						$_POST['descr'] = "";
 						$Customers = new Customers();
@@ -108,8 +106,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'accessRecovery':
 				switch($_POST['method']){
 					case 'email':
-						$id_user = $Users->CheckEmailUniqueness($_POST['value']);
-						if($id_user === true ){
+						if(!$id_user = $Users->GetUserIDByEmail($_POST['value'])){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким email не найдено.';
 						}else{
@@ -125,8 +122,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 						}
 						break;
 					case 'sms':
-						$id_user = $Users->CheckPhoneUniqueness($_POST['value']);
-						if($id_user === true){
+						if(!$id_user = $Users->GetUserIDByPhone($_POST['value'])){
 							$res['success'] = false;
 							$res['msg'] = 'Пользователя с таким телефоном не найдено.';
 						}else{

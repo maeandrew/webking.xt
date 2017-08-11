@@ -299,8 +299,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'getCustomerInfo':
 				if(isset($_POST['phone'])){
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
-					$id_user = $Users->CheckPhoneUniqueness($phone, false);
-					if($id_user === true){
+					if(!$id_user = $Users->GetUserIDByPhone($phone)){
 						$res = '<div class="no_results_info">
 									<p>По данному номеру телефона '.$phone.' не найдено пользователей.</p>
 									<p>Вы можете создать нового пользователя с таким номером.</p>
@@ -407,8 +406,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 					// Если покупатель не авторизован, получаем введенный номер телефона
 					$phone = preg_replace('/[^\d]+/', '', $_POST['phone']);
 					// проверяем уникальность введенного номера телефона
-					$unique_phone = $Users->CheckPhoneUniqueness($phone);
-					if($unique_phone === true){
+					if($Users->CheckPhoneUniqueness($phone)){
 						$data = array(
 							'name' => 'user_'.rand(),
 							//'passwd' => $pass = substr(md5(time()), 0, 8),
@@ -440,8 +438,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				}
 				if(G::IsLogged()){
 					if(isset($_POST['phone'])){
-						$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone']);
-						if($unique_phone === true){
+						if($Users->CheckPhoneUniqueness($_POST['phone'])){
 							$date = array(
 								'id_user' => $_SESSION['member']['id_user'],
 								'phone' => $_POST['phone']

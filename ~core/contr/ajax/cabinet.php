@@ -78,15 +78,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 			case 'ChangeInfoUser':
 				require_once ($GLOBALS['PATH_block'].'t_fnc.php'); // для ф-ции проверки формы
 				list($err, $errm) = Change_Info_validate();
-				$unique_phone = $Users->CheckPhoneUniqueness($_POST['phone'], $_POST['id_user']);
-				if((isset($_POST['email']) && $_POST['email'] !='')) {
-					$unique_email = $Users->CheckEmailUniqueness($_POST['email'], $_POST['id_user']);
-					if($unique_email !== true) {
+				if((isset($_POST['email']) && $_POST['email'] !='')){
+					if(!$Users->CheckEmailUniqueness($_POST['email'], $_POST['id_user'])){
 						$err = 1;
 						$errm['email'] = 'Пользователь с таким email уже зарегистрирован!';
 					}
 				}
-				if($unique_phone !== true) {
+				if(!$Users->CheckPhoneUniqueness($_POST['phone'], $_POST['id_user'])){
 					$err = 1;
 					$errm['phone'] = 'Пользователь с таким номером телефона уже зарегистрирован!';
 				}
