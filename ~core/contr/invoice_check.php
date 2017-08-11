@@ -11,7 +11,6 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 		$orders = $_POST['orders']; //Сюда приходит список всех задействованых заказов
 	}
 	unset($parsed_res);
-	require($GLOBALS['PATH_model'].'invoice_c.php');
 	$Supplier = new Suppliers();
 	if(isset($filial) == true){
 		$tpl->Assign('filial', $Supplier->GetFilialById($filial));
@@ -149,7 +148,6 @@ if(isset($_POST['orders']) || isset($_GET['orders'])){
 }else{
 	$id_order = $GLOBALS['REQAR'][1];
 	unset($parsed_res);
-	require($GLOBALS['PATH_model'].'invoice_c.php');
 	$Orders = new Orders();
 	$Orders->SetFieldsById($id_order);
 	if(!isset($_POST['orders'])){

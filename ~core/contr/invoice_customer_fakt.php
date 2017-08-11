@@ -4,7 +4,6 @@ if(!isset($GLOBALS['REQAR'][1]) && !is_numeric($GLOBALS['REQAR'][1]) && !isset($
 	exit();
 }
 isset($_GET['filial'])? $filial = $_GET['filial']:null;
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $Suppliers = new Suppliers();
 $Orders = new Orders();
 $Invoice = new Invoice();

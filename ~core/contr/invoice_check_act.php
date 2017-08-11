@@ -6,7 +6,6 @@ if(!isset($_GET['key'])){
 unset($parsed_res);
 
 $key = $_GET['key'];
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $Invoice = new Invoice();
 $Order = new Orders();
 $Customer = new Customers();

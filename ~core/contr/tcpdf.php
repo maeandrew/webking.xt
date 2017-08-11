@@ -1,5 +1,4 @@
 <?php
-require('~core/model/invoice_c.php');
 require('tcPDFPlugin/tcpdf.php');
 $Contragents = new Contragents();
 $Contragents->SetFieldsById($_POST['contragent']);

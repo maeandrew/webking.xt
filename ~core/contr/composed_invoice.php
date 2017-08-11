@@ -1,7 +1,6 @@
 <?php
 $orders = $_POST['orders'];
 unset($parsed_res);
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $orders_data = array(); //Тут будем хранить данные о каждом заказе
 foreach($orders as $order_id){
     $Order = new Orders();

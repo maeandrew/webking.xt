@@ -3,7 +3,6 @@ if((!isset($GLOBALS['Rewrite']) || !is_numeric($GLOBALS['Rewrite'])) && !isset($
 	header('Location: '.Link::Custom('404'));
 	exit();
 }
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $Orders = new Orders();
 $Address = new Address();
 $Invoice = new Invoice();

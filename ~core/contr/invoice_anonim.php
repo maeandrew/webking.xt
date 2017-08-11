@@ -7,7 +7,6 @@ if(!isset($GLOBALS['REQAR'][1]) && !is_numeric($GLOBALS['REQAR'][1])){
 }
 $id_order = $GLOBALS['REQAR'][1];
 unset($parsed_res);
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $Order = new Orders();
 $Order->SetFieldsById($id_order);
 $ord = $Order->fields;

@@ -12,7 +12,6 @@ if(isset($_GET['orders']) && isset($_GET['id_contragent'])){
 	}
 }
 unset($parsed_res);
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $contragents = array();
 $orders_data = array(); //Тут будем хранить данные о каждом заказе
 $supplier_order = array();

@@ -1,6 +1,5 @@
 <?php
 unset($parsed_res);
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $GLOBALS['__page_title'] = $GLOBALS['__page_description'] = $GLOBALS['__page_keywords'] = 'Накладная';
 
 $Invoice = new Invoice();

@@ -14,7 +14,6 @@ if(!isset($GLOBALS['REQAR'][3])){
 $id_order = $GLOBALS['REQAR'][1];
 $id_supplier = $GLOBALS['REQAR'][2];
 unset($parsed_res);
-require($GLOBALS['PATH_model'].'invoice_c.php');
 $Order = new Orders();
 $Order->SetFieldsById($id_order);
 if($Order->fields['skey'] != $GLOBALS['REQAR'][3]){

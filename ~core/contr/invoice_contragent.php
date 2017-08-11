@@ -13,7 +13,6 @@
 
 	// ---- center ----
 	unset($parsed_res);
- 	require($GLOBALS['PATH_model'].'invoice_c.php');
 
  	$Order = new Orders();
  	$Order->SetFieldsById($id_order);
