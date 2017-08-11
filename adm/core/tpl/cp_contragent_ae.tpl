@@ -29,15 +29,18 @@
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-md-12">
-						<label for="photo">Фото:</label><?=isset($errm['photo'])?"<span class=\"errmsg\">".$errm['photo']."</span><br>":null?>
+						<label for="photo">Фото:</label>
+						<?=isset($errm['photo'])?"<span class=\"errmsg\">".$errm['photo']."</span><br>":null?>
 						<input type="text" name="photo" id="photo" class="input-l" value="<?=isset($_POST['photo'])?htmlspecialchars($_POST['photo']):null?>">
 					</div>
 					<div class="col-md-12">
-						<label for="site">Сайт:</label><?=isset($errm['site'])?"<span class=\"errmsg\">".$errm['site']."</span><br>":null?>
+						<label for="site">Сайт:</label>
+						<?=isset($errm['site'])?"<span class=\"errmsg\">".$errm['site']."</span><br>":null?>
 						<input type="text" name="site" id="site" class="input-l" value="<?=isset($_POST['site'])?htmlspecialchars($_POST['site']):null?>">
 					</div>
 					<div class="col-md-12">
-						<label for="name_c">Отображение в кабинете покупателей:</label><?=isset($errm['name_c'])?"<span class=\"errmsg\">".$errm['name_c']."</span><br>":null?>
+						<label for="name_c">Отображение в кабинете покупателей:</label>
+						<?=isset($errm['name_c'])?"<span class=\"errmsg\">".$errm['name_c']."</span><br>":null?>
 						<input type="text" name="name_c" id="name_c" class="input-l" value="<?=isset($_POST['name_c'])?htmlspecialchars($_POST['name_c']):null?>">
 					</div>
 				</div>
