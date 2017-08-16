@@ -12,6 +12,10 @@ switch($profile){
 		$className = 'users';
 		$profile = 'customer';
 		break;
+	case 'photographer':
+		$className = 'users';
+		$profile = 'customer';
+		break;
 	default:
 		$className = $profile.'s';
 		break;
