@@ -64,6 +64,12 @@ class Link {
 		$controller = $controller=='main'?'':$controller;
 		return _base_url.'/'.$controller.(isset($rewrite)?'/'.$rewrite:null).self::AdressUrl($data).(isset($params['clear']) && $params['clear'] == true?null:$GLOBALS['GetString']);
 	}
+	/**
+	 * Генерация ссылки на текущую страницу
+	 */
+	public static function Current($params = array()){
+		return _base_url.str_replace($GLOBALS['GetString'], '', $_SERVER['REQUEST_URI']).(isset($params['clear']) && $params['clear'] == true?null:$GLOBALS['GetString']);
+	}
 
 	/**
 	 * [ParseParams description]

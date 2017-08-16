@@ -1246,8 +1246,7 @@ class Products {
 			$params.' '.
 			(($order !== null)?" ORDER BY ".$order:null).
 			$limit;
-		$this->list = $this->db->GetArray($sql);
-		if(!$this->list){
+		if(!$this->list = $this->db->GetArray($sql)){
 			return false;
 		}
 		return true;

@@ -184,10 +184,10 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в гривнах, &#8372;</p>
-							<form action="<?=$_SERVER['REQUEST_URI']?>/?export" method="post">
+							<form action="<?=Link::Current(array( 'clear' => true ))?>/?export" method="post">
 								<button type="submit" class="export_excel btn-m-blue">Экспортировать в Excel</button>
 							</form>
-							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
+							<form action="<?=Link::Current(array( 'clear' => true ))?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import" class="import_excel btn-m-blue">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
 							</form>
@@ -196,10 +196,10 @@
 					<div class="add_functions col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div class="add_items1">
 							<p>Цены в долларах, $</p>
-							<form action="<?=$_SERVER['REQUEST_URI']?>/?export_usd" method="post">
+							<form action="<?=Link::Current(array( 'clear' => true ))?>/?export_usd" method="post">
 								<button type="submit" class="export_excel btn-m-green">Экспортировать в Excel</button>
 							</form>
-							<form action="<?=$_SERVER['REQUEST_URI']?>" method="post" enctype="multipart/form-data">
+							<form action="<?=Link::Current(array( 'clear' => true ))?>" method="post" enctype="multipart/form-data">
 								<button type="submit" name="smb_import_usd" class="import_excel btn-m-green">Импортировать</button><br>
 								<input type="file" name="import_file" required="required" class="file_select">
 							</form>
