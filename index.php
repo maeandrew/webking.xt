@@ -22,6 +22,7 @@ $News = new News();
 $Cart = new Cart();
 $s_time = G::getmicrotime();
 /*ini_set('session.save_path', $GLOBALS['PATH_root'].'sessions');*/
+G::metaTags();
 require($GLOBALS['PATH_core'].'routes.php');
 G::Start();
 /* Объявление CSS файлов */

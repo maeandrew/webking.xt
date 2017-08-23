@@ -46,8 +46,11 @@ class db {
 	*/
 	public function Query($sql){
 		$this->response = $this->Prepare($sql);
-		$this->response->execute();
-		return $this->response;
+		if($this->response->execute()){
+			return $this->response;
+		}else{
+			return false;
+		}
 	}
 
 	/**
@@ -118,7 +121,7 @@ class db {
 	* @return array массив полей и значений
 	*/
 	public function GetOneRowArray($sql = ''){
-		$response = $this->Query($sql) or G::DieLoger("SQL Error - $sql");
+		$response = $this->Query($sql);// or G::DieLoger("SQL Error - $sql");
 		$res = $this->ResAsArray($response);
 		return $res;
 	}
@@ -223,9 +226,9 @@ class db {
 		}
 		$sql .= ')';
 		// if(G::IsLogged() && $_SESSION['member']['id_user'] == 25143){
-			print_r($sql);
+		// 	print_r($sql);
 		// }
-		return $this->Query($sql) or G::DieLoger("SQL error - $sql");
+		return $this->Query($sql);// or G::DieLoger("SQL error - $sql");
 	}
 
 	public function Insert_user($table, $fields){

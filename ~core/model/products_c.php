@@ -4158,8 +4158,7 @@ class Products {
 			WHERE id_product = ".$id.
 			($visible === false?' AND visible = 1':null)."
 			ORDER BY ord";
-		$arr = $this->db->GetArray($sql);
-		if(!$arr){
+		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
 		return $arr;
@@ -4423,16 +4422,14 @@ class Products {
 			}
 		}
 		// duplicating product videos
-		$res = $this->GetVideoById($data['id_product']);
-		if(!empty($res)){
+		if(!empty($res = $this->GetVideoById($data['id_product']))){
 			$this->UpdateVideo($id_product, $res);
 		}
 		// duplicating product images
-		$res = $this->GetPhotoById($data['id_product']);
-		foreach($res as &$value){
-			$value = $value['src'];
-		}
-		if(!empty($res)){
+		if(!empty($res = $this->GetPhotoById($data['id_product']))){
+			foreach($res as &$value){
+				$value = $value['src'];
+			}
 			$this->UpdatePhoto($id_product, $res);
 		}
 		return $id_product;
@@ -4593,8 +4590,7 @@ class Products {
 			// AND c.pid NOT IN (493)
 			// AND c.pid NOT IN (SELECT id_category FROM xt_category WHERE pid = 493)
 			// AND c.category_level <> 4
-		$res = $this->db->GetArray($sql);
-		return $res;
+		return $this->db->GetArray($sql);
 	}
 
 	public function AddPhotoProduct($data){

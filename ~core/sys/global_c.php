@@ -598,33 +598,39 @@ class G {
 		if(isset($GLOBALS['Page_id'])){
 			$str_unique .= ' Страница '.$GLOBALS['Page_id'].'.';
 		}
-		// meta tags
-		switch($GLOBALS['CurrentController']){
-			case 'main':
-				$GLOBALS['__page_title'] = 'Служба снабжения xt.ua';
-				$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
-				$GLOBALS['__page_keywords'] = '';
-				break;
-			case 'product':
-				$GLOBALS['__page_title'] = htmlspecialchars($data['name'].'. '.$data['page_title']);
-				$GLOBALS['__page_description'] = htmlspecialchars($data['name'].'. '.$data['page_description']);
-				$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
-				break;
-			case 'page':
-				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
-				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
-				break;
-			case 'news':
-				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
-				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
-				break;
-			default:
-				$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_unique);
-				$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
-				$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
-				break;
+		if(!isset($GLOBALS['CurrentController'])){
+			$GLOBALS['__page_title'] = 'Служба снабжения xt.ua';
+			$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
+			$GLOBALS['__page_keywords'] = '';
+		}else{
+			switch($GLOBALS['CurrentController']){
+				case 'main':
+					$GLOBALS['__page_title'] = 'Служба снабжения xt.ua';
+					$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
+					$GLOBALS['__page_keywords'] = '';
+					break;
+				case 'product':
+					$GLOBALS['__page_title'] = htmlspecialchars($data['name'].'. '.$data['page_title']);
+					$GLOBALS['__page_description'] = htmlspecialchars($data['name'].'. '.$data['page_description']);
+					$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
+					break;
+				case 'page':
+					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
+					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					break;
+				case 'news':
+					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
+					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					break;
+				default:
+					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_unique);
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
+					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					break;
+			}
+
 		}
 	}
 
@@ -797,6 +803,7 @@ class G {
 		}
 		if(SETT == 2){
 			// Если файла по данному $url не существует, получим изображение nofoto.png
+
 			if(!file_exists($GLOBALS['PATH_global_root'].$url) || empty($url)){
 				$url = '/images/nofoto.png';
 			}

@@ -131,8 +131,7 @@ if(!isset($_POST['art'])){
 	$tpl->Assign('last_article', $Products->GetLastArticle()+1);
 }
 // Формирование списка категорий для выпадающего списка
-$list = $Products->generateCategory();
-$tpl->Assign('list', $list);
+$tpl->Assign('list', $Products->generateCategory());
 $tpl->Assign('unitslist', $Unit->GetUnitsList());
 $tpl->Assign('mlist', $Products->GetManufacturers());
 $tpl->Assign('list_segment_types', $segmentation->GetSegmentationType());

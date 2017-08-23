@@ -181,14 +181,13 @@ if(isset($_POST['smb']) || isset($_POST['smb_new'])){
 	}
 }
 if(!$Products->SetFieldsById($id_product, 0)) die('Ошибка при выборе товара.');
-// Формирование списка категорий для выпадающего списка
-$list = $Products->generateCategory();
 // Определение категории к которой принадлежит товар
 if(isset($item['id_category']) && $item['id_category'] == $Products->fields['id_category']){
 	$category['name'] = $item['name'];
 	$category['id_category'] = $item['id_category'];
 }
-$tpl->Assign('list', $list);
+// Формирование списка категорий для выпадающего списка
+$tpl->Assign('list', $Products->generateCategory());
 // get last article
 $tpl->Assign('last_article', $Products->GetLastArticle());
 //Дубликат товара

@@ -266,18 +266,6 @@
 																		<span class="value"><?=$i['address_info']['address']?></span>
 																	</div>
 																</div>
-																<!-- <div class="line">
-																	<span class="label">Получатель:</span>
-																	<span class="value">
-																		<?=$i['address_info']['last_name']?>
-																		<?=$i['address_info']['first_name']?>
-																		<?=$i['address_info']['middle_name']?>
-																	</span>
-																</div>
-																<div class="line">
-																	<span class="label">Номер телефона:</span>
-																	<span class="value"><?=$i['phone']['address']?></span>
-																</div> -->
 														<?}else{?>
 															<div class="change_delivery">
 																<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
@@ -416,7 +404,6 @@ var statuses = {
 
 //Удаление заказа в кабинете
 $(function(){
-	var id_order = <?=$i['id_order']?>;
 	/*Определение текущего ID заказа и Отмена*/
 	$('.cnslOrderBtn').on('click', function(e){
 		id_order = $(this).closest('.mdl-tabs__tab-bar').find('.odrerIdAct').data('id-order');

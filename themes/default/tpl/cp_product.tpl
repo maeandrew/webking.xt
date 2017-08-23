@@ -674,7 +674,7 @@
 				<?foreach($related_prods as $p){?>
 					<div class="item">
 						<a href="<?=Link::Product($p['translit']);?>">
-							<?if(!empty($p['images'])){?>
+							<?if(is_array($p['images']) && !empty($p['images'])){?>
 								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
 							<?}else	if(!empty($p['img_1'])){?>
 								<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=G::GetImageUrl($p['img_1'], 'medium');?>"/>

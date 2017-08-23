@@ -410,8 +410,8 @@
 						<div class="catblock">
 							<select required name="categories_ids[]" class="input-m">
 								<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
-								<?foreach($list as $item){?>
-									<option <?=(next($list)['pid'] == $item['id_category'])?'disabled':null?> <?=($item['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+								<?foreach($list as $category){?>
+									<option <?=(next($list)['pid'] == $category['id_category'])?'disabled':null?> <?=($category['id_category'] == $cid['id_category'])?'selected="true"':null?> value="<?=$category['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $category['category_level'])?> <?=$category['name']?></option>
 								<?}?>
 							</select>
 							<span class="icon-font delcat" title="Удалить">t</span>
@@ -730,8 +730,8 @@
 	<div class="catblock hidden">
 		<select required name="categories_ids[]" class="input-m">
 			<option selected="true" disabled value="0"> &nbsp;&nbsp;выберите категорию...</option>
-			<?foreach($list as $item){?>
-				<option  value="<?=$item['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $item['category_level'])?> <?=$item['name']?></option>
+			<?foreach($list as $category){?>
+				<option  value="<?=$category['id_category']?>"><?=str_repeat("&nbsp;&nbsp;&nbsp;", $category['category_level'])?> <?=$category['name']?></option>
 			<?}?>
 		</select>
 		<span class="icon-font delcat" title="Удалить">t</span>
