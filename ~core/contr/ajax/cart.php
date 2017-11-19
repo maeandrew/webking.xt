@@ -115,11 +115,6 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				// 	$Delivery->SetFieldsByInput($saved['city']['shipping_comp'], $saved['city']['name'], $saved['city']['region']);
 				// 	$deliverydepartments_list = $Delivery->list;
 				// }
-				// if(isset($_SESSION['cart']['id_gift'])){
-				// 	$Products->SetFieldsById($_SESSION['cart']['id_gift']);
-				// 	$Products->fields['images'] = $Products->GetPhotoById($Products->fields['id_product']);
-				// 	$tpl->Assign('gift', $Products->fields);
-				// }
 				// /* output data */
 				// $tpl->Assign('customer', $customer);
 				// $tpl->Assign('saved', $saved);
@@ -131,6 +126,12 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 				$tpl->Assign('managers_list', $managers_list);
 				$tpl->Assign('personal_discount', isset($_SESSION['cart']) && isset($_SESSION['cart']['personal_discount'])?$_SESSION['cart']['personal_discount']:1);
 
+				if(isset($_SESSION['cart']['id_gift'])){
+					$Products->SetFieldsById($_SESSION['cart']['id_gift']);
+					$Products->fields['images'] = $Products->GetPhotoById($Products->fields['id_product']);
+					$tpl->Assign('gift', $Products->fields);
+				}
+				
 				/* Действия */
 				if(isset($GLOBALS['Rewrite']) && is_numeric($GLOBALS['Rewrite'])){
 					if(isset($_POST['add_order'])){
