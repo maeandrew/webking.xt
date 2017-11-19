@@ -23,6 +23,7 @@ G::ToGlobals(array(
 	'PATH_contr'			=> $root.'core'.DIRSEP.'contr'.DIRSEP,
 	'PATH_tpl'				=> $root.'core'.DIRSEP.'tpl'.DIRSEP,
 	'PATH_tpl_global'		=> $root.'core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP,
+	'PATH_global_tpl_global'=> _root.'~core'.DIRSEP.'tpl'.DIRSEP.'_global'.DIRSEP,
 	'PATH_news_img'			=> _root.'news_images'.DIRSEP,
 	'PATH_post_img'			=> _root.'post_images'.DIRSEP,
 ));

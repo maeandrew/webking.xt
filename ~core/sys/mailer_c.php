@@ -4,7 +4,8 @@ class Mailer extends PHPMailer {
 	public $priority = 3;
 	public $to_name;
 	public $to_email;
-	public $oApi;
+	public $SmtpApi;
+	public $SendpulseApi;
 	public $From = null;
 	public $FromName = null;
 	public $Sender = null;
@@ -43,10 +44,10 @@ fShMmpw92Ql+z7tD3+5M6ewRsHZDIgoKTwbG4oc14NZsQgdKET7J1QgKrrKlT1la
 yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 6HUAUquV84qT0FzkLwIDAQAB
 -----END PUBLIC KEY-----";
-		require($GLOBALS['PATH_model'].'APISMTP.php');
-		require($GLOBALS['PATH_model'].'SendpulseApi.php');
-		$this->oApi = new SmtpApi($sPublicKey);
-		$this->SmtpApi = new SendpulseApi('1d6ed37eb33d4f1e0828b09e49e91830', 'c718ee93217b020cc0cca71d8a15ea7c');
+		// require($GLOBALS['PATH_model'].'smtpapi.php');
+		// require($GLOBALS['PATH_model'].'SendpulseApi.php');
+		$this->SmtpApi = new SmtpApi($sPublicKey);
+		$this->SendpulseApi = new SendpulseApi('1d6ed37eb33d4f1e0828b09e49e91830', 'c718ee93217b020cc0cca71d8a15ea7c');
 	}
 
 	// Отсылка письма клиенту со ссылками на накладные покупателя
@@ -76,7 +77,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 		if($supplier['make_csv'] == 1){
 			$email['attachments'][$supplier['real_phone'].'.csv'] = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/temp/'.$supplier['real_phone'].'.csv');
 		}
-		$res = $this->SmtpApi->smtpSendMail($email);
+		$res = $this->SendpulseApi->smtpSendMail($email);
 		if(!$res){
 			return false;
 		}
@@ -86,12 +87,14 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 	// Отсылка письма клиенту со ссылками на накладные покупателя
 	public function testEmail(){
 		global $tpl;
-		$tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
+		// $tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
 		$tpl->Assign('title', 'Заголовок тестового письма');
 		$tpl->Assign('content', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eum excepturi, autem ipsum aspernatur! Hic dicta ipsam recusandae at, laboriosam magnam doloribus modi laborum a? Molestiae ab vero, dignissimos perspiciatis.
 				Atque doloribus unde ullam eum quam, minima maxime fugit mollitia ipsum sit quas dicta dolor voluptate deleniti recusandae reiciendis. Facere ducimus tenetur cupiditate corporis reprehenderit voluptates fugiat a perferendis recusandae?');
+		var_dump($GLOBALS['PATH_global_tpl_global'].'mail.tpl');
+		echo $tpl->Parse($GLOBALS['PATH_global_tpl_global'].'mail.tpl');
 		$email = array(
-			'html' => $tpl->Parse($GLOBALS['PATH_tpl_global'].'mail.tpl'),
+			'html' => $tpl->Parse($GLOBALS['PATH_global_tpl_global'].'mail.tpl'),
 			'text' => 'text',
 			'subject' => 'Тестовое письмо ',
 			'encoding' => 'UTF-8',
@@ -106,15 +109,13 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				// array(
 				// 	'email' => 'webking.market@gmail.com'
 				// ),
-				array(
-					'email' => 'webking.dev2@gmail.com'
-				)
+				// array(
+				// 	'email' => 'webking.dev2@gmail.com'
+				// )
 			)
 		);
-		$res = $this->SmtpApi->smtpSendMail($email);
-		var_dump($res);
-		// $res = $this->oApi->send_email($email);
-		if(!$res){
+		// $res = $this->SendpulseApi->smtpSendMail($email);
+		if(!$res->result){
 			return false;
 		}
 		return true;
@@ -178,15 +179,16 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 			ob_end_clean();
 		}
 	}
-	public function SendConsulRequest($data){
-		$RET = "Поступил запрос на обратный звонок:<br>
-		Имя клиента: ".$data['name']."<br>
-		Телефон клиента: ".$data['phone']."<br>
-		Тема вопроса: ".$data['topic']."<br>
-		Запрос отправлен ".date("d.m.Y")." в ".date("H:i");
+	public function SendConsulRequest($data = false){
+		// $RET = "Поступил запрос на обратный звонок:<br>
+		// Имя клиента: ".$data['name']."<br>
+		// Телефон клиента: ".$data['phone']."<br>
+		// Тема вопроса: ".$data['topic']."<br>
+		// Запрос отправлен ".date("d.m.Y")." в ".date("H:i");
+		$RET = 'test message';
 		$aEmail = array(
 			'html' => $RET,
-			'subject' => $data['topic'],
+			'subject' => 'test message subject',//$data['topic'],
 			'encoding' => "UTF-8",
 			'from' => array(
 				'name' => $this->FromName,
@@ -194,11 +196,11 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 			),
 			'to' => array(
 				array(
-					'email' => $GLOBALS['CONFIG']['consult_request_email'],
+					'email' => 'alexparhomenko67@gmail.com'//$GLOBALS['CONFIG']['consult_request_email'],
 				),
 			),
 		);
-		if(!$this->res = $this->oApi->send_email($aEmail)){
+		if(!$this->res = $this->SmtpApi->send_email($aEmail)){
 			return false;
 		}
 		return true;
@@ -278,7 +280,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				// )
 			)
 		);
-		$res = $this->oApi->send_email($Email);
+		$res = $this->SmtpApi->send_email($Email);
 		if(!$res){
 			return false;
 		}
@@ -802,6 +804,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 
 	public function SendNewsToCustomers1($params){
 		global $db;
+		global $tpl;
 		// Добавляем адрес в список получателей
 		if(isset($params['test_distribution'])){
 			$clients[] = array(
@@ -809,44 +812,47 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 				'name'	=> 'Test',
 				'skey'	=> null
 			);
+			$clients[] = array(
+				'email'	=> 'alexparhomenko67@gmail.com',
+				'name'	=> 'Alexander',
+				'skey'	=> null
+			);
 		}else{
 			$limit = '';
-			if(isset($params['limit_from']) && $params['limit_from'] != '' && isset($params['limit_howmuch']) && $params['limit_howmuch'] != ''){
-				$limit = "LIMIT ".$params['limit_from'].", ".$params['limit_howmuch'];
+			if(isset($params['limit_howmuch']) && $params['limit_howmuch'] != ''){
+				$limit = "LIMIT ".($params['limit_from'] == ''?'0':$params['limit_from']).", ".$params['limit_howmuch'];
 			}
-			$sql = "SELECT DISTINCT email, name, md5(id_user) as skey FROM "._DB_PREFIX_."user WHERE news = 1 ".$limit;
+			$sql = "SELECT DISTINCT email, name, md5(id_user) as skey
+				FROM "._DB_PREFIX_."user
+				WHERE news = 1
+					AND email IS NOT NULL
+				".$limit;
 			$clients = $db->GetArray($sql);
 		}
-		$this->Subject = $params['title'];
+		// $tpl->Assign('button', array('title' => 'Как оплатить?', 'href' => Link::Custom('page', 'Oplata')));
+		$tpl->Assign('title', $params['title']);
+		$tpl->Assign('content', $params['descr_full']);
+		$email = array(
+			'html' => $tpl->Parse($GLOBALS['PATH_global_tpl_global'].'mail.tpl'),
+			'text' => 'text',
+			'subject' => $params['title'],
+			'encoding' => 'UTF-8',
+			'from' => array(
+				'name' => 'Служба снабжения xt.ua',
+				'email' => 'order@xt.ua',
+			)
+		);
 		foreach($clients as &$client){
-			//замедлитель рассылки
-			// Задаем тело письма
-			$this->Body = $params['descr_full'];
-			$this->Body .= "<table><tr><td width=".'"600"'.">
-			С уважением, администрация интернет-магазина ".$_SERVER['SERVER_NAME']." <br>
-			067 577-39-07<br>
-			099 563-28-17<br>
-			Техподдержка и вопросы по работе сайта:<br>
-			098 957-32-53<br>";
-			$this->Body .= "<p>Если вы  хотите отказаться от нашей  рассылки - перейдите пожалуйста по ссылке - http://".$_SERVER['SERVER_NAME']."/remind1/";
-			$this->Body .= $client['skey'];
-			$this->Body .= "</p></td></tr></table>";
-			$this->isHTML(true);
-			// Добавляем адрес в список получателей
-			$this->AddAddress($client['email'], $client['name']);
-			if(!$this->Send()){
-				$this->ClearAddresses();
-				$this->ClearAttachments();
-				if($this->echo) echo $client['email']." - Не могу отослать письмо! \n<br>";
-				$return = false;
-			}else{
-				$this->ClearAddresses();
-				$this->ClearAttachments();
-				if($this->echo) echo $client['email']." - Письмо отослано! \n<br>";
-			}
-			set_time_limit(4);
-			sleep(1);
+			$email['to'][] = array(
+				'email' => $client['email'],
+				'name' => $client['name']
+			);
 		}
+		$res = $this->SendpulseApi->smtpSendMail($email);
+		if(!$res->result){
+			return false;
+		}
+		return true;
 	}
 
 	public function SendNewsToCustomersInterview($params){
@@ -1016,7 +1022,7 @@ yuO4RFALmUhoCSZCHbs2Wq4uqyPcC2LVgo6vluBlhr6Nr8SjBpuIzCP07r31sf9D
 					),
 				)
 			);
-			$res = $this->oApi->send_email($Email);
+			$res = $this->SmtpApi->send_email($Email);
 			if(!$res){
 				return false;
 			}

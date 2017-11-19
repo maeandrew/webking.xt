@@ -534,7 +534,7 @@ class Orders {
 					//рандомный выбор контрагента
 					$Contragents = new Contragents();
 					$Contragents->SetList();
-					$id_contragent = 6481;//$Contragents->list[array_rand($Contragents->list)]['id_user'];
+					$id_contragent = $Contragents->list[array_rand($Contragents->list)]['id_user'];
 				}else{
 					$id_contragent = $customer['id_contragent'];
 				}

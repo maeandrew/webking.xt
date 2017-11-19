@@ -49,10 +49,9 @@ if(isset($_POST['smb'])){
 		if($News->UpdateNews($_POST)){
 			$News->UpdatePhoto($id, $_POST['images']);
 			$tpl->Assign('msg', 'Новость обновлена.');
-			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1){
+			if(isset($_POST['news_distribution']) && $_POST['news_distribution'] == 1 && !isset($_POST['test_distribution'])){
 				$Mailer = new Mailer();
 				$Mailer->SendNewsToCustomers1($_POST);
-				// $Mailer->SendNewsToCustomersInterview($_POST);
 			}
 			unset($_POST);
 			if(!$News->SetFieldsById($id, false)) die('Ошибка при выборе новости.');
@@ -73,7 +72,6 @@ if(isset($_POST['smb'])){
 if(isset($_POST['test_distribution'])){
 	$Mailer = new Mailer();
 	$Mailer->SendNewsToCustomers1($_POST);
-	// $Mailer->SendNewsToCustomersInterview($_POST);
 }
 if(!isset($_POST['smb'])){
 	foreach($News->fields as $k=>$v){

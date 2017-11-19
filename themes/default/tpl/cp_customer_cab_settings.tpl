@@ -46,7 +46,7 @@
 							</div>
 						</div>
 
-						<!-- <div id="contragent" class="line contragent">
+						<div id="contragent" class="line contragent">
 							<label for="id_manager">Менеджер</label>
 							<select required name="id_manager" id="id_manager">
 								<?if(!$savedmanager || !$availablemanagers){?>
@@ -59,7 +59,7 @@
 									<?$ii++;
 								}?>
 							</select>
-						</div> -->
+						</div>
 
 
 						<!--
@@ -68,9 +68,9 @@
 							<input type="text" name="promo_code" id="promo_code"  value="<?=$User['promo_code'];?>"/>
 						</div>-->
 
-						<!-- <div class="buttons_cab">
+						<div class="buttons_cab">
 							<button type="submit" data-role="none" class="btn-m-green mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Сохранить</button>
-						</div> -->
+						</div>
 					<?break;
 					case 'password':?>
 						<input required="required" type="hidden" name="save_password" value="1"/>

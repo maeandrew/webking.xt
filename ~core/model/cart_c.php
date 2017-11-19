@@ -317,6 +317,7 @@ class Cart {
 		}else{
 			// добавить корзину в БД и записать ее id в $_SESSION['cart']['id']
 			if(G::IsLogged() && !_acl::isAdmin()){
+				var_dump('test2');
 				$f['id_user'] = $_SESSION['member']['id_user'];
 				$this->db->StartTrans();
 				if(!$this->db->Insert(_DB_PREFIX_.'cart', $f)){
@@ -344,7 +345,6 @@ class Cart {
 					return $product['id_cart_product'];
 				}
 			}
-			return false;
 		}
 	}
 
@@ -793,8 +793,10 @@ class Cart {
 				}
 				break;
 		}
-		if(!$this->UpdateCart($promo, $status)){
-			return false;
+		if(G::IsLogged()){
+			if(!$this->UpdateCart($promo, $status)){
+				return false;
+			}
 		}
 		$_SESSION['cart']['promo'] = $promo;
 		return $promo;
