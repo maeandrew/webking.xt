@@ -47,22 +47,34 @@ $GLOBALS['Start'] = 0;
 $GLOBALS['Limits_db'] = array(30, 60, 100);
 
 // ********************************** Подключение и инициализация классов  **********************************
+// Функция подключения файлов "на лету"
 spl_autoload_register(function ($className){
 	if(strpos($className, 'PHPExcel_') === 0){
 		$filename = str_replace('_', DIRECTORY_SEPARATOR, str_replace('PHPExcel', '', $className)).'.php';
 		$path = $GLOBALS['PATH_sys'].'PHPExcel';
 	}else{
+		// Если вошло название класса из примера simple_html_dom оно преобразовывается в simplehtmldom Заменой всех "_" на пустую строку
+		// Причем, strtolower переводит все символы в нижний регистр т.е. SimPle станет simple
+		// после этого конкатенируется строка '_c.php' так заканчиваются все классы. Неписаное правило =)
 		$filename = strtolower(str_replace('_', '', $className)).'_c.php';
+		// Определяем путь:
+		// Сначала ищем файл в папке ~core/sys/, Если он там есть, берем ~core/sys/ как путь. Если его там не нашли берем ~core/model/ как путь
 		$path = file_exists($GLOBALS['PATH_sys'].$filename)?$GLOBALS['PATH_sys']:$GLOBALS['PATH_model'];
 	}
+	// Еще раз проверяем наличие файла в выбранной папке
 	if(file_exists($path.$filename)){
+		// Если он есть, Выполняем его подключение
+		// @ - значит игнорировать ошибки возникшие при попытке подключения файла
 		@require_once($path.$filename);
 	}else{
+		// Иначе ругаемся 
+		// "Не могу найти файл 'такой-то' с класом 'таким-то' по пути 'такому-то'"
 		die("<br>Can't find file '$filename' with class '$className' in '$path'");
 	}
 });
-
+// Подключаем файл с функциями инициализации simple_html_dom
 require($GLOBALS['PATH_core'].'html_dom_helpers.php');
+// Вместо этой хрени. Когда на каждой странице подключаются все файлы срауз, вне зависимости от того, используются они или нет
 // require($GLOBALS['PATH_sys'].'tpl_c.php');
 // require($GLOBALS['PATH_sys'].'link_c.php');
 // require($GLOBALS['PATH_sys'].'db_c.php');
@@ -79,7 +91,8 @@ require($GLOBALS['PATH_core'].'html_dom_helpers.php');
 // require(_root.'config.php');
 // connection to mysql server
 $db = new db($GLOBALS['DB']['HOST'], $GLOBALS['DB']['USER'], $GLOBALS['DB']['PASSWORD'], $GLOBALS['DB']['NAME']);
-
+// Когда мы пишем такую конструкцию "$var = new classname()"
+// Автоматически запускается функция spl_autoload_register, в которую передается аргументом classname
 $GLOBALS['db'] =& $db;
 $sql = "SELECT * FROM "._DB_PREFIX_."profiles";
 $profiles = $db->GetArray($sql);
