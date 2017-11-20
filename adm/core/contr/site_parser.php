@@ -222,6 +222,21 @@ if(isset($_POST['parse'])){
 								}
 							}
 							break;
+						case 21:
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(is_array($supcomments)){
+								$supcomments = array_unique($supcomments);
+							}
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
+								// print_r('<pre>Supplier comment issue</pre>');
+								$skipped = true;
+								continue;
+							}else{
+								if(!$product = $Parser->nl($row)){
+									continue;
+								}
+							}
+							break;
 						default:
 							# code...
 							break;
