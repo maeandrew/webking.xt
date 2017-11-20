@@ -61,6 +61,8 @@ spl_autoload_register(function ($className){
 		die("<br>Can't find file '$filename' with class '$className' in '$path'");
 	}
 });
+
+require($GLOBALS['PATH_core'].'html_dom_helpers.php');
 // require($GLOBALS['PATH_sys'].'tpl_c.php');
 // require($GLOBALS['PATH_sys'].'link_c.php');
 // require($GLOBALS['PATH_sys'].'db_c.php');
