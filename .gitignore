@@ -253,3 +253,4 @@ cron/*
 temp/*
 
 xt.sublime-workspace
+*.xlsx
