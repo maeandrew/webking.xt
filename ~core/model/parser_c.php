@@ -521,4 +521,74 @@ class Parser {
 		}
 		return $product;
 	}
+	public function presto($data){
+
+		echo  "function presto -> ОК<br />";
+		echo  $data, "<br />";
+
+		global $Products;
+		global $Specification;
+		global $Images;
+		$xml = simplexml_load_file($_FILES['file']['tmp_name']);
+		//print_r($xml);
+		foreach ($xml->xpath('/yml_catalog/shop') as $element) {
+			foreach ($element->xpath('offers/offer') as $offer) {
+				
+				if(trim($offer->vendorCode) == trim($data)){
+					echo  $data, "  ==  ", $offer->vendorCode,"  ДА+++++++++++++++++++ <br />";
+					$start = microtime(true);
+				 	// Получаем артикул товара
+					$product['sup_comment'] = $offer->vendorCode;
+					// Получаем название товара
+					$product['name'] = $offer->name;
+					// Получаем количество товара
+					$product['inbox_qty'] = '5';
+					$product['min_mopt_qty'] = '1';
+					// Получаем цену товара
+					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
+					// Описание товара
+					$product['descr'] = $offer->description;
+					// Указываем базовую активность товара
+					$product['active'] = '1';
+					
+					// Находим характеристики товара
+					foreach ($offer->param as $param) {
+						$caption = $param [name];
+
+						if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+							$value = $param;
+							$spec = $Specification->SpecExistsByCaption($caption);
+							$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
+							Add(array('caption' => $caption)), 'value' => $value);
+						}
+					}
+					//Выбираем изображения максимального размера
+					$j=0; // для пропуска 2 изображения
+					foreach ($offer->picture as $picture) {
+					 	if ($j==1){
+							//echo $picture, "Отмена <br />";
+							$j++;
+							continue;
+						}
+						else{
+					    	$img_info = array_merge(array(getimagesize($picture)), pathinfo($picture));
+							$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+							$Images->checkStructure($path);
+							copy($picture, $path.$img_info['basename']);
+							sleep(2);
+							$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+							$product['images_visible'][] = 1;
+							$j++;
+						}
+					}
+					break;
+				}
+				else{
+					echo  $data, "  ==  ", $offer->vendorCode,"  НЕТ <br />";
+					continue;
+				}
+			}
+		}
+ 		return $product;
+ 	}
 }

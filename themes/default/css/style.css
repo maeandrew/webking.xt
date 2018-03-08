@@ -3718,8 +3718,15 @@ div.modalEditOrder .applyBtn {
 	padding: 20px;
 }
 .subCategory__list {
-	padding: 20px;
 	background: #fafafa;
+	display: none;
+}
+.subCategories .subCategory:hover .subCategory__list{
+	display: block;
+	background: #fafafa;
+	animation-delay: 4s;
+	transition: all 5s ease-out;
+
 }
 .subCategories .subCategory .subCategory__list a {
 	text-decoration: none;
@@ -3728,17 +3735,26 @@ div.modalEditOrder .applyBtn {
 	line-height: 1em;
 	padding-bottom: 1em;
 	color: #a7a7a7;
-}
-.subCategories .subCategory .subCategory__list li:last-of-type a {
-	padding-bottom: 0;
+	vertical-align:super;
+	background: #fafafa;
+	border-top: 1px solid #fafafa;
+	border-bottom: 1px solid #fafafa;
+	padding-left: 5%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	padding-right: 5%;
 }
 .subCategories .separator {
 	color: #999;
-	margin: 0 .5em;
+	margin: 0.5em;
 }
 .subCategories .subCategory:hover {
+	transition-timing-function: ease-in(3s, start | end);
 	cursor: pointer;
 	border-color: #aaa;
+	border-radius: 3px;
+	border: 3px solid #018b06;
+	z-index: 1;
 }
 .subCategories .subCategory:hover .subCategory__list a {
 	transition: none;
@@ -3746,6 +3762,13 @@ div.modalEditOrder .applyBtn {
 }
 .subCategories .subCategory .subCategory__list a:hover {
 	color: #FF5722;
+	background: #edf2f5;
+	border-top: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+	padding-left: 5%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	padding-right: 5%;
 }
 .subCategories .subCategory .subCategoryImageWrap {
 	position: relative;
@@ -3780,7 +3803,7 @@ div.modalEditOrder .applyBtn {
 	display: block;
 }
 .subCategoryTitleWrap  {
-	text-align: left;
+	text-align: center;
 }
 .subCategory .subCategoryTitle{
 	position: relative;
@@ -4201,6 +4224,21 @@ iframe[name="google_conversion_frame"] {
 	transition: all .4s cubic-bezier(.4,0,.2,1);
 	-moz-transition: all .4s cubic-bezier(.4,0,.2,1);
 	-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+#cart .cart_buttons,.contakt.contakt{
+justify-content:space-between;
+}
+.agent_banner,.contakt{
+position:relative;
+line-height:1em;
+}
+.contakt{
+background:#018b06;
+padding:5px;
+margin-bottom:10px;
+text-align:center;
+font-size:1.5em;
+color:#fff;
 }
 .advantages .advantages_button span.floating {
 	top: -1em;

@@ -13,15 +13,27 @@
 				Нет ни одного доступного сайта для парсинга
 			<?}?>
 		</div>
+		
 		<div class="col-md-12">
-			<label for="file">Прайс-лист:</label>
+			<label for="file">Парсинг по Прайс-листу:</label>
 			<input type="file" name="file" class="input-m">
 		</div>
-		<div class="col-md-12">
-			<label for="test"><input type="checkbox" name="test" class="input-m"> - Тестовый запуск</label>
+		
+		<div class="input_number">
+			 <p><input type="number" size="2" name="num" min="1" max="10" value="1"></p>
+			
 		</div>
+		
 		<div class="col-md-12">
-			<button name="parse" class="btn-m-red">Вперед!</button>
+			<button name="parse" class="btn-m-red">Парсинги по сохраненым файлам Excel</button>
 		</div>
+
+<p>-----------------------------------------------------------------------------------------------------------</p>
+	
+		<div class="col-md-12">
+			<button name="parse_XML" class="btn-m-red"">Парсинги по сохраненым файлам XML !</button>
+		</div>
+
+
 	</form>
 </div>
