@@ -427,9 +427,15 @@ class Parser {
 		global $Products;
 		global $Specification;
 		global $Images;
-		$base_url = 'http://zona220.com';
-		$id_category = 0;
-		if($parsed_html = $Parser->parseUrl( $res['url'])){
+		$url = $data[1];
+		echo  "ОК<br />";
+		echo $url, "<br />";
+		
+		die();
+
+
+		if($parsed_html = $Parser->parseUrl( $url)){
+
 			// Название товара
 			$product['name'] = $parsed_html->find('[itemprop="name"]', 0)->plaintext;
 			if(!$product['name']){

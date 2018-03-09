@@ -94,14 +94,18 @@ if(isset($_POST['parse'])){
 			// 	return array(0, 0);
 			// }
 			// ini_set('memory_limit', '728M');
-echo $_POST['site'], "<br />";
-echo $_POST['num'], "<br />";
-echo $_POST['parse'], "<br />";
-	
-print_r('<pre>');
-print_r($_POST);
-print_r('</pre>');
-die();
+
+// echo $_POST['site'], "<br />";
+// echo $_POST['num'], "<br />";
+// echo $_POST['parse'], "<br />";
+// foreach ($array as $value) {
+// 	foreach ($array as list($a, $b, $c, $d)) {
+// 	    echo "[0]-> $a;<br /> [1]-> $b;<br /><br />";
+// 	}
+
+// }
+// die();
+
 			ini_set('max_execution_time', 3000);
 			$k = $l = $i = 0;
 			foreach($array as $key => &$row){
@@ -111,8 +115,18 @@ die();
 				 if($key < $_POST['num']){
 					switch ($_POST['site']){
 						case 5:
-							if(!$product = $Parser->zona($row)){
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(is_array($supcomments)){
+								$supcomments = array_unique($supcomments);
+							}
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
+								// print_r('<pre>Supplier comment issue</pre>');
+								$skipped = true;
 								continue;
+							}else{
+								if(!$product = $Parser->zona($row)){
+									continue;
+								}
 							}
 							break;
 						case 6:

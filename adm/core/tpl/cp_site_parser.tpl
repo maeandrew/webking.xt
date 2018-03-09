@@ -20,7 +20,7 @@
 		</div>
 		
 		<div class="input_number">
-			 <p><input type="number" size="2" name="num" min="1" max="10" value="1"></p>
+			 <p><input type="number" size="2" name="num" min="1" max="10000" value="1"></p>
 			
 		</div>
 		
