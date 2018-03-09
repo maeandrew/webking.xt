@@ -428,16 +428,13 @@ class Parser {
 		global $Specification;
 		global $Images;
 		$url = $data[1];
-		echo  " Парсим<br />";
-		echo $url, "<br />";
-		$parsed_html = array();
-		if($parsed_html = $this->parseUrl($url)){
-
 		echo  "ОК<br />";
-		var_dump ($parsed_html);
-		// echo $parsed_html, "<br />";
+		echo $url, "<br />";
 		
 		die();
+
+
+		if($parsed_html = $Parser->parseUrl( $url)){
 
 			// Название товара
 			$product['name'] = $parsed_html->find('[itemprop="name"]', 0)->plaintext;

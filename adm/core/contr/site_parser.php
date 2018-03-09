@@ -128,8 +128,6 @@ if(isset($_POST['parse'])){
 									continue;
 								}
 							}
-							echo "Вернул product ->->->->->->->->->->->->->-> <br />";
-							die();
 							break;
 						case 6:
 							if(!$product = $Parser->epicenter($row)){
