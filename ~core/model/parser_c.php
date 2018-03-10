@@ -428,19 +428,61 @@ class Parser {
 		global $Specification;
 		global $Images;
 		$url = $data[1];
-		echo  "ОК<br />";
-		echo $url, "<br />";
-		
-		die();
+		echo  "ОК зашол в function zona <br />";
+		echo $url, "<br /><br />";
+		// if($Products->SetFieldsByRewrite(G::StrToTrans($link[0]->plaintext))){
+		// 	return false;
+		// }
+		$html = $this->parseUrl($url);
+		foreach($html->find("div", 0) as $element) {
+			echo $element->tag; // --> div"
+         echo $element, "<br />";;
+		}
 
 
-		if($parsed_html = $Parser->parseUrl( $url)){
 
+
+		// $e = $html->find("head", 0);
+		// 	echo $e->tag; // --> div"
+		// 	echo $e->outertext; // --> " <div>foo <b>bar</b></div>"
+		// 	echo $e->innertext; // --> " foo <b>bar</b>"
+		// 	echo $e->plaintext; // --> " foo bar"
+
+		// print_r($html);
+		// echo  $html->find('h1.changeName', 0)->plaintext,"ОК productv<br />";
+		// $product['name'] = $html->find('h1.changeName', 0)->plaintext;
+
+		// if(!$product['name']){
+		// 	echo  $product['name'],"НЕТ product пуст<br />";
+		// 	}
+		// 	else{
+		// 	echo  $product['name'],"ОК productv<br />";
+		// 	}
+			
+
+
+		// var_dump($html->find('changeName', 0));
+		// var_dump($html->find('price changePrice', 0)->plaintext);
+		// var_dump($parsed_html->find('[class="changeName"]', 0)->plaintext);
+		// var_dump($parsed_html->find('[class="changeName"]', 0)->plaintext);
+		// var_dump($parsed_html->find('[class="changeName"]', 0)->plaintext);
+
+// $e->tag
+// Прочитать или записать название тега элемента.
+// $e->outertext
+// Прочитать или записать внешний HTML-текст элемента (т.е. вместе с внешним тегом).
+// $e->innertext
+// Прочитать или записать внутренний HTML-текст элемента (т.е. без внешнего тега).
+// $e->plaintext
+// Прочитать или записать текст элемента (без тегов HTML).
+	die();
+
+		if($parsed_html = $this->parseUrl($url)){
+			// Получаем артикул товара
+			$product['sup_comment'] = trim($data[0]);
 			// Название товара
-			$product['name'] = $parsed_html->find('[itemprop="name"]', 0)->plaintext;
-			if(!$product['name']){
-				return false;
-			}
+			$product['name'] = $parsed_html->find('h1.changeName', 0)->plaintext;
+	
 			if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
 				return false;
 			}
