@@ -357,7 +357,6 @@ $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
 //Парсинги по сохраненым файлам XML----------------------------------------------------------
 
 if(isset($_POST['parse_XML'])){
-	
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
 	if($site['id_supplier'] == NULL){
@@ -375,39 +374,67 @@ if(isset($_POST['parse_XML'])){
 	if(!empty($_FILES) && is_uploaded_file($_FILES['file']['tmp_name'])){
 	
 	$xml = simplexml_load_file($_FILES['file']['tmp_name']);
-// 		print_r('<pre>');
-// 		print_r($_POST);
-// 		print_r('</pre>');
-// 		die();
+		print_r('<pre>');
+		print_r($_POST);
+		print_r('</pre>');
+		// die();
 		//получим  масив id 
 		$array = array();
 		//пройдемся циклом по  и вберем ключи
 		switch ($_POST['site']){
 			case 22:
-			echo "case 22 ----- ОК <br />";
-			$item = array();
-				foreach ($xml->xpath('/yml_catalog/shop') as $element) {
-					foreach ($element->xpath('offers/offer') as $offer) {
-							array_push($array, $offer->vendorCode);
+				echo "case 22 ----- ОК <br />";
+				$item = array();
+					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
+						foreach ($element->xpath('offers/offer') as $offer) {
+								array_push($array, $offer->vendorCode);
+						}
 					}
-				}
-				// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
-				// foreach ($array as $key => $value) {
-    // 			echo "Ключ: $key; Значение: $value<br />\n";
-				//  }
-			break;
+					// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
+					// foreach ($array as $key => $value) {
+					// echo "Ключ: $key; Значение: $value<br />\n";
+					//  }
+				break;
+			case 23:
+				echo "case 23 bluzka -> ОК <br />";
+				$item = array();
+					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
+						foreach ($element->xpath('offers/offer') as $offer) {
+							$id_offer = $offer[id];
+							echo $id_offer;
+
+							die();
+
+
+
+							
+								$vendorCode_color = $offer->vendorCode;
+								$vendorCode_color .= $offer->param;
+							foreach (explode(", ", $offer->param[1])as $razmer){
+								$vendC_color = $vendorCode_color;
+								$vendC_color .= $razmer;
+								array_push($array, $vendC_color);
+							}
+						}
+					}
+					// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
+					// foreach ($array as $key => $value) {
+					// 	echo "Ключ: $key; Значение: $value<br />\n";
+					//  }
+					//  die();
+				break;
 			default:
 				# code...
 			break;
 		}
 	}
-		
-	
 
 	ini_set('max_execution_time', 3000);
 	$k = $l = $i = 0;
+
+
+
 	foreach($array as $key => &$row){
-		//$res = array_combine($headings, $row);
 		$product = array();
 		$skipped = false;
 
@@ -482,26 +509,83 @@ if(isset($_POST['parse_XML'])){
 						}
 					}
 					break;
+				case 23:
+					switch ($offer->categoryId) {
+						    case 139:
+						        $id_category = '1748';
+						        break;
+						    case 136:
+						        $id_category = '1747';
+						        break;
+						    case 123:
+						        $id_category = '1746';
+						        break;
+						    case 95:
+						        $id_category = '1745';
+						        break;
+						    case 93:
+						        $id_category = '1749';
+						        break;
+						    case 89:
+						        $id_category = '1744';
+						        break;
+						    case 81:
+						        $id_category = '1743';
+						        break;
+						    case 75:
+						        $id_category = '1742';
+						        break;
+						    case 70:
+						        $id_category = '1741';
+						        break;
+						    case 64:
+						        $id_category = '1740';
+						        break;
+						    case 62:
+						        $id_category = '1739';
+						        break;
+						    case 61:
+						        $id_category = '1738';
+						        break;
+						    case 60:
+						        $id_category = '1737';
+						        break;
+						    case 59:
+						        $id_category = '1735';
+						        break;
+						    case 58:
+						        $id_category = '1736';
+						        break;
+						    default:
+								$id_category = $site['id_category'];
+							break;
+						}
+						echo $row, " - Значение для парсинга <br />";
+						if(!$product = $Parser->bluzka($row)){
+							continue;
+						}
+						 die();
+					break;
 				default:
 					# code...
 					break;
 			}
-				
-				// echo $id_supplier, "<br />";
-				// echo $id_category, "<br />";
-				// echo $product['sup_comment'], "<br />";
-				// echo $product['name'], "<br />";
-				// echo $product['price_mopt_otpusk'], "<br />";
-				// echo $product['price_opt_otpusk'], "<br />";
-				// echo $product['descr'], "<br />";
-				// echo $product['active'], "<br />";
-				// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-				// echo count($product['images'], COUNT_RECURSIVE), "<br />";
-				// foreach ($product['images'] as $value) {
-				// 	echo "<pre>";
-				// 	print_r($value);
-				// 	echo "</pre>";
-				// }
+			
+				echo "id_supplier -> ", $id_supplier, "<br />";
+				echo "id_category -> ",$id_category, "<br />";
+				echo "sup_comment -> ",$product['sup_comment'], "<br />";
+				echo "name -> ",$product['name'], "<br />";
+				echo "price_mopt_otpusk -> ",$product['price_mopt_otpusk'], "<br />";
+				echo "price_opt_otpusk -> ",$product['price_opt_otpusk'], "<br />";
+				echo "descr -> ",$product['descr'], "<br />";
+				echo "active -> ",$product['active'], "<br />";
+				echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+				echo count($product['images'], COUNT_RECURSIVE), "<br />";
+				foreach ($product['images'] as $value) {
+					echo "<pre>";
+					print_r($value);
+					echo "</pre>";
+				}
 					// if(!$product || $skipped){
 					// 	print_r('<pre>НЕТ. Товар пропущен</pre>');
 					// 	$i++;
@@ -512,7 +596,8 @@ if(isset($_POST['parse_XML'])){
 					// }
 			
 					// echo $row, "<br />";
-			 //die();
+				//continue;
+			  // die();
 
 			// Добавляем новый товар в БД
 			if(!$product || $skipped){

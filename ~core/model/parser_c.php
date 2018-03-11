@@ -571,8 +571,8 @@ class Parser {
 	}
 	public function presto($data){
 
-		echo  "function presto -> ОК<br />";
-		echo  $data, "<br />";
+		// echo  "function presto -> ОК<br />";
+		// echo  $data, "<br />";
 
 		global $Products;
 		global $Specification;
@@ -583,7 +583,6 @@ class Parser {
 			foreach ($element->xpath('offers/offer') as $offer) {
 				
 				if(trim($offer->vendorCode) == trim($data)){
-					echo  $data, "  ==  ", $offer->vendorCode,"  ДА+++++++++++++++++++ <br />";
 					$start = microtime(true);
 				 	// Получаем артикул товара
 					$product['sup_comment'] = $offer->vendorCode;
@@ -635,6 +634,91 @@ class Parser {
 					echo  $data, "  ==  ", $offer->vendorCode,"  НЕТ <br />";
 					continue;
 				}
+			}
+		}
+ 		return $product;
+ 	}
+ 	public function bluzka($data){
+
+		echo  "function bluzka -> ОК<br />";
+		// echo  $data, "<br />";
+
+		global $Products;
+		global $Specification;
+		global $Images;
+		$xml = simplexml_load_file($_FILES['file']['tmp_name']);
+		//print_r($xml);
+
+
+		foreach ($xml->xpath('/yml_catalog/shop') as $element) {
+			foreach ($element->xpath('offers/offer') as $offer) {
+					$Code_color = $offer->vendorCode;
+					$Code_color .= $offer->param;
+
+
+				if (in_array(", ", $offer->param[1])) {
+				    foreach (explode(", ", $offer->param[1])as $razmer){
+						$vendC_color = $Code_color;
+						$vendC_color .= $razmer;
+					}
+				
+				}
+					
+
+
+						if(trim($Code_color) == trim($data)){
+							echo  $data, "  ==  ", $Code_color,"  ДА+++++++++++++++++++ <br />";
+							die();
+							$start = microtime(true);
+						 	// Получаем артикул товара
+							$product['sup_comment'] = $offer->vendorCode;
+							//Получаем название товара
+							$product['name'] = $str_name = strip_tags(stristr($offer->description, 'Состав', true));
+							$product['name'] .= " (";
+							$product['name'] .= $offer->param;
+							$product['name'] .= ", ";
+							$product['name'] .= $offer->param[1];
+							$product['name'] .= ")";
+							//Получаем количество товара
+							$product['inbox_qty'] = '2';
+							$product['min_mopt_qty'] = '1';
+							// Получаем цену товара
+							$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
+							// Описание товара
+							$product['descr'] = str_replace("<h1>", "<h2>", $offer->description);
+
+							// Указываем базовую активность товара
+							$product['active'] = '1';
+							
+							// Находим характеристики товара
+							foreach ($offer->param as $param) {
+								$caption = $param [name];
+
+								if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+									$value = $param;
+									$spec = $Specification->SpecExistsByCaption($caption);
+									$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
+									Add(array('caption' => $caption)), 'value' => $value);
+								}
+							}
+							//Выбираем изображения максимального размера
+							foreach ($picture = $offer->picture as $picture) {
+							     	$img_info = array_merge(array(getimagesize($picture)), pathinfo($picture));
+									$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+									$Images->checkStructure($path);
+									copy($picture, $path.$img_info['basename']);
+									sleep(1);
+									$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+									$product['images_visible'][] = 1;
+							}
+							break;
+						}
+						else{
+							echo  $data, "  ==  ", $Code_color,"  НЕТ <br />";
+							continue;
+						}
+					
+				
 			}
 		}
  		return $product;
