@@ -400,23 +400,10 @@ if(isset($_POST['parse_XML'])){
 				$item = array();
 					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
 						foreach ($element->xpath('offers/offer') as $offer) {
-							$id_offer = $offer[id];
-							echo $id_offer;
-
-							die();
-
-
-
-							
-								$vendorCode_color = $offer->vendorCode;
-								$vendorCode_color .= $offer->param;
-							foreach (explode(", ", $offer->param[1])as $razmer){
-								$vendC_color = $vendorCode_color;
-								$vendC_color .= $razmer;
-								array_push($array, $vendC_color);
-							}
+								array_push($array, $offer->url);
 						}
 					}
+					// $array = array_unique($array);
 					// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
 					// foreach ($array as $key => $value) {
 					// 	echo "Ключ: $key; Значение: $value<br />\n";
@@ -510,7 +497,19 @@ if(isset($_POST['parse_XML'])){
 					}
 					break;
 				case 23:
-					switch ($offer->categoryId) {
+					$supcomments = $Products->GetSupComments($id_supplier);
+					if(is_array($supcomments)){
+						$supcomments = array_unique($supcomments);
+					}
+					if(!empty($supcomments) && in_array(trim($row), $supcomments)){
+						echo $row, " - Есть у поставщика ";
+						$skipped = true;
+						$i++;
+						continue;
+						break;
+					}else{
+						//Определяем категорию
+						switch ($offer->categoryId) {
 						    case 139:
 						        $id_category = '1748';
 						        break;
@@ -564,7 +563,7 @@ if(isset($_POST['parse_XML'])){
 						if(!$product = $Parser->bluzka($row)){
 							continue;
 						}
-						 die();
+					}
 					break;
 				default:
 					# code...
@@ -597,7 +596,7 @@ if(isset($_POST['parse_XML'])){
 			
 					// echo $row, "<br />";
 				//continue;
-			  // die();
+			  	die();
 
 			// Добавляем новый товар в БД
 			if(!$product || $skipped){
