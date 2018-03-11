@@ -357,6 +357,9 @@ $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
 //Парсинги по сохраненым файлам XML----------------------------------------------------------
 
 if(isset($_POST['parse_XML'])){
+		print_r('<pre>');
+		print_r($_POST);
+		print_r('</pre>');
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
 	if($site['id_supplier'] == NULL){
@@ -371,7 +374,7 @@ if(isset($_POST['parse_XML'])){
 	$id_category = $site['id_category'];
 
 	ini_set('memory_limit', '1024M');
-	if(!empty($_FILES) && is_uploaded_file($_FILES['file']['tmp_name'])){
+	if(!empty($_FILES)){
 	
 	$xml = simplexml_load_file($_FILES['file']['tmp_name']);
 		// print_r('<pre>');
@@ -397,7 +400,7 @@ if(isset($_POST['parse_XML'])){
 				break;
 			case 23:
 				echo "case 23 bluzka -> ОК <br />";
-				$item = array();
+				
 					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
 							foreach ($element->xpath('offers/offer') as $offer) {
 								$vendorCode_color = $offer->vendorCode;
@@ -405,7 +408,7 @@ if(isset($_POST['parse_XML'])){
 								array_push($array, $vendorCode_color);
 							}
 						}
-					$array = array_unique($array);
+					// $array = array_unique($array);
 					echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
 					foreach ($array as $key => $value) {
 						echo "Ключ: $key; Значение: $value<br />\n";
@@ -420,10 +423,7 @@ if(isset($_POST['parse_XML'])){
 
 	ini_set('max_execution_time', 3000);
 	$k = $l = $i = 0;
-
-
-
-	foreach($array as $key => &$row){
+if(isset($array) && is_array($array)) foreach($array as $key => &$row){
 		$product = array();
 		$skipped = false;
 
@@ -499,7 +499,7 @@ if(isset($_POST['parse_XML'])){
 					}
 					break;
 				case 23:
-//Определяем категорию
+						//Определяем категорию
 						switch ($offer->categoryId) {
 						    case 139:
 						        $id_category = '1748';
@@ -569,7 +569,13 @@ if(isset($_POST['parse_XML'])){
 				echo "descr -> ",$product['descr'], "<br />";
 				echo "active -> ",$product['active'], "<br />";
 				echo "note_control -> ",$product['note_control'], "<br />";
-				// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+				echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+				foreach ($product['specs'] as $value) {
+					echo "<pre>";
+					print_r($value);
+					echo "</pre>";
+					}
+
 				echo "количество фото ", count($product['images'], COUNT_RECURSIVE), "<br />";
 				foreach ($product['images'] as $value) {
 					echo "<pre>";

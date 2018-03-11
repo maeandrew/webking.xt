@@ -685,10 +685,19 @@ class Parser {
 					copy($filename, $path.$img_info['basename']);
 					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 					$product['images_visible'][] = 1;
+					// Находим характеристики товара
+					$caption = $param [name];
+					echo $param [name],"<br />";
+					foreach (explode(", ", $offer->param[1])as $razmer){
+								$spec = $Specification->SpecExistsByCaption($caption);
+								$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
+									Add(array('caption' => $caption)), 'value' => $razmer);
+					}
 
 					if($html = $this->parseUrl($offer->url)){
 						// Получаем оптовую цену товара
 					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
+					
 					}
 					break;
 				}
