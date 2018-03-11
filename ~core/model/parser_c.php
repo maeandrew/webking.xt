@@ -639,10 +639,8 @@ class Parser {
  		return $product;
  	}
  	public function bluzka($data){
-
 		echo  "function bluzka -> ОК<br />";
 		// echo  $data, "<br />";
-
 		global $Products;
 		global $Specification;
 		global $Images;
@@ -650,9 +648,11 @@ class Parser {
 		//print_r($xml);
 		foreach ($xml->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('offers/offer') as $offer) {
-	
-				if(trim($offer->url) == trim($data)){
-					echo  $data, "  ==  ", $offer->url,"  ДА+++++++++++++++++++ <br />";
+					$Code_color = $offer->vendorCode;
+					$Code_color .= $offer->param;
+
+				if(trim($Code_color) == trim($data)){
+					// echo  $data, "  ==  ", $Code_color,"  ДА+++++++++++++++++++ <br />";
 					
 					$start = microtime(true);
 				 	// Получаем артикул товара
@@ -661,52 +661,39 @@ class Parser {
 					$product['name'] = $str_name = strip_tags(stristr($offer->description, 'Состав', true));
 					$product['name'] .= " (";
 					$product['name'] .= $offer->param;
-					$product['name'] .= ", ";
-					$product['name'] .= $offer->param[1];
 					$product['name'] .= ")";
 					//Получаем количество товара
 					$product['inbox_qty'] = '2';
 					$product['min_mopt_qty'] = '1';
-					// Получаем цену товара
-					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
+					
 					// Описание товара
 					$product['descr'] = str_replace("<h1>", "<h2>", $offer->description);
 
 					// Указываем базовую активность товара
 					$product['active'] = '1';
+					//Указиваем обезательное примечание
+					$product['note_control'] = '1';
+					
+					// Получаем изображения товара максимального размера
+					
+					$filename = $offer->picture;
+					$img_info = array_merge(getimagesize($filename), pathinfo($filename));
 
-					if($html = $this->parseUrl($data)){
-echo  "===============================<br />";
+					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+					$Images->checkStructure($path);
 
+					copy($filename, $path.$img_info['basename']);
+					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+					$product['images_visible'][] = 1;
 
-				
-						// Находим характеристики товара
-						foreach ($offer->param as $param) {
-						// 	$caption = $param [name];
-
-						// 	if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
-						// 		$value = $param;
-						// 		$spec = $Specification->SpecExistsByCaption($caption);
-						// 		$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
-						// 		Add(array('caption' => $caption)), 'value' => $value);
-						// 	}
-						}
-						//Выбираем изображения максимального размера
-						foreach ($picture = $offer->picture as $picture) {
-						  //    	$img_info = array_merge(array(getimagesize($picture)), pathinfo($picture));
-								// $path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-								// $Images->checkStructure($path);
-								// copy($picture, $path.$img_info['basename']);
-								// sleep(1);
-								// $product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
-								// $product['images_visible'][] = 1;
-						}
-
+					if($html = $this->parseUrl($offer->url)){
+						// Получаем оптовую цену товара
+					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
 					}
 					break;
 				}
 				else{
-					echo  $data, "  ==  ", $offer->url,"  НЕТ <br />";
+					echo  $data, "  ==  ", $Code_color,"  НЕТ <br />";
 					die();
 					continue;
 				}

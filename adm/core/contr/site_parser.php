@@ -374,9 +374,9 @@ if(isset($_POST['parse_XML'])){
 	if(!empty($_FILES) && is_uploaded_file($_FILES['file']['tmp_name'])){
 	
 	$xml = simplexml_load_file($_FILES['file']['tmp_name']);
-		print_r('<pre>');
-		print_r($_POST);
-		print_r('</pre>');
+		// print_r('<pre>');
+		// print_r($_POST);
+		// print_r('</pre>');
 		// die();
 		//получим  масив id 
 		$array = array();
@@ -399,15 +399,17 @@ if(isset($_POST['parse_XML'])){
 				echo "case 23 bluzka -> ОК <br />";
 				$item = array();
 					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
-						foreach ($element->xpath('offers/offer') as $offer) {
-								array_push($array, $offer->url);
+							foreach ($element->xpath('offers/offer') as $offer) {
+								$vendorCode_color = $offer->vendorCode;
+								$vendorCode_color .= $offer->param;
+								array_push($array, $vendorCode_color);
+							}
 						}
-					}
-					// $array = array_unique($array);
-					// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
-					// foreach ($array as $key => $value) {
-					// 	echo "Ключ: $key; Значение: $value<br />\n";
-					//  }
+					$array = array_unique($array);
+					echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
+					foreach ($array as $key => $value) {
+						echo "Ключ: $key; Значение: $value<br />\n";
+					 }
 					//  die();
 				break;
 			default:
@@ -497,18 +499,7 @@ if(isset($_POST['parse_XML'])){
 					}
 					break;
 				case 23:
-					$supcomments = $Products->GetSupComments($id_supplier);
-					if(is_array($supcomments)){
-						$supcomments = array_unique($supcomments);
-					}
-					if(!empty($supcomments) && in_array(trim($row), $supcomments)){
-						echo $row, " - Есть у поставщика ";
-						$skipped = true;
-						$i++;
-						continue;
-						break;
-					}else{
-						//Определяем категорию
+//Определяем категорию
 						switch ($offer->categoryId) {
 						    case 139:
 						        $id_category = '1748';
@@ -563,7 +554,6 @@ if(isset($_POST['parse_XML'])){
 						if(!$product = $Parser->bluzka($row)){
 							continue;
 						}
-					}
 					break;
 				default:
 					# code...
@@ -578,24 +568,15 @@ if(isset($_POST['parse_XML'])){
 				echo "price_opt_otpusk -> ",$product['price_opt_otpusk'], "<br />";
 				echo "descr -> ",$product['descr'], "<br />";
 				echo "active -> ",$product['active'], "<br />";
-				echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-				echo count($product['images'], COUNT_RECURSIVE), "<br />";
+				echo "note_control -> ",$product['note_control'], "<br />";
+				// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+				echo "количество фото ", count($product['images'], COUNT_RECURSIVE), "<br />";
 				foreach ($product['images'] as $value) {
 					echo "<pre>";
 					print_r($value);
 					echo "</pre>";
 				}
-					// if(!$product || $skipped){
-					// 	print_r('<pre>НЕТ. Товар пропущен</pre>');
-					// 	$i++;
-					// 	continue;
-					// }else{
-					// 	print_r('<pre>OK. Товар добавлен</pre>');
-					// 	$d++;
-					// }
-			
-					// echo $row, "<br />";
-				//continue;
+				// continue;
 			  	die();
 
 			// Добавляем новый товар в БД
