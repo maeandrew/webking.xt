@@ -373,9 +373,16 @@ if(isset($_POST['parse_XML'])){
 	$id_supplier = $site['id_supplier'];
 	$id_category = $site['id_category'];
 
-	ini_set('memory_limit', '1024M');
-	if(!empty($_FILES)){
 	
+ini_set('display_errors','on');
+ini_set('error_reporting',E_ALL);
+// print_r($_POST);	
+
+
+	ini_set('memory_limit', '1024M');
+	if(!empty($_FILES) && is_uploaded_file($_FILES['file']['tmp_name'])){
+	
+	echo "файл открыт <br />";
 	$xml = simplexml_load_file($_FILES['file']['tmp_name']);
 		// print_r('<pre>');
 		// print_r($_POST);
@@ -421,8 +428,8 @@ if(isset($_POST['parse_XML'])){
 		}
 	}
 
-	ini_set('max_execution_time', 3000);
-	$k = $l = $i = 0;
+ini_set('max_execution_time', 3000);
+	$d=$k = $l = $i = 0;
 if(isset($array) && is_array($array)) foreach($array as $key => &$row){
 		$product = array();
 		$skipped = false;
@@ -661,6 +668,7 @@ if(isset($array) && is_array($array)) foreach($array as $key => &$row){
 				print_r('<pre>Время выполнения скрипта: '.(microtime(true) - $start).'</pre>');
 				print_r('<pre>OK. Товар добавлен===================</pre>');
 				$skipped = false;
+				$k++;
 				$d++;
 			}else{
 				echo "Проблема с добавлением продукта <br />";

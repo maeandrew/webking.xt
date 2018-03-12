@@ -686,8 +686,9 @@ class Parser {
 					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 					$product['images_visible'][] = 1;
 					// Находим характеристики товара
-					$caption = $param [name];
-					echo $param [name],"<br />";
+
+					$caption = $offer->param['name'];
+					echo $caption,"<br />";
 					foreach (explode(", ", $offer->param[1])as $razmer){
 								$spec = $Specification->SpecExistsByCaption($caption);
 								$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
