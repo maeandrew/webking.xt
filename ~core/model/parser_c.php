@@ -427,62 +427,14 @@ class Parser {
 		global $Products;
 		global $Specification;
 		global $Images;
-		$url = $data[1];
-		echo  "ОК зашол в function zona <br />";
-		echo $url, "<br /><br />";
-		// if($Products->SetFieldsByRewrite(G::StrToTrans($link[0]->plaintext))){
-		// 	return false;
-		// }
-		$html = $this->parseUrl($url);
-		foreach($html->find("div", 0) as $element) {
-			echo $element->tag; // --> div"
-         echo $element, "<br />";;
-		}
-
-
-
-
-		// $e = $html->find("head", 0);
-		// 	echo $e->tag; // --> div"
-		// 	echo $e->outertext; // --> " <div>foo <b>bar</b></div>"
-		// 	echo $e->innertext; // --> " foo <b>bar</b>"
-		// 	echo $e->plaintext; // --> " foo bar"
-
-		// print_r($html);
-		// echo  $html->find('h1.changeName', 0)->plaintext,"ОК productv<br />";
-		// $product['name'] = $html->find('h1.changeName', 0)->plaintext;
-
-		// if(!$product['name']){
-		// 	echo  $product['name'],"НЕТ product пуст<br />";
-		// 	}
-		// 	else{
-		// 	echo  $product['name'],"ОК productv<br />";
-		// 	}
-			
-
-
-		// var_dump($html->find('changeName', 0));
-		// var_dump($html->find('price changePrice', 0)->plaintext);
-		// var_dump($parsed_html->find('[class="changeName"]', 0)->plaintext);
-		// var_dump($parsed_html->find('[class="changeName"]', 0)->plaintext);
-		// var_dump($parsed_html->find('[class="changeName"]', 0)->plaintext);
-
-// $e->tag
-// Прочитать или записать название тега элемента.
-// $e->outertext
-// Прочитать или записать внешний HTML-текст элемента (т.е. вместе с внешним тегом).
-// $e->innertext
-// Прочитать или записать внутренний HTML-текст элемента (т.е. без внешнего тега).
-// $e->plaintext
-// Прочитать или записать текст элемента (без тегов HTML).
-	die();
-
-		if($parsed_html = $this->parseUrl($url)){
-			// Получаем артикул товара
-			$product['sup_comment'] = trim($data[0]);
+		$base_url = 'http://zona220.com';
+		$id_category = 0;
+		if($parsed_html = $Parser->parseUrl( $res['url'])){
 			// Название товара
-			$product['name'] = $parsed_html->find('h1.changeName', 0)->plaintext;
-	
+			$product['name'] = $parsed_html->find('[itemprop="name"]', 0)->plaintext;
+			if(!$product['name']){
+				return false;
+			}
 			if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
 				return false;
 			}
@@ -571,8 +523,8 @@ class Parser {
 	}
 	public function presto($data){
 
-		// echo  "function presto -> ОК<br />";
-		// echo  $data, "<br />";
+		echo  "function presto -> ОК<br />";
+		echo  $data, "<br />";
 
 		global $Products;
 		global $Specification;
@@ -583,6 +535,7 @@ class Parser {
 			foreach ($element->xpath('offers/offer') as $offer) {
 				
 				if(trim($offer->vendorCode) == trim($data)){
+					echo  $data, "  ==  ", $offer->vendorCode,"  ДА+++++++++++++++++++ <br />";
 					$start = microtime(true);
 				 	// Получаем артикул товара
 					$product['sup_comment'] = $offer->vendorCode;
@@ -638,15 +591,14 @@ class Parser {
 		}
  		return $product;
  	}
- 	public function bluzka($data){
-		echo  "function bluzka -> ОК<br />";
+	public function bluzka($data){
+		// echo  "function bluzka -> ОК<br />";
 		// echo  $data, "<br />";
 		global $Products;
 		global $Specification;
 		global $Images;
-		$xml = simplexml_load_file($_FILES['file']['tmp_name']);
-		//print_r($xml);
-		foreach ($xml->xpath('/yml_catalog/shop') as $element) {
+		$sim_url = simplexml_load_file($_POST['url']);
+		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('offers/offer') as $offer) {
 					$Code_color = $offer->vendorCode;
 					$Code_color .= $offer->param;
@@ -687,9 +639,11 @@ class Parser {
 					$product['images_visible'][] = 1;
 					// Находим характеристики товара
 
-					$caption = $offer->param['name'];
-					echo $caption,"<br />";
+					$caption = $offer->param[1]['name'];
+					// echo $caption,"<br />";
 					foreach (explode(", ", $offer->param[1])as $razmer){
+						$caption = $offer->param[1]['name'];
+						// echo $razmer,"<br />";
 								$spec = $Specification->SpecExistsByCaption($caption);
 								$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
 									Add(array('caption' => $caption)), 'value' => $razmer);
