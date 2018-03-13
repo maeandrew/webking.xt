@@ -686,11 +686,6 @@ if(isset($_POST['parse_XML'])){
 //Парсинги по сохраненым файлам URL----------------------------------------------------------
 
 if(isset($_POST['parse_URL'])){
-	// echo "Зашол в parse_URL <br />";
-	// print_r('<pre>');
-	// print_r($_POST);
-	// print_r('</pre>');
-	//  die();
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
 	if($site['id_supplier'] == NULL){
@@ -704,198 +699,160 @@ if(isset($_POST['parse_URL'])){
 	$id_supplier = $site['id_supplier'];
 	$id_category = $site['id_category'];
 
-		ini_set('memory_limit', '1024M');
+	ini_set('memory_limit', '1024M');	
+
 	if (get_headers($_POST['url'], 1)){
 		echo " проверил_URL <br />";
 
 		$sim_url = simplexml_load_file($_POST['url']);
-// 		die();
-		//получим  масив id 
-		$array = array();
-		//пройдемся циклом по  и вберем ключи
+		echo "Файл загружен <br />";
+		ini_set('max_execution_time', 3000);
+		$d = $l = $k = $i = 0;
+		//захлдим в индивидуальные настройки 
 		switch ($_POST['site']){
 			case 23:
-				// echo "case 23 bluzka -> ОК <br />";
-					foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-							foreach ($element->xpath('offers/offer') as $offer) {
-								$vendorCode_color = $offer->vendorCode;
-								$vendorCode_color .= $offer->param;
-								array_push($array, $vendorCode_color);
-							}
+			echo "зашли в case 23 <br />";
+				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+					foreach ($element->xpath('offers/offer') as $offer) {
+						//Определяем категорию
+						if($d < $_POST['num']){
+							switch ($offer->categoryId) {
+							echo "определяем категорию <br />";	
+							    case 395:
+							        $id_category = '1751';
+							        break;
+							    case 293:
+							        $id_category = '1752';
+							        break;
+							    case 299:
+							        $id_category = '1753';
+							        break;
+							    case 381:
+							        $id_category = '1754';
+							        break;
+							    case 301:
+							        $id_category = '1755';
+							        break;
+							    case 300:
+							        $id_category = '1756';
+							        break;
+							    case 463:
+							        $id_category = '1757';
+							        break;
+							    case 396:
+							        $id_category = '1758';
+							        break;
+							    case 351:
+							        $id_category = '1759';
+							        break;
+							    case 338:
+							        $id_category = '1760';
+							        break;
+							    case 404:
+							        $id_category = '1761';
+							        break;
+							    case 380:
+							        $id_category = '1762';
+							        break;
+							    case 288:
+							        $id_category = '1763';
+							        break;
+							    case 289:
+							        $id_category = '1764';
+							        break;
+							    case 290:
+							        $id_category = '1765';
+							        break;
+							    case 291:
+							        $id_category = '1766';
+							        break;
+							    case 382:
+							        $id_category = '1767';
+							        break;
+							    case 328:
+							        $id_category = '1767';
+							        break;
+							    case 304:
+							        $id_category = '1767';
+							        break;
+							   case 303:
+							        $id_category = '1768';
+							        break;
+							    case 302:
+							        $id_category = '1769';
+							        break;
+							    case 448:
+							        $id_category = '1770';
+							        break;
+							    case 329:
+							        $id_category = '1771';
+							        break;
+							    case 296:
+							        $id_category = '1772';
+							        break;
+							    case 295:
+							        $id_category = '1773';
+							        break;
+							    case 294:
+							        $id_category = '1774';
+							        break;
+							    case 292:
+							        $id_category = '1775';
+							        break;
+							    case 297:
+							        $id_category = '1776';
+							        break;
+							    case 298:
+							        $id_category = '1777';
+							        break;
+							    case 287:
+							        $id_category = '1778';
+							        break;
+							    case 285:
+							        $id_category = '1779';
+							        break;
+							    case 286:
+							        $id_category = '1780';
+							        break;
+							    default:
+									$id_category = $site['id_category'];
+								break;
+								}
+
+
+								//парсим товар 
+								$product = array();
+								$skipped = false;
+								echo $row, " - Значение для парсинга <br />";
+								if(!$product = $Parser->bluzka($row, $sim_url)){
+									continue;
+								}elseif(!$product || $skipped){
+									echo $row, "Товар пропущен <br />";
+									$i++;
+									continue;
+								}else{
+									ADD_NEW_product($product, $skipped, $id_supplier, $id_category);
+								}
 						}
-					// $array = array_unique($array);
-					// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
-					// foreach ($array as $key => $value) {
-					// 	echo "Ключ: $key; Значение: $value<br />\n";
-					//  }
-				//  die();
+						else{//Тестовое условие
+							die();
+						}
+					}
+				}
 			break;
 			default:
 				# code...
 			break;
 		}
+
 	} else {
 		echo "Не удалось открыть файл<br />\n";
-    }
-		
-	ini_set('max_execution_time', 3000);
-	$d = $k = $l = $i = 0;
-	foreach($array as $key => &$row){
-		//$res = array_combine($headings, $row);
-		$product = array();
-		$skipped = false;
-
-		if($d < $_POST['num']){
-
-
-			
-			switch ($_POST['site']){
-				case 23:
-						//Определяем категорию
-						switch ($offer->categoryId) {
-						    case 395:
-						        $id_category = '1751';
-						        break;
-						    case 293:
-						        $id_category = '1752';
-						        break;
-						    case 299:
-						        $id_category = '1753';
-						        break;
-						    case 381:
-						        $id_category = '1754';
-						        break;
-						    case 301:
-						        $id_category = '1755';
-						        break;
-						    case 300:
-						        $id_category = '1756';
-						        break;
-						    case 463:
-						        $id_category = '1757';
-						        break;
-						    case 396:
-						        $id_category = '1758';
-						        break;
-						    case 351:
-						        $id_category = '1759';
-						        break;
-						    case 338:
-						        $id_category = '1760';
-						        break;
-						    case 404:
-						        $id_category = '1761';
-						        break;
-						    case 380:
-						        $id_category = '1762';
-						        break;
-						    case 288:
-						        $id_category = '1763';
-						        break;
-						    case 289:
-						        $id_category = '1764';
-						        break;
-						    case 290:
-						        $id_category = '1765';
-						        break;
-						    case 291:
-						        $id_category = '1766';
-						        break;
-						    case 382:
-						        $id_category = '1767';
-						        break;
-						    case 328:
-						        $id_category = '1767';
-						        break;
-						    case 304:
-						        $id_category = '1767';
-						        break;
-						   case 303:
-						        $id_category = '1768';
-						        break;
-						    case 302:
-						        $id_category = '1769';
-						        break;
-						    case 448:
-						        $id_category = '1770';
-						        break;
-						    case 329:
-						        $id_category = '1771';
-						        break;
-						    case 296:
-						        $id_category = '1772';
-						        break;
-						    case 295:
-						        $id_category = '1773';
-						        break;
-						    case 294:
-						        $id_category = '1774';
-						        break;
-						    case 292:
-						        $id_category = '1775';
-						        break;
-						    case 297:
-						        $id_category = '1776';
-						        break;
-						    case 298:
-						        $id_category = '1777';
-						        break;
-						    case 287:
-						        $id_category = '1778';
-						        break;
-						    case 285:
-						        $id_category = '1779';
-						        break;
-						    case 286:
-						        $id_category = '1780';
-						        break;
-						    default:
-								$id_category = $site['id_category'];
-							break;
-						}
-						// echo $row, " - Значение для парсинга <br />";
-						if(!$product = $Parser->bluzka($row, $sim_url)){
-							continue;
-						}
-					break;
-				default:
-					# code...
-					break;
-			}
-				
-				// echo $id_supplier, "<br />";
-				// echo $id_category, "<br />";
-				// echo $product['sup_comment'], "<br />";
-				// echo $product['name'], "<br />";
-				// echo $product['price_mopt_otpusk'], "<br />";
-				// echo $product['price_opt_otpusk'], "<br />";
-				// echo $product['descr'], "<br />";
-				// echo $product['active'], "<br />";
-				// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-				// echo count($product['images'], COUNT_RECURSIVE), "<br />";
-				// foreach ($product['images'] as $value) {
-				// 	echo "<pre>";
-				// 	print_r($value);
-				// 	echo "</pre>";
-				// }
-					// if(!$product || $skipped){
-					// 	print_r('<pre>НЕТ. Товар пропущен</pre>');
-					// 	$i++;
-					// 	continue;
-					// }else{
-					// 	print_r('<pre>OK. Товар добавлен</pre>');
-					// 	$d++;
-					// }
-			
-					// echo $row, "<br />";
-			 // die();
-
+		}
+}
+// ===================================================Добавляем новый товар в БД ========================================================
+function ADD_NEW_product($product, $skipped, $id_supplier, $id_category){
 			// Добавляем новый товар в БД
-			if(!$product || $skipped){
-				echo $row, "Добавляем новый товар в БД     -      Товар пропущен <br />";
-				$i++;
-				continue;
-			}elseif($id_product = $Products->AddProduct($product)){
+			if($id_product = $Products->AddProduct($product)){
 				// Добавляем характеристики новому товару
 				if(!empty($product['specs'])){
 					foreach($product['specs'] as $specification){
@@ -971,16 +928,5 @@ if(isset($_POST['parse_URL'])){
 				echo "Проблема с добавлением продукта <br />";
 				$l++;
 			}
-				
-		}
-		else{//Тестовое условие
-			die();
-		}
-		
-	}
-	print_r('<pre>товарів додано: '.$d.'</pre>');
-	print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
-	print_r('<pre>товарів пропущено: '.$i.'</pre>');
-	ini_set('memory_limit', '192M');
-	ini_set('max_execution_time', 30);
+	return 1;		
 }
