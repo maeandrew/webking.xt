@@ -591,13 +591,13 @@ class Parser {
 		}
  		return $product;
  	}
-	public function bluzka($data){
+	public function bluzka($data, $sim_url){
 		// echo  "function bluzka -> ОК<br />";
 		// echo  $data, "<br />";
 		global $Products;
 		global $Specification;
 		global $Images;
-		$sim_url = simplexml_load_file($_POST['url']);
+		// $sim_url = simplexml_load_file($_POST['url']);
 		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('offers/offer') as $offer) {
 					$Code_color = $offer->vendorCode;
@@ -637,6 +637,7 @@ class Parser {
 					copy($filename, $path.$img_info['basename']);
 					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 					$product['images_visible'][] = 1;
+					sleep(2);
 					// Находим характеристики товара
 
 					$caption = $offer->param[1]['name'];
@@ -658,7 +659,6 @@ class Parser {
 				}
 				else{
 					echo  $data, "  ==  ", $Code_color,"  НЕТ <br />";
-					die();
 					continue;
 				}
 			}

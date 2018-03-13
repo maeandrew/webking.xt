@@ -704,16 +704,9 @@ if(isset($_POST['parse_URL'])){
 	$id_supplier = $site['id_supplier'];
 	$id_category = $site['id_category'];
 
-
-	ini_set('max_execution_time', 3000);
-	echo $_POST['url'], "<br />";
-
-
-
+		ini_set('memory_limit', '1024M');
 	if (get_headers($_POST['url'], 1)){
 		echo " проверил_URL <br />";
-
-
 
 		$sim_url = simplexml_load_file($_POST['url']);
 // 		die();
@@ -753,6 +746,9 @@ if(isset($_POST['parse_URL'])){
 		$skipped = false;
 
 		if($d < $_POST['num']){
+
+
+			
 			switch ($_POST['site']){
 				case 23:
 						//Определяем категорию
@@ -814,7 +810,6 @@ if(isset($_POST['parse_URL'])){
 						    case 304:
 						        $id_category = '1767';
 						        break;
-
 						   case 303:
 						        $id_category = '1768';
 						        break;
@@ -859,7 +854,7 @@ if(isset($_POST['parse_URL'])){
 							break;
 						}
 						// echo $row, " - Значение для парсинга <br />";
-						if(!$product = $Parser->bluzka($row)){
+						if(!$product = $Parser->bluzka($row, $sim_url)){
 							continue;
 						}
 					break;
@@ -974,7 +969,7 @@ if(isset($_POST['parse_URL'])){
 				$d++;
 			}else{
 				echo "Проблема с добавлением продукта <br />";
-				$d++;
+				$l++;
 			}
 				
 		}
