@@ -333,7 +333,7 @@ die();
 	// }
 }
 
-$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
+
 
 
 //Парсинги по сохраненым файлам XML----------------------------------------------------------
@@ -630,6 +630,10 @@ if(isset($_POST['parse_XML'])){
 //Парсинги по сохраненым файлам URL----------------------------------------------------------
 
 if(isset($_POST['parse_URL'])){
+print_r('<pre>');
+print_r($_POST);
+print_r('</pre>');
+$d = $l = $k = $i = 0;
 
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
@@ -651,8 +655,9 @@ if(isset($_POST['parse_URL'])){
 
 		$sim_url = simplexml_load_file($_POST['url']);
 		echo "Файл загружен <br />";
+
 		ini_set('max_execution_time', 3000);
-		$d = $l = $k = $i = 0;
+		
 		//захлдим в индивидуальные настройки 
 		switch ($_POST['site']){
 			case 23:
@@ -662,6 +667,7 @@ if(isset($_POST['parse_URL'])){
 						$vendorCode_color = $offer->vendorCode;
 						$vendorCode_color .= $offer->param;
 						//Определяем категорию
+						$k++;
 						if($k < $_POST['num']){
 							echo "определяем категорию <br />";	
 							switch ($offer->categoryId) {
@@ -774,21 +780,92 @@ if(isset($_POST['parse_URL'])){
 							if(!$product = $Parser->bluzka($vendorCode_color, $offer)){
 								continue;
 							}
+							// Добавляем новый товар в БД
 							if(!$product || $skipped){
-								echo $vendorCode_color, "Товар пропущен <br />";
+								echo $row, "Добавляем новый товар в БД     -      Товар пропущен <br />";
 								$i++;
 								continue;
+							}elseif($id_product = $Products->AddProduct($product)){
+								// Добавляем характеристики новому товару
+								if(!empty($product['specs'])){
+									foreach($product['specs'] as $specification){
+										$Specification->AddSpecToProd($specification, $id_product);
+									}
+								}
+								// Формируем массив записи ассортимента
+								$assort = array(
+									'id_assortiment' => false,
+									'id_supplier' => $id_supplier,
+									'id_product' => $id_product,
+									'price_opt_otpusk' => $product['price_opt_otpusk'],
+									'price_mopt_otpusk' => $product['price_mopt_otpusk'],
+									'active' => 1,
+									'inusd' => 0,
+									'sup_comment' => $product['sup_comment']
+								);
+								// Добавляем зпись в ассортимент
+								$Products->AddToAssortWithAdm($assort);
+								// Получаем артикул нового товара
+								$article = $Products->GetArtByID($id_product);
+								// Переименовываем фото товара
+								$to_resize = $images_arr = array();
+								if(isset($product['images']) && !empty($product['images'])){
+									foreach($product['images'] as $key=>$image){
+										$to_resize[] = $newname = $article['art'].($key == 0?'':'-'.$key).'.jpg';
+										$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+										$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
+										$images_arr[] = str_replace($file['basename'], $newname, $image);
+										rename($path.$file['basename'], $path.$newname);
+									}
+									//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+									foreach($images_arr as $filename){
+										$file = $GLOBALS['PATH_product_img'].str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $filename);
+										$size = getimagesize($file);
+										// $size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+										$width = $size[0];
+										$height = $size[1];
+										if($size[0] > 1000 || $size[1] > 1000){
+											$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
+											//Определяем размеры нового изображения
+											if(max($size[0], $size[1]) == $size[0]){
+												$width = 1000;
+												$height = 1000 / $ratio;
+											}elseif(max($size[0], $size[1]) == $size[1]){
+												$width = 1000*$ratio;
+												$height = 1000;
+											}
+										}
+										$res = imagecreatetruecolor($width, $height);
+										imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+										$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
+										// Добавляем логотип в нижний правый угол
+										imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+											$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
+											$k = imagesy($stamp)/imagesx($stamp);
+											$widthstamp = imagesx($res)*0.3;
+											$heightstamp = $widthstamp*$k;
+											imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
+										imagejpeg($res, $file);
+									}
+									$Images->resize(false, $to_resize);
+									// Привязываем новые фото к товару в БД
+									$Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
+								}
+								// Добавляем товар в категорию
+								$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
+								print_r('<pre>Время выполнения скрипта: '.(microtime(true) - $start).'</pre>');
+								print_r('<pre>OK. Товар добавлен===================</pre>');
+								$skipped = false;
+								$d++;
 							}else{
-								
-								
-								$k++;
-
-								ADD_NEW_product($product, $skipped, $id_supplier, $id_category);
+								echo "Проблема с добавлением продукта <br />";
+								$l++;
 							}
 						}
 						else{//Тестовое условие
 							die();
 						}
+						sleep(3);
 					}
 				}
 			break;
@@ -799,104 +876,13 @@ if(isset($_POST['parse_URL'])){
 
 	} else {
 		echo "Не удалось открыть файл<br />\n";
-		}
+	}
+	print_r('<pre>товарів додано: '.$d.'</pre>');
+	print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
+	print_r('<pre>товарів пропущено: '.$i.'</pre>');
+	ini_set('memory_limit', '192M');
+	ini_set('max_execution_time', 30);
 }
-// ===================================================Добавляем новый товар в БД ========================================================
-function ADD_NEW_product($product, $skipped, $id_supplier, $id_category){
-								// echo $id_supplier, "<br />";
-								// echo $id_category, "<br />";
-								// echo $product['sup_comment'], "<br />";
-								// echo $product['name'], "<br />";
-								// echo $product['price_mopt_otpusk'], "<br />";
-								// echo $product['price_opt_otpusk'], "<br />";
-								// echo $product['descr'], "<br />";
-								// echo $product['active'], "<br />";
-								// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-								// echo count($product['images'], COUNT_RECURSIVE), "<br />";
-								// foreach ($product['images'] as $value) {
-								// 	echo "<pre>";
-								// 	print_r($value);
-								// 	echo "</pre>";
-								// }
-								
- 							// die();
 
-			// Добавляем новый товар в БД
-			if($id_product = $Products->AddProduct($product)){
-				// Добавляем характеристики новому товару
-				if(!empty($product['specs'])){
-					foreach($product['specs'] as $specification){
-						$Specification->AddSpecToProd($specification, $id_product);
-					}
-				}
-				// Формируем массив записи ассортимента
-				$assort = array(
-					'id_assortiment' => false,
-					'id_supplier' => $id_supplier,
-					'id_product' => $id_product,
-					'price_opt_otpusk' => $product['price_opt_otpusk'],
-					'price_mopt_otpusk' => $product['price_mopt_otpusk'],
-					'active' => 1,
-					'inusd' => 0,
-					'sup_comment' => $product['sup_comment']
-				);
-				// Добавляем зпись в ассортимент
-				$Products->AddToAssortWithAdm($assort);
-				// Получаем артикул нового товара
-				$article = $Products->GetArtByID($id_product);
-				// Переименовываем фото товара
-				$to_resize = $images_arr = array();
-				if(isset($product['images']) && !empty($product['images'])){
-					foreach($product['images'] as $key=>$image){
-						$to_resize[] = $newname = $article['art'].($key == 0?'':'-'.$key).'.jpg';
-						$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-						$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
-						$images_arr[] = str_replace($file['basename'], $newname, $image);
-						rename($path.$file['basename'], $path.$newname);
-					}
-					//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-					foreach($images_arr as $filename){
-						$file = $GLOBALS['PATH_product_img'].str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $filename);
-						$size = getimagesize($file);
-						// $size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-						$width = $size[0];
-						$height = $size[1];
-						if($size[0] > 1000 || $size[1] > 1000){
-							$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
-							//Определяем размеры нового изображения
-							if(max($size[0], $size[1]) == $size[0]){
-								$width = 1000;
-								$height = 1000 / $ratio;
-							}elseif(max($size[0], $size[1]) == $size[1]){
-								$width = 1000*$ratio;
-								$height = 1000;
-							}
-						}
-						$res = imagecreatetruecolor($width, $height);
-						imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-						$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
-						// Добавляем логотип в нижний правый угол
-						imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-							$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
-							$k = imagesy($stamp)/imagesx($stamp);
-							$widthstamp = imagesx($res)*0.3;
-							$heightstamp = $widthstamp*$k;
-							imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
-						imagejpeg($res, $file);
-					}
-					$Images->resize(false, $to_resize);
-					// Привязываем новые фото к товару в БД
-					$Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
-				}
-				// Добавляем товар в категорию
-				$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
-				print_r('<pre>Время выполнения скрипта: '.(microtime(true) - $start).'</pre>');
-				print_r('<pre>OK. Товар добавлен===================</pre>');
-				$skipped = false;
-				$d++;
-			}else{
-				echo "Проблема с добавлением продукта <br />";
-				$l++;
-			}
-	return 1;		
-}
+
+$tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');

@@ -609,8 +609,37 @@ class Parser {
 					$start = microtime(true);
 				 	// Получаем артикул товара
 					$product['sup_comment'] = $offer->vendorCode;
+					$search = array ("'<script[^>]*?>.*?</script>'si",  // Вырезает javaScript
+					                 "'<[\/\!]*?[^<>]*?>'si",           // Вырезает HTML-теги
+					                 "'([\r\n])[\s]+'",                 // Вырезает пробельные символы
+					                 "'&(quot|#34);'i",                 // Заменяет HTML-сущности
+					                 "'&(amp|#38);'i",
+					                 "'&(lt|#60);'i",
+					                 "'&(gt|#62);'i",
+					                 "'&(nbsp|#160);'i",
+					                 "'&(iexcl|#161);'i",
+					                 "'&(cent|#162);'i",
+					                 "'&(pound|#163);'i",
+					                 "'&(copy|#169);'i",
+					                 "'&#(\d+);'e");                    // интерпретировать как php-код
+
+					$replace = array ("",
+					                  "",
+					                  "\\1",
+					                  "\"",
+					                  "&",
+					                  "<",
+					                  ">",
+					                  " ",
+					                  chr(161),
+					                  chr(162),
+					                  chr(163),
+					                  chr(169),
+					                  "chr(\\1)");
+
+
 					//Получаем название товара
-					$product['name'] = $str_name = strip_tags(stristr($offer->description, 'Состав', true));
+					$product['name'] = $str_name = trim(preg_replace($search, $replace, strip_tags(stristr($offer->description, 'Состав', true))));
 					$product['name'] .= " (";
 					$product['name'] .= $offer->param;
 					$product['name'] .= ")";
@@ -651,6 +680,7 @@ class Parser {
 					}
 
 					if($html = $this->parseUrl($offer->url)){
+						sleep(5);
 						// Получаем оптовую цену товара
 					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
 
