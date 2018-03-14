@@ -604,8 +604,7 @@ if(isset($_POST['parse_XML'])){
 				}
 				// Добавляем товар в категорию
 				$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
-				print_r('<pre>Время выполнения скрипта: '.(microtime(true) - $start).'</pre>');
-				print_r('<pre>OK. Товар добавлен===================</pre>');
+
 				$skipped = false;
 				$d++;
 			}else{
@@ -664,8 +663,10 @@ $d = $l = $k = $i = 0;
 			echo "зашли в case 23 <br />";
 				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 					foreach ($element->xpath('offers/offer') as $offer) {
+						$start = microtime(true);
 						$vendorCode_color = $offer->vendorCode;
 						$vendorCode_color .= $offer->param;
+						echo $vendorCode_color, "<br />";	
 						//Определяем категорию
 						$k++;
 						if($k < $_POST['num']){
@@ -853,8 +854,7 @@ $d = $l = $k = $i = 0;
 								}
 								// Добавляем товар в категорию
 								$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
-								print_r('<pre>Время выполнения скрипта: '.(microtime(true) - $start).'</pre>');
-								print_r('<pre>OK. Товар добавлен===================</pre>');
+						echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек.';
 								$skipped = false;
 								$d++;
 							}else{

@@ -648,7 +648,9 @@ class Parser {
 					$product['min_mopt_qty'] = '1';
 					
 					// Описание товара
-					$product['descr'] = str_replace("<h1>", "<h2>", $offer->description);
+					$search  = array('<h1>', '</h1>');
+					$replace = array('<h2>', '</h2>');
+					$product['descr'] = str_replace($search, $replace, $offer->description);
 
 					// Указываем базовую активность товара
 					$product['active'] = '1';
