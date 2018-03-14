@@ -591,15 +591,15 @@ class Parser {
 		}
  		return $product;
  	}
-	public function bluzka($data, $sim_url){
+	public function bluzka($data, $offer){
 		// echo  "function bluzka -> ОК<br />";
 		// echo  $data, "<br />";
 		global $Products;
 		global $Specification;
 		global $Images;
 		// $sim_url = simplexml_load_file($_POST['url']);
-		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-			foreach ($element->xpath('offers/offer') as $offer) {
+		// foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+		// 	foreach ($element->xpath('offers/offer') as $offer) {
 					$Code_color = $offer->vendorCode;
 					$Code_color .= $offer->param;
 
@@ -653,16 +653,36 @@ class Parser {
 					if($html = $this->parseUrl($offer->url)){
 						// Получаем оптовую цену товара
 					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
-					
+
+
+
+					// echo "хочу получить фото<br />";
+					// echo $offer->param,"<br />";
+
+					// foreach($html->find('.list-0 js_prod_color prod_color span') as $em){
+
+					// 	echo $em->plaintext,'</br>';
+					// 	// echo $em->plaintext,'</br>';
+					//   }
+
+					// echo iconv( "Windows-1252", "UTF-8", $em->plaintext).'</br>';
+					// echo $div->innertext;
+					// echo $html->plaintext,"<br />";
+  
+					// if($offer->param == trim($html->find('color', 0)->innertext)){
+					// $id_color = parent(trim($html->find('color', 0)->innertext));
+					// echo $id_color,"<br />";
+					// }
+				
 					}
-					break;
+					// break;
 				}
 				else{
 					echo  $data, "  ==  ", $Code_color,"  НЕТ <br />";
 					continue;
 				}
-			}
-		}
+		// 	}
+	// }
  		return $product;
  	}
 }

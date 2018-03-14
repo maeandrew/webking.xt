@@ -498,63 +498,7 @@ if(isset($_POST['parse_XML'])){
 						}
 					}
 					break;
-				case 23000000000000000000:
-						//Определяем категорию
-						switch ($offer->categoryId) {
-						    case 139:
-						        $id_category = '1748';
-						        break;
-						    case 136:
-						        $id_category = '1747';
-						        break;
-						    case 123:
-						        $id_category = '1746';
-						        break;
-						    case 95:
-						        $id_category = '1745';
-						        break;
-						    case 93:
-						        $id_category = '1749';
-						        break;
-						    case 89:
-						        $id_category = '1744';
-						        break;
-						    case 81:
-						        $id_category = '1743';
-						        break;
-						    case 75:
-						        $id_category = '1742';
-						        break;
-						    case 70:
-						        $id_category = '1741';
-						        break;
-						    case 64:
-						        $id_category = '1740';
-						        break;
-						    case 62:
-						        $id_category = '1739';
-						        break;
-						    case 61:
-						        $id_category = '1738';
-						        break;
-						    case 60:
-						        $id_category = '1737';
-						        break;
-						    case 59:
-						        $id_category = '1735';
-						        break;
-						    case 58:
-						        $id_category = '1736';
-						        break;
-						    default:
-								$id_category = $site['id_category'];
-							break;
-						}
-						echo $row, " - Значение для парсинга <br />";
-						if(!$product = $Parser->bluzka($row)){
-							continue;
-						}
-					break;
+			
 				default:
 					# code...
 					break;
@@ -686,6 +630,7 @@ if(isset($_POST['parse_XML'])){
 //Парсинги по сохраненым файлам URL----------------------------------------------------------
 
 if(isset($_POST['parse_URL'])){
+
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
 	if($site['id_supplier'] == NULL){
@@ -714,10 +659,12 @@ if(isset($_POST['parse_URL'])){
 			echo "зашли в case 23 <br />";
 				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 					foreach ($element->xpath('offers/offer') as $offer) {
+						$vendorCode_color = $offer->vendorCode;
+						$vendorCode_color .= $offer->param;
 						//Определяем категорию
-						if($d < $_POST['num']){
-							switch ($offer->categoryId) {
+						if($k < $_POST['num']){
 							echo "определяем категорию <br />";	
+							switch ($offer->categoryId) {
 							    case 395:
 							        $id_category = '1751';
 							        break;
@@ -817,22 +764,27 @@ if(isset($_POST['parse_URL'])){
 							    default:
 									$id_category = $site['id_category'];
 								break;
-								}
-
+							}
 
 								//парсим товар 
 								$product = array();
 								$skipped = false;
-								echo $row, " - Значение для парсинга <br />";
-								if(!$product = $Parser->bluzka($row, $sim_url)){
-									continue;
-								}elseif(!$product || $skipped){
-									echo $row, "Товар пропущен <br />";
-									$i++;
-									continue;
-								}else{
-									ADD_NEW_product($product, $skipped, $id_supplier, $id_category);
-								}
+								echo $vendorCode_color, " - Значение для парсинга <br />";
+
+							if(!$product = $Parser->bluzka($vendorCode_color, $offer)){
+								continue;
+							}
+							if(!$product || $skipped){
+								echo $vendorCode_color, "Товар пропущен <br />";
+								$i++;
+								continue;
+							}else{
+								
+								
+								$k++;
+
+								ADD_NEW_product($product, $skipped, $id_supplier, $id_category);
+							}
 						}
 						else{//Тестовое условие
 							die();
@@ -851,6 +803,24 @@ if(isset($_POST['parse_URL'])){
 }
 // ===================================================Добавляем новый товар в БД ========================================================
 function ADD_NEW_product($product, $skipped, $id_supplier, $id_category){
+								// echo $id_supplier, "<br />";
+								// echo $id_category, "<br />";
+								// echo $product['sup_comment'], "<br />";
+								// echo $product['name'], "<br />";
+								// echo $product['price_mopt_otpusk'], "<br />";
+								// echo $product['price_opt_otpusk'], "<br />";
+								// echo $product['descr'], "<br />";
+								// echo $product['active'], "<br />";
+								// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+								// echo count($product['images'], COUNT_RECURSIVE), "<br />";
+								// foreach ($product['images'] as $value) {
+								// 	echo "<pre>";
+								// 	print_r($value);
+								// 	echo "</pre>";
+								// }
+								
+ 							// die();
+
 			// Добавляем новый товар в БД
 			if($id_product = $Products->AddProduct($product)){
 				// Добавляем характеристики новому товару
