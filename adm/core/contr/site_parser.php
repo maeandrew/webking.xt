@@ -629,10 +629,14 @@ if(isset($_POST['parse_XML'])){
 //Парсинги по сохраненым файлам URL----------------------------------------------------------
 
 if(isset($_POST['parse_URL'])){
+echo "Зашли в parse_URL";
 print_r('<pre>');
 print_r($_POST);
 print_r('</pre>');
 $d = $l = $k = $i = 0;
+//Включаем показ ошибок
+ini_set('display_errors','on');
+ini_set('error_reporting',E_ALL);
 
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
@@ -646,31 +650,32 @@ $d = $l = $k = $i = 0;
 	}
 	$id_supplier = $site['id_supplier'];
 	$id_category = $site['id_category'];
+	if (empty($_POST['url'])){
+		echo "Не выбран URL <br />";
+		die();
+	}
 
-	ini_set('memory_limit', '1024M');	
+//Устанавливаем настройки памяти
+echo ini_get('max_execution_time'), "<br />";
+ini_set('max_execution_time', 3000);
+echo ini_get('max_execution_time'), "<br />";
+echo ini_get('memory_limit'), "<br />";
+ini_set('memory_limit', '1024M');	
+echo ini_get('memory_limit'), "<br />";
 
 	if (get_headers($_POST['url'], 1)){
-		echo " проверил_URL <br />";
-
+	echo " Проверил_URL <br />";
 		$sim_url = simplexml_load_file($_POST['url']);
 		echo "Файл загружен <br />";
 
-		ini_set('max_execution_time', 3000);
-		
-		//захлдим в индивидуальные настройки 
+		//захолдим в индивидуальные настройки 
 		switch ($_POST['site']){
 			case 23:
 			echo "зашли в case 23 <br />";
 				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 					foreach ($element->xpath('offers/offer') as $offer) {
 						$start = microtime(true);
-						$vendorCode_color = $offer->vendorCode;
-						$vendorCode_color .= $offer->param;
-						echo $vendorCode_color, "<br />";	
-						//Определяем категорию
-						$k++;
-						if($k < $_POST['num']){
-							echo "определяем категорию <br />";	
+						if($k < $_POST['num']){						
 							switch ($offer->categoryId) {
 							    case 395:
 							        $id_category = '1751';
@@ -772,18 +777,37 @@ $d = $l = $k = $i = 0;
 									$id_category = $site['id_category'];
 								break;
 							}
-
+							echo "определяем категорию по categoryId " .$offer->categoryId. " -> категория", $id_category, "<br />";	//Определяем категорию
 								//парсим товар 
 								$product = array();
 								$skipped = false;
-								echo $vendorCode_color, " - Значение для парсинга <br />";
+							
 
-							if(!$product = $Parser->bluzka($vendorCode_color, $offer)){
+							if(!$product = $Parser->bluzka($offer)){
 								continue;
 							}
+								echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
+								echo $id_supplier, "<br />";
+								echo $id_category, "<br />";
+								echo $product['sup_comment'], "<br />";
+								echo $product['name'], "<br />";
+								echo $product['price_mopt_otpusk'], "<br />";
+								echo $product['price_opt_otpusk'], "<br />";
+								echo $product['descr'], "<br />";
+								echo $product['active'], "<br />";
+								echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+								echo count($product['images'], COUNT_RECURSIVE), "<br />";
+								foreach ($product['images'] as $value) {
+									echo "<pre>";
+									print_r($value);
+									echo "</pre>";
+								}
+							
+
+
 							// Добавляем новый товар в БД
 							if(!$product || $skipped){
-								echo $row, "Добавляем новый товар в БД     -      Товар пропущен <br />";
+								echo $row, "Товар пропущен product пустой<br />";
 								$i++;
 								continue;
 							}elseif($id_product = $Products->AddProduct($product)){
@@ -854,18 +878,18 @@ $d = $l = $k = $i = 0;
 								}
 								// Добавляем товар в категорию
 								$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
-						echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек.';
+								echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек. <br /><br />';
 								$skipped = false;
 								$d++;
 							}else{
-								echo "Проблема с добавлением продукта <br />";
+								echo "Проблема с добавлением продукта <br /><br />";
 								$l++;
 							}
 						}
 						else{//Тестовое условие
 							die();
 						}
-						sleep(3);
+
 					}
 				}
 			break;

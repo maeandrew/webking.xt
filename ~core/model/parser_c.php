@@ -591,58 +591,27 @@ class Parser {
 		}
  		return $product;
  	}
-	public function bluzka($data, $offer){
-		// echo  "function bluzka -> ОК<br />";
-		// echo  $data, "<br />";
+	public function bluzka($offer){
+		echo  "function bluzka -> ОК<br />";
+
 		global $Products;
 		global $Specification;
 		global $Images;
-		// $sim_url = simplexml_load_file($_POST['url']);
-		// foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-		// 	foreach ($element->xpath('offers/offer') as $offer) {
-					$Code_color = $offer->vendorCode;
-					$Code_color .= $offer->param;
 
-				if(trim($Code_color) == trim($data)){
-					// echo  $data, "  ==  ", $Code_color,"  ДА+++++++++++++++++++ <br />";
-					
+		
+						
 					$start = microtime(true);
 				 	// Получаем артикул товара
 					$product['sup_comment'] = $offer->vendorCode;
-					$search = array ("'<script[^>]*?>.*?</script>'si",  // Вырезает javaScript
-					                 "'<[\/\!]*?[^<>]*?>'si",           // Вырезает HTML-теги
-					                 "'([\r\n])[\s]+'",                 // Вырезает пробельные символы
-					                 "'&(quot|#34);'i",                 // Заменяет HTML-сущности
-					                 "'&(amp|#38);'i",
-					                 "'&(lt|#60);'i",
-					                 "'&(gt|#62);'i",
-					                 "'&(nbsp|#160);'i",
-					                 "'&(iexcl|#161);'i",
-					                 "'&(cent|#162);'i",
-					                 "'&(pound|#163);'i",
-					                 "'&(copy|#169);'i",
-					                 "'&#(\d+);'e");                    // интерпретировать как php-код
-
-					$replace = array ("",
-					                  "",
-					                  "\\1",
-					                  "\"",
-					                  "&",
-					                  "<",
-					                  ">",
-					                  " ",
-					                  chr(161),
-					                  chr(162),
-					                  chr(163),
-					                  chr(169),
-					                  "chr(\\1)");
-
-
+										
 					//Получаем название товара
-					$product['name'] = $str_name = trim(preg_replace($search, $replace, strip_tags(stristr($offer->description, 'Состав', true))));
+					$product['name'] = strip_tags(stristr($offer->description, 'Состав', true));
+					$product['name'] = str_replace("&nbsp;",'', $product['name']);
+					$product['name'] = trim($product['name']);
 					$product['name'] .= " (";
 					$product['name'] .= $offer->param;
 					$product['name'] .= ")";
+
 					//Получаем количество товара
 					$product['inbox_qty'] = '2';
 					$product['min_mopt_qty'] = '1';
@@ -654,67 +623,41 @@ class Parser {
 
 					// Указываем базовую активность товара
 					$product['active'] = '1';
+
 					//Указиваем обезательное примечание
 					$product['note_control'] = '1';
 					
-					// Получаем изображения товара максимального размера
-					
+					// Получаем изображения товара максимального размера из $offer
 					$filename = $offer->picture;
 					$img_info = array_merge(getimagesize($filename), pathinfo($filename));
-
+					
 					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
 					$Images->checkStructure($path);
-
+					// Получаем изображения товара максимального размера из $offer
 					copy($filename, $path.$img_info['basename']);
+					sleep(2);
 					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 					$product['images_visible'][] = 1;
-					sleep(2);
+					
 					// Находим характеристики товара
-
 					$caption = $offer->param[1]['name'];
-					// echo $caption,"<br />";
 					foreach (explode(", ", $offer->param[1])as $razmer){
 						$caption = $offer->param[1]['name'];
-						// echo $razmer,"<br />";
+					// echo $razmer,"<br />";
 								$spec = $Specification->SpecExistsByCaption($caption);
-								$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
-									Add(array('caption' => $caption)), 'value' => $razmer);
+								$product['specs'][] = array('id_spec' => $spec? $spec['id']: $Specification->Add(array('caption' => $caption)), 'value' => $razmer);
 					}
-
+					// Получаем оптовую цену товара
 					if($html = $this->parseUrl($offer->url)){
-						sleep(5);
-						// Получаем оптовую цену товара
-					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
+					echo "Зашли на карточку товара <br />";
 
 
-
-					// echo "хочу получить фото<br />";
-					// echo $offer->param,"<br />";
-
-					// foreach($html->find('.list-0 js_prod_color prod_color span') as $em){
-
-					// 	echo $em->plaintext,'</br>';
-					// 	// echo $em->plaintext,'</br>';
-					//   }
-
-					// echo iconv( "Windows-1252", "UTF-8", $em->plaintext).'</br>';
-					// echo $div->innertext;
-					// echo $html->plaintext,"<br />";
-  
-					// if($offer->param == trim($html->find('color', 0)->innertext)){
-					// $id_color = parent(trim($html->find('color', 0)->innertext));
-					// echo $id_color,"<br />";
-					// }
-				
+						$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
 					}
-					// break;
-				}
-				else{
-					echo  $data, "  ==  ", $Code_color,"  НЕТ <br />";
-					continue;
-				}
-		// 	}
-	// }
+
  		return $product;
  	}
+
+ 	
+
 }
