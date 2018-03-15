@@ -597,8 +597,6 @@ class Parser {
 		global $Products;
 		global $Specification;
 		global $Images;
-
-		
 						
 					$start = microtime(true);
 				 	// Получаем артикул товара
@@ -650,14 +648,12 @@ class Parser {
 					// Получаем оптовую цену товара
 					if($html = $this->parseUrl($offer->url)){
 					echo "Зашли на карточку товара <br />";
-
-
 						$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
 					}
 
  		return $product;
  	}
 
- 	
+
 
 }
