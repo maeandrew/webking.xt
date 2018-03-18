@@ -926,5 +926,230 @@ echo ini_get('memory_limit'), "<br />";
 	ini_set('max_execution_time', 30);
 }
 
+//Парсинги по сохраненым файлам parse_NL_xml----------------------------------------------------------
+
+if(isset($_POST['parse_NL_xml'])){
+	echo "Зашли в parse_NL_xml";
+	print_r('<pre>');
+	print_r($_POST);
+	print_r('</pre>');
+	$l = $d = $i = 0;
+	//Включаем показ ошибок
+	ini_set('display_errors','on');
+	ini_set('error_reporting',E_ALL);
+
+	//Устанавливаем настройки памяти
+	echo ini_get('max_execution_time'), "<br />";
+	ini_set('max_execution_time', 3000);
+	echo ini_get('max_execution_time'), "<br />";
+	echo ini_get('memory_limit'), "<br />";
+	ini_set('memory_limit', '1024M');	
+	echo ini_get('memory_limit'), "<br />";
+
+	$id_supplier = 30939;
+	$id_category = 1733;
+
+	// phpinfo();
+
+	// Проверил_URL
+	if (get_headers("https://www.nl.ua/export_files/Kharkov.xml", 1)){
+		echo " Проверил_URL <br />";
+		$sim_url = simplexml_load_file("https://www.nl.ua/export_files/Kharkov.xml");
+		echo "Файл загружен <br /><br />";
+
+		// $array = array();
+		// $array_cat = array();
+		// foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+		// 	foreach ($element->xpath('offers/offer') as $offer) {
+		// 		array_push($array, $offer->vendorCode);
+		// 		array_push($array_cat, $offer->categoryId);
+
+		// 	}
+		// }
+			// // $array = array_unique($array);
+			// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
+			// foreach ($array as $key => $value) {
+			// 	echo "Значение: $value<br />\n";
+			//  }
+
+		// выбераем имеющиеся у нас артикул
+		$supcomments = $Products->GetSupComments($id_supplier);
+		if(is_array($supcomments)){
+			$supcomments = array_unique($supcomments);
+		}
+
+		// $array_cat = array_unique($array_cat);
+
+		// foreach($array_cat as $value){
+		// echo $value, "<br />";
+		// }
+		//создаем масивы соотметствия категорий
+		$keys_NL = array(1,2);
+		$values_XT = array(5,4);
+		$array_cat = array_combine($keys_NL, $values_XT);
+			foreach ($array_cat as $key => $value) {
+				echo $key, "->", $value, "<br />";
+			 }
+
+		echo "Ок ищем товар<br />";
+		//захолдим в индивидуальные настройки 
+		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+			foreach ($element->xpath('offers/offer') as $offer) {
+				if($offer->vendorCode == '20123099'){
+					if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
+						$skipped = true;
+						continue;
+					}else{
+					
+					$start = microtime(true);
+					 //определяем нашу категориию
+					foreach($array_cat as $key => $value){
+						if($offer->categoryId == $key){
+							$id_category = $value;
+						}
+					}
+					
+					// if(!$id_category){
+					// 		continue;
+					// }
+
+					//парсим товар
+					$product = array();
+					if(!$product = $Parser->NewLine_XML($offer)){
+							continue;
+					}
+					
+						echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
+						echo "categoryId " .$offer->categoryId. " -> наша категория", $id_category, "<br />";	//Определяем категорию
+						echo $id_supplier, "<br />";
+						echo $product['sup_comment'], "<br />";
+						echo $product['name'], "<br />";
+						echo $product['price_mopt_otpusk'], "<br />";
+						echo $product['price_opt_otpusk'], "<br />";
+						echo $product['descr'], "<br />";
+						echo $product['active'], "<br />";
+						echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+						echo count($product['images'], COUNT_RECURSIVE), "<br />";
+						foreach ($product['images'] as $value) {
+							echo "<pre>";
+							print_r($value);
+							echo "</pre>";
+						}
+					}
+					$d++;
+					// continue;
+					die();
+
+
+					// Добавляем новый товар в БД
+					if(!$product || $skipped){
+						echo $row, "Товар пропущен product пустой<br />";
+						$i++;
+						continue;
+					}elseif($id_product = $Products->AddProduct($product)){
+						// print_r('<pre>OK, product added</pre>');
+						$d++;
+						// Добавляем характеристики новому товару
+						if(!empty($product['specs'])){
+							foreach($product['specs'] as $specification){
+								$Specification->AddSpecToProd($specification, $id_product);
+							}
+						}
+						// Формируем массив записи ассортимента
+						$assort = array(
+							'id_assortiment' => false,
+							'id_supplier' => $id_supplier,
+							'id_product' => $id_product,
+							'price_opt_otpusk' => $product['price_opt_otpusk'],
+							'price_mopt_otpusk' => $product['price_mopt_otpusk'],
+							'active' => 1,
+							'inusd' => 0,
+							'sup_comment' => $product['sup_comment']
+						);
+						// Добавляем зпись в ассортимент
+						$Products->AddToAssortWithAdm($assort);
+						// Получаем артикул нового товара
+						$article = $Products->GetArtByID($id_product);
+						// Переименовываем фото товара
+						$to_resize = $images_arr = array();
+						if(isset($product['images']) && !empty($product['images'])){
+							foreach($product['images'] as $key=>$image){
+								$to_resize[] = $newname = $article['art'].($key == 0?'':'-'.$key).'.jpg';
+								$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+								$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
+								$images_arr[] = str_replace($file['basename'], $newname, $image);
+								rename($path.$file['basename'], $path.$newname);
+							}
+							//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+							foreach($images_arr as $filename){
+								$file = $GLOBALS['PATH_product_img'].str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $filename);
+								$size = getimagesize($file);
+								// $size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+								$width = $size[0];
+								$height = $size[1];
+								if($size[0] > 1000 || $size[1] > 1000){
+									$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
+									//Определяем размеры нового изображения
+									if(max($size[0], $size[1]) == $size[0]){
+										$width = 1000;
+										$height = 1000 / $ratio;
+									}elseif(max($size[0], $size[1]) == $size[1]){
+										$width = 1000*$ratio;
+										$height = 1000;
+									}
+								}
+								$res = imagecreatetruecolor($width, $height);
+								imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+								$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
+								// Добавляем логотип в нижний правый угол
+								imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+									$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
+									$k = imagesy($stamp)/imagesx($stamp);
+									$widthstamp = imagesx($res)*0.3;
+									$heightstamp = $widthstamp*$k;
+									imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
+								imagejpeg($res, $file);
+								// sleep(2);
+							}
+							$Images->resize(false, $to_resize);
+							// Привязываем новые фото к товару в БД
+							$Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
+						}
+						// Добавляем товар в категорию
+						$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
+						array_push($supcomments, trim($offer->vendorCode));
+						echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек. <br /><br />';
+						// чистим переменые
+						unset($to_resize);
+						unset($images_arr);
+						unset($article);
+						unset($assort);
+						unset($product);
+						unset($skipped);
+					}else{
+						echo "Проблема с добавлением продукта <br /><br />";
+						$l++;
+					}
+				}else{
+					continue;
+				}
+
+				if($d > $_POST['num']){	
+					break;
+				}
+			}
+			if($d > $_POST['num']){	
+				break;
+			}	
+		}
+	} else {
+		echo "Не удалось открыть файл<br />\n";
+	}
+	print_r('<pre>товарів додано: '.$d.'</pre>');
+	print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
+	print_r('<pre>товарів пропущено: '.$i.'</pre>');
+	ini_set('memory_limit', '192M');
+	ini_set('max_execution_time', 30);
+}
 
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
