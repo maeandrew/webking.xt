@@ -473,11 +473,13 @@ class Parser {
 	}
 
 	public function nl($data){
+		echo  "function nl -> ОК<br />";
 		global $Products;
 		global $Specification;
 		global $Images;
 		$base_url = 'https://nl.ua';
 		$url = sprintf($base_url.'/ru/find/?q=%s', $data[0]);
+		echo  $url,"<br />";
 		if($pre_parsed_html = $this->parseUrl($url)){
 			$link = $pre_parsed_html->find('.items-wrapper .item-good .title a');
 			$url = $base_url.$link[0]->attr['href'];
@@ -486,6 +488,7 @@ class Parser {
 			return false;
 		}
 		unset($pre_parsed_html);
+		echo  $url,"<br />";
 		if($parsed_html = $this->parseUrl($url)){
 			// Получаем артикул товара
 			$product['sup_comment'] = trim($data[0]);
@@ -704,18 +707,18 @@ class Parser {
 		// Получаем оптовую цену товара
 		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
 		
-		// Получаем описание товара
-		if($html = $this->parseUrl($offer->url)){
-			echo "Зашли на карточку товара <br />";
 
-		$product['descr'] = $parsed_html->find('h2', 0)->outertext;
-		$product['descr'].= "<br>";
-		$product['descr'].= $parsed_html->find('.detail_text .text_content', 0)->plaintext;
-		$product['descr'].= "<br>";
-		$product['descr'].= $parsed_html->find('.detail_text .text_content', 0)->outertext;
+		if($parsed_html = $this->parseUrl($offer->url)){
+			echo "Зашли на карточку товара <br />";
+			// Получаем описание товара
+			$product['descr'] = $parsed_html->find('.detail_text .text_content', 0)->innertext;
 		}
+
+
+
+
 		//Описание товара
-		$product['descr'] = $offer->description;
+		// $product['descr'] = $offer->description;
 
  		return $product;
  	}

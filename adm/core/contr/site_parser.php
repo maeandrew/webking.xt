@@ -90,16 +90,16 @@ if(isset($_POST['parse'])){
 			// 	return array(0, 0);
 			// }
 			// ini_set('memory_limit', '728M');
-echo $_POST['site'], "<br />";
-echo $_POST['num'], "<br />";
-echo $_POST['parse'], "<br />";
+
+
+
 	
 print_r('<pre>');
 print_r($_POST);
 print_r('</pre>');
-die();
-			ini_set('max_execution_time', 3000);
-			$k = $l = $i = 0;
+// die();
+ini_set('max_execution_time', 3000);
+$d = $l = $i = 0;
 			foreach($array as $key => &$row){
 				$res = array_combine($headings, $row);
 				$product = array();
@@ -225,6 +225,8 @@ die();
 							}
 							break;
 						case 21:
+						echo  "case 21 -> ОК<br />";
+
 							$supcomments = $Products->GetSupComments($id_supplier);
 							if(is_array($supcomments)){
 								$supcomments = array_unique($supcomments);
@@ -248,7 +250,7 @@ die();
 						$i++;
 					}elseif($id_product = $Products->AddProduct($product)){
 						// print_r('<pre>OK, product added</pre>');
-						$k++;
+						$d++;
 						// Добавляем характеристики новому товару
 						if(!empty($product['specs'])){
 							foreach($product['specs'] as $specification){
@@ -322,7 +324,7 @@ die();
 					}
 				 }
 			}
-			print_r('<pre>товарів додано: '.$k.'</pre>');
+			print_r('<pre>товарів додано: '.$d.'</pre>');
 			print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
 			print_r('<pre>товарів пропущено: '.$i.'</pre>');
 			ini_set('memory_limit', '192M');
@@ -394,21 +396,7 @@ if(isset($_POST['parse_XML'])){
 					 }
 				break;
 			case 2300000:
-				echo "case 23 bluzka -> ОК <br />";
 				
-					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
-							foreach ($element->xpath('offers/offer') as $offer) {
-								$vendorCode_color = $offer->vendorCode;
-								$vendorCode_color .= $offer->param;
-								array_push($array, $vendorCode_color);
-							}
-						}
-					// $array = array_unique($array);
-					echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
-					foreach ($array as $key => $value) {
-						echo "Ключ: $key; Значение: $value<br />\n";
-					 }
-				//  die();
 			break;
 			default:
 				# code...
@@ -935,8 +923,8 @@ if(isset($_POST['parse_NL_xml'])){
 	print_r('</pre>');
 	$l = $d = $i = 0;
 	//Включаем показ ошибок
-	ini_set('display_errors','on');
-	ini_set('error_reporting',E_ALL);
+	// ini_set('display_errors','on');
+	// ini_set('error_reporting',E_ALL);
 
 	//Устанавливаем настройки памяти
 	echo ini_get('max_execution_time'), "<br />";
@@ -966,19 +954,17 @@ if(isset($_POST['parse_NL_xml'])){
 
 		// 	}
 		// }
-			// // $array = array_unique($array);
-			// echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
-			// foreach ($array as $key => $value) {
-			// 	echo "Значение: $value<br />\n";
-			//  }
+		// 	// $array = array_unique($array);
+		// 	echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
+		// 	foreach ($array as $key => $value) {
+		// 		echo "Значение: $value<br />\n";
+		// 	 }
 
 		// выбераем имеющиеся у нас артикул
 		$supcomments = $Products->GetSupComments($id_supplier);
 		if(is_array($supcomments)){
 			$supcomments = array_unique($supcomments);
 		}
-
-		// $array_cat = array_unique($array_cat);
 
 		// foreach($array_cat as $value){
 		// echo $value, "<br />";
@@ -995,7 +981,7 @@ if(isset($_POST['parse_NL_xml'])){
 		//захолдим в индивидуальные настройки 
 		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('offers/offer') as $offer) {
-				if($offer->vendorCode == '20123099'){
+				if($offer->vendorCode > '0'){
 					if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
 						$skipped = true;
 						continue;
@@ -1015,9 +1001,15 @@ if(isset($_POST['parse_NL_xml'])){
 
 					//парсим товар
 					$product = array();
-					if(!$product = $Parser->NewLine_XML($offer)){
-							continue;
+					// if(!$product = $Parser->NewLine_XML($offer)){
+					// 	continue;
+					// }
+					$data = 31034764;
+					if(!$product = $Parser->presto($data)){
+						continue;
 					}
+					
+
 					
 						echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
 						echo "categoryId " .$offer->categoryId. " -> наша категория", $id_category, "<br />";	//Определяем категорию
@@ -1151,5 +1143,51 @@ if(isset($_POST['parse_NL_xml'])){
 	ini_set('memory_limit', '192M');
 	ini_set('max_execution_time', 30);
 }
+//Парсинги по сохраненым файлам parse_NL_xml----------------------------------------------------------
+
+if(isset($_POST['test'])){
+	echo "Зашли в test";
+	print_r('<pre>');
+	print_r($_POST);
+	print_r('</pre>');
+
+	//Включаем показ ошибок
+	// ini_set('display_errors','on');
+	// ini_set('error_reporting',E_ALL);
+
+	//Устанавливаем настройки памяти
+	echo ini_get('max_execution_time'), "<br />";
+	ini_set('max_execution_time', 3000);
+	echo ini_get('max_execution_time'), "<br />";
+	echo ini_get('memory_limit'), "<br />";
+	ini_set('memory_limit', '1024M');	
+	echo ini_get('memory_limit'), "<br />";
+
+	
+	if($parsed_html = $Parser->parseUrl('https://www.nl.ua/ru/plitka/aksessuary/krestiki_distantsionnye/krestiki_distantsionnye_kaem_2040_660025_2_5_mm_200_sht.html')){
+			echo "Зашли на карточку товара <br />";
+
+
+				$descr = $parsed_html->find('main h1', 0)->plaintext;
+
+				echo "Описание", $descr, "<br />";
+
+		}
+
+		// foreach($parsed_html->find('h2', 0) as $h2){
+			
+		// echo $h2, "<br />";
+
+		// }
+		
+		
+
+}
 
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
+
+
+// $descr1 = $parsed_html->find('main h1', 0)->plaintext;
+// // Получаем описание товара
+// $descr = $parsed_html->find('.detail_text .text_content', 0)->plaintext;
+// // $descr = $parsed_html->find('.detail_text', 0)->innertext;
