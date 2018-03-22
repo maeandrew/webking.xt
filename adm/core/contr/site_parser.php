@@ -1,4 +1,9 @@
 <?php
+
+error_reporting(-1);
+header('Content-Type: text/html; charset=utf-8');
+
+
 if(!_acl::isAllow('parser')){
 	die('Access denied');
 }
@@ -13,7 +18,34 @@ $Images = new Images();
 $Parser = new Parser();
 $tpl->Assign('sites', $Parser->GetSitesList(false));
 
+
+
+
+// //Устанавливаем настройки памяти
+// echo "memory_limit ", ini_get('memory_limit'), "<br />";
+// ini_set('memory_limit', '1024M');	
+// echo "memory_limit ", ini_get('memory_limit'), "<br />";
+// //Устанавливаем настройки времени
+// echo "max_execution_time ", ini_get('max_execution_time'), "<br />";
+// ini_set('max_execution_time', 3000);
+// echo "max_execution_time ", ini_get('max_execution_time'), "<br />";
+
+ini_set('display_errors','on');
+ini_set('error_reporting',E_ALL);
+
+
+// phpinfo();
+// die();
+
+
+
+//Парсинги по сохраненым файлам XML----------------------------------------------------------
+//-------------------------------------------------------------------------------------------
 if(isset($_POST['parse'])){
+	print_r('<pre>');
+	print_r($_POST);
+	print_r('</pre>');
+
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
 	if($site['id_supplier'] == NULL){
@@ -48,7 +80,7 @@ if(isset($_POST['parse'])){
 		// 		break;
 		// 	}
 		// }
-		ini_set('memory_limit', '1024M');
+
 		if(!empty($_FILES) && is_uploaded_file($_FILES['file']['tmp_name'])){
 			$objPHPExcel = PHPExcel_IOFactory::load($_FILES['file']['tmp_name']);
 			$objPHPExcel->setActiveSheetIndex(0);
@@ -92,14 +124,7 @@ if(isset($_POST['parse'])){
 			// ini_set('memory_limit', '728M');
 
 
-
-	
-print_r('<pre>');
-print_r($_POST);
-print_r('</pre>');
-// die();
-ini_set('max_execution_time', 3000);
-$d = $l = $i = 0;
+			$d = $l = $i = 0;
 			foreach($array as $key => &$row){
 				$res = array_combine($headings, $row);
 				$product = array();
@@ -225,8 +250,6 @@ $d = $l = $i = 0;
 							}
 							break;
 						case 21:
-						echo  "case 21 -> ОК<br />";
-
 							$supcomments = $Products->GetSupComments($id_supplier);
 							if(is_array($supcomments)){
 								$supcomments = array_unique($supcomments);
@@ -250,7 +273,7 @@ $d = $l = $i = 0;
 						$i++;
 					}elseif($id_product = $Products->AddProduct($product)){
 						// print_r('<pre>OK, product added</pre>');
-						$d++;
+						$k++;
 						// Добавляем характеристики новому товару
 						if(!empty($product['specs'])){
 							foreach($product['specs'] as $specification){
@@ -337,19 +360,22 @@ $d = $l = $i = 0;
 
 
 
-
 //Парсинги по сохраненым файлам XML----------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+
+
 
 // echo 'display_errors = ' . ini_get('display_errors') . "<br />";
 // echo 'upload_max_size = ' . ini_get('upload_max_size') ."<br />";
 // echo 'post_max_size = ' . ini_get('post_max_size') . "<br />";
 
-
-ini_set('display_errors','on');
-ini_set('error_reporting',E_ALL);
-
-
 if(isset($_POST['parse_XML'])){
+	print_r('<pre>');
+	print_r($_POST);
+	print_r('</pre>');
+
+
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
 	if($site['id_supplier'] == NULL){
@@ -396,7 +422,21 @@ if(isset($_POST['parse_XML'])){
 					 }
 				break;
 			case 2300000:
+				echo "case 23 bluzka -> ОК <br />";
 				
+					foreach ($xml->xpath('/yml_catalog/shop') as $element) {
+							foreach ($element->xpath('offers/offer') as $offer) {
+								$vendorCode_color = $offer->vendorCode;
+								$vendorCode_color .= $offer->param;
+								array_push($array, $vendorCode_color);
+							}
+						}
+					// $array = array_unique($array);
+					echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
+					foreach ($array as $key => $value) {
+						echo "Ключ: $key; Значение: $value<br />\n";
+					 }
+				//  die();
 			break;
 			default:
 				# code...
@@ -614,7 +654,10 @@ if(isset($_POST['parse_XML'])){
 }
 
 
-//Парсинги по сохраненым файлам URL----------------------------------------------------------
+//Парсинги по xml URL----------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
 
 if(isset($_POST['parse_URL'])){
 echo "Зашли в parse_URL";
@@ -623,8 +666,6 @@ print_r($_POST);
 print_r('</pre>');
 $l = $d = $i = 0;
 //Включаем показ ошибок
-ini_set('display_errors','on');
-ini_set('error_reporting',E_ALL);
 
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
@@ -638,155 +679,158 @@ ini_set('error_reporting',E_ALL);
 	}
 	$id_supplier = $site['id_supplier'];
 	$id_category = $site['id_category'];
-	if (empty($_POST['url'])){
-		echo "Не выбран URL <br />";
-		die();
-	}
+	
 
 //Устанавливаем настройки памяти
-echo ini_get('max_execution_time'), "<br />";
-ini_set('max_execution_time', 3000);
-echo ini_get('max_execution_time'), "<br />";
-echo ini_get('memory_limit'), "<br />";
+
 ini_set('memory_limit', '1024M');	
-echo ini_get('memory_limit'), "<br />";
+
+//Устанавливаем настройки времени
+
+ini_set('max_execution_time', 3000);
+
+
+
 // Проверил_URL
-	if (get_headers($_POST['url'], 1)){
+	if (get_headers('http://bluzka.ua/ru/yml/', 1)){
 	echo " Проверил_URL <br />";
-		$sim_url = simplexml_load_file($_POST['url']);
+		$sim_url = simplexml_load_file('http://bluzka.ua/ru/yml/');
 		echo "Файл загружен <br />";
 	// вібераем имеющиеся у нас артикул
-	$supcomments = $Products->GetSupComments($id_supplier);
-	if(is_array($supcomments)){
-		$supcomments = array_unique($supcomments);
-	}
+	// $supcomments = $Products->GetSupComments($id_supplier);
+	// if(is_array($supcomments)){
+	// 	$supcomments = array_unique($supcomments);
+	// }
 		//захолдим в индивидуальные настройки 
 		switch ($_POST['site']){
 			case 23:
 			echo "зашли в case 23 <br />";
+			//Устанавливаем настройки времени
+				ini_set('max_execution_time', 3000);
 				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 					foreach ($element->xpath('offers/offer') as $offer) {
-
-						if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
-							// print_r('<pre>Supplier comment issue</pre>');
-							$skipped = true;
-							continue;
-						}else{							
-						array_push($supcomments, trim($offer->vendorCode));
+						$skipped = false;
 						$start = microtime(true);
-						//парсим товар 
-						$product = array();
-
-						if(!$product = $Parser->bluzka($offer)){
+						// if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
+						// 	$skipped = true;
+						// 	continue;
+						// }else{	
+							//проверяем наличие картинки
+							if(file_exists($offer->picture)){
 								continue;
 							}
-
-						switch ($offer->categoryId) {
-						    case 395:
-						        $id_category = '1751';
-						        break;
-						    case 293:
-						        $id_category = '1752';
-						        break;
-						    case 299:
-						        $id_category = '1753';
-						        break;
-						    case 381:
-						        $id_category = '1754';
-						        break;
-						    case 301:
-						        $id_category = '1755';
-						        break;
-						    case 300:
-						        $id_category = '1756';
-						        break;
-						    case 463:
-						        $id_category = '1757';
-						        break;
-						    case 396:
-						        $id_category = '1758';
-						        break;
-						    case 351:
-						        $id_category = '1759';
-						        break;
-						    case 338:
-						        $id_category = '1760';
-						        break;
-						    case 404:
-						        $id_category = '1761';
-						        break;
-						    case 380:
-						        $id_category = '1762';
-						        break;
-						    case 288:
-						        $id_category = '1763';
-						        break;
-						    case 289:
-						        $id_category = '1764';
-						        break;
-						    case 290:
-						        $id_category = '1765';
-						        break;
-						    case 291:
-						        $id_category = '1766';
-						        break;
-						    case 382:
-						        $id_category = '1767';
-						        break;
-						    case 328:
-						        $id_category = '1767';
-						        break;
-						    case 304:
-						        $id_category = '1767';
-						        break;
-						   case 303:
-						        $id_category = '1768';
-						        break;
-						    case 302:
-						        $id_category = '1769';
-						        break;
-						    case 448:
-						        $id_category = '1770';
-						        break;
-						    case 329:
-						        $id_category = '1771';
-						        break;
-						    case 296:
-						        $id_category = '1772';
-						        break;
-						    case 295:
-						        $id_category = '1773';
-						        break;
-						    case 294:
-						        $id_category = '1774';
-						        break;
-						    case 292:
-						        $id_category = '1775';
-						        break;
-						    case 297:
-						        $id_category = '1776';
-						        break;
-						    case 298:
-						        $id_category = '1777';
-						        break;
-						    case 287:
-						        $id_category = '1778';
-						        break;
-						    case 285:
-						        $id_category = '1779';
-						        break;
-						    case 286:
-						        $id_category = '1780';
-						        break;
-						    default:
-								$id_category = $site['id_category'];
-							break;
-						}
-						echo "определяем категорию по categoryId " .$offer->categoryId. " -> категория", $id_category, "<br />";	//Определяем категорию
-				
+							//парсим товар 
+							$product = array();
+							if(!$product = $Parser->bluzka($offer)){
+								continue;
+							}
+							
+							//Определяем категорию
+							switch ($offer->categoryId) {
+							    case 395:
+							        $id_category = '1751';
+							        break;
+							    case 293:
+							        $id_category = '1752';
+							        break;
+							    case 299:
+							        $id_category = '1753';
+							        break;
+							    case 381:
+							        $id_category = '1754';
+							        break;
+							    case 301:
+							        $id_category = '1755';
+							        break;
+							    case 300:
+							        $id_category = '1756';
+							        break;
+							    case 463:
+							        $id_category = '1757';
+							        break;
+							    case 396:
+							        $id_category = '1758';
+							        break;
+							    case 351:
+							        $id_category = '1759';
+							        break;
+							    case 338:
+							        $id_category = '1760';
+							        break;
+							    case 404:
+							        $id_category = '1761';
+							        break;
+							    case 380:
+							        $id_category = '1762';
+							        break;
+							    case 288:
+							        $id_category = '1763';
+							        break;
+							    case 289:
+							        $id_category = '1764';
+							        break;
+							    case 290:
+							        $id_category = '1765';
+							        break;
+							    case 291:
+							        $id_category = '1766';
+							        break;
+							    case 382:
+							        $id_category = '1767';
+							        break;
+							    case 328:
+							        $id_category = '1767';
+							        break;
+							    case 304:
+							        $id_category = '1767';
+							        break;
+							   case 303:
+							        $id_category = '1768';
+							        break;
+							    case 302:
+							        $id_category = '1769';
+							        break;
+							    case 448:
+							        $id_category = '1770';
+							        break;
+							    case 329:
+							        $id_category = '1771';
+							        break;
+							    case 296:
+							        $id_category = '1772';
+							        break;
+							    case 295:
+							        $id_category = '1773';
+							        break;
+							    case 294:
+							        $id_category = '1774';
+							        break;
+							    case 292:
+							        $id_category = '1775';
+							        break;
+							    case 297:
+							        $id_category = '1776';
+							        break;
+							    case 298:
+							        $id_category = '1777';
+							        break;
+							    case 287:
+							        $id_category = '1778';
+							        break;
+							    case 285:
+							        $id_category = '1779';
+							        break;
+							    case 286:
+							        $id_category = '1780';
+							        break;
+							    default:
+									$id_category = $site['id_category'];
+								break;
+							}
+					
 							echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
 							echo $id_supplier, "<br />";
-							echo $id_category, "<br />";
+							echo "определяем категорию по categoryId " .$offer->categoryId. " -> категория", $id_category, "<br />";
 							echo $product['sup_comment'], "<br />";
 							echo $product['name'], "<br />";
 							echo $product['price_mopt_otpusk'], "<br />";
@@ -795,20 +839,20 @@ echo ini_get('memory_limit'), "<br />";
 							echo $product['active'], "<br />";
 							echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
 							echo count($product['images'], COUNT_RECURSIVE), "<br />";
-							foreach ($product['images'] as $value) {
-								echo "<pre>";
-								print_r($value);
-								echo "</pre>";
-							}
-						}
+
+
+							$d++;
+						// }
+							// die();
 						// Добавляем новый товар в БД
 						if(!$product || $skipped){
 							echo $row, "Товар пропущен product пустой<br />";
 							$i++;
 							continue;
 						}elseif($id_product = $Products->AddProduct($product)){
+							array_push($supcomments, trim($offer->vendorCode));
 							// print_r('<pre>OK, product added</pre>');
-							$d++;
+							
 							// Добавляем характеристики новому товару
 							if(!empty($product['specs'])){
 								foreach($product['specs'] as $specification){
@@ -869,7 +913,7 @@ echo ini_get('memory_limit'), "<br />";
 										$heightstamp = $widthstamp*$k;
 										imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
 									imagejpeg($res, $file);
-									// sleep(2);
+									 // sleep(2);
 								}
 								$Images->resize(false, $to_resize);
 								// Привязываем новые фото к товару в БД
@@ -890,17 +934,17 @@ echo ini_get('memory_limit'), "<br />";
 							$l++;
 						}
 
-						if($d > $_POST['num']){	
+						if($d >= $_POST['num']){	
 							break;
 						}
 					}
-					if($d > $_POST['num']){	
+					if($d >= $_POST['num']){	
 						break;
 					}	
 				}
 			break;
 			default:
-				# code...
+				die();
 			break;
 		}
 
@@ -914,51 +958,58 @@ echo ini_get('memory_limit'), "<br />";
 	ini_set('max_execution_time', 30);
 }
 
-//Парсинги по сохраненым файлам parse_NL_xml----------------------------------------------------------
+//Парсинги по сохраненым файлам parse_NL_xml-------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
 
 if(isset($_POST['parse_NL_xml'])){
+
+	//Устанавливаем настройки памяти
+echo "memory_limit ", ini_get('memory_limit'), "<br />";
+ini_set('memory_limit', '1024M');	
+echo "memory_limit ", ini_get('memory_limit'), "<br />";
+//Устанавливаем настройки времени
+echo "max_execution_time ", ini_get('max_execution_time'), "<br />";
+ini_set('max_execution_time', 3000);
+echo "max_execution_time ", ini_get('max_execution_time'), "<br />";
+//показ ошибок
+ini_set('display_errors','on');
+ini_set('error_reporting',E_ALL);
+
+
 	echo "Зашли в parse_NL_xml";
 	print_r('<pre>');
 	print_r($_POST);
 	print_r('</pre>');
 	$l = $d = $i = 0;
-	//Включаем показ ошибок
-	// ini_set('display_errors','on');
-	// ini_set('error_reporting',E_ALL);
-
-	//Устанавливаем настройки памяти
-	echo ini_get('max_execution_time'), "<br />";
-	ini_set('max_execution_time', 3000);
-	echo ini_get('max_execution_time'), "<br />";
-	echo ini_get('memory_limit'), "<br />";
-	ini_set('memory_limit', '1024M');	
-	echo ini_get('memory_limit'), "<br />";
 
 	$id_supplier = 30939;
 	$id_category = 1733;
 
-	// phpinfo();
-
 	// Проверил_URL
-	if (get_headers("https://www.nl.ua/export_files/Kharkov.xml", 1)){
-		echo " Проверил_URL <br />";
-		$sim_url = simplexml_load_file("https://www.nl.ua/export_files/Kharkov.xml");
+	// if (get_headers("https://www.nl.ua/export_files/Kharkov.xml", 1)){
+	// 	echo " Проверил_URL <br />";
+	// 	$sim_url = simplexml_load_file("https://www.nl.ua/export_files/Kharkov.xml");
+	// 	echo "Файл загружен <br /><br />";
+		if ($sim_url = simplexml_load_file("https://www.nl.ua/export_files/Kharkov.xml")){
 		echo "Файл загружен <br /><br />";
+	//можем просмотреть список катигорий и список кодов товара
+		$array = array();
+		$array_cat = array();
+		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+			foreach ($element->xpath('offers/offer') as $offer) {
+				array_push($array, $offer->vendorCode);
+				array_push($array, $offer->vendorCode);
+			}
+		}
+			echo "Размер масива товаров ", count($array, COUNT_RECURSIVE), "<br />";
+			foreach ($array as $key => $value) {
+				echo "$value<br />\n";
+			 }
 
-		// $array = array();
-		// $array_cat = array();
-		// foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-		// 	foreach ($element->xpath('offers/offer') as $offer) {
-		// 		array_push($array, $offer->vendorCode);
-		// 		array_push($array_cat, $offer->categoryId);
-
-		// 	}
-		// }
-		// 	// $array = array_unique($array);
-		// 	echo "Размер масива ", count($array, COUNT_RECURSIVE), "<br />";
-		// 	foreach ($array as $key => $value) {
-		// 		echo "Значение: $value<br />\n";
-		// 	 }
+		die();
 
 		// выбераем имеющиеся у нас артикул
 		$supcomments = $Products->GetSupComments($id_supplier);
@@ -966,9 +1017,6 @@ if(isset($_POST['parse_NL_xml'])){
 			$supcomments = array_unique($supcomments);
 		}
 
-		// foreach($array_cat as $value){
-		// echo $value, "<br />";
-		// }
 		//создаем масивы соотметствия категорий
 		$keys_NL = array(1,2);
 		$values_XT = array(5,4);
@@ -981,56 +1029,65 @@ if(isset($_POST['parse_NL_xml'])){
 		//захолдим в индивидуальные настройки 
 		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('offers/offer') as $offer) {
-				if($offer->vendorCode > '0'){
-					if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
-						$skipped = true;
+				$skipped = false;
+				if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
+					$skipped = true;
 						continue;
 					}else{
 					
-					$start = microtime(true);
-					 //определяем нашу категориию
-					foreach($array_cat as $key => $value){
-						if($offer->categoryId == $key){
-							$id_category = $value;
-						}
-					}
-					
-					// if(!$id_category){
-					// 		continue;
-					// }
+						$start = microtime(true);
+						 //определяем нашу категориию
+						// foreach($array_cat as $key => $value){
+						// 	if($offer->categoryId == $key){
+						// 		$id_category = $value;
+						// 	}
+						// }
+						//если категории нет пропустить товар
+						// if(!$id_category){
+						// 	continue;
+						// }
 
-					//парсим товар
-					$product = array();
-					// if(!$product = $Parser->NewLine_XML($offer)){
-					// 	continue;
-					// }
-					$data = 31034764;
-					if(!$product = $Parser->presto($data)){
-						continue;
-					}
-					
-
-					
-						echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
-						echo "categoryId " .$offer->categoryId. " -> наша категория", $id_category, "<br />";	//Определяем категорию
-						echo $id_supplier, "<br />";
-						echo $product['sup_comment'], "<br />";
-						echo $product['name'], "<br />";
-						echo $product['price_mopt_otpusk'], "<br />";
-						echo $product['price_opt_otpusk'], "<br />";
-						echo $product['descr'], "<br />";
-						echo $product['active'], "<br />";
-						echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-						echo count($product['images'], COUNT_RECURSIVE), "<br />";
-						foreach ($product['images'] as $value) {
-							echo "<pre>";
-							print_r($value);
-							echo "</pre>";
+						//парсим товар
+						$product = array();
+						if(!$product = $Parser->NewLine_XML($offer)){
+							continue;
 						}
+
+
+
+						//парсим товар по URL
+						// $product = array();
+						// if(!$product = $Parser->nl($offer->url)){
+						// 	continue;
+						// }
+								
+							// echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
+							// echo "categoryId " .$offer->categoryId. " -> наша категория", $id_category, "<br />";	//Определяем категорию
+							// echo $id_supplier, "<br />";
+							// echo $product['sup_comment'], "<br />";
+							// echo $product['name'], "<br />";
+							// echo $product['price_mopt_otpusk'], "<br />";
+							// echo $product['price_opt_otpusk'], "<br />";
+							// echo $product['descr'], "<br />";
+							// echo "active ", $product['active'], "<br />";
+							// echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+							// foreach ($product['specs'] as $key => $value) {
+							// 	echo "<pre>";
+							// 	print_r($value);
+							// 	echo "</pre>";
+							// }
+
+							// echo count($product['images'], COUNT_RECURSIVE), "<br />";
+							// foreach ($product['images'] as $key => $value) {
+							// 	echo "<pre>";
+							// 	print_r($value);
+							// 	echo "</pre>";
+							// }
+
 					}
-					$d++;
+					// $d++;
 					// continue;
-					die();
+					// die();
 
 
 					// Добавляем новый товар в БД
@@ -1063,54 +1120,53 @@ if(isset($_POST['parse_NL_xml'])){
 						// Получаем артикул нового товара
 						$article = $Products->GetArtByID($id_product);
 						// Переименовываем фото товара
-						$to_resize = $images_arr = array();
-						if(isset($product['images']) && !empty($product['images'])){
-							foreach($product['images'] as $key=>$image){
-								$to_resize[] = $newname = $article['art'].($key == 0?'':'-'.$key).'.jpg';
-								$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-								$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
-								$images_arr[] = str_replace($file['basename'], $newname, $image);
-								rename($path.$file['basename'], $path.$newname);
-							}
-							//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-							foreach($images_arr as $filename){
-								$file = $GLOBALS['PATH_product_img'].str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $filename);
-								$size = getimagesize($file);
-								// $size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-								$width = $size[0];
-								$height = $size[1];
-								if($size[0] > 1000 || $size[1] > 1000){
-									$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
-									//Определяем размеры нового изображения
-									if(max($size[0], $size[1]) == $size[0]){
-										$width = 1000;
-										$height = 1000 / $ratio;
-									}elseif(max($size[0], $size[1]) == $size[1]){
-										$width = 1000*$ratio;
-										$height = 1000;
-									}
+							$to_resize = $images_arr = array();
+							if(isset($product['images']) && !empty($product['images'])){
+								foreach($product['images'] as $key=>$image){
+									$to_resize[] = $newname = $article['art'].($key == 0?'':'-'.$key).'.jpg';
+									$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $image));
+									$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
+									$images_arr[] = str_replace($file['basename'], $newname, $image);
+									rename($path.$file['basename'], $path.$newname);
 								}
-								$res = imagecreatetruecolor($width, $height);
-								imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-								$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
-								// Добавляем логотип в нижний правый угол
-								imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-									$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
-									$k = imagesy($stamp)/imagesx($stamp);
-									$widthstamp = imagesx($res)*0.3;
-									$heightstamp = $widthstamp*$k;
-									imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
-								imagejpeg($res, $file);
-								// sleep(2);
-							}
-							$Images->resize(false, $to_resize);
+								//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
+								foreach($images_arr as $filename){
+									$file = $GLOBALS['PATH_product_img'].str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $filename);
+									$size = getimagesize($file);
+									// $size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
+									$width = $size[0];
+									$height = $size[1];
+									if($size[0] > 1000 || $size[1] > 1000){
+										$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
+										//Определяем размеры нового изображения
+										if(max($size[0], $size[1]) == $size[0]){
+											$width = 1000;
+											$height = 1000 / $ratio;
+										}elseif(max($size[0], $size[1]) == $size[1]){
+											$width = 1000*$ratio;
+											$height = 1000;
+										}
+									}
+									$res = imagecreatetruecolor($width, $height);
+									imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+									$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
+									// Добавляем логотип в нижний правый угол
+									imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+										$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
+										$k = imagesy($stamp)/imagesx($stamp);
+										$widthstamp = imagesx($res)*0.3;
+										$heightstamp = $widthstamp*$k;
+										imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
+									imagejpeg($res, $file);
+									// sleep(2);
+								}
+								$Images->resize(false, $to_resize);
 							// Привязываем новые фото к товару в БД
 							$Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
 						}
 						// Добавляем товар в категорию
 						$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
 						array_push($supcomments, trim($offer->vendorCode));
-						echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек. <br /><br />';
 						// чистим переменые
 						unset($to_resize);
 						unset($images_arr);
@@ -1122,10 +1178,7 @@ if(isset($_POST['parse_NL_xml'])){
 						echo "Проблема с добавлением продукта <br /><br />";
 						$l++;
 					}
-				}else{
-					continue;
-				}
-
+				echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек. <br /><br />';
 				if($d > $_POST['num']){	
 					break;
 				}
@@ -1143,7 +1196,12 @@ if(isset($_POST['parse_NL_xml'])){
 	ini_set('memory_limit', '192M');
 	ini_set('max_execution_time', 30);
 }
-//Парсинги по сохраненым файлам parse_NL_xml----------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------
+//--------------------------------Парсинги TEST--------------------------
+//-----------------------------------------------------------------------
 
 if(isset($_POST['test'])){
 	echo "Зашли в test";
@@ -1151,43 +1209,113 @@ if(isset($_POST['test'])){
 	print_r($_POST);
 	print_r('</pre>');
 
-	//Включаем показ ошибок
-	// ini_set('display_errors','on');
-	// ini_set('error_reporting',E_ALL);
 
-	//Устанавливаем настройки памяти
-	echo ini_get('max_execution_time'), "<br />";
-	ini_set('max_execution_time', 3000);
-	echo ini_get('max_execution_time'), "<br />";
-	echo ini_get('memory_limit'), "<br />";
-	ini_set('memory_limit', '1024M');	
-	echo ini_get('memory_limit'), "<br />";
+
 
 	
-	if($parsed_html = $Parser->parseUrl('https://www.nl.ua/ru/plitka/aksessuary/krestiki_distantsionnye/krestiki_distantsionnye_kaem_2040_660025_2_5_mm_200_sht.html')){
-			echo "Зашли на карточку товара <br />";
+	if($html = $Parser->parseUrl('http://bluzka.ua/ru/item/bluzka-1247-1247/')){
+	echo "Зашли на карточку товара <br />";
 
+		// echo '--------------------------------------------<br />';
 
-				$descr = $parsed_html->find('main h1', 0)->plaintext;
+		// echo  'Ценна: ', $html->find('.js_price_ws', 0)->innertext, "<br />";
 
-				echo "Описание", $descr, "<br />";
+		// echo  'Название: ', $html->find('h1', 0)->innertext, "<br />";
+		
+		// echo '0--------------------------------------------<br />';
 
+		// echo  $html->find('.good-color_size', 0)->children(1), "<br />";
+
+		// echo '1--------------------------------------------<br />';
+
+		// echo  $html->find('.hidden_colors', 0)->plaintext, "<br />";
+
+		echo '1--------------------------------------------<br />';
+		foreach($html->find('label, input') as $img) {
+
+			if($img->type ==='radio' and $img->name ==='buy[color]'){
+			$img = $img->value;
+			echo $img ,'<br />';
+			}
 		}
+		foreach($html->find('label, span') as $img) {
 
-		// foreach($parsed_html->find('h2', 0) as $h2){
+			$img = $img->plaintext;
+			echo $img ,'<br />';
 			
-		// echo $h2, "<br />";
+		}
+			
+		// 	if ($img === 'radio') {
+		// 		continue;
+		// 	} else {
+		// 		echo $img->value ,'<br />';
+		// 	}
 
+		
+
+		// echo '2--------------------------------------------<br />';
+		// foreach($html->find('span') as $img) {
+		// 	echo $img->plaintext  ,'<br />';
 		// }
-		
-		
 
+		// echo '3--------------------------------------------<br />';
+		// 	foreach($html->find('img') as $img) {
+		// 		echo $img->parent(),'<br />';
+				
+		// 	}
+		// echo '4--------------------------------------------<br />';
+		// 	foreach($html->find('div[class="slider_vertical"], div[class="item"] ') as $img) {
+  					
+		// 		echo  $img['data-color'],'<br />';
+		// 	}
+				echo '4--------------------------------------------<br />';
+		foreach($html->find('div[class="slider_vertical"]') as $img) {
+
+			// foreach($img->find('div') as $col){
+			// 		echo $col['data-color'],'<br />';
+				
+			// 		$img = $img->find('img');
+			// 		$img = $img->src;
+			// 		$pos = strpos($img, '/assets/images/items/');
+			// 		if ($pos === false) {
+			// 			continue;
+			// 		} else {
+			// 			$img_url = 'bluzka.ua';
+			// 			$img_url .= $img;
+			// 			echo  $img_url,'<br />';
+			// 		}
+			// }
+
+				foreach($img->find('img') as $img){
+					$img = $img->src;
+					$pos = strpos($img, '/assets/images/items/');
+					if ($pos === false) {
+						continue;
+					} else {
+						$img_url = 'bluzka.ua';
+						$img_url .= $img;
+						echo  $img_url,'<br />';
+					}
+				}
+			
+		}
+		echo '4--------------------------------------------<br />';
+		echo '4--------------------------------------------<br />';
+			// foreach($html->find('div[class="slider_vertical"], img ') as $img) {
+			// 	$img = $img->src;
+			// 	$pos = strpos($img, '/assets/images/items/');
+			// 	if ($pos === false) {
+			// 		continue;
+			// 	} else {
+			// 		$img_url = 'bluzka.ua';
+			// 		$img_url .= $img;
+			// 		echo  $img_url,'<br />';
+			// 	}
+			// }
+		
+		
+	}
 }
 
+//подключение интерфейса
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
-
-
-// $descr1 = $parsed_html->find('main h1', 0)->plaintext;
-// // Получаем описание товара
-// $descr = $parsed_html->find('.detail_text .text_content', 0)->plaintext;
-// // $descr = $parsed_html->find('.detail_text', 0)->innertext;

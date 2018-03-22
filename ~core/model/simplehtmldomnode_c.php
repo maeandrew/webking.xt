@@ -694,10 +694,10 @@ class simple_html_dom_node {
 			{
 				$converted_text = $text;
 			}
-			else
-			{
-				$converted_text = iconv($sourceCharset, $targetCharset, $text);
-			}
+			// else
+			// {
+			// 	$converted_text = iconv($sourceCharset, $targetCharset, $text);
+			// }
 		}
 
 		// Lets make sure that we don't have that silly BOM issue with any of the utf-8 text we output.
