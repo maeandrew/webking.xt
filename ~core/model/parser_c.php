@@ -541,6 +541,74 @@ class Parser {
  		return $product;
  	}
 
+	public function bluzka_0($data, $sim_url){
+		// echo  "function bluzka -> ОК<br />";
+		// echo  $data, "<br />";
+		global $Products;
+		global $Specification;
+		global $Images;
+		// $sim_url = simplexml_load_file($_POST['url']);
+		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+			foreach ($element->xpath('offers/offer') as $offer) {
+					$Code_color = $offer->vendorCode;
+					$Code_color .= $offer->param;
+				if(trim($Code_color) == trim($data)){
+					echo  $data, "  ==  ", $Code_color,"  ДА+++++++++++++++++++ <br />";
+					
+					$start = microtime(true);
+				 	// Получаем артикул товара
+					$product['sup_comment'] = $offer->vendorCode;
+					//Получаем название товара
+					$product['name'] = $str_name = strip_tags(stristr($offer->description, 'Состав', true));
+					$product['name'] .= " (";
+					$product['name'] .= $offer->param;
+					$product['name'] .= ")";
+					//Получаем количество товара
+					$product['inbox_qty'] = '2';
+					$product['min_mopt_qty'] = '1';
+					
+					// Описание товара
+					$product['descr'] = str_replace("<h1>", "<h2>", $offer->description);
+					// Указываем базовую активность товара
+					$product['active'] = '1';
+					//Указиваем обезательное примечание
+					$product['note_control'] = '1';
+					
+					// Получаем изображения товара максимального размера
+					
+					$filename = $offer->picture;
+					$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+					$Images->checkStructure($path);
+					copy($filename, $path.$img_info['basename']);
+					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+					$product['images_visible'][] = 1;
+					// Находим характеристики товара
+					$caption = $offer->param[1]['name'];
+					// echo $caption,"<br />";
+					foreach (explode(", ", $offer->param[1])as $razmer){
+						$caption = $offer->param[1]['name'];
+						// echo $razmer,"<br />";
+								$spec = $Specification->SpecExistsByCaption($caption);
+								$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
+									Add(array('caption' => $caption)), 'value' => $razmer);
+					}
+					if($html = $this->parseUrl($offer->url)){
+						// Получаем оптовую цену товара
+					$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
+					
+					}
+					break;
+				}
+				else{
+					echo  $data, "  ==  ", $Code_color,"  НЕТ <br />";
+					// die();
+					continue;
+				}
+			}
+		}
+ 		return $product;
+ 	}
 	public function bluzka($offer){
 		echo  "function bluzka -> ОК<br />";
 
@@ -582,7 +650,7 @@ class Parser {
 		$Images->checkStructure($path);
 		// Получаем изображения товара максимального размера из $offer
 		copy($filename, $path.$img_info['basename']);
-		// sleep();
+		// sleep(3);
 		$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 		$product['images_visible'][] = 1;
 		
@@ -655,7 +723,6 @@ class Parser {
 		}
 		return $product;
 	}
-
  	public function NewLine_XML($offer){
 		echo "Ок парсим товар<br />";
 		global $Products;

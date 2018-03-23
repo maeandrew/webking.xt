@@ -1,7 +1,7 @@
 <?php
 
-error_reporting(-1);
-header('Content-Type: text/html; charset=utf-8');
+// error_reporting(-1);
+// header('Content-Type: text/html; charset=utf-8');
 
 
 if(!_acl::isAllow('parser')){
@@ -660,12 +660,11 @@ if(isset($_POST['parse_XML'])){
 //-------------------------------------------------------------------------------------------
 
 if(isset($_POST['parse_URL'])){
-echo "Зашли в parse_URL";
-print_r('<pre>');
-print_r($_POST);
-print_r('</pre>');
-$l = $d = $i = 0;
-//Включаем показ ошибок
+	echo "Зашли в parse_URL";
+	print_r('<pre>');
+	print_r($_POST);
+	print_r('</pre>');
+	$l = $d = $i = 0;
 
 	$Parser->SetFieldsById($_POST['site']);
 	$site = $Parser->fields;
@@ -679,52 +678,80 @@ $l = $d = $i = 0;
 	}
 	$id_supplier = $site['id_supplier'];
 	$id_category = $site['id_category'];
-	
 
-//Устанавливаем настройки памяти
+	//Устанавливаем настройки памяти
+	ini_set('memory_limit', '1024M');	
 
-ini_set('memory_limit', '1024M');	
-
-//Устанавливаем настройки времени
-
-ini_set('max_execution_time', 3000);
-
-
-
-// Проверил_URL
-	if (get_headers('http://bluzka.ua/ru/yml/', 1)){
-	echo " Проверил_URL <br />";
-		$sim_url = simplexml_load_file('http://bluzka.ua/ru/yml/');
-		echo "Файл загружен <br />";
-	// вібераем имеющиеся у нас артикул
-	// $supcomments = $Products->GetSupComments($id_supplier);
-	// if(is_array($supcomments)){
-	// 	$supcomments = array_unique($supcomments);
-	// }
-		//захолдим в индивидуальные настройки 
-		switch ($_POST['site']){
-			case 23:
+	//захолдим в индивидуальные настройки 
+	switch ($_POST['site']){
+		case 23:
 			echo "зашли в case 23 <br />";
-			//Устанавливаем настройки времени
-				ini_set('max_execution_time', 3000);
+			// Проверка_URL
+			
+			if ($sim_url = simplexml_load_file('http://bluzka.ua/ru/yml/')){
+				echo "Файл загружен <br />";
+
+				//Устанавливаем настройки времени
+				// $asd = array();
 				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 					foreach ($element->xpath('offers/offer') as $offer) {
+						ini_set('max_execution_time', 3000);
+						unset($to_resize);
+						unset($images_arr);
+						unset($article);
+						unset($assort);
+						unset($product);
+						unset($skipped);
+					
+					// foreach($offer->vendorCode as $value){
+					// 	echo $value, "<br />";
+					// 	array_push($asd, trim($value));	
+					// }
+					// echo 'итого ', count($asd , COUNT_RECURSIVE), "<br />";
+					// break;
+
 						$skipped = false;
-						$start = microtime(true);
+
 						// if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
 						// 	$skipped = true;
 						// 	continue;
 						// }else{	
 							//проверяем наличие картинки
-							if(file_exists($offer->picture)){
-								continue;
-							}
+							// if(file_exists($offer->picture)){
+							// 	continue;
+							// }
 							//парсим товар 
-							$product = array();
+							// $product = array();
 							if(!$product = $Parser->bluzka($offer)){
 								continue;
 							}
-							
+											
+				echo $id_supplier, "<br />";
+				echo $id_category, "<br />";
+				echo $product['sup_comment'], "<br />";
+				echo $product['name'], "<br />";
+				echo $product['price_mopt_otpusk'], "<br />";
+				echo $product['price_opt_otpusk'], "<br />";
+				echo $product['descr'], "<br />";
+				echo $product['active'], "<br />";
+				echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+				echo count($product['images'], COUNT_RECURSIVE), "<br />";
+				foreach ($product['images'] as $value) {
+					echo "<pre>";
+					print_r($value);
+					echo "</pre>";
+				}
+					if(!$product || $skipped){
+						print_r('<pre>НЕТ. Товар пропущен</pre>');
+						$i++;
+						continue;
+					}else{
+						print_r('<pre>OK. Товар добавлен</pre>');
+						$d++;
+					}
+			
+					
+			 
 							//Определяем категорию
 							switch ($offer->categoryId) {
 							    case 395:
@@ -827,31 +854,18 @@ ini_set('max_execution_time', 3000);
 									$id_category = $site['id_category'];
 								break;
 							}
-					
-							echo "---------------Просматреваем полученые даные о товаре-----------------------------<br />";
-							echo $id_supplier, "<br />";
-							echo "определяем категорию по categoryId " .$offer->categoryId. " -> категория", $id_category, "<br />";
-							echo $product['sup_comment'], "<br />";
-							echo $product['name'], "<br />";
-							echo $product['price_mopt_otpusk'], "<br />";
-							echo $product['price_opt_otpusk'], "<br />";
-							echo $product['descr'], "<br />";
-							echo $product['active'], "<br />";
-							echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-							echo count($product['images'], COUNT_RECURSIVE), "<br />";
-
-
+					echo 'категория ', $id_category, "<br />";
 							$d++;
 						// }
 							// die();
 						// Добавляем новый товар в БД
 						if(!$product || $skipped){
-							echo $row, "Товар пропущен product пустой<br />";
+							echo "Товар пропущен product пустой<br />";
 							$i++;
 							continue;
 						}elseif($id_product = $Products->AddProduct($product)){
-							array_push($supcomments, trim($offer->vendorCode));
-							// print_r('<pre>OK, product added</pre>');
+							// array_push($supcomments, trim($offer->vendorCode));
+							print_r('<pre>OK, product added</pre>');
 							
 							// Добавляем характеристики новому товару
 							if(!empty($product['specs'])){
@@ -921,36 +935,29 @@ ini_set('max_execution_time', 3000);
 							}
 							// Добавляем товар в категорию
 							$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
-							echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек. <br /><br />';
-							
-							unset($to_resize);
-							unset($images_arr);
-							unset($article);
-							unset($assort);
-							unset($product);
-							unset($skipped);
+							echo 'товар добавлен  ', $id_category, "<br />";							
+
 						}else{
 							echo "Проблема с добавлением продукта <br /><br />";
 							$l++;
 						}
 
-						if($d >= $_POST['num']){	
-							break;
-						}
+					// if($d >= $_POST['num']){	
+					// 	break;
+					// }
 					}
-					if($d >= $_POST['num']){	
-						break;
-					}	
+				// if($d >= $_POST['num']){	
+				// 	break;
+				// }
 				}
+			} else {
+			echo "Не удалось открыть файл<br />\n";
+			}
 			break;
-			default:
-				die();
-			break;
+		default:
+			// die();
+		break;
 		}
-
-	} else {
-		echo "Не удалось открыть файл<br />\n";
-	}
 	print_r('<pre>товарів додано: '.$d.'</pre>');
 	print_r('<pre>товарів не вдалося додати: '.$l.'</pre>');
 	print_r('<pre>товарів пропущено: '.$i.'</pre>');
@@ -1089,7 +1096,7 @@ ini_set('error_reporting',E_ALL);
 					// continue;
 					// die();
 
-
+					
 					// Добавляем новый товар в БД
 					if(!$product || $skipped){
 						echo $row, "Товар пропущен product пустой<br />";
@@ -1179,13 +1186,7 @@ ini_set('error_reporting',E_ALL);
 						$l++;
 					}
 				echo 'OK. Товар добавлен Время выполнения скрипта: '.round(microtime(true) - $start, 4).' сек. <br /><br />';
-				if($d > $_POST['num']){	
-					break;
-				}
 			}
-			if($d > $_POST['num']){	
-				break;
-			}	
 		}
 	} else {
 		echo "Не удалось открыть файл<br />\n";
