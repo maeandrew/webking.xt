@@ -98,6 +98,7 @@ class Parser {
 		}
 		return $html;
 	}
+	//Индивидуальные настройки сайтов
 
 	public function epicenter($data){
 		global $Products;
@@ -469,6 +470,59 @@ class Parser {
 		}
 		return $product;
 	}
+ 	public function zona_XML($offer){
+		echo "Ок парсим товар<br />";
+		global $Products;
+		global $Specification;
+		global $Images;
+
+	 	// Получаем артикул товара
+		$product['sup_comment'] = $offer['id'];
+							
+		//Получаем название товара
+		$product['name'] = $offer->name;
+		
+		//Получаем количество товара
+		$product['inbox_qty'] = '2';
+		$product['min_mopt_qty'] = '1';
+		
+		//Указываем базовую активность товара
+		$product['active'] = '1';
+
+		//Указиваем обезательное примечание
+		$product['note_control'] = '0';
+
+		// Получаем оптовую цену товара
+		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
+		
+			// Получаем характеристики товара
+			$product['specs'][] = array('id_spec' => 22, 'value' => $offer->vendor);
+				
+			foreach ($offer->param as $param) {
+				$caption = $param ['name'];
+				if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия', 'Оплата\Доставка', 'Доступное количество', 'Тип оплаты'))){
+					$value = $param;
+					$spec = $Specification->SpecExistsByCaption($caption);
+					$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)), 'value' => $value);
+				}
+			}
+
+			// Получаем изображения товара максимального размера
+			foreach ($offer->picture as $picture) {
+			    	$img_info = array_merge(array(getimagesize($picture)), pathinfo($picture));
+					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+					$Images->checkStructure($path);
+					copy($picture, $path.$img_info['basename']);
+					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+					$product['images_visible'][] = 1;
+			}
+
+			// Получаем описание товара
+			$product['descr'] =  'Описание временно отсутствует';
+	
+		// sleep(1);
+ 		return $product;
+ 	}
 
 	public function presto($data){
 
@@ -610,7 +664,7 @@ class Parser {
  		return $product;
  	}
 	public function bluzka($offer){
-		echo  "function bluzka -> ОК<br />";
+		// echo  "function bluzka -> ОК<br />";
 
 		global $Products;
 		global $Specification;
@@ -663,7 +717,7 @@ class Parser {
 		}
 		// Получаем оптовую цену товара
 		if($html = $this->parseUrl($offer->url)){
-		echo "Зашли на карточку товара <br />";
+		// echo "Зашли на карточку товара <br />";
 			$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = trim($html->find('.js_price_ws', 0)->innertext);
 		}else{
 			$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = 0;
@@ -724,7 +778,7 @@ class Parser {
 		return $product;
 	}
  	public function NewLine_XML($offer){
-		echo "Ок парсим товар<br />";
+		// echo "Ок парсим товар<br />";
 		global $Products;
 		global $Specification;
 		global $Images;
@@ -771,7 +825,8 @@ class Parser {
 		
 
 		if($parsed_html = $this->parseUrl($offer->url)){
-			echo "Заходим на url<br />";
+			sleep(5);
+			// echo "Заходим на url<br />";
 
 			// Получаем описание товара
 			$product['descr'] =  $parsed_html->find('.text_content', 0)->innertext;
@@ -802,7 +857,6 @@ class Parser {
 
 			}
 		}
-		sleep(5);
  		return $product;
  	}
 	
