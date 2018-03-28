@@ -208,6 +208,7 @@
 			</div>
 		</section>
 	<?}?>
+	<p class="contakt"><strong> Б Е С П Л А Т Н А Я &nbsp;&nbsp;Д О С Т А В К А</strong>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      контакты: (050) 309 84 20 &nbsp; (067) 574 10 13 &nbsp; (063) 425 91 83</p>
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
 			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
