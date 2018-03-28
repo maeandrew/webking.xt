@@ -254,3 +254,6 @@ temp/*
 
 xt.sublime-workspace
 *.xlsx
+themes/default/img/chicago.jpg
+themes/default/img/la.jpg
+themes/default/img/ny.jpg
