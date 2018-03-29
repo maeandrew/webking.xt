@@ -79,12 +79,12 @@ if(isset($residprod) && !in_array($residprod, $array)){
 // Выборка похожих товаров
 if(isset($cat)){
 	$id_category = $cat['id_category'];
-	$limit = 15;
+	$limit = 12;
 	//$similar_products = $Products->GetRelatedProducts($id_product, $id_category);
 	$tpl->Assign('popular_products', $Products->GetPopularsOfCategory($id_category, $id_product, false, $limit));
 	$tpl->Assign('random_products', $Products->GetPopularsOfCategory($id_category, $id_product, true, $limit));
 	// Вывод новинок категории
-	$tpl->Assign('new_prods', $Products->getNewProducts($cat['id_category'], $id_product));
+	// $tpl->Assign('new_prods', $Products->getNewProducts($cat['id_category'], $id_product));
 }
 
 // Вывод 50 товаров для ссылок

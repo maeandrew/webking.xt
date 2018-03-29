@@ -4892,9 +4892,9 @@ class Products {
 		$count = 0;
 		$step = $id_product;
 		$l_prods = '';
-		while($count < 150){
+		while($count < 100){
 			$step = $id_product<5000?$step+5:$step-5;
-			$l_prods .= $step.($count!=149?', ':null);
+			$l_prods .= $step.($count!=99?', ':null);
 			$count++;
 		}
 		$sql = 'SELECT p.name, p.translit FROM '._DB_PREFIX_.'product AS p
