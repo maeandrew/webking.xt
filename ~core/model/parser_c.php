@@ -726,7 +726,7 @@ class Parser {
  	}
 
 	public function nl($data){
-		echo  "function nl -> ОК<br />";
+		// echo  "function nl -> ОК<br />";
 		global $Products;
 		global $Specification;
 		global $Images;
@@ -799,33 +799,12 @@ class Parser {
 		//Указиваем обезательное примечание
 		$product['note_control'] = '0';
 		
-		//Получаем изображения товара максимального размера из $offer
-		// foreach ($offer->picture as $picture) {
-		// 	$filename = $offer->picture;
-		// 	$img_info = array_merge(getimagesize($filename), pathinfo($filename));
-		// 	$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-		// 	$Images->checkStructure($path);
-		// 	copy($picture, $path.$img_info['basename']);
-		// 	sleep(1);
-		// 	$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
-		// 	$product['images_visible'][] = 1;
-		// }
-	
-		// // Находим характеристики товара
-		// foreach ($offer->param as $param) {
-		// 	$caption = $param ['name'];
-		// 	$value = $param;
-		// 	$spec = $Specification->SpecExistsByCaption($caption);
-		// 	$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->
-		// 	Add(array('caption' => $caption)), 'value' => $value);
-		// }
-
 		// Получаем оптовую цену товара
 		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
 		
 
 		if($parsed_html = $this->parseUrl($offer->url)){
-			sleep(5);
+			// sleep(5);
 			// echo "Заходим на url<br />";
 
 			// Получаем описание товара
@@ -843,22 +822,46 @@ class Parser {
 					);
 				}
 			}
+			
 			// Получаем изображения товара максимального размера
 			$base_url = 'https://nl.ua';
 			foreach($parsed_html->find('.thumbs-wrapper .thumbs img') as $element){
 				$filename = str_replace('/71_70_1/', '/', str_replace('/resize_cache/', '/', $base_url.$element->src));
 				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
-
 				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
 				$Images->checkStructure($path);
 				copy($filename, $path.$img_info['basename']);
 				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 				$product['images_visible'][] = 1;
-
 			}
+
+			// foreach($parsed_html->find('.thumbs-wrapper .thumbs img') as $element){
+			// 	$filename = str_replace('/71_70_1/', '/', str_replace('/resize_cache/', '/', $base_url.$element->src));
+			// 	$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+			// 	$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			// 	$Images->checkStructure($path);
+			// 	$newname = $offer->vendorCode.($key == 0?'new':'new-'.$key).'.jpg';;
+			// 	copy($filename, $path.$newname);
+			// 	$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $newname);
+			// 	$product['images_visible'][] = 1;
+			// }
 		}
+
+					// echo $product['sup_comment'], "<br />";
+					// echo $product['name'], "<br />";
+					// echo $product['price_mopt_otpusk'], "<br />";
+					// echo $product['price_opt_otpusk'], "<br />";
+					// echo $product['descr'], "<br />";
+					// echo $product['active'], "<br />";
+
+					// echo "Количество характеристик ", count($product['specs'], COUNT_RECURSIVE), "<br />";
+					// echo "Количество фото ", count($product['images'], COUNT_RECURSIVE), "<br />";
+
  		return $product;
  	}
+
+
+ 					
 	
 
 }

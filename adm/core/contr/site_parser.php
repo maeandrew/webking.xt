@@ -29,7 +29,7 @@ $tpl->Assign('sites', $Parser->GetSitesList(false));
 
 ini_set('display_errors','on');
 ini_set('error_reporting',E_ALL);
-
+set_time_limit(0);
 
 // phpinfo();
 // die();
@@ -352,8 +352,6 @@ if(isset($_POST['parse'])){
 	// }
 }
 
-
-
 //Парсинги по сохраненым файлам XML----------------------------------------------------------
 //-------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------
@@ -625,7 +623,6 @@ if(isset($_POST['parse_XML'])){
 	ini_set('max_execution_time', 30);
 }
 
-
 //Парсинги по xml URL----------------------------------------------------------
 //-------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------
@@ -652,7 +649,7 @@ if(isset($_POST['parse_URL'])){
 	$id_category = $site['id_category'];
 
 	//Устанавливаем настройки памяти
-	ini_set('memory_limit', '2048M');
+	ini_set('memory_limit', '3048M');
 	ini_set('max_execution_time', 6000);	
 
 	//захолдим в индивидуальные настройки 
@@ -673,19 +670,11 @@ if(isset($_POST['parse_URL'])){
 			}
 			echo 'Загрузили в масив асортимент ', count($supcomments, COUNT_RECURSIVE), "<br />","<br />";
 			
-			if(!$supcomments){
-				echo "Массив загруженых товаров поставщика пуст<br />";
-				continue;
-				}
-			//можем просмотреть список  кодов товара
-			// foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-			// 	foreach ($element->xpath('offers/offer') as $offer) {
-			// 		echo $offer->vendorCode, " : ", $offer->price, "<br />";
-					
-			// 	}
+			// if(!$supcomments){
+			// 	echo "Массив загруженых товаров поставщика пуст<br />";
+			// 	continue;
 			// }
-			// echo "Количество товаров в файле ", count($array, COUNT_RECURSIVE), "<br />";
-			// die();
+
 			//создаем масивы соотметствия категорий
 			$keys_NL = array(6442, 6683, 10372, 6267, 6715, 6772, 6726, 6814, 6388, 6380, 6317, 6344, 10431, 6217, 6231, 6251, 6514, 6520, 6527, 6528, 6529, 6530, 6513, 6584, 8220, 6062, 6067, 6139, 6456, 6657, 6614, 6652, 14366, 12228, 6620, 6637, 6658, 6659, 13968, 14275, 6616, 6722, 14134, 13799, 12171, 6765, 12399, 10049, 6590, 9330, 6485, 6425, 6414, 6068, 6396, 6409, 6390, 6408, 6438, 6473, 6439, 6392, 6446, 6120, 6399, 6445, 6391, 6386, 6469, 6085, 6090, 6421, 6531, 11617, 6405, 6794, 6788, 6795, 6793, 6789, 6783, 6763, 6417, 6426, 6403, 6434, 6393, 6411, 6184, 13849, 6771, 6518, 6173, 6774, 6775, 6776, 6777, 6778, 6779, 12397, 6519, 6521, 6678, 6685, 6769, 10367, 6689, 12400, 6509, 6420, 6786, 6790, 6791, 6395, 6501, 11619, 6433, 11652, 6444, 6412, 6429, 6407, 6451, 11665, 6436, 6422, 6427, 6431, 6452, 6418, 6410, 6455, 6415, 6453, 6401, 6474, 6478, 6450, 6398, 6098, 6502, 6389, 6480, 6443, 6723);
 			$values_XT = array(1593, 629, 638, 639, 759, 771, 816, 891, 896, 912, 914, 915, 961, 961, 961, 961, 967, 970, 975, 975, 975, 975, 980, 999, 1009, 1011, 1012, 1012, 1063, 1070, 1071, 1073, 1074, 1075, 1076, 1076, 1076, 1076, 1077, 1081, 1082, 1088, 1112, 1114, 1114, 1120, 1125, 1192, 1194, 1195, 1196, 1197, 1198, 1199, 1199, 1200, 1201, 1201, 1201, 1201, 1203, 1204, 1204, 1205, 1205, 1207, 1208, 1209, 1209, 1210, 1211, 1211, 1215, 1216, 1217, 1241, 1243, 1243, 1244, 1245, 1246, 1305, 1325, 1325, 1325, 1325, 1325, 1325, 1347, 1381, 1381, 1385, 1412, 1415, 1415, 1415, 1415, 1415, 1415, 1415, 1422, 1422, 1425, 1426, 1426, 1427, 1428, 1429, 1476, 1532, 1555, 1555, 1555, 1557, 1559, 1565, 1566, 1568, 1575, 1578, 1581, 1591, 1593, 1593, 1599, 1602, 1616, 1618, 1620, 1622, 1623, 1623, 1624, 1626, 1629, 1641, 1648, 1654, 1666, 1677, 1682, 1684, 1692, 1707, 1712);
@@ -694,88 +683,50 @@ if(isset($_POST['parse_URL'])){
 				// 	echo $key, "   ->  ", $value, "<br />";
 				//  }
 
-
-
-			foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-				foreach ($element->xpath('offers/offer') as $offer) {
-				
-					if($ldi> $_POST['num']){
-						break 2;
+				//можем просмотреть список  кодов товара и цен
+			 	  $array_offer  =  array();
+				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+					foreach ($element->xpath('offers/offer') as $offer) {
+						// echo $offer->vendorCode, " : ", $offer->price, "<br />";
+						if(in_array($offer->categoryId, $keys_NL) && !in_array(trim($offer->vendorCode), $supcomments)){
+							// echo $offer->vendorCode, "<br />";
+							array_push($array_offer, $offer);
+							}
 					}
-					// sleep(10);
-					// echo 'Карточка ', $ldi++, "<br />";
-					//Устанавливаем настройки времени		
-					ini_set('max_execution_time', 60);
+				}
 
-					// чистим переменые
-					unset($to_resize);
-					unset($images_arr);
-					unset($article);
-					unset($assort);
-					unset($product);
-					unset($skipped);
-
-					if(in_array(trim($offer->vendorCode), $supcomments)){
-						echo $offer->vendorCode, ' Товар есть в базе', "<br />";
-						continue;
-						}
-					if(!in_array($offer->categoryId, $keys_NL)){
-						// echo $offer['id'], ' Товар не отвечает условиям для загрузки', "<br />";
-						continue;
-						}
-						//Определяем категорию карточки товара на xt.ua
-					foreach($array_cat as $k=>$value){
-						if ($k == $offer->categoryId)
-						  		$id_category = $value;
-						}
-
-
-					// echo $offer->categoryId, ' -> ', $id_category,  "<br />";
-					// echo $d++, "<br />";
-					// continue;
-
+				echo "Количество товаров в файле ", count($array_offer, COUNT_RECURSIVE), "<br />";
 					// die();
-					if(!$product = $Parser->NewLine_XML($offer)){
-						continue;
+				// sleep(5);
+
+			foreach ($array_offer as $offer) {
+					ob_end_clean();
+					ob_implicit_flush(1);
+					//Определяем категорию карточки товара на xt.ua
+				foreach($array_cat as $k=>$value){
+					if ($k == $offer->categoryId){
+						$id_category = $value;
+					 	break;
 					}
+					  
+				}
+				// echo $offer->categoryId, ' -> ', $id_category,  "<br />";
+				// echo 'поставщик ', $id_supplier, "<br />";
 
 
-				// 	echo 'vendorCode ->', $offer->vendorCode, "<br /><br />";
-
-				// 	echo $id_supplier, "<br />";
-				// 	echo $id_category, "<br /><br />";
-				// 	echo $product['sup_comment'], "<br />";
-				// 	echo $product['name'], "<br />";
-				// 	echo $product['price_mopt_otpusk'], "<br />";
-				// 	echo $product['price_opt_otpusk'], "<br />";
-				// 	echo $product['descr'], "<br />";
-				// 	echo $product['active'], "<br />";
-				// 	echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-				// 	foreach($product['specs'] as $specification){
-				// 		echo "<pre>";
-				// 		print_r($Specification);
-				// 		echo "</pre>";
-				// 	}
-				// 	echo count($product['images'], COUNT_RECURSIVE), "<br />";
-				// 	foreach ($product['images'] as $value) {
-				// 		echo "<pre>";
-				// 		print_r($value);
-				// 		echo "</pre>";
-				// 	}
-				// 		$ldi++;
-				// continue;
-				// die();
-					
-
-					// Добавляем новый товар в БД
-					if(!$product){
-						$i++;	
-						echo "product пустой -> Товар пропущен<br />";
-						continue;
-					}
-					if($id_product = $Products->AddProduct($product)){
-						$d++;
-						print_r('<pre>OK, добавляем товар</pre>');
+				if(!$product = $Parser->NewLine_XML($offer)){
+					continue;
+				}
+				
+				// Добавляем новый товар в БД
+						if(!$product || $skipped){
+							echo "Товар пропущен product пустой<br />";
+							$i++;
+							continue;
+						}elseif($id_product = $Products->AddProduct($product)){
+							// array_push($supcomments, trim($offer->vendorCode));
+							print_r('<pre>OK, product added</pre>');
+							
 							// Добавляем характеристики новому товару
 							if(!empty($product['specs'])){
 								foreach($product['specs'] as $specification){
@@ -836,22 +787,19 @@ if(isset($_POST['parse_URL'])){
 										$heightstamp = $widthstamp*$k;
 										imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
 									imagejpeg($res, $file);
+									 // sleep(2);
 								}
-									$Images->resize(false, $to_resize);
+								$Images->resize(false, $to_resize);
 								// Привязываем новые фото к товару в БД
 								$Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
 							}
 							// Добавляем товар в категорию
 							$Products->UpdateProductCategories($id_product, array($id_category), $arr['main_category']);
-							array_push($supcomments, trim($offer->vendorCode));
-					
-							echo 'товар добавлен  ', "<br />";							
-							// die();
-					}else{
-						echo "Проблема с добавлением продукта <br /><br />";
-						$l++;
-					}
-				}
+
+						}else{
+							echo "Проблема с добавлением продукта <br /><br />";
+							$l++;
+						}
 			}
 		break;
 		case 23:
@@ -1332,28 +1280,28 @@ if(isset($_POST['test'])){
 	print_r('<pre>');
 	print_r($_POST);
 	print_r('</pre>');
-
+	// phpinfo();
 	//Открываем файл
-			if (!$sim_url = simplexml_load_file("https://www.nl.ua/export_files/Kharkov.xml")){
-			echo "Не удалось открыть файл<br />\n";
-			die();
-			}
-			echo "Файл загружен <br />";
+			// if (!$sim_url = simplexml_load_file("https://www.nl.ua/export_files/Kharkov.xml")){
+			// echo "Не удалось открыть файл<br />\n";
+			// die();
+			// }
+			// echo "Файл загружен <br />";
 
 
-				$array_cat_CT = array();
-				$array_prod_CT = array();
-			foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-				foreach ($element->xpath('offers/offer') as $offer) {
-				array_push($array_cat_CT, strval($offer->categoryId));
+			// 	$array_cat_CT = array();
+			// 	$array_prod_CT = array();
+			// foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+			// 	foreach ($element->xpath('offers/offer') as $offer) {
+			// 	array_push($array_cat_CT, strval($offer->categoryId));
 
-				// array_push($array_prod_CT, $offer->vendorCode);
+			// 	// array_push($array_prod_CT, $offer->vendorCode);
 				
-				}
-			}
-			print_r('<pre>');
-			print_r(array_count_values($array_cat_CT));
-			print_r('</pre>');
+			// 	}
+			// }
+			// print_r('<pre>');
+			// print_r(array_count_values($array_cat_CT));
+			// print_r('</pre>');
 
 
 
@@ -1364,13 +1312,25 @@ if(isset($_POST['test'])){
 
 		// 	$array_cat_CT = array_count_values ($array_cat_CT);
 
-					
+		
 			
 
+echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/>";
 
 
+				while (ob_end_clean()){}; // на всякий случай
+					ob_implicit_flush(1);
+					echo str_repeat(chr(0), 4096); // IE
+					// погнали
+					$n = 5;
+					while ($n > 0) {
+					echo 'text<br />';
+					sleep(1);
+	 				$n--;
+				}
 
-			die();	 
+
+			// die();	 
 
 
 
