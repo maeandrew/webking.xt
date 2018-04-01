@@ -184,9 +184,9 @@ if(empty($category['subcats'])){
 			$_SESSION['filters']['orderby'] = $orderby =$GLOBALS['Sort'];
 		}
 		$available_sorting_values = array(
+			'price_opt asc' => 'от дешевых к дорогим',
 			'popularity desc' => 'популярные сверху',
 			'create_date desc' => 'новые сверху',
-			'price_opt asc' => 'от дешевых к дорогим',
 			'price_opt desc' => 'от дорогих к дешевым',
 			'name asc' => 'по названию от А до Я',
 			'name desc' => 'по названию от Я до А',
