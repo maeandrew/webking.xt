@@ -756,7 +756,7 @@ class Products {
 				}
 			}
 		}else{
-			$order_by = 'popularity DESC';
+			$order_by = 'price_opt asc';
 		}
 		if(isset($params['administration'])){
 			// SQL выборки для админки
