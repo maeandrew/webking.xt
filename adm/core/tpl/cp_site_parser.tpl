@@ -4,7 +4,7 @@
 
 		<div class="col-md-12">
 			<p>Добавить товаров</p>
-			<input type="number" size="2" name="num" min="1" max="100000" value="50000"  class="num_parser">
+			<input type="number" size="2" name="num" min="1" max="100000" value="10"  class="num_parser">
 			<?if(!empty($sites)){?>
 				<select name="site" id="site" class="input-m">
 					<?foreach($sites as $site){?>
