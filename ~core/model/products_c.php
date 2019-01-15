@@ -643,7 +643,8 @@ class Products {
 	 * [SetProductsList4csvProm description]
 	 */
 	public function SetProductsList4csvProm(){
-		$sql = "SELECT p.art, p.name, p.translit, p.descr, p.img_1,
+		$sql = "SELECT p.art, p.name, p.translit, p.descr,
+		 (CASE WHEN p.img_1 <> '' THEN p.img_1 ELSE (SELECT src FROM "._DB_PREFIX_."image as img WHERE p.id_product = img.id_product and ord = 0 ) END) AS img_1,
 			un.unit_prom AS units, p.price_opt, p.name_index,
 			p.price_mopt, p.opt_correction_set,
 			p.mopt_correction_set, p.min_mopt_qty,
@@ -656,8 +657,8 @@ class Products {
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
-			WHERE p.price_mopt > 0
-			AND p.visible = 1";
+			WHERE p.price_mopt <> 0 id_product IN (SELECT id_product FROM xt_assortiment LEFT JOIN xt_user ON xt_user.id_user = xt_assortiment.id_supplier WHERE xt_user.active + xt_assortiment.active = 2 and "._DB_PREFIX_."supplier in (4710,73,75,82,83,87,89,93,95,96,101,102,596,1700,31,2479,3223,3506,13,3520,3793,4639,4654,4722,68,174,220,64,18,3593,21,24,4725,28,29,5059,384,619,1231,74,3166,3361,3683,43,45,53,55,56,63,600,1218,4636,7068,8103,8123,8709,9244,9309,4655,11481,11498,11531,8,12250,12394,12396,12401,12863,12864,12865,12869,13315,13552,14291,14300,15601,15610,16516,16518,16520,16522,16526,16531,17833,17835,18508,18509,18522,19292,19797,19803,19810,20289,20292,20297,20302,20439,21394,21396,21412,21413,21767,21769,22240,22249,22250,22252,30115,30939,31525,31536,32076))
+			HAVING img_1 is not null";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
 			return false;

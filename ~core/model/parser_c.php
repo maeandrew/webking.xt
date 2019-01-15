@@ -98,7 +98,8 @@ class Parser {
 		}
 		return $html;
 	}
-	//Индивидуальные настройки сайтов
+
+	//Индивидуальные настройки сайтов-----------------------------------------------------------
 
 	public function epicenter($data){
 		global $Products;
@@ -422,6 +423,178 @@ class Parser {
 		return $product;
 	}
 
+	public function DCLing($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+
+		$base_url = 'https://opt.dclink.com.ua/item.htm?id=';
+		$url = $base_url.$data;
+		echo  $url,"<br />";
+		
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($ch, CURLOPT_POST, 1);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, array (
+	        'login' => 'ХозТорг(Харьков)',
+	        'password' => 'm2kyCSZv',
+	        'showprice' => '1'    )); //параметры запроса
+	    curl_setopt($ch, CURLOPT_URL, $url);
+    
+		if($parsed_html = $this->parseUrl($url)){
+		echo  $parsed_html,"<br />";
+
+
+			// Название товара
+			$product['name'] = $parsed_html->find('h1')->plaintext;
+			$product['name'] = $parsed_html->find('h1')->innertext;
+			die();
+			if(!$product['name']){
+				return false;
+			}
+			if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
+				return false;
+			}
+			// Описание товара
+			$product['descr'] = $parsed_html->find('[itemprop="description"]', 0)->plaintext;
+			// Указываем базовую активность товара
+			$product['active'] = 1;
+			// Получаем цену товара
+			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = $parsed_html->find('[itemprop="price"]', 0)->innertext;
+			// Находим характеристики товара
+			foreach($parsed_html->find('.stats tr') as $element){
+				$caption = trim($element->find('.name span', 0)->innertext);
+				if($caption == 'Артикул'){
+					$product['sup_comment'] = trim($element->children(1)->plaintext);
+				}elseif($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+					$value = trim($element->children(1)->plaintext);
+					$spec = $Specification->SpecExistsByCaption($caption);
+					$product['specs'][] = array(
+						'id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)),
+						'value' => $value
+					);
+				}
+			}
+			// Выбираем изображения максимального размера
+			foreach($parsed_html->find('#photo #elementTableImg img') as $element){
+				$filename = $base_url.str_replace('/500_500_1/', '/', str_replace('/resize_cache/', '/', $element->src));
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($filename, $path.$img_info['basename']);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+				$product['images_visible'][] = 1;
+			}
+		}
+		curl_close($ch);
+		return $product;
+	}
+
+	public function DCLing_API($Product_Code, $Product_Name, $Product_Price, $sim_url_imag){
+		global $Products;
+		global $Specification;
+		global $Images;
+
+		$ch = curl_init();
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, array (
+		    'login' => 'ХозТорг(Харьков)',
+		    'password' => 'm2kyCSZv',
+		    'id' => $Product_Code
+		));
+				
+		// Название товара
+		$product['name'] = $Product_Name;
+		if(!$product['name']){
+			return false;
+		}
+		if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
+			return false;
+		}
+
+		// Описание товара
+		$url="https://api.dclink.com.ua/api/GetItemDescription";
+ 		curl_setopt($ch, CURLOPT_URL, $url);
+		$description = json_decode(curl_exec($ch), true);
+			foreach ($description as $key => $value) {
+				foreach ($value as $key => $value) {
+				$product['descr'] = $value;	
+				}
+			}
+		// Указываем базовую активность товара
+		$product['active'] = 1;
+
+		// Получаем цену товара
+		$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = $Product_Price * 26;
+
+		// Находим характеристики товара
+		$url="https://api.dclink.com.ua/api/GetItemProperties";
+ 		curl_setopt($ch, CURLOPT_URL, $url);
+ 		$response = json_decode(curl_exec($ch), true);
+ 		$properties_arr = array();
+ 		$values_arr = array();
+ 		$items_arr = array();
+
+		foreach ($response as $key => $value) {
+			if($key == 'properties')
+					$properties_arr = $value;
+			if($key == 'values')
+					$values_arr = $value;
+			if($key == 'items')
+					$items_arr = $value;
+		}
+
+		foreach ($items_arr as $key => $value) {
+			foreach ($value as $key1 => $value1) {
+				$temp = $temp2 = '';
+				foreach ($properties_arr as $key => $value_pro) {
+					if($value_pro[0] == $value1[0]) {
+						$temp = $value_pro[1];
+					}
+				}
+				foreach ($values_arr as $key => $value_val) {
+					if($value_val[0] == $value1[1]) {
+						$temp2 = $value_val[1];
+					}
+				}
+				$caption = $temp;
+				if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+					$value = $temp2;
+					$spec = $Specification->SpecExistsByCaption($caption);
+					$product['specs'][] = array(
+					'id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)),
+					'value' => $value
+					);
+				}
+			}
+		}
+
+
+		//назначаем артикул поставщика
+		$product['sup_comment'] = $Product_Code;	
+		//фото
+		foreach ($sim_url_imag->Product as $Product_imag) {
+			if((int)$Product_imag->Code == (int)$Product_Code){
+				echo $Product_imag->URL, "<br />";
+				$filename = $Product_imag->URL;
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($filename, $path.$img_info['basename']);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+				$product['images_visible'][] = 1;
+			}
+		}
+			curl_close($ch);
+		return $product;
+	}
+
+
 	public function zona($data){
 		global $Products;
 		global $Specification;
@@ -724,6 +897,26 @@ class Parser {
 		}
  		return $product;
  	}
+ 	public function bluzka_pras($offer){
+		// echo  "function bluzka -> ОК<br />";
+
+		global $Products;
+		global $Specification;
+		global $Images;
+
+	 	
+							
+		// Получаем оптовую цену товара
+		if($html = $this->parseUrl($offer->url)){
+		// echo "Зашли на карточку товара <br />";
+			echo trim($html->find('.js_price_ws', 0)->innertext), '<br />';
+			
+		}else{
+			echo 0, '<br />';
+			
+		}
+ 		return 0;
+ 	}
 
 	public function nl($data){
 		// echo  "function nl -> ОК<br />";
@@ -859,9 +1052,330 @@ class Parser {
 
  		return $product;
  	}
+ 	public function S100($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+			echo "парсим ->", $data, '<br/>';
+		
+		unset($pre_parsed_html);
+		if($parsed_html = $this->parseUrl($data)){
+			// Получаем название товара
+			$product['name'] = $parsed_html->find('h1', 1)->plaintext;
+			// echo $product['name'];			
+			// Получаем артикул товара
+			$product['sup_comment'] = $product['name'];	
+			// Получаем описание товара
+			$product['descr'] = $parsed_html->find('#tab-description', 0)->plaintext;
+			// echo  $product['descr'], '<br/>';
+			// Получаем цену товара
+			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = 1;
+			// Получаем характеристики товара
+			// foreach($parsed_html->find('.fullDescriptionConteiner table .product__feature tr') as $element){
+			// 	$caption = str_replace(':', '', trim($element->children(0)->plaintext));
+			// 	if($caption == 'Артикул'){
+			// 		$sup_comment = trim($element->children(1)->plaintext);
+			// 	}elseif($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+			// 		$value = trim($element->children(1)->plaintext);
+			// 		$spec = $Specification->SpecExistsByCaption($caption);
+			// 		$product['specs'][] = array(
+			// 			'id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)),
+			// 			'value' => $value
+			// 		);
+			// 	}
+			// }
+			// Получаем изображения товара максимального размера
+			foreach($parsed_html->find('.thumbnails .thumbnail img') as $element){
+				$filename = $element->src;
+				// echo $filename;
+				if(strpos($filename, '.jpg')){
+					$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+					$Images->checkStructure($path);
+					copy($filename, $path.$img_info['basename']);
+					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+					$product['images_visible'][] = 1;
+				}
+			}
+		}
+		return $product;
+	}
+	public function Intertool_XML($offer){
+		// echo "Ок парсим товар<br />";
+		global $Products;
+		global $Specification;
+		global $Images;
 
+	 	// Получаем артикул товара
+		$product['sup_comment'] = $offer->vendorCode;
+							
+		//Получаем название товара
+		$product['name'] = $offer->name;
+		
+		//Получаем количество товара в упаковке
+		$product['inbox_qty'] = empty($offer->multiplicity) ? 2 : $offer->multiplicity;
+		$product['min_mopt_qty'] = '1';
 
- 					
-	
+		//Указываем базовую активность товара
+		$product['active'] = '1';
 
+		//Указиваем обезательное примечание
+		$product['note_control'] = '0';
+		
+		// Получаем оптовую цену товара
+		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->price;
+
+		// Получаем описание товара
+		$product['descr'] =  $offer->description;
+
+		foreach($offer->param as $param){
+			$caption = str_replace(':', '', trim($param['name']));
+			if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+				$value = $param;
+				$spec = $Specification->SpecExistsByCaption($caption);
+				$product['specs'][] = array(
+					'id_spec' => $spec ? $spec['id']:$Specification->Add(array('caption' => $caption)),
+					'value' => $value
+				);
+			}
+		}
+			
+		// Получаем изображения товара максимального размера		
+		foreach($offer->picture as $element){
+			$img_info = array_merge(getimagesize($element), pathinfo($element));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			copy($element, $path.$img_info['basename']);
+			sleep(1);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'],'/', $path.$img_info['basename']);
+			$product['images_visible'][] = 1;
+		}
+
+			
+			echo 'sup_comment -> ', $product['sup_comment'], "<br />";
+			echo 'name -> ', $product['name'], "<br />";
+			echo 'price_mopt_otpusk -> ', $product['price_mopt_otpusk'], "<br />";
+			echo 'price_opt_otpusk -> ', $product['price_opt_otpusk'], "<br />";
+			echo 'inbox_qty -> ', $product['inbox_qty'], "<br />";
+			echo 'min_mopt_qty -> ', $product['min_mopt_qty'], "<br />";
+			echo 'note_control -> ', $product['note_control'], "<br />";
+			echo 'descr -> ', $product['descr'], "<br />";
+			echo 'active -> ', $product['active'], "<br />";
+			echo "Количество характеристик ", count($product['specs']), "<br />";
+				foreach ($product['specs'] as $key => $value) {
+					foreach ($value as $key => $value) {
+						echo $key," ", $value," ";
+					}
+					echo "<br />";
+				}
+			echo "Количество фото ", count($product['images']), "<br />";
+				foreach ($product['images'] as $key => $value) {
+					echo $key," ", $value," <br />";
+				}
+		// 	die();
+ 		return $product;
+ 	}
+ 	public function Sport_Baza($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		echo "парсим ->", $data, '<br/>';		
+		if($parsed_html = $this->parseUrl($data)){
+			print_r('<pre>');
+			print_r($parsed_html);
+			print_r('</pre>');
+			// Получаем название товара
+			$product['name'] = $parsed_html->find('breadcrumbs-1WtpdcnpBj')->plaintext;
+			echo $product['name'];
+			$product['name'] = $parsed_html->find('ul.breadcrumbs-1WtpdcnpBj li')->plaintext;
+			echo $product['name'];
+			$product['name'] = $parsed_html->find('ul.breadcrumbs-1WtpdcnpBj li')->plaintext;
+			echo $product['name'];
+			$product['name'] = $parsed_html->find('ul.breadcrumbs-1WtpdcnpBj li')->plaintext;
+			echo $product['name'];
+			$product['name'] = $parsed_html->find('ul.breadcrumbs-1WtpdcnpBj li')->plaintext;
+			echo $product['name'];
+			$product['name'] = $parsed_html->find('ul.breadcrumbs-1WtpdcnpBj li')->plaintext;
+			echo $product['name'];
+			die();
+			// Получаем артикул товара
+			$product['sup_comment'] = $product['name'];	
+			// Получаем описание товара
+			$product['descr'] = $parsed_html->find('#tab-description', 0)->plaintext;
+			// echo  $product['descr'], '<br/>';
+			// Получаем цену товара
+			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = 1;
+			// Получаем характеристики товара
+			// foreach($parsed_html->find('.fullDescriptionConteiner table .product__feature tr') as $element){
+			// 	$caption = str_replace(':', '', trim($element->children(0)->plaintext));
+			// 	if($caption == 'Артикул'){
+			// 		$sup_comment = trim($element->children(1)->plaintext);
+			// 	}elseif($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+			// 		$value = trim($element->children(1)->plaintext);
+			// 		$spec = $Specification->SpecExistsByCaption($caption);
+			// 		$product['specs'][] = array(
+			// 			'id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)),
+			// 			'value' => $value
+			// 		);
+			// 	}
+			// }
+			// Получаем изображения товара максимального размера
+			foreach($parsed_html->find('.thumbnails .thumbnail img') as $element){
+				$filename = $element->src;
+				// echo $filename;
+				if(strpos($filename, '.jpg')){
+					$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+					$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+					$Images->checkStructure($path);
+					copy($filename, $path.$img_info['basename']);
+					$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+					$product['images_visible'][] = 1;
+				}
+			}
+		}
+		return $product;
+	}
+	public function pnsemena_cat($data){
+		echo "парсим ->", $data, '<br/>';		
+		if($parsed_html = $this->parseUrl($data)){
+			//выбераем категорию и товары
+			$cat = array();
+			foreach($parsed_html->find('#gallery a') as $a){
+	    		// echo 'http://pnsemena.com.ua'. $a->href,' --------------- ', $a->plaintext,'------------------', 'http://pnsemena.com.ua', $a->find('img',0)->src, '</br>';
+	    		// echo $a->plaintext, '</br>';
+	    		// $art = 'http://pnsemena.com.ua'. $a->href;
+	    		// echo substr($art, -3), ;
+	    		array_push($cat, 'http://pnsemena.com.ua'.$a->href);
+	    		// array_push($cat, $arrayName = array($a->plaintext, 'http://pnsemena.com.ua'. $a->href, 'http://pnsemena.com.ua'. $a->find('img',0)->src));
+ 			}
+ 		}
+		return $cat;
+	}
+	public function pnsemena_prod($data){
+		$url = $data;
+		$prod = array();
+		$pages = 1; //минимум одна страница должна быть
+		for ($i=1; $i <= $pages; $i++) { 
+			$url = $data[1].'&gpg='.$i;
+			// echo "<br/><br/>парсим ->", $url, '   *********************************************************************<br/>';
+			if($parsed_html = $this->parseUrl($url)){
+				//выбераем количество страниц
+				if ($i==1) {	
+					$pages = $parsed_html->find('.dis', 1)->title;
+					echo 'Страниц - ',$pages, '</br>';
+				}					
+				foreach($parsed_html->find('#gallery') as $gal){
+					foreach ($gal->find('table ') as $table) {
+						$arrayprod = array();
+						//id категори
+						array_push($arrayprod, $data[0]);
+						//Название
+						foreach ($table->find('h3') as $h3) {
+							echo $data[2].' '. $h3->plaintext, '</br>';
+							array_push($arrayprod, $data[2].' '. $h3->plaintext);
+						}
+						//Описание
+						$dis='Описание';
+						foreach ($table->find('p') as $p) {
+							echo 'p--> ', $p->plaintext, '</br>';
+							$dis = $dis . '</br>' . $p->plaintext;
+						}
+						array_push($arrayprod, $dis);
+						//Сылка на фото
+						foreach ($table->find('a') as $a) {
+							echo 'jmg--> ', 'http://pnsemena.com.ua'.$a->href, '</br>';
+						array_push($arrayprod, 'http://pnsemena.com.ua'.$a->href);
+						}
+						array_push($prod, $arrayprod);
+						unset($arrayprod);
+						echo '===================</br>';
+					}
+		 		}
+			}
+ 		}
+		return $prod;
+	}
+		public function pnsemena($offer){
+		// echo "Ок парсим товар<br />";
+		global $Products;
+		global $Specification;
+		global $Images;
+
+	 	// Получаем артикул товара
+		$product['sup_comment'] = '';
+							
+		//Получаем название товара
+		$product['name'] = $offer[1];
+		
+		//Получаем количество товара в упаковке
+		$product['inbox_qty'] = 20;
+		$product['min_mopt_qty'] = 1;
+
+		//Указываем базовую активность товара
+		$product['active'] = '1';
+
+		//Указиваем обезательное примечание
+		$product['note_control'] = '0';
+		
+		// Получаем оптовую цену товара
+		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = 1;
+
+		// Получаем описание товара
+		$product['descr'] =  $offer[2];
+
+		// foreach($offer->param as $param){
+		// 	$caption = str_replace(':', '', trim($param['name']));
+		// 	if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+		// 		$value = $param;
+		// 		$spec = $Specification->SpecExistsByCaption($caption);
+		// 		$product['specs'][] = array(
+		// 			'id_spec' => $spec ? $spec['id']:$Specification->Add(array('caption' => $caption)),
+		// 			'value' => $value
+		// 		);
+		// 	}
+		// }
+			
+		// Получаем изображения товара максимального размера
+		$arrayName = array($offer[3]);
+
+		foreach($arrayName as $element){
+			$img_info = array_merge(getimagesize($element), pathinfo($element));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			copy($element, $path.$img_info['basename']);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+			$product['images_visible'][] = 1;
+		}
+		sleep(1);
+
+		// echo "Заходим на url<br />";
+		
+		// if($parsed_html = $this->parseUrl($offer->url)){
+		// 	// sleep(5);					
+		// }
+
+					echo 'sup_comment -> ', $product['sup_comment'], "<br />";
+					echo 'name -> ', $product['name'], "<br />";
+					echo 'price_mopt_otpusk -> ', $product['price_mopt_otpusk'], "<br />";
+					echo 'price_opt_otpusk -> ', $product['price_opt_otpusk'], "<br />";
+					echo 'inbox_qty -> ', $product['inbox_qty'], "<br />";
+					echo 'min_mopt_qty -> ', $product['min_mopt_qty'], "<br />";
+					echo 'note_control -> ', $product['note_control'], "<br />";
+					echo 'descr -> ', $product['descr'], "<br />";
+					echo 'active -> ', $product['active'], "<br />";
+					// echo "Количество характеристик ", count($product['specs']), "<br />";
+					// 	foreach ($product['specs'] as $key => $value) {
+					// 		foreach ($value as $key => $value) {
+					// 			echo $key," ", $value," ";
+					// 		}
+					// 		echo "<br />";
+					// 	}
+					echo "Количество фото ", count($product['images']), "<br />";
+						foreach ($product['images'] as $key => $value) {
+							echo $key," ", $value," <br />";
+						}
+		// 	die();
+ 		return $product;
+ 	}
+		
 }

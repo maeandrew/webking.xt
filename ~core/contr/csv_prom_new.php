@@ -7,7 +7,10 @@ $Page->PagesList();
 $tpl->Assign('list_menu', $Page->list);
 
 $Products = new Products();
-ini_set('memory_limit', '400M');
+
+ini_set('memory_limit', '1024M');	
+ini_set('max_execution_time', 3000);
+
 $plist = $Products->SetProductsList4csvProm();
 
 header('Content-Encoding: UTF-8');
@@ -47,16 +50,16 @@ foreach($plist AS $p){
 	$opt_coeff_arr = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
 	$mopt_coeff_arr = explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
 	$opt_coeff = $opt_coeff_arr[0];
-	$mopt_coeff = $mopt_coeff_arr[0];
+	$mopt_coeff = $mopt_coeff_arr[3];
 	if($p['name_index'] == ''){
 		$p['name_index'] = strtoupper($p['name']);
 	}
 	fputcsv($handle, array(
 		$p['art'],
 		$p['name'],
-		str_replace(' ', ',', $p['name_index']),
+		str_replace(' ', ',', $p['name_index']), '.'.
 		'<a href="'.$GLOBALS['URL_base'].'/'.$p['translit'].'.html"><img src="'.$GLOBALS['URL_base'].'/images/buy.png" /></a>'.$p['descr'],
-		$p['min_mopt_qty'] == 1?'u':'w',
+		$p['price_mopt'] > 0?'u':'w',
 		round($p['price_mopt']*$mopt_coeff, 2),
 		'UAH',
 		$p['units'],
@@ -77,5 +80,6 @@ foreach($plist AS $p){
 	));
 }
 ini_set('memory_limit', '192M');
+ini_set('max_execution_time', 30);
 fclose($handle);
 exit;
