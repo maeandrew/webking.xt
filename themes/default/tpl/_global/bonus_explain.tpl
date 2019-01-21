@@ -10,32 +10,36 @@ if($product['prices_opt'][3] > 0){?>
 			<th colspan="3">Покупка от <?=$product['inbox_qty']?> <?=$product['units']?></th>
 		</tr>
 		<tr>
-			<th class="title_column">Сумма заказа</th>
+			<th class="title_column">Общая сумма заказа</th>
 			<th>Цена, грн</th>
-			<th>Скидка, %</th>
+			<th>Скидка, грн</th>
 		</tr>
 		<tr>
-			<td class="title_column">Партнер <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+			<td class="title_column">Партнер (от 10000грн) <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_opt'][0], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_opt'][0]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_opt'][0], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_opt'][0]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['opt'][0]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Диллер <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+			<td class="title_column">Диллер (от 5000грн) <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_opt'][1], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_opt'][1]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_opt'][1], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_opt'][1]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['opt'][1]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Опт <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
+			<td class="title_column">Опт (от 1000грн) <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_opt'][2], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_opt'][2]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_opt'][2], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_opt'][2]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['opt'][2]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Розница <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
+			<td class="title_column">Розница (от 100грн) <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_opt'][3], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_opt'][3]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_opt'][3], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_opt'][3]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['opt'][3]*100)?></td> -->
 		</tr>
 	</table>
@@ -48,34 +52,39 @@ if($product['prices_opt'][3] > 0){?>
 		<tr>
 			<th class="title_column">Сумма заказа</th>
 			<th>Цена, грн</th>
-			<th>Скидка, %</th>
+			<th>Скидка, грн</th>
 		</tr>
 		<tr>
-			<td class="title_column">Партнер <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+			<td class="title_column">Партнер (от 10000грн) <span class="hidden">(более <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_mopt'][0], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_mopt'][0]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_mopt'][0], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_mopt'][0]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['mopt'][0]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Диллер <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
+			<td class="title_column">Диллер (от 5000грн) <span class="hidden">(от <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> до <?=$GLOBALS['CONFIG']['full_wholesale_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_mopt'][1], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_mopt'][1]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_mopt'][1], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_mopt'][1]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['mopt'][1]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Опт <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
+			<td class="title_column">Опт (от 1000грн) <span class="hidden">(от <?=$GLOBALS['CONFIG']['retail_order_margin']?> до <?=$GLOBALS['CONFIG']['wholesale_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_mopt'][2], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_mopt'][2]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_mopt'][2], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_mopt'][2]/$base_price, 2)*100)?></td> -->
 			<!-- <td><?=(100-$corrections['mopt'][2]*100)?></td> -->
 		</tr>
 		<tr>
-			<td class="title_column">Розница<span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
+			<td class="title_column">Розница (от 100грн) <span class="hidden">(до <?=$GLOBALS['CONFIG']['retail_order_margin']?> грн.)</span></td>
 			<td><?=number_format($product['prices_mopt'][3], 2, ",", "")?></td>
-			<td><?=(100-round($product['prices_mopt'][3]/$base_price, 2)*100)?></td>
+			<td><?=number_format($product['prices_mopt'][3]-$product['prices_mopt'][3], 2, ",", "")?></td>
+			<!-- <td><?=(100-round($product['prices_mopt'][3]/$base_price, 2)*100)?></td> -->
 		</tr>
 	</table>
 <?}?>
-<b>Средняя розничная цена по Украине - <?=number_format($base_price, 2, ",", "")?>грн.</b>
+<b>Средняя розничная цена по Украине - <?=number_format($product['prices_mopt'][3], 2, ",", "")?>грн.</b>
+<!-- <b>Средняя розничная цена по Украине - <?=number_format($base_price, 2, ",", "")?>грн.</b> -->
 <table class="bonus_table hidden">
 	<tr>
 		<th colspan="3">Бонусная программа</th>
