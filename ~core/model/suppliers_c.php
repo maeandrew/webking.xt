@@ -845,7 +845,7 @@ class Suppliers extends Users {
 		}
 		return $arr;
 	}
-
+// обновление поставщика единая цена
 	public function UpdateSinglePrice($id_user, $single_price, $price = false){
 		$f['single_price']= $single_price;
 		$this->db->StartTrans();

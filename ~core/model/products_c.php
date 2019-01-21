@@ -424,7 +424,20 @@ class Products {
 		}
 		return $arr['id_product'];
 	}
-
+	/**
+	 * Получить id товара по арт поставщика sup_comment
+	 * @param integer	$art	артикул товара
+	 */
+	public function  GetIdBysup_comment($id_supplier, $sup_comment){
+		$sql = "SELECT a.id_product
+			FROM "._DB_PREFIX_."assortiment AS a
+			WHERE a.sup_comment = '".$sup_comment."' and a.id_supplier = ".$id_supplier;
+		$arr = $this->db->GetOneRowArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr['id_product'];
+	}
 	/**
 	 * Получение массива id_products по артикулу и по его началу
 	 * @param integer	$art	идентификатор товара
@@ -657,7 +670,7 @@ class Products {
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
-			WHERE p.price_mopt <> 0 id_product IN (SELECT id_product FROM xt_assortiment LEFT JOIN xt_user ON xt_user.id_user = xt_assortiment.id_supplier WHERE xt_user.active + xt_assortiment.active = 2 and "._DB_PREFIX_."supplier in (4710,73,75,82,83,87,89,93,95,96,101,102,596,1700,31,2479,3223,3506,13,3520,3793,4639,4654,4722,68,174,220,64,18,3593,21,24,4725,28,29,5059,384,619,1231,74,3166,3361,3683,43,45,53,55,56,63,600,1218,4636,7068,8103,8123,8709,9244,9309,4655,11481,11498,11531,8,12250,12394,12396,12401,12863,12864,12865,12869,13315,13552,14291,14300,15601,15610,16516,16518,16520,16522,16526,16531,17833,17835,18508,18509,18522,19292,19797,19803,19810,20289,20292,20297,20302,20439,21394,21396,21412,21413,21767,21769,22240,22249,22250,22252,30115,30939,31525,31536,32076))
+			WHERE p.price_mopt <> 0 and id_product IN (SELECT id_product FROM xt_assortiment LEFT JOIN xt_user ON xt_user.id_user = xt_assortiment.id_supplier WHERE xt_user.active + xt_assortiment.active = 2 and xt_assortiment.id_supplier in (4710,73,75,82,83,87,89,93,95,96,101,102,596,1700,31,2479,3223,3506,13,3520,3793,4639,4654,4722,68,174,220,64,18,3593,21,24,4725,28,29,5059,384,619,1231,74,3166,3361,3683,43,45,53,55,56,63,600,1218,4636,7068,8103,8123,8709,9244,9309,4655,11481,11498,11531,8,12250,12394,12396,12401,12863,12864,12865,12869,13315,13552,14291,14300,15601,15610,16516,16518,16520,16522,16526,16531,17833,17835,18508,18509,18522,19292,19797,19803,19810,20289,20292,20297,20302,20439,21394,21396,21412,21413,21767,21769,22240,22249,22250,22252,30115,30939,31525,31536,32076))
 			HAVING img_1 is not null";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
@@ -3013,6 +3026,14 @@ class Products {
 		if(empty($this->db->GetArray($sql))){
 			return false;
 		}
+	}
+	//Обновление асортимента из XML 
+	public function ProcessAssortimentXML($array){
+		$this->db->StartTrans();
+		foreach ($array as $key => $value) {
+		$this->db->Query($value) or G::DieLoger("<b>SQL Error - </b>$sql");
+		}
+		$this->db->CompleteTrans();	
 		return true;
 	}
 	/**

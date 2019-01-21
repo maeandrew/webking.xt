@@ -980,7 +980,7 @@ class Parser {
 		$product['sup_comment'] = $offer->vendorCode;
 							
 		//Получаем название товара
-		$product['name'] = $offer->name;
+		$product['name'] = $offer->name.' дубль';
 		
 		//Получаем количество товара
 		$product['inbox_qty'] = '2';
@@ -1040,15 +1040,26 @@ class Parser {
 			// }
 		}
 
-					// echo $product['sup_comment'], "<br />";
-					// echo $product['name'], "<br />";
-					// echo $product['price_mopt_otpusk'], "<br />";
-					// echo $product['price_opt_otpusk'], "<br />";
-					// echo $product['descr'], "<br />";
-					// echo $product['active'], "<br />";
-
-					// echo "Количество характеристик ", count($product['specs'], COUNT_RECURSIVE), "<br />";
-					// echo "Количество фото ", count($product['images'], COUNT_RECURSIVE), "<br />";
+			echo 'sup_comment -> ', $product['sup_comment'], "<br />";
+			echo 'name -> ', $product['name'], "<br />";
+			echo 'price_mopt_otpusk -> ', $product['price_mopt_otpusk'], "<br />";
+			echo 'price_opt_otpusk -> ', $product['price_opt_otpusk'], "<br />";
+			echo 'inbox_qty -> ', $product['inbox_qty'], "<br />";
+			echo 'min_mopt_qty -> ', $product['min_mopt_qty'], "<br />";
+			echo 'note_control -> ', $product['note_control'], "<br />";
+			echo 'descr -> ', $product['descr'], "<br />";
+			echo 'active -> ', $product['active'], "<br />";
+			echo "Количество характеристик ", count($product['specs']), "<br />";
+				foreach ($product['specs'] as $key => $value) {
+					foreach ($value as $key => $value) {
+						echo $key," ", $value," ";
+					}
+					echo "<br />";
+				}
+			echo "Количество фото ", count($product['images']), "<br />";
+				foreach ($product['images'] as $key => $value) {
+					echo $key," ", $value," <br />";
+				}
 
  		return $product;
  	}
@@ -1377,5 +1388,4 @@ class Parser {
 		// 	die();
  		return $product;
  	}
-		
 }
