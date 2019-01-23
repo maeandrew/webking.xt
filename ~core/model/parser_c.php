@@ -980,7 +980,7 @@ class Parser {
 		$product['sup_comment'] = $offer->vendorCode;
 							
 		//Получаем название товара
-		$product['name'] = $offer->name.' дубль';
+		$product['name'] = $offer->name;
 		
 		//Получаем количество товара
 		$product['inbox_qty'] = '2';
