@@ -105,12 +105,12 @@
 						</div>
 						<div class="col-md-12">
 							<?if(isset($_POST['translit'])){?>
+
 								<div id="translit">
 									<label>URL сраницы: </label>
 									<p><?=$GLOBALS['URL_base'].$_POST['translit'];?>.html</p>
 								</div>
-								<button name="smb" type="submit" class="btn-s-default" id="updtrans" onclick="updateTranslit();" style=" margin:0 20px;">Обновить</button>
-
+								<button name="smb" type="submit" id="updtrans" onclick="updateTranslit();" style=" margin:0 20px;">↺</button>			
 							<?}?>
 						</div>
 					</div>

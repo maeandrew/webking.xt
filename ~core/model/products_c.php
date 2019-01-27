@@ -2295,7 +2295,7 @@ class Products {
 		if(isset($arr['name']) && $arr['name'] !== ''){
 			$f['art'] = trim($arr['art']);
 			$f['name'] = trim($arr['name']);
-			$f['translit'] = G::StrToTrans($arr['name']);
+			// $f['translit'] = G::StrToTrans($arr['name']);//ВП убрал обновление урла при сохранении
 			$f['descr'] = trim($arr['descr']);
 			$f['descr_xt_short'] = trim($arr['descr_xt_short']);
 			$f['descr_xt_full'] = trim($arr['descr_xt_full']);
