@@ -3026,6 +3026,7 @@ class Products {
 		if(empty($this->db->GetArray($sql))){
 			return false;
 		}
+		return true;
 	}
 	//Обновление асортимента из XML 
 	public function ProcessAssortimentXML($array){
