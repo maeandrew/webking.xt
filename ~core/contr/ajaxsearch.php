@@ -10,7 +10,8 @@
 					// Инициализация соединения со Sphinx
 					$sphinx = new SphinxClient();
 					// $sphinx->SetServer("localhost", 9312);
-					$sphinx->SetServer('81.17.140.234', 9312);
+					$sphinx->SetServer('31.131.16.159', 9312);
+					// $sphinx->SetServer('81.17.140.234', 9312);
 					$sphinx->SetConnectTimeout(1);
 					$sphinx->SetArrayResult(true);
 					$sphinx->setMaxQueryTime(3);
