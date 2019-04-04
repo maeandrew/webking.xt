@@ -29,9 +29,11 @@
 						<td><?=$task['last_run']?></td>
 						<td><?=$task['active']==1?'Да':'Нет'?></td>
 						<td>
-							<a href="/adm/cronedit/<?=$task['id']?>" class="btn-m-green">Редактировать</a>
-							<a href="/adm/cronrun/<?=$task['id']?>" class="btn-m-blue">Выполнить</a>
-							<a href="/adm/crondel/<?=$task['id']?>" class="btn-m-red-inv">Удалить</a>
+							<!-- <a href="/adm/cronedit/<?=$task['id']?>" class="btn-m-green">Редактировать</a> -->
+							<?if(strstr($task['title'], '***')){?>
+          					 <a href="/adm/cronrun/<?=$task['id']?>" class="btn-m-blue">Выполнить</a>
+        					<?}?>						
+							<!-- <a href="/adm/crondel/<?=$task['id']?>" class="btn-m-red-inv">Удалить</a> -->
 						</td>
 					</tr>
 				<?}

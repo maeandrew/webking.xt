@@ -15,7 +15,7 @@ class Specification{
 	public function SpecExistsByCaption($caption){
 		$sql = 'SELECT *
 			FROM '._DB_PREFIX_.'specs
-			WHERE caption = '.$this->db->Quote($caption);
+			WHERE service_caption = '.$this->db->Quote($caption);
 		if(!$res = $this->db->GetOneRowArray($sql)){
 			return false;
 		}

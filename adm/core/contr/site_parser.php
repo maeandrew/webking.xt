@@ -99,6 +99,47 @@ if(isset($_POST['parse'])){
 					$headings = $item;
 				}
 			}
+
+				foreach ($array as $key => $value) {
+					if (is_array($value)) {
+						foreach ($value as $key => $value) {
+							echo $value, '<br/>';
+						}
+					}
+					echo  '**************<br/>';
+				}
+				
+				 $html = 'https://kvitu.in.ua/sitemap.xml';
+	 
+				// загружаем файл
+				if ($sim_url = simplexml_load_file($html)){
+					echo "Файл загружен <br />";
+				}else{
+					echo "Не удалось открыть файл<br />\n";
+					die();
+				}
+				// print_r('<pre>');
+				// print_r($sim_url);
+				// print_r('</pre>');
+				foreach($sim_url as $url => $massiv){
+					foreach($massiv  as  $key => $value){
+						if($key == 'loc'){
+							echo $value, '<br />';
+								// if(!stristr($value, 'manufacturer'))
+								// 	array_push($array, $value);
+						}
+					}
+				}
+
+
+
+
+
+die();
+				// print_r('<pre>');
+				// print_r($array);
+				// print_r('</pre>');
+
 			// проход по первой строке
 			// $format_error = 0;
 			// foreach($heading_format as $k => $i){
@@ -271,6 +312,19 @@ if(isset($_POST['parse'])){
 								continue;
 							}else{
 								if(!$product = $Parser->DCLing($row[0])){
+									continue;
+								}
+							}
+							break;
+						case 32:
+							$supcomments = $Products->GetSupComments($id_supplier);
+							if(!empty($supcomments) && in_array(trim($row[0]), $supcomments)){
+								// print_r('<pre>Supplier comment issue</pre>');
+								$skipped = true;
+								continue;
+							}else{
+								echo count($supcomments);								
+								if(!$product = $Parser->s55cvet($row)){
 									continue;
 								}
 							}
@@ -693,9 +747,9 @@ if(isset($_POST['parse_URL'])){
 			ini_set('max_execution_time', 6000);
 			echo "max_execution_time ", ini_get('max_execution_time'), "<br />";
 
-			// echo "upload_max_filesize ", ini_get('upload_max_filesize'), "<br />";
-			// ini_set("upload_max_filesize","100M");
-			// echo "upload_max_filesize ", ini_get('upload_max_filesize'), "<br />";
+			echo "upload_max_filesize ", ini_get('upload_max_filesize'), "<br />";
+			ini_set("upload_max_filesize","100M");
+			echo "upload_max_filesize ", ini_get('upload_max_filesize'), "<br />";
 
 			// echo "post_max_size ", ini_get('post_max_size'), "<br />";
 			// echo "set_time_limit ", ini_get('set_time_limit'), "<br />";
@@ -729,7 +783,7 @@ if(isset($_POST['parse_URL'])){
 			// 	echo "Файл скопирован ...\n";
 			// }
 			//Открываем локальный файл
-			$html = $GLOBALS['PATH_product_img'].'Kharkov.xml';
+			$html = $GLOBALS['PATH_post_img'].'NL.xml';
 			if (!$sim_url = simplexml_load_file($html)){
 				echo "Не удалось открыть файл<br />\n";
 				die();
@@ -779,17 +833,27 @@ if(isset($_POST['parse_URL'])){
 	// die();	
 			//Выборка цен для обновления************************
 			// echo "UPDATE xt_assortiment SET no_xtorg = 0 WHERE id_supplier = 30939;", "<br />";
-			// 	foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-			// 		foreach ($element->xpath('offers/offer') as $offer) {
-			// 			// ob_end_clean();
-			// 			ob_implicit_flush(1);
-			// 			echo "UPDATE xt_assortiment SET  product_limit = 100000, active = 1, no_xtorg = 1, price_opt_otpusk = ", $offer->price, ", price_mopt_otpusk = ", $offer->price, " WHERE id_supplier = ", 30939, " and sup_comment = '", $offer->vendorCode, "';<br />";
-			// 			}
-			// 	}
+				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
+					foreach ($element->xpath('offers/offer') as $offer) {
+
+							if ($offer->vendorCode == 51925856) {
+
+								print_r('<pre>');
+								print_r($offer);
+								print_r('</pre>');
+
+								echo "UPDATE xt_assortiment SET  product_limit = 100000, active = 1, no_xtorg = 1, price_opt_otpusk = ", $offer->price, ", price_mopt_otpusk = ", $offer->price, " WHERE id_supplier = ", 30939, " and sup_comment = '", $offer->vendorCode, "';<br />";
+							}
+						}
+						
+						// ob_end_clean();
+						ob_implicit_flush(1);
+						
+				}
 			// echo "UPDATE xt_assortiment SET product_limit = 0, active = 0 WHERE id_supplier = 30939 and no_xtorg = 0;", "<br />";
 			//Выборка цен для обновления************************
 			//авто обновление
-			
+			die();
 			$all = 0; //количество товаров в файле
 			$array_add = array(); //количество товаров на добавление
 			$sql_arrey = array(); //количество товаров обновляется
@@ -822,17 +886,17 @@ if(isset($_POST['parse_URL'])){
 			//выключаем не обновленые позиции
 			$sql = "UPDATE xt_assortiment SET product_limit = 0, active = 0 WHERE id_supplier = 30939 and no_xtorg = 0";
 			$sql_arrey[] = $sql;
-			
+			$array_add = array_reverse($array_add);
 			//посмотрим масив sql запросов
 			echo "Количество товаров в файле ", $all, "<br />";
 			echo "Количество товаров на добавление ", count($array_add), "<br />";
-			echo 'в масиве $sql_arrey ', count($sql_arrey), '<br/>';
-			foreach ($sql_arrey as $key => $value) {
-				echo $key, " ", $value, '<br/>';
-			}	
-			if($Products->ProcessAssortimentXML($sql_arrey)){
-			echo "ГОТОВО <br />";
-			}
+			// echo 'в масиве $sql_arrey ', count($sql_arrey), '<br/>';
+			// foreach ($sql_arrey as $key => $value) {
+			// 	echo $key, " ", $value, '<br/>';
+			// }	
+			// if($Products->ProcessAssortimentXML($sql_arrey)){
+			// echo "ГОТОВО <br />";
+			// }
 			
 			// die();	
 			// $Suppliers = new Suppliers();
@@ -850,7 +914,7 @@ if(isset($_POST['parse_URL'])){
 				// 	die();
 				// }
 				echo "CТАРТ ---------------------------------------------------------------------------------------------------------------";
-					// ob_end_clean();
+					ob_end_clean();
 					ob_implicit_flush(1);
 					//Определяем категорию карточки товара на xt.ua
 				foreach($array_cat as $k=>$value){
@@ -953,15 +1017,128 @@ if(isset($_POST['parse_URL'])){
 		break;
 		case 23:
 			echo "зашли в case 23 <br />";
-			// Проверка_URL
+						
+			// выбераем имеющиеся у нас артикул
+			if(!$supcomments = $Products->GetSupComments($id_supplier)){
+				echo "Массив загруженых товаров поставщика пуст<br />";
+				continue;
+			}
+			// $supcomments = array_unique($supcomments);
+			echo 'У поставщика в кабегнете товаров ', count($supcomments), "<br />","<br />";
+			//ответстие категорий
+	 		$array_cat = array(321=>837,322=>837,312=>840,313=>840,314=>840,316=>840,318=>840,319=>840,337=>840,363=>840,364=>840,368=>840,353=>869,323=>1313,324=>1313,378=>1313,395=>1751,293=>1752,299=>1753,381=>1754,301=>1755,300=>1756,463=>1757,396=>1758,351=>1759,338=>1760,404=>1761,380=>1762,288=>1763,289=>1764,290=>1765,291=>1766,304=>1767,328=>1767,382=>1767,303=>1768,302=>1769,448=>1770,329=>1771,296=>1772,295=>1773,294=>1774,292=>1775,297=>1776,298=>1777,287=>1778,286=>1780,365=>1859,383=>1860,376=>1861,394=>1862);
+				//Определяем категорию карточки товара на xt.ua
 			
-			if ($sim_url = simplexml_load_file('http://bluzka.ua/ru/yml/')){
-				echo "Файл загружен <br />";
 
-				//Устанавливаем настройки времени
-				// $asd = array();
-				foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
-					foreach ($element->xpath('offers/offer') as $offer) {
+
+
+		// загружаем файл
+		if ($sim_url = simplexml_load_file('http://bluzka.ua/ru/yml/')){
+				echo "Файл загружен <br />";
+			$offer_add = array();
+		foreach($sim_url->xpath('/yml_catalog/shop') as $element){
+			foreach($element->xpath('offers/offer') as $offer){
+				$prod = array();
+
+				$name = strip_tags(stristr($offer->description, 'Состав', true));
+				$name = str_replace("&nbsp;",'', $name);
+				$name = trim($name);
+
+				$prod['url'] = $offer->url;
+
+				foreach($array_cat as $k=>$value){
+					if ($k == $offer->categoryId){
+						$prod['categoryId'] = $value;
+						break;
+					}
+				}
+
+				$prod['picture'] = $offer->picture;
+
+				$prod['descr'] = str_replace(array('<h1>', '</h1>'), array('<h2>', '</h2>'), $offer->description);
+
+				if($offer->param[1] == 'б/р'){					
+					$key = trim($offer->vendorCode).trim($offer->param[0]);
+					echo $key, "<br/>";
+					// if (in_array($key, $supcomments)){
+					// 	echo "пропускаем <br/>";
+					// 	continue;
+					// }
+					echo "на добавление <br/>";
+					$prod['name'] = $name." (размер: б/р, цвет: ".trim($offer->param[0]).")";
+					$prod['spec']['Производство: '] = $offer->country_of_origin;
+					$prod['spec']['Цвет: '] = trim($offer->param[0]);
+					$prod['spec']['Размер: '] = 'б/р';
+					$prod['sup_comment'] = $key;
+					array_push($offer_add, $prod);
+							
+				}else{
+					$raz = explode(",", $offer->param[1]);
+					foreach ($raz as $value) {
+						$key = trim($offer->vendorCode).trim($offer->param[0]).trim($value);
+						echo $key, "<br/>";
+						// if (in_array($key, $supcomments)){
+						// echo "пропускаем <br/>";
+						// continue;
+						// }
+						echo "на добавление <br/>";
+						$prod['name'] = $name." (размер: ".trim($value).", цвет: ".trim($offer->param[0]).")";
+						$prod['spec']['Производство: '] = $offer->country_of_origin;
+						$prod['spec']['Цвет: '] = trim($offer->param[0]);
+						$prod['spec']['Размер: '] = $value;
+						$prod['sup_comment'] = $key;
+						array_push($offer_add, $prod);
+						
+					}
+				}
+			}
+		}
+
+		//Сответствие категория и id_product 
+		    $sql_arrey_cat = array();
+		    foreach ($offer_add as $prod) {
+		    	$key = $prod['sup_comment'];
+		        if (in_array($key, $supcomments)) { 
+		            $id_product = $Products->GetIdBysup_comment($id_supplier, $key);
+		            echo $id_product, '<br/>';		        
+		                   $sql_arrey_cat[] = "delete from "._DB_PREFIX_."cat_prod WHERE id_product = ".$id_product.";";
+		                   $sql_arrey_cat[] = "INSERT IGNORE INTO "._DB_PREFIX_."cat_prod(id_category, id_product, main, test) VALUES(".$prod['categoryId'].", ".$id_product.", ".'1'.", '');";
+		        }      
+		    } 
+
+		 //можем посмотреть спысок запросов  
+		 echo "++++++++++++++++++++++++++++++++++++++++++<br/>"; 
+        foreach ($sql_arrey_cat as $key => $value) {
+         echo $value, '<br/>';
+        }
+        
+        //Обновляем расположение по категриям
+        if($Products->ProcessAssortimentXML($sql_arrey_cat)){
+         echo "Категрии ОБНОВЛЕНЫ <br />";
+        }
+die();
+		// echo count($offer_add), "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br/>";
+
+		// foreach ($offer_add as $value) {
+		// 	foreach ($value as $key => $value) {
+		// 		if ($key == 'spec') {
+		// 			foreach ($value as $key => $value) {
+		// 				echo "  ", $key, $value, "<br/>";
+		// 			}
+		// 		}else{
+		// 		echo $key, ' - ', $value, "<br/>";
+		// 		}
+
+		// 	}
+		// 	echo "-------------------------------------<br/>";
+		// }
+
+		// die();
+
+ 
+				
+				foreach ($offer_add as $prod) {
+	
 						ini_set('max_execution_time', 3000);
 						unset($to_resize);
 						unset($images_arr);
@@ -970,14 +1147,8 @@ if(isset($_POST['parse_URL'])){
 						unset($product);
 						unset($skipped);
 					
-					// foreach($offer->vendorCode as $value){
-					// 	echo $value, "<br />";
-					// 	array_push($asd, trim($value));	
-					// }
-					// echo 'итого ', count($asd , COUNT_RECURSIVE), "<br />";
-					// break;
 
-						$skipped = false;
+					$skipped = false;
 
 						// if(!empty($supcomments) && in_array(trim($offer->vendorCode), $supcomments)){
 						// 	$skipped = true;
@@ -989,141 +1160,36 @@ if(isset($_POST['parse_URL'])){
 							// }
 							//парсим товар 
 							// $product = array();
-							if(!$product = $Parser->bluzka($offer)){
-								continue;
-							}
-											
-				echo $id_supplier, "<br />";
-				echo $id_category, "<br />";
-				echo $product['sup_comment'], "<br />";
-				echo $product['name'], "<br />";
-				echo $product['price_mopt_otpusk'], "<br />";
-				echo $product['price_opt_otpusk'], "<br />";
-				echo $product['descr'], "<br />";
-				echo $product['active'], "<br />";
-				echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
-				echo count($product['images'], COUNT_RECURSIVE), "<br />";
-				foreach ($product['images'] as $value) {
-					echo "<pre>";
-					print_r($value);
-					echo "</pre>";
-				}
-					if(!$product || $skipped){
+					if(!$product = $Parser->bluzka($prod)){
+						continue;
+					}
+					$id_category = $product['categoryId'];					
+					echo $id_supplier, "<br />";
+					echo $id_category, "<br />";
+					echo $product['sup_comment'], "<br />";
+					echo $product['name'], "<br />";
+					echo $product['price_mopt_otpusk'], "<br />";
+					echo $product['price_opt_otpusk'], "<br />";
+					echo $product['descr'], "<br />";
+					echo $product['active'], "<br />";
+					echo count($product['specs'] , COUNT_RECURSIVE), "<br />","<br />";
+					echo count($product['images'], COUNT_RECURSIVE), "<br />";
+					foreach ($product['images'] as $value) {
+						echo "<pre>";
+						print_r($value);
+						echo "</pre>";
+					}
+
+						if(!$product || $skipped){
 						print_r('<pre>НЕТ. Товар пропущен</pre>');
 						$i++;
 						continue;
 					}else{
 						print_r('<pre>OK. Товар добавлен</pre>');
 						$d++;
-					}
-		
-			 
-							//Определяем категорию
-							switch ($offer->categoryId) {
-							    case 395:
-							        $id_category = '1751';
-							        break;
-							    case 293:
-							        $id_category = '1752';
-							        break;
-							    case 299:
-							        $id_category = '1753';
-							        break;
-							    case 381:
-							        $id_category = '1754';
-							        break;
-							    case 301:
-							        $id_category = '1755';
-							        break;
-							    case 300:
-							        $id_category = '1756';
-							        break;
-							    case 463:
-							        $id_category = '1757';
-							        break;
-							    case 396:
-							        $id_category = '1758';
-							        break;
-							    case 351:
-							        $id_category = '1759';
-							        break;
-							    case 338:
-							        $id_category = '1760';
-							        break;
-							    case 404:
-							        $id_category = '1761';
-							        break;
-							    case 380:
-							        $id_category = '1762';
-							        break;
-							    case 288:
-							        $id_category = '1763';
-							        break;
-							    case 289:
-							        $id_category = '1764';
-							        break;
-							    case 290:
-							        $id_category = '1765';
-							        break;
-							    case 291:
-							        $id_category = '1766';
-							        break;
-							    case 382:
-							        $id_category = '1767';
-							        break;
-							    case 328:
-							        $id_category = '1767';
-							        break;
-							    case 304:
-							        $id_category = '1767';
-							        break;
-							   case 303:
-							        $id_category = '1768';
-							        break;
-							    case 302:
-							        $id_category = '1769';
-							        break;
-							    case 448:
-							        $id_category = '1770';
-							        break;
-							    case 329:
-							        $id_category = '1771';
-							        break;
-							    case 296:
-							        $id_category = '1772';
-							        break;
-							    case 295:
-							        $id_category = '1773';
-							        break;
-							    case 294:
-							        $id_category = '1774';
-							        break;
-							    case 292:
-							        $id_category = '1775';
-							        break;
-							    case 297:
-							        $id_category = '1776';
-							        break;
-							    case 298:
-							        $id_category = '1777';
-							        break;
-							    case 287:
-							        $id_category = '1778';
-							        break;
-							    case 285:
-							        $id_category = '1779';
-							        break;
-							    case 286:
-							        $id_category = '1780';
-							        break;
-							    default:
-									$id_category = $site['id_category'];
-								break;
-							}
-					echo 'категория ', $id_category, "<br />";
-							$d++;
-						// }
-							// die();
+					}		
+
+	// die();
 						// Добавляем новый товар в БД
 						if(!$product || $skipped){
 							echo "Товар пропущен product пустой<br />";
@@ -1204,18 +1270,18 @@ if(isset($_POST['parse_URL'])){
 
 						}else{
 							echo "Проблема с добавлением продукта <br /><br />";
-							$l++;
+							// $l++;
 						}
-
-					// if($d >= $_POST['num']){	
-					// 	break;
-					// }
+				
+					if($d >= $_POST['num']){	
+						break;
+					}
 					}
 				// if($d >= $_POST['num']){	
 				// 	break;
 				// }
-				}
-			} else {
+
+			}else{
 			echo "Не удалось открыть файл<br />\n";
 			}
 		break;
@@ -1407,7 +1473,7 @@ if(isset($_POST['parse_URL'])){
 			}
 		break;
 		case 25:
-			echo "зашли в case 25 <br />";
+			echo "зашли в case 25 dclink<br />";
 			// выбераем имеющиеся у нас артикул
 			$supcomments = $Products->GetSupComments($id_supplier);
 			if(is_array($supcomments)){
@@ -1415,13 +1481,11 @@ if(isset($_POST['parse_URL'])){
 			}
 			echo 'В кабенете поставшика ', count($supcomments, COUNT_RECURSIVE), "<br />","<br />";
 			//создаем масивы соотметствия категорий
-			$keys_DC = array(152,711,875,778,80,608,680,563,211,566,218,410,282,456,502,480,693,324,207,59,487,488,657,577,579,580,592,593,594,584,169,712,774,854,865,722,713,787,869,779,762,857,861,870,872,866,920,860,879,715,720,856,864,862,721,867,863,855,873,897,894,891,906,601,612,519,520,530,454,909,907,509,500,490,508,461,506,513,446,463,514,515,516,518,525,527,470,533,535,741,503,462,499,932,325,765,459,467,489,742,465,521,482,458,483,485,704,283,491,87,139,656,664,665,931,933,695,644,645,646,647,674,659,58,648,649,21,751,753,586,746,314,754,323,750,752,755,170,376,922,453,220,729,221,411,939,658,391,401,242,918,444,280,378,379,839,791,807,808,251,834,835,836,842,196,204,205,206,245,246,248,790,792,793,811,794,795,277,279,731,789,276,179,181,184,884,318,319,934,321,322,447,315,320,469,471,223,287,389,399,732,687,895,799,188,796,396,209,215,935,286,197,208,210,292,293,203,224,222,90,683,42,110,261,581,19,619,26,31,43,50,878,905,727,728,730,307,308,333,363,348,183,814,815,801,802,803,804,817,818,797,816,822,823,824,825,826,827,809,810,813,831,819,820,832,786,193,200,202,291,876,877,880,881,882,890,899,900,901,902,903,911,912,913,914,915,916,919,923,924,925,926,927,929,908,838,840,380,655,671,694,896,495,452,212,843,226,381,494,529,534,285,135,445,504,505,507,510,511,512,758,460,871,479,501,893,522,523,524,531,532,214,281,528,859,883,886,133,526,887,885,917,928,830,30,160,780,697,260,35,68,158,159,13,53,624,627,628,22,557,290,387,397,400,91,243,781,784,12,258,138,186,405,5,395,317,289,388,398,27,275,288,390,394,9,622,623,760,441,442,481,329,194,20,641,99,668,146,670,54,767,85,618,29,597,598,599,600,602,609,614,615,616,25,48,103,149,195,404,620,770,100,576,201,56,180,190,225,33,309,192,47,555,316,191,219,96,229,92,104,328,301,538,733,650,651,272,554,255,259,263,44,682,189,125,69,187,375,182,736,64,771,45,185,24,772,198,86,150,700,701,851,852,78,105,231,773,847,849,850,134,672,673,575,199,756);
-			$values_XT = array(559,560,563,579,584,587,592,596,600,604,613,620,626,630,631,632,633,635,652,655,659,662,666,670,670,670,670,670,670,670,673,679,695,707,707,708,708,708,708,709,710,710,710,710,710,711,711,712,712,713,713,714,714,716,717,718,718,719,719,721,722,724,764,772,773,781,781,782,796,811,812,921,922,926,928,928,930,931,934,935,935,935,935,935,935,935,938,939,939,940,940,940,941,942,943,944,945,946,947,948,949,949,950,951,951,953,954,955,957,988,989,990,990,990,990,990,990,992,992,992,992,992,992,992,992,992,992,995,995,996,996,996,998,999,1003,1003,1003,1021,1054,1055,1057,1063,1065,1067,1071,1072,1073,1073,1073,1079,1080,1086,1091,1091,1091,1092,1094,1095,1095,1096,1096,1096,1096,1096,1098,1098,1098,1098,1098,1098,1098,1098,1098,1098,1098,1101,1101,1102,1102,1103,1139,1141,1186,1186,1186,1189,1192,1192,1192,1194,1194,1194,1195,1195,1196,1196,1197,1198,1198,1198,1200,1200,1200,1201,1202,1202,1203,1205,1205,1205,1205,1207,1208,1208,1208,1208,1209,1210,1211,1212,1212,1215,1215,1216,1216,1217,1217,1218,1218,1218,1218,1221,1233,1252,1252,1252,1260,1260,1260,1260,1260,1277,1280,1280,1281,1281,1281,1281,1281,1281,1282,1282,1282,1282,1282,1282,1282,1282,1286,1286,1286,1286,1287,1287,1287,1305,1325,1325,1325,1325,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1331,1353,1356,1357,1378,1379,1385,1395,1400,1402,1406,1408,1408,1411,1411,1411,1411,1411,1418,1419,1419,1419,1419,1419,1419,1419,1419,1419,1419,1430,1445,1445,1452,1456,1457,1458,1459,1459,1472,1472,1474,1478,1480,1481,1484,1485,1488,1489,1509,1514,1550,1557,1557,1558,1558,1559,1561,1561,1561,1561,1562,1563,1563,1563,1563,1564,1564,1566,1566,1566,1566,1568,1568,1572,1572,1572,1572,1572,1573,1573,1574,1575,1577,1581,1581,1581,1582,1584,1584,1584,1585,1588,1588,1588,1590,1590,1590,1590,1590,1591,1593,1593,1594,1594,1594,1594,1595,1595,1597,1597,1598,1598,1598,1598,1598,1598,1598,1598,1598,1598,1599,1599,1599,1599,1602,1602,1603,1604,1606,1610,1611,1616,1617,1619,1622,1623,1623,1624,1626,1628,1629,1633,1641,1644,1646,1647,1647,1648,1648,1648,1652,1655,1655,1659,1659,1660,1660,1660,1661,1662,1663,1669,1669,1670,1671,1674,1677,1677,1677,1679,1680,1682,1683,1684,1697,1697,1697,1697,1697,1697,1697,1697,1697,1697,1697,1697,1697,1698,1698,1698,1698,1707,1749);
-			$array_cat = array_combine($keys_DC, $values_XT);
-
+			
+			$array_cat = array(152=>559,711=>560,875=>563,778=>579,80=>584,608=>587,680=>592,563=>596,211=>600,566=>604,218=>613,410=>620,282=>626,456=>630,502=>631,480=>632,693=>633,324=>635,207=>652,59=>655,487=>659,488=>662,657=>666,577=>670,579=>670,580=>670,592=>670,593=>670,594=>670,584=>670,169=>673,712=>679,774=>695,854=>707,865=>707,722=>708,713=>708,787=>708,869=>708,779=>709,762=>710,857=>710,861=>710,870=>710,872=>710,866=>711,920=>711,860=>712,879=>712,715=>713,720=>713,856=>714,864=>714,862=>716,721=>717,867=>718,863=>718,855=>719,873=>719,897=>721,894=>722,891=>724,906=>764,601=>772,612=>773,519=>781,520=>781,530=>782,454=>796,909=>811,907=>812,509=>921,500=>922,490=>926,508=>928,461=>928,506=>930,513=>931,446=>934,463=>935,514=>935,515=>935,516=>935,518=>935,525=>935,527=>935,470=>938,533=>939,535=>939,741=>940,503=>940,462=>940,499=>941,932=>942,325=>943,765=>944,459=>945,467=>946,489=>947,742=>948,465=>949,521=>949,482=>950,458=>951,483=>951,485=>953,704=>954,283=>955,491=>957,87=>988,139=>989,656=>990,664=>990,665=>990,931=>990,933=>990,695=>990,644=>992,645=>992,646=>992,647=>992,674=>992,659=>992,58=>992,648=>992,649=>992,21=>992,751=>995,753=>995,586=>996,746=>996,314=>996,754=>998,323=>999,750=>1003,752=>1003,755=>1003,170=>1021,376=>1054,922=>1055,453=>1057,220=>1063,729=>1065,221=>1067,411=>1071,939=>1072,658=>1073,391=>1073,401=>1073,242=>1079,918=>1080,444=>1086,280=>1091,378=>1091,379=>1091,839=>1092,791=>1094,807=>1095,808=>1095,251=>1096,834=>1096,835=>1096,836=>1096,842=>1096,196=>1098,204=>1098,205=>1098,206=>1098,245=>1098,246=>1098,248=>1098,790=>1098,792=>1098,793=>1098,811=>1098,794=>1101,795=>1101,277=>1102,279=>1102,731=>1103,789=>1139,276=>1141,179=>1186,181=>1186,184=>1186,884=>1189,318=>1192,319=>1192,934=>1192,321=>1194,322=>1194,447=>1194,315=>1195,320=>1195,469=>1196,471=>1196,223=>1197,287=>1198,389=>1198,399=>1198,732=>1200,687=>1200,895=>1200,799=>1201,188=>1202,796=>1202,396=>1203,209=>1205,215=>1205,935=>1205,286=>1205,197=>1207,208=>1208,210=>1208,292=>1208,293=>1208,203=>1209,224=>1210,222=>1211,90=>1212,683=>1212,42=>1215,110=>1215,261=>1216,581=>1216,19=>1217,619=>1217,26=>1218,31=>1218,43=>1218,50=>1218,878=>1221,905=>1233,727=>1252,728=>1252,730=>1252,307=>1260,308=>1260,333=>1260,363=>1260,348=>1260,183=>1277,814=>1280,815=>1280,801=>1281,802=>1281,803=>1281,804=>1281,817=>1281,818=>1281,797=>1282,816=>1282,822=>1282,823=>1282,824=>1282,825=>1282,826=>1282,827=>1282,809=>1286,810=>1286,813=>1286,831=>1286,819=>1287,820=>1287,832=>1287,786=>1305,193=>1325,200=>1325,202=>1325,291=>1325,876=>1331,877=>1331,880=>1331,881=>1331,882=>1331,890=>1331,899=>1331,900=>1331,901=>1331,902=>1331,903=>1331,911=>1331,912=>1331,913=>1331,914=>1331,915=>1331,916=>1331,919=>1331,923=>1331,924=>1331,925=>1331,926=>1331,927=>1331,929=>1331,908=>1353,838=>1356,840=>1357,380=>1378,655=>1379,671=>1385,694=>1395,896=>1400,495=>1402,452=>1406,212=>1408,843=>1408,226=>1411,381=>1411,494=>1411,529=>1411,534=>1411,285=>1418,135=>1419,445=>1419,504=>1419,505=>1419,507=>1419,510=>1419,511=>1419,512=>1419,758=>1419,460=>1419,871=>1430,479=>1445,501=>1445,893=>1452,522=>1456,523=>1457,524=>1458,531=>1459,532=>1459,214=>1472,281=>1472,528=>1474,859=>1478,883=>1480,886=>1481,133=>1484,526=>1485,887=>1488,885=>1489,917=>1509,928=>1514,830=>1550,30=>1557,160=>1557,780=>1558,697=>1558,260=>1559,35=>1561,68=>1561,158=>1561,159=>1561,13=>1562,53=>1563,624=>1563,627=>1563,628=>1563,22=>1564,557=>1564,290=>1566,387=>1566,397=>1566,400=>1566,91=>1568,243=>1568,781=>1572,784=>1572,12=>1572,258=>1572,138=>1572,186=>1573,405=>1573,5=>1574,395=>1575,317=>1577,289=>1581,388=>1581,398=>1581,27=>1582,275=>1584,288=>1584,390=>1584,394=>1585,9=>1588,622=>1588,623=>1588,760=>1590,441=>1590,442=>1590,481=>1590,329=>1590,194=>1591,20=>1593,641=>1593,99=>1594,668=>1594,146=>1594,670=>1594,54=>1595,767=>1595,85=>1597,618=>1597,29=>1598,597=>1598,598=>1598,599=>1598,600=>1598,602=>1598,609=>1598,614=>1598,615=>1598,616=>1598,25=>1599,48=>1599,103=>1599,149=>1599,195=>1602,404=>1602,620=>1603,770=>1604,100=>1606,576=>1610,201=>1611,56=>1616,180=>1617,190=>1619,225=>1622,33=>1623,309=>1623,192=>1624,47=>1626,555=>1628,316=>1629,191=>1633,219=>1641,96=>1644,229=>1646,92=>1647,104=>1647,328=>1648,301=>1648,538=>1648,733=>1652,650=>1655,651=>1655,272=>1659,554=>1659,255=>1660,259=>1660,263=>1660,44=>1661,682=>1662,189=>1663,125=>1669,69=>1669,187=>1670,375=>1671,182=>1674,736=>1677,64=>1677,771=>1677,45=>1679,185=>1680,24=>1682,772=>1683,198=>1684,86=>1697,150=>1697,700=>1697,701=>1697,851=>1697,852=>1697,78=>1697,105=>1697,231=>1697,773=>1697,847=>1697,849=>1697,850=>1697,134=>1698,672=>1698,673=>1698,575=>1698,199=>1707,756=>1749);
 			// header("Content-Type: text/html; charset=windows-1251");
-			//Открываем файл
 
+			//Открываем файл
 		    $ch = curl_init();
 		    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 		    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -1433,35 +1497,95 @@ if(isset($_POST['parse_URL'])){
 		        'showprice' => '1',
 		        'altname' => '1'    )); //параметры запроса 
 			//Получаем прайс
-			$url="https://api.dclink.com.ua/api/GetPrice";
-	 		curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_URL, "https://api.dclink.com.ua/api/GetPrice");
 			if (!$sim_url = simplexml_load_string(curl_exec($ch))){
-				echo "Не удалось открыть файл<br />\n";
+				echo "Не удалось получить прайс<br/>";
 				die();
 			}
 			//Получаем сылки на фото
-			$url_imag="https://api.dclink.com.ua/api/GetPicturesUrl";
-			curl_setopt($ch, CURLOPT_URL, $url_imag);
+			curl_setopt($ch, CURLOPT_URL, "https://api.dclink.com.ua/api/GetPicturesUrl");
 			if (!$sim_url_imag = simplexml_load_string(curl_exec($ch))){
-				echo "Не удалось открыть файл<br />\n";
+				echo "Не удалось получить сылки фото<br/>";
 				die();
 			}
-			curl_close($ch);
-			//Прайс для обновления
-			// $count=0;
-			// echo "UPDATE xt_assortiment SET  product_limit = 0, active = 0 WHERE id_supplier = 32076;", "<br />";
-			// foreach ($sim_url->Product as $Product) {
-			// echo "UPDATE xt_assortiment SET  product_limit = 100000, active = 1, price_opt_otpusk = ", $Product->Price * 26.2, ", price_mopt_otpusk = ", $Product->Price * 26.2, " WHERE id_supplier = ", 32076, " and sup_comment = '", $Product->Code, "';<br />";
-				
-			// 	$count++;
-			// }
+			//курс долара
+			curl_setopt($ch, CURLOPT_URL, "https://api.dclink.com.ua/api/GetExchangeRates");
+			if (!$sim_url_Rates = simplexml_load_string(curl_exec($ch))){
+				echo "Не удалось получить курс долара<br/>";
+				die();
+			}
+			//список категорий
+			curl_setopt($ch, CURLOPT_URL, "https://api.dclink.com.ua/api/GetCategories");
+			if (!$sim_Categories = simplexml_load_string(curl_exec($ch))){
+				echo "Не удалось получить курс долара<br/>";
+				die();
+			}
 
-			// echo $count, "----------------------", "ГОТОВО <br />";
+			curl_close($ch);
+			// Список категорий для сосо
+			// foreach ($sim_Categories as $key => $Cat_value) {
+			// 	$col=0;
+			// 	foreach ($sim_url as $key => $PriceValue) {		
+			// 		if (strval($PriceValue->CategoryID) == strval($Cat_value->CategoryID)) {
+			// 			// echo gettype($PriceValue->CategoryID),";", gettype($Cat_value->CategoryID), '<br/>';
+			// 			$col++;
+			// 		}
+			// 	}
+			// 	echo $Cat_value->ParentID, ";", $Cat_value->CategoryID,";", $Cat_value->CategoryName,";", $col, '<br/>';
+			// }
 			// die();
 
+			//Просматриваем курс долара
+			echo 'Курс долара',  $Rates = $sim_url_Rates->ExchangeRates->CashRate, '<br/>';
+			
+		// die();
+		
+		//Авто обновление
+		$array_add = array(); //количество товаров на добавление
+		$sql_arrey = array(); //количество товаров обновляется
+		//обнуляем метку обновления (no_xtorg = 0)
+		$sql = "UPDATE xt_assortiment SET no_xtorg = 0 WHERE id_supplier = ".$id_supplier;
+		$sql_arrey[] = $sql;
+		foreach ($sim_url->Product as $Product) {
+			if (in_array($Product->Code, $supcomments)) {
+				$id_product = $Products->GetIdBysup_comment($id_supplier, $Product->Code);
+				if ($Product->PriceType == 'USD') {
+					$sql = "UPDATE "._DB_PREFIX_."assortiment SET  product_limit = 100000, active = 1, no_xtorg = 1, price_opt_otpusk = ".$Product->Price * $Rates. ", price_mopt_otpusk = ".$Product->Price * $Rates. " WHERE id_supplier = ".$id_supplier." and id_product = ".$id_product;
+					echo $Product->Code, " обновляем USD <br/>";
+				}else{
+					$sql = "UPDATE "._DB_PREFIX_."assortiment SET product_limit = 100000, active = 1, no_xtorg = 1, price_opt_otpusk = ".$Product->Price. ", price_mopt_otpusk = ".$Product->Price. " WHERE id_supplier = ".$id_supplier." and id_product = ".$id_product;
+					echo $Product->Code, " обновляем <br/>";
+				}				
+				array_push($sql_arrey, $sql);
+			}else{
+				array_push($array_add, $Product);
+				echo $Product->CategoryID, ' - ', $Product->Code, " на добавление <br/>";
+			}
+		}	
+	//выключаем не обновленые позиции
+	$sql = "UPDATE xt_assortiment SET product_limit = 0, active = 0 WHERE id_supplier = ".$id_supplier." and no_xtorg = 0";
+	$sql_arrey[] = $sql;
+	//посмотрим масив sql запросов
+	// echo "Количество товаров в файле ", $all, "<br />";
+	echo "Количество товаров на добавление ", count($array_add), "<br />";
+	echo 'в масиве $sql_arrey ', count($sql_arrey), '<br/>';
+	// foreach ($sql_arrey as $key => $value) {
+	// 	echo $key, " ", $value, '<br/>';
+	// }
+	// foreach ($array_add as $key => $value) {
+	// 	print_r('<pre>');
+	// 	print_r($value);
+	// 	print_r('</pre>');
+	// }
+	// die();
+	//обновляем
+	if($Products->ProcessAssortimentXML($sql_arrey)){
+		echo "ГОТОВО <br />";
+	}
+	// die();
 			echo "парсим ------------------------------------- <br />";
 
-			foreach ( $sim_url->Product as $Product) {
+			foreach ($array_add as $Product) {
 				// ob_end_clean();
 				ob_implicit_flush(1);
 				echo "<br />", $Product->Code, " -> ", $Product->CategoryID, "----------------------<br />";
@@ -1491,8 +1615,7 @@ if(isset($_POST['parse_URL'])){
 				// 	echo  " Товар без категории<br />";
 				// 	continue;
 				// }
-
-
+				
 				if(!$product = $Parser->DCLing_API($Product->Code, $Product->Name, $Product->Price, $sim_url_imag)){
 					continue;
 				}
@@ -1515,7 +1638,7 @@ if(isset($_POST['parse_URL'])){
 				foreach ($product['images'] as $value) {
 					echo $value, "<br />";
 				}
-	// 	die();
+	
 				// continue;
 
 				// Добавляем новый товар в БД
@@ -1604,7 +1727,6 @@ if(isset($_POST['parse_URL'])){
 					$l++;
 				}
 			}
-			
 		break;
 			case 26:
 			echo "зашли в case 26 <br />";
@@ -2872,9 +2994,5 @@ die();
 	ini_set('memory_limit', '192M');
 	ini_set('max_execution_time', 30);
 }
-
-
-
-
 //подключение интерфейса
 $tpl_center .= $tpl->Parse($GLOBALS['PATH_tpl'].'cp_site_parser.tpl');
