@@ -38,7 +38,7 @@
 				</li>
 			</ul>
 		</li>
-		<li id="icon_person_add" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative'?'class="active"':null;?>>
+<!-- 		<li id="icon_person_add" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite']=='cooperative'?'class="active"':null;?>>
 			<span class="link_wrap">
 				<a href="#"><i class="material-icons"><i class="material-icons">&#xE7F0;</i></i><span class="textInALink">Совместные заказы</span></a>
 				<span class="more_cat"><i class="material-icons">&#xE315;</i></span>
@@ -59,7 +59,7 @@
 			<span class="link_wrap">
 				<a href="#"><i class="material-icons">people</i><span class="textInALink">Списки друзей</span></a>
 			</span>
-		</li>
+		</li> -->
 		<li id="icon_settings" <?=isset($GLOBALS['Rewrite']) && $GLOBALS['Rewrite'] == 'settings'?'class="active"':null;?>>
 			<span class="link_wrap">
 				<a href="#"><i class="material-icons">settings</i><span class="textInALink">Настройки</span></a>
