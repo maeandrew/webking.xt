@@ -10,7 +10,6 @@ $Products = new Products();
 
 ini_set('memory_limit', '1024M');	
 ini_set('max_execution_time', 3000);
-
 $plist = $Products->SetProductsList4csvProm();
 
 header('Content-Encoding: UTF-8');
@@ -60,11 +59,11 @@ foreach($plist AS $p){
 		str_replace(' ', ',', $p['name_index']), '.'.
 		'<a href="'.$GLOBALS['URL_base'].'/'.$p['translit'].'.html"><img src="'.$GLOBALS['URL_base'].'/images/buy.png" /></a>'.$p['descr'],
 		$p['price_mopt'] > 0?'u':'w',
-		round($p['price_mopt']*$mopt_coeff, 2),
+		round($p['price_mopt']*$mopt_coeff, 1),
 		'UAH',
 		$p['units'],
 		$p['min_mopt_qty'],
-		round($p['price_opt']*$opt_coeff, 2),
+		round($p['price_opt']*$opt_coeff, 3),
 		$p['inbox_qty'],
 		_base_url.$p['img_1'],
 		'+',
