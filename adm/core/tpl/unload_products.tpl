@@ -1,16 +1,16 @@
 <h1><?=$h1?></h1>
 <div class="grid">
 	<ul class="unload_links row">
-		<li class="hidden col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<li class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 			<a href="/csv_prom/" title="Кликни для выгрузки"><img src="/adm/images/prom_ua.png" alt="prom_ua">prom.ua</a>
 		</li>
 		<li class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 			<a href="/csv_prom_new/" title="Кликни для выгрузки"><img src="/adm/images/prom_ua.png" alt="prom_ua">prom.ua <span class="icon-option notactive">o</span></a>
 		</li>
-		<li class="hidden col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<li class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 			<a href="/csv_barabashovo/" title="Кликни для выгрузки"><img src="/adm/images/barabashovo_ua.png" alt="barabashovo_ua">barabashovo.ua</a>
 		</li>
-		<li class="hidden col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<li class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 			<a href="/csv_etov/" title="Кликни для выгрузки"><img src="/adm/images/etov_ua.png" alt="etov_ua">etov.ua</a>
 		</li>
 		<li class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
