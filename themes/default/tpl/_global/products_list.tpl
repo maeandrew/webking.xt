@@ -304,11 +304,12 @@ switch(isset($_SESSION['member']['gid']) ? $_SESSION['member']['gid'] : null){
 					</div>
 
 					<div class="product_check card_item">
-						<span class="suplierPriceBlockLabel">Добавить:</span>
-						<label  class="mdl-checkbox mdl-js-checkbox">
+						<span class="suplierPriceBlockLabel">Добавить: Руслан 0503098415</span>
+						<!-- <span class="suplierPriceBlockLabel">Добавить:</span> -->
+						<!-- <label  class="mdl-checkbox mdl-js-checkbox"> -->
 							<!-- <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"> -->
-							<input type="checkbox" class="check mdl-checkbox__input" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this, <?=$item['id_product']?>)"/>
-						</label>
+							<!-- <input type="checkbox" class="check mdl-checkbox__input" <?=isset($_SESSION['Assort']['products'][$item['id_product']])?'checked=checked':null?> onchange="AddDelProductAssortiment(this, <?=$item['id_product']?>)"/> -->
+						<!-- </label> -->
 					</div>
 				</div>
 				<div class="clearBoth"></div>
