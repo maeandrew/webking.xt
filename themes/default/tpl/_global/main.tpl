@@ -208,7 +208,7 @@
 			</div>
 		</section>
 	<?}?>
-	<p class="contakt"><strong> Б Е С П Л А Т Н А Я &nbsp;&nbsp;Д О С Т А В К А</strong>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      контакты: (050) 309 84 20 &nbsp; (067) 574 10 13 &nbsp; (063) 425 91 83</p>
+	<p class="contakt"><strong><span>контакты:</span><span>(050) 30 98 420</span><span> (067) 57 41 013</span><span> (063) 42 59 183</span></p>
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
 			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
@@ -704,6 +704,47 @@
 				</form>
 			</div>
 		</div>
+	<!-- модалка слайдера -->
+	<div id="sliders-main" data-type="modal">
+		<h4 class="marquee"><span>Большой выбор, бесплатная доставка, гарантия. (050) 30 98 420   (067) 57 41 013   (063) 42 59 183</span></h4>
+		<?if(isset($slaid_products) && !empty($slaid_products)){?>
+			<div class="sliders-main">
+				<!-- <h4>Сопутствующие товары</h4> -->
+				<div id="owl-main" class="owl-carousel">
+					<?foreach($slaid_products as $p){?>
+						<div class="item">
+							<a href="<?=Link::Product($p['translit']);?>">
+								<?if(is_array($p['images']) && !empty($p['images'])){?>
+									<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=G::GetImageUrl($p['images'][0]['src'], 'medium');?>">
+								<?}else	if(!empty($p['img_1'])){?>
+									<img alt="<?=htmlspecialchars($p['name'])?>" src="<?=G::GetImageUrl($p['img_1'], 'medium');?>"/>
+								<?}else{?>
+									<img alt="" src="<?=G::GetImageUrl('/images/nofoto.png')?>">
+								<?}?>
+								<span><?=$p['name']?></span>
+								<div class="ca-more"><?=number_format($p['prices_opt'][$_COOKIE['sum_range']], 2, ',', '')?> грн.</div>
+
+							</a>
+							<div class="product_buy" data-idproduct="<?=$p['id_product']?>">
+								<?if(isset($p['active']) && $p['active'] == 0){?>
+									<span class="out_of_stock">Нет в наличии</span>
+								<?}else{?>
+									<div class="buy_block" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+										<div class="btn_buy <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
+											<div id="in_cart_<?=$p['id_product'];?>" class="btn_js in_cart_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?null:'hidden';?>" data-name="cart"><i class="material-icons">shopping_cart</i><!-- В корзине --></div>
+											<div class="mdl-tooltip" for="in_cart_<?=$p['id_product'];?>">Товар в корзине</div>
+											<button class="mdl-button mdl-js-button buy_btn_js out_card_js <?=isset($_SESSION['cart']['products'][$p['id_product']])?'hidden':null;?>" type="button" onClick="ChangeCartQty($(this).closest('.product_buy').data('idproduct'), null); return false;">Заказать</button>
+										</div>
+										<input class="qty_js" type="hidden" value="<?=isset($p['min_mopt_qty'])?$p['min_mopt_qty']:1;?>">
+									</div>
+								<?}?>
+							</div>
+						</div>
+					<?}?>
+				</div>
+			</div>
+		<?}?>
+	</div>
 		<div id="access_recovery" data-type="modal">
 			<div class="password_recovery_container">
 				<h4>Восстановление доступа</h4>

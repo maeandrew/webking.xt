@@ -572,13 +572,14 @@ $(function(){
 	$("#owl-product_mini_img_js").owlCarousel({
 		items: 6,
 		itemsCustom: [[320, 1], [727, 2], [950, 3], [1250, 4], [1600, 5]],
-		navigation: true, // Show next and prev buttons
+		navigation: false, // Show next and prev buttons
+		nav: false,
 		dots: false,
 		navigationText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 	});
 	$("#owl-popular, #owl-other, #owl-last-viewed, #owl-accompanying, #owl-new-products").owlCarousel({
-		autoPlay: false,
+		autoplay: true,
 		dots: false,
 		stopOnHover: true,
 		slideSpeed: 300,
@@ -597,7 +598,7 @@ $(function(){
 	});
 
 	$("#owl-top").owlCarousel({
-		autoPlay: false,
+		autoplay: true,
 		dots: false,
 		stopOnHover: true,
 		slideSpeed: 300,
@@ -608,6 +609,56 @@ $(function(){
 		navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
 						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']
 	});
+//запуск слайдера по бездействию пользователя----------------------------------
+	idleTimer = null;
+	idleState = false; // состояние отсутствия
+	idleWait = 10000; // время ожидания в мс. (1/1000 секунды)	 
+	$(document).ready( function(){
+	  $(document).bind('mousemove keydown scroll', function(){
+	    clearTimeout(idleTimer); // отменяем прежний временной отрезок
+	    if(idleState == true){ 
+	      // Действия на возвращение пользователя
+	       // $("body").append("<p>С возвращением!</p>");
+	    }	 
+	    idleState = false;
+	    idleTimer = setTimeout(function(){ 
+	      // Действия на отсутствие пользователя
+	    if( screen.width > 800 ) {		
+		      openObject('sliders-main');	
+			// $('#auth #sign_in').show().removeClass('hidden');
+		    $("#owl-main").owlCarousel({
+		    	margin: 20,
+		    	// autoHeight: true,
+				autoWidth: true,
+				singleItem: true,
+				center: true,
+				itemsScaleUp: true,
+				lazyLoad: true,
+				loop: true,
+				rewind: true,
+				slideSpeed: 1000,
+				smartSpeed:1000,
+				paginationSpeed: 20000,
+				autoplaySpeed: 100,
+				autoplayTimeout: 10000,
+				autoplayHoverPause: true,
+				stopOnHover: true,
+		    	autoplay: true,
+				stopOnHover: true,
+				slideSpeed: 300,
+				// nav: true, // Show next and prev buttons
+				navText: ['<svg class="arrow_left"><use xlink:href="images/slider_arrows.svg#arrow_left_tidy"></use></svg>',
+						'<svg class="arrow_right"><use xlink:href="images/slider_arrows.svg#arrow_right_tidy"></use></svg>']	
+			});	
+		}	
+	    // closeObject('sliders-main');
+	    
+		   idleState = true; 
+	    }, idleWait);
+	  });	 
+	  // $("body").trigger("mousemove"); // сгенерируем ложное событие, для запуска скрипта
+	});
+//--------------------------------------------------------------
 	//Rating stars
 	$('.set_rating').on('change', function(){
 		var rating = $(this).val();

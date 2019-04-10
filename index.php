@@ -90,6 +90,9 @@ if(!isset($_SESSION['member']['promo_code']) || $_SESSION['member']['promo_code'
 	$tpl->Assign('promo_supplier', $Suppliers->fields);
 	unset($Suppliers);
 }
+//Выборка товары для слайдера
+$limit = 10;
+$tpl->Assign('slaid_products', $Products->GetProductSlaider($limit));
 // Выборка просмотренных товаров
 if(isset($_COOKIE['view_products'])){
 	foreach(json_decode($_COOKIE['view_products']) as $value){
@@ -167,7 +170,7 @@ echo "<!--".date("d.m.Y H:i:s", time())." ".$_SERVER['REMOTE_ADDR']." gentime = 
 unset($s_time, $e_time);
 echo "<!--
 Design: Alexander Parkhomenko;
-Front-end: Alexander Riabukha, Nadezhda Kovalyova, Alexander Parkhomenko;
+Front-end: Alexander Parkhomenko;
 Back-end: Alexander Parkhomenko;
  -->";
 // echo memory_get_peak_usage()/pow(1000, 2);

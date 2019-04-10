@@ -453,6 +453,20 @@ class Products {
 		return $arr;
 	}
 	/**
+	 * Получение массива id_products по артикулу и по его началу
+	 * @param integer	$art	идентификатор товара
+	 */
+	public function GetIdnameArrayByArt($art){
+		$sql = "SELECT p.id_product, p.name
+			FROM "._DB_PREFIX_."product AS p
+			WHERE p.art = ".$art;
+		$arr = $this->db->GetOneRowArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr;
+	}
+	/**
 	 * [SetProductsListDropDownSearch description]
 	 * @param boolean $and [description]
 	 */
@@ -657,7 +671,7 @@ class Products {
 	 */
 	public function SetProductsList4csvProm(){
 		$sql = "SELECT p.art, p.name, p.translit, p.descr,
-		 (CASE WHEN p.img_1 <> '' THEN p.img_1 ELSE (SELECT src FROM "._DB_PREFIX_."image as img WHERE p.id_product = img.id_product and ord = 0 ) END) AS img_1,
+		 (CASE WHEN p.img_1 <> '' THEN p.img_1 ELSE (SELECT max(src) FROM "._DB_PREFIX_."image as img WHERE p.id_product = img.id_product and ord = 0) END) AS img_1,
 			un.unit_prom AS units, p.price_opt, p.name_index,
 			p.price_mopt, p.opt_correction_set,
 			p.mopt_correction_set, p.min_mopt_qty,
@@ -670,7 +684,7 @@ class Products {
 			FROM "._DB_PREFIX_."product AS p
 			LEFT JOIN "._DB_PREFIX_."units AS un
 				ON un.id = p.id_unit
-			WHERE p.price_mopt <> 0 and id_product IN (SELECT id_product FROM xt_assortiment LEFT JOIN xt_user ON xt_user.id_user = xt_assortiment.id_supplier WHERE xt_user.active + xt_assortiment.active = 2 and xt_assortiment.id_supplier in (4710,73,75,82,83,87,89,93,95,96,101,102,596,1700,31,2479,3223,3506,13,3520,3793,4639,4654,4722,68,174,220,64,18,3593,21,24,4725,28,29,5059,384,619,1231,74,3166,3361,3683,43,45,53,55,56,63,600,1218,4636,7068,8103,8123,8709,9244,9309,4655,11481,11498,11531,8,12250,12394,12396,12401,12863,12864,12865,12869,13315,13552,14291,14300,15601,15610,16516,16518,16520,16522,16526,16531,17833,17835,18508,18509,18522,19292,19797,19803,19810,20289,20292,20297,20302,20439,21394,21396,21412,21413,21767,21769,22240,22249,22250,22252,30115,30939,31525,31536,32076))
+			WHERE p.price_mopt <> 0 and  p.id_product IN (SELECT id_product FROM "._DB_PREFIX_."assortiment LEFT JOIN "._DB_PREFIX_."user ON "._DB_PREFIX_."user.id_user = "._DB_PREFIX_."assortiment.id_supplier WHERE "._DB_PREFIX_."user.active + "._DB_PREFIX_."assortiment.active = 2) 
 			HAVING img_1 is not null";
 		$res = $this->db->GetArray($sql);
 		if(!$res){
@@ -2200,7 +2214,7 @@ class Products {
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
 		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
 		$f['create_user'] = isset($arr['create_user'])?$arr['create_user']:$_SESSION['member']['id_user'];
-		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == '1')?1:0;
 
 		// Добавляем товар в бд
 		$this->db->StartTrans();
@@ -2387,7 +2401,12 @@ class Products {
 	 */
 	public function DelProduct($id_product){
 		$this->db->StartTrans();
-		// делаем товар неактивным
+		// // удаляем привязку к фото
+		// if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'xt_image WHERE id_product = '.$id_product)){
+		// 	$this->db->FailTrans();
+		// 	return 1;
+		// }
+		// удаляем товар с таблицы product
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'product WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
 			return 1;
@@ -3206,6 +3225,26 @@ class Products {
 			return false;
 		}
 		foreach($arr as &$p){
+			$p['images'] = $this->GetPhotoById($p['id_product']);
+			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
+			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);
+			for($i=0; $i<=3; $i++){
+				$p['prices_opt'][$i] = round($p['price_opt']* $coef_price_opt[$i], 2);
+				$p['prices_mopt'][$i] = round($p['price_mopt']* $coef_price_mopt[$i], 2);
+			}
+		}
+		return $arr;
+	}
+	//выбор товаров для слайдера.'ORDER BY RAND()'
+	public function GetProductSlaider($limit = false){
+		$sql = 'SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
+			p.min_mopt_qty, p.descr, p.img_1, p.opt_correction_set, p.mopt_correction_set, p.units
+			FROM '._DB_PREFIX_.'product p where p.id_product in (SELECT o.id_product FROM '._DB_PREFIX_.'osp o where o.id_order = '.$GLOBALS['CONFIG']['order_slaider'].')'.($limit?' LIMIT '.$limit:null);
+		if(!$arr = $this->db->GetArray($sql)){
+			return false;
+		}
+		foreach($arr as &$p){
+			$p['name'] = mb_strimwidth($p['name'], 0, 50, "...");
 			$p['images'] = $this->GetPhotoById($p['id_product']);
 			$coef_price_opt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['opt_correction_set']]);
 			$coef_price_mopt =  explode(';', $GLOBALS['CONFIG']['correction_set_'.$p['mopt_correction_set']]);

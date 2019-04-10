@@ -4240,6 +4240,10 @@ text-align:center;
 font-size:1.5em;
 color:#fff;
 }
+.contakt span{
+display: inline-block;
+padding-left: 20px;
+}
 .advantages .advantages_button span.floating {
 	top: -1em;
 }
@@ -5116,4 +5120,124 @@ div[for="rating_block"] {
 		line-height: 30px;
 		font-size: 14px;
 		font-weight: normal;
+	}
+	/*слайдер*/
+	/* модалка слайдера ======================================================== */
+	#sliders-main {
+
+		width: 100%;
+		height: 100%;
+		max-width: 100%;
+		max-height: 850px;
+		overflow-y: auto;
+		padding: 0px, 20px !important; 
+	}
+	#sliders-main >.sliders-main .owl-item .ca-more{
+		font-size: 350% !important;
+		opacity: .9;
+		margin: 20px;
+		color: #018b06;
+		font-weight: 600;
+		width: 90%;
+		/*border-radius: .2em;*/
+		padding: 5px 10px;
+		/*z-index: 99;*/
+		/*background: #fff;*/
+		/*border: 1px solid #e0e0e0;*/
+		text-align: center;
+	}
+	#sliders-main >.product_buy .buy_block .btn_buy button {
+		text-transform: capitalize;
+		position: absolute;
+		background: #ff5722;
+		border: 0;
+		color: #fff;
+		top: 0;
+		left: 10%;
+		right: 10%;
+		-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+		transition: all .4s cubic-bezier(.4,0,.2,1);
+		width: 80%;
+		z-index: 1;
+		border: 1px solid #f1f1f1;
+	}
+	#sliders-main >.product_buy .buy_block .btn_buy button {
+		text-transform: capitalize;
+		position: absolute;
+		top: 0;
+		left: 10%;
+		right: 10%;
+		-webkit-transition: all .4s cubic-bezier(.4,0,.2,1);
+		-o-transition: all .4s cubic-bezier(.4,0,.2,1);
+		transition: all .4s cubic-bezier(.4,0,.2,1);
+		width: 80%;
+		z-index: 1;
+		border: 1px solid #f1f1f1;
+	}
+	#sliders-main >.card .product_buy .buy_block .btn_buy:hover button {
+		position: absolute;
+		top: calc(-35px / 2);
+		height: 70px;
+	}
+	#sliders-main >.card:hover .product_buy .buy_block .btn_buy button {
+		background: #ff5722;
+		border-color: #ff5722;
+		box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5);
+		color: #fff;
+	}
+	#sliders-main >.card:hover .product_photo .add_to_fav_trend_block {
+		opacity: 1;
+	}
+	#sliders-main >.card:hover .product_photo .add_to_fav_trend_block > div i {
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+	}
+	/*Бегущая строка*/
+	@-webkit-keyframes scroll {
+    	0% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    	}
+	    100% {
+	        -webkit-transform: translate(-100%, 0);
+	        transform: translate(-100%, 0)
+	    }
+	}
+ 
+	@-moz-keyframes scroll {
+	    0% {
+	        -moz-transform: translate(0, 0);
+	        transform: translate(0, 0);
+	    }
+	    100% {
+	        -moz-transform: translate(-100%, 0);
+	        transform: translate(-100%, 0)
+	    }
+	} 
+	@keyframes scroll {
+	    0% {
+	        transform: translate(0, 0);
+	    }
+	    100% {
+	        transform: translate(-100%, 0)
+	    }
+	} 
+	.marquee {
+	    display: block;
+	    width: 120%;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    font-size: 400%;
+		color: #FF5722;
+		font-weight: 600;
+	}	 
+	.marquee span {
+	    display: inline-block;
+	    padding-left: 80%;
+	    -webkit-animation: scroll 50s infinite linear;
+	    -moz-animation: scroll 50s infinite linear;
+	    animation: scroll 50s infinite linear;
 	}
