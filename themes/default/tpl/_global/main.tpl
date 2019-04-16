@@ -7,13 +7,13 @@
 	<title><?=$__page_title?$__page_title:null;?></title>
 	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
-	<?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
+<!-- <?if(in_array($GLOBALS['CurrentController'], array('product', 'products', 'news', 'post', 'page'))){
 		if(!isset($indexation) || $indexation == 0){?>
 			<meta name="robots" content="noindex, follow"/>
 		<?}
 	}else{?>
-		<!-- <meta name="robots" content="noindex, follow"/> -->
-	<?}?>
+		<meta name="robots" content="noindex, follow"/>
+	<?}?> -->
 	<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
@@ -31,7 +31,9 @@
 		if(isset($GLOBALS['meta_prev'])){?>
 			<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
 		<?}
-	}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
+	}elseif($GLOBALS['CurrentController'] == 'page' && strpos($_SERVER['REQUEST_URI'], '?')){?>
+			<link rel="canonical" href="<?=_base_url.stristr($_SERVER['REQUEST_URI'], '?', true);?>"/>
+	<?}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>
 
