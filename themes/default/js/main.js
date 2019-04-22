@@ -612,7 +612,7 @@ $(function(){
 //запуск слайдера по бездействию пользователя----------------------------------
 	idleTimer = null;
 	idleState = false; // состояние отсутствия
-	idleWait = 10000; // время ожидания в мс. (1/1000 секунды)	 
+	idleWait = 100000; // время ожидания в мс. (1/1000 секунды)	 
 	$(document).ready( function(){
 	  $(document).bind('mousemove keydown scroll', function(){
 	    clearTimeout(idleTimer); // отменяем прежний временной отрезок
