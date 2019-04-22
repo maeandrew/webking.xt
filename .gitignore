@@ -276,7 +276,7 @@ themes/default/img/_xt1.svg
 themes/default/img/1111
 themes/default/img/1_xt.svg
 themes/default/img/_xt.svg
-*.svg
+
 themes/default/img/_xt.svg
 themes/default/img/_xt.svg
 post_images/A100.xml
@@ -287,3 +287,14 @@ themes/default/img/_xt.svg
 themes/default/img/_xt.svg
 themes/default/img/_xt.svg
 themes/default/img/_xt.svg
+
+sitemap/products-5.xml
+sitemap/products-4.xml
+sitemap/products-3.xml
+sitemap/products-2.xml
+sitemap/products-1.xml
+sitemap/products.xml
+themes/default/img/_xt0.svg
+sitemap/news.xml
+sitemap/categories.xml
+adm/error.log
