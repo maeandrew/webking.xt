@@ -249,7 +249,7 @@ images/categories/*
 images/delivery/*
 images/avatars/*
 efiles/pickers/*
-cron/*
+sitemap/*
 temp/*
 
 xt.sublime-workspace
@@ -298,3 +298,4 @@ themes/default/img/_xt0.svg
 sitemap/news.xml
 sitemap/categories.xml
 adm/error.log
+sitemap/products-1.xml
