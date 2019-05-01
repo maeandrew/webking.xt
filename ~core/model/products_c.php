@@ -439,6 +439,19 @@ class Products {
 		return $arr['id_product'];
 	}
 	/**
+	 * Получить id товара по его названию
+	 */
+	public function GetIDByNema($name){
+		$sql = "SELECT id_product
+			FROM "._DB_PREFIX_."product
+			WHERE name = ".$name;
+		$arr = $this->db->GetOneRowArray($sql);
+		if(!$arr){
+			return false;
+		}
+		return $arr['id_product'];
+	}
+	/**
 	 * Получение массива id_products по артикулу и по его началу
 	 * @param integer	$art	идентификатор товара
 	 */
@@ -2212,9 +2225,9 @@ class Products {
 		$f['id_unit'] = isset($arr['id_unit'])?$arr['id_unit']:1;
 		$f['qty_control'] = (isset($arr['qty_control']) && $arr['qty_control'] == "on")?1:0;
 		$f['visible'] = (isset($arr['visible']) && $arr['visible'] == "on")?0:1;
-		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "1"))?1:0;
+		$f['note_control'] = (isset($arr['note_control']) && ($arr['note_control'] == "on" || $arr['note_control'] == "on"))?1:0;
 		$f['create_user'] = isset($arr['create_user'])?$arr['create_user']:$_SESSION['member']['id_user'];
-		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == '1')?1:0;
+		$f['indexation'] = (isset($arr['indexation']) && $arr['indexation'] == "on")?1:0;
 
 		// Добавляем товар в бд
 		$this->db->StartTrans();
@@ -3239,7 +3252,7 @@ class Products {
 	public function GetProductSlaider($limit = false){
 		$sql = 'SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
 			p.min_mopt_qty, p.descr, p.img_1, p.opt_correction_set, p.mopt_correction_set, p.units
-			FROM '._DB_PREFIX_.'product p where p.id_product in (SELECT o.id_product FROM '._DB_PREFIX_.'osp o where o.id_order = '.$GLOBALS['CONFIG']['order_slaider'].')'.($limit?' LIMIT '.$limit:null);
+			FROM '._DB_PREFIX_.'product p where p.id_product in (SELECT o.id_product FROM '._DB_PREFIX_.'osp o where o.id_order = '.$GLOBALS['CONFIG']['slaider_order'].')'.($limit?' LIMIT '.$limit:null);
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
