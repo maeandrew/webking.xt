@@ -59,23 +59,24 @@
 			$not_cat= $not_cat_offer = $offer_on = $offer_add = array();
 			foreach ($array_value as $key => $offer) {
 				if (in_array(trim($offer['2']), $supcomments)) {
-					array_push($offer_on, $offer);
-					echo "обновить";
+					// array_push($offer_on, $offer);
+					// echo "обновить: ";
 				}else{
 					array_push($offer_add, $offer);
-					echo "добавить:  ";
-				}	
-				echo $key, '<br/>';
-				print_r('<pre>');
-				print_r($offer);
-				print_r('</pre>');		
+					echo "добавить: ";
+					
+				echo $key, ' -> ', $offer[1], ' -> ', $offer[2], ' -> ', $offer[3], ' -> ', $offer[4], '<br/>';
+			}
+				// print_r('<pre>');
+				// print_r($offer);
+				// print_r('</pre>');		
 			}
 		}
 	echo  'в прайсе', count($array), 'есть в базе ', count($offer_on),  '<br/>';
 	echo 'Товаров на обновление: ', count($offer_on), "<br/>"; 
 	echo 'Товаров на добавление: ', count($offer_add), "<br/>"; 
 	echo 'Нет категории: ', count($not_cat_offer), "<br/>"; 
-// die();
+die();
 	echo 'СТАРТ добавления: <br/>';
 	$i = $l = $d = $ldi = 0;			
 	foreach ($offer_add as $offer) {

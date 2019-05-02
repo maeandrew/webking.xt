@@ -1,6 +1,8 @@
 <?php
-ini_set('memory_limit', '3072M');
-echo $GLOBALS['CONFIG']['yandex_counter'];
+// ini_set('memory_limit', '3072M');
+print_r('<pre>');
+	print_r($GLOBALS['CONFIG']);
+	print_r('</pre>');
 // phpinfo();
 die();
 error_reporting(-1);

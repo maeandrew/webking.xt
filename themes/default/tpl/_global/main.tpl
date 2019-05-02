@@ -7,7 +7,7 @@
 	<title><?=$__page_title?$__page_title:null;?></title>
 	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
-	<!-- setting canonical pages -->
+		<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
@@ -31,20 +31,13 @@
 	<?}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>
-
 	<!-- favicon loading -->
 	<link type="image/x-icon" href="/favicon.ico" rel="icon"/>
 	<link type="image/x-icon" href="/favicon.ico" rel="shortcut icon"/>
-	<!-- END favicon loading -->
-
-	<!-- END setting canonical pages -->
-
 	<!-- defining author for special pages -->
 	<?if(isset($GLOBALS['__author']) == true){?>
 		<link rel="author" href="<?=$GLOBALS['__author']?>"/>
 	<?}?>
-	<!-- END defining author for special pages -->
-
 	<!-- define JS global variables -->
 	<?php
 	echo '<script type="text/javascript">
@@ -57,8 +50,6 @@
 			IsMobile = '.(G::isMobile()?'true':'false').';
 	</script>';
 	?>
-	<!-- END define JS global variables -->
-
 	<!-- CSS load -->
 	<?if(isset($css_arr)){
 		$tmpstr = '<link href="'.$GLOBALS['URL_css'].'%s" rel="stylesheet" type="text/css"/>'."\n";
@@ -69,7 +60,6 @@
 			echo sprintf($tmpstr, $css);
 		}
 	}?>
-
 	<!-- JS load -->
 	<?if(isset($js_arr)){
 		$tmpstr = '<script src="'.$GLOBALS['URL_js'].'%s" type="text/javascript"%s></script>'."\n";
@@ -77,32 +67,33 @@
 			echo sprintf($tmpstr, $js['name'], $js['async']==true?' async':null);
 		}
 	}?>
-	<!-- <script src="http://mbostock.github.com/d3/d3.v2.js"></script>
-		<script src="http://underscorejs.org/underscore.js"></script> -->
-	<!-- END JS load -->
-
 	<!-- Google Material Icon -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-	<!-- END include specific js templates for controllers -->
+	<!-- include specific js templates for controllers -->
 	<?if(!G::IsLogged() || !in_array($_SESSION['member']['gid'], array(_ACL_SUPPLIER_MANAGER_, _ACL_SUPPLIER_, _ACL_DILER_, _ACL_MODERATOR_, _ACL_MANAGER_, _ACL_SEO_))){?>
-
-		<?if(G::IsLogged()){?>
-			<!-- Google Tag Manager User-ID -->
-			<script>
-				dataLayer = [{'uid': '<?=$_SESSION['member']['id_user']?>'}];
-			</script>
-			<!-- END Google Tag Manager User-ID -->
-		<?}?>
-		<!-- Google counter -->
-		<?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?>
-		<!-- END Google counter -->
-
-		<!-- Yandex.Metrika counter -->
-		<?isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?>
-		<!-- END Yandex.Metrika counter -->
-		<!--<script>ga('require', 'ecommerce');</script>-->
-	<?}?>
+	<!-- Google Tag Manager User-ID -->
+	<?if(G::IsLogged()){?><script>dataLayer = [{'uid': '<?=$_SESSION['member']['id_user']?>'}];</script><?}?>
+	<!-- Google counter -->
+	<!-- <?isset($GLOBALS['CONFIG']['google_counter'])?$GLOBALS['CONFIG']['google_counter']:null;?> -->
+	<script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-73885939-1', 'auto'); ga('require', 'ecommerce', 'ecommerce.js'); ga('send', 'pageview'); </script>
+	<!-- Yandex.Metrika counter -->
+	<!-- <?isset($GLOBALS['CONFIG']['yandex_counter'])?$GLOBALS['CONFIG']['yandex_counter']:null?> -->
+	<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym");
+   ym(36383095, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true,
+        trackHash:true
+   });
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/36383095" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- Ecommerce -->
+	<!--<script>ga('require', 'ecommerce');</script>-->
+	<!-- <?}?> -->
 	<!-- define search box in google sitelinks -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<script type="application/ld+json">
