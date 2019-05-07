@@ -133,6 +133,10 @@ class Products {
 			$arr['prices_opt'][$i] = round($arr['price_opt']* $coef_price_opt[$i], 2);
 			$arr['prices_mopt'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i], 2);
 		}
+		for($i=0; $i<=3; $i++){
+			$arr['prices_opt_margin'][$i] = round($arr['price_opt']* $coef_price_opt[$i] - $arr['price_opt'], 2);
+			$arr['prices_mopt_margin'][$i] = round($arr['price_mopt']* $coef_price_mopt[$i] - $arr['price_mopt'], 2);
+		}
 		// $arr[0]['main_category'] = $maincatarr;
 		$this->fields = $arr;
 		return true;

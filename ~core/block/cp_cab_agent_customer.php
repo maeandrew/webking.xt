@@ -15,31 +15,63 @@ if(isset($_REQUEST['confirm_agent']) && !G::isAgent() && $Users->ConfirmAgent())
 $Orders = new Orders();
 $orders = $Users->GetAgentInfo($_SESSION['member']['id_user']);
 $total_bonus = 0;
-$percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
 if(!empty($orders)){
 	foreach($orders as &$order){
 		$list = $Orders->GetOrderForCustomer(array('o.id_order' => $order['id_order']));
-		$order['amount'] = 0;
-		foreach($list as &$p){
-			if($p['promo'] == 0){
-				if($p['opt_qty'] > 0 ){
-					$order['amount'] += (($p['contragent_qty']<=0?0:$p['contragent_qty'])-$p['return_qty'])*$p['site_price_opt'];
-				}else{
-					$order['amount'] += (($p['contragent_mqty']<=0?0:$p['contragent_mqty'])-$p['return_mqty'])*$p['site_price_mopt'];
+			$coeff = 3;
+		if($order['sum_discount'] > $GLOBALS['CONFIG']['retail_order_margin']){
+			$coeff = 2;
+		}
+		if($order['sum_discount'] > $GLOBALS['CONFIG']['wholesale_order_margin']){
+			$coeff = 1;
+		}
+		if($order['sum_discount'] > $GLOBALS['CONFIG']['full_wholesale_order_margin']){
+			$coeff = 0;
+		}
+// echo $order['sum_discount'], ' $coeff= ', $coeff, '<br/>';
+		$order['amount'] = $order['agent_counted'] = 0;
+		foreach($list as &$p){	
+				if($p['contragent_qty'] > 0 ){
+					$order['amount'] += $p['contragent_qty']*($p['site_price_opt']>0?$p['site_price_opt']:$p['site_price_mopt']);
+					if(!empty($p['agent_profits']) && $order['id_order_status'] == 2){
+						$agent_profits = explode(';', $p['agent_profits']);
+						$n_agent_profits = count($agent_profits);
+						if($n_agent_profits == 8) {
+// echo $p['id_order'], ' - ', $p['id_product'], ' <--> ', $p['contragent_qty'], ' < ', $p['inbox_qty'], '<br/>';
+							if($p['contragent_qty']< $p['inbox_qty']) {
+// echo $p['agent_profits'], '<br/>';
+// echo '1 qty ', $agent_profits[$coeff+4], '<br/><br/>';
+								$order['agent_counted']+=(($p['contragent_qty']<=0?0:$p['contragent_qty']))*$agent_profits[$coeff+4];
+							}else{
+// echo $p['agent_profits'], '<br/>';
+// echo '2 qty ', $agent_profits[$coeff], '<br/><br/>';
+								$order['agent_counted']+=$p['contragent_qty']*$agent_profits[$coeff];
+							}		
+						}					
+					}
 				}
-			}
-		}
-		if($order['amount'] < $GLOBALS['CONFIG']['retail_order_margin']){
-			$coeff = $percents[0]*0.01;
-		}elseif($order['amount'] < $GLOBALS['CONFIG']['wholesale_order_margin']){
-			$coeff = $percents[1]*0.01;
-		}elseif($order['amount'] < $GLOBALS['CONFIG']['full_wholesale_order_margin']){
-			$coeff = $percents[2]*0.01;
-		}else{
-			$coeff = $percents[3]*0.01;
-		}
+				if($p['contragent_mqty'] > 0 ){
+					$order['amount'] += $p['contragent_mqty']*($p['site_price_mopt']>0?$p['site_price_mopt']:$p['site_price_opt']);
+					if(!empty($p['agent_profits']) && $order['id_order_status'] == 2){
+						$agent_profits = explode(';', $p['agent_profits']);	
+						$n_agent_profits_mqty = count($agent_profits);
+						if($n_agent_profits_mqty == 8) {
+// echo $p['id_order'], ' - ', $p['id_product'], ' <-----> ', $p['contragent_mqty'], ' < ', $p['inbox_qty'], '<br/>';									
+							if ($p['contragent_mqty']>= $p['inbox_qty']) {
+// echo $p['agent_profits'], '<br/>';
+// echo '3 mqty ', $agent_profits[$coeff], '<br/><br/>';
+								$order['agent_counted']+=$p['contragent_mqty']*$agent_profits[$coeff];
+							}else{
+// echo $p['agent_profits'], '<br/>';
+// echo '4 mqty ', $agent_profits[$coeff+4], '<br/><br/>';
+								$order['agent_counted']+=(($p['contragent_mqty']<=0?0:$p['contragent_mqty']))*$agent_profits[$coeff+4];
+							}
+						}		
+					}
+				}
+		}	
+		// die();	
 		$order['type'] = 'order';
-		$order['agent_counted'] = round($order['amount']*$coeff, 2);
 		if($order['id_order_status'] == 2){
 			if(!isset($history[strtotime(date('d.m.Y', $order['creation_date']))]['date_sum'])){
 				$history[strtotime(date('d.m.Y', $order['creation_date']))]['date_sum'] = $order['agent_counted'];
@@ -47,6 +79,8 @@ if(!empty($orders)){
 				$history[strtotime(date('d.m.Y', $order['creation_date']))]['date_sum'] += $order['agent_counted'];
 			}
 			$total_bonus += $order['agent_counted'];
+		}else{
+
 		}
 		$history[strtotime(date('d.m.Y', $order['creation_date']))]['actions'][$order['creation_date']] = $order;
 	}
@@ -64,14 +98,15 @@ if(!empty($withdrawals)){
 		$history[strtotime(date('d.m.Y', strtotime($withdrawal['date'])))]['actions'][$withdrawal['date']] = $withdrawal;
 	}
 }
+
 if(!empty($history)){
 	krsort($history);
 	foreach($history as &$action){
 		krsort($action['actions']);
+
 	}
 	$tpl->Assign('history', $history);
 }
-
 $tpl->Assign('total_bonus', $total_bonus);
 $agent_users = $Users->GetUsersByAgent($_SESSION['member']['id_user']);
 $tpl->Assign('agent_users', $agent_users);

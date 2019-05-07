@@ -2,10 +2,10 @@
 	<h2>История</h2>
 	<div class="orders_history_header">
 		<div class="header_item date">Дата</div>
-		<div class="header_item client">Клиент</div>
-		<div class="header_item phone">Телефон</div>
-		<div class="header_item order_sum">Сумма заказа</div>
-		<div class="header_item profit">Начислено</div>
+		<!-- <div class="header_item client">Клиент телефон</div> -->
+		<!-- <div class="header_item phone">Заказ</div> -->
+		<!-- <div class="header_item order_sum">Сумма заказа</div> -->
+		<div class="header_item profit">Баланс дня</div>
 	</div>
 	<?if(isset($history) && !empty($history)){
 		foreach($history as $date => $value){?>
@@ -32,7 +32,8 @@
 								<?=date('H:i', $time);?>
 							</div>
 							<div class="order_info client"><?=$action['last_name'] && $action['first_name'] && $action['middle_name'] != ''? $action['last_name'].' '.$action['first_name'].' '.$action['middle_name']:$action['name']?><span><i id="new_client_<?=$action['id_order']?>" class="material-icons <?=isset($action['promo_code'])?null:'hidden'?>">&#xE548;</i></span></div>
-							<div class="order_info phone"><span class="agent_mobile_label">Тел.:</span> +<?=$action['phone']?></div>
+							<div class="order_info phone"><?=$action['phone']?></div>
+							<div class="order_info id_order"><?=$action['id_order']?></div>
 							<div class="order_info order_sum"><span class="agent_mobile_label">Сумма заказа:</span> <?=number_format($action['amount'], 2, ',', '')?> грн.</div>
 							<div class="order_info profit"><span class="agent_mobile_label">Начислено:</span> <?=number_format($action['agent_counted'], 2, ',', '')?> грн. <span><i id="processing_order_<?=$action['id_order']?>" class="material-icons <?=$action['id_order_status'] == 1 || $action['id_order_status'] == 6?null:'hidden'?>">&#xE8FD;</i></span></div>
 							<div class="mdl-tooltip" for="new_client_<?=$action['id_order']?>">Новый клиент</div>
@@ -45,8 +46,8 @@
 								<?=date('H:i', strtotime($time));?>
 							</div>
 							<div class="order_info client"><?=$action['comment'];?></div>
-							<div class="order_info phone">н/д</div>
-							<div class="order_info order_sum withdrawal">н/д</div>
+							<!-- <div class="order_info phone">н/д</div>
+							<div class="order_info order_sum withdrawal">н/д</div> -->
 							<div class="order_info profit withdrawal"><span class="agent_mobile_label">Начислено:</span>-<?=number_format($action['amount'], 2, ',', '')?> грн.</div>
 						</div>
 					<?}?>

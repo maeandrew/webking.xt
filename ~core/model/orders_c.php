@@ -609,11 +609,6 @@ class Orders {
 				// Если поставщик есть - начинаем наполнять массив товара
 				$p[$ii]['id_order'] = $id_order;
 				$p[$ii]['id_product'] = $id_product;
-				if($item['mode'] == 'opt'){
-					$p[$ii]['id_supplier'] = $id_supplier;
-				}else{
-					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
-				}
 				$p[$ii]['price_'.$item['mode'].'_otpusk'] = $Suppliers->GetPriceOtpusk($id_supplier, $id_product, $item['mode']);
 				$order_otpusk_prices_sum += round($p[$ii]['price_'.$item['mode'].'_otpusk']*$item['quantity'], 2);
 				$sup_nb++;
@@ -623,42 +618,53 @@ class Orders {
 				$p[$ii][$item['mode'].'_qty'] = $item['quantity'];
 				$p[$ii]['note'] = $item['note'];
 				$p[$ii]['default_sum_'.$item['mode']] = !isset($jo_order)?$item['summary'][$cart_column]:$item['sum_prod'];
+				$percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
+				if ($GLOBALS['CONFIG']['retail_order_margin']<$product['prices_mopt'][3]) {
+						$percents[3]=$percents[2];
+					}
+				if ($GLOBALS['CONFIG']['wholesale_order_margin']<$product['prices_mopt'][3]) {
+						$percents[3]=$percents[2]=$percents[1];
+					}
+				if ($GLOBALS['CONFIG']['full_wholesale_order_margin']<$product['prices_mopt'][3]) {
+						$percents[3]=$percents[2]=$percents[1]=$percents[0];
+					}
+				$p[$ii][$item['mode'].'_sum'] = !isset($jo_order)?$item['summary'][$cart_column]:$item['sum_prod'];
+				$p[$ii]['site_price_'.$item['mode']] = !isset($jo_order)?$item['actual_prices'][$cart_column]:$item['price'];
 				if($item['mode'] == 'opt'){
+					$p[$ii]['id_supplier'] = $id_supplier;
+					$p[$ii]['mopt_sum'] = 0;
+					$p[$ii]['site_price_mopt'] = 0;
 					$p[$ii]['mopt_qty'] = 0;
 					$p[$ii]['note_mopt'] = '';
 					$p[$ii]['default_sum_mopt'] = 0;
 					$p[$ii]['id_supplier_mopt'] = 0;
-					$p[$ii]['price_mopt_otpusk'] = 0;
+					$p[$ii]['price_mopt_otpusk'] = 0;					
 				}else{
+					$p[$ii]['id_supplier_'.$item['mode']] = $id_supplier;
+					$p[$ii]['opt_sum'] = 0;
+					$p[$ii]['site_price_opt'] = 0;
 					$p[$ii]['opt_qty'] = 0;
 					$p[$ii]['note_opt'] = '';
 					$p[$ii]['default_sum_opt'] = 0;
 					$p[$ii]['id_supplier'] = 0;
 					$p[$ii]['price_opt_otpusk'] = 0;
 				}
-				$p[$ii][$item['mode'].'_sum'] = !isset($jo_order)?$item['summary'][$cart_column]:$item['sum_prod'];
-				$p[$ii]['site_price_'.$item['mode']] = !isset($jo_order)?$item['actual_prices'][$cart_column]:$item['price'];
-				if($item['mode'] == 'opt'){
-					$p[$ii]['mopt_sum'] = 0;
-					$p[$ii]['site_price_mopt'] = 0;
-				}else{
-					$p[$ii]['opt_sum'] = 0;
-					$p[$ii]['site_price_opt'] = 0;
+				for($i=0; $i<=3; $i++){
+					$agent_profits[$i] = round($product['prices_opt_margin'][$i]*$percents[$i], 2);
+					$agent_profits[$i+4] = round($product['prices_mopt_margin'][$i]*$percents[$i], 2);
 				}
+				ksort($agent_profits);
+				$p[$ii]['agent_profits'] = implode(';', $agent_profits);		
 				$p[$ii]['dealer_price'] = $item['actual_prices'][1];
 				$p[$ii]['partner_price'] = $item['actual_prices'][0];
 				// Если товар имеет акционный корректировочный сет, ставим отметку об этом в поле promo в таблице xt_osp
 				if(in_array($product['opt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set']) || in_array($product['mopt_correction_set'], $GLOBALS['CONFIG']['promo_correction_set'])){
 					$p[$ii]['promo'] = 1;
-					$p[$ii]['agent_profits'] = null;
 				}else{
 					$p[$ii]['promo'] = 0;
-					$agent_percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
-					foreach($agent_percents as $k => $percent){
-						$agent_profits[$k] = $p[$ii][$item['mode'].'_sum']*($percent/100);
-					}
-					$p[$ii]['agent_profits'] = implode(';', $agent_profits);
 				}
+				
+
 				$p[$ii]['gift'] = 0;
 			}
 			$ii++;
@@ -1178,7 +1184,7 @@ class Orders {
 				osp.return_mqty, osp.return_msum,
 				osp.dealer_price, osp.partner_price, osp.promo,
 				p.units, o.id_pretense_status, o.id_return_status,
-				p.translit, osp.id_supplier_mopt_altern, osp.id_supplier_mopt, i.src AS images,
+				p.translit, osp.id_supplier_mopt_altern, osp.id_supplier_mopt, osp.agent_profits, i.src AS images,
 				(SELECT "._DB_PREFIX_."supplier.article
 					FROM "._DB_PREFIX_."supplier
 					WHERE "._DB_PREFIX_."supplier.id_user = osp.id_supplier_mopt
