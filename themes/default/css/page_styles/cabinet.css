@@ -2718,7 +2718,7 @@ div[id^="items_panel_"] .btnWrapFlex {
 }
 .agents_client_order .client,
 .orders_history_header .header_item.client {
-	width: calc(100% - 510px);
+	/*width: calc(100% - 510px);*/
 }
 .agents_client_order .time i {
 	font-size: 18px;
