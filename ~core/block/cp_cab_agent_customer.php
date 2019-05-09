@@ -28,49 +28,37 @@ if(!empty($orders)){
 		if($order['sum_discount'] > $GLOBALS['CONFIG']['full_wholesale_order_margin']){
 			$coeff = 0;
 		}
-// echo $order['sum_discount'], ' $coeff= ', $coeff, '<br/>';
 		$order['amount'] = $order['agent_counted'] = 0;
 		foreach($list as &$p){	
 				if($p['contragent_qty'] > 0 ){
-					$order['amount'] += $p['contragent_qty']*($p['site_price_opt']>0?$p['site_price_opt']:$p['site_price_mopt']);
+					$order['amount'] += ($p['site_price_opt']>0?$p['contragent_qty']*$p['site_price_opt']:$p['contragent_qty']*$p['site_price_mopt']);
 					if(!empty($p['agent_profits']) && $order['id_order_status'] == 2){
 						$agent_profits = explode(';', $p['agent_profits']);
 						$n_agent_profits = count($agent_profits);
 						if($n_agent_profits == 8) {
-// echo $p['id_order'], ' - ', $p['id_product'], ' <--> ', $p['contragent_qty'], ' < ', $p['inbox_qty'], '<br/>';
-							if($p['contragent_qty']< $p['inbox_qty']) {
-// echo $p['agent_profits'], '<br/>';
-// echo '1 qty ', $agent_profits[$coeff+4], '<br/><br/>';
-								$order['agent_counted']+=(($p['contragent_qty']<=0?0:$p['contragent_qty']))*$agent_profits[$coeff+4];
-							}else{
-// echo $p['agent_profits'], '<br/>';
-// echo '2 qty ', $agent_profits[$coeff], '<br/><br/>';
+							if($p['contragent_qty']>= $p['inbox_qty']) {
 								$order['agent_counted']+=$p['contragent_qty']*$agent_profits[$coeff];
+							}else{
+								$order['agent_counted']+=(($p['contragent_qty']<=0?0:$p['contragent_qty']))*$agent_profits[$coeff+4];
 							}		
 						}					
 					}
 				}
 				if($p['contragent_mqty'] > 0 ){
-					$order['amount'] += $p['contragent_mqty']*($p['site_price_mopt']>0?$p['site_price_mopt']:$p['site_price_opt']);
+					$order['amount'] += ($p['site_price_mopt']>0?$p['contragent_mqty']*$p['site_price_mopt']:$p['contragent_mqty']*$p['site_price_opt']);
 					if(!empty($p['agent_profits']) && $order['id_order_status'] == 2){
 						$agent_profits = explode(';', $p['agent_profits']);	
 						$n_agent_profits_mqty = count($agent_profits);
 						if($n_agent_profits_mqty == 8) {
-// echo $p['id_order'], ' - ', $p['id_product'], ' <-----> ', $p['contragent_mqty'], ' < ', $p['inbox_qty'], '<br/>';									
 							if ($p['contragent_mqty']>= $p['inbox_qty']) {
-// echo $p['agent_profits'], '<br/>';
-// echo '3 mqty ', $agent_profits[$coeff], '<br/><br/>';
 								$order['agent_counted']+=$p['contragent_mqty']*$agent_profits[$coeff];
 							}else{
-// echo $p['agent_profits'], '<br/>';
-// echo '4 mqty ', $agent_profits[$coeff+4], '<br/><br/>';
 								$order['agent_counted']+=(($p['contragent_mqty']<=0?0:$p['contragent_mqty']))*$agent_profits[$coeff+4];
 							}
 						}		
 					}
 				}
 		}	
-		// die();	
 		$order['type'] = 'order';
 		if($order['id_order_status'] == 2){
 			if(!isset($history[strtotime(date('d.m.Y', $order['creation_date']))]['date_sum'])){

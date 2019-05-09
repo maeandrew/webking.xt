@@ -36,8 +36,10 @@
 							<div class="order_info id_order"><?=$action['id_order']?></div>
 							<div class="order_info order_sum"><span class="agent_mobile_label">Сумма заказа:</span> <?=number_format($action['amount'], 2, ',', '')?> грн.</div>
 							<div class="order_info profit"><span class="agent_mobile_label">Начислено:</span> <?=number_format($action['agent_counted'], 2, ',', '')?> грн. <span><i id="processing_order_<?=$action['id_order']?>" class="material-icons <?=$action['id_order_status'] == 1 || $action['id_order_status'] == 6?null:'hidden'?>">&#xE8FD;</i></span></div>
+							<div class="order_info" id="order_info_<?=$action['id_order']?>"><a href="<?=$GLOBALS['URL_base']?>/invoice_agent/?&orders[]=<?=$action['id_order']?>&dealer[]=<?=$_SESSION['member']['id_user']?>"><i class="material-icons">open_in_browser</i></a></div>
 							<div class="mdl-tooltip" for="new_client_<?=$action['id_order']?>">Новый клиент</div>
 							<div class="mdl-tooltip" for="processing_order_<?=$action['id_order']?>">Заказ в обработке</div>
+							<div class="mdl-tooltip" for="order_info_<?=$action['id_order']?>">Открыть заказ <?=$action['id_order']?></div>
 						</div>
 					<?}elseif($action['type'] == 'withdrawal'){?>
 						<div class="agents_client_order done">
