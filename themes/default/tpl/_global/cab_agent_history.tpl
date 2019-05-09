@@ -48,8 +48,9 @@
 								<?=date('H:i', strtotime($time));?>
 							</div>
 							<div class="order_info client"><?=$action['comment'];?></div>
-							<!-- <div class="order_info phone">н/д</div>
-							<div class="order_info order_sum withdrawal">н/д</div> -->
+							<div class="order_info phone"></div>
+							<div class="order_info id_order"></div>
+							<div class="order_info order_sum"></div>
 							<div class="order_info profit withdrawal"><span class="agent_mobile_label">Начислено:</span>-<?=number_format($action['amount'], 2, ',', '')?> грн.</div>
 						</div>
 					<?}?>
