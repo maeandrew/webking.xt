@@ -27,6 +27,24 @@ header .header_wrapp .logo img {
 	max-width: 100px;
 	vertical-align: middle;
 }
+header .header_wrapp  .free {
+	z-index: 1000;
+	position: relative;
+	top: -5px;
+	border: 4px double blue;
+	padding: 3px;
+ 	max-width: 120px;
+ 	color: blue;
+ 	font-weight: 1000;
+ 	line-height: 110%;
+ 	text-align:  center;
+ 	mix-blend-mode: multiply;
+ 	-moz-transform: rotate(-12deg);
+  	-o-transform: rotate(-12deg);
+  	-webkit-transform: rotate(-12deg);
+  	filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=0.7071067811865476, M12=0.7071067811865475, M21=-0.7071067811865475, M22=0.7071067811865476);
+}
+
 header .header_wrapp .header_right {
 	display: flex;
 }
@@ -324,6 +342,9 @@ header .header_wrapp .header_right .cabinet_btn .name {
 			display: block;
 		}
 		header .header_wrapp.active_search .logo {
+			display: none;
+		}
+		header .header_wrapp.active_search .free {
 			display: none;
 		}
 		header .header_wrapp.active_search .header_right {

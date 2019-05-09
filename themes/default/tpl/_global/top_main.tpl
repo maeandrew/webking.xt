@@ -2,6 +2,9 @@
 	<div class="logo">
 		<a href="<?=Link::Custom('main', null, array('clear' => true));?>" rel="nofollow"><img src="<?=_base_url.'/themes/default/img/_xt.svg'?>" alt="Оптовый торговый центр xt.ua"></a>
 	</div>
+	<div class="free">
+		БЕСПЛАТНАЯ ДОСТАВКА
+	</div>	
 	<div class="search_wrap">
 		<form name="search" action="<?=Link::Custom('search');?>" method="get">
 			<input class="btn_js search_query_input" name="query" id="search" type="search" required="required" placeholder="Поиск..." data-name="header_js" value="<?=isset($_GET['query'])?htmlspecialchars($_GET['query']):null;?>">
