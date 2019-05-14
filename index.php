@@ -149,6 +149,7 @@ $tpl->Assign('js_arr', G::GetJS());
 $tpl->Assign('__page_description', $GLOBALS['__page_description']);
 $tpl->Assign('__page_title', $GLOBALS['__page_title']);
 $tpl->Assign('__page_keywords', $GLOBALS['__page_keywords']);
+$tpl->Assign('__page_img', $GLOBALS['__page_img']);
 $tpl->Assign('__page_h1', $GLOBALS['__page_h1']);
 $tpl->Assign('__center', $GLOBALS['__center']);
 $tpl->Assign('__header', $GLOBALS['__header']);

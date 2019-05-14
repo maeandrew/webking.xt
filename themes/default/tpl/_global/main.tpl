@@ -1,30 +1,32 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-	<meta charset="utf-8">
-	<meta name="google-site-verification" content="3TtJwZYHqpBeSk9JqH1-4dl7gu8ZQSJeIVWRHl80Pxw" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<html lang="ru" prefix="og: http://ogp.me/ns#">
+<head>	
 	<title><?=$__page_title?$__page_title:null;?></title>
 	<?=!empty($__page_description)?'<meta name="description" content="'.$__page_description.'"/>':null;?>
 	<?=!empty($__page_keywords)?'<meta name="keywords" content="'.$__page_keywords.'"/>':null;?>
+	<meta charset="utf-8">
+	<meta name="google-site-verification" content="3TtJwZYHqpBeSk9JqH1-4dl7gu8ZQSJeIVWRHl80Pxw" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<!-- setting canonical pages -->
-	<?if($GLOBALS['CurrentController'] == 'main'){?>
-		<link rel="canonical" href="<?=_base_url?>/"/>
+	<?if($GLOBALS['CurrentController'] == '404'){?>
+		<link rel="canonical" href="<?=_base_url?>"/>
+		<meta name="robots" content="noindex, nofollow"/>		
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
-		if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
-			<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
-			<meta name="robots" content="noindex, nofollow"/>
-		<?}else{
-			if(isset($GLOBALS['meta_canonical'])){?>
-				<link rel="canonical" href="<?=$GLOBALS['meta_canonical'];?>"/>
-			<?}
-		}
 		if(isset($GLOBALS['meta_next'])){?>
 			<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
 		<?}
 		if(isset($GLOBALS['meta_prev'])){?>
 			<link rel="prev" href="<?=$GLOBALS['meta_prev'];?>"/>
 		<?}
+		if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
+			<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
+			<meta name="robots" content="noindex, nofollow"/>
+		<?}else{
+			if(isset($GLOBALS['meta_canonical'])){?>
+				<link rel="canonical" href="<?=$GLOBALS['meta_canonical'];?>"/>
+				<meta name="robots" content="noindex, nofollow"/>
+			<?}
+		}		
 	}elseif(in_array($GLOBALS['CurrentController'], array('news', 'post', 'page')) && strpos($_SERVER['REQUEST_URI'], '?')){?>
 			<link rel="canonical" href="<?=_base_url.stristr($_SERVER['REQUEST_URI'], '?', true);?>"/>
 			<meta name="robots" content="noindex, nofollow"/>
@@ -34,6 +36,22 @@
 	<!-- favicon loading -->
 	<link type="image/x-icon" href="/favicon.ico" rel="icon"/>
 	<link type="image/x-icon" href="/favicon.ico" rel="shortcut icon"/>
+	<!-- Протокол Open Graph -->
+	<meta property="og:locale" content="ru_RU"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="http://xt.ua"/>
+	<meta property="og:site_name" content="Служба снабжения xt.ua"/>
+	<meta property="og:title" content="<?=$__page_title?$__page_title:null;?>"/>	
+	<meta property="og:description" content="<?=!empty($__page_description)?$__page_description:null?>"/>
+	<meta property="og:image" content="<?=_base_url?><?=empty($__page_img)?$item['images']['0']['src']:$__page_img?>"/>
+	<meta property="fb:app_id" content="2047602442200100"/>
+	<meta property="fb:admins" content="100010144985817"/>		
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="http://xt.ua">
+	<meta name="twitter:title" content="<?=$__page_title?$__page_title:null;?>">
+	<meta name="twitter:description" content="<?=!empty($__page_description)?$__page_description:null;?>">
+	<meta name="twitter:image" content="<?=_base_url?><?=empty($__page_img)?$item['images']['0']['src']:$__page_img?>">
+
 	<!-- defining author for special pages -->
 	<?if(isset($GLOBALS['__author']) == true){?>
 		<link rel="author" href="<?=$GLOBALS['__author']?>"/>
@@ -141,8 +159,7 @@
     google_ad_client: "ca-pub-5356393262429691",
     enable_page_level_ads: true
   });
-</script>
-	
+</script>	
 </head>
 <body class="<?=in_array($GLOBALS['CurrentController'], $GLOBALS['LeftSideBar'])?'sidebar':'no-sidebar'?> c_<?=isset($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'], _base_url) === false) ? 'main':($GLOBALS['CurrentController'] === 'main'?$GLOBALS['CurrentController']:$GLOBALS['CurrentController'].' banner_hide')?> <?=$GLOBALS['CurrentController'] == 'product'?' for_product_page':null?>">
 	<!-- Google Tag Manager -->

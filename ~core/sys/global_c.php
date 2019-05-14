@@ -574,6 +574,7 @@ class G {
 	public static function GenerateVerificationCode($length=4){
 		return str_pad(rand(0,str_repeat("9", $length)),$length,'0');
 	}
+	// Генерация метатегов
 	public static function metaTags($data = false){
 		$str_unique = '';
 		if(isset($GLOBALS['Sort'])){
@@ -583,6 +584,9 @@ class G {
 					break;
 				case 'name asc':
 					$str_unique .= ' Сортировка по названию от А до Я.';
+					break;
+				case 'create_date desc':
+					$str_unique .= ' Новые сверху.';
 					break;
 				case 'price_opt desc':
 					$str_unique .= ' Сортировка от дорогих к дешевым.';
@@ -595,39 +599,64 @@ class G {
 					break;
 			}
 		}
-		if(isset($GLOBALS['Page_id'])){
+		if(isset($GLOBALS['Page_id']) && $GLOBALS['Page_id'] > 1){
 			$str_unique .= ' Страница '.$GLOBALS['Page_id'].'.';
 		}
 		if(!isset($GLOBALS['CurrentController'])){
-			$GLOBALS['__page_title'] = 'Служба снабжения xt.ua';
-			$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
-			$GLOBALS['__page_keywords'] = '';
+			$GLOBALS['__page_title'] = 'Оптовое поставки для предприятий, магазинов и частных лиц.';
+			$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - поставляет оптом и в розницу хоз.товары, товаров для детей, канцтовары, электронику, одежду и обувь... Гарантия. (050) 309-84-20, (067) 574-10-13 Бесплатная доставка по всей Украине. ';
+			$GLOBALS['__page_keywords'] = 'оптом, хоз.товары, товары для детей, канцтовары, одежда и обувь, электроника, бытовая техника, спорт и отдых, Барабашово';
+			$GLOBALS['__page_img'] = '/themes/default/img/xtua.png';
 		}else{
 			switch($GLOBALS['CurrentController']){
 				case 'main':
-					$GLOBALS['__page_title'] = 'Служба снабжения xt.ua';
-					$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - крупнейший оптовый интернет-магазин в Украине. Опт, крупный опт, розница. (050) 309-84-20, (067) 574-10-13 Гарантия. Адресная доставка по всей Украине.';
-					$GLOBALS['__page_keywords'] = '';
+					$GLOBALS['__page_title'] = 'Оптовые поставки для предприятий, магазинов и частных лиц.';
+					$GLOBALS['__page_description'] = 'Служба снабжения xt.ua - поставляет оптом и в розницу хоз.товары, товаров для детей, канцтовары, электронику, одежду и обувь... Гарантия. (050) 309-84-20, (067) 574-10-13 Бесплатная доставка по всей Украине.';
+					$GLOBALS['__page_keywords'] = 'оптом, хоз.товары, товары для детей, канцтовары, одежда и обувь, электроника, бытовая техника, спорт и отдых, Барабашово';
+					$GLOBALS['__page_img'] = '/themes/default/img/xtua.png';
+					break;
+				case 'products':
+					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_unique);
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
+					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					$GLOBALS['__page_img'] = htmlspecialchars($data['category_img']);
 					break;
 				case 'product':
 					$GLOBALS['__page_title'] = htmlspecialchars($data['name'].'. '.$data['page_title']);
 					$GLOBALS['__page_description'] = htmlspecialchars($data['name'].'. '.$data['page_description']);
-					$GLOBALS['__page_keywords'] = htmlspecialchars(!empty($data['page_keywords'])?$data['page_keywords']:str_replace(' ', ', ', mb_strtolower($data['name_index'])));
+					if (!empty($data['page_keywords'])) {
+						$GLOBALS['__page_keywords'] = $data['page_keywords'];
+					}elseif (!empty($data['page_keywords'])) {
+						$GLOBALS['__page_keywords'] = str_replace(' ', ', ', mb_strtolower($data['name_index']));
+					}else{
+						$arr_key_on = '';
+						$arr_key = explode(' ', $data['name']);
+						foreach ($arr_key as $key => $value) {
+							if (iconv_strlen($value)> 3) {
+								$arr_key_on[] =  str_replace(array("(",")","\"","\'","«","»","?","!",",",";"), "", $value);
+							}
+						}
+						$GLOBALS['__page_keywords'] = implode(",", $arr_key_on);
+						}
+					$GLOBALS['__page_img'] = htmlspecialchars($data['images']);
 					break;
 				case 'page':
-					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
-					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
+					$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
 					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					$GLOBALS['__page_img'] = '/themes/default/img/xtua.png';
 					break;
 				case 'news':
-					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['title']).$str_unique);
-					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
+					$GLOBALS['__page_title'] = htmlspecialchars(!empty($data['page_title'])?$data['page_title']:$data['title']);
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
 					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					$GLOBALS['__page_img'] = htmlspecialchars($data['thumbnail']);
 					break;
 				default:
-					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']).$str_unique);
-					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description'].$str_unique:null);
+					$GLOBALS['__page_title'] = htmlspecialchars((!empty($data['page_title'])?$data['page_title']:$data['name']));
+					$GLOBALS['__page_description'] = htmlspecialchars(isset($data['page_description'])?$data['page_description']:null);
 					$GLOBALS['__page_keywords'] = htmlspecialchars(isset($data['page_keywords'])?$data['page_keywords']:null);
+					$GLOBALS['__page_img'] = '/themes/default/img/xtua.png';
 					break;
 			}
 
