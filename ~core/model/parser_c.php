@@ -1711,6 +1711,92 @@ class Parser {
 		return $product;
 	}
 
+	public function iposud_x103($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		//Находим url карточки товара через поиск
+		$base_url = 'https://i-posud.com.ua';
+		$url_search = $base_url.'/catalog/search/?search='.urlencode($data[0]);
+		echo $url_search, '<br/>';
+		$url = '';
+		if($pre_parsed_html = $this->parseUrl($url_search)){
+			// die('зашли на поиск');
+			foreach($pre_parsed_html->find('[class="in_catalog"]') as $search){
+				$i = 0;
+				foreach($search->find('a') as $a){
+					if ($i++ == 1) {
+						$url = $a->href;
+						break(2);
+					}
+				}
+			}
+		}else{
+			return false;
+		}	
+		$url = $base_url.$url;	
+		echo $url;
+		// die('????');
+		//Парсим карточку товара
+		if(!$parsed_html = $this->parseUrl($url)){
+			return false;
+		}
+		// Получаем артикул товара
+		$product['sup_comment'] = trim($data[0]);
+
+		// Получаем название товара
+		$product['name'] = trim($parsed_html->find('h1', 0)->plaintext);	
+		// Получаем описание товара
+		$product['descr'] = trim(strip_tags($parsed_html->find('[class="product_intro"]', 0)->innertext, '<span><ul><>li<br><p>'));
+		// Получаем цену товара
+		$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = trim($data[3]);	
+		//указываем минимальное т еоличество опт
+		$product['inbox_qty'] = 2;
+		$product['min_mopt_qty'] = 1;
+		//Указываем базовую активность товара
+		$product['active'] = 1;
+		//Указиваем обезательное примечание
+		// $product['note_control'] = 0;
+		//Индексация
+		$product['indexation'] =  1;
+		// Получаем характеристики товара производитель
+		foreach($parsed_html->find('[itemprop="brand"]') as $element){
+			$caption = 'Производитель';
+			$value = $element->plaintext;
+			$spec = $Specification->SpecExistsByCaption($caption);
+			$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)), 'value' => $value);
+			}
+		// Получаем характеристики товара
+		// foreach($parsed_html->find('[itemprop="additionalProperty"]') as $element){
+		// 	$i=0;
+		// 	$caption = $value = '';
+		// 	foreach ($element->find('td') as $td) {
+		// 		if ($i==0) {
+		// 			$caption = trim($td->plaintext);
+		// 		}
+		// 		if ($i==1) {
+		// 			$value = trim($td->plaintext);
+		// 		}
+		// 		$i++;
+		// 	}
+		// 	$spec = $Specification->SpecExistsByCaption($caption);
+		// 	$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)), 'value' => $value);
+		// }
+		// Получаем изображения товара максимального размера
+		foreach($parsed_html->find('[itemprop="image"]') as $el){
+			echo '<br/>',$base_url.$el->src;
+				
+				$filename = $base_url.$el->src;
+				$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($filename, $path.$img_info['basename']);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+				$product['images_visible'][] = '1';
+		}	
+		return $product;
+	}
+
  	public function toysgroup_XML($offer, $offer_name){
 		global $Products;
 		global $Specification;

@@ -1,8 +1,12 @@
 <?php
 // ini_set('memory_limit', '3072M');
+$_SESSION['ddddddddddddddddddddddddddddddddddddddd'] = 'k1k1k1k1k1k1k1k1k1';
 print_r('<pre>');
-	print_r($GLOBALS['CONFIG']);
-	print_r('</pre>');
+print_r($_SESSION);
+// print_r('</pre>');
+// var_dump($_SESSION);
+// echo $_GET['link'], '<br/>';
+// echo $_REQUEST['link'], '<br/>';
 // phpinfo();
 die();
 error_reporting(-1);
