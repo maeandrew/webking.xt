@@ -2388,10 +2388,10 @@ class Products {
 			return false;
 		}
 		$this->db->CompleteTrans();
-		if(isset($arr['name'])){
+		if(isset($arr['categories_ids'])){
 			$this->UpdateProductCategories($id_product, $arr['categories_ids'], $arr['main_category']);
-			$this->RecalcSitePrices(array($id_product));
 		}
+		$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
 	/**

@@ -99,7 +99,7 @@ class Parser {
 		return $html;
 	}
 
-	public function categories($sim_url){
+	public function show_categories($sim_url){
 		echo  '<table><tr ><th>', 'ID родителя', '</th><th>', 'Название категории', '</th><th>', 'ID категории', '</th><th>', 'N товаров',  '</th></tr>';
 		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('categories/category ') as $category ) {
@@ -2016,9 +2016,25 @@ class Parser {
 
 		//Индексация
 		$product['indexation'] =  '1';
-
+		//Парсим карточку товара
+		if(!$parsed_html = $this->parseUrl($offer->url)){
+			return false;
+		}
 		// Получаем описание товара
-		$product['descr'] =  $offer->description;
+		$product['descr'] = trim(strip_tags($parsed_html->find('[class="tabs-text"]', 1)->innertext, '<span><ul><>li<br><p>'));
+
+		// Получаем title
+		// $product['page_title'] =  " Оптовые и рознечные цены!";
+		// Получаем description
+		// $arr_page_description =  $parsed_html->find('[property="og:description"]');
+		// $product['page_description'] = $arr_page_description[0]->attr['content'];
+
+		// Получаем keywords
+		// $arr_page_keywords =  $parsed_html->find('[name="keywords"]');
+		// $product['page_keywords'] = $arr_page_keywords[0]->attr['content'];
+
+		$product['min_mopt_qty'] = trim($parsed_html->find('[class="c-r_input"]', 0)->value);
+		$product['inbox_qty'] = $product['min_mopt_qty'] * 2;
 
 		// Получаем характеристики
 		foreach($offer->param as $param){
@@ -2030,10 +2046,6 @@ class Parser {
 					'id_spec' => $spec ? $spec['id']:$Specification->Add(array('caption' => $caption)),
 					'value' => $value);
 			}
-			if($caption == 'Количество в упаковка'){
-				$product['min_mopt_qty'] = $param;
-				$product['inbox_qty'] = $param * 2;
-			}
 		}
 		//устанавливаем минимальное и количество в упаковке если оно не установилось выше
 		if (!empty($product['min_mopt_qty'])) {
@@ -2042,14 +2054,16 @@ class Parser {
 		}
 			
 		// Получаем изображения товара максимального
-		foreach($offer->picture as $element){
-			$img_info = array_merge(getimagesize($element), pathinfo($element));
-			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
-			$Images->checkStructure($path);
-			copy($element, $path.$img_info['basename']);
-			sleep(1);
-			$product['images'][] = str_replace($GLOBALS['PATH_global_root'],'/', $path.$img_info['basename']);
-			$product['images_visible'][] = 1;
+		foreach($parsed_html->find('.s-m_thumb img') as $pic){
+				$element = str_replace('-103x80', '-510x428', $pic->src);
+				$img_info = array_merge(getimagesize($element), pathinfo($element));
+				$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+				$Images->checkStructure($path);
+				copy($element, $path.$img_info['basename']);
+				sleep(1);
+				$product['images'][] = str_replace($GLOBALS['PATH_global_root'],'/', $path.$img_info['basename']);
+				$product['images_visible'][] = 1;
+
 		}
 		//Результат масив product
 		return $product;
