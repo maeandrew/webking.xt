@@ -3257,6 +3257,8 @@ class Products {
 		$sql = 'SELECT p.id_product, p.art, p.`name`, p.translit, p.price_opt, p.price_mopt,
 			p.min_mopt_qty, p.descr, p.img_1, p.opt_correction_set, p.mopt_correction_set, p.units
 			FROM '._DB_PREFIX_.'product p where p.id_product in (SELECT o.id_product FROM '._DB_PREFIX_.'osp o where o.id_order = '.$GLOBALS['CONFIG']['slaider_order'].')'.($limit?' LIMIT '.$limit:null);
+			//where p.id_product(SELECT o.id_product FROM '._DB_PREFIX_.'osp o where o.id_order = '.$GLOBALS['CONFIG']['slaider_order'].')
+			// where p.id_product in (SELECT id_product FROM '._DB_PREFIX_.'osp where id_zapis > (SELECT max(id_zapis)-15 FROM '._DB_PREFIX_.'osp where contragent_qty > 0) and contragent_qty > 0)
 		if(!$arr = $this->db->GetArray($sql)){
 			return false;
 		}
