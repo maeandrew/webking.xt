@@ -169,7 +169,7 @@
 						<?=$cart_info;?>
 					</div>
 					<div class="art_avail_stars">
-						<p class="product_article">Артикул: <br class="hidden_br"><?=$item['art']?></p>
+						<p class="product_article">Артикул: <br class="hidden_br"><span itemprop = "sku"><?=$item['art']?></ span></p>
 						<div class="product_availability"><?=isset($item['active']) && $item['active'] == 1?'Есть в наличии':'Нет в наличии';?></div>
 						<div class="rating_block" id="rating_block" <?=$item['c_mark'] > 0?'itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"':null;?>>
 							<?if($item['c_mark'] > 0){?>
@@ -212,7 +212,7 @@
 									<link itemprop="availability" href="http://schema.org/<?=$opt_available?'InStock':'Out of stock'?>" />
 									<div class="price_wrap">
 										<div class="price_cont price_flex <?=isset($_SESSION['member']['gid']) && $_SESSION['member']['gid'] === _ACL_SUPPLIER_?'hidden':null?>">
-											<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
+											<div class="price" itemprop="price" content="<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ".", ""):number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ".", "");?>">
 												<?=$in_cart?number_format($_SESSION['cart']['products'][$item['id_product']]['actual_prices'][$_COOKIE['sum_range']], 2, ",", ""):($item['price_opt'] > 0?number_format($item['price_opt']*$a[$_COOKIE['sum_range']], 2, ",", ""):'1,00');?>
 											</div>
 											<span class="bold_text"> грн.</span><span> / </span><span class="bold_text"><?=$item['units']?></span>
