@@ -3,17 +3,18 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>Прайс-лист</title>
-	<link rel="stylesheet" href="/themes/default/min/css/page_styles/price_list.min.css">
+	<!-- <link rel="stylesheet" href="/themes/default/min/css/page_styles/price_list.min.css"> -->
+	<link rel="stylesheet" href="/themes/default/css/page_styles/price_list.css">
 	<link rel="stylesheet" href="/themes/default/min/css/fonts.min.css">
 </head>
 <body class="<?= $_GET['photo'] == 2 ? 'block' : ($_GET['photo'] == 4 ? 'big_block' : 'list') ;?>_view <?=count($_GET['column']) > 1?'many_prices':'one_price'?> <?=isset($_GET['orientation']) && $_GET['orientation'] == 1?'landscape':null?>">
-
 <?$price = array(
 	'0'=>"При сумме заказа более ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'1'=>"При сумме заказа от ".$GLOBALS['CONFIG']['wholesale_order_margin']." до ".$GLOBALS['CONFIG']['full_wholesale_order_margin']."грн.",
 	'2'=>"При сумме заказа от ".$GLOBALS['CONFIG']['retail_order_margin']." до ".$GLOBALS['CONFIG']['wholesale_order_margin']."грн.",
 	'3'=>"При сумме заказа до ".$GLOBALS['CONFIG']['retail_order_margin']."грн.",
 );
+$agent_percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
 if(isset($_GET['column'])?count($_GET['column']) > 1:null && $_GET['photo'] != 3){?>
 	<table class="information">
 		<tr>
@@ -93,7 +94,17 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 									</tr>
 									<tr class="product__article">
-										<td colspan="2">Арт. <?=$p['art'];?></td>
+										<td>Арт.  <strong><?=$p['art'];?></strong>
+										</td>
+										<td class="agent_bonus">
+												<?													
+													echo '|';
+													foreach($_GET['column'] as $column){?>
+														<?=number_format(($p['price_mopt']*$margins[$column]-$p['price_mopt'])*($agent_percents[$column]), 2, ',', '');?>|
+													<?}?>
+
+
+										</td>
 									</tr>
 									<?if(isset($_GET['no_price'])){?>
 										<tr class="product__details__header">
@@ -160,7 +171,14 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 											</tr>
 											<tr class="product__article">
-												<td colspan="2">Арт. <?=$p['art'];?></td>
+												<td >Арт. <strong><?=$p['art'];?></strong></td>
+												<td class="agent_bonus">
+														<?
+													echo '|';
+													foreach($_GET['column'] as $column){?>
+														<?=number_format(($p['price_mopt']*$margins[$column]-$p['price_mopt'])*($agent_percents[$column]), 2, ',', '');?>|
+													<?}?>
+												</td>
 											</tr>
 											<?if(isset($_GET['no_price'])){?>
 												<tr class="product__details__header">
@@ -452,7 +470,7 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 						<td class="product__name" colspan="2"><p><?=$p['name']?></p></td>
 					</tr>
 					<tr class="product__article">
-						<td colspan="2"><p>Арт. <span><?=$p['art'];?></span></p> <p class="product__article__system_comment"><?=$p['note']?> [<?=$p['sort'];?>]</p></td>
+						<td colspan="2"><p>Арт. <span><?=$p['art'];?></span></p> <p class="product__article__system_comment"><?=$p['note']?></p></td>
 					</tr>
 					<?if(isset($_GET['no_price'])){?>
 						<tr class="product__details__header">

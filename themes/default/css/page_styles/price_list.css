@@ -124,12 +124,17 @@ body.block_view {
 .block_view .product__name {
 	font-size: 1.2em;
 }
-.block_view .product__article td {
-	text-align: right;
-	font-size: .8em;
+.block_view .product__article {
+	font-size: 1em;
 	height: 2em;
 	line-height: 1.2em;
 	padding: 0 5px;
+	text-align: left;
+	vertical-align: bottom;
+}
+.agent_bonus{
+	font-size: .6em;
+	text-align: right;
 }
 .block_view .product__article,
 .block_view .product__name,
