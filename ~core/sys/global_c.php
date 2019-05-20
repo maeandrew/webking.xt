@@ -44,6 +44,13 @@ class G {
 		if(!isset($_COOKIE['product_view'])){
 			setcookie('product_view', 'block', 0, '/');
 		}
+		// utm_source
+		if(isset($_GET['utm_source']) && isset($_GET['utm_medium']) && isset($_GET['utm_campaign'])){
+			setrawcookie('utm_source', $_GET['utm_source'], time()+2592000, '/');
+			setrawcookie('utm_medium', $_GET['utm_medium'], time()+2592000, '/');
+			setrawcookie('utm_campaign', $_GET['utm_campaign'], time()+2592000, '/');
+		}		
+		
 	}
 
 	/**

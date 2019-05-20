@@ -2,6 +2,13 @@
 	<div class="customer_cab col-md-6">
 		<h1>Уголок агента</h1>
 		<?if(G::IsAgent()){?>
+			<div class="msg-info">
+				<div class="info_descr">
+					<p class="info_descr_title">Реферальная ссылка (Cookies хранятся 30 дней): <strong>?utm_source=partner&utm_medium=link&utm_campaign=ag<?=$_SESSION['member']['id_user']?></strong></p>
+					<p class="info_descr_title">Пример на категорию: https://xt.ua/Produkciya_INTEX?utm_source=partner&utm_medium=link&utm_campaign=ag<?=$_SESSION['member']['id_user']?></p>
+					<p class="info_descr_title">Пример на товар: https://xt.ua/Kist_ploskaya_20x8_mm.html?utm_source=partner&utm_medium=link&utm_campaign=ag<?=$_SESSION['member']['id_user']?></p>					
+				</div>				
+			</div>
 			<div class="agent_profile_info">
 				<div class="info_item promocode">
 					<div class="info_icon">

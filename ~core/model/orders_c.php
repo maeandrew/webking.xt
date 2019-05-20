@@ -441,15 +441,27 @@ class Orders {
 			print_r('products error');
 			return false;
 		}
+		//получаем количество заказов клиента
+		if(G::IsLogged()){
+			$count_orders = $this->db->GetOneRowArray("SELECT COUNT(*) AS cnt FROM "._DB_PREFIX_."order WHERE id_customer = ".$_SESSION['member']['id_user']);
+		}
 		// Если введен промо-код в корзине и его ключевое слово - AG
-		if(isset($_SESSION['cart']['promo']) && substr($_SESSION['cart']['promo'], 0, 2) == 'AG'){
+		if($count_orders['cnt'] == 0 && isset($_SESSION['cart']['promo']) && substr($_SESSION['cart']['promo'], 0, 2) == 'AG'){
 			// Подписываем покупателя на агента и если подписать не удалось
 			if(!$Users->SubscribeAgentUser($_SESSION['member']['id_user'], substr($_SESSION['cart']['promo'], 2))){
 				// Завершаем работу скрипта
-				print_r('agent subscription error');
-				return false;
+				// print_r('agent subscription error');
+				// return false;
 			}
 		}
+		// Если есть даные агента партнера  ключевое слово - AG
+		if($count_orders['cnt'] == 0 && !isset($_SESSION['cart']['promo']) && isset($_COOKIE['utm_campaign']) && substr($_COOKIE['utm_campaign'], 0, 2) == 'ag'){
+			// Подписываем покупателя на агента и если подписать не удалось
+					if(!$Users->SubscribeAgentUser($_SESSION['member']['id_user'], substr($_COOKIE['utm_campaign'], 2))){
+
+			}
+		}
+
 		// $discount = 0;
 		// if(isset($_SESSION['cart']['discount'])){
 		// 	if(isset($_SESSION['price_mode']) && $_SESSION['price_mode'] == 1){
