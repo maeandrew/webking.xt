@@ -8,7 +8,10 @@
 	<meta name="google-site-verification" content="3TtJwZYHqpBeSk9JqH1-4dl7gu8ZQSJeIVWRHl80Pxw" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<!-- setting canonical pages -->
-	<?if($GLOBALS['CurrentController'] == '404'){?>
+	<?if($GLOBALS['CurrentController'] == 'main'){?>
+		<link rel="canonical" href="<?=_base_url?>/"/>
+		<meta name="robots" content="noindex, nofollow"/>
+	<?}elseif($GLOBALS['CurrentController'] == '404'){?>
 		<link rel="canonical" href="<?=_base_url?>"/>
 		<meta name="robots" content="noindex, nofollow"/>		
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){

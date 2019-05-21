@@ -4,7 +4,7 @@ $Page = new Page();
 $Page->PagesList("menu");
 $tpl->Assign('list_menu', $Page->list);
 if(isset($_SESSION['member']['promo_code']) && $_SESSION['member']['promo_code'] != ''){
-	header('Location: '. _base_url.'/cabinet/');
+	header('Location: '._base_url.'/cabinet/');
 }
 unset($parsed_res);
 $page = $Page->PagesListByType('main');
