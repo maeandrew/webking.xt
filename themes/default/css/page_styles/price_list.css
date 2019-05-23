@@ -41,10 +41,19 @@ table {
 	max-height: 20px;
 	height: 20px;
 }
-.many_prices .price-0 { background: #afa; }
-.many_prices .price-1 { background: #aef; }
-.many_prices .price-2 { background: #ffa; }
-.many_prices .price-3 { background: #faa; }
+.many_prices .price-0 { color: #afa !important; 
+	font-size: 1em;
+	padding: 0 5px 0 5px;
+}
+.many_prices .price-1 { color: #aef !important; 
+padding: 0 5px 0 5px;
+}
+.many_prices .price-2 { color: #ffa !important; 
+padding: 0 5px 0 5px;
+}
+.many_prices .price-3 { color: #faa !important; 
+padding: 0 5px 0 5px;
+}
 
 /* List view. Small/without photo */
 .list_view th,
