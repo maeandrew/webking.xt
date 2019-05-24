@@ -14,6 +14,12 @@
 	'2'=>"При сумме заказа от ".$GLOBALS['CONFIG']['retail_order_margin']." до ".$GLOBALS['CONFIG']['wholesale_order_margin']."грн.",
 	'3'=>"При сумме заказа до ".$GLOBALS['CONFIG']['retail_order_margin']."грн.",
 );
+$order_margin = array(
+	'0'=>1000000,
+	'1'=>$GLOBALS['CONFIG']['full_wholesale_order_margin'],
+	'2'=>$GLOBALS['CONFIG']['wholesale_order_margin'],
+	'3'=>$GLOBALS['CONFIG']['retail_order_margin']
+);
 $agent_percents = explode(';', $GLOBALS['CONFIG']['agent_bonus_percent']);
 if(isset($_GET['column'])?count($_GET['column']) > 1:null && $_GET['photo'] != 3){?>
 	<table class="information">
@@ -99,9 +105,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<td class="agent_bonus">
 												<?													
 													echo '|';
-													foreach($_GET['column'] as $column){?>
+													foreach($_GET['column'] as $column){
+														if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 														<?=number_format(($p['price_mopt']*$margins[$column]-$p['price_mopt'])*($agent_percents[$column]), 2, ',', '');?>|
-													<?}?>
+													<?}
+												}?>
 										</td>
 									</tr>
 									<?if(isset($_GET['no_price'])){?>
@@ -114,10 +122,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
 													echo number_format($p['price_mopt']*$margin, 2, ',', '');
 												}else{
-													foreach($_GET['column'] as $column){?>
-														<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
-														
+													foreach($_GET['column'] as $column){
+														if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
+															<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>															
 													<?}
+													}
 												}?>
 											</td>
 											<td rowspan="<?=count($_GET['column'])?>">
@@ -174,9 +183,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												<td class="agent_bonus">
 														<?
 													echo '|';
-													foreach($_GET['column'] as $column){?>
+													foreach($_GET['column'] as $column){
+														if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 														<?=number_format(($p['price_mopt']*$margins[$column]-$p['price_mopt'])*($agent_percents[$column]), 2, ',', '');?>|
-													<?}?>
+													<?}
+													}?>
 												</td>
 											</tr>
 											<?if(isset($_GET['no_price'])){?>
@@ -189,9 +200,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 														<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
 															echo number_format($p['price_mopt']*$margin, 2, ',', '');
 														}else{
-															foreach($_GET['column'] as $column){?>
+															foreach($_GET['column'] as $column){
+																if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 																<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 															<?}
+															}
 														}?>
 													</td>
 													<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
@@ -260,9 +273,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
 											echo number_format($p['price_mopt']*$margin, 2, ',', '');
 										}else{
-											foreach($_GET['column'] as $column){?>
+											foreach($_GET['column'] as $column){
+											if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 												<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 											<?}
+											}
 										}?>
 									</td>
 									<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
@@ -481,9 +496,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 								<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
 									echo number_format($p['price_mopt']*$margin, 2, ',', '');
 								}else{
-									foreach($_GET['column'] as $column){?>
+									foreach($_GET['column'] as $column){
+									if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 										<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 									<?}
+									}
 								}?>
 							</td>
 							<td rowspan="<?=count($_GET['column'])?>">
@@ -547,9 +564,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 										<?if(isset($_GET['margin']) == true && str_replace(',', '.', $_GET['margin']) > 0){
 											echo number_format($p['price_mopt']*$margin, 2, ',', '');
 										}else{
-											foreach($_GET['column'] as $column){?>
+											foreach($_GET['column'] as $column){
+											if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 												<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 											<?}
+											}
 										}?>
 									</td>
 									<td rowspan="<?=count($_GET['column'])?>"><p><?if($p['min_mopt_qty'] !== '0'){ echo $p['min_mopt_qty']; }?> <?=$p['units']?></p></td>
@@ -636,9 +655,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
 													echo number_format($p['price_mopt']*$margin,2,",","");
 												}else{
-													foreach($_GET['column'] as $column){?>
+													foreach($_GET['column'] as $column){
+														if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 														<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 													<?}
+													}
 												}
 											}?>
 										</td>
@@ -713,9 +734,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 														if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
 															echo number_format($p['price_mopt']*$margin,2,",","");
 														}else{
-															foreach($_GET['column'] as $column){?>
+															foreach($_GET['column'] as $column){
+																if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 																<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 															<?}
+															}
 														}
 													}?>
 												</td>
@@ -784,9 +807,11 @@ if($_GET['photo'] == 2){ // Если нужно отобразить больш�
 												if(isset($_GET['margin']) == true && str_replace(",",".",$_GET['margin']) > 0){
 													echo number_format($l['price_mopt']*$margin,2,",","");
 												}else{
-													foreach($_GET['column'] as $column){?>
+													foreach($_GET['column'] as $column){
+														if($order_margin[$column] > $p['price_mopt']*$margins[$column]){?>
 														<span><strong class="price-<?=$column;?>">&#8722;</strong><?=number_format($p['price_mopt']*$margins[$column], 2, ',', '');?><strong class="price-<?=$column;?>">&#8722;</strong></span>
 													<?}
+													}
 												}
 											}?>
 										</td>

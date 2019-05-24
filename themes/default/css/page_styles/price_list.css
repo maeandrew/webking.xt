@@ -4,7 +4,7 @@
 	border-color: #aaa;
 	border-collapse: collapse;
 	box-sizing: border-box;
-	margin: 0;
+	margin: 2px;
 	padding: 0;
 	font-family: 'Helvetica', 'Arial', sans-serif;
 }
@@ -87,7 +87,7 @@ padding: 0 5px 0 5px;
 }
 .list_view .header__price ,
 .list_view .product__price {
-	width: 80px;
+	width: 110px;
 }
 .list_view .product__name {
 	text-align: left;
