@@ -4234,9 +4234,13 @@ line-height:1em;
 }
 .contakt{
 background:#018b06;
-padding:5px;
+padding:7px 5px 4px;
 margin-bottom:10px;
 text-align:center;
+}
+.contakt a { 
+padding:7px 10px 4px;
+text-decoration: none; /* Отменяем подчеркивание у ссылки */
 font-size:1.5em;
 color:#fff;
 }
@@ -5241,3 +5245,55 @@ div[for="rating_block"] {
 	    -moz-animation: scroll 50s infinite linear;
 	    animation: scroll 50s infinite linear;
 	}
+/* Стили для оформления кнопок поделиться */
+#share {
+	width:100%;
+	margin: 0 auto;
+	background:#fff;
+	text-align:center;
+}
+
+.like {
+font-size: 16px;
+font-weight: 700;
+padding-top: 10px;
+margin-bottom: 10px;
+}
+
+.push {
+    display: inline-block;
+    min-width: 100px;
+    margin: 5px 2px 10px 2px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.facebook {background-color:#3b5998;}
+.facebook:hover {background-color:#2d4373;color:#fff;text-decoration: none;}
+
+.pinterest {background-color:#bd081c;}
+.pinterest:hover {background-color:#881f12;color:#fff;text-decoration: none;}
+
+.viber {background-color:#665cac;}
+.viber:hover {background-color:#881f12;color:#fff;text-decoration: none;}
+
+.twitter {background-color:#00acee;}
+.twitter:hover {background-color:#2795e9;color:#fff;text-decoration: none;}
+
+.vkontakte {background-color:#587ea3;}
+.vkontakte:hover {background-color:#466482;color:#fff;text-decoration: none;}
+
+.ok {background-color:#ee8208;}
+.ok:hover {background-color: #a05f20; color:#fff;text-decoration: none;}
+
+.WhatsApp {background-color:#25d366;}
+.WhatsApp:hover {background-color: #21b859; color:#fff;text-decoration: none;}
+
+.Telegram {background-color:#0088cc;}
+.Telegram:hover {background-color: #0088cc; color:#fff;text-decoration: none;}
+
+.Skype {background-color:#00aff0;}
+.Skype:hover {background-color: #008cc0; color:#fff;text-decoration: none;}

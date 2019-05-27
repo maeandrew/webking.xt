@@ -18,7 +18,7 @@ $product['specifications'] = $Products->GetSpecificationList($id_product);
 $product['images'] = $Products->GetPhotoById($id_product);
 $product['videos'] = $Products->GetVideoById($id_product);
 $GLOBALS['prod_title'] = $product['name'];
-$GLOBALS['product_canonical'] = Link::Product($product['translit']);
+// $GLOBALS['product_canonical'] = Link::Product($product['translit']);
 /* product comments ======================================== */
 $res = $Products->GetComentByProductId($id_product);
 $tpl->Assign('comment', $res);

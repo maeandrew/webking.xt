@@ -10,10 +10,8 @@
 		<!-- setting canonical pages -->
 	<?if($GLOBALS['CurrentController'] == 'main'){?>
 		<link rel="canonical" href="<?=_base_url?>/"/>
-		<meta name="robots" content="noindex, nofollow"/>
 	<?}elseif($GLOBALS['CurrentController'] == '404'){?>
 		<link rel="canonical" href="<?=_base_url?>"/>
-		<meta name="robots" content="noindex, nofollow"/>		
 	<?}elseif($GLOBALS['CurrentController'] == 'products'){
 		if(isset($GLOBALS['meta_next'])){?>
 			<link rel="next" href="<?=$GLOBALS['meta_next'];?>"/>
@@ -23,17 +21,14 @@
 		<?}
 		if(strpos($_SERVER['REQUEST_URI'], 'limitall')){?>
 			<link rel="canonical" href="<?=_base_url.str_replace('/limitall', '', $_SERVER['REQUEST_URI']);?>"/>
-			<meta name="robots" content="noindex, nofollow"/>
 		<?}else{
 			if(isset($GLOBALS['meta_canonical'])){?>
 				<link rel="canonical" href="<?=$GLOBALS['meta_canonical'];?>"/>
-				<meta name="robots" content="noindex, nofollow"/>
 			<?}
 		}		
 	}elseif(in_array($GLOBALS['CurrentController'], array('news', 'post', 'page')) && strpos($_SERVER['REQUEST_URI'], '?')){?>
 			<link rel="canonical" href="<?=_base_url.stristr($_SERVER['REQUEST_URI'], '?', true);?>"/>
-			<meta name="robots" content="noindex, nofollow"/>
-	<?}elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
+	<?}	elseif(isset($GLOBALS['product_canonical']) && $GLOBALS['product_canonical'] != ''){?>
 		<link rel="canonical" href="<?=$GLOBALS['product_canonical'];?>"/>
 	<?}?>
 	<!-- favicon loading -->
@@ -216,15 +211,24 @@
 			</div>
 		</section>
 	<?}?>
-	<p class="contakt"><strong><span>контакты:</span><span>(050) 30 98 420</span><span> (067) 57 41 013</span><span> (063) 42 59 183</span></p>
+	<p class="contakt">
+		<span><a href="tel:380503098420" class="">(050) 30 98 420</a></span>
+		<span><a href="tel:380675741013" class="">(067) 57 41 013</a></span>
+		<span><a href="tel:380634259183" class="">(063) 42 59 183</a></span>						
+	</p>	
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
+			<!--agent_banner  -->
 			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
 				<a class="agent_banner" href="<?=G::IsLogged()?Link::Custom('cabinet','agent'):Link::Custom('page', 'Stat_torgovym_agentom')?>">
+					<?if(isset($total_bonus)){?>
+						<div class="info_agent_bonus">Баланс: <strong><?=number_format($total_bonus, 2, ',', '')?></strong> грн.</div>
+					<?}?>
 					<span><?=$GLOBALS['CONFIG']['agent_banner'];?></span>
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Подробнее</button>
+					
 				</a>
-			<?}?>
+			<?}?>				
 			<?=isset($__graph)?$__graph:null;?>
 			<div class="page_content page_content_js">
 				<?if($GLOBALS['CurrentController'] !== 'main'){?>
@@ -259,6 +263,33 @@
 					<?}?>
 				<?}?>
 			</div>
+				<!--agent_banner  -->
+				<?if($GLOBALS['CurrentController'] != 'main'){
+					$link = _base_url;
+					$link .= $_SERVER['REQUEST_URI'];
+					if(strstr($link, '?')){
+					$link = strstr($link, '?', true);
+					$link .= '?utm_source=partner&utm_medium=link&utm_campaign=ag';
+					$link .= isset($_SESSION['member'])?$_SESSION['member']['id_user']:'21860';
+					}?>			
+					
+					<div class="agent_banner" href="">
+							<!-- <div class="main_social_text">ПОДЕЛИТЬСЯ</div> -->
+							<div id="share">
+								<div class="social" data-url="<?echo $link;?>" data-title="<?=$__page_title?$__page_title:null;?>">									
+									<a class="push facebook" data-id="fb"><i class="fa fa-facebook"></i> Facebook</a>
+									<a class="push vkontakte" data-id="vk"><i class="fa fa-vk"></i> Вконтакте</a>
+							    <a class="push ok" data-id="ok"><i class="fa fa-odnoklassniki"></i> OK</a>
+									<a class="push twitter" data-id="tw"><i class="fa fa-twitter"></i> Twitter</a>
+									<a class="push pinterest" data-id="pin"><i class="fa fa-pinterest"></i> Pinterest </a>
+									<a class="push viber" data-id="viber"><i class="fa fa-phone"></i> Viber </a>
+									<a class="push WhatsApp" data-id="WhatsApp"><i class="fa fa-phone"></i> WhatsApp </a>
+									<a class="push Telegram" data-id="Telegram"><i class="fa fa-phone"></i> Telegram </a>
+									<a class="push Skype" data-id="Skype"><i class="fa fa-phone"></i> Skype </a>
+								</div>
+							</div>
+					</div>
+				<?}?>
 			<!-- Блок последних новостей -->
 			<?if(isset($news) && $GLOBALS['CurrentController'] !== 'cabinet'){?>
 				<div class="latest_news">
