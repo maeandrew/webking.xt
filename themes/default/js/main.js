@@ -612,7 +612,7 @@ $(function(){
 //запуск слайдера по бездействию пользователя----------------------------------
 	idleTimer = null;
 	idleState = false; // состояние отсутствия
-	idleWait = 100000; // время ожидания в мс. (1/1000 секунды)	 
+	idleWait = 200000; // время ожидания в мс. (1/1000 секунды)	 
 	$(document).ready( function(){
 	  $(document).bind('mousemove keydown scroll', function(){
 	    clearTimeout(idleTimer); // отменяем прежний временной отрезок
@@ -623,7 +623,7 @@ $(function(){
 	    idleState = false;
 	    idleTimer = setTimeout(function(){ 
 	      // Действия на отсутствие пользователя
-	    if( screen.width > 800 ) {		
+	    if( screen.width > 800 && $_SESSION['member']['gid'] == 5) {		
 		      openObject('sliders-main');	
 			// $('#auth #sign_in').show().removeClass('hidden');
 		    $("#owl-main").owlCarousel({
