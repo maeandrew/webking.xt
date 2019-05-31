@@ -623,7 +623,7 @@ $(function(){
 	    idleState = false;
 	    idleTimer = setTimeout(function(){ 
 	      // Действия на отсутствие пользователя
-	    if( screen.width > 800 && $_SESSION['member']['gid'] == 5) {		
+	    if( screen.width > 800 && (!isset($_SESSION['member'])||$_SESSION['member']['gid'] == 5)) {		
 		      openObject('sliders-main');	
 			// $('#auth #sign_in').show().removeClass('hidden');
 		    $("#owl-main").owlCarousel({
