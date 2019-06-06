@@ -150,14 +150,14 @@ class Parser {
 		// 	}
 		// 	echo $key, ' ====> ', $value, "<br />";
 		// }
-		return;
+		// return;
 	}
 	public function lod_exsel($file_exsel){
  	 	ini_set('max_execution_time', 3000);		 
 		if(!empty($file_exsel)){
 			$objPHPExcel = PHPExcel_IOFactory::load($file_exsel);
 			$objPHPExcel->setActiveSheetIndex(0);
-			$aSheet = $objPHPExcel->getActiveSheet();			
+			$aSheet = $objPHPExcel->getActiveSheet();
 		}
 		//этот массив будет содержать массивы содержащие в себе значения ячеек каждой строки
 		$array = array();
@@ -1794,6 +1794,167 @@ class Parser {
 				$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
 				$product['images_visible'][] = '1';
 		}	
+		return $product;
+	}
+
+	public function elfa_x43($data){
+		global $Products;
+		global $Specification;
+		global $Images;
+		//Находим url карточки товара через поиск
+		$base_url = 'https://elfashop.ua';
+		$url_search = $base_url.'/catalog/search/?q='.urlencode($data[0]);
+		echo $url_search, '<br/>';
+		// die();
+		$url = '';
+		if($pre_parsed_html = $this->parseUrl($url_search)){
+			// die('зашли на поиск');
+			foreach($pre_parsed_html->find('[class="catalogCard-title"]') as $search){
+				$i = 0;
+				foreach($search->find('a') as $a){
+					if ($i++ == 0) {
+						$url = $a->href;
+						break(2);
+					}
+				}
+			}
+		}else{
+			echo "Stop 0";
+			return false;
+		}	
+		$url = $base_url.$url;
+		echo $url, '<br/>';
+		//---------------------------
+		$base_url_parf = 'https://parfums.ua';
+		$url_search_parf = $base_url_parf.'/search/show?q='.urlencode($data[0]);
+		echo $url_search_parf, '<br/>';
+		// die();
+		$url_parf = '';
+		if($pre_parsed_html_parf = $this->parseUrl($url_search_parf)){
+			// die('зашли на поиск');
+			foreach($pre_parsed_html_parf->find('[class="product__description"]') as $search){
+				$i = 0;
+				foreach($search->find('a') as $a){
+					if ($i++ == 0) {
+						$url_parf = $a->href;
+						break(2);
+					}
+				}
+			}
+		}else{
+			echo "Stop 1";
+			return false;
+		}
+		$url_parf = $base_url_parf.$url_parf;	
+		echo $url_parf, '<br/>';
+		//---------------------------		
+		//Парсим карточку товара
+
+		// if(!isset($url) && empty($url) && !isset($url_parf) && empty($url_parf)){
+		// 	echo "Stop 2";
+		// 	return false;
+		// }
+
+		if(!$parsed_html = $this->parseUrl($url)){
+			echo "Stop 3";
+			return false;
+		}
+		if(!$parsed_html_parf = $this->parseUrl($url_parf)){
+			echo "Stop 4";
+			return false;
+		}
+			
+		// Получаем артикул товара
+		$product['sup_comment'] = trim($data[0]);
+		// Получаем название товара
+
+		$product['name'] = trim($parsed_html->find('h1', 0)->plaintext);
+
+		if (!isset($product['name']) || $product['name'] == '') {
+			$product['name'] = trim($parsed_html_parf->find('h1', 0)->plaintext);
+		}
+		// Получаем цену товара
+		$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = 1;	
+		//указываем минимальное т еоличество опт
+		$product['inbox_qty'] = 2;
+		$product['min_mopt_qty'] = 1;
+		//Указываем базовую активность товара
+		$product['active'] = 1;
+		//Указиваем обезательное примечание
+		// $product['note_control'] = 0;
+		//Индексация
+		$product['indexation'] =  1;
+		
+		// Получаем характеристики товара
+		$sostav = '';
+		foreach($parsed_html->find('[class="product-features__table"]') as $element){
+			$caption = $value = '';
+			foreach ($element->find('tr') as $tr) {
+				$caption = trim($tr->first_child()->plaintext);
+				$value = trim(strip_tags($tr->last_child(), ''));
+				if($caption !== '' &&  !strstr($caption, 'Состав')){
+					$spec = $Specification->SpecExistsByCaption($caption);
+					$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)), 'value' => $value);
+				}
+
+				if($caption !== '' && strstr($caption, 'Состав')){
+					$sostav = '<br><strong>'.$caption.':</strong> '.$value;
+				}
+			}
+		}	
+		if (!isset($product['specs'])) {
+			foreach($parsed_html_parf->find('.productpage_specifications ul') as $element){
+			$caption = $value = '';
+				foreach ($element->find('li') as $li) {
+					$caption = trim(stristr($li->plaintext, ':', true));
+					$value = trim(str_replace(':', '', stristr($li->plaintext, ':')));
+					if($caption !== '' &&  !strstr($caption, 'Состав')){
+						$spec = $Specification->SpecExistsByCaption($caption);
+						$product['specs'][] = array('id_spec' => $spec?$spec['id']:$Specification->Add(array('caption' => $caption)), 'value' => $value);
+					}
+				}
+			}	
+		}
+
+		//опивание
+		foreach($parsed_html->find('#opisanie-2') as $opisanie){
+			foreach ($opisanie->find('[class="text"]') as $text){
+				$product['descr'] = trim(strip_tags(stristr($text->innertext, '<hr', true), '<h2><strong><span><ul><li><br><p>'));
+			}
+		}
+		if (strstr($product['descr'], 'скоро появится') || $product['descr'] == '' || isset($product['descr'])) {
+			$product['descr'] = trim(strip_tags($parsed_html_parf->find('#tab-1')[0]->innertext, '<h2><strong><span><ul><li><br><p>'));		
+		}
+		$product['descr'] .= trim(preg_replace("/\s{2,}/"," ", $sostav));
+
+		// Получаем изображения товара максимального размера parfums.ua
+		foreach($parsed_html_parf->find('.product-image-wrapper') as $el){
+			$filename = $base_url_parf.str_replace('cache/330', 'cache/800', $el->find('img')[0]->attr['src']);
+			$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			$Images->checkStructure(str_replace('original', 'thumb', $path));
+			$Images->checkStructure(str_replace('original', 'medium', $path));
+
+			copy($filename, $path.$img_info['basename']);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+			$product['images_visible'][] = '1';
+		}	
+		// Получаем изображения товара максимального размера elfashop.ua
+		// foreach($parsed_html->find('.gallery__photos') as $el){
+		// 	$filename = $base_url.$el->find('img')[0]->parent->attr['data-href'];
+		// 	$img_info = array_merge(getimagesize($filename), pathinfo($filename));
+		// 	$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+		// 	$Images->checkStructure($path);
+		// 	copy($filename, $path.$img_info['basename']);
+		// 	$product['images'][] = str_replace($GLOBALS['PATH_global_root'], '/', $path.$img_info['basename']);
+		// 	$product['images_visible'][] = '1';
+		// }
+		
+		if (!isset($product['images']) || $product['images'] == '') {
+			echo "Stop 6";
+			return false;
+		}
 		return $product;
 	}
 

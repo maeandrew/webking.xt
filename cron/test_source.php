@@ -1,14 +1,53 @@
 <?php
 // ini_set('memory_limit', '3072M');
-$_SESSION['ddddddddddddddddddddddddddddddddddddddd'] = 'k1k1k1k1k1k1k1k1k1';
-print_r('<pre>');
-print_r($_SESSION);
+var_dump(gd_info());
+
+
+
+
+
+
+
+
+// 	print_r('<pre>');
+// 	print_r($GLOBALS);
+// 	print_r('</pre>');
+
+// phpinfo();
+die();
+
+$Address = new Address();
+$shiping_companies = $Address->GetShippingCompanies();
+	print_r('<pre>');
+	print_r($shiping_companies);
+	print_r('</pre>');
+
+
+// $data = ()
+foreach($shiping_companies as $company){
+	if($company['courier'] == 1){
+		$count['courier']++;
+		}
+		if($company['has_api'] == 1 && $company['api_key'] != ''){
+			echo "string";
+			$city = $Address->UseAPI($company, 'getCity', $data);
+			print_r('<pre>');
+			print_r($city);
+			print_r('</pre>');
+			$count['warehouse'] += !empty($city)?1:0;
+		}
+	}
+
+	// npgetCity($company, $data)
+
+	
+
 // print_r('</pre>');
 // var_dump($_SESSION);
 // echo $_GET['link'], '<br/>';
 // echo $_REQUEST['link'], '<br/>';
-// phpinfo();
-die();
+
+
 error_reporting(-1);
 echo "<br/><br/><br/><br/><br/>";
 // номер порта берется из конфига сфикса а не наугад
