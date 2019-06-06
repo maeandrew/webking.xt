@@ -189,11 +189,7 @@
                 }
                 //старый ресайз картинок
                 $Images->resize(false, $to_resize);
-                //Новый ресайз картинок
-                // foreach ($images_arr as $key => $value) {
-                //     $Images->resize_new('120', '90', str_replace('original', 'thumb', $value), $value);
-                //     $Images->resize_new('500', '500', str_replace('original', 'medium', $value), $value);
-                // }                
+                               
                 // Привязываем новые фото к товару в БД
                 $Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
             }

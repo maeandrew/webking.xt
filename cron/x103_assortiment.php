@@ -160,13 +160,13 @@
 					imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
 					$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
 					// Добавляем логотип в нижний правый угол
-					imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-						$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
-						$k = imagesy($stamp)/imagesx($stamp);
-						$widthstamp = imagesx($res)*0.3;
-						$heightstamp = $widthstamp*$k;
-						imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
-					imagejpeg($res, $file);
+					// imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+					// 	$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
+					// 	$k = imagesy($stamp)/imagesx($stamp);
+					// 	$widthstamp = imagesx($res)*0.3;
+					// 	$heightstamp = $widthstamp*$k;
+					// 	imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
+					// imagejpeg($res, $file);
 					 // sleep(2);
 				}
 				$Images->resize(false, $to_resize);
