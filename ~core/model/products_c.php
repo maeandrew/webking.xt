@@ -2417,56 +2417,94 @@ class Products {
 	 * @param [type] $id_product [description]
 	 */
 	public function DelProduct($id_product){
+		
 		$this->db->StartTrans();
-		// // удаляем привязку к фото
+		//выбераем список нужных фото с старой формы базы
+		$PATH_pro2 = '/var/www/clients/client1/web1/web';
+		$PATH_prod = '/var/www/xt.ua/web';
+		//выбераем список нужных фото с старой формы базы и добавляем в массив
+		$sql = "SELECT images, img_1, img_2, img_3 FROM "._DB_PREFIX_."product where id_product = ".$id_product;
+		$array = $this->db->GetOneRowArray($sql);	
+		$array_img = array();
+		foreach ($array as $key => $value) {	
+			if (!strstr($value, 'original') && $value != '') {
+				$array_img[] = $PATH_pro2.$value;
+				$array_img[] = str_replace('efiles/image', 'efiles/_thumb/image', $PATH_pro2.$value);
+				$array_img[] = str_replace('efiles/image', 'efiles/image/500', $PATH_pro2.$value);
+			}
+			if (strstr($value, 'original')) {
+				$array_img[] = $PATH_prod.$value;
+				$array_img[] = str_replace('original', 'medium', $PATH_prod.$value);
+				$array_img[] = str_replace('original', 'thumb', $PATH_prod.$value);	
+			}
+		}
+		//выбераем фото новой формы базы и добавляем в массив
+		$sgl2 = "SELECT * FROM "._DB_PREFIX_."image where id_product = ".$id_product;
+		$array2 = $this->db->GetArray($sgl2);
+		foreach ($array2 as $key => $value) {
+			$array_img[] = $PATH_prod.$value['src'];
+			$array_img[] = str_replace('original', 'medium', $PATH_prod.$value['src']);
+			$array_img[] = str_replace('original', 'thumb', $PATH_prod.$value['src']);		
+		}
+		//уникализируем массив
+		$array = array_unique(array_filter($array_img, function($item) {return !empty($item);}));
+		//удаляем фотографии
+		foreach($array as $name => $img){
+				if (!empty($img) && $img != '' && file_exists($img)){
+					//удаляем фото->->->
+					unlink($img);
+				}
+		}
+		// удаляем привязку к фото  НЕ ТРУБУЕТСЯ УДАЛЯЕТСЯ ВМЕСТЕ
 		// if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'xt_image WHERE id_product = '.$id_product)){
 		// 	$this->db->FailTrans();
 		// 	return 1;
+		// 	echo "string";
 		// }
 		// удаляем товар с таблицы product
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'product WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 1;
+			return 2;
 		}
 		//удаляем товар с таблицы, где привязываем его к категориям
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cat_prod WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 2;
+			return 3;
 		}
 		//отвязываем спецификации
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'specs_prods WHERE id_prod = '.$id_product)){
 			$this->db->FailTrans();
-			return 3;
+			return 4;
 		}
 		//удаляем из корзины
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'cart_product WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 4;
+			return 5;
 		}
 		//удаляем из таблицы сопутствующих товаров
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'related_prods WHERE id_prod = '.$id_product.' OR id_related_prod = '.$id_product)){
 			$this->db->FailTrans();
-			return 5;
+			return 6;
 		}
 		//отвязываем товар от сегментации
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'segment_prods WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 6;
+			return 8;
 		}
 		//удаляем товар из ассортимента поставщика
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'assortiment WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 7;
+			return 9;
 		}
 		//удаляем товар из таблицы любимых товаров
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'favorites WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 8;
+			return 10;
 		}
 		//удаляем товар с таблицы посещаемых товаров
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'visited_products WHERE id_product = '.$id_product)){
 			$this->db->FailTrans();
-			return 9;
+			return 11;
 		}
 		//удаляем этот товар с листа ожидания
 		if(!$this->db->Execute('DELETE FROM '._DB_PREFIX_.'waiting_list WHERE id_product = '.$id_product)){
@@ -2474,6 +2512,7 @@ class Products {
 			return 10;
 		}
 		$this->db->CompleteTrans();
+		//пересчитывать не нужно товара нет
 		//$this->RecalcSitePrices(array($id_product));
 		return true;
 	}
