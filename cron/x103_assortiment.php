@@ -131,45 +131,7 @@
 			// Переименовываем фото товара
 			$to_resize = $images_arr = array();
 			if(isset($product['images']) && !empty($product['images'])){
-				foreach($product['images'] as $key=>$image){
-					$to_resize[] = $newname = $article['art'].($key == 0?'':'-'.$key).'.jpg';
-					$file = pathinfo(str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $image));
-					$path = $GLOBALS['PATH_product_img'].trim($file['dirname']).'/';
-					$images_arr[] = str_replace($file['basename'], $newname, $image);
-					rename($path.$file['basename'], $path.$newname);
-				}
-				//Проверяем ширину и высоту загруженных изображений, и если какой-либо из показателей выше 1000px, уменяьшаем размер
-				foreach($images_arr as $filename){
-					$file = $GLOBALS['PATH_product_img'].str_replace('/'.str_replace($GLOBALS['PATH_global_root'], '', $GLOBALS['PATH_product_img']), '', $filename);
-					$size = getimagesize($file);
-					// $size = getimagesize($path.$filename); //Получаем ширину, высоту, тип картинки
-					$width = $size[0];
-					$height = $size[1];
-					if($size[0] > 1000 || $size[1] > 1000){
-						$ratio = $size[0]/$size[1]; //коэфициент соотношения сторон
-						//Определяем размеры нового изображения
-						if(max($size[0], $size[1]) == $size[0]){
-							$width = 1000;
-							$height = 1000 / $ratio;
-						}elseif(max($size[0], $size[1]) == $size[1]){
-							$width = 1000*$ratio;
-							$height = 1000;
-						}
-					}
-					$res = imagecreatetruecolor($width, $height);
-					imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
-					$src = $size['mime'] == 'image/jpeg'?imagecreatefromjpeg($file):imagecreatefrompng($file);
-					// Добавляем логотип в нижний правый угол
-					// imagecopyresampled($res, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-					// 	$stamp = imagecreatefrompng($GLOBALS['PATH_global_root'].'images/watermark_colored.png');
-					// 	$k = imagesy($stamp)/imagesx($stamp);
-					// 	$widthstamp = imagesx($res)*0.3;
-					// 	$heightstamp = $widthstamp*$k;
-					// 	imagecopyresampled($res, $stamp, imagesx($res) - $widthstamp, imagesy($res) - $heightstamp, 0, 0, $widthstamp, $heightstamp, imagesx($stamp), imagesy($stamp));
-					// imagejpeg($res, $file);
-					 // sleep(2);
-				}
-				$Images->resize(false, $to_resize);
+				$images_arr = $Images->parse_rename($product['images'], $article);
 				// Привязываем новые фото к товару в БД
 				$Products->UpdatePhoto($id_product, $images_arr, $product['images_visible']);
 			}

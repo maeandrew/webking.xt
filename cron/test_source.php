@@ -1,8 +1,9 @@
 <?php
 // ini_set('memory_limit', '3072M');
-var_dump(gd_info());
 
-
+$image = '/var/www/clients/client1/web1/web/assas.dfdfdf';
+$EXT = pathinfo($image, PATHINFO_EXTENSION);
+echo $EXT;
 
 
 
