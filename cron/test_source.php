@@ -1,22 +1,162 @@
 <?php
-// ini_set('memory_limit', '3072M');
+// phpinfo();
+// die();
+//*************************************************
 
-$image = '/var/www/clients/client1/web1/web/assas.dfdfdf';
-$EXT = pathinfo($image, PATHINFO_EXTENSION);
-echo $EXT;
+ //        $body = array("addresses"=>array(
+ //                 "addressId"=> $addressId,
+ //                 "main"=> True
+ //                )); 
+ //  print_r('<pre>');
+	// print_r($body);
+	// print_r('</pre>');
+	// json_encode($body);
+	// echo json_encode($body);
+
+// die();
+
+//функци просмотра свойств и методов класа
+function InfoEssence($ess) {
+    //Передан объект
+    if(is_object($ess)){
+        $class = get_class($ess); //класс объекта
+        $obj = $ess;
+        $vars_obj = '<pre>' . print_r(get_object_vars($obj), true) . '</pre>';
+    //Передан класс
+    } else {
+        $class = $ess;
+        $vars_obj = null;
+    }  
+  
+    $vars_class = '<pre>' . print_r(get_class_vars($class), true) . '</pre>';    
+    $methods = '<pre>' . print_r(get_class_methods($class), true) . '</pre>';
+
+    if ($vars_obj) echo 'Свойства объекта- экземпляра класса '.$class.':'.$vars_obj;
+    echo 'Свойства класса '.$class.':'.$vars_class.
+         'Методы класса '.$class.':'.$methods;
+}
+//***********************************************************
+
+if ($api_ukr = new UkrPochtaApi2()) {
+	echo "UkrPochtaApi2<br/>";
+echo 'Добавляем адрес<br/>';
+$body = array(
+ "postcode"=>"61160",
+ "country"=>"UA",
+ "region"=>"Харківcька",
+ "city"=>"Харків",
+ "district"=>"Харків",
+ "street"=>"просп. Ювілейний",
+ "houseNumber"=>"24/88А",
+ "apartmentNumber"=>"1"
+);
+  $rest = $api_ukr->createAddress($body);
+  echo 'Адрес<br/>';
+  print_r('<pre>');
+	print_r($rest);
+	print_r('</pre>');
+
+echo 'Получить адрес по id<br/>';
+$rest1 = $api_ukr->getAddress('1230381');
+	print_r('<pre>');
+	print_r($rest1);
+	print_r('</pre>');
+
+echo 'Добавляем несколько Клиентов<br/>';
+$body2 = array(
+	array(
+ "type"=>"INDIVIDUAL",
+ "firstName"=>"Нано",
+ "lastName"=>"Нано2",
+ "name"=>"Нано2",
+ "addressId"=>"1231050",
+ "externalId"=>"123111250",
+ "phoneNumber"=>"0671231234"
+));
+print_r('<pre>');
+print_r(json_encode($body2));
+print_r('</pre>');    
+
+[{"type":"INDIVIDUAL",
+"firstName":"\u041d\u0430\u043d\u043e",
+"lastName":"\u041d\u0430\u043d\u043e2",
+"name":"\u041d\u0430\u043d\u043e2",
+"addressId":"1231050",
+"externalId":"123111250",
+"phoneNumber":"0671231234"
+}]
+
+$rest2 = $api_ukr->createClient($body2);
+		
+	  print_r('<pre>');
+		print_r($rest2);
+		print_r('</pre>');
+die();
+echo 'Клиент РЕДАКТИРОВАН<br/>';
+  	$rest2[0]->name = 'Иван44ов Иван';
+    $rest2[0]->addressId = '1224149';
+    $rest2[0]->phoneNumber= '+380505953495';
+$rest3 = $api_ukr->editClient($rest2[0]);		
+		print_r('<pre>');
+		print_r($rest3);
+		print_r('</pre>');
+
+echo 'Адрес Клиент РЕДАКТИРОВАН<br/>';		
+$addressId = 1230383;
+$rest4 = $api_ukr->editAddress($rest3, $addressId);
+		print_r('<pre>');
+		print_r($rest4);
+		print_r('</pre>');
+
+echo 'Поиск Клиент по номеру<br/>';
+$phoneNumber = '+380505953495 ';
+$rest5 = $api_ukr->getСlientsPhoneNumber($phoneNumber);
+		
+		print_r('<pre>');
+		print_r($rest5);
+		print_r('</pre>');
 
 
 
 
 
 
-// 	print_r('<pre>');
-// 	print_r($GLOBALS);
-// 	print_r('</pre>');
+
+
+
+
+die();
+
+
+}
+
+if ($api_np = new NovaPoshtaApi2('2a8143bd0d40555c804d71cd377c669f')) {
+	echo "NovaPoshtaApi2<br/>";
+	$city_np = $api_np->getCity($data['city'], $data['region']);
+	echo count($city_np), '<br/>';
+	// print_r('<pre>');
+	// print_r($city_np);
+	// print_r('</pre>');
+}
+if ($api_del = new DeliveryApi2($company['2a8143bd0d40555c804d71cd377c669f'])) {
+	echo "DeliveryAutoApi2<br/>";
+	// $city_del = $api_del->getCity($data['city'], $data['region']);
+	// print_r('<pre>');
+	// print_r($city_del);
+	// print_r('</pre>');
+}
+if ($api_in = new IntimeApi2('8514564', 'b5b2aad1-ccb9-11e5-8a67-0050569f5a41')) {
+	echo "IntimeApi2<br/>";
+	// $city_in = $api_in->getDepartmentsList($data['city'], $data['region']);
+	// print_r('<pre>');
+	// print_r($city_in);
+	// print_r('</pre>');
+}
 
 // phpinfo();
 die();
 
+//************************************************************
 $Address = new Address();
 $shiping_companies = $Address->GetShippingCompanies();
 	print_r('<pre>');
@@ -47,6 +187,33 @@ foreach($shiping_companies as $company){
 // var_dump($_SESSION);
 // echo $_GET['link'], '<br/>';
 // echo $_REQUEST['link'], '<br/>';
+
+
+
+
+//************************************************************
+//коректировка бонусов агента
+  //   $Parser = new Parser();
+  //   $sgl = 'SELECT id_zapis, agent_profits FROM c1kharkovt_bd4.xt_osp where id_order > 177535';
+		// $array = $Parser->get_db($sgl);
+		// 	foreach ($array as $key => $value) {
+		// 	$value_NeW = '';
+		// 	foreach ($value as $key => $val) {
+		// 		if ($k == 'id_zapis') {
+		// 			// echo $val, '<br/>';
+		// 		}else{
+		// 			// echo $val, '<br/>';
+		// 			$array = explode(";", $val);	
+		// 			$array[3] = $array[2];
+		// 			$array[7] = $array[6];
+		// 			$value_NeW = implode(";", $array);
+		// 			// echo $val;
+		// 		}
+
+		// 	}
+		// 	echo 'UPDATE c1kharkovt_bd4.xt_osp SET agent_profits = \''.$value_NeW.'\' where id_zapis = \''.$value['id_zapis'].'\';', '<br/>';
+		// }
+//************************************************************
 
 
 error_reporting(-1);

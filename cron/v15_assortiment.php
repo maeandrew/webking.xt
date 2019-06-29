@@ -294,7 +294,7 @@ $i = $l = $d = $ldi = 0;
 			break;
 		}
 	}				
-	$show_product = $Parser->show_product($product);
+	$Parser->show_product($product);
 // die('STOP');
 		// Добавляем новый товар в БД
 		if($id_product = $Products->AddProduct($product)){

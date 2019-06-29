@@ -18,7 +18,7 @@
 		<tbody>
 			<?if(!empty($tasks)){
 				foreach($tasks as $task){?>
-					<tr>
+					<tr title="<?echo $task['description'];?>">
 						<td><?=$task['id']?></td>
 						<td><?=$task['title']?></td>
 						<td><?=$task['year']?></td>
@@ -28,11 +28,17 @@
 						<td><?=$task['minutes']?></td>
 						<td><?=$task['last_run']?></td>
 						<td><?=$task['active']==1?'Да':'Нет'?></td>
-						<td>
+						<td >
+							<? if (strstr($task['description'], 'файл')) {?>
+									<form action="/adm/cronrun/<?=$task['id']?>" method="post" enctype="multipart/form-data">									 
+											<input type="file" name="file" style="width: 140px" >	
+											<button name="parse" class="btn-m-blue">Выполнить</button>								
+									</form>
+							<?}else{?>
 							<!-- <a href="/adm/cronedit/<?=$task['id']?>" class="btn-m-green">Редактировать</a> -->
 							<?if(strstr($task['title'], '***')){?>
           					 <a href="/adm/cronrun/<?=$task['id']?>" class="btn-m-blue">Выполнить</a>
-        					<?}?>						
+        					<?}}?>						
 							<!-- <a href="/adm/crondel/<?=$task['id']?>" class="btn-m-red-inv">Удалить</a> -->
 						</td>
 					</tr>

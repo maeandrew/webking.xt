@@ -448,7 +448,7 @@ class Products {
 	public function GetIDByNema($name){
 		$sql = "SELECT id_product
 			FROM "._DB_PREFIX_."product
-			WHERE name = ".$name;
+			WHERE name = ".$this->db->Quote($name);
 		$arr = $this->db->GetOneRowArray($sql);
 		if(!$arr){
 			return false;

@@ -100,6 +100,7 @@ class Parser {
 	}
 
 	public function show_categories($sim_url){
+		echo " <br/><br/>КАТЕГОРИИ ********************************* <br/>";
 		echo  '<table><tr ><th>', 'ID родителя', '</th><th>', 'Название категории', '</th><th>', 'ID категории', '</th><th>', 'N товаров',  '</th></tr>';
 		foreach ($sim_url->xpath('/yml_catalog/shop') as $element) {
 			foreach ($element->xpath('categories/category ') as $category ) {
@@ -116,6 +117,29 @@ class Parser {
 		}
 		return ;
 	}
+
+	public function show_file($array){
+		echo 'Содержимое файла***************************<br/>';
+		echo  '<table border="1">';
+				foreach ($array as $key1 => $value) {		
+					echo "<tr >";
+							if ($key1 == 0) {
+								
+								foreach ($value as $key => $value) {
+									echo "<th>", $value, '</th>';
+								}
+								echo "<td>", $key1, '</td>';
+							}else{								
+								foreach ($value as $key => $value) {
+									echo "<td>", $value, '</td>';
+								}
+								echo "<td>", $key1, '</td>';
+							}
+					echo '</tr>';					
+				}
+		echo '</table>';
+		return ;
+	}
 	//выбераем адреса картинок
 	public function get_db($sgl){
 		$this->db->StartTrans();		
@@ -125,32 +149,10 @@ class Parser {
 	}
 //распечатываем продукт на екран 
 	public function show_product($product){
-	print_r('<pre>');
-	print_r($product);
-	print_r('</pre>');
-		// foreach ($product as $key => $value) {
-		// 		if ($key == 'specs') {
-		// 		$rows = count($product['specs']); // количество строк, tr
-		// 		$table = '<table border="1">';
-		// 	  $table .= '<tr style="color:white;background-color:green;"><th>N</th><th>id_spec</th><th>value</th></tr>';
-		// 	    foreach ($product['specs'] as $key => $value){	        	
-		// 	      $table .='<tr><td>'.$key.'</td>';
-		// 		      foreach ($value as $key0 => $value0) {
-		// 						$table .='<td>'.$value0.'</td>';
-		// 					}	
-		// 				$table .='</tr>';					
-		// 					}
-		// 	  $table .='</table>';
-		// 		echo $table; // сделали эхо всего 1 раз
-		// 	}
-		// 	if ($key == 'images') {
-		// 		foreach ($product['images'] as $key => $value) {
-		// 			echo $key," цикл ", $value," <br />";
-		// 		}
-		// 	}
-		// 	echo $key, ' ====> ', $value, "<br />";
-		// }
-		// return;
+		echo "Подготовленый товар на добавление <br/>";
+		print_r('<pre>');
+		print_r($product);
+		print_r('</pre>');
 	}
 	public function lod_exsel($file_exsel){
  	 	ini_set('max_execution_time', 3000);		 
@@ -930,12 +932,16 @@ class Parser {
 	}
 
 	public function bluzka($prod){
-		// echo  "function bluzka -> ОК<br />";
+		// echo  "function bluzka -> ОК", $prod['id_product']," <br />";
 
 		global $Products;
 		global $Specification;
 		global $Images;
-										
+		if (isset($prod['id_product']) && !empty($prod['id_product'])) {
+			$sgl = 'select * from '._DB_PREFIX_.'product where id_product ='.$prod['id_product'];
+			$arr = $this->get_db($sgl);
+			$product = $arr[0];
+		}								
 	 	// Получаем артикул товара
 		$product['sup_comment'] = $prod['sup_comment'];
 		//
@@ -1710,6 +1716,109 @@ class Parser {
 		}	
 		return $product;
 	}
+	 	public function glavteks_XML($offer){
+		// echo "Ок парсим товар<br />";
+		global $Products;
+		global $Specification;
+		global $Images;
+
+	 	// Получаем артикул товара
+		$product['sup_comment'] = strval($offer->vendorCode);
+							
+		//Получаем название товара
+		$product['name'] = strval($offer->name).' '.strval($offer->vendorCode);
+		
+		//Получаем количество товара в упаковке
+		$product['inbox_qty'] = '2';
+		$product['min_mopt_qty'] = '1';
+
+		//Указываем базовую активность товара
+		$product['active'] = '1';
+
+		//Указиваем обезательное примечание
+		$product['note_control'] = '0';
+		
+		// Получаем оптовую цену товара
+		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = strval($offer->price);
+
+		// Получаем описание товара
+		$product['descr'] =  strval($offer->description);
+
+		foreach($offer->param as $param){
+			$caption = str_replace(':', '', trim($param['name']));
+			if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+				$value = strval($param);
+				$spec = $Specification->SpecExistsByCaption($caption);
+				$product['specs'][] = array(
+					'id_spec' => $spec ? $spec['id']:$Specification->Add(array('caption' => $caption)),
+					'value' => $value
+				);
+			}
+		}
+			
+		// Получаем изображения товара максимального размера		
+		foreach($offer->picture as $element){
+			$img_info = array_merge(getimagesize($element), pathinfo($element));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			copy($element, $path.$img_info['basename']);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'],'/', $path.$img_info['basename']);
+			$product['images_visible'][] = 0;
+		}
+ 		return $product;
+ 	}
+	public function maestro_XML($offer){
+		// echo "Ок парсим товар<br />";
+		global $Products;
+		global $Specification;
+		global $Images;
+
+	 	// Получаем артикул товара
+		$product['sup_comment'] = strval($offer->vendorCode);
+							
+		//Получаем название товара
+		$product['name'] = strval($offer->name);
+		
+		//Получаем количество товара в упаковке
+		$product['inbox_qty'] = '2';
+		$product['min_mopt_qty'] = '1';
+
+		//Указываем базовую активность товара
+		$product['active'] = '1';
+
+		//Указиваем обезательное примечание
+		$product['note_control'] = '0';
+		
+		// Получаем оптовую цену товара
+		$product['price_mopt_otpusk'] = $product['price_opt_otpusk'] = $offer->priceXT;
+
+		// Получаем описание товара
+		$product['descr'] =  $offer->description;
+
+		foreach($offer->param as $param){
+			$caption = str_replace(':', '', trim($param['name']));
+			if($caption !== '' && !in_array($caption, array('Доставка', 'Самовывоз', 'Гарантия'))){
+				$value = strval($param);
+				$spec = $Specification->SpecExistsByCaption($caption);
+				$product['specs'][] = array(
+					'id_spec' => $spec ? $spec['id']:$Specification->Add(array('caption' => $caption)),
+					'value' => $value
+				);
+			}
+		}
+			
+		// Получаем изображения товара максимального размера		
+		foreach($offer->picture as $element){
+			$img_info = array_merge(getimagesize($element), pathinfo($element));
+			$path = $GLOBALS['PATH_product_img'].'original/'.date('Y').'/'.date('m').'/'.date('d').'/';
+			$Images->checkStructure($path);
+			copy($element, $path.$img_info['basename']);
+			$product['images'][] = str_replace($GLOBALS['PATH_global_root'],'/', $path.$img_info['basename']);
+			$product['images_visible'][] = 1;
+		}
+ 		return $product;
+ 	}
+
 
 	public function iposud_x103($data){
 		global $Products;
