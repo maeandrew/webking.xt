@@ -390,9 +390,9 @@ class UkrPochtaApi2{
             //ОТРИМАННЯ РАЙОНУ ЗА НАЗВОЮ
             12 =>   'https://ukrposhta.ua/address-classifier/get_district_by_name?region_id='.urlencode($region_id).'&district_name='.urlencode($district_name).'&lang='.urlencode($lang).'&fuzzy='.urlencode($fuzzy),
             //МІСТА ЗА НАЗВОЮ
-            13 =>   'https://ukrposhta.ua/address-classifier/get_city_by_name?region_id='.urlencode($region_id).'&district_id='.urlencode($lat).'&city_name='.urlencode($city_name).'&lang='.urlencode($lang).'&fuzzy='.urlencode($fuzzy),
+            13 =>   'https://ukrposhta.ua/address-classifier/get_city_by_name?region_id='.urlencode($region_id).'&district_id='.urlencode($district_id).'&city_name='.urlencode($city_name).'&lang='.urlencode($lang).'&fuzzy='.urlencode($fuzzy),
             //ОТРИМАННЯ ВУЛИЦІ ЗА НАЗВОЮ
-            14 =>   'https://ukrposhta.ua/address-classifier/get_street_by_name?city_id='.urlencode($city_id).'&street_name='.urlencode($lat).'&lang='.urlencode($lang).'&fuzzy='.urlencode($fuzzy));
+            14 =>   'https://ukrposhta.ua/address-classifier/get_street_by_name?city_id='.urlencode($city_id).'&street_name='.urlencode($street_namet).'&lang='.urlencode($lang).'&fuzzy='.urlencode($fuzzy));
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
